@@ -118,6 +118,12 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/home.svg
   String get home => 'assets/images/svgs/home.svg';
 
+  /// File path: assets/images/svgs/ic_person_edit.svg
+  String get icPersonEdit => 'assets/images/svgs/ic_person_edit.svg';
+
+  /// File path: assets/images/svgs/ic_setting.svg
+  String get icSetting => 'assets/images/svgs/ic_setting.svg';
+
   /// File path: assets/images/svgs/image-03.svg
   String get image03 => 'assets/images/svgs/image-03.svg';
 
@@ -216,6 +222,8 @@ class $AssetsImagesSvgsGen {
         grid03,
         groups,
         home,
+        icPersonEdit,
+        icSetting,
         image03,
         imagePlus,
         intologo,
@@ -251,11 +259,16 @@ class Assets {
 }
 
 class AssetGenImage {
-  const AssetGenImage(this._assetName, {this.size = null});
+  const AssetGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+  });
 
   final String _assetName;
 
   final Size? size;
+  final Set<String> flavors;
 
   Image image({
     Key? key,

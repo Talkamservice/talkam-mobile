@@ -25,4 +25,9 @@ class PageUrl {
 //   Posts
   static const postDetailsScreen = 'postDetailsScreen';
   static const createPostScreen = 'createPostScreen';
+
+
+  // Profile
+  static const profileScreen = 'profileScreen';
+  static const settingsScreen = 'settingsScreen';
 }

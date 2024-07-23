@@ -24,6 +24,8 @@ abstract class Pallets {
   static const successGreen = Color(0xFF0F8345);
   static const ink = Color(0xFF737A86);
   static const grey200 = Color(0xffE4E5E7);
+  static const grey400 = Color(0xff717171);
+  static const tabBarBlue = Color(0xff017FC8);
 
   // static const darkOrange = Color(0xFFEEB21A);
   static const transparentOrage = Color(0xFFFFF8EC);
@@ -62,6 +64,10 @@ abstract class Pallets {
   static const hintGrey = Color(0xff868686);
   static const error = Color(0xffCA1818);
   static const dailyTaskItemBg = Color(0xffFFF5DB);
+  static const boldBlackV2 = Color(0xff212121);
+  static const grey500 = Color(0xff858585);
+  static const primary400 = Color(0xff2F6CE2);
+  static const boldRed = Color(0xffF95555);
 
   // static const secondary = Color(0xFFCC9933);
   static const avatarBackgrounds = [
@@ -104,6 +110,4 @@ abstract class Pallets {
       900: Color(0xffffffff),
     },
   );
-
-// static var boldBlack = ;
 }

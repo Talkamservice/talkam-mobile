@@ -19,6 +19,8 @@ import 'package:talkam/features/messaging/presentation/screens/messages_screen.d
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/presentation/screens/create_post_screen.dart';
 import 'package:talkam/features/post/presentation/screens/post_details_screen.dart';
+import 'package:talkam/features/profile/presentation/screens/profile_screen.dart';
+import 'package:talkam/features/profile/presentation/screens/settings_screen.dart';
 import 'package:talkam/features/search/presentation/screens/search_screen.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'rootNavigator');
@@ -93,7 +95,6 @@ class CustomRoutes {
           otp: state.uri.queryParameters[PathParam.otp] ?? "",
         ),
       ),
-
       GoRoute(
         path: '/postDetailsScreen',
         name: PageUrl.postDetailsScreen,
@@ -101,8 +102,16 @@ class CustomRoutes {
           post: state.extra as TalkamPost,
         ),
       ),
-
-
+      GoRoute(
+        path: '/${PageUrl.profileScreen}',
+        name: PageUrl.profileScreen,
+        builder: (context, state) => const ProfileScreen(),
+      ),
+      GoRoute(
+        path: '/${PageUrl.settingsScreen}',
+        name: PageUrl.settingsScreen,
+        builder: (context, state) => const SettingsScreen(),
+      ),
       GoRoute(
         path: '/createPostScreen',
         name: PageUrl.createPostScreen,

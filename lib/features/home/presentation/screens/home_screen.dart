@@ -26,10 +26,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController();
   final tabItems = [
-    HomeTabItemModel(
-        imagePath: Assets.images.svgs.icfeatured, tittle: "Featured"),
-    HomeTabItemModel(
-        imagePath: Assets.images.svgs.icTrending, tittle: "Trending"),
+    HomeTabItemModel(imagePath: Assets.images.svgs.icfeatured, tittle: "Featured"),
+    HomeTabItemModel(imagePath: Assets.images.svgs.icTrending, tittle: "Trending"),
     HomeTabItemModel(imagePath: Assets.images.svgs.icNew, tittle: "Recent"),
   ];
 
@@ -79,18 +77,14 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: [
                                 ImageWidget(
                                   imageUrl: tabItems[index].imagePath,
-                                  color: selecteIndex == index
-                                      ? context.colorScheme.primary
-                                      : Pallets.grey,
+                                  color: selecteIndex == index ? context.colorScheme.primary : Pallets.grey,
                                 ),
                                 8.horizontalSpace,
                                 TextView(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
                                   text: tabItems[index].tittle,
-                                  color: selecteIndex == index
-                                      ? context.colorScheme.onSurface
-                                      : Pallets.grey60,
+                                  color: selecteIndex == index ? context.colorScheme.onSurface : Pallets.grey60,
                                   // fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
                                 ),
                               ],
@@ -204,19 +198,18 @@ class HomeAppBar extends StatelessWidget {
             20.horizontalSpace,
             InkWell(
               onTap: () {
-
                 // context.pushNamed(PageUrl.notifications);
               },
               child: SessionManager.instance.isLoggedIn
                   ? ImageWidget(
-                      imageUrl: injector.get<ProfileBloc>().appUser?.avatar ??
-                          Assets.images.svgs.uploadAvatar,
+                      imageUrl: injector.get<ProfileBloc>().appUser?.avatar ?? Assets.images.svgs.uploadAvatar,
                       size: 40,
-                      onTap: () {},
+                      onTap: () {
+                        context.pushNamed(PageUrl.profileScreen);
+                      },
                     )
                   : ImageWidget(
-                      imageUrl: injector.get<ProfileBloc>().appUser?.avatar ??
-                          Assets.images.svgs.profile,
+                      imageUrl: injector.get<ProfileBloc>().appUser?.avatar ?? Assets.images.svgs.profile,
                       onTap: () {},
                     ),
             ),
