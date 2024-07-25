@@ -22,6 +22,7 @@ class PageUrl {
   static const passWordResetScreen = 'passWordResetScreen';
 
 
+
 //   Posts
   static const postDetailsScreen = 'postDetailsScreen';
   static const createPostScreen = 'createPostScreen';

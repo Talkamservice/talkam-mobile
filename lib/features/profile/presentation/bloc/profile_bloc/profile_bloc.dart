@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:talkam/common/database/local/userstorage.dart';
+import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/authentication/data/models/get_avatars_response.dart';
@@ -29,6 +30,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<UpdateProfileEvent>(_onUpdateProfile);
     on<GetAvatarsEvent>(_mapGetAvatarsEventToState);
     on<BlockUerEvent>(_mapBlockUerEventToState);
+    on<GetRemoteUser>(_mapGetRemoteUserEventToState);
   }
 
   FutureOr<void> _mapSaveUserEventToState(
@@ -86,7 +88,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   FutureOr<void> _mapBlockUerEventToState(
       BlockUerEvent event, Emitter<ProfileState> emit) async {
-
     emit(BlockUserLoadingState());
     try {
       final response = await _profileRepository.getAvatars();
@@ -94,6 +95,19 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     } catch (error) {
       emit(BlockUserFailureState(error: error.toString()));
     }
+  }
 
+  FutureOr<void> _mapGetRemoteUserEventToState(
+      GetRemoteUser event, Emitter<ProfileState> emit) async {
+    emit(BlockUserLoadingState());
+    try {
+      var user = injector.get<ProfileBloc>().appUser;
+      final response = await _profileRepository.getProfile(user!.id.toString());
+      injector.get<ProfileBloc>().add(SaveUserLocallyEvent(response));
+      CustomDialogs.error(response.toString());
+      emit(GetProfileSuccessState(user: response));
+    } catch (error) {
+      emit(BlockUserFailureState(error: error.toString()));
+    }
   }
 }

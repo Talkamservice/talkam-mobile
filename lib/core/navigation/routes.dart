@@ -17,6 +17,7 @@ import 'package:talkam/features/home/presentation/screens/base_page.dart';
 import 'package:talkam/features/home/presentation/screens/home_screen.dart';
 import 'package:talkam/features/messaging/presentation/screens/messages_screen.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
+import 'package:talkam/features/post/presentation/screens/categories_screen.dart';
 import 'package:talkam/features/post/presentation/screens/create_post_screen.dart';
 import 'package:talkam/features/post/presentation/screens/post_details_screen.dart';
 import 'package:talkam/features/profile/presentation/screens/profile_screen.dart';
@@ -117,6 +118,11 @@ class CustomRoutes {
         name: PageUrl.createPostScreen,
         builder: (context, state) => const CreatePostScreen(),
       ),
+      GoRoute(
+        path: '/categoriesScreen',
+        name: PageUrl.categoriesScreen,
+        builder: (context, state) => const CategoriesScreen(),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return BasePage(navigationShell: navigationShell);
@@ -209,6 +215,8 @@ class CustomRoutes {
         return VerifyOtpType.auth;
       case 'passwordreset':
         return VerifyOtpType.passwordReset;
+      case 'returninguser':
+        return VerifyOtpType.returningUser;
       default:
         throw ArgumentError('Invalid VerifyOtpType string: $value');
     }

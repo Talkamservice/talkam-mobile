@@ -96,7 +96,8 @@ class AuthRepositoryImpl extends AuthRepository {
       );
 
       return AuthSuccessResponse.fromJson(response.data);
-    } catch (e) {
+    } catch (e, stack) {
+      logger.e(e.toString(), stackTrace: stack);
       rethrow;
     }
   }

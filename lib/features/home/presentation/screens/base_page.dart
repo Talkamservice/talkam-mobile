@@ -122,7 +122,7 @@ class _BasePageState extends State<BasePage> {
               _BottomNavIcon(
                 onTap: (p0) {
                   // SessionManager.instance.logOut();
-                  context.pushNamed(PageUrl.createPostScreen);
+                  context.pushNamed(PageUrl.categoriesScreen);
                 },
                 currentIndex: widget.navigationShell.currentIndex,
                 iconPath: Assets.images.svgs.add,

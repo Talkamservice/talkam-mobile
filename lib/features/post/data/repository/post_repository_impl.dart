@@ -34,6 +34,7 @@ class PostRepositoryImpl extends PostRepository {
     }
   }
 
+
   @override
   Future<GetPostsResponse> getPosts(PostFilterModel filters) async {
     try {
@@ -49,6 +50,7 @@ class PostRepositoryImpl extends PostRepository {
       rethrow;
     }
   }
+
 
   @override
   Future<CreatePostResponse> createPost(CreatePostPayload postData) async {
@@ -88,7 +90,6 @@ class PostRepositoryImpl extends PostRepository {
     try {
       final response = await _networkService.call(
         UrlConfig.getPostDetails(postId),
-
         RequestMethod.get,
       );
 

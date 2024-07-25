@@ -11,7 +11,7 @@ import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/extensions/int_extension.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/presentation/widgets/confirm_report_dialog.dart';
-import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
+import 'package:talkam/features/post/presentation/widgets/report_sucess_dialog.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
@@ -55,7 +55,6 @@ class PostActionSheet extends StatelessWidget {
             tittle: "Get notifications for this post",
             onTap: () {},
           ),
-
           if (!post.isAnonymous.toBool)
             BlocListener<ProfileBloc, ProfileState>(
               bloc: profileBloc,
@@ -69,7 +68,6 @@ class PostActionSheet extends StatelessWidget {
                   CustomDialogs.error(state.error);
                 }
                 if (state is BlockUserSuccessState) {
-
                   context.pop();
                   context.pop();
                   CustomDialogs.success("User Blocked");
@@ -86,10 +84,23 @@ class PostActionSheet extends StatelessWidget {
           _PostAction(
             imagePath: Assets.images.svgs.slashCircle01,
             tittle: "Report this post",
-            onTap: () {
+            onTap: () async {
+              var reason = await CustomDialogs.showCustomDialog(
+                  BlockReasonSheet(), context);
+              if (reason != null) {
+                var report = await CustomDialogs.showCustomDialog(
+                    ConfirmReportDialog(
+                      reason: reason!,
+                    ),
+                    context);
+
+                if (report) {
+                  var report = await CustomDialogs.showCustomDialog(
+                      const ReportSuccessDialog(), context);
+                }
+              }
+
               context.pop();
-              CustomDialogs.showCustomDialog(
-                  const ConfirmReportDialog(), context);
             },
           ),
         ],

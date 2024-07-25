@@ -23,7 +23,7 @@ class ImagePostForm extends StatefulWidget {
   State<ImagePostForm> createState() => _ImagePostFormState();
 }
 
-class _ImagePostFormState extends State<ImagePostForm> {
+class _ImagePostFormState extends State<ImagePostForm> with AutomaticKeepAliveClientMixin{
   final tittleController = TextEditingController();
   final tagsController = TextEditingController();
   List<File> selectedImages = [];
@@ -141,4 +141,8 @@ class _ImagePostFormState extends State<ImagePostForm> {
       logger.w(selectedTags.length);
     }
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

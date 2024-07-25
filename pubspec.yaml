@@ -193,6 +193,7 @@ flutter:
   assets:
     - assets/images/svgs/
     - assets/images/png/
+    - assets/images/jpegs/
     - assets/audio/
     #    - assets/images/jpegs/
 

@@ -98,40 +98,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Pallets.grey90,
                 height: 1,
               ),
-
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 16, bottom: 0),
-              //   child: Row(
-              //     children: [
-              //       _HomeTabOptionBar(
-              //         key: Key(_HomeTapOptions.forYou.name),
-              //         title: "For You",
-              //         isSelected: _selectedOption == _HomeTapOptions.forYou,
-              //         onTap: () {
-              //           setState(() {
-              //             _selectedOption = _HomeTapOptions.forYou;
-              //             _pageController.jumpToPage(0);
-              //           });
-              //         },
-              //       ),
-              //       _HomeTabOptionBar(
-              //         key: Key(_HomeTapOptions.discover.name),
-              //         title: "Discover",
-              //         isSelected: _selectedOption == _HomeTapOptions.discover,
-              //         onTap: () {
-              //           setState(() {
-              //             _selectedOption = _HomeTapOptions.discover;
-              //             _pageController.jumpToPage(1);
-              //           });
-              //         },
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              // Container(
-              //   color: Pallets.grey,
-              //   height: 1,
-              // ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 10),
@@ -213,46 +179,6 @@ class HomeAppBar extends StatelessWidget {
                       onTap: () {},
                     ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _HomeTabOptionBar extends StatelessWidget {
-  final String title;
-  final bool isSelected;
-  final VoidCallback onTap;
-  final String imagePath;
-
-  const _HomeTabOptionBar({
-    super.key,
-    required this.title,
-    required this.onTap,
-    required this.isSelected,
-    required this.imagePath,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: InkWell(
-        onTap: onTap,
-        child: Column(
-          children: [
-            Row(
-              children: [
-                ImageWidget(imageUrl: imagePath),
-                TextView(
-                  text: title,
-                  color: isSelected ? Pallets.boldBlack : Pallets.grey,
-                  fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
-                ),
-              ],
-            ),
-            10.verticalSpace,
-            if (isSelected) Container(color: Pallets.primary, height: 1.0),
           ],
         ),
       ),

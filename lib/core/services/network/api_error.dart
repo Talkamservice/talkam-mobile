@@ -121,7 +121,6 @@ String _setCustomErrorMessage(Response error) {
     errorMessageList.add(error.data['message']);
   }
 
-
   if (error.data['errors'] is Map<String, dynamic>) {
     errorMessageList.clear();
     final errors = error.data['errors'] as Map<String, dynamic>;

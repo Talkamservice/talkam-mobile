@@ -5,10 +5,10 @@ import 'package:talkam/core/constants/dialog_texts.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/theme/pallets.dart';
 
-class ConfirmReportDialog extends StatelessWidget {
-  const ConfirmReportDialog({super.key, required this.reason});
+class ReportSuccessDialog extends StatelessWidget {
+  const ReportSuccessDialog({super.key,});
 
-  final String reason;
+
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +18,7 @@ class ConfirmReportDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           TextView(
-            text: "Report as $reason ?",
+            text: "We’ve received your report",
             style: GoogleFonts.poppins(
               fontWeight: FontWeight.w600,
               fontSize: 16,
@@ -26,12 +26,12 @@ class ConfirmReportDialog extends StatelessWidget {
           ),
           20.verticalSpace,
           TextView(
-            text: blockUserPrompt,
+            text: rreportSuccess1,
             style: GoogleFonts.poppins(),
           ),
           14.verticalSpace,
           TextView(
-            text: blockUserPrompt2,
+            text: reportSuccess2,
             style: GoogleFonts.poppins(),
           ),
           40.verticalSpace,
@@ -55,7 +55,7 @@ class ConfirmReportDialog extends StatelessWidget {
                     context.pop();
                   },
                   child: TextView(
-                    text: "Cancel",
+                    text: "Done",
                     fontSize: 16,
                     style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w600,
@@ -63,18 +63,7 @@ class ConfirmReportDialog extends StatelessWidget {
                       color: Pallets.primary,
                     ),
                   )),
-              TextButton(
-                  onPressed: () {
-                    context.pop(true);
-                  },
-                  child: TextView(
-                    text: "Report",
-                    style: GoogleFonts.poppins(
-                      fontWeight: FontWeight.w600,
-                      fontSize: 16,
-                      color: Pallets.red,
-                    ),
-                  )),
+
             ],
           )
         ],

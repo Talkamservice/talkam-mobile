@@ -102,6 +102,15 @@ class BlockUserSuccessState extends ProfileState {
   List<Object?> get props => [response];
 }
 
+class GetProfileSuccessState extends ProfileState {
+  final TalkamUser user;
+
+  const GetProfileSuccessState({required this.user});
+
+  @override
+  List<Object?> get props => [user];
+}
+
 class BlockUserFailureState extends ProfileState {
   final String error;
 
@@ -109,4 +118,18 @@ class BlockUserFailureState extends ProfileState {
 
   @override
   List<Object?> get props => [error];
+}
+
+class GetProfileFailureState extends ProfileState {
+  final String error;
+
+  const GetProfileFailureState({required this.error});
+
+  @override
+  List<Object?> get props => [error];
+}
+
+class GetProfileLoadingState extends ProfileState {
+  @override
+  List<Object?> get props => [];
 }

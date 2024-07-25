@@ -64,7 +64,7 @@ class UrlConfig {
   static const String me = '/auth/me';
   static const String loginPreview = "/auth/login/preview";
 
-  static String getUser(String userId) => '/auth/user/$userId';
+  static String getUser = '/auth/user';
   static const String verifyOtp = '/auth/otp/verify';
   static const String register = '/auth/register';
   static const String oauthLogin = '/auth/oauth-login';
@@ -84,6 +84,7 @@ class UrlConfig {
   static const String blockUser = '/user/blocked-users/add';
   static const String uploadAvatar = '/user/profile/upload-avatar';
   static const String getProfile = '/user/me';
+  static const String user = '/user/me';
 
 //   POST
   static const String getCategories = '/user/post-categories';

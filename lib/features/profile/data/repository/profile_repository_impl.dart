@@ -1,4 +1,3 @@
-import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/services/network/network_service.dart';
 import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/features/authentication/data/models/auth_response.dart';
@@ -121,6 +120,19 @@ class ProfileRepositoryImpl extends ProfileRepository {
       return List.from(response.data['data']['data']).map((e) => TalkamUpvote.fromJson(e)).toList();
     } else {
       return [];
+    }
+  }
+
+  @override
+  Future<TalkamUser> getProfile(String userId) async {
+    try {
+      final response = await _networkService.call(
+          UrlConfig.getUser, RequestMethod.post,
+          queryParams: {"user_id": userId});
+
+      return TalkamUser.fromJson(response.data['data']);
+    } catch (e) {
+      rethrow;
     }
   }
 }

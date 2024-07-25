@@ -12,11 +12,25 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// Directory path: assets/images/jpegs
+  $AssetsImagesJpegsGen get jpegs => const $AssetsImagesJpegsGen();
+
   /// Directory path: assets/images/png
   $AssetsImagesPngGen get png => const $AssetsImagesPngGen();
 
   /// Directory path: assets/images/svgs
   $AssetsImagesSvgsGen get svgs => const $AssetsImagesSvgsGen();
+}
+
+class $AssetsImagesJpegsGen {
+  const $AssetsImagesJpegsGen();
+
+  /// File path: assets/images/jpegs/football.jpeg
+  AssetGenImage get football =>
+      const AssetGenImage('assets/images/jpegs/football.jpeg');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [football];
 }
 
 class $AssetsImagesPngGen {
@@ -75,6 +89,9 @@ class $AssetsImagesSvgsGen {
 
   /// File path: assets/images/svgs/apple.svg
   String get apple => 'assets/images/svgs/apple.svg';
+
+  /// File path: assets/images/svgs/arrow-left.svg
+  String get arrowLeft => 'assets/images/svgs/arrow-left.svg';
 
   /// File path: assets/images/svgs/arrow-up-right.svg
   String get arrowUpRight => 'assets/images/svgs/arrow-up-right.svg';
@@ -211,6 +228,7 @@ class $AssetsImagesSvgsGen {
         anonymousActive,
         anonymousInactive,
         apple,
+        arrowLeft,
         arrowUpRight,
         bellPlus,
         cameraIcon,

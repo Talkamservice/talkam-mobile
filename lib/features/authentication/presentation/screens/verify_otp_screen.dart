@@ -14,10 +14,12 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/path_params.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/features/authentication/presentation/bloc/auth_bloc.dart';
+import 'package:talkam/features/home/dormain/mixins/refresh_app_mixin.dart';
 
 enum VerifyOtpType {
   auth,
   passwordReset,
+  returningUser,
 }
 
 class VerifyOtpScreen extends StatefulWidget {
@@ -32,7 +34,8 @@ class VerifyOtpScreen extends StatefulWidget {
   State<VerifyOtpScreen> createState() => _VerifyOtpScreenState();
 }
 
-class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
+class _VerifyOtpScreenState extends State<VerifyOtpScreen>
+    with RefreshAppMixin {
   // final TextEditingController emailController = TextEditingController();
   final otpCtrl = TextEditingController();
   bool isSent = true;
@@ -159,9 +162,9 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
   }
 
   String get otpType {
-    return widget.verifyOtpType == VerifyOtpType.auth
-        ? "verify_email"
-        : "password_reset";
+    return widget.verifyOtpType == VerifyOtpType.passwordReset
+        ? "password_reset"
+        : "verify_email";
   }
 
   void _listenToOtpBloc(BuildContext context, AuthState state) {
@@ -179,6 +182,9 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> {
             PathParam.email: widget.email,
             PathParam.otp: otpCtrl.text,
           });
+        case VerifyOtpType.returningUser:
+          refreshApp();
+          context.goNamed(PageUrl.interestsScreen);
       }
       CustomDialogs.success('Otp verified successfully');
       // context.goNamed(PageUrl.createNewPassword,

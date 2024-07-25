@@ -100,7 +100,7 @@ class _AddTagsSheetState extends State<AddTagsSheet> {
                         setState(() {});
                       },
                       child: const TextView(
-                        text: "Add choice",
+                        text: "Add tags",
                         fontWeight: FontWeight.w700,
                       )),
                   TextButton(

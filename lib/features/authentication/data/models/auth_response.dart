@@ -92,6 +92,7 @@ class TalkamUser {
   String status;
   List<dynamic> interests;
   DateTime createdAt;
+  DateTime? emailVerifiedAt;
   DateTime updatedAt;
 
   TalkamUser({
@@ -105,6 +106,7 @@ class TalkamUser {
     required this.status,
     required this.interests,
     required this.createdAt,
+    required this.emailVerifiedAt,
     required this.updatedAt,
   });
 
@@ -119,6 +121,7 @@ class TalkamUser {
     String? status,
     List<dynamic>? interests,
     DateTime? createdAt,
+    DateTime? emailVerifiedAt,
     DateTime? updatedAt,
   }) =>
       TalkamUser(
@@ -132,6 +135,7 @@ class TalkamUser {
         status: status ?? this.status,
         interests: interests ?? this.interests,
         createdAt: createdAt ?? this.createdAt,
+        emailVerifiedAt: emailVerifiedAt ?? this.emailVerifiedAt,
         updatedAt: updatedAt ?? this.updatedAt,
       );
 
@@ -146,6 +150,9 @@ class TalkamUser {
         status: json["status"],
         interests: List<dynamic>.from(json["interests"].map((x) => x)),
         createdAt: DateTime.parse(json["created_at"]),
+        emailVerifiedAt: json["email_verified_at"] == null
+            ? null
+            : DateTime.parse(json["email_verified_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
       );
 
@@ -160,6 +167,7 @@ class TalkamUser {
         "status": status,
         "interests": List<dynamic>.from(interests.map((x) => x)),
         "created_at": createdAt.toIso8601String(),
+        "email_verified_at": emailVerifiedAt?.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
       };
 

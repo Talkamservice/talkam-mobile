@@ -10,9 +10,10 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/onboarding_texts.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
-import 'package:talkam/core/mixins/login_mixin.dart';
+import 'package:talkam/core/mixins/returning_user_mixin.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/features/authentication/dormain/mixins/auth_success_mixin.dart';
 import 'package:talkam/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
@@ -23,7 +24,7 @@ class IntroScreen extends StatefulWidget {
   State<IntroScreen> createState() => _IntroScreenState();
 }
 
-class _IntroScreenState extends State<IntroScreen> with ReturningUserMixin {
+class _IntroScreenState extends State<IntroScreen> with AuthSuccessMixin {
   final _authBloc = AuthBloc(injector.get());
 
   @override
