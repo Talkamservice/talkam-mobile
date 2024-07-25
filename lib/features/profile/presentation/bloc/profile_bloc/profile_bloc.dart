@@ -30,6 +30,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<UpdateProfileEvent>(_onUpdateProfile);
     on<GetAvatarsEvent>(_mapGetAvatarsEventToState);
     on<BlockUerEvent>(_mapBlockUerEventToState);
+    on<UpdateInterestEvent>(_mapUpdateInterestEventToState);
     on<GetRemoteUser>(_mapGetRemoteUserEventToState);
   }
 
@@ -75,6 +76,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
   }
 
+
+
+
   FutureOr<void> _mapGetAvatarsEventToState(
       GetAvatarsEvent event, Emitter<ProfileState> emit) async {
     emit(GetAvatarsLoadingState());
@@ -104,10 +108,25 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       var user = injector.get<ProfileBloc>().appUser;
       final response = await _profileRepository.getProfile(user!.id.toString());
       injector.get<ProfileBloc>().add(SaveUserLocallyEvent(response));
-      CustomDialogs.error(response.toString());
+      // CustomDialogs.error(response.toString());
       emit(GetProfileSuccessState(user: response));
     } catch (error) {
       emit(BlockUserFailureState(error: error.toString()));
+    }
+  }
+
+  FutureOr<void> _mapUpdateInterestEventToState(
+      UpdateInterestEvent event, Emitter<ProfileState> emit) async {
+    emit(UpdateInterestLoadingState());
+    try {
+      // var user = injector.get<ProfileBloc>().appUser;
+      final response =
+          await _profileRepository.addOrRemoveInterest(event.categoryId);
+      // injector.get<ProfileBloc>().add(SaveUserLocallyEvent(response));
+      // CustomDialogs.error(response.toString());
+      emit(UpdateInterestSuccessState(response: response));
+    } catch (error) {
+      emit(UpdateProfileFailure(error.toString()));
     }
   }
 }

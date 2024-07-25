@@ -4,6 +4,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/post/data/models/create_post_payload.dart';
 import 'package:talkam/features/post/data/models/create_post_response.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
+import 'package:talkam/features/post/data/models/get_guidlines_response.dart';
 import 'package:talkam/features/post/data/models/get_polls_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/data/models/post_details_response.dart';
@@ -19,10 +20,13 @@ part 'post_bloc.freezed.dart';
 
 class PostBloc extends Bloc<PostEvent, PostState> {
   final PostRepository _postRepository;
+  List<TalkamGuidelineModel> rules = [];
 
   PostBloc(this._postRepository) : super(const PostState.initial()) {
     on<PostEvent>((event, emit) async {
       await event.map(
+        getGuidelines: (e) async =>
+            await _mapGetGuideLinesEventToState(emit, e),
         getCategories: (e) async =>
             await _mapGetCategoriesEventToState(emit, e),
         getPosts: (e) async => await _mapGetPostsEventToState(emit),
@@ -36,6 +40,8 @@ class PostBloc extends Bloc<PostEvent, PostState> {
             await _mapPostReactionEventToState(e.postId, e.action, emit),
         reportPost: (e) async =>
             await _mapReportPostEventToState(e.postId, e.reason, emit),
+        reportComment: (e) async => await _mapReportCommentEventToState(
+            e.postId, e.commentId, e.reason, emit),
         getPolls: (e) async => await _mapGetPollsEventToState(emit),
         getComments: (e) async =>
             await _mapGetCommentsEventToState(e.postId, emit),
@@ -92,8 +98,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       final response = await _postRepository.getPostDetails(postId);
 
       emit(PostState.getPostDetailsSuccess(response));
-    } catch (error,stack) {
-
+    } catch (error, stack) {
       logger.e(error);
       logger.e(stack);
       emit(PostState.getPostDetailsFailure(error.toString()));
@@ -130,6 +135,17 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       emit(const PostState.reportPostSuccess());
     } catch (error) {
       emit(PostState.reportPostFailure(error.toString()));
+    }
+  }
+
+  Future<void> _mapReportCommentEventToState(String postId, String commentId,
+      String reason, Emitter<PostState> emit) async {
+    emit(const PostState.reportCommentLoading());
+    try {
+      await _postRepository.reportComment(postId, commentId, reason);
+      emit(const PostState.reportCommentSuccess());
+    } catch (error) {
+      emit(PostState.reportCommentFailure(error.toString()));
     }
   }
 
@@ -195,6 +211,20 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       emit(const PostState.commentReactionSuccess());
     } catch (error) {
       emit(PostState.commentReactionFailure(error.toString()));
+    }
+  }
+
+  _mapGetGuideLinesEventToState(
+      Emitter<PostState> emit, _GetGuidelines e) async {
+    if (rules.isEmpty) {
+      emit(const PostState.getGuidelinesLoading());
+    }
+    try {
+      var response = await _postRepository.getRules();
+      rules = response.data;
+      emit(PostState.getGuideLinesSuccess(response));
+    } catch (error) {
+      emit(PostState.getGuideLinesFailed(error.toString()));
     }
   }
 }

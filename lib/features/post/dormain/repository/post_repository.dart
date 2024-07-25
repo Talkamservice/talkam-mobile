@@ -2,6 +2,7 @@ import 'package:talkam/features/post/data/models/create_post_payload.dart';
 import 'package:talkam/features/post/data/models/create_post_response.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/data/models/get_comments_response.dart';
+import 'package:talkam/features/post/data/models/get_guidlines_response.dart';
 import 'package:talkam/features/post/data/models/get_polls_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/data/models/post_details_response.dart';
@@ -16,6 +17,8 @@ abstract class PostRepository {
   // Future<TalkamPost> getAPosts(String id);
 
   Future<CreatePostResponse> createPost(CreatePostPayload postData);
+
+  Future<GetGuidlinesResponse> getRules();
 
   Future<PostDetailsResponse> getPostDetails(String postId);
 
@@ -40,4 +43,6 @@ abstract class PostRepository {
   Future<dynamic> selectPoll(String pollId);
 
   Future<dynamic> deletePoll(String pollId);
+
+  Future<dynamic> reportComment(String postId,String commentId, String reason);
 }

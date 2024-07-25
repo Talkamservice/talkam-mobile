@@ -10,7 +10,9 @@ import 'package:talkam/features/post/presentation/bloc/featured_posts/featured_p
 import 'package:talkam/features/post/presentation/widgets/post_item.dart';
 
 class FeaturedPostByCategoryScreen extends StatefulWidget {
-  const FeaturedPostByCategoryScreen({super.key});
+  const FeaturedPostByCategoryScreen({super.key, required this.categoryId});
+
+  final String categoryId;
 
   @override
   State<FeaturedPostByCategoryScreen> createState() =>
@@ -24,7 +26,7 @@ class _FeaturedPostByCategoryScreenState
 
   @override
   void initState() {
-    bloc.getFeaturedPosts(PostFilterModel.featuredPost(category: "1"));
+    bloc.getFeaturedPosts(PostFilterModel.featuredPost(category: widget.categoryId));
     super.initState();
   }
 
@@ -47,8 +49,8 @@ class _FeaturedPostByCategoryScreenState
                 getFeaturedPostsFailed: (error) => AppPromptWidget(
                   message: error,
                   onTap: () {
-                    bloc.getFeaturedPosts(
-                        PostFilterModel.featuredPost(category: "1"));
+                    bloc.getFeaturedPosts(PostFilterModel.featuredPost(category: widget.categoryId));
+
                   },
                 ),
                 getFeaturedPostsSuccess: (respone) {
@@ -60,14 +62,16 @@ class _FeaturedPostByCategoryScreenState
 
                   return RefreshIndicator(
                     onRefresh: () async {
-                      bloc.getFeaturedPosts(
-                          PostFilterModel.featuredPost(category: "1"));
+                      bloc.getFeaturedPosts(PostFilterModel.featuredPost(
+                          category: widget.categoryId));
                     },
                     child: ListView.builder(
                       itemCount: respone.data.data.length,
                       addAutomaticKeepAlives: true,
+
+                      padding: EdgeInsets.zero,
                       itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
+                        padding: const EdgeInsets.only(bottom: 4.0),
                         child: PostItem(
                           post: respone.data.data[index],
                         ),

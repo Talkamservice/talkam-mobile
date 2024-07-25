@@ -6,6 +6,7 @@ import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:talkam/features/authentication/presentation/screens/verify_otp_screen.dart';
+import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 
 mixin ReturningUserMixin<T extends StatefulWidget> on State<T> {
   void gotoNextScreen(BuildContext context, TalkamUser state) {
@@ -22,6 +23,7 @@ mixin ReturningUserMixin<T extends StatefulWidget> on State<T> {
     } else if (state.username.isEmpty || state.avatar == null) {
       context.goNamed(PageUrl.userNameScreen);
     } else {
+      injector.get<PostBloc>().add(const PostEvent.getGuidelines());
       context.goNamed(PageUrl.homeScreen);
     }
   }

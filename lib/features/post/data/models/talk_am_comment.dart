@@ -1,11 +1,11 @@
-class TalkAmReplyToBody {
+class TalkAmCommenter {
   final int id;
   final String avatar;
   final String? name;
   final String username;
   final String? email;
 
-  TalkAmReplyToBody({
+  TalkAmCommenter({
     required this.id,
     required this.avatar,
     this.name,
@@ -13,8 +13,8 @@ class TalkAmReplyToBody {
     this.email,
   });
 
-  factory TalkAmReplyToBody.fromJson(Map<String, dynamic> json) {
-    return TalkAmReplyToBody(
+  factory TalkAmCommenter.fromJson(Map<String, dynamic> json) {
+    return TalkAmCommenter(
       id: json['id'],
       avatar: json['avatar'],
       name: json['name'],
@@ -32,9 +32,11 @@ class TalkAmReplyToBody {
 class TalkAmComment {
   final int id;
   final String comment;
+  final int isAnonymous;
   final DateTime createdAt;
   final dynamic attachment;
-  final TalkAmReplyToBody? replyTo;
+  final TalkAmCommenter? replyTo;
+  final TalkAmCommenter? user;
   final String postTitle;
 
   TalkAmComment({
@@ -43,20 +45,28 @@ class TalkAmComment {
     required this.createdAt,
     this.attachment,
     this.replyTo,
+    this.user,
+    required this.isAnonymous,
     required this.postTitle,
   });
 
   bool get isReplyingToComment => replyTo != null;
 
-  String get commentReplyTo => isReplyingToComment ? replyTo!.username : postTitle;
+  String get commentReplyTo =>
+      isReplyingToComment ? replyTo!.username : postTitle;
 
   factory TalkAmComment.fromJson(Map<String, dynamic> json) {
     return TalkAmComment(
       id: json['id'],
       postTitle: json['post']['title'],
       comment: json['comment'],
+      isAnonymous: json['is_anonymous'],
       createdAt: DateTime.parse(json['created_at']),
-      replyTo: json['reply_to'] != null ? TalkAmReplyToBody.fromJson(json['reply_to']) : null,
+      replyTo: json['reply_to'] != null
+          ? TalkAmCommenter.fromJson(json['reply_to'])
+          : null,
+      user:
+          json['user'] != null ? TalkAmCommenter.fromJson(json['user']) : null,
       attachment: json['attachment'],
     );
   }

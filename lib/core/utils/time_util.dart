@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class TimeUtil {

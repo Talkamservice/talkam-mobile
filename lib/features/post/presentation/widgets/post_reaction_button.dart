@@ -61,25 +61,11 @@ class _PostReactionButtonState extends State<PostReactionButton> {
         return InkWell(
           onTap: () {
             // changeIsActive();
+
             if (widget.reactionType == ReactionType.like) {
-              bloc.add(PostEvent.postReaction(widget.id, "Like"));
-
-              if (widget.reaction?.isLike ?? false) {
-                widget.onCountReduced();
-                widget.onReactionRemoved();
-              } else {
-                widget.onLikeAdded();
-              }
+              handleLikeClicked();
             } else {
-              bloc.add(PostEvent.postReaction(widget.id, "Dislike"));
-
-              if (widget.reaction?.isDisLike ?? false) {
-                widget.onReactionRemoved();
-                // widget.onCountReduced();
-              } else {
-                widget.onCountReduced();
-                widget.onDisliked();
-              }
+              handleDislikeClicked();
             }
 
             setState(() {});
@@ -98,6 +84,32 @@ class _PostReactionButtonState extends State<PostReactionButton> {
         );
       },
     );
+  }
+
+  void handleLikeClicked() {
+    bloc.add(PostEvent.postReaction(widget.id, "Like"));
+
+    if (widget.reaction?.isLike ?? false) {
+      widget.onCountReduced();
+      widget.onReactionRemoved();
+    } else {
+      widget.onLikeAdded();
+    }
+  }
+
+  void handleDislikeClicked() {
+    bloc.add(PostEvent.postReaction(widget.id, "Dislike"));
+
+    if (widget.reaction?.isDisLike ?? false) {
+      widget.onReactionRemoved();
+      // widget.onCountReduced();
+    } else {
+
+      if (widget.reaction?.isLike ?? false) {
+        widget.onCountReduced();
+      }
+      widget.onDisliked();
+    }
   }
 
   String get nextAction =>

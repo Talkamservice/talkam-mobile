@@ -342,9 +342,9 @@ class PostReaction {
         createdAt: DateTime.parse(json["created_at"]),
       );
 
-  bool get isLike => action == 'Like';
+  bool get isLike => action == 'Like' && status ;
 
-  bool get isDisLike => action == 'Dislike';
+  bool get isDisLike => action == 'Dislike' && status;
 
   factory PostReaction.like() => PostReaction(
       id: 0, action: "Like", createdAt: DateTime.now(), status: true);
@@ -412,18 +412,18 @@ class PostCreator {
 }
 
 class PaginationMeta {
-  int currentPage;
-  String firstPageUrl;
-  int from;
-  int lastPage;
-  String lastPageUrl;
+  dynamic currentPage;
+  dynamic firstPageUrl;
+  dynamic from;
+  dynamic lastPage;
+  dynamic lastPageUrl;
   dynamic nextPageUrl;
   String path;
-  int perPage;
+  dynamic perPage;
   dynamic prevPageUrl;
-  int to;
-  int total;
-  bool canLoadMore;
+  dynamic to;
+  dynamic total;
+  dynamic canLoadMore;
 
   PaginationMeta({
     required this.currentPage,

@@ -132,6 +132,9 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/groups.svg
   String get groups => 'assets/images/svgs/groups.svg';
 
+  /// File path: assets/images/svgs/guidline_indicatior.svg
+  String get guidlineIndicatior => 'assets/images/svgs/guidline_indicatior.svg';
+
   /// File path: assets/images/svgs/home.svg
   String get home => 'assets/images/svgs/home.svg';
 
@@ -242,6 +245,7 @@ class $AssetsImagesSvgsGen {
         googleAuth,
         grid03,
         groups,
+        guidlineIndicatior,
         home,
         icDelete,
         icPersonEdit,

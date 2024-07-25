@@ -3,6 +3,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
 import 'package:talkam/features/post/presentation/bloc/create_post/create_post_cubit.dart';
 import 'package:talkam/features/post/presentation/bloc/featured_posts/featured_post_cubit.dart';
+import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 import 'package:talkam/features/post/presentation/bloc/recent_post/recent_post_cubit.dart';
 import 'package:talkam/features/post/presentation/bloc/trending_post/trending_post_cubit.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
@@ -32,6 +33,10 @@ void setup(GetIt getIt) {
 
   getIt.registerLazySingleton<TrendingPostCubit>(
     () => TrendingPostCubit(injector.get()),
+  );
+
+  getIt.registerLazySingleton<PostBloc>(
+    () => PostBloc(injector.get()),
   );
 
   getIt.registerLazySingleton<ProfileScreenCubit>(() => ProfileScreenCubit(injector.get()));

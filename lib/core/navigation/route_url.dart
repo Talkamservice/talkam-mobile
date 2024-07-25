@@ -21,14 +21,13 @@ class PageUrl {
 
   static const passWordResetScreen = 'passWordResetScreen';
 
-
-
 //   Posts
   static const postDetailsScreen = 'postDetailsScreen';
   static const createPostScreen = 'createPostScreen';
 
-
   // Profile
+
   static const profileScreen = 'profileScreen';
   static const settingsScreen = 'settingsScreen';
+  static const categoriesScreen = 'categoriesScreen';
 }

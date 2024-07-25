@@ -16,6 +16,7 @@ import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 import 'package:talkam/features/post/presentation/widgets/comment_input_widget.dart';
 import 'package:talkam/features/post/presentation/widgets/comment_item.dart';
 import 'package:talkam/features/post/presentation/widgets/post_detail_card.dart';
+import 'package:talkam/features/post/presentation/widgets/rules_sheet.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class PostDetailsScreen extends StatefulWidget {
@@ -90,23 +91,30 @@ class _PostDetailsScreenState extends State<PostDetailsScreen>
                         post: _post!,
                       ),
                       3.verticalSpace,
-                      Container(
-                        decoration:
-                            BoxDecoration(color: context.theme.cardColor),
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 12, vertical: 16),
-                        child: Row(
-                          children: [
-                            const TextView(
+                      InkWell(
+                        onTap: () {
+                          CustomDialogs.showBottomSheet(
+                              context, const RulesSheet());
+
+                        },
+                        child: Container(
+                          decoration:
+                              BoxDecoration(color: context.theme.cardColor),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 12, vertical: 16),
+                          child: Row(
+                            children: [
+                              const TextView(
+                                  fontSize: 13,
+                                  text: "Please be respectful and follow the"),
+                              TextView(
+                                text: "  Community Guidelines",
                                 fontSize: 13,
-                                text: "Please be respectful and follow the"),
-                            TextView(
-                              text: "  Community Guidelines",
-                              fontSize: 13,
-                              fontWeight: FontWeight.w700,
-                              color: context.colorScheme.primary,
-                            )
-                          ],
+                                fontWeight: FontWeight.w700,
+                                color: context.colorScheme.primary,
+                              )
+                            ],
+                          ),
                         ),
                       ),
                       3.verticalSpace,
@@ -177,7 +185,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen>
                             // physics: const BouncingScrollPhysics(),
                             itemBuilder: (context, index) => Padding(
                               padding:
-                                  const EdgeInsets.symmetric(vertical: 8.0),
+                                  const EdgeInsets.symmetric(vertical: 1.0),
                               child: CommentItem(
                                 isReply: false,
                                 comment: commentBloc.comments[index],

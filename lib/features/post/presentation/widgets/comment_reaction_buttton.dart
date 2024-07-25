@@ -17,7 +17,7 @@ class CommentReactionButton extends StatefulWidget {
       required this.reactionType,
       required this.id,
       required this.onLikeAdded,
-      required this.onCountReduced,
+      required this.onLikeCountReduced,
       required this.onDisliked,
       required this.onReactionRemoved});
 
@@ -26,7 +26,7 @@ class CommentReactionButton extends StatefulWidget {
   final String id;
   final Function() onLikeAdded;
   final Function() onDisliked;
-  final Function() onCountReduced;
+  final Function() onLikeCountReduced;
   final Function() onReactionRemoved;
 
   @override
@@ -62,23 +62,41 @@ class _CommentReactionButtonState extends State<CommentReactionButton> {
         return InkWell(
           onTap: () {
             // changeIsActive();
+
             if (widget.reactionType == ReactionType.like) {
+
               bloc.add(CommentsEvent.commentReaction(widget.id, "Like"));
 
               if (widget.reaction?.isLike ?? false) {
-                widget.onCountReduced();
+
+                widget.onLikeCountReduced();
                 widget.onReactionRemoved();
+
               } else {
                 widget.onLikeAdded();
               }
             } else {
+
               bloc.add(CommentsEvent.commentReaction(widget.id, "Dislike"));
 
               if (widget.reaction?.isDisLike ?? false) {
-                widget.onCountReduced();
+
+
+                if (widget.reaction?.isLike ?? false) {
+                  widget.onLikeCountReduced();
+                }
                 widget.onReactionRemoved();
+
+
               } else {
+
+                if (widget.reaction?.isLike ?? false) {
+                  widget.onLikeCountReduced();
+                }
+
                 widget.onDisliked();
+
+
               }
             }
 

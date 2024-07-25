@@ -32,6 +32,7 @@ class PostItem extends StatelessWidget {
             children: [
               PostHeader(
                 userName: userName,
+                post: post,
                 category: post.category,
                 onMenuTap: () => CustomDialogs.showBottomSheet(
                     context,

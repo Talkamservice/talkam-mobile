@@ -12,7 +12,9 @@ import 'package:talkam/features/post/presentation/bloc/trending_post/trending_po
 import 'package:talkam/features/post/presentation/widgets/post_item.dart';
 
 class TrendingPostByCategoryScreen extends StatefulWidget {
-  const TrendingPostByCategoryScreen({super.key});
+  const TrendingPostByCategoryScreen({super.key, required this.categoryId});
+
+  final String categoryId;
 
   @override
   State<TrendingPostByCategoryScreen> createState() =>
@@ -26,7 +28,8 @@ class _TrendingPostByCategoryScreenState
 
   @override
   void initState() {
-    bloc.getTrendingPosts(PostFilterModel.trendingPost(category: "1"));
+    bloc.getTrendingPosts(
+        PostFilterModel.trendingPost(category: widget.categoryId));
     super.initState();
   }
 
@@ -49,27 +52,27 @@ class _TrendingPostByCategoryScreenState
                 getTrendingPostsFailed: (error) => AppPromptWidget(
                   message: error,
                   onTap: () {
-                    bloc.getTrendingPosts(
-                        PostFilterModel.trendingPost(category: "1"));
+                    bloc.getTrendingPosts(PostFilterModel.trendingPost(
+                        category: widget.categoryId));
                   },
                 ),
                 getTrendingPostsSuccess: (respone) {
                   if (respone.data.data.isEmpty) {
                     return const Center(
-                      child: TextView(text: "No post yet"),
+                      child: TextView(text: "No post here"),
                     );
                   }
 
                   return RefreshIndicator(
                     onRefresh: () async {
-                      bloc.getTrendingPosts(
-                          PostFilterModel.trendingPost(category: "1"));
+                      bloc.getTrendingPosts(PostFilterModel.trendingPost(
+                          category: widget.categoryId));
                     },
                     child: ListView.builder(
                       itemCount: respone.data.data.length,
                       addAutomaticKeepAlives: true,
                       itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
+                        padding: const EdgeInsets.only(bottom: 4.0),
                         child: PostItem(
                           post: respone.data.data[index],
                         ),

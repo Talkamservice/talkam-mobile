@@ -11,7 +11,9 @@ import 'package:talkam/features/post/presentation/bloc/recent_post/recent_post_c
 import 'package:talkam/features/post/presentation/widgets/post_item.dart';
 
 class RecentPostByCategoryScreen extends StatefulWidget {
-  const RecentPostByCategoryScreen({super.key});
+  const RecentPostByCategoryScreen({super.key, required this.categoryId});
+
+  final String categoryId;
 
   @override
   State<RecentPostByCategoryScreen> createState() =>
@@ -24,7 +26,8 @@ class _RecentPostByCategoryScreenState extends State<RecentPostByCategoryScreen>
 
   @override
   void initState() {
-    bloc.getRecentPosts(PostFilterModel.recentPost(category: "1"));
+    bloc.getRecentPosts(
+        PostFilterModel.recentPost(category: widget.categoryId));
     super.initState();
   }
 
@@ -47,8 +50,8 @@ class _RecentPostByCategoryScreenState extends State<RecentPostByCategoryScreen>
                 getRecentPostsFailed: (error) => AppPromptWidget(
                   message: error,
                   onTap: () {
-                    bloc.getRecentPosts(
-                        PostFilterModel.recentPost(category: "1"));
+                    bloc.getRecentPosts(PostFilterModel.recentPost(
+                        category: widget.categoryId));
                   },
                 ),
                 getRecentPostsSuccess: (respone) {
@@ -60,14 +63,14 @@ class _RecentPostByCategoryScreenState extends State<RecentPostByCategoryScreen>
 
                   return RefreshIndicator(
                     onRefresh: () async {
-                      bloc.getRecentPosts(
-                          PostFilterModel.recentPost(category: "1"));
+                      bloc.getRecentPosts(PostFilterModel.recentPost(
+                          category: widget.categoryId));
                     },
                     child: ListView.builder(
                       itemCount: respone.data.data.length,
                       addAutomaticKeepAlives: true,
                       itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
+                        padding: const EdgeInsets.only(bottom: 4.0),
                         child: PostItem(
                           post: respone.data.data[index],
                         ),
@@ -82,6 +85,8 @@ class _RecentPostByCategoryScreenState extends State<RecentPostByCategoryScreen>
       ),
     );
   }
+
+
 
   @override
   bool get wantKeepAlive => true;

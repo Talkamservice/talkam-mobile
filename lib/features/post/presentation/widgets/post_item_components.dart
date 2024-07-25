@@ -6,6 +6,7 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/core/utils/time_util.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/presentation/widgets/post_image.dart';
@@ -28,11 +29,13 @@ class PostHeader extends StatelessWidget {
   final String userName;
   final PostCategory category;
   final VoidCallback onMenuTap;
+  final TalkamPost post;
 
   const PostHeader({
     required this.userName,
     required this.category,
     required this.onMenuTap,
+    required this.post,
   });
 
   @override
@@ -47,9 +50,22 @@ class PostHeader extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextView(
-                text: category.name,
-                fontWeight: FontWeight.w500,
+              Row(
+                children: [
+                  TextView(
+                    text: category.name,
+                    fontWeight: FontWeight.w500,
+                  ),
+                  4.horizontalSpace,
+                  ImageWidget(imageUrl: Assets.images.svgs.grid03),
+                  4.horizontalSpace,
+                  TextView(
+                    text: TimeUtil.getTimeAgo(
+                        post.createdAt.toString()),
+                    fontWeight: FontWeight.w700,
+                    color: context.colorScheme.primary,
+                  ),
+                ],
               ),
               TextView(
                 text: "Posted by $userName",
@@ -148,14 +164,10 @@ class _PostActionsState extends State<PostActions> {
                     if (widget.post.likesCount >= 1) {
                       widget.post.likesCount -= 1;
                     }
-
                     setState(() {});
                   },
                   onDisliked: () {
                     widget.post.reaction = PostReaction.dislike();
-                    if (widget.post.likesCount >= 1) {
-                      widget.post.likesCount -= 1;
-                    }
                     setState(() {});
                   },
                   onReactionRemoved: () {

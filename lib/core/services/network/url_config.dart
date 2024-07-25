@@ -95,6 +95,8 @@ class UrlConfig {
   static const String deletePosts = '/user/posts';
   static const String postReaction = '/user/posts/reaction';
   static const String reportPost = '/user/posts/report';
+
+  static const String reportComment = '/user/posts/report-comment';
   static const String getPolls = '/user/posts-polls';
 
   static const String getComments = '/user/post-comments';
@@ -103,7 +105,8 @@ class UrlConfig {
   static const String deleteComment = '/user/post-comments';
   static const String commentReaction = '/user/post-comments/reaction';
 
-
+  static const String getRules = '/user/guildlines';
   static const String selectPoll = '/user/post-polls/';
   static const String deletePoll = '/user/post-polls/';
+  static String addOrRemoveInterest = '/user/profile/interests/add-remove';
 }

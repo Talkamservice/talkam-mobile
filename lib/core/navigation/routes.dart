@@ -16,6 +16,7 @@ import 'package:talkam/features/group/presentation/screens/groups_screen.dart';
 import 'package:talkam/features/home/presentation/screens/base_page.dart';
 import 'package:talkam/features/home/presentation/screens/home_screen.dart';
 import 'package:talkam/features/messaging/presentation/screens/messages_screen.dart';
+import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/presentation/screens/categories_screen.dart';
 import 'package:talkam/features/post/presentation/screens/create_post_screen.dart';
@@ -121,7 +122,9 @@ class CustomRoutes {
       GoRoute(
         path: '/categoriesScreen',
         name: PageUrl.categoriesScreen,
-        builder: (context, state) => const CategoriesScreen(),
+        builder: (context, state) => CategoriesScreen(
+          category: state.extra as PostCategory,
+        ),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {

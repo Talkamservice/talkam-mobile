@@ -45,7 +45,7 @@ class SessionManager {
   static const String KEY_USER_EMAIL = 'logged_in_user_email';
 
   Map<String, dynamic> get usersData =>
-      json.decode(sharedPreferences!.getString(KEY_USERS_DATA) ?? '');
+      json.decode(sharedPreferences!.getString(KEY_USERS_DATA) ?? '{}');
 
   set usersData(Map<String, dynamic> map) =>
       sharedPreferences!.setString(KEY_USERS_DATA, json.encode(map));

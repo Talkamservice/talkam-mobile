@@ -10,18 +10,32 @@ import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class AddTagsSheet extends StatefulWidget {
-  const AddTagsSheet({super.key});
+  const AddTagsSheet({super.key, required this.initialTAgs});
+
+  final List<String> initialTAgs;
 
   @override
   State<AddTagsSheet> createState() => _AddTagsSheetState();
 }
 
 class _AddTagsSheetState extends State<AddTagsSheet> {
+  @override
+  void initState() {
+    if(widget.initialTAgs.isNotEmpty){
+      tagControllers = widget.initialTAgs.map(
+            (e) => TextEditingController()..text = e,
+      ).toList();
+    }
+
+
+    super.initState();
+  }
+
   final tittleController = TextEditingController();
-  final List<TextEditingController> tagControllers = [
+   List<TextEditingController> tagControllers = [
     TextEditingController(),
     TextEditingController(),
-    TextEditingController(),
+
   ];
 
   int pollHours = 7;
@@ -70,12 +84,12 @@ class _AddTagsSheetState extends State<AddTagsSheet> {
                   children: [
                     Expanded(
                         child: OutlinedFormField(
-                            validator: RequiredValidator(
-                                    errorText: "Field is required")
-                                .call,
+                            // validator: RequiredValidator(
+                            //         errorText: "Field is required")
+                            //     .call,
                             controller: tagControllers[index],
                             hint: "Tag ${index + 1}")),
-                    if (index + 1 > 3)
+                    if (index + 1 > 1)
                       IconButton(
                           onPressed: () {
                             tagControllers.removeAt(index);
@@ -113,6 +127,9 @@ class _AddTagsSheetState extends State<AddTagsSheet> {
                       onPressed: () {
                         if (formKey.currentState?.validate() ?? false) {
                           context.pop(tagControllers
+                              .where(
+                                (element) => element.text.isNotEmpty,
+                              )
                               .map(
                                 (e) => e.text,
                               )

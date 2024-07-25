@@ -13,6 +13,7 @@ import 'package:talkam/features/post/data/models/get_comments_response.dart';
 import 'package:talkam/features/post/presentation/bloc/comments/comments_bloc.dart';
 import 'package:talkam/features/post/presentation/widgets/comment_actions.dart';
 import 'package:talkam/features/post/presentation/widgets/comment_input_widget.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class CommentItem extends StatefulWidget {
@@ -73,16 +74,15 @@ class _CommentItemState extends State<CommentItem> {
                             ImageWidget(imageUrl: Assets.images.svgs.grid03),
                             4.horizontalSpace,
                             TextView(
-                              text: TimeUtil.getTimeAgo(widget.comment.createdAt
-                                  .toLocal()
-                                  .toIso8601String()),
+                              text: TimeUtil.getTimeAgo(
+                                  widget.comment.createdAt.toString()),
                               fontWeight: FontWeight.w700,
                               color: context.colorScheme.primary,
                             ),
                           ],
                         ),
                         10.verticalSpace,
-                        ReadMoreText(text: widget.comment.comment),
+                        CustomReadMoreText(text: widget.comment.comment),
                         // TextView(
                         //   text: widget.comment.comment,
                         //   fontSize: 16,
@@ -101,6 +101,7 @@ class _CommentItemState extends State<CommentItem> {
                           onLikeTap: () {},
                           dislikeCount: 3,
                           comment: widget.comment,
+                          postId: widget.posId.toString(),
                         )
                       ],
                     ),
@@ -169,6 +170,9 @@ class _CommentItemState extends State<CommentItem> {
   }
 
   bool get commentHasChildren => widget.comment.children.isNotEmpty;
+
+  bool get commentIsFromLoggedInUser =>
+      widget.comment.user.id == injector.get<ProfileBloc>().appUser?.id;
 
   bool isReplying(BuildContext context) {
     return widget.comment.id ==

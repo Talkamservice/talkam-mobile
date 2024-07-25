@@ -2,16 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/post/data/models/get_comments_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/presentation/bloc/comments/comments_bloc.dart';
+import 'package:talkam/features/post/presentation/widgets/comment_action_sheet.dart';
 import 'package:talkam/features/post/presentation/widgets/comment_reaction_buttton.dart';
 
 class CommentActions extends StatefulWidget {
   final int likeCount;
   final int dislikeCount;
+  final String postId;
   final VoidCallback onCommentTap;
   final VoidCallback onLikeTap;
   final PostComment comment;
@@ -19,6 +22,7 @@ class CommentActions extends StatefulWidget {
   const CommentActions({
     required this.likeCount,
     required this.onCommentTap,
+    required this.postId,
     required this.onLikeTap,
     required this.dislikeCount,
     required this.comment,
@@ -70,7 +74,7 @@ class _CommentActionsState extends State<CommentActions> {
 
                 setState(() {});
               },
-              onCountReduced: () {
+              onLikeCountReduced: () {
                 widget.comment.likes -= 1;
                 setState(() {});
               },
@@ -91,19 +95,24 @@ class _CommentActionsState extends State<CommentActions> {
               id: widget.comment.id.toString(),
               reaction: widget.comment.reaction,
               onLikeAdded: () {},
-              onCountReduced: () {
-                widget.comment.unlikes -= 1;
+              onLikeCountReduced: () {
+                widget.comment.likes -= 1;
                 setState(() {});
               },
+
+
+
               onDisliked: () {
                 widget.comment.reaction = PostReaction.dislike();
-                if (widget.comment.likes >= 1) {
-                  widget.comment.likes -= 1;
-                }
                 widget.comment.unlikes += 1;
                 setState(() {});
               },
+
+
               onReactionRemoved: () {
+                if (widget.comment.unlikes >= 1) {
+                  widget.comment.unlikes -= 1;
+                }
                 widget.comment.reaction = null;
                 setState(() {});
               },
@@ -111,7 +120,15 @@ class _CommentActionsState extends State<CommentActions> {
           ],
         ),
         const Spacer(),
-        // IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))
+        IconButton(
+            onPressed: () {
+              CustomDialogs.showBottomSheet(
+                  context,
+                  CommentActionSheet(
+                    comment: widget.comment, postId: widget.postId,
+                  ));
+            },
+            icon: const Icon(Icons.more_vert))
       ],
     );
   }

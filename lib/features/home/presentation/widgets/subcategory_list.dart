@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
@@ -82,13 +84,20 @@ class _SubcategoryListState extends State<SubcategoryList> {
                     postBloc.add(const PostEvent.getCategories());
                   },
                 ),
-                getCategoriesLoading: () => CustomDialogs.getLoading(size: 50),
+                getCategoriesLoading: () => SizedBox(
+                    height: 300, child: CustomDialogs.getLoading(size: 50)),
                 getCategoriesSuccess: (response) {
                   if (response.data.isEmpty) {
-                    return const Center(
-                      child: TextView(text: "There are no categories yet"),
+                    return const SizedBox(
+                      height: 300,
+                      child: Center(
+                        child: TextView(text: "There are no sub categories here"),
+                      ),
                     );
                   }
+
+
+
 
                   return ListView.builder(
                     itemCount: response.data.length,
@@ -99,9 +108,8 @@ class _SubcategoryListState extends State<SubcategoryList> {
                       child: NavCategoryItem(
                         category: response.data[index],
                         onTap: () {
-                          context.read<DrawerCubit>().switchView(
-                              DrawerView.subCategory,
-                              subCategory: response.data[index]);
+                          context.pushNamed(PageUrl.categoriesScreen,
+                              extra: response.data[index]);
                         },
                       ),
                     ),

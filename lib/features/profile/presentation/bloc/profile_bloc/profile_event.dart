@@ -50,13 +50,18 @@ class BlockUerEvent extends ProfileEvent {
   List<Object?> get props => [];
 }
 
-
 class GetRemoteUser extends ProfileEvent {
-
-
   const GetRemoteUser();
 
   @override
   List<Object?> get props => [];
 }
 
+class UpdateInterestEvent extends ProfileEvent {
+  final String categoryId;
+
+  const UpdateInterestEvent(this.categoryId);
+
+  @override
+  List<Object?> get props => [];
+}

@@ -88,12 +88,14 @@ class _PostDetailActionsState extends State<PostDetailActions> {
                   id: widget.post.id.toString(),
                   reaction: widget.post.reaction,
                   onLikeAdded: () {},
-                  onCountReduced: () {},
-                  onDisliked: () {
-                    widget.post.reaction = PostReaction.dislike();
+                  onCountReduced: () {
                     if (widget.post.likesCount > 1) {
                       widget.post.likesCount -= 1;
                     }
+                  },
+                  onDisliked: () {
+                    widget.post.reaction = PostReaction.dislike();
+
                     setState(() {});
                   },
                   onReactionRemoved: () {

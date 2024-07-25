@@ -33,7 +33,7 @@ class PostContent extends StatelessWidget {
           fontWeight: FontWeight.w500,
         ),
       if (post.body?.isNotEmpty ?? false)
-        ReadMoreText(
+        CustomReadMoreText(
           text: post.body ?? '',
           fontSize: 14,
           fontWeight: FontWeight.w400,

@@ -133,3 +133,26 @@ class GetProfileLoadingState extends ProfileState {
   @override
   List<Object?> get props => [];
 }
+
+class UpdateInterestFailureState extends ProfileState {
+  final String error;
+
+  const UpdateInterestFailureState({required this.error});
+
+  @override
+  List<Object?> get props => [error];
+}
+
+class UpdateInterestLoadingState extends ProfileState {
+  @override
+  List<Object?> get props => [];
+}
+
+class UpdateInterestSuccessState extends ProfileState {
+  final dynamic response;
+
+  const UpdateInterestSuccessState({required this.response});
+
+  @override
+  List<Object?> get props => [response];
+}

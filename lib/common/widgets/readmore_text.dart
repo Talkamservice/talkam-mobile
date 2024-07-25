@@ -2,20 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 
-class ReadMoreText extends StatefulWidget {
+class CustomReadMoreText extends StatefulWidget {
   final String text;
   final int trimLines;
   final double? fontSize;
   final FontWeight? fontWeight;
 
-  ReadMoreText(
+  CustomReadMoreText(
       {required this.text, this.trimLines = 2, this.fontSize, this.fontWeight});
 
   @override
-  _ReadMoreTextState createState() => _ReadMoreTextState();
+  _CustomReadMoreTextState createState() => _CustomReadMoreTextState();
 }
 
-class _ReadMoreTextState extends State<ReadMoreText> {
+class _CustomReadMoreTextState extends State<CustomReadMoreText> {
   bool _readMore = false;
 
   @override

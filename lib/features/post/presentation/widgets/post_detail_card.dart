@@ -30,7 +30,7 @@ class PostDetailCard extends StatelessWidget {
                   context,
                   PostActionSheet(
                     post: post,
-                  )),
+                  )), post: post,
             ),
             10.verticalSpace,
             PostContent(

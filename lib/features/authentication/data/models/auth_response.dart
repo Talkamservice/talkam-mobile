@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:talkam/features/post/data/models/get_categories_response.dart';
+
 AuthSuccessResponse authSuccessResponseFromJson(String str) =>
     AuthSuccessResponse.fromJson(json.decode(str));
 
@@ -90,7 +92,7 @@ class TalkamUser {
   dynamic age;
   String username;
   String status;
-  List<dynamic> interests;
+  List<PostCategory> interests;
   DateTime createdAt;
   DateTime? emailVerifiedAt;
   DateTime updatedAt;
@@ -119,7 +121,7 @@ class TalkamUser {
     dynamic age,
     String? username,
     String? status,
-    List<dynamic>? interests,
+    List<PostCategory>? interests,
     DateTime? createdAt,
     DateTime? emailVerifiedAt,
     DateTime? updatedAt,
@@ -148,7 +150,8 @@ class TalkamUser {
         age: json["age"],
         username: json["username"],
         status: json["status"],
-        interests: List<dynamic>.from(json["interests"].map((x) => x)),
+        interests: List<PostCategory>.from(
+            json["interests"].map((x) => PostCategory.fromJson(x))),
         createdAt: DateTime.parse(json["created_at"]),
         emailVerifiedAt: json["email_verified_at"] == null
             ? null
@@ -165,16 +168,18 @@ class TalkamUser {
         "age": age,
         "username": username,
         "status": status,
-        "interests": List<dynamic>.from(interests.map((x) => x)),
+        "interests": List<PostCategory>.from(interests.map((x) => x)),
         "created_at": createdAt.toIso8601String(),
         "email_verified_at": emailVerifiedAt?.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
+
       };
 
   factory TalkamUser.forTest() {
     return TalkamUser(
       id: -1,
-      avatar: "https://talkam.prodevs.io/file/YXBwL21lZGlhL3VzZXIvYXZhdGFycy82NjlmYjVjNGM4ZTBlLnBuZw==",
+      avatar:
+          "https://talkam.prodevs.io/file/YXBwL21lZGlhL3VzZXIvYXZhdGFycy82NjlmYjVjNGM4ZTBlLnBuZw==",
       email: "bardakhaev@shopshiba.site",
       role: "User",
       age: null,
@@ -184,6 +189,7 @@ class TalkamUser {
       name: "bardo_khan",
       status: "Active",
       interests: [],
+      emailVerifiedAt: DateTime.now(),
     );
   }
 }
