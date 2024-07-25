@@ -5,6 +5,7 @@ import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/authentication/data/models/get_avatars_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/data/models/talk_am_comment.dart';
+import 'package:talkam/features/post/data/models/talkam_upvote.dart';
 import 'package:talkam/features/post/data/models/update_profile_response.dart';
 import 'package:talkam/features/profile/data/models/update_profile_payload.dart';
 import 'package:talkam/features/profile/dormain/repository/profile_repository.dart';
@@ -85,11 +86,12 @@ class ProfileRepositoryImpl extends ProfileRepository {
         ]);
         final List<TalkamPost> schedulePosts =
             List.from(res[1].data['data']).map((e) => TalkamPost.fromJson(e)).toList();
-        final List<TalkamPost> posts = List.from(res[0].data['data']['data']).map((e) => TalkamPost.fromJson(e)).toList();
+        final List<TalkamPost> posts =
+            List.from(res[0].data['data']['data']).map((e) => TalkamPost.fromJson(e)).toList();
 
         return [...schedulePosts, ...posts];
       } else {
-        final response = await _networkService.call("/user/posts?user_id=${user.id}?page=$page", RequestMethod.get);
+        final response = await _networkService.call("/user/posts?user_id=${user.id}&page=$page", RequestMethod.get);
         return List.from(response.data['data']['data']).map((e) => TalkamPost.fromJson(e)).toList();
       }
     } else {
@@ -107,6 +109,18 @@ class ProfileRepositoryImpl extends ProfileRepository {
       return newUserResponse;
     } else {
       return null;
+    }
+  }
+
+  @override
+  Future<List<TalkamUpvote>> fetchUserUpvote({int page = 1}) async {
+    if (SessionManager.instance.doesUserDataExists) {
+      final user = TalkamUser.fromJson(SessionManager.instance.usersData);
+      final response =
+          await _networkService.call("user/posts/actions/get-upvotes?user_id=${user.id}&page=1", RequestMethod.get);
+      return List.from(response.data['data']['data']).map((e) => TalkamUpvote.fromJson(e)).toList();
+    } else {
+      return [];
     }
   }
 }

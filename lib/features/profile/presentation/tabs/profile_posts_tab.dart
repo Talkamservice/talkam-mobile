@@ -25,7 +25,7 @@ class _ProfilePostTabState extends State<ProfilePostTab> with AutomaticKeepAlive
     _cubit.fetchUserPosts();
     _scrollController.addListener(() {
       if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
-        //_cubit.loadMorePosts(_posts);
+        _cubit.loadMorePosts(_posts);
       }
     });
     super.initState();
