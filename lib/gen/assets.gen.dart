@@ -118,6 +118,9 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/home.svg
   String get home => 'assets/images/svgs/home.svg';
 
+  /// File path: assets/images/svgs/ic_delete.svg
+  String get icDelete => 'assets/images/svgs/ic_delete.svg';
+
   /// File path: assets/images/svgs/ic_person_edit.svg
   String get icPersonEdit => 'assets/images/svgs/ic_person_edit.svg';
 
@@ -222,6 +225,7 @@ class $AssetsImagesSvgsGen {
         grid03,
         groups,
         home,
+        icDelete,
         icPersonEdit,
         icSetting,
         image03,

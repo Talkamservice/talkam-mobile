@@ -62,6 +62,8 @@ class PostCategory {
   DateTime createdAt;
   DateTime updatedAt;
 
+  String get postCategoryImage => iconImage ?? backgroundImage;
+
   PostCategory({
     required this.id,
     required this.name,

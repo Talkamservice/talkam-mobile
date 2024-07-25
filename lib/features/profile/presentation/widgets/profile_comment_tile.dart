@@ -1,68 +1,67 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/theme/pallets.dart';
-import 'package:talkam/gen/assets.gen.dart';
+import 'package:talkam/features/post/data/models/talk_am_comment.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class ProfileCommentTile extends StatelessWidget {
-  const ProfileCommentTile({super.key});
+  final TalkAmComment talkAmComment;
+
+  const ProfileCommentTile({super.key, required this.talkAmComment});
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ImageWidget(
-              imageUrl: Assets.images.png.woman.path,
-              size: 36,
-            ),
-            12.horizontalSpace,
-            Flexible(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      TextView(
-                        text: "daphne322",
-                        fontSize: 14.sp,
-                        color: Pallets.boldBlackV2,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      14.horizontalSpace,
-                      Container(
-                        width: 6,
-                        height: 6,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(color: const Color(0xFFF96C40), width: 1.33),
-                        ),
-                      ),
-                      14.horizontalSpace,
-                      TextView(
-                        text: "13hrs",
-                        fontSize: 12.sp,
-                        fontWeight: FontWeight.w700,
-                        color: Pallets.primary400,
-                      ),
-                    ],
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              RichText(
+                text: TextSpan(children: [
+                  TextSpan(
+                    text: "“@${talkAmComment.commentReplyTo} ",
+                    style: GoogleFonts.nunito(
+                      color: Pallets.boldBlackV2,
+                      fontWeight: FontWeight.w700,
+                      fontSize: 14.sp,
+                    ),
                   ),
-                  5.verticalSpace,
-                  TextView(
-                    text:
-                        "I have been building PCs for 25 years. I have the latest tech in my gaming rig, but I also have a PC with Pentium 4 and Windows XP with service pack 3. It plays my music and videos just as well as any PC today.",
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w400,
-                    color: Pallets.boldBlackV2,
-                  )
-                ],
+                  TextSpan(
+                    text: talkAmComment.comment,
+                    style: GoogleFonts.nunito(
+                      color: Pallets.boldBlackV2,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 15.sp,
+                    ),
+                  ),
+                ]),
               ),
-            )
-          ],
+              Padding(
+                padding: EdgeInsets.only(top: 5.h),
+                child: TextView(
+                  text: timeago.format(talkAmComment.createdAt),
+                  color: const Color(0xFF444444),
+                  fontWeight: FontWeight.w600,
+                  fontSize: 12.sp,
+                ),
+              )
+            ],
+          ),
         ),
+        if (talkAmComment.isReplyingToComment)...[
+          ImageWidget(
+            imageUrl: talkAmComment.replyTo!.avatar,
+            width: 64.w,
+            height: 58.h,
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+        ]
       ],
     );
   }

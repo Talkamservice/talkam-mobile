@@ -139,6 +139,7 @@ dependencies:
   shimmer: ^3.0.0
   firebase_storage: ^11.6.9
   readmore: ^3.0.0
+  bloc: ^8.1.2
   # flutter_background: ^1.2.0
 #  audio_manager: ^0.8.2
 

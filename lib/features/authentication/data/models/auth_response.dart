@@ -162,4 +162,20 @@ class TalkamUser {
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
       };
+
+  factory TalkamUser.forTest() {
+    return TalkamUser(
+      id: -1,
+      avatar: "https://talkam.prodevs.io/file/YXBwL21lZGlhL3VzZXIvYXZhdGFycy82NjlmYjVjNGM4ZTBlLnBuZw==",
+      email: "bardakhaev@shopshiba.site",
+      role: "User",
+      age: null,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+      username: "bardo_khan",
+      name: "bardo_khan",
+      status: "Active",
+      interests: [],
+    );
+  }
 }

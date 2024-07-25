@@ -48,6 +48,7 @@ abstract class Pallets {
   static const maybeBlack = Color(0xFF101010);
   static const red = Color(0xFFE15B2D);
   static const black80 = Color(0xFF333333);
+  static const boldRed = Color(0xFFEE1414);
   static const black = Colors.black;
 
   // static const red = Colors.red;
@@ -67,7 +68,7 @@ abstract class Pallets {
   static const boldBlackV2 = Color(0xff212121);
   static const grey500 = Color(0xff858585);
   static const primary400 = Color(0xff2F6CE2);
-  static const boldRed = Color(0xffF95555);
+  static const boldRedV2 = Color(0xffF95555);
 
   // static const secondary = Color(0xFFCC9933);
   static const avatarBackgrounds = [
