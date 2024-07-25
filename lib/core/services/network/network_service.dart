@@ -47,6 +47,7 @@ class NetworkService {
       baseUrl: baseUrl ?? UrlConfig.coreBaseUrl,
     ));
     authToken ??= SessionManager.instance.authToken;
+    logger.i("authToken is ${SessionManager.instance.usersData}");
     dio!.interceptors.add(LogInterceptor(
       requestBody: true,
       responseBody: true,

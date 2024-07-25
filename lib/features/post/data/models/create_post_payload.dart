@@ -86,7 +86,7 @@ class CreatePostPayload {
         "title": title,
         "body": body,
         "status": status,
-        "publish_at": publishAt,
+        "publish_at": (publishAt ?? DateTime.now().toLocal()).toString(),
         "can_comment": canComment,
         "is_anonymous": isAnonymous,
         "attachments": attachments == null

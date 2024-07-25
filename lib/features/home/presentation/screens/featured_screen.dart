@@ -28,6 +28,7 @@ class _FeaturedScreenState extends State<FeaturedScreen>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: Column(
         children: [

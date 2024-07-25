@@ -95,7 +95,7 @@ class TalkamPost {
   PostCreator user;
   int canComment;
   int isAnonymous;
-  List<String>? tags;
+  List<String> tags;
   int viewsCount;
   int commentsCount;
   int likesCount;
@@ -106,6 +106,8 @@ class TalkamPost {
   PostReaction? reaction;
   DateTime createdAt;
   DateTime updatedAt;
+
+  bool get isSchedulePost => status.toLowerCase() == "Scheduled".toLowerCase();
 
   TalkamPost({
     required this.id,
@@ -192,7 +194,7 @@ class TalkamPost {
         commentsCount: json["comments_count"],
         likesCount: json["likes_count"],
         status: json["status"],
-        publishAt: json["publish_at"],
+        publishAt: json["publish_at"] != null ? DateTime.parse(json["publish_at"]) : null,
         attachments: List<Attachment>.from(
             json["attachments"].map((x) => Attachment.fromJson(x))),
         polls: List<TalkamPoll>.from(
@@ -214,7 +216,7 @@ class TalkamPost {
         "user": user.toJson(),
         "can_comment": canComment,
         "is_anonymous": isAnonymous,
-        "tags": tags == null ? [] : List<dynamic>.from(tags!.map((x) => x)),
+        "tags": tags.isEmpty ? [] : List<String>.from(tags.map((x) => x)),
         "views_count": viewsCount,
         "comments_count": commentsCount,
         "likes_count": likesCount,
