@@ -26,12 +26,13 @@ class AppDrawer extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               Expanded(
                 child: BlocConsumer<DrawerCubit, DrawerState>(
                   buildWhen: _buildWhen,
                   listener: (context, state) {},
                   builder: (context, state) {
+
+
                     return state.maybeWhen(
                       orElse: () => CategoriesList(),
                       categoryView: () => CategoriesList(),
@@ -39,6 +40,8 @@ class AppDrawer extends StatelessWidget {
                         category: subCategory,
                       ),
                     );
+
+
                   },
                 ),
               ),

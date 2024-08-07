@@ -103,8 +103,8 @@ class PostRepositoryImpl extends PostRepository {
   Future<dynamic> deletePost(String postId) async {
     try {
       final response = await _networkService.call(
-          UrlConfig.deletePosts, RequestMethod.delete,
-          data: {"post_id": postId});
+          UrlConfig.deletePosts(postId), RequestMethod.delete,
+          queryParams: {"post_id": postId});
 
       return response.data;
     } catch (e) {
@@ -200,8 +200,8 @@ class PostRepositoryImpl extends PostRepository {
   Future<dynamic> deleteComment(String commentId) async {
     try {
       final response = await _networkService.call(
-          UrlConfig.deleteComment, RequestMethod.delete,
-          data: {"commentId": commentId});
+          UrlConfig.deleteComment(commentId), RequestMethod.delete,
+          data: {"post_comment_id": commentId});
       return response.data;
     } catch (e) {
       rethrow;

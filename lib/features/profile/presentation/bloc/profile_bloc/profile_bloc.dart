@@ -103,7 +103,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   FutureOr<void> _mapGetRemoteUserEventToState(
       GetRemoteUser event, Emitter<ProfileState> emit) async {
-    emit(BlockUserLoadingState());
+    emit(GetProfileLoadingState());
     try {
       var user = injector.get<ProfileBloc>().appUser;
       final response = await _profileRepository.getProfile(user!.id.toString());

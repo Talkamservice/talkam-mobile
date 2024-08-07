@@ -61,9 +61,11 @@ class PostState with _$PostState {
   const factory PostState.commentReactionFailure(String error) = CommentReactionFailureState;
 
 
+
   const factory PostState.getGuidelinesLoading() = GetGuidelinesLoading;
   const factory PostState.getGuideLinesSuccess(GetGuidlinesResponse response) = GetGuidelinesSuccess;
   const factory PostState.getGuideLinesFailed(String error) = GetGuidelinesFailed;
+
 
 
   const factory PostState.reportCommentLoading() = ReportCommentLoadingState;

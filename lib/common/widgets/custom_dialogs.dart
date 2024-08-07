@@ -554,7 +554,8 @@ class ButtonDialog extends StatelessWidget {
         onPressed: onTap,
         child: TextView(
           text: title,
-          style: GoogleFonts.sora(fontSize: 16.sp, fontWeight: FontWeight.w400),
+          style: GoogleFonts.sora(
+              fontSize: 16.sp, fontWeight: FontWeight.w400, color: fgColor),
         ));
   }
 }

@@ -24,6 +24,7 @@ class ProfileCommentTile extends StatelessWidget {
             children: [
               RichText(
                 text: TextSpan(children: [
+
                   TextSpan(
                     text: "“@${talkAmComment.commentReplyTo} ",
                     style: GoogleFonts.nunito(

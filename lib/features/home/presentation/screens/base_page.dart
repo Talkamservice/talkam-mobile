@@ -7,6 +7,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
 import 'package:talkam/features/home/presentation/widgets/app_drawer.dart';
 import 'package:talkam/gen/assets.gen.dart';
@@ -121,8 +122,14 @@ class _BasePageState extends State<BasePage> {
               ),
               _BottomNavIcon(
                 onTap: (p0) {
+                  GuestUserHelper.handleGuestUserAction(
+                    message: "Login or Signup to create post",
+                    action: () {
+                      context.pushNamed(PageUrl.createPostScreen);
+                    },
+                  );
+
                   // SessionManager.instance.logOut();
-                  context.pushNamed(PageUrl.createPostScreen);
                 },
                 currentIndex: widget.navigationShell.currentIndex,
                 iconPath: Assets.images.svgs.add,

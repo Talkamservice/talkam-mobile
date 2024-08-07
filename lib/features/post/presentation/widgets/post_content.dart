@@ -12,6 +12,7 @@ import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
 import 'package:talkam/features/post/presentation/bloc/poll/poll_bloc.dart';
@@ -196,8 +197,13 @@ class _PollsWidgetState extends State<PollsWidget> {
                         poll: widget.polls[index],
                         // controller: controllers[index],
                         onTap: () {
-                          pollBloc.add(PollEvent.selectPoll(
-                              widget.polls[index].id.toString()));
+                          GuestUserHelper.handleGuestUserAction(
+                            message: "Login to vote",
+                            action: () {
+                              pollBloc.add(PollEvent.selectPoll(
+                                  widget.polls[index].id.toString()));
+                            },
+                          );
                         },
                       ),
               ),
@@ -263,6 +269,8 @@ class _VotedPollItemState extends State<VotedPollItem>
     logger.i("dependency change Called");
     super.didChangeDependencies();
   }
+
+
 
   ValueNotifier<double> sliderValue = ValueNotifier(30);
 

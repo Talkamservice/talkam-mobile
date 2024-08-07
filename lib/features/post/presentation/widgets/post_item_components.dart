@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
-import 'package:talkam/common/widgets/readmore_text.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
+import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/core/utils/extensions/int_extension.dart';
 import 'package:talkam/core/utils/time_util.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
-import 'package:talkam/features/post/presentation/widgets/post_image.dart';
 import 'package:talkam/features/post/presentation/widgets/post_reaction_button.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class AvatarImage extends StatelessWidget {
@@ -42,9 +44,22 @@ class PostHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        AvatarImage(
-            imageUrl: category.iconImage ?? Assets.images.png.dating.path,
-            size: 32),
+        if (post.isAnonymous.toBool)
+          ImageWidget(
+            imageUrl: Assets.images.svgs.dummyUser,
+            size: 32,
+          ),
+        if (!post.isAnonymous.toBool)
+          InkWell(
+            onTap: () {
+              viewUsersProfile(context);
+            },
+            child: IgnorePointer(
+              child: AvatarImage(
+                  imageUrl: post.user.avatar ?? Assets.images.png.dating.path,
+                  size: 32),
+            ),
+          ),
         10.horizontalSpace,
         Expanded(
           child: Column(
@@ -60,18 +75,26 @@ class PostHeader extends StatelessWidget {
                   ImageWidget(imageUrl: Assets.images.svgs.grid03),
                   4.horizontalSpace,
                   TextView(
-                    text: TimeUtil.getTimeAgo(
-                        post.createdAt.toString()),
+                    text: TimeUtil.getTimeAgo(post.createdAt.toString()),
                     fontWeight: FontWeight.w700,
                     color: context.colorScheme.primary,
                   ),
                 ],
               ),
-              TextView(
-                text: "Posted by $userName",
-                color: Pallets.grey,
-                fontWeight: FontWeight.w600,
-                fontSize: 12,
+              InkWell(
+                onTap: () {
+                  if (!post.isAnonymous.toBool) {
+                    viewUsersProfile(context);
+                  } else {
+                    CustomDialogs.showToast("User is anonymous");
+                  }
+                },
+                child: TextView(
+                  text: "Posted by $userName",
+                  color: Pallets.grey,
+                  fontWeight: FontWeight.w600,
+                  fontSize: 12,
+                ),
               ),
             ],
           ),
@@ -83,6 +106,18 @@ class PostHeader extends StatelessWidget {
         )
       ],
     );
+  }
+
+  void viewUsersProfile(BuildContext context) {
+    var me = injector.get<ProfileBloc>().appUser;
+    if (me?.id == post.user.id) {
+      context.pushNamed(
+        PageUrl.profileScreen,
+      );
+    } else {
+      context.pushNamed(PageUrl.userProfileScreen,
+          extra: post.user.id.toString());
+    }
   }
 }
 
@@ -178,16 +213,19 @@ class _PostActionsState extends State<PostActions> {
               ],
             )),
         const Spacer(),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-          decoration: BoxDecoration(
-              // shape: BoxShape.circle,
-              borderRadius: BorderRadius.circular(100.r),
-              border: Border.all(
-                width: 1,
-                color: Pallets.borderGrey,
-              )),
-          child: ImageWidget(imageUrl: Assets.images.svgs.share),
+        InkWell(
+          onTap: widget.onShareTap,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
+            decoration: BoxDecoration(
+                // shape: BoxShape.circle,
+                borderRadius: BorderRadius.circular(100.r),
+                border: Border.all(
+                  width: 1,
+                  color: Pallets.borderGrey,
+                )),
+            child: ImageWidget(imageUrl: Assets.images.svgs.share),
+          ),
         )
       ],
     );

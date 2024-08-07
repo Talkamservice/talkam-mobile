@@ -15,3 +15,15 @@ const String anonymousCommentText =
 
 const String rulesHeader =
     "Our community fosters respectful dialogue. Be kind, avoid hate speech, and refrain from spamming or sharing personal information. Moderators enforce these guidelines. ";
+
+const String deleteAccountIntro =
+    "You are about to permanently delete your TalkAM account. This action is irreversible, and all your data will be lost. Please read the following carefully:";
+
+
+const List<String> deleteAccountInstructions = [
+  "Your profile information, posts, photos, and videos will be permanently removed.",
+  "All your messages and comments will be deleted.",
+  "Once you delete your account, there is no way to recover any of your data.",
+  "You will not be able to reactivate your account.",
+  "Download your data before deleting your account if you wish to keep a record of your information."
+];

@@ -11,6 +11,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/di/injector.dart' as di;
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:tiktok_login_flutter/tiktok_login_flutter.dart';
+import 'core/services/firebase/notifiactions.dart';
 import 'core/services/pay/pay_service.dart';
 import 'firebase_options.dart';
 
@@ -63,7 +64,7 @@ class AppConfig {
       options: DefaultFirebaseOptions.currentPlatform,
     );
     // CrashlyticsService.onCrash();
-    // await notificationService.initializeNotification();
+    await notificationService.initializeNotification();
     // FirebaseDatabase.instance.setPersistenceEnabled(true);
     // await FirebaseMessaging.instance.getInitialMessage();
     // StripeService.initialize();

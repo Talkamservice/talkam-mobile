@@ -11,9 +11,13 @@ import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_screen_cubit/profile_screen_cubit.dart';
-import 'package:talkam/features/profile/presentation/tabs/profile_comments_tab.dart';
-import 'package:talkam/features/profile/presentation/tabs/profile_posts_tab.dart';
-import 'package:talkam/features/profile/presentation/tabs/profile_upvotes_tab.dart';
+import 'package:talkam/features/profile/presentation/bloc/user_profile_cubit/user_profile_cubit.dart';
+import 'package:talkam/features/profile/presentation/screens/tabs/profile_comments_tab.dart';
+import 'package:talkam/features/profile/presentation/screens/tabs/profile_posts_tab.dart';
+import 'package:talkam/features/profile/presentation/screens/tabs/profile_upvotes_tab.dart';
+import 'package:talkam/features/profile/presentation/screens/user_profile_tabs/user_profile_comments_tab.dart';
+import 'package:talkam/features/profile/presentation/screens/user_profile_tabs/user_profile_posts_tab.dart';
+import 'package:talkam/features/profile/presentation/screens/user_profile_tabs/user_profile_upvotes_tab.dart';
 import 'package:talkam/features/profile/presentation/widgets/profile_tab_bar.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
@@ -36,21 +40,24 @@ enum _ProfileTabOptions {
   }
 }
 
-class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+class UserProfileScreen extends StatefulWidget {
+  const UserProfileScreen({super.key, required this.userId});
+
+  final String userId;
 
   @override
-  State<ProfileScreen> createState() => _ProfileScreenState();
+  State<UserProfileScreen> createState() => _UserProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _UserProfileScreenState extends State<UserProfileScreen> {
   _ProfileTabOptions _selectedTab = _ProfileTabOptions.posts;
   final PageController _pageController = PageController();
   TalkamUser _talkamUser = TalkamUser.forTest();
+  var userName;
 
   @override
   void initState() {
-    injector.get<ProfileScreenCubit>().fetchUserProfile();
+    injector.get<UserProfileCubit>().fetchUserProfile(widget.userId);
     super.initState();
   }
 
@@ -62,12 +69,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ProfileScreenCubit, ProfileScreenState>(
-      bloc: injector.get<ProfileScreenCubit>(),
+    return BlocConsumer<UserProfileCubit, UserProfileState>(
+      bloc: injector.get<UserProfileCubit>(),
       listener: (context, state) {
         state.maybeWhen(
-          loaded: (TalkamUser talkAmUser) {
+          profileLoaded: (TalkamUser talkAmUser) {
             _talkamUser = talkAmUser;
+            userName = _talkamUser.username;
             setState(() {});
           },
           orElse: () {},
@@ -77,28 +85,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
         return Scaffold(
           appBar: CustomAppBar(
             padding: const EdgeInsets.all(0.0),
-            tittleText: "Profile",
+            tittleText: userName ?? "",
             centerTile: false,
             showDivider: true,
-            actions: [
-              Padding(
-                padding: EdgeInsets.only(right: 10.w),
-                child: GestureDetector(
-                  onTap: () {
-                    context.pushNamed(PageUrl.settingsScreen);
-                  },
-                  child: SvgPicture.asset(
-                    Assets.images.svgs.icSetting,
-                  ),
-                ),
-              )
+            actions: const [
+              // Padding(
+              //   padding: EdgeInsets.only(right: 10.w),
+              //   child: GestureDetector(
+              //     onTap: () {
+              //       context.pushNamed(PageUrl.settingsScreen);
+              //     },
+              //     child: SvgPicture.asset(
+              //       Assets.images.svgs.icSetting,
+              //     ),
+              //   ),
+              // )
             ],
           ),
           body: SafeArea(
             child: state.maybeWhen(
-                loading: () =>
+                profileLoading: () =>
                     Center(child: CustomDialogs.getLoading(size: 50)),
-                error: () => const SizedBox(),
+                getProfileError: () => const SizedBox(),
                 orElse: () {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -113,7 +121,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               width: 80.w,
                               height: 80.w,
                               shape: BoxShape.circle,
-                              imageUrl: _talkamUser.avatar,
+                              canPreview: true,
+                              fit: BoxFit.cover,
+                              imageUrl:
+                                  _talkamUser.avatar ?? Assets.images.svgs.user,
                             ),
                             10.horizontalSpace,
                             Padding(
@@ -124,25 +135,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 color: Pallets.boldBlackV2,
                               ),
                             ),
-                            const Spacer(),
-                            Container(
-                              height: 40.h,
-                              padding: EdgeInsets.symmetric(horizontal: 10.w),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(56),
-                                border: Border.all(color: Pallets.borderGrey),
-                              ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  ImageWidget(
-                                      imageUrl:
-                                          Assets.images.svgs.icPersonEdit),
-                                  4.horizontalSpace,
-                                  const TextView(text: "Edit profile")
-                                ],
-                              ),
-                            )
                           ],
                         ),
                       ),
@@ -185,15 +177,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     : _ProfileTabOptions.upVotes;
                             setState(() {});
                           },
-                          children: const [
-                            ProfilePostTab(
-                              key: PageStorageKey(_ProfileTabOptions.posts),
+                          children: [
+                            UserProfilePostTab(
+                              key: const PageStorageKey(
+                                  _ProfileTabOptions.posts),
+                              userId: widget.userId,
                             ),
-                            ProfileCommentsTab(
-                              key: PageStorageKey(_ProfileTabOptions.comments),
+                            UserProfileCommentsTab(
+                              key: const PageStorageKey(
+                                  _ProfileTabOptions.comments),
+                              userID: widget.userId,
                             ),
-                            ProfileUpvotesTab(
-                              key: PageStorageKey(_ProfileTabOptions.upVotes),
+                            UserProfileUpvotesTab(
+                              key: const PageStorageKey(
+                                  _ProfileTabOptions.upVotes),
+                              userId: widget.userId,
                             ),
                           ],
                         ),

@@ -51,7 +51,8 @@ class SessionManager {
       sharedPreferences!.setString(KEY_USERS_DATA, json.encode(map));
 
   bool get doesUserDataExists {
-    return sharedPreferences!.containsKey(KEY_AUTH_TOKEN) && authToken.isNotEmpty;
+    return sharedPreferences!.containsKey(KEY_AUTH_TOKEN) &&
+        authToken.isNotEmpty;
   }
 
   set arrivedHome(bool allowed) {
@@ -125,9 +126,7 @@ class SessionManager {
     final holdEmail = sharedPreferences?.getString(KEY_USER_EMAIL);
     final holdPass = sharedPreferences?.getString(KEY_BALANCE);
     final holdUseBio = sharedPreferences?.getBool(KEY_USE_BIO);
-
     await sharedPreferences!.clear();
-
     sharedPreferences?.setString(KEY_USER_EMAIL, holdEmail ?? '');
     sharedPreferences?.setString(KEY_BALANCE, holdPass ?? '');
     sharedPreferences?.setBool(KEY_USE_BIO, holdUseBio ?? false);

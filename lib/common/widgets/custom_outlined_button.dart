@@ -34,35 +34,40 @@ class CustomOutlinedButton extends StatefulWidget {
 class _CustomOutlinedButtonState extends State<CustomOutlinedButton> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width:widget.isExpanded!? 1.sw - 127.w:null,
-      child: ElevatedButton(
-        onPressed: widget.onPressed,
-        style: OutlinedButton.styleFrom(
-          padding: widget.padding ?? const EdgeInsets.all(16),
-          foregroundColor: widget.foreGroundColor ??
-              Theme.of(context).colorScheme.onBackground,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(widget.radius ?? 10),
-            side: BorderSide(
-              width: widget.outlineWidth ?? 1,
-              color: widget.outlinedColr ??
+    return Row(
+
+      children: [
+        Expanded(
+          flex: widget.isExpanded! ? 1 : 0,
+          child: ElevatedButton(
+            onPressed: widget.onPressed,
+            style: OutlinedButton.styleFrom(
+              padding: widget.padding ?? const EdgeInsets.all(16),
+              foregroundColor: widget.foreGroundColor ??
                   Theme.of(context).colorScheme.onBackground,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(widget.radius ?? 10),
+                side: BorderSide(
+                  width: widget.outlineWidth ?? 1,
+                  color: widget.outlinedColr ??
+                      Theme.of(context).colorScheme.onBackground,
+                ),
+              ),
+              elevation: 0,
+              // disabledBackgroundColor: Theme.of(context).primaryColor.withAlpha(-200),
+              backgroundColor: widget.bgColor ?? Colors.transparent,
+            ),
+            child: Row(
+              mainAxisSize:
+                  widget.isExpanded! ? MainAxisSize.max : MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                widget.child,
+              ],
             ),
           ),
-          elevation: 0,
-          // disabledBackgroundColor: Theme.of(context).primaryColor.withAlpha(-200),
-          backgroundColor: widget.bgColor ?? Colors.transparent,
         ),
-        child: Row(
-          mainAxisSize:
-              widget.isExpanded! ? MainAxisSize.max : MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            widget.child,
-          ],
-        ),
-      ),
+      ],
     );
   }
 }

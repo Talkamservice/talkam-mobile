@@ -9,6 +9,7 @@ import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
 import 'package:talkam/features/home/presentation/screens/featured_screen.dart';
 import 'package:talkam/features/home/presentation/screens/recent_screen.dart';
@@ -26,8 +27,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController();
   final tabItems = [
-    HomeTabItemModel(imagePath: Assets.images.svgs.icfeatured, tittle: "Featured"),
-    HomeTabItemModel(imagePath: Assets.images.svgs.icTrending, tittle: "Trending"),
+    HomeTabItemModel(
+        imagePath: Assets.images.svgs.icfeatured, tittle: "Featured"),
+    HomeTabItemModel(
+        imagePath: Assets.images.svgs.icTrending, tittle: "Trending"),
     HomeTabItemModel(imagePath: Assets.images.svgs.icNew, tittle: "Recent"),
   ];
 
@@ -77,14 +80,18 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: [
                                 ImageWidget(
                                   imageUrl: tabItems[index].imagePath,
-                                  color: selecteIndex == index ? context.colorScheme.primary : Pallets.grey,
+                                  color: selecteIndex == index
+                                      ? context.colorScheme.primary
+                                      : Pallets.grey,
                                 ),
                                 8.horizontalSpace,
                                 TextView(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
                                   text: tabItems[index].tittle,
-                                  color: selecteIndex == index ? context.colorScheme.onSurface : Pallets.grey60,
+                                  color: selecteIndex == index
+                                      ? context.colorScheme.onSurface
+                                      : Pallets.grey60,
                                   // fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
                                 ),
                               ],
@@ -162,23 +169,34 @@ class HomeAppBar extends StatelessWidget {
               ),
             ),
             20.horizontalSpace,
-            InkWell(
+
+            GuestUserHelper.guestUserWidget(
+                widget: ImageWidget(
+              imageUrl: injector.get<ProfileBloc>().appUser?.avatar ??
+                  Assets.images.svgs.uploadAvatar,
+              size: 40,
               onTap: () {
-                // context.pushNamed(PageUrl.notifications);
+                context.pushNamed(PageUrl.profileScreen);
               },
-              child: SessionManager.instance.isLoggedIn
-                  ? ImageWidget(
-                      imageUrl: injector.get<ProfileBloc>().appUser?.avatar ?? Assets.images.svgs.uploadAvatar,
-                      size: 40,
-                      onTap: () {
-                        context.pushNamed(PageUrl.profileScreen);
-                      },
-                    )
-                  : ImageWidget(
-                      imageUrl: injector.get<ProfileBloc>().appUser?.avatar ?? Assets.images.svgs.profile,
-                      onTap: () {},
-                    ),
-            ),
+            )),
+
+            // InkWell(
+            //   onTap: () {
+            //     // context.pushNamed(PageUrl.notifications);
+            //   },
+            //   child: SessionManager.instance.isLoggedIn
+            //       ? ImageWidget(
+            //           imageUrl: injector.get<ProfileBloc>().appUser?.avatar ?? Assets.images.svgs.uploadAvatar,
+            //           size: 40,
+            //           onTap: () {
+            //             context.pushNamed(PageUrl.profileScreen);
+            //           },
+            //         )
+            //       : ImageWidget(
+            //           imageUrl: injector.get<ProfileBloc>().appUser?.avatar ?? Assets.images.svgs.profile,
+            //           onTap: () {},
+            //         ),
+            // ),
           ],
         ),
       ),

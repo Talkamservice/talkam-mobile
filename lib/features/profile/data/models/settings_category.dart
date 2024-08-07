@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/core/services/data/session_manager.dart';
 
 class SettingsCategory {
   final String title;
@@ -25,7 +28,9 @@ SettingsCategory contentSettings = SettingsCategory(
   items: [
     SettingsItem(
       title: 'Blocked users',
-      onTap: (context) {},
+      onTap: (context) {
+        context.pushNamed(PageUrl.blockedUsersScreen);
+      },
     ),
   ],
 );
@@ -35,15 +40,22 @@ SettingsCategory accountSettings = SettingsCategory(
   items: [
     SettingsItem(
       title: 'Notifications',
-      onTap: (context) {},
+      onTap: (context) {
+        context.pushNamed(PageUrl.notificationSettingsScreen);
+      },
     ),
     SettingsItem(
       title: 'Account Settings',
-      onTap: (context) {},
+      onTap: (context) {
+        context.pushNamed(PageUrl.accountSettingsScreen);
+      },
     ),
     SettingsItem(
       title: 'Log out',
-      onTap: (context) {},
+      onTap: (context) {
+        SessionManager.instance.logOut();
+        context.goNamed(PageUrl.onboardingIntro);
+      },
     ),
   ],
 );

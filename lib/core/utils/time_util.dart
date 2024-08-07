@@ -141,6 +141,9 @@ class TimeUtil {
   static String formatDay(DateTime dateTime) {
     return DateFormat('EEEE').format(dateTime);
   }
+  static String monthYeay(DateTime dateTime) {
+    return DateFormat('MMMM yyyy').format(dateTime);
+  }
 
   static String formatTime(DateTime dateTime) {
     return DateFormat.jm().format(dateTime);

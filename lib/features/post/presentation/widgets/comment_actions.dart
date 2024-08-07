@@ -16,6 +16,7 @@ class CommentActions extends StatefulWidget {
   final int dislikeCount;
   final String postId;
   final VoidCallback onCommentTap;
+  final VoidCallback onCommentDeleted;
   final VoidCallback onLikeTap;
   final PostComment comment;
 
@@ -25,6 +26,7 @@ class CommentActions extends StatefulWidget {
     required this.postId,
     required this.onLikeTap,
     required this.dislikeCount,
+    required this.onCommentDeleted,
     required this.comment,
   });
 
@@ -66,7 +68,7 @@ class _CommentActionsState extends State<CommentActions> {
               id: widget.comment.id.toString(),
               reaction: widget.comment.reaction,
               onLikeAdded: () {
-                if (widget.comment.unlikes >= 1) {
+                if (widget.comment.reaction?.isLike ?? false) {
                   widget.comment.unlikes -= 1;
                 }
                 widget.comment.reaction = PostReaction.like();
@@ -99,16 +101,11 @@ class _CommentActionsState extends State<CommentActions> {
                 widget.comment.likes -= 1;
                 setState(() {});
               },
-
-
-
               onDisliked: () {
                 widget.comment.reaction = PostReaction.dislike();
                 widget.comment.unlikes += 1;
                 setState(() {});
               },
-
-
               onReactionRemoved: () {
                 if (widget.comment.unlikes >= 1) {
                   widget.comment.unlikes -= 1;
@@ -125,7 +122,9 @@ class _CommentActionsState extends State<CommentActions> {
               CustomDialogs.showBottomSheet(
                   context,
                   CommentActionSheet(
-                    comment: widget.comment, postId: widget.postId,
+                    comment: widget.comment,
+                    postId: widget.postId,
+                    onDeleted: widget.onCommentDeleted,
                   ));
             },
             icon: const Icon(Icons.more_vert))

@@ -24,7 +24,7 @@ class _CustomReadMoreTextState extends State<CustomReadMoreText> {
 
     return Column(
       children: [
-        12.verticalSpace,
+        3.verticalSpace,
         LayoutBuilder(
           builder: (context, size) {
             final span = TextSpan(

@@ -104,7 +104,6 @@ class _PostReactionButtonState extends State<PostReactionButton> {
       widget.onReactionRemoved();
       // widget.onCountReduced();
     } else {
-
       if (widget.reaction?.isLike ?? false) {
         widget.onCountReduced();
       }

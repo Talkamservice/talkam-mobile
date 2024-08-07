@@ -95,7 +95,6 @@ class _PostDetailsScreenState extends State<PostDetailsScreen>
                         onTap: () {
                           CustomDialogs.showBottomSheet(
                               context, const RulesSheet());
-
                         },
                         child: Container(
                           decoration:
@@ -190,6 +189,10 @@ class _PostDetailsScreenState extends State<PostDetailsScreen>
                                 isReply: false,
                                 comment: commentBloc.comments[index],
                                 posId: widget.post.id,
+                                onDeleted: () {
+                                  refresh();
+                                },
+
                                 // onTap: () {
                                 //   // context.read<DrawerCubit>().switchView(
                                 //   //     DrawerView.subCategory,
@@ -209,6 +212,13 @@ class _PostDetailsScreenState extends State<PostDetailsScreen>
         ),
       ),
     );
+  }
+
+  void refresh() {
+    postBloc.add(PostEvent.getPostDetails(widget.post.id.toString()));
+    refreshPost(reload: false);
+    commentBloc.add(
+        CommentsEvent.getComments(widget.post.id.toString(), reload: false));
   }
 
   void commentToPost(SaveCommentPayload payload) {
