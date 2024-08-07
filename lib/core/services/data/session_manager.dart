@@ -44,14 +44,15 @@ class SessionManager {
   static const String IS_CONTACT_PERMITTED = 'permit_contact';
   static const String KEY_USER_EMAIL = 'logged_in_user_email';
 
-  Map get usersData =>
-      json.decode(sharedPreferences!.getString(KEY_USERS_DATA) ?? '');
+  Map<String, dynamic> get usersData =>
+      json.decode(sharedPreferences!.getString(KEY_USERS_DATA) ?? '{}');
 
-  set usersData(Map map) =>
+  set usersData(Map<String, dynamic> map) =>
       sharedPreferences!.setString(KEY_USERS_DATA, json.encode(map));
 
-  bool doesUserDataExists() {
-    return sharedPreferences!.containsKey(KEY_AUTH_TOKEN);
+  bool get doesUserDataExists {
+    return sharedPreferences!.containsKey(KEY_AUTH_TOKEN) &&
+        authToken.isNotEmpty;
   }
 
   set arrivedHome(bool allowed) {
@@ -125,9 +126,7 @@ class SessionManager {
     final holdEmail = sharedPreferences?.getString(KEY_USER_EMAIL);
     final holdPass = sharedPreferences?.getString(KEY_BALANCE);
     final holdUseBio = sharedPreferences?.getBool(KEY_USE_BIO);
-
     await sharedPreferences!.clear();
-
     sharedPreferences?.setString(KEY_USER_EMAIL, holdEmail ?? '');
     sharedPreferences?.setString(KEY_BALANCE, holdPass ?? '');
     sharedPreferences?.setBool(KEY_USE_BIO, holdUseBio ?? false);

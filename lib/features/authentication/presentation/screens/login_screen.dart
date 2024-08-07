@@ -9,7 +9,7 @@ import 'package:talkam/common/widgets/outlined_form_field.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
-import 'package:talkam/core/mixins/login_mixin.dart';
+import 'package:talkam/core/mixins/returning_user_mixin.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/features/authentication/presentation/bloc/auth_bloc.dart';
@@ -162,7 +162,7 @@ class _LoginScreenState extends State<LoginScreen> with ReturningUserMixin {
     if (state is LoginSuccess) {
       context.pop();
       CustomDialogs.success("Login successful.");
-      handleLoginSuccess(context, state.response.data.user);
+      gotoNextScreen(context, state.response.data.user);
     }
   }
 }

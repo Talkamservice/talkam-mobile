@@ -125,6 +125,9 @@ class _CreatePostScreenState extends State<CreatePostScreen>
                       onChanged: (val) {
                         schedulePost = val;
                         setState(() {});
+                        if(!val){
+                          scheduleDate = null;
+                        }
                       },
                       onScheduleDateSelected: (date) {
                         scheduleDate = date;
@@ -152,13 +155,10 @@ class _CreatePostScreenState extends State<CreatePostScreen>
         formKey.currentState?.validate();
       },
       validateFormsSuccessState: () {
-
-
-        if(formKey.currentState?.validate()??false){
+        if (formKey.currentState?.validate() ?? false) {
           if (selectedCategory == null) {
             CustomDialogs.error("Please select a category");
           } else {
-
             if (schedulePost && scheduleDate == null) {
               CustomDialogs.error("Please select scheduled time and date");
             } else {
@@ -168,15 +168,12 @@ class _CreatePostScreenState extends State<CreatePostScreen>
                   isAnonymous: isAnonymous.toInt,
                   title: tittleController.text,
                   type: postType.name.capitalizeFirst));
-              logger
-                  .w(context.read<CreatePostCubit>().createPostPayload.toJson());
+              logger.w(
+                  context.read<CreatePostCubit>().createPostPayload.toJson());
               context.read<CreatePostCubit>().createPost();
             }
           }
         }
-
-
-
       },
       createPostLoading: () => CustomDialogs.showLoading(context),
       createPostFailure: (error) {

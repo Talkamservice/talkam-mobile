@@ -8,21 +8,24 @@ class PostFilterModel {
 
   factory PostFilterModel.all() => PostFilterModel();
 
-  factory PostFilterModel.featuredPost() => PostFilterModel(tab: 'featured');
+  factory PostFilterModel.featuredPost({String? category}) =>
+      PostFilterModel(tab: 'featured', category: category);
 
-  factory PostFilterModel.recentPost() => PostFilterModel(tab: 'latest');
+  factory PostFilterModel.recentPost({String? category}) =>
+      PostFilterModel(tab: 'latest', category: category);
 
-  factory PostFilterModel.trendingPost() => PostFilterModel(tab: 'trending');
+  factory PostFilterModel.trendingPost({String? category}) =>
+      PostFilterModel(tab: 'trending', category: category);
 
   factory PostFilterModel.category(
           {required String categoryId, required String tab}) =>
-      PostFilterModel(tab: 'featured');
+      PostFilterModel(tab: 'featured', category: categoryId);
 
   PostFilterModel({this.tab, this.category, this.limit, this.search});
 
   Map<String, dynamic> toJson() => {
         'tab': tab,
-        'category': category,
+        'category_id': category,
         'limit': limit,
         'search': search,
       };

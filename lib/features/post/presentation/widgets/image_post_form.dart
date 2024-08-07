@@ -23,7 +23,8 @@ class ImagePostForm extends StatefulWidget {
   State<ImagePostForm> createState() => _ImagePostFormState();
 }
 
-class _ImagePostFormState extends State<ImagePostForm> {
+class _ImagePostFormState extends State<ImagePostForm>
+    with AutomaticKeepAliveClientMixin {
   final tittleController = TextEditingController();
   final tagsController = TextEditingController();
   List<File> selectedImages = [];
@@ -44,8 +45,11 @@ class _ImagePostFormState extends State<ImagePostForm> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-
               // 16.verticalSpace,
+
+
+
+
               InkWell(
                 onTap: () {
                   selectTags(context);
@@ -109,6 +113,7 @@ class _ImagePostFormState extends State<ImagePostForm> {
 
   void _listenToCreatePostState(BuildContext context, CreatePostState state) {
     state.maybeWhen(
+
       validateFormsState: () {
         if (formKey.currentState?.validate() ?? false) {
           if (selectedImages.isNotEmpty) {
@@ -131,8 +136,11 @@ class _ImagePostFormState extends State<ImagePostForm> {
   }
 
   void selectTags(BuildContext context) async {
-    List<String>? tags =
-        await CustomDialogs.showBottomSheet(context, const AddTagsSheet());
+    List<String>? tags = await CustomDialogs.showBottomSheet(
+        context,
+        AddTagsSheet(
+          initialTAgs: selectedTags,
+        ));
 
     if (tags != null && tags.isNotEmpty) {
       tagsController.text = tags.join(',');
@@ -141,4 +149,8 @@ class _ImagePostFormState extends State<ImagePostForm> {
       logger.w(selectedTags.length);
     }
   }
+
+  @override
+  // TODO: implement wantKeepAlive
+  bool get wantKeepAlive => true;
 }

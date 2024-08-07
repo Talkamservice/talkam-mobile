@@ -28,6 +28,7 @@ class _FeaturedScreenState extends State<FeaturedScreen>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Scaffold(
       body: Column(
         children: [
@@ -66,7 +67,8 @@ class _FeaturedScreenState extends State<FeaturedScreen>
                       itemCount: respone.data.data.length,
                       addAutomaticKeepAlives: true,
                       itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
+                        padding: const EdgeInsets.only(bottom: 4.0),
+
                         child: PostItem(
                           post: respone.data.data[index],
                         ),

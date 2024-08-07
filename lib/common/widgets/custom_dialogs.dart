@@ -216,7 +216,6 @@ class CustomDialogs {
       bool? barrierDismissible = true}) async {
     final dialog = Dialog(
       backgroundColor: Pallets.white,
-
       elevation: 5,
       insetPadding: const EdgeInsets.symmetric(horizontal: 16),
       shape: RoundedRectangleBorder(
@@ -338,6 +337,7 @@ class CustomDialogs {
         child: SpinKitWaveSpinner(
           color: color ?? Pallets.primary,
           trackColor: Pallets.primary,
+
           // waveColor: Pallets.white,
 
           size: size ?? 60,
@@ -377,7 +377,7 @@ class CustomDialogs {
       Container(
         padding: const EdgeInsets.all(16.0),
         decoration: BoxDecoration(
-          color: Pallets.successGreen,
+          color: Pallets.primary,
           // border: Border.all(color: Pallets.primary),
           borderRadius: BorderRadius.circular(8),
         ),
@@ -421,7 +421,7 @@ class CustomDialogs {
       Container(
         padding: const EdgeInsets.all(16.0),
         decoration: BoxDecoration(
-          color: Pallets.red,
+          color: Colors.red,
           // border: Border.all(color: Pallets.red),
           borderRadius: BorderRadius.circular(8),
         ),
@@ -554,7 +554,8 @@ class ButtonDialog extends StatelessWidget {
         onPressed: onTap,
         child: TextView(
           text: title,
-          style: GoogleFonts.sora(fontSize: 16.sp, fontWeight: FontWeight.w400),
+          style: GoogleFonts.sora(
+              fontSize: 16.sp, fontWeight: FontWeight.w400, color: fgColor),
         ));
   }
 }

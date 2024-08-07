@@ -6,7 +6,9 @@ import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/theme/pallets.dart';
 
 class ConfirmReportDialog extends StatelessWidget {
-  const ConfirmReportDialog({super.key});
+  const ConfirmReportDialog({super.key, required this.reason});
+
+  final String reason;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +18,7 @@ class ConfirmReportDialog extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           TextView(
-            text: "Report as deceiptive content ?",
+            text: "Report as $reason ?",
             style: GoogleFonts.poppins(
               fontWeight: FontWeight.w600,
               fontSize: 16,

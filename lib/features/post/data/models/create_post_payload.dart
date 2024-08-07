@@ -16,7 +16,7 @@ class CreatePostPayload {
   String? title;
   String? body;
   String? status;
-  dynamic publishAt;
+  DateTime? publishAt;
   int canComment;
   int? isAnonymous;
   List<Attachment>? attachments;
@@ -86,7 +86,8 @@ class CreatePostPayload {
         "title": title,
         "body": body,
         "status": status,
-        "publish_at": publishAt,
+        "publish_at":  publishAt?.toIso8601String(),
+
         "can_comment": canComment,
         "is_anonymous": isAnonymous,
         "attachments": attachments == null

@@ -31,6 +31,8 @@ class AppDrawer extends StatelessWidget {
                   buildWhen: _buildWhen,
                   listener: (context, state) {},
                   builder: (context, state) {
+
+
                     return state.maybeWhen(
                       orElse: () => CategoriesList(),
                       categoryView: () => CategoriesList(),
@@ -38,6 +40,8 @@ class AppDrawer extends StatelessWidget {
                         category: subCategory,
                       ),
                     );
+
+
                   },
                 ),
               ),

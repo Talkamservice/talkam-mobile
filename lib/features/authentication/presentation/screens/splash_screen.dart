@@ -3,7 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
-import 'package:talkam/core/mixins/login_mixin.dart';
+import 'package:talkam/core/mixins/returning_user_mixin.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
@@ -78,7 +78,7 @@ class _SplashScreenState extends State<SplashScreen>
     // context.goNamed(PageUrl.userNameScreen);
 
     if (SessionManager.instance.isLoggedIn) {
-      handleLoginSuccess(context, injector.get<ProfileBloc>().appUser!);
+      gotoNextScreen(context, injector.get<ProfileBloc>().appUser!);
     } else {
       context.goNamed(PageUrl.onboardingIntro);
     }

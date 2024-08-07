@@ -55,35 +55,45 @@ class GetCategoriesResponse {
 
 class PostCategory {
   int id;
-  String name;
-  String description;
-  String backgroundImage;
-  String? iconImage;
-  DateTime createdAt;
-  DateTime updatedAt;
+  dynamic name;
+  dynamic followersCount;
+  dynamic description;
+  dynamic backgroundImage;
+  dynamic? iconImage;
+  dynamic isFollowing;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+
+  String get postCategoryImage => iconImage ?? backgroundImage;
 
   PostCategory({
     required this.id,
     required this.name,
     required this.description,
     required this.backgroundImage,
+    required this.followersCount,
     required this.iconImage,
     required this.createdAt,
     required this.updatedAt,
+    required this.isFollowing,
   });
 
   PostCategory copyWith({
     int? id,
+    int? followersCount,
     String? name,
     String? description,
     String? backgroundImage,
     String? iconImage,
     DateTime? createdAt,
+    bool? isFollowing,
     DateTime? updatedAt,
   }) =>
       PostCategory(
         id: id ?? this.id,
+        followersCount: followersCount ?? this.followersCount,
         name: name ?? this.name,
+        isFollowing: isFollowing ?? this.isFollowing,
         description: description ?? this.description,
         backgroundImage: backgroundImage ?? this.backgroundImage,
         iconImage: iconImage ?? this.iconImage,
@@ -95,10 +105,16 @@ class PostCategory {
         id: json["id"],
         name: json["name"],
         description: json["description"],
+        followersCount: json["followers_count"],
         backgroundImage: json["background_image"],
         iconImage: json["icon_image"],
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        isFollowing: json["is_following"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -107,14 +123,14 @@ class PostCategory {
         "description": description,
         "background_image": backgroundImage,
         "icon_image": iconImage,
-        "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "is_following": isFollowing,
+        "followers_count": followersCount,
+        "created_at": createdAt?.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
       };
-
 
   @override
   String toString() {
-
     return name;
   }
 }

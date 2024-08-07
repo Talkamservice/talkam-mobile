@@ -66,7 +66,7 @@ class _RecentScreenState extends State<RecentScreen>
                       addAutomaticKeepAlives: true,
                       itemCount: response.data.data.length,
                       itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.only(bottom: 8.0),
+                        padding: const EdgeInsets.only(bottom: 4.0),
                         child: PostItem(
                           post: response.data.data[index],
                         ),

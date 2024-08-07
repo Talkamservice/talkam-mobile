@@ -16,12 +16,11 @@ class UserStorage {
   }
 
   // Retrieve user data from SharedPreferences
-  Future<dynamic?> getUser() async {
+  Future<TalkamUser?> getUser() async {
     final userJson = SessionManager.instance.usersData;
-
-    return TalkamUser.fromJson(userJson as Map<String, dynamic>);
+    return userJson.isNotEmpty ? TalkamUser.fromJson(userJson) : null;
     // return null;
-    return null;
+    // return null;
 
     /// Return null if user data doesn't exist
   }

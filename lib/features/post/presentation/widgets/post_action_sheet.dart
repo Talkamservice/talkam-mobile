@@ -7,19 +7,24 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/extensions/int_extension.dart';
+import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
+import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
+import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 import 'package:talkam/features/post/presentation/widgets/confirm_report_dialog.dart';
-import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
+import 'package:talkam/features/post/presentation/widgets/report_sucess_dialog.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
-class PostActionSheet extends StatelessWidget {
-  PostActionSheet({super.key, required this.post});
 
-  final TalkamPost post;
+class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
+  PostActionSheet({super.key, required this.post});
+  TalkamPost post;
   final profileBloc = ProfileBloc(injector.get());
+  final postBloc = PostBloc(injector.get());
 
   @override
   Widget build(BuildContext context) {
@@ -38,7 +43,7 @@ class PostActionSheet extends StatelessWidget {
             imagePath: Assets.images.svgs.link01,
             tittle: "Copy link",
             onTap: () {
-              Helpers.copy("www.talkam.com/pos?id=12345");
+              Helpers.copy("${UrlConfig.coreBaseUrl}/comments/${post.id}");
               context.pop();
             },
           ),
@@ -50,48 +55,96 @@ class PostActionSheet extends StatelessWidget {
               context.pop();
             },
           ),
-          _PostAction(
-            imagePath: Assets.images.svgs.bellPlus,
-            tittle: "Get notifications for this post",
-            onTap: () {},
-          ),
+          GuestUserHelper.guestUserWidget(
+              widget: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  _PostAction(
+                    imagePath: Assets.images.svgs.bellPlus,
+                    tittle: "Get notifications for this post",
+                    onTap: () {},
+                  ),
+                  if (!post.isAnonymous.toBool && !commentIsFromLoggedInUser)
+                    BlocListener<ProfileBloc, ProfileState>(
+                      bloc: profileBloc,
+                      listener: (context, state) {
+                        if (state is BlockUserLoadingState) {
+                          CustomDialogs.showLoading(context);
+                        }
 
-          if (!post.isAnonymous.toBool)
-            BlocListener<ProfileBloc, ProfileState>(
-              bloc: profileBloc,
-              listener: (context, state) {
-                if (state is BlockUserLoadingState) {
-                  CustomDialogs.showLoading(context);
-                }
+                        if (state is BlockUserFailureState) {
+                          context.pop();
+                          CustomDialogs.error(state.error);
+                        }
+                        if (state is BlockUserSuccessState) {
+                          refreshPost(reload: false);
+                          context.pop();
+                          context.pop();
+                          CustomDialogs.success("User Blocked");
+                        }
+                      },
+                      child: _PostAction(
+                        imagePath: Assets.images.svgs.slashCircle01,
+                        tittle: "Block ${post.user.usersName}",
+                        onTap: () {
+                          blockUser(context);
+                        },
+                      ),
+                    ),
+                  if (!commentIsFromLoggedInUser && !(post.isReported ?? false))
+                    BlocListener<PostBloc, PostState>(
+                      bloc: postBloc,
+                      listener: (context, state) {
+                        state.maybeWhen(
+                          orElse: () => null,
+                          getPostDetailsSuccess: (response) {
+                            post = response.data;
+                          },
+                          reportPostSuccess: () async {
+                            refreshPost(reload: false);
 
-                if (state is BlockUserFailureState) {
-                  context.pop();
-                  CustomDialogs.error(state.error);
-                }
-                if (state is BlockUserSuccessState) {
+                            // postBloc.add(
+                            //     PostEvent.getPostDetails(post.id.toString()));
+                            await CustomDialogs.showCustomDialog(
+                                const ReportSuccessDialog(), context);
+                            context.pop();
+                            context.pop(true);
+                          },
+                          reportPostFailure: (error) {
+                            context.pop();
+                            CustomDialogs.error(error);
+                          },
+                          reportPostLoading: () {
+                            CustomDialogs.showLoading(context);
+                          },
+                        );
+                      },
+                      child: _PostAction(
+                        imagePath: Assets.images.svgs.slashCircle01,
+                        tittle: "Report this post",
+                        onTap: () async {
+                          var reason = await CustomDialogs.showCustomDialog(
+                              BlockReasonSheet(), context);
+                          if (reason != null) {
+                            var report = await CustomDialogs.showCustomDialog(
+                                ConfirmReportDialog(
+                                  reason: reason!,
+                                ),
+                                context);
 
-                  context.pop();
-                  context.pop();
-                  CustomDialogs.success("User Blocked");
-                }
-              },
-              child: _PostAction(
-                imagePath: Assets.images.svgs.slashCircle01,
-                tittle: "Block ${post.user.usersName}",
-                onTap: () {
-                  blockUser(context);
-                },
+                            if (report) {
+                              postBloc.add(PostEvent.reportPost(
+                                  post.id.toString(), reason));
+                            }
+                          }
+
+                          // context.pop();
+                        },
+                      ),
+                    ),
+                ],
               ),
-            ),
-          _PostAction(
-            imagePath: Assets.images.svgs.slashCircle01,
-            tittle: "Report this post",
-            onTap: () {
-              context.pop();
-              CustomDialogs.showCustomDialog(
-                  const ConfirmReportDialog(), context);
-            },
-          ),
+              guestWidget: 0.verticalSpace),
         ],
       ),
     );
@@ -104,6 +157,9 @@ class PostActionSheet extends StatelessWidget {
       profileBloc.add(BlockUerEvent(post.user.id.toString()));
     }
   }
+
+  bool get commentIsFromLoggedInUser =>
+      post.user.id == injector.get<ProfileBloc>().appUser?.id;
 }
 
 class _PostAction extends StatelessWidget {

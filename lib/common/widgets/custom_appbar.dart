@@ -3,23 +3,27 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:talkam/common/widgets/custom_back_button.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
+import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar(
-      {super.key,
-      this.actions,
-      this.leading,
-      this.tittle,
-      this.tittleText,
-      this.onBackPressed,
-      this.elevation,
-      this.bgColor,
-      this.fgColor,
-      this.height,
-      this.canGoBack = true,
-      this.centerTile = true,
-      this.leadingWidth});
+  const CustomAppBar({
+    super.key,
+    this.actions,
+    this.leading,
+    this.tittle,
+    this.tittleText,
+    this.onBackPressed,
+    this.elevation,
+    this.bgColor,
+    this.fgColor,
+    this.height,
+    this.canGoBack = true,
+    this.centerTile = true,
+    this.leadingWidth,
+    this.padding,
+    this.showDivider = false,
+  });
 
   final List<Widget>? actions;
   final Widget? leading;
@@ -33,11 +37,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final double? leadingWidth;
   final bool? canGoBack;
   final bool? centerTile;
+  final EdgeInsets? padding;
+  final bool showDivider;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 8.0.w),
+      padding: padding ?? EdgeInsets.symmetric(horizontal: 8.0.w),
       child: Column(
         children: [
           1.verticalSpace,
@@ -47,12 +53,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             toolbarHeight: height,
             elevation: elevation ?? 0,
             centerTitle: centerTile,
-            iconTheme: IconThemeData(color: fgColor??context.colorScheme.onSurface),
+            iconTheme: IconThemeData(color: fgColor ?? context.colorScheme.onSurface),
             surfaceTintColor: bgColor ?? Colors.transparent,
             titleTextStyle: GoogleFonts.sora(
-                fontWeight: FontWeight.w600,
-                fontSize: 16,
-                color: Theme.of(context).colorScheme.onSurface),
+                fontWeight: FontWeight.w600, fontSize: 16, color: Theme.of(context).colorScheme.onSurface),
             leadingWidth: leadingWidth,
             leading: canGoBack! ? null : 0.verticalSpace,
             title: tittle ??
@@ -66,6 +70,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 ),
             actions: actions,
           ),
+          if (showDivider)
+            Container(
+              height: 1,
+              color: Pallets.borderGrey,
+            )
         ],
       ),
     );

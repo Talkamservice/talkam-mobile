@@ -7,11 +7,15 @@ class BlockReasonSheet extends StatelessWidget {
   BlockReasonSheet({super.key});
 
   final List<String> accountBlocReasons = [
-    'Security reasons',
+    'Pornography',
     'Policy violations',
     'Payment issues',
+    'Gory or harmful content',
     'Inactivity',
+    'Hatred and Bullying',
     'Technical glitch',
+    'Child abuse',
+    'Gory or harmful content',
   ];
 
   @override

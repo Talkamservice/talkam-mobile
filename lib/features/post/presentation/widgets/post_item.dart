@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
+import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/constants/package_exports.dart';
-import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/extensions/int_extension.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
-import 'package:talkam/features/post/data/models/post_filter_model.dart';
-import 'package:talkam/features/post/presentation/bloc/featured_posts/featured_post_cubit.dart';
 import 'package:talkam/features/post/presentation/widgets/post_action_sheet.dart';
 import 'package:talkam/features/post/presentation/widgets/post_content.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item_components.dart';
@@ -32,16 +31,24 @@ class PostItem extends StatelessWidget {
             children: [
               PostHeader(
                 userName: userName,
+                post: post,
                 category: post.category,
-                onMenuTap: () => CustomDialogs.showBottomSheet(
-                    context,
-                    PostActionSheet(
-                      post: post,
-                    )),
+                onMenuTap: () async {
+                  var isReported = await CustomDialogs.showBottomSheet(
+                      context,
+                      PostActionSheet(
+                        post: post,
+                      ));
+                  if (isReported ?? false) {
+                    post.isReported = true;
+                  }
+                },
               ),
+
               10.verticalSpace,
               PostContent(
                 post: post,
+
               ),
 
               12.verticalSpace,
@@ -50,7 +57,9 @@ class PostItem extends StatelessWidget {
               PostActions(
                 onCommentTap: () {},
                 onLikeTap: () {},
-                onShareTap: () {},
+                onShareTap: () {
+                  Helpers.share("${UrlConfig.webUrl}/comments/${post.id}");
+                },
                 post: post,
               ), // Implement PostActions here
             ],

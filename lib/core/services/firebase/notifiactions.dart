@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/firebase/deep_link_naigator.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 final NotificationService notificationService = NotificationService();
 
@@ -53,21 +55,12 @@ class NotificationService {
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
     flutterLocalNotificationsPlugin.initialize(
+
       const InitializationSettings(
         android: AndroidInitializationSettings('@drawable/launcher'),
         iOS: DarwinInitializationSettings(),
       ),
-      onDidReceiveNotificationResponse: (details) {
-        // logger.w(details.payload);
-
-        // injector.get<DeepLinkBloc>().add(DeepLinkReceived(
-        //     details.payload == null
-        //         ? null
-        //         : jsonDecode(details.payload ?? '{}')));
-        //
-        // DeepLinkNavigator.handlePushNotificationClick(
-        //     jsonDecode(details.payload ?? '{}'));
-      },
+      onDidReceiveNotificationResponse:_receivedResponse,
     );
 
     if (!kIsWeb) {
@@ -239,6 +232,16 @@ class NotificationService {
         ),
         payload: payload);
   }
+
+  void _receivedResponse(NotificationResponse details) {
+
+
+    DeepLinkNavigator.handlePushNotificationClick(
+        jsonDecode(details.payload ?? '{}'));
+  }
 }
+
+
+
 // duTCCKu0Y0j_mH6x2C-VP_:APA91bHuWI3pwOcr5oY35xMV7_84DICprR3_kC9-WvcvAzV31pjAow5Nx7xxeSqsJc5AcigQK5aHywbquONqG4sAof72w_Q5uemO1LmUHaV3cBiYrNT1Z6CYSbsQzdazbn3m9K3FBwGm
 // 5480c256e09588dbd02918899311dad7561ecd16811e0a1bae983744bfbca7cb

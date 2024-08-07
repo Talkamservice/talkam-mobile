@@ -15,6 +15,7 @@ class ConfirmPasswordValidator extends TextFieldValidator {
 
   @override
   bool isValid(String? value) {
+
     log('COMPARED PASSWORD: $comparedPassword');
     log('PASSWORD: $value');
     log((comparedPassword.toString() == value.toString()).toString());

@@ -112,7 +112,7 @@ class _CategoriesListState extends State<CategoriesList> {
                         shrinkWrap: true,
                         // physics: const BouncingScrollPhysics(),
                         itemBuilder: (context, index) => Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          padding: const EdgeInsets.symmetric(vertical: 2.0),
                           child: NavCategoryItem(
                             category: response.data[index],
                             onTap: () {

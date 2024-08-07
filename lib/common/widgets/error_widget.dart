@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/theme/pallets.dart';
@@ -39,7 +40,7 @@ class AppPromptWidget extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           // if (imagePath != null)
-          Image.asset(
+          SvgPicture.asset(
             imagePath ?? Assets.images.svgs.sorry,
             height: 150,
           ),
