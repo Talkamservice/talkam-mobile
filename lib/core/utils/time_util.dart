@@ -1,4 +1,5 @@
 import 'package:intl/intl.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:timeago/timeago.dart' as timeago;
 
 class TimeUtil {
@@ -140,6 +141,9 @@ class TimeUtil {
   static String formatDay(DateTime dateTime) {
     return DateFormat('EEEE').format(dateTime);
   }
+  static String monthYeay(DateTime dateTime) {
+    return DateFormat('MMMM yyyy').format(dateTime);
+  }
 
   static String formatTime(DateTime dateTime) {
     return DateFormat.jm().format(dateTime);
@@ -201,7 +205,6 @@ class TimeUtil {
     return "$formattedHour:$formattedMinute $period";
   }
 
-
   static String getTimeRemaining(DateTime from, DateTime to) {
     Duration difference = to.difference(from);
 
@@ -217,7 +220,7 @@ class TimeUtil {
     int seconds = difference.inSeconds % 60;
 
     // Build the string representation
-     String result = '';
+    String result = '';
     // if (days > 0) {
     //   result += '$days day${days > 1 ? 's' : ''}';
     // }
@@ -240,7 +243,6 @@ class TimeUtil {
 
     return '$result remaining';
   }
-
 
 // String formatDateString(String dateString) {
 //   DateTime dateTime = DateTime.parse(dateString);

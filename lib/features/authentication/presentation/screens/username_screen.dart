@@ -17,7 +17,9 @@ import 'package:talkam/features/profile/presentation/widgets/select_avater_sheet
 import 'package:talkam/gen/assets.gen.dart';
 
 class UsernameScreen extends StatefulWidget {
-  const UsernameScreen({super.key});
+  const UsernameScreen({
+    super.key,
+  });
 
   @override
   State<UsernameScreen> createState() => _UsernameScreenState();

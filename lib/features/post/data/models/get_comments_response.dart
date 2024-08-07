@@ -147,4 +147,9 @@ class PostComment {
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
       };
+
+  bool get isReplyingToComment => replyTo != null;
+
+  String get commentReplyTo =>
+      isReplyingToComment ? replyTo!.username : 'postTitle';
 }

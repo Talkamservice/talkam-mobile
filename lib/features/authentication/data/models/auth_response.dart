@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:talkam/features/post/data/models/get_categories_response.dart';
+
 AuthSuccessResponse authSuccessResponseFromJson(String str) =>
     AuthSuccessResponse.fromJson(json.decode(str));
 
@@ -88,10 +90,16 @@ class TalkamUser {
   String email;
   String role;
   dynamic age;
+  dynamic googleId;
+  dynamic facebookId;
+  dynamic tiktokId;
+  dynamic appleId;
+  dynamic isBlocked;
   String username;
   String status;
-  List<dynamic> interests;
+  List<PostCategory> interests;
   DateTime createdAt;
+  DateTime? emailVerifiedAt;
   DateTime updatedAt;
 
   TalkamUser({
@@ -105,7 +113,13 @@ class TalkamUser {
     required this.status,
     required this.interests,
     required this.createdAt,
+    required this.emailVerifiedAt,
     required this.updatedAt,
+    required this.googleId,
+    required this.facebookId,
+    required this.tiktokId,
+    required this.appleId,
+    required this.isBlocked,
   });
 
   TalkamUser copyWith({
@@ -114,11 +128,17 @@ class TalkamUser {
     String? name,
     String? email,
     String? role,
+    dynamic googleId,
     dynamic age,
+    dynamic facebookId,
+    dynamic tiktokId,
+    dynamic appleId,
+    dynamic isBlocked,
     String? username,
     String? status,
-    List<dynamic>? interests,
+    List<PostCategory>? interests,
     DateTime? createdAt,
+    DateTime? emailVerifiedAt,
     DateTime? updatedAt,
   }) =>
       TalkamUser(
@@ -132,7 +152,13 @@ class TalkamUser {
         status: status ?? this.status,
         interests: interests ?? this.interests,
         createdAt: createdAt ?? this.createdAt,
+        emailVerifiedAt: emailVerifiedAt ?? this.emailVerifiedAt,
         updatedAt: updatedAt ?? this.updatedAt,
+        googleId: googleId ?? this.googleId,
+        facebookId: facebookId ?? this.facebookId,
+        tiktokId: tiktokId ?? this.tiktokId,
+        appleId: appleId ?? this.appleId,
+        isBlocked: isBlocked ?? this.isBlocked,
       );
 
   factory TalkamUser.fromJson(Map<String, dynamic> json) => TalkamUser(
@@ -142,10 +168,19 @@ class TalkamUser {
         email: json["email"],
         role: json["role"],
         age: json["age"],
+        facebookId: json["facebook_id"],
+        googleId: json["google_id"],
+        tiktokId: json["tiktok_id"],
+        appleId: json["apple_id"],
+        isBlocked: json["is_blocked"],
         username: json["username"],
         status: json["status"],
-        interests: List<dynamic>.from(json["interests"].map((x) => x)),
+        interests: List<PostCategory>.from(
+            json["interests"].map((x) => PostCategory.fromJson(x))),
         createdAt: DateTime.parse(json["created_at"]),
+        emailVerifiedAt: json["email_verified_at"] == null
+            ? null
+            : DateTime.parse(json["email_verified_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
       );
 
@@ -156,17 +191,24 @@ class TalkamUser {
         "email": email,
         "role": role,
         "age": age,
+        "is_blocked": isBlocked,
+        "apple_id": appleId,
+        "google_id": googleId,
+        "facebook_id": facebookId,
+        "tiktok_id": tiktokId,
         "username": username,
         "status": status,
-        "interests": List<dynamic>.from(interests.map((x) => x)),
+        "interests": List<PostCategory>.from(interests.map((x) => x)),
         "created_at": createdAt.toIso8601String(),
+        "email_verified_at": emailVerifiedAt?.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
       };
 
   factory TalkamUser.forTest() {
     return TalkamUser(
       id: -1,
-      avatar: "https://talkam.prodevs.io/file/YXBwL21lZGlhL3VzZXIvYXZhdGFycy82NjlmYjVjNGM4ZTBlLnBuZw==",
+      avatar:
+          "https://talkam.prodevs.io/file/YXBwL21lZGlhL3VzZXIvYXZhdGFycy82NjlmYjVjNGM4ZTBlLnBuZw==",
       email: "bardakhaev@shopshiba.site",
       role: "User",
       age: null,
@@ -176,6 +218,12 @@ class TalkamUser {
       name: "bardo_khan",
       status: "Active",
       interests: [],
+      emailVerifiedAt: DateTime.now(),
+      googleId: null,
+      facebookId: null,
+      tiktokId: null,
+      appleId: null,
+      isBlocked: null,
     );
   }
 }

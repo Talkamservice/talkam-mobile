@@ -90,6 +90,7 @@ class TalkamPost {
   dynamic title;
   String? body;
   dynamic type;
+  bool? isReported;
   dynamic uuid;
   PostCategory category;
   PostCreator user;
@@ -107,13 +108,14 @@ class TalkamPost {
   DateTime createdAt;
   DateTime updatedAt;
 
-  bool get isSchedulePost => status.toLowerCase() == "Scheduled".toLowerCase();
+  bool get isSchedulePost => publishAt != null;
 
   TalkamPost({
     required this.id,
     required this.title,
     required this.body,
     required this.type,
+    required this.isReported,
     required this.uuid,
     required this.category,
     required this.user,
@@ -137,6 +139,7 @@ class TalkamPost {
     String? title,
     String? body,
     String? type,
+    bool? isReported,
     String? uuid,
     PostCategory? category,
     PostCreator? user,
@@ -158,6 +161,7 @@ class TalkamPost {
         id: id ?? this.id,
         title: title ?? this.title,
         body: body ?? this.body,
+        isReported: isReported ?? this.isReported,
         type: type ?? this.type,
         uuid: uuid ?? this.uuid,
         category: category ?? this.category,
@@ -183,6 +187,7 @@ class TalkamPost {
         body: json["body"],
         type: json["type"],
         uuid: json["uuid"],
+        isReported: json["is_reported"],
         category: PostCategory.fromJson(json["category"]),
         user: PostCreator.fromJson(json["user"]),
         canComment: json["can_comment"],
@@ -194,7 +199,9 @@ class TalkamPost {
         commentsCount: json["comments_count"],
         likesCount: json["likes_count"],
         status: json["status"],
-        publishAt: json["publish_at"] != null ? DateTime.parse(json["publish_at"]) : null,
+        publishAt: json["publish_at"] != null
+            ? DateTime.parse(json["publish_at"])
+            : null,
         attachments: List<Attachment>.from(
             json["attachments"].map((x) => Attachment.fromJson(x))),
         polls: List<TalkamPoll>.from(
@@ -212,6 +219,7 @@ class TalkamPost {
         "body": body,
         "type": type,
         "uuid": uuid,
+        "is_reported": isReported,
         "category": category.toJson(),
         "user": user.toJson(),
         "can_comment": canComment,
@@ -342,9 +350,9 @@ class PostReaction {
         createdAt: DateTime.parse(json["created_at"]),
       );
 
-  bool get isLike => action == 'Like';
+  bool get isLike => action == 'Like' && status;
 
-  bool get isDisLike => action == 'Dislike';
+  bool get isDisLike => action == 'Dislike' && status;
 
   factory PostReaction.like() => PostReaction(
       id: 0, action: "Like", createdAt: DateTime.now(), status: true);
@@ -412,18 +420,18 @@ class PostCreator {
 }
 
 class PaginationMeta {
-  int currentPage;
-  String firstPageUrl;
-  int from;
-  int lastPage;
-  String lastPageUrl;
+  dynamic currentPage;
+  dynamic firstPageUrl;
+  dynamic from;
+  dynamic lastPage;
+  dynamic lastPageUrl;
   dynamic nextPageUrl;
   String path;
-  int perPage;
+  dynamic perPage;
   dynamic prevPageUrl;
-  int to;
-  int total;
-  bool canLoadMore;
+  dynamic to;
+  dynamic total;
+  dynamic canLoadMore;
 
   PaginationMeta({
     required this.currentPage,

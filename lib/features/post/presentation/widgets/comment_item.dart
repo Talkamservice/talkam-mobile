@@ -7,12 +7,14 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/extensions/int_extension.dart';
 import 'package:talkam/features/post/data/models/get_comments_response.dart';
 import 'package:talkam/features/post/presentation/bloc/comments/comments_bloc.dart';
 import 'package:talkam/features/post/presentation/widgets/comment_actions.dart';
 import 'package:talkam/features/post/presentation/widgets/comment_input_widget.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class CommentItem extends StatefulWidget {
@@ -22,13 +24,15 @@ class CommentItem extends StatefulWidget {
       this.hasReply = false,
       required this.comment,
       required this.posId,
-      this.parentId});
+      this.parentId,
+      required this.onDeleted});
 
   final PostComment comment;
   final bool? isReply;
   final bool? hasReply;
   final int posId;
   final int? parentId;
+  final VoidCallback onDeleted;
 
   @override
   State<CommentItem> createState() => _CommentItemState();
@@ -52,12 +56,20 @@ class _CommentItemState extends State<CommentItem> {
               Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ImageWidget(
-                    imageUrl: widget.comment.user.avatar ??
-                        Assets.images.png.appIcon.path,
-                    size: widget.isReply! ? 24 : 36,
-                    fit: BoxFit.contain,
-                  ),
+                  if (widget.comment.isAnonymous.toBool)
+                    ImageWidget(imageUrl: Assets.images.svgs.dummyUser),
+                  if (!widget.comment.isAnonymous.toBool)
+                    InkWell(
+                      onTap: () {
+                        viewUserProfile(context);
+                      },
+                      child: ImageWidget(
+                        imageUrl: widget.comment.user.avatar ??
+                            Assets.images.png.appIcon.path,
+                        size: widget.isReply! ? 24 : 36,
+                        fit: BoxFit.contain,
+                      ),
+                    ),
                   8.horizontalSpace,
                   Expanded(
                     child: Column(
@@ -65,24 +77,28 @@ class _CommentItemState extends State<CommentItem> {
                       children: [
                         Row(
                           children: [
-                            TextView(
-                              text: posterName,
-                              fontWeight: FontWeight.w700,
+                            InkWell(
+                              onTap: () {
+                                viewUserProfile(context);
+                              },
+                              child: TextView(
+                                text: posterName,
+                                fontWeight: FontWeight.w700,
+                              ),
                             ),
                             4.horizontalSpace,
                             ImageWidget(imageUrl: Assets.images.svgs.grid03),
                             4.horizontalSpace,
                             TextView(
-                              text: TimeUtil.getTimeAgo(widget.comment.createdAt
-                                  .toLocal()
-                                  .toIso8601String()),
+                              text: TimeUtil.getTimeAgo(
+                                  widget.comment.createdAt.toString()),
                               fontWeight: FontWeight.w700,
                               color: context.colorScheme.primary,
                             ),
                           ],
                         ),
                         10.verticalSpace,
-                        ReadMoreText(text: widget.comment.comment),
+                        CustomReadMoreText(text: widget.comment.comment),
                         // TextView(
                         //   text: widget.comment.comment,
                         //   fontSize: 16,
@@ -101,6 +117,8 @@ class _CommentItemState extends State<CommentItem> {
                           onLikeTap: () {},
                           dislikeCount: 3,
                           comment: widget.comment,
+                          postId: widget.posId.toString(),
+                          onCommentDeleted: widget.onDeleted,
                         )
                       ],
                     ),
@@ -143,6 +161,7 @@ class _CommentItemState extends State<CommentItem> {
                                 parentId: widget.comment.id,
                                 comment: e,
                                 posId: widget.posId,
+                                onDeleted: widget.onDeleted,
                               ))
                           .toList(),
                     ),
@@ -154,6 +173,18 @@ class _CommentItemState extends State<CommentItem> {
         );
       },
     );
+  }
+
+  void viewUserProfile(BuildContext context) {
+    var me = injector.get<ProfileBloc>().appUser;
+    if (me?.id == widget.comment.user.id) {
+      context.pushNamed(
+        PageUrl.profileScreen,
+      );
+    } else {
+      context.pushNamed(PageUrl.userProfileScreen,
+          extra: widget.comment.user.id.toString());
+    }
   }
 
   String get posterName {
@@ -169,6 +200,9 @@ class _CommentItemState extends State<CommentItem> {
   }
 
   bool get commentHasChildren => widget.comment.children.isNotEmpty;
+
+  bool get commentIsFromLoggedInUser =>
+      widget.comment.user.id == injector.get<ProfileBloc>().appUser?.id;
 
   bool isReplying(BuildContext context) {
     return widget.comment.id ==

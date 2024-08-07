@@ -6,6 +6,7 @@ import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/profile/data/models/settings_category.dart';
@@ -57,7 +58,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 return ListView(
                   children: [
                     Padding(
-                      padding: EdgeInsets.only(top: 14.h, right: 16.w, left: 16.w),
+                      padding:
+                          EdgeInsets.only(top: 14.h, right: 16.w, left: 16.w),
                       child: Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -74,20 +76,27 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             color: Pallets.boldBlackV2,
                           ),
                           const Spacer(),
-                          Container(
-                            height: 40.h,
-                            padding: EdgeInsets.symmetric(horizontal: 10.w),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(56),
-                              border: Border.all(color: Pallets.borderGrey),
-                            ),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                ImageWidget(imageUrl: Assets.images.svgs.icPersonEdit),
-                                4.horizontalSpace,
-                                TextView(text: "Edit profile")
-                              ],
+                          InkWell(
+                            onTap: () {
+                              context.pushNamed(PageUrl.editProfileScreen);
+                            },
+                            child: Container(
+                              height: 40.h,
+                              padding: EdgeInsets.symmetric(horizontal: 10.w),
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(56),
+                                border: Border.all(color: Pallets.borderGrey),
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  ImageWidget(
+                                      imageUrl:
+                                          Assets.images.svgs.icPersonEdit),
+                                  4.horizontalSpace,
+                                  const TextView(text: "Edit profile")
+                                ],
+                              ),
                             ),
                           ),
                         ],
@@ -101,7 +110,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 16.h),
+                      padding:
+                          EdgeInsets.only(left: 16.w, right: 16.w, top: 16.h),
                       child: _SettingItemTile(
                         settingsCategory: contentSettings,
                         key: Key(contentSettings.title),
@@ -112,7 +122,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       color: Pallets.borderGrey,
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
+                      padding: EdgeInsets.symmetric(
+                          vertical: 12.h, horizontal: 16.w),
                       child: _SettingItemTile(
                         settingsCategory: accountSettings,
                         key: Key(accountSettings.title),
@@ -123,16 +134,20 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       color: Pallets.borderGrey,
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
+                      padding: EdgeInsets.symmetric(
+                          vertical: 12.h, horizontal: 16.w),
                       child: _SettingItemTile(
                         settingsCategory: aboutSettings,
                         key: Key(aboutSettings.title),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.only(left: 16.w, right: 16.w, top: 40.h),
+                      padding:
+                          EdgeInsets.only(left: 16.w, right: 16.w, top: 40.h),
                       child: InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          context.pushNamed(PageUrl.deleteAccountScreen);
+                        },
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -196,7 +211,10 @@ class _SettingItemTile extends StatelessWidget {
               ],
             ),
           ),
-          if (i == settingsCategory.items.length) const SizedBox.shrink() else 16.verticalSpace
+          if (i == settingsCategory.items.length)
+            const SizedBox.shrink()
+          else
+            16.verticalSpace
         ]
       ],
     );

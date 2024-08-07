@@ -114,7 +114,7 @@ class _SchedulePostFormState extends State<SchedulePostForm> {
     final pickedDate = await showDatePicker(
       context: context,
       initialDate: now,
-      firstDate: DateTime(now.year - 5),
+      firstDate: now,
       lastDate: DateTime(now.year + 5),
     );
     if (pickedDate != null && pickedDate != now) {

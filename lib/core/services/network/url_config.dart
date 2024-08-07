@@ -6,6 +6,11 @@ class UrlConfig {
   static const String STAGING_URL = String.fromEnvironment('DEV_BASE_URL');
   static const String PRODUCTION_URL = String.fromEnvironment('PROD_BASE_URL');
 
+  static const String WEB_STAGING_URL =
+      String.fromEnvironment('WEB_DEV_BASE_URL');
+  static const String WEB_PRODUCTION_URL =
+      String.fromEnvironment('WEB_PROD_BASE_URL');
+
   static const String imageBaseUrl = String.fromEnvironment('IMAGE_BASE_URL');
   static const String dojahTestAppId = String.fromEnvironment('DOJAH_APP_ID');
   static const String dojahTestPublicKey =
@@ -28,6 +33,9 @@ class UrlConfig {
   //     String.fromEnvironment('FACE_PLUS_PROD_API_SECRET');
   static final coreBaseUrl =
       environment == Environment.production ? PRODUCTION_URL : STAGING_URL;
+  static final webUrl = environment == Environment.production
+      ? WEB_PRODUCTION_URL
+      : WEB_STAGING_URL;
 
   static const String getLibraryCoursesEndpoint =
       "/wellness-library/courses/list";
@@ -64,7 +72,7 @@ class UrlConfig {
   static const String me = '/auth/me';
   static const String loginPreview = "/auth/login/preview";
 
-  static String getUser(String userId) => '/auth/user/$userId';
+  static String getUser = '/user/profile/fetch';
   static const String verifyOtp = '/auth/otp/verify';
   static const String register = '/auth/register';
   static const String oauthLogin = '/auth/oauth-login';
@@ -84,6 +92,7 @@ class UrlConfig {
   static const String blockUser = '/user/blocked-users/add';
   static const String uploadAvatar = '/user/profile/upload-avatar';
   static const String getProfile = '/user/me';
+  static const String user = '/user/me';
 
 //   POST
   static const String getCategories = '/user/post-categories';
@@ -91,18 +100,42 @@ class UrlConfig {
   static const String createPost = '/user/posts';
 
   static String getPostDetails(String id) => '/user/posts/$id';
-  static const String deletePosts = '/user/posts';
+
+  static String deletePosts(String id) => '/user/posts/$id';
   static const String postReaction = '/user/posts/reaction';
   static const String reportPost = '/user/posts/report';
+
+  static const String reportComment = '/user/posts/report-comment';
   static const String getPolls = '/user/posts-polls';
 
   static const String getComments = '/user/post-comments';
   static const String getAComment = '/user/post-comments';
   static const String saveAComment = '/user/post-comments';
-  static const String deleteComment = '/user/post-comments';
+
+  static String deleteComment(String id) => '/user/post-comments/$id';
   static const String commentReaction = '/user/post-comments/reaction';
 
-
+  static const String getRules = '/user/guildlines';
   static const String selectPoll = '/user/post-polls/';
   static const String deletePoll = '/user/post-polls/';
+  static String addOrRemoveInterest = '/user/profile/interests/add-remove';
+
+  // SETTINGS
+
+  static const String fetchNotificationPreferences =
+      '/user/notifications/preference/fetch';
+  static const String saveNotificationPreferences =
+      '/user/notifications/preference/save';
+  static const String fetchBlockedUsers = '/user/blocked-users';
+  static const String linkSocialAccount = '/user/profile/link-social-account';
+  static const String unlinkSocialAccount =
+      '/user/profile/unlink-social-account';
+  static const String deleteAccount = '/user/profile/delete-account';
+
+//   Search
+  static const String fetchRecentSearches = '/user/search/recent';
+  static const String search = '/user/search';
+  static const String fetchTrendingSearches = '/user/search/trending';
+  static const String deleteSearch = '/user/search';
+  static const String fetchSearchSuggestions = '/user/search/suggestions';
 }

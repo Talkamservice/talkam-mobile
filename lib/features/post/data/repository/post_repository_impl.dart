@@ -7,6 +7,7 @@ import 'package:talkam/features/post/data/models/create_post_payload.dart';
 import 'package:talkam/features/post/data/models/create_post_response.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/data/models/get_comments_response.dart';
+import 'package:talkam/features/post/data/models/get_guidlines_response.dart';
 import 'package:talkam/features/post/data/models/get_polls_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/data/models/post_details_response.dart';
@@ -30,6 +31,7 @@ class PostRepositoryImpl extends PostRepository {
     } catch (e, stack) {
       logger.e(e);
       logger.e(stack);
+
       rethrow;
     }
   }
@@ -88,7 +90,6 @@ class PostRepositoryImpl extends PostRepository {
     try {
       final response = await _networkService.call(
         UrlConfig.getPostDetails(postId),
-
         RequestMethod.get,
       );
 
@@ -102,8 +103,8 @@ class PostRepositoryImpl extends PostRepository {
   Future<dynamic> deletePost(String postId) async {
     try {
       final response = await _networkService.call(
-          UrlConfig.deletePosts, RequestMethod.delete,
-          data: {"post_id": postId});
+          UrlConfig.deletePosts(postId), RequestMethod.delete,
+          queryParams: {"post_id": postId});
 
       return response.data;
     } catch (e) {
@@ -199,8 +200,8 @@ class PostRepositoryImpl extends PostRepository {
   Future<dynamic> deleteComment(String commentId) async {
     try {
       final response = await _networkService.call(
-          UrlConfig.deleteComment, RequestMethod.delete,
-          data: {"commentId": commentId});
+          UrlConfig.deleteComment(commentId), RequestMethod.delete,
+          data: {"post_comment_id": commentId});
       return response.data;
     } catch (e) {
       rethrow;
@@ -239,6 +240,33 @@ class PostRepositoryImpl extends PostRepository {
       final response = await _networkService.call(
           UrlConfig.selectPoll, RequestMethod.post,
           data: {"poll_id": pollId});
+
+      return response.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<GetGuidlinesResponse> getRules() async {
+    try {
+      final response = await _networkService.call(
+        UrlConfig.getRules,
+        RequestMethod.get,
+      );
+
+      return GetGuidlinesResponse.fromJson(response.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future reportComment(String postId, String commentId, String reason) async {
+    try {
+      final response = await _networkService.call(
+          UrlConfig.reportComment, RequestMethod.post,
+          data: {"post_id": postId, "comment_id": commentId, "reason": reason});
 
       return response.data;
     } catch (e) {

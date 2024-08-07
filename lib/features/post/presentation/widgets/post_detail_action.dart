@@ -88,12 +88,14 @@ class _PostDetailActionsState extends State<PostDetailActions> {
                   id: widget.post.id.toString(),
                   reaction: widget.post.reaction,
                   onLikeAdded: () {},
-                  onCountReduced: () {},
-                  onDisliked: () {
-                    widget.post.reaction = PostReaction.dislike();
+                  onCountReduced: () {
                     if (widget.post.likesCount > 1) {
                       widget.post.likesCount -= 1;
                     }
+                  },
+                  onDisliked: () {
+                    widget.post.reaction = PostReaction.dislike();
+
                     setState(() {});
                   },
                   onReactionRemoved: () {
@@ -104,19 +106,22 @@ class _PostDetailActionsState extends State<PostDetailActions> {
               ],
             )),
         5.horizontalSpace,
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            ImageWidget(imageUrl: Assets.images.svgs.share03),
-            16.horizontalSpace,
-            TextView(
-              text: "Share",
-              style: GoogleFonts.dmSans(
-                fontSize: 14,
-                fontWeight: FontWeight.w500,
+        InkWell(
+          onTap: widget.onShareTap,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ImageWidget(imageUrl: Assets.images.svgs.share03),
+              16.horizontalSpace,
+              TextView(
+                text: "Share",
+                style: GoogleFonts.dmSans(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );

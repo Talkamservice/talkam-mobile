@@ -9,6 +9,7 @@ import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
 import 'package:talkam/features/home/presentation/screens/featured_screen.dart';
 import 'package:talkam/features/home/presentation/screens/recent_screen.dart';
@@ -26,8 +27,10 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController();
   final tabItems = [
-    HomeTabItemModel(imagePath: Assets.images.svgs.icfeatured, tittle: "Featured"),
-    HomeTabItemModel(imagePath: Assets.images.svgs.icTrending, tittle: "Trending"),
+    HomeTabItemModel(
+        imagePath: Assets.images.svgs.icfeatured, tittle: "Featured"),
+    HomeTabItemModel(
+        imagePath: Assets.images.svgs.icTrending, tittle: "Trending"),
     HomeTabItemModel(imagePath: Assets.images.svgs.icNew, tittle: "Recent"),
   ];
 
@@ -77,14 +80,18 @@ class _HomeScreenState extends State<HomeScreen> {
                               children: [
                                 ImageWidget(
                                   imageUrl: tabItems[index].imagePath,
-                                  color: selecteIndex == index ? context.colorScheme.primary : Pallets.grey,
+                                  color: selecteIndex == index
+                                      ? context.colorScheme.primary
+                                      : Pallets.grey,
                                 ),
                                 8.horizontalSpace,
                                 TextView(
                                   fontSize: 15,
                                   fontWeight: FontWeight.w600,
                                   text: tabItems[index].tittle,
-                                  color: selecteIndex == index ? context.colorScheme.onSurface : Pallets.grey60,
+                                  color: selecteIndex == index
+                                      ? context.colorScheme.onSurface
+                                      : Pallets.grey60,
                                   // fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
                                 ),
                               ],
@@ -98,40 +105,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 color: Pallets.grey90,
                 height: 1,
               ),
-
-              // Padding(
-              //   padding: const EdgeInsets.only(top: 16, bottom: 0),
-              //   child: Row(
-              //     children: [
-              //       _HomeTabOptionBar(
-              //         key: Key(_HomeTapOptions.forYou.name),
-              //         title: "For You",
-              //         isSelected: _selectedOption == _HomeTapOptions.forYou,
-              //         onTap: () {
-              //           setState(() {
-              //             _selectedOption = _HomeTapOptions.forYou;
-              //             _pageController.jumpToPage(0);
-              //           });
-              //         },
-              //       ),
-              //       _HomeTabOptionBar(
-              //         key: Key(_HomeTapOptions.discover.name),
-              //         title: "Discover",
-              //         isSelected: _selectedOption == _HomeTapOptions.discover,
-              //         onTap: () {
-              //           setState(() {
-              //             _selectedOption = _HomeTapOptions.discover;
-              //             _pageController.jumpToPage(1);
-              //           });
-              //         },
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              // Container(
-              //   color: Pallets.grey,
-              //   height: 1,
-              // ),
               Expanded(
                 child: Padding(
                   padding: const EdgeInsets.only(top: 10),
@@ -196,63 +169,34 @@ class HomeAppBar extends StatelessWidget {
               ),
             ),
             20.horizontalSpace,
-            InkWell(
+
+            GuestUserHelper.guestUserWidget(
+                widget: ImageWidget(
+              imageUrl: injector.get<ProfileBloc>().appUser?.avatar ??
+                  Assets.images.svgs.uploadAvatar,
+              size: 40,
               onTap: () {
-                // context.pushNamed(PageUrl.notifications);
+                context.pushNamed(PageUrl.profileScreen);
               },
-              child: SessionManager.instance.isLoggedIn
-                  ? ImageWidget(
-                      imageUrl: injector.get<ProfileBloc>().appUser?.avatar ?? Assets.images.svgs.uploadAvatar,
-                      size: 40,
-                      onTap: () {
-                        context.pushNamed(PageUrl.profileScreen);
-                      },
-                    )
-                  : ImageWidget(
-                      imageUrl: injector.get<ProfileBloc>().appUser?.avatar ?? Assets.images.svgs.profile,
-                      onTap: () {},
-                    ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+            )),
 
-class _HomeTabOptionBar extends StatelessWidget {
-  final String title;
-  final bool isSelected;
-  final VoidCallback onTap;
-  final String imagePath;
-
-  const _HomeTabOptionBar({
-    super.key,
-    required this.title,
-    required this.onTap,
-    required this.isSelected,
-    required this.imagePath,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: InkWell(
-        onTap: onTap,
-        child: Column(
-          children: [
-            Row(
-              children: [
-                ImageWidget(imageUrl: imagePath),
-                TextView(
-                  text: title,
-                  color: isSelected ? Pallets.boldBlack : Pallets.grey,
-                  fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
-                ),
-              ],
-            ),
-            10.verticalSpace,
-            if (isSelected) Container(color: Pallets.primary, height: 1.0),
+            // InkWell(
+            //   onTap: () {
+            //     // context.pushNamed(PageUrl.notifications);
+            //   },
+            //   child: SessionManager.instance.isLoggedIn
+            //       ? ImageWidget(
+            //           imageUrl: injector.get<ProfileBloc>().appUser?.avatar ?? Assets.images.svgs.uploadAvatar,
+            //           size: 40,
+            //           onTap: () {
+            //             context.pushNamed(PageUrl.profileScreen);
+            //           },
+            //         )
+            //       : ImageWidget(
+            //           imageUrl: injector.get<ProfileBloc>().appUser?.avatar ?? Assets.images.svgs.profile,
+            //           onTap: () {},
+            //         ),
+            // ),
           ],
         ),
       ),

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/core/constants/package_exports.dart';
+import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/core/utils/extensions/int_extension.dart';
+import 'package:talkam/core/utils/helper_utils.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/presentation/widgets/post_action_sheet.dart';
 import 'package:talkam/features/post/presentation/widgets/post_content.dart';
@@ -23,18 +26,23 @@ class PostDetailCard extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             PostHeader(
-              userName: post.user.usersName,
-
+              userName: userName,
               category: post.category,
-              onMenuTap: () => CustomDialogs.showBottomSheet(
-                  context,
-                  PostActionSheet(
-                    post: post,
-                  )),
+              onMenuTap: () async {
+                var isReported = await CustomDialogs.showBottomSheet(
+                    context,
+                    PostActionSheet(
+                      post: post,
+                    ));
+                if (isReported ?? false) {
+                  post.isReported = true;
+                }
+              },
+              post: post,
             ),
             10.verticalSpace,
             PostContent(
-                post: post,
+              post: post,
             ),
             12.verticalSpace,
             const Divider(thickness: 1),
@@ -44,7 +52,9 @@ class PostDetailCard extends StatelessWidget {
               likeCount: post.likesCount ?? 0,
               onCommentTap: () {},
               onLikeTap: () {},
-              onShareTap: () {},
+              onShareTap: () {
+                Helpers.share("${UrlConfig.webUrl}/comments/${post.id}");
+              },
               dislikeCount: 3,
               post: post,
             ), //
@@ -55,6 +65,9 @@ class PostDetailCard extends StatelessWidget {
       ),
     );
   }
+
+  String get userName =>
+      post.isAnonymous.toBool ? "Anonymous" : post.user.usersName;
 }
 
 class CommentField extends StatelessWidget {

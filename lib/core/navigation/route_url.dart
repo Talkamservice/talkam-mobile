@@ -21,13 +21,23 @@ class PageUrl {
 
   static const passWordResetScreen = 'passWordResetScreen';
 
-
 //   Posts
   static const postDetailsScreen = 'postDetailsScreen';
   static const createPostScreen = 'createPostScreen';
 
-
   // Profile
+
   static const profileScreen = 'profileScreen';
+  static const userProfileScreen = 'userProfileScreen';
+  static const editProfileScreen = 'editProfileScreen';
   static const settingsScreen = 'settingsScreen';
+  static const categoriesScreen = 'categoriesScreen';
+  static const searchResultScreen = 'searchResultScreen';
+
+  // Settings
+  static const blockedUsersScreen = 'blockedUsersScreen';
+  static const deleteAccountScreen = 'deleteAccountScreen';
+  static const accountSettingsScreen = 'accountSettingsScreen';
+  static const changePasswordScreen = 'changePasswordScreen';
+  static const notificationSettingsScreen = 'notificationSettingsScreen';
 }

@@ -12,6 +12,7 @@ import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
 import 'package:talkam/features/post/presentation/bloc/poll/poll_bloc.dart';
@@ -33,7 +34,7 @@ class PostContent extends StatelessWidget {
           fontWeight: FontWeight.w500,
         ),
       if (post.body?.isNotEmpty ?? false)
-        ReadMoreText(
+        CustomReadMoreText(
           text: post.body ?? '',
           fontSize: 14,
           fontWeight: FontWeight.w400,
@@ -182,8 +183,9 @@ class _PollsWidgetState extends State<PollsWidget> {
               (index) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 4.0),
                 child: widget.polls.any(
-                  (element) => element.selected == true,
-                )
+                          (element) => element.selected == true,
+                        ) ||
+                        pollFinished
                     ? IgnorePointer(
                         child: VotedPollItem(
                           poll: widget.polls[index],
@@ -195,8 +197,13 @@ class _PollsWidgetState extends State<PollsWidget> {
                         poll: widget.polls[index],
                         // controller: controllers[index],
                         onTap: () {
-                          pollBloc.add(PollEvent.selectPoll(
-                              widget.polls[index].id.toString()));
+                          GuestUserHelper.handleGuestUserAction(
+                            message: "Login to vote",
+                            action: () {
+                              pollBloc.add(PollEvent.selectPoll(
+                                  widget.polls[index].id.toString()));
+                            },
+                          );
                         },
                       ),
               ),
@@ -212,6 +219,9 @@ class _PollsWidgetState extends State<PollsWidget> {
       },
     );
   }
+
+  bool get pollFinished =>
+      widget.polls.first.expiresAt.difference(DateTime.now()).inSeconds < 0;
 
   void forwardAll() {
     // for (var controller in controllers) {
@@ -237,8 +247,6 @@ class _VotedPollItemState extends State<VotedPollItem>
     with SingleTickerProviderStateMixin {
   late AnimationController controller;
 
-
-
   @override
   void initState() {
     controller = AnimationController(
@@ -246,7 +254,6 @@ class _VotedPollItemState extends State<VotedPollItem>
       vsync: this,
     );
     Future.delayed(
-
       Duration.zero,
       () {
         _animateToTargetValue();
@@ -262,6 +269,8 @@ class _VotedPollItemState extends State<VotedPollItem>
     logger.i("dependency change Called");
     super.didChangeDependencies();
   }
+
+
 
   ValueNotifier<double> sliderValue = ValueNotifier(30);
 
@@ -290,14 +299,19 @@ class _VotedPollItemState extends State<VotedPollItem>
                   child: Container(
                     // padding: const EdgeInsets.all(4),
                     decoration: BoxDecoration(
-                      border: Border.all(color: Pallets.primary),
+                      border: Border.all(
+                          color: pollFinished ? Colors.grey : Pallets.primary),
                       borderRadius: BorderRadius.circular(100),
-                      color: Pallets.pollTrackColor.withOpacity(0.1),
+                      color: pollFinished
+                          ? Colors.grey.withOpacity(0.01)
+                          : Pallets.pollTrackColor.withOpacity(0.1),
                     ),
                     child: Slider(
                       min: 0,
                       max: 100,
-                      activeColor: Pallets.pollTrackColor,
+                      activeColor: pollFinished
+                          ? Colors.grey.withOpacity(0.4)
+                          : Pallets.pollTrackColor,
                       value: sliderValue.value,
                       onChanged: (double value) {
                         // setState(() {
@@ -332,6 +346,9 @@ class _VotedPollItemState extends State<VotedPollItem>
     });
     controller.forward();
   }
+
+  bool get pollFinished =>
+      widget.poll.expiresAt.difference(DateTime.now()).inSeconds < 0;
 
   @override
   void dispose() {
@@ -391,14 +408,20 @@ class _UnVotedPollItemState extends State<UnVotedPollItem>
                     child: Container(
                       // padding: const EdgeInsets.all(4),
                       decoration: BoxDecoration(
-                        border: Border.all(color: Pallets.primary),
+                        border: Border.all(
+                            color:
+                                pollFinished ? Colors.grey : Pallets.primary),
                         borderRadius: BorderRadius.circular(100),
-                        color: Pallets.pollTrackColor.withOpacity(0.1),
+                        color: pollFinished
+                            ? Colors.grey.withOpacity(0.1)
+                            : Pallets.pollTrackColor.withOpacity(0.1),
                       ),
                       child: Slider(
                         min: 0,
                         max: 100,
-                        activeColor: Pallets.pollTrackColor,
+                        activeColor: pollFinished
+                            ? Colors.grey.withOpacity(0.4)
+                            : Pallets.pollTrackColor,
                         value: sliderValue.value,
                         onChanged: (double value) {
                           // setState(() {
@@ -422,4 +445,7 @@ class _UnVotedPollItemState extends State<UnVotedPollItem>
           }),
     );
   }
+
+  bool get pollFinished =>
+      widget.poll.expiresAt.difference(DateTime.now()).inSeconds < 0;
 }

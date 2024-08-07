@@ -12,7 +12,8 @@ part 'profile_screen_cubit.freezed.dart';
 class ProfileScreenCubit extends Cubit<ProfileScreenState> {
   final ProfileRepository _profileRepository;
 
-  ProfileScreenCubit(this._profileRepository) : super(const ProfileScreenState.initial());
+  ProfileScreenCubit(this._profileRepository)
+      : super(const ProfileScreenState.initial());
 
   bool get hasCachedUserData => SessionManager.instance.usersData.isNotEmpty;
 
@@ -20,6 +21,7 @@ class ProfileScreenCubit extends Cubit<ProfileScreenState> {
     emit(const ProfileScreenState.loading());
     try {
       final Map<String, dynamic> usersData = SessionManager.instance.usersData;
+
       if (hasCachedUserData) {
         final TalkamUser talkAmUser = TalkamUser.fromJson(usersData);
         await Future.delayed(const Duration(milliseconds: 500));
@@ -34,7 +36,8 @@ class ProfileScreenCubit extends Cubit<ProfileScreenState> {
     } catch (exception, stackTrace) {
       logger.e(exception, stackTrace: stackTrace);
       if (hasCachedUserData) {
-        emit(ProfileScreenState.loaded(TalkamUser.fromJson(SessionManager.instance.usersData)));
+        emit(ProfileScreenState.loaded(
+            TalkamUser.fromJson(SessionManager.instance.usersData)));
       } else {
         emit(const ProfileScreenState.error());
       }

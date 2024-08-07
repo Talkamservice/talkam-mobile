@@ -12,11 +12,25 @@ import 'package:flutter/widgets.dart';
 class $AssetsImagesGen {
   const $AssetsImagesGen();
 
+  /// Directory path: assets/images/jpegs
+  $AssetsImagesJpegsGen get jpegs => const $AssetsImagesJpegsGen();
+
   /// Directory path: assets/images/png
   $AssetsImagesPngGen get png => const $AssetsImagesPngGen();
 
   /// Directory path: assets/images/svgs
   $AssetsImagesSvgsGen get svgs => const $AssetsImagesSvgsGen();
+}
+
+class $AssetsImagesJpegsGen {
+  const $AssetsImagesJpegsGen();
+
+  /// File path: assets/images/jpegs/football.jpeg
+  AssetGenImage get football =>
+      const AssetGenImage('assets/images/jpegs/football.jpeg');
+
+  /// List of all assets
+  List<AssetGenImage> get values => [football];
 }
 
 class $AssetsImagesPngGen {
@@ -76,11 +90,20 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/apple.svg
   String get apple => 'assets/images/svgs/apple.svg';
 
+  /// File path: assets/images/svgs/apple_white.svg
+  String get appleWhite => 'assets/images/svgs/apple_white.svg';
+
+  /// File path: assets/images/svgs/arrow-left.svg
+  String get arrowLeft => 'assets/images/svgs/arrow-left.svg';
+
   /// File path: assets/images/svgs/arrow-up-right.svg
   String get arrowUpRight => 'assets/images/svgs/arrow-up-right.svg';
 
   /// File path: assets/images/svgs/bell-plus.svg
   String get bellPlus => 'assets/images/svgs/bell-plus.svg';
+
+  /// File path: assets/images/svgs/blocked_user.svg
+  String get blockedUser => 'assets/images/svgs/blocked_user.svg';
 
   /// File path: assets/images/svgs/camera_icon.svg
   String get cameraIcon => 'assets/images/svgs/camera_icon.svg';
@@ -94,11 +117,17 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/copy-07.svg
   String get copy07 => 'assets/images/svgs/copy-07.svg';
 
+  /// File path: assets/images/svgs/dummyUser.svg
+  String get dummyUser => 'assets/images/svgs/dummyUser.svg';
+
   /// File path: assets/images/svgs/emailsent.svg
   String get emailsent => 'assets/images/svgs/emailsent.svg';
 
   /// File path: assets/images/svgs/facebook.svg
   String get facebook => 'assets/images/svgs/facebook.svg';
+
+  /// File path: assets/images/svgs/facebook_white.svg
+  String get facebookWhite => 'assets/images/svgs/facebook_white.svg';
 
   /// File path: assets/images/svgs/flag-02.svg
   String get flag02 => 'assets/images/svgs/flag-02.svg';
@@ -114,6 +143,9 @@ class $AssetsImagesSvgsGen {
 
   /// File path: assets/images/svgs/groups.svg
   String get groups => 'assets/images/svgs/groups.svg';
+
+  /// File path: assets/images/svgs/guidline_indicatior.svg
+  String get guidlineIndicatior => 'assets/images/svgs/guidline_indicatior.svg';
 
   /// File path: assets/images/svgs/home.svg
   String get home => 'assets/images/svgs/home.svg';
@@ -153,6 +185,12 @@ class $AssetsImagesSvgsGen {
 
   /// File path: assets/images/svgs/profile.svg
   String get profile => 'assets/images/svgs/profile.svg';
+
+  /// File path: assets/images/svgs/radio_active.svg
+  String get radioActive => 'assets/images/svgs/radio_active.svg';
+
+  /// File path: assets/images/svgs/radio_inactive.svg
+  String get radioInactive => 'assets/images/svgs/radio_inactive.svg';
 
   /// File path: assets/images/svgs/rules.svg
   String get rules => 'assets/images/svgs/rules.svg';
@@ -211,19 +249,25 @@ class $AssetsImagesSvgsGen {
         anonymousActive,
         anonymousInactive,
         apple,
+        appleWhite,
+        arrowLeft,
         arrowUpRight,
         bellPlus,
+        blockedUser,
         cameraIcon,
         chevronRight,
         comment,
         copy07,
+        dummyUser,
         emailsent,
         facebook,
+        facebookWhite,
         flag02,
         gif,
         googleAuth,
         grid03,
         groups,
+        guidlineIndicatior,
         home,
         icDelete,
         icPersonEdit,
@@ -237,6 +281,8 @@ class $AssetsImagesSvgsGen {
         message,
         notification,
         profile,
+        radioActive,
+        radioInactive,
         rules,
         searchMd,
         search,
@@ -263,16 +309,11 @@ class Assets {
 }
 
 class AssetGenImage {
-  const AssetGenImage(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  });
+  const AssetGenImage(this._assetName, {this.size = null});
 
   final String _assetName;
 
   final Size? size;
-  final Set<String> flavors;
 
   Image image({
     Key? key,

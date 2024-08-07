@@ -20,7 +20,7 @@ class AppTheme extends ChangeNotifier {
     useMaterial3: false,
     hintColor: Pallets.grey,
     cardColor: Pallets.white,
-    scaffoldBackgroundColor: Pallets.bgLight,
+    scaffoldBackgroundColor: Pallets.white,
     fontFamily: GoogleFonts.plusJakartaSans().fontFamily,
     sliderTheme: const SliderThemeData(
       showValueIndicator: ShowValueIndicator.always,

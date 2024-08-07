@@ -16,11 +16,21 @@ import 'package:talkam/features/group/presentation/screens/groups_screen.dart';
 import 'package:talkam/features/home/presentation/screens/base_page.dart';
 import 'package:talkam/features/home/presentation/screens/home_screen.dart';
 import 'package:talkam/features/messaging/presentation/screens/messages_screen.dart';
+import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
+import 'package:talkam/features/post/presentation/screens/categories_screen.dart';
 import 'package:talkam/features/post/presentation/screens/create_post_screen.dart';
 import 'package:talkam/features/post/presentation/screens/post_details_screen.dart';
+import 'package:talkam/features/profile/presentation/screens/edit_profile_screen.dart';
 import 'package:talkam/features/profile/presentation/screens/profile_screen.dart';
-import 'package:talkam/features/profile/presentation/screens/settings_screen.dart';
+import 'package:talkam/features/settings/presentation/screens/account_settings_screen.dart';
+import 'package:talkam/features/settings/presentation/screens/blocked_users_screen.dart';
+import 'package:talkam/features/settings/presentation/screens/change_password_screen.dart';
+import 'package:talkam/features/settings/presentation/screens/delete_account_screen.dart';
+import 'package:talkam/features/settings/presentation/screens/notifications_settings_screen.dart';
+import 'package:talkam/features/settings/presentation/screens/settings_screen.dart';
+import 'package:talkam/features/profile/presentation/screens/user_profile_screen.dart';
+import 'package:talkam/features/search/presentation/screens/search_result_screen.dart';
 import 'package:talkam/features/search/presentation/screens/search_screen.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'rootNavigator');
@@ -86,7 +96,12 @@ class CustomRoutes {
       GoRoute(
         path: '/userNameScreen',
         name: PageUrl.userNameScreen,
-        builder: (context, state) => const UsernameScreen(),
+        builder: (context, state) => UsernameScreen(),
+      ),
+      GoRoute(
+        path: '/editProfileScreen',
+        name: PageUrl.editProfileScreen,
+        builder: (context, state) => EditProfileScreen(),
       ),
       GoRoute(
         path: '/passWordResetScreen',
@@ -113,9 +128,65 @@ class CustomRoutes {
         builder: (context, state) => const SettingsScreen(),
       ),
       GoRoute(
+        path: '/${PageUrl.userProfileScreen}',
+        name: PageUrl.userProfileScreen,
+        builder: (context, state) => UserProfileScreen(
+          userId: state.extra as String,
+        ),
+      ),
+      GoRoute(
+        path: '/${PageUrl.blockedUsersScreen}',
+        name: PageUrl.blockedUsersScreen,
+        builder: (context, state) => const BlockedUsersScreen(
+            // userId: state.extra as String,
+            ),
+      ),
+      GoRoute(
+        path: '/${PageUrl.accountSettingsScreen}',
+        name: PageUrl.accountSettingsScreen,
+        builder: (context, state) => const AccountSettingsScreen(
+            // userId: state.extra as String,
+            ),
+      ),
+      GoRoute(
+        path: '/${PageUrl.deleteAccountScreen}',
+        name: PageUrl.deleteAccountScreen,
+        builder: (context, state) => const DeleteAccountScreen(
+            // userId: state.extra as String,
+            ),
+      ),
+      GoRoute(
+        path: '/${PageUrl.notificationSettingsScreen}',
+        name: PageUrl.notificationSettingsScreen,
+        builder: (context, state) => const NotificationsSettingsScreen(
+            // userId: state.extra as String,
+            ),
+      ),
+      GoRoute(
+        path: '/${PageUrl.changePasswordScreen}',
+        name: PageUrl.changePasswordScreen,
+        builder: (context, state) => const ChangePasswordScreen(
+            // userId: state.extra as String,
+            ),
+      ),
+      GoRoute(
         path: '/createPostScreen',
         name: PageUrl.createPostScreen,
         builder: (context, state) => const CreatePostScreen(),
+      ),
+      GoRoute(
+        path: '/categoriesScreen',
+        name: PageUrl.categoriesScreen,
+        builder: (context, state) => CategoriesScreen(
+          category: state.extra as PostCategory,
+        ),
+      ),
+      GoRoute(
+        path: '/searchResultScreen',
+        name: PageUrl.searchResultScreen,
+        builder: (context, state) => SearchResultScreen(
+          query: state.extra as String,
+        ),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
@@ -209,6 +280,8 @@ class CustomRoutes {
         return VerifyOtpType.auth;
       case 'passwordreset':
         return VerifyOtpType.passwordReset;
+      case 'returninguser':
+        return VerifyOtpType.returningUser;
       default:
         throw ArgumentError('Invalid VerifyOtpType string: $value');
     }

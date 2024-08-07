@@ -7,6 +7,7 @@ import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/navigation/routes.dart';
+import 'package:talkam/core/services/data/session_manager.dart';
 
 /// Helper class for converting [DioError] into readable formats
 class ApiError {
@@ -107,6 +108,7 @@ class ApiErrorModel {
 String _setCustomErrorMessage(Response error) {
   if (error.statusCode == 401) {
     CustomDialogs.error('Unauthorized');
+    SessionManager.instance.logOut();
     CustomRoutes.goRouter.goNamed(PageUrl.onboardingIntro);
 
     return 'Unauthorized';
@@ -120,7 +122,6 @@ String _setCustomErrorMessage(Response error) {
   if (error.data['message'] is String) {
     errorMessageList.add(error.data['message']);
   }
-
 
   if (error.data['errors'] is Map<String, dynamic>) {
     errorMessageList.clear();
