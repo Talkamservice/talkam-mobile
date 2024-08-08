@@ -18,7 +18,7 @@ import 'package:talkam/features/profile/presentation/screens/tabs/profile_upvote
 import 'package:talkam/features/profile/presentation/screens/user_profile_tabs/user_profile_comments_tab.dart';
 import 'package:talkam/features/profile/presentation/screens/user_profile_tabs/user_profile_posts_tab.dart';
 import 'package:talkam/features/profile/presentation/screens/user_profile_tabs/user_profile_upvotes_tab.dart';
-import 'package:talkam/features/profile/presentation/widgets/profile_tab_bar.dart';
+import 'package:talkam/features/components/talkam_tab_bar.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 enum _ProfileTabOptions {
@@ -146,7 +146,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               return Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: ProfileTabBar(
+                                child: TalkamTabBar(
                                   key: Key(tabOption.title),
                                   useExpandedAsParent: false,
                                   title: tabOption.title,

@@ -6,7 +6,7 @@ import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/profile/presentation/screens/tabs/profile_posts_tab.dart';
-import 'package:talkam/features/profile/presentation/widgets/profile_tab_bar.dart';
+import 'package:talkam/features/components/talkam_tab_bar.dart';
 import 'package:talkam/features/search/presentation/screens/groups_result_tab.dart';
 import 'package:talkam/features/search/presentation/screens/post_search_result_tab.dart';
 import 'package:talkam/gen/assets.gen.dart';
@@ -61,7 +61,7 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                 ..._SearchTabOptions.values.map((tabOption) {
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                    child: ProfileTabBar(
+                    child: TalkamTabBar(
                       key: Key(tabOption.title),
                       useExpandedAsParent: false,
                       title: tabOption.title,

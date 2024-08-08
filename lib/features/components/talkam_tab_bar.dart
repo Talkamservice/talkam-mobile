@@ -3,13 +3,13 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/theme/pallets.dart';
 
-class ProfileTabBar extends StatelessWidget {
+class TalkamTabBar extends StatelessWidget {
   final String title;
   final bool isSelected;
   final VoidCallback onTap;
   final bool useExpandedAsParent;
 
-  const ProfileTabBar({
+  const TalkamTabBar({
     super.key,
     required this.title,
     required this.onTap,
