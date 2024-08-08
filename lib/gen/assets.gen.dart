@@ -144,6 +144,9 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/groups.svg
   String get groups => 'assets/images/svgs/groups.svg';
 
+  /// File path: assets/images/svgs/groups_add.svg
+  String get groupsAdd => 'assets/images/svgs/groups_add.svg';
+
   /// File path: assets/images/svgs/guidline_indicatior.svg
   String get guidlineIndicatior => 'assets/images/svgs/guidline_indicatior.svg';
 
@@ -267,6 +270,7 @@ class $AssetsImagesSvgsGen {
         googleAuth,
         grid03,
         groups,
+        groupsAdd,
         guidlineIndicatior,
         home,
         icDelete,
@@ -309,11 +313,16 @@ class Assets {
 }
 
 class AssetGenImage {
-  const AssetGenImage(this._assetName, {this.size = null});
+  const AssetGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+  });
 
   final String _assetName;
 
   final Size? size;
+  final Set<String> flavors;
 
   Image image({
     Key? key,
