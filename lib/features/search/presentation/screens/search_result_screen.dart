@@ -8,6 +8,7 @@ import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/profile/presentation/screens/tabs/profile_posts_tab.dart';
 import 'package:talkam/features/profile/presentation/widgets/profile_tab_bar.dart';
 import 'package:talkam/features/search/presentation/screens/groups_result_tab.dart';
+import 'package:talkam/features/search/presentation/screens/media_search_tab.dart';
 import 'package:talkam/features/search/presentation/screens/post_search_result_tab.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
@@ -46,9 +47,9 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const CustomAppBar(
-        padding: EdgeInsets.all(0.0),
-        tittleText: "champions league",
+      appBar: CustomAppBar(
+        padding: const EdgeInsets.all(0.0),
+        tittleText: widget.query,
         centerTile: false,
         showDivider: false,
       ),
@@ -93,9 +94,15 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                 setState(() {});
               },
               children: [
-                const PostSearchResultTab(),
-                const GroupsResultTab(),
-                Container(),
+                PostSearchResultTab(
+                  query: widget.query,
+                ),
+                GroupsResultTab(
+                  query: widget.query,
+                ),
+                MediaSearchResultTab(
+                  query: widget.query,
+                ),
               ],
             ),
           )

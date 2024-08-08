@@ -3,10 +3,12 @@ import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/theme/pallets.dart';
-import 'package:talkam/gen/assets.gen.dart';
+import 'package:talkam/features/search/data/models/get_group_response.dart';
 
 class GroupResultItem extends StatelessWidget {
-  const GroupResultItem({super.key});
+  const GroupResultItem({super.key, required this.group});
+
+  final TalkamGroup group;
 
   @override
   Widget build(BuildContext context) {
@@ -21,18 +23,18 @@ class GroupResultItem extends StatelessWidget {
                   height: 54,
                   fit: BoxFit.cover,
                   borderRadius: BorderRadius.circular(2),
-                  imageUrl: Assets.images.png.woman.path),
+                  imageUrl: group.image.toString()),
               12.horizontalSpace,
-              const Expanded(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextView(
-                      text: "UEFA Chamions League",
+                      text: group.name.toString(),
                       fontWeight: FontWeight.w700,
                     ),
                     TextView(
-                      text: "32k Members",
+                      text: formatMemberCount(group.totalMembers ?? 0),
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                     ),
@@ -58,5 +60,15 @@ class GroupResultItem extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  formatMemberCount(totalMembers) {
+    if (totalMembers >= 1000) {
+      return '${(totalMembers / 1000).toFixed(1)}k';
+    } else if (totalMembers <= 1) {
+      return "${totalMembers.toString()} Member";
+    } else {
+      return "${totalMembers.toString()} Members";
+    }
   }
 }

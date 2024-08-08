@@ -56,7 +56,7 @@ class GetPostsResponse {
 }
 
 class Data {
-  PaginationMeta paginationMeta;
+  PostsPaginationData paginationMeta;
   List<TalkamPost> data;
 
   Data({
@@ -65,7 +65,7 @@ class Data {
   });
 
   Data copyWith({
-    PaginationMeta? paginationMeta,
+    PostsPaginationData? paginationMeta,
     List<TalkamPost>? data,
   }) =>
       Data(
@@ -74,7 +74,7 @@ class Data {
       );
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-        paginationMeta: PaginationMeta.fromJson(json["pagination_meta"]),
+        paginationMeta: PostsPaginationData.fromJson(json["pagination_meta"]),
         data: List<TalkamPost>.from(
             json["data"].map((x) => TalkamPost.fromJson(x))),
       );
@@ -419,7 +419,7 @@ class PostCreator {
   String get usersName => name.isNotEmpty ? name : (username ?? email);
 }
 
-class PaginationMeta {
+class PostsPaginationData {
   dynamic currentPage;
   dynamic firstPageUrl;
   dynamic from;
@@ -433,7 +433,7 @@ class PaginationMeta {
   dynamic total;
   dynamic canLoadMore;
 
-  PaginationMeta({
+  PostsPaginationData({
     required this.currentPage,
     required this.firstPageUrl,
     required this.from,
@@ -448,7 +448,7 @@ class PaginationMeta {
     required this.canLoadMore,
   });
 
-  PaginationMeta copyWith({
+  PostsPaginationData copyWith({
     int? currentPage,
     String? firstPageUrl,
     int? from,
@@ -462,7 +462,7 @@ class PaginationMeta {
     int? total,
     bool? canLoadMore,
   }) =>
-      PaginationMeta(
+      PostsPaginationData(
         currentPage: currentPage ?? this.currentPage,
         firstPageUrl: firstPageUrl ?? this.firstPageUrl,
         from: from ?? this.from,
@@ -477,7 +477,7 @@ class PaginationMeta {
         canLoadMore: canLoadMore ?? this.canLoadMore,
       );
 
-  factory PaginationMeta.fromJson(Map<String, dynamic> json) => PaginationMeta(
+  factory PostsPaginationData.fromJson(Map<String, dynamic> json) => PostsPaginationData(
         currentPage: json["current_page"],
         firstPageUrl: json["first_page_url"],
         from: json["from"],

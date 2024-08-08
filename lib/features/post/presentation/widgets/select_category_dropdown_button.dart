@@ -37,10 +37,12 @@ class _SelectCategoryDropDownButtonState
         },
         child: Row(
           children: [
-            ImageWidget(imageUrl: selectedCategory?.iconImage ?? Assets.images.png.sports.path),
+            ImageWidget(
+                imageUrl: selectedCategory?.iconImage ??
+                    Assets.images.png.sports.path),
             10.horizontalSpace,
             TextView(
-              text: selectedCategory?.name ?? "Select category",
+              text: selectedCategory?.name ?? "Select category or group",
               fontSize: 14,
               color: context.colorScheme.onSurface,
               fontWeight: FontWeight.w600,

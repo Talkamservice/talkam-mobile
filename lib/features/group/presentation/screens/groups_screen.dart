@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class GroupsScreen extends StatefulWidget {
   const GroupsScreen({super.key});
 
@@ -7,8 +8,10 @@ class GroupsScreen extends StatefulWidget {
 }
 
 class _GroupsScreenState extends State<GroupsScreen> {
+
   @override
   Widget build(BuildContext context) {
     return const Placeholder();
   }
+
 }

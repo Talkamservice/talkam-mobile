@@ -48,7 +48,6 @@ class PostItem extends StatelessWidget {
               10.verticalSpace,
               PostContent(
                 post: post,
-
               ),
 
               12.verticalSpace,

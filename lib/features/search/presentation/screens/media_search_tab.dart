@@ -7,25 +7,25 @@ import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item.dart';
-import 'package:talkam/features/search/presentation/blocs/post_search/post_search_cubit.dart';
+import 'package:talkam/features/search/presentation/blocs/media_search/media_serach_cubit.dart';
 
-class PostSearchResultTab extends StatefulWidget {
-  const PostSearchResultTab({super.key, required this.query});
+class MediaSearchResultTab extends StatefulWidget {
+  const MediaSearchResultTab({super.key, required this.query});
 
   final String query;
 
   @override
-  State<PostSearchResultTab> createState() => _PostSearchResultTabState();
+  State<MediaSearchResultTab> createState() => _MediaSearchResultTabState();
 }
 
-class _PostSearchResultTabState extends State<PostSearchResultTab>
+class _MediaSearchResultTabState extends State<MediaSearchResultTab>
     with AutomaticKeepAliveClientMixin {
-  final bloc = PostSearchCubit(injector.get());
+  final bloc = MediaSearchCubit(injector.get());
 
   @override
   void initState() {
     super.initState();
-    bloc.searchPosts(widget.query);
+    bloc.getMediaPosts(widget.query);
     _scrollController = ScrollController()..addListener(_onScroll);
   }
 
@@ -37,16 +37,16 @@ class _PostSearchResultTabState extends State<PostSearchResultTab>
       body: Column(
         children: [
           Expanded(
-              child: BlocConsumer<PostSearchCubit, PostSearchState>(
+              child: BlocConsumer<MediaSearchCubit, MediaSearchState>(
             bloc: bloc,
             listener: (context, state) {},
             builder: (context, state) {
               return state.maybeWhen(
                 orElse: () => 0.verticalSpace,
-                getPostSearchLoading: () => Center(
+                getMediaSearchLoading: () => Center(
                   child: CustomDialogs.getLoading(size: 50),
                 ),
-                postSearchLoaded: (posts, paginationMeta) {
+                mediaSearchLoaded: (posts, paginationMeta) {
                   if (posts.isEmpty) {
                     return const Center(
                       child: TextView(text: "No Results Found"),
@@ -54,7 +54,7 @@ class _PostSearchResultTabState extends State<PostSearchResultTab>
                   }
                   return RefreshIndicator(
                     onRefresh: () async {
-                      bloc.searchPosts(widget.query);
+                      bloc.getMediaPosts(widget.query);
                     },
                     child: ListView.builder(
                       controller: _scrollController,
@@ -71,9 +71,9 @@ class _PostSearchResultTabState extends State<PostSearchResultTab>
                     ),
                   );
                 },
-                getPostSearchFailed: (error) => AppPromptWidget(
+                getMediaSearchFailed: (error) => AppPromptWidget(
                   onTap: () {
-                    bloc.searchPosts(widget.query);
+                    bloc.getMediaPosts(widget.query);
                   },
                 ),
               );
