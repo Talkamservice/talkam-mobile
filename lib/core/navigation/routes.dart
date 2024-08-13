@@ -12,7 +12,15 @@ import 'package:talkam/features/authentication/presentation/screens/signup_scree
 import 'package:talkam/features/authentication/presentation/screens/splash_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/username_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/verify_otp_screen.dart';
+import 'package:talkam/features/group/presentation/screens/add_group_rules_screen.dart';
+import 'package:talkam/features/group/presentation/screens/create_group_screen.dart';
+import 'package:talkam/features/group/presentation/screens/create_group_success_screen.dart';
+import 'package:talkam/features/group/presentation/screens/group_details_screen.dart';
+import 'package:talkam/features/group/presentation/screens/group_info_screen.dart';
+import 'package:talkam/features/group/presentation/screens/group_members_screen.dart';
 import 'package:talkam/features/group/presentation/screens/groups_screen.dart';
+import 'package:talkam/features/group/presentation/screens/preview_group_screen.dart';
+import 'package:talkam/features/group/presentation/tabs/group_media_tab.dart';
 import 'package:talkam/features/home/presentation/screens/base_page.dart';
 import 'package:talkam/features/home/presentation/screens/home_screen.dart';
 import 'package:talkam/features/messaging/presentation/screens/messages_screen.dart';
@@ -23,6 +31,7 @@ import 'package:talkam/features/post/presentation/screens/create_post_screen.dar
 import 'package:talkam/features/post/presentation/screens/post_details_screen.dart';
 import 'package:talkam/features/profile/presentation/screens/edit_profile_screen.dart';
 import 'package:talkam/features/profile/presentation/screens/profile_screen.dart';
+import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/features/settings/presentation/screens/account_settings_screen.dart';
 import 'package:talkam/features/settings/presentation/screens/blocked_users_screen.dart';
 import 'package:talkam/features/settings/presentation/screens/change_password_screen.dart';
@@ -73,6 +82,7 @@ class CustomRoutes {
         path: '/verifyOtpScreen',
         name: PageUrl.verifyOtpScreen,
         builder: (context, state) => VerifyOtpScreen(
+
             email: state.uri.queryParameters[PathParam.email] ?? '',
             verifyOtpType: verifyOtpFromString(
               state.uri.queryParameters[PathParam.otpType] ?? '',
@@ -188,6 +198,63 @@ class CustomRoutes {
           query: state.extra as String,
         ),
       ),
+      GoRoute(
+        path: '/groupsInfoScreen',
+        name: PageUrl.groupsInfoScreen,
+        builder: (context, state) => GroupInfoScreen(
+          group: state.extra as TalkamGroup,
+        ),
+      ),
+      GoRoute(
+        path: '/groupDetailsScreen',
+        name: PageUrl.groupDetailsScreen,
+        builder: (context, state) => const GroupDetailsScreen(
+            // query: state.extra as String,
+            ),
+      ),
+      GoRoute(
+        path: '/groupMembersScreen',
+        name: PageUrl.groupMembersScreen,
+        builder: (context, state) => const GroupMembersScreen(
+            // query: state.extra as String,
+            ),
+      ),
+      GoRoute(
+        path: '/groupRequestsScreen',
+        name: PageUrl.groupRequestsScreen,
+        builder: (context, state) => Container(
+            // query: state.extra as String,
+            ),
+      ),
+      GoRoute(
+        path: '/createGroupScreen',
+        name: PageUrl.createGroupScreen,
+        builder: (context, state) => const CreateGroupScreen(
+            // query: state.extra as String,
+            ),
+      ),
+      GoRoute(
+        path: '/createGroupRulesScreen',
+        name: PageUrl.createGroupRulesScreen,
+        builder: (context, state) => const AddGroupRulesScreen(
+            // query: state.extra as String,
+            ),
+      ),
+      GoRoute(
+        path: '/previewGroupScreen',
+        name: PageUrl.previewGroupScreen,
+        builder: (context, state) => const PreviewGroupScreen(
+            // query: state.extra as String,
+            ),
+      ),
+      GoRoute(
+        path: '/createGroupSuccessScreen',
+        name: PageUrl.createGroupSuccessScreen,
+        builder: (context, state) => const CreateGroupSuccessScreen(
+            // query: state.extra as String,
+            ),
+      ),
+
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return BasePage(navigationShell: navigationShell);
@@ -204,8 +271,10 @@ class CustomRoutes {
                 ),
                 routes: const [],
               ),
+
             ],
           ),
+
           StatefulShellBranch(
             navigatorKey: _shellNavigatorBKey,
             routes: [
@@ -229,8 +298,10 @@ class CustomRoutes {
                   child: GroupsScreen(),
                 ),
               ),
+
             ],
           ),
+
           StatefulShellBranch(
             navigatorKey: _shellNavigatorDKey,
             routes: [
@@ -243,21 +314,11 @@ class CustomRoutes {
               ),
             ],
           ),
-          // StatefulShellBranch(
-          //   navigatorKey: _shellNavigatorEKey,
-          //   routes: [
-          //     GoRoute(
-          //       path: '/profileTab',
-          //       name: PageUrl.profileTab,
-          //       pageBuilder: (context, state) => const NoTransitionPage(
-          //         child: ProfileTab(),
-          //       ),
-          //       routes: const [],
-          //     ),
-          //   ],
-          // ),
+
         ],
       ),
+
+
     ],
   );
 

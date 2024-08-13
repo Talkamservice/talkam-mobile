@@ -3,7 +3,6 @@ import 'package:flutter/services.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/theme/pallets.dart';
-import 'package:talkam/core/utils/extensions/context_extension.dart';
 
 class OutlinedFormField extends StatefulWidget {
   const OutlinedFormField(
@@ -25,7 +24,10 @@ class OutlinedFormField extends StatefulWidget {
       this.maxLength,
       this.radius,
       this.fillColor,
-      this.filled});
+      this.filled,
+      this.padding,
+      this.hintStyle,
+      this.minLine});
 
   final String hint;
   final String? placeHolder;
@@ -34,6 +36,7 @@ class OutlinedFormField extends StatefulWidget {
   final Widget? suffix;
   final Widget? preffix;
   final int? maxLine;
+  final int? minLine;
   final TextInputType? inputType;
   final TextEditingController? controller;
   final Function(String d)? onChange;
@@ -44,6 +47,8 @@ class OutlinedFormField extends StatefulWidget {
   final int? maxLength;
   final double? radius;
   final bool? filled;
+  final EdgeInsetsGeometry? padding;
+  final TextStyle? hintStyle;
 
   final Color? fillColor;
 
@@ -92,6 +97,7 @@ class _OutlinedFormFieldState extends State<OutlinedFormField> {
             controller: widget.controller,
             validator: widget.validator,
             maxLines: widget.maxLine ?? 1,
+            minLines: widget.minLine ?? 1,
             onChanged: widget.onChange,
             keyboardType: widget.inputType,
             onFieldSubmitted: widget.onFieldSubmitted,
@@ -128,13 +134,14 @@ class _OutlinedFormFieldState extends State<OutlinedFormField> {
                     borderSide:
                         const BorderSide(color: Pallets.borderGrey, width: 1),
                     borderRadius: BorderRadius.circular(widget.radius ?? 10)),
-                contentPadding:
-                    const EdgeInsets.symmetric(vertical: 18, horizontal: 16),
+                contentPadding: widget.padding ??
+                    const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                 suffixIconColor: Pallets.grey75,
-                hintStyle: TextStyle(
-                    color: Pallets.grey75,
-                    fontSize: 15.sp,
-                    fontWeight: FontWeight.w500)),
+                hintStyle: widget.hintStyle ??
+                    TextStyle(
+                        color: Pallets.grey75,
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w500)),
           ),
         ],
       ),

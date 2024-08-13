@@ -52,7 +52,8 @@ class PostContent extends StatelessWidget {
                 post.tags?.length ?? 0,
                 (index) => Container(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(100.r),
                       border: Border.all(

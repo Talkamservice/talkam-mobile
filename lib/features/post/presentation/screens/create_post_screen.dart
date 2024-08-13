@@ -20,6 +20,7 @@ import 'package:talkam/features/post/presentation/widgets/create_post_header.dar
 import 'package:talkam/features/post/presentation/widgets/image_post_form.dart';
 import 'package:talkam/features/post/presentation/widgets/schedule_post_form.dart';
 import 'package:talkam/features/post/presentation/widgets/text_post_form.dart';
+import 'package:talkam/features/search/data/models/get_group_response.dart';
 
 enum PostType { text, file, poll }
 
@@ -37,6 +38,7 @@ class _CreatePostScreenState extends State<CreatePostScreen>
   bool isAnonymous = false;
   var bloc = CreatePostCubit(injector.get());
   PostCategory? selectedCategory;
+  TalkamGroup? selectedGroup;
   DateTime? scheduleDate;
   final tittleController = TextEditingController();
   final formKey = GlobalKey<FormState>();
@@ -90,6 +92,11 @@ class _CreatePostScreenState extends State<CreatePostScreen>
                       onCategorySelected: (PostCategory category) {
                         selectedCategory = category;
                       },
+                      onGroupSelected: (TalkamGroup group) {
+                        selectedCategory = group.category;
+                        selectedGroup = group;
+                        setState(() {});
+                      },
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -125,7 +132,7 @@ class _CreatePostScreenState extends State<CreatePostScreen>
                       onChanged: (val) {
                         schedulePost = val;
                         setState(() {});
-                        if(!val){
+                        if (!val) {
                           scheduleDate = null;
                         }
                       },
@@ -165,6 +172,7 @@ class _CreatePostScreenState extends State<CreatePostScreen>
               context.read<CreatePostCubit>().updatePayload(CreatePostPayload(
                   categoryId: selectedCategory!.id,
                   publishAt: scheduleDate,
+                  groupId: selectedGroup?.id!,
                   isAnonymous: isAnonymous.toInt,
                   title: tittleController.text,
                   type: postType.name.capitalizeFirst));

@@ -12,6 +12,7 @@ String createPostPayloadToJson(CreatePostPayload data) =>
 
 class CreatePostPayload {
   int? categoryId;
+  int? groupId;
   String? type;
   String? title;
   String? body;
@@ -25,6 +26,7 @@ class CreatePostPayload {
 
   CreatePostPayload({
     this.categoryId,
+    this.groupId,
     this.type,
     this.title,
     this.body,
@@ -39,6 +41,7 @@ class CreatePostPayload {
 
   CreatePostPayload copyWith({
     int? categoryId,
+    int? groupId,
     String? type,
     String? title,
     String? body,
@@ -52,6 +55,7 @@ class CreatePostPayload {
   }) =>
       CreatePostPayload(
         categoryId: categoryId ?? this.categoryId,
+        groupId: groupId ?? this.groupId,
         type: type ?? this.type,
         title: title ?? this.title,
         body: body ?? this.body,
@@ -67,6 +71,7 @@ class CreatePostPayload {
   factory CreatePostPayload.fromJson(Map<String, dynamic> json) =>
       CreatePostPayload(
         categoryId: json["category_id"],
+        groupId: json["group_id"],
         type: json["type"],
         title: json["title"],
         body: json["body"],
@@ -82,12 +87,12 @@ class CreatePostPayload {
 
   Map<String, dynamic> toJson() => {
         "category_id": categoryId,
+        "group_id": groupId,
         "type": type,
         "title": title,
         "body": body,
         "status": status,
-        "publish_at":  publishAt?.toIso8601String(),
-
+        "publish_at": publishAt?.toIso8601String(),
         "can_comment": canComment,
         "is_anonymous": isAnonymous,
         "attachments": attachments == null

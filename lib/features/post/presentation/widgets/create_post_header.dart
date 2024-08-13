@@ -9,6 +9,7 @@ import 'package:talkam/features/post/presentation/screens/create_post_screen.dar
 import 'package:talkam/features/post/presentation/screens/post_details_screen.dart';
 import 'package:talkam/features/post/presentation/widgets/rules_button.dart';
 import 'package:talkam/features/post/presentation/widgets/select_category_dropdown_button.dart';
+import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class CreatePostHeader extends StatefulWidget {
@@ -17,11 +18,13 @@ class CreatePostHeader extends StatefulWidget {
     required this.onPostTypeChanged,
     required this.onIsAnonymousChanged,
     required this.onCategorySelected,
+    required this.onGroupSelected,
   });
 
   final Function(PostType type) onPostTypeChanged;
   final Function(bool isAnonymous) onIsAnonymousChanged;
-  final Function(PostCategory isAnonymous) onCategorySelected;
+  final Function(PostCategory category) onCategorySelected;
+  final Function(TalkamGroup group) onGroupSelected;
 
   @override
   State<CreatePostHeader> createState() => _CreatePostHeaderState();
@@ -44,6 +47,7 @@ class _CreatePostHeaderState extends State<CreatePostHeader> {
             children: [
               SelectCategoryDropDownButton(
                 onCategorySelected: widget.onCategorySelected,
+                onGroupSelected: widget.onGroupSelected,
               ),
               const RulesButton(),
             ],

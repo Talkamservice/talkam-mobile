@@ -20,7 +20,7 @@ class AppTheme extends ChangeNotifier {
     useMaterial3: false,
     hintColor: Pallets.grey,
     cardColor: Pallets.white,
-    scaffoldBackgroundColor: Pallets.white,
+    scaffoldBackgroundColor: Pallets.bgLight,
     fontFamily: GoogleFonts.plusJakartaSans().fontFamily,
     sliderTheme: const SliderThemeData(
       showValueIndicator: ShowValueIndicator.always,
@@ -110,6 +110,7 @@ class AppTheme extends ChangeNotifier {
     colorScheme: lightTheme.colorScheme
         .copyWith(background: Colors.grey[900], onBackground: Pallets.white),
   );
+
 }
 
 // final themeProvider = ChangeNotifierProvider<AppTheme>((ref) {

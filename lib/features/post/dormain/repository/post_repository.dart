@@ -34,6 +34,8 @@ abstract class PostRepository {
 
   Future<dynamic> getAComment(String commentId);
 
+  Future<GetCategoriesResponse> getSubCategories();
+
   Future<dynamic> saveAComment(SaveCommentPayload payload);
 
   Future<dynamic> deleteComment(String commentId);
@@ -44,5 +46,5 @@ abstract class PostRepository {
 
   Future<dynamic> deletePoll(String pollId);
 
-  Future<dynamic> reportComment(String postId,String commentId, String reason);
+  Future<dynamic> reportComment(String postId, String commentId, String reason);
 }

@@ -40,4 +40,14 @@ class PageUrl {
   static const accountSettingsScreen = 'accountSettingsScreen';
   static const changePasswordScreen = 'changePasswordScreen';
   static const notificationSettingsScreen = 'notificationSettingsScreen';
+
+//   Groups
+  static const groupsInfoScreen = 'groupsInfoScreen';
+  static const groupDetailsScreen = 'groupDetailsScreen';
+  static const groupMembersScreen = 'groupMembersScreen';
+  static const groupRequestsScreen = 'groupRequestsScreen';
+  static const createGroupScreen = 'createGroupScreen';
+  static const createGroupRulesScreen = 'createGroupRulesScreen';
+  static const previewGroupScreen = 'previewGroupScreen';
+  static const createGroupSuccessScreen = 'createGroupSuccessScreen';
 }

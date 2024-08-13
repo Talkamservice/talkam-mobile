@@ -3,17 +3,22 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/features/group/presentation/widgets/category_groups_sheet.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
-import 'package:talkam/features/post/presentation/widgets/select_category_sheet.dart';
+import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class SelectCategoryDropDownButton extends StatefulWidget {
   const SelectCategoryDropDownButton(
-      {super.key, required this.onCategorySelected});
+      {super.key,
+      required this.onCategorySelected,
+      required this.onGroupSelected});
 
   final Function(PostCategory) onCategorySelected;
+  final Function(TalkamGroup) onGroupSelected;
 
   @override
   State<SelectCategoryDropDownButton> createState() =>
@@ -23,6 +28,8 @@ class SelectCategoryDropDownButton extends StatefulWidget {
 class _SelectCategoryDropDownButtonState
     extends State<SelectCategoryDropDownButton> {
   PostCategory? selectedCategory;
+  String? name;
+  String? iconImage;
 
   @override
   Widget build(BuildContext context) {
@@ -33,14 +40,14 @@ class _SelectCategoryDropDownButtonState
                 side: BorderSide(color: Pallets.borderGrey)),
             padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10)),
         onPressed: () {
-          selecteCategory(context);
+          selectCategory(context);
         },
         child: Row(
           children: [
-            ImageWidget(imageUrl: selectedCategory?.iconImage ?? Assets.images.png.sports.path),
+            ImageWidget(imageUrl: iconImage ?? Assets.images.png.sports.path),
             10.horizontalSpace,
             TextView(
-              text: selectedCategory?.name ?? "Select category",
+              text: name ?? "Select category or group",
               fontSize: 14,
               color: context.colorScheme.onSurface,
               fontWeight: FontWeight.w600,
@@ -51,9 +58,23 @@ class _SelectCategoryDropDownButtonState
         ));
   }
 
-  Future<void> selecteCategory(BuildContext context) async {
-    selectedCategory = await CustomDialogs.showBottomSheet(
-        context, const SelectCategorySheet());
+  Future<void> selectCategory(BuildContext context) async {
+    var categoryorGroup = await CustomDialogs.showBottomSheet(
+        context, const CategoryGroupsSheet());
+
+    logger.w(categoryorGroup);
+
+    if (categoryorGroup is PostCategory) {
+      selectedCategory = categoryorGroup;
+      name = selectedCategory?.name;
+      iconImage = selectedCategory?.iconImage;
+    } else if (categoryorGroup is TalkamGroup) {
+      selectedCategory = categoryorGroup.category;
+      name = categoryorGroup.name;
+      iconImage = selectedCategory?.iconImage;
+      widget.onGroupSelected(categoryorGroup);
+      setState(() {});
+    }
 
     if (selectedCategory != null) {
       widget.onCategorySelected(selectedCategory!);

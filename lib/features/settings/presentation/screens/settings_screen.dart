@@ -203,11 +203,14 @@ class _SettingItemTile extends StatelessWidget {
                   fontWeight: FontWeight.w600,
                   color: const Color(0xFF444444),
                 ),
-                const Icon(
-                  Icons.arrow_forward_ios_sharp,
-                  size: 14.0,
-                  color: Color(0xFF444444),
-                )
+                if (settingsCategory.items[i].title.toString().toLowerCase() != "logout")
+                  const Icon(
+
+
+                    Icons.arrow_forward_ios_sharp,
+                    size: 14.0,
+                    color: Color(0xFF444444),
+                  )
               ],
             ),
           ),

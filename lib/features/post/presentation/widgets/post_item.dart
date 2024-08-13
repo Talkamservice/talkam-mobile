@@ -23,7 +23,10 @@ class PostItem extends StatelessWidget {
         context.pushNamed(PageUrl.postDetailsScreen, extra: post);
       },
       child: Container(
-        color: context.theme.cardColor,
+        decoration: BoxDecoration(
+            color: context.theme.cardColor,
+            borderRadius: BorderRadius.circular(10)),
+
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
           child: Column(
@@ -48,7 +51,6 @@ class PostItem extends StatelessWidget {
               10.verticalSpace,
               PostContent(
                 post: post,
-
               ),
 
               12.verticalSpace,

@@ -78,7 +78,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         return Scaffold(
           appBar: CustomAppBar(
             padding: const EdgeInsets.all(0.0),
-            tittleText: "Profile",
+            tittleText: "My Profile",
             centerTile: false,
             showDivider: true,
             actions: [
@@ -117,6 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   width: 80.w,
                                   height: 80.w,
                                   canPreview: true,
+                                  fit: BoxFit.scaleDown,
                                   shape: BoxShape.circle,
                                   imageUrl: injector
                                       .get<ProfileBloc>()
@@ -132,7 +133,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             .appUser
                                             ?.username ??
                                         "",
-                                    fontWeight: FontWeight.w600,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 16,
                                     color: Pallets.boldBlackV2,
                                   ),
                                 ),
@@ -198,27 +200,31 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         child: Container(height: 1, color: Pallets.borderGrey),
                       ),
                       Expanded(
-                        child: PageView(
-                          controller: _pageController,
-                          onPageChanged: (int index) {
-                            _selectedTab = index == 0
-                                ? _ProfileTabOptions.posts
-                                : index == 1
-                                    ? _ProfileTabOptions.comments
-                                    : _ProfileTabOptions.upVotes;
-                            setState(() {});
-                          },
-                          children: const [
-                            ProfilePostTab(
-                              key: PageStorageKey(_ProfileTabOptions.posts),
-                            ),
-                            ProfileCommentsTab(
-                              key: PageStorageKey(_ProfileTabOptions.comments),
-                            ),
-                            ProfileUpvotesTab(
-                              key: PageStorageKey(_ProfileTabOptions.upVotes),
-                            ),
-                          ],
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                          child: PageView(
+                            controller: _pageController,
+                            onPageChanged: (int index) {
+
+                              _selectedTab = index == 0
+                                  ? _ProfileTabOptions.posts
+                                  : index == 1
+                                      ? _ProfileTabOptions.comments
+                                      : _ProfileTabOptions.upVotes;
+                              setState(() {});
+                            },
+                            children: const [
+                              ProfilePostTab(
+                                key: PageStorageKey(_ProfileTabOptions.posts),
+                              ),
+                              ProfileCommentsTab(
+                                key: PageStorageKey(_ProfileTabOptions.comments),
+                              ),
+                              ProfileUpvotesTab(
+                                key: PageStorageKey(_ProfileTabOptions.upVotes),
+                              ),
+                            ],
+                          ),
                         ),
                       )
                     ],

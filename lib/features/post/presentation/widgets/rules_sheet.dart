@@ -86,14 +86,14 @@ class _RulesSheetState extends State<RulesSheet>
                           ),
                         ),
                         getGuideLinesSuccess: (response) => ListView.builder(
-                          itemCount: injector.get<PostBloc>().rules.length,
+                          itemCount: injector.get<PostBloc>().talkamRules.length,
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           itemBuilder: (context, index) => Padding(
                             padding: const EdgeInsets.symmetric(
                                 vertical: 5.0, horizontal: 16),
                             child: _GuidelineItem(
-                              guidline: injector.get<PostBloc>().rules[index],
+                              guidline: injector.get<PostBloc>().talkamRules[index],
                             ),
                           ),
                         ),

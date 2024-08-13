@@ -14,4 +14,5 @@ Future<void> init() async {
   repositoryModule.setup(injector);
   blocModule.setup(injector);
   serviceModule.setup(injector);
+
 }

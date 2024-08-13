@@ -14,6 +14,7 @@ class Debouncer {
   run(VoidCallback action) {
     if (_timer?.isActive ?? false) _timer?.cancel();
     _timer = Timer(Duration(milliseconds: milliseconds), action);
+
   }
 
   // Disposes the timer

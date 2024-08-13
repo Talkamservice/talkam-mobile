@@ -80,7 +80,12 @@ class _SplashScreenState extends State<SplashScreen>
     if (SessionManager.instance.isLoggedIn) {
       gotoNextScreen(context, injector.get<ProfileBloc>().appUser!);
     } else {
+
+
       context.goNamed(PageUrl.onboardingIntro);
+
+
     }
+
   }
 }

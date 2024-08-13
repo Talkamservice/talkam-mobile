@@ -142,6 +142,7 @@ dependencies:
   bloc: ^8.1.2
 #  open_file: ^3.3.2
   open_filex: ^4.4.0
+  flutter_typeahead: ^5.2.0
   # flutter_background: ^1.2.0
 #  audio_manager: ^0.8.2
 

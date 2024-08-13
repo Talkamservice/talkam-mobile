@@ -96,6 +96,7 @@ class UrlConfig {
 
 //   POST
   static const String getCategories = '/user/post-categories';
+  static const String getSubCategories = '/user/post-categories/sub-categories';
   static const String getPosts = '/user/posts';
   static const String createPost = '/user/posts';
 
@@ -138,4 +139,24 @@ class UrlConfig {
   static const String fetchTrendingSearches = '/user/search/trending';
   static const String deleteSearch = '/user/search';
   static const String fetchSearchSuggestions = '/user/search/suggestions';
+
+
+  static const String getGroups = '/user/groups';
+  static const String getFollowingGroupMembers = '/user/groups/members/following';
+  static const String updateGroup = '/user/groups/';
+  static const String getGroup = '/user/groups/';
+  static const String deleteGroup = '/user/groups/';
+
+
+  static const String getPendingGroupMembers = '/user/group-members';
+  static const String requestAccess = '/user/groups/';
+  static const String updateAccessRequest = '/user/groups/';
+  static const String deleteGroupMember = '/user/group-members/';
+
+  static const String getGroupMembers = '/user/group-members';
+  static const String addGroupMember = '/user/group-members';
+  static const String updateMemberRole = '/user/group-members/';
+  static const String getMember = '/user/group-members/';
+  static const String deleteMember = '/user/group-members/';
+
 }

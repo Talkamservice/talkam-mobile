@@ -10,6 +10,7 @@ import 'package:talkam/core/services/time_zone/time_zone_service.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/di/injector.dart' as di;
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
+import 'package:talkam/gen/assets.gen.dart';
 import 'package:tiktok_login_flutter/tiktok_login_flutter.dart';
 import 'core/services/firebase/notifiactions.dart';
 import 'core/services/pay/pay_service.dart';
@@ -32,9 +33,11 @@ class AppConfig {
   }
 
   Future<void> _setup() async {
+
     await di.init();
     await _initializeServices();
     await initializeDB();
+
   }
 
   Future<void> _initializeServices() async {

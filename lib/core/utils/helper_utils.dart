@@ -16,6 +16,8 @@ import '../_core.dart';
 import '_utils.dart';
 
 class Helpers {
+
+
   static String getFileName(File file, {String? prefix}) {
     var name = file.path.split('/').last;
     if (prefix != null) {

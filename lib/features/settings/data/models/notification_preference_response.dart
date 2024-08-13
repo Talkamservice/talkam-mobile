@@ -12,12 +12,14 @@ class NotificationsPreferenceResponse {
   String message;
   Data data;
   bool success;
+
   int code;
 
   NotificationsPreferenceResponse({
     required this.message,
     required this.data,
     required this.success,
+
     required this.code,
   });
 

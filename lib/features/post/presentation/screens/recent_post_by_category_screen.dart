@@ -68,6 +68,7 @@ class _RecentPostByCategoryScreenState extends State<RecentPostByCategoryScreen>
                     },
                     child: ListView.builder(
                       itemCount: respone.data.data.length,
+                      padding: EdgeInsets.zero,
                       addAutomaticKeepAlives: true,
                       itemBuilder: (context, index) => Padding(
                         padding: const EdgeInsets.only(bottom: 4.0),
