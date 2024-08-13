@@ -1,5 +1,6 @@
 import 'package:get_it/get_it.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
 import 'package:talkam/features/post/presentation/bloc/create_post/create_post_cubit.dart';
 import 'package:talkam/features/post/presentation/bloc/featured_posts/featured_post_cubit.dart';
@@ -43,6 +44,7 @@ void setup(GetIt getIt) {
 
   getIt.registerLazySingleton<PostBloc>(
     () => PostBloc(injector.get()),
+
   );
 
   getIt.registerLazySingleton<ProfileScreenCubit>(
@@ -67,4 +69,5 @@ void setup(GetIt getIt) {
   getIt.registerLazySingleton<UserProfileCommentsCubit>(
       () => UserProfileCommentsCubit(injector.get()));
   getIt.registerLazySingleton<SearchCubit>(() => SearchCubit(injector.get()));
+  getIt.registerLazySingleton<GroupsCubit>(() => GroupsCubit(injector.get()));
 }

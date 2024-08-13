@@ -25,11 +25,11 @@ class CategoriesScreen extends StatefulWidget {
 class _CategoriesScreenState extends State<CategoriesScreen> {
   final PageController _pageController = PageController();
   final tabItems = [
-    HomeTabItemModel(
+    TabItemModel(
         imagePath: Assets.images.svgs.icfeatured, tittle: "Featured"),
-    HomeTabItemModel(
+    TabItemModel(
         imagePath: Assets.images.svgs.icTrending, tittle: "Trending"),
-    HomeTabItemModel(imagePath: Assets.images.svgs.icNew, tittle: "Recent"),
+    TabItemModel(imagePath: Assets.images.svgs.icNew, tittle: "Recent"),
   ];
 
   int selecteIndex = 0;

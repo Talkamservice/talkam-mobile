@@ -8,7 +8,7 @@ class GroupsSearchState with _$GroupsSearchState {
   const factory GroupsSearchState.getGroupSearchLoading() = _GroupSearchLoading;
   const factory GroupsSearchState.groupSearchLoaded({
     required List<TalkamGroup> groupResults,
-    required PaginationMeta paginationData,
+    required GroupPaginationMeta paginationData,
   }) = _GroupSearchLoaded;
   const factory GroupsSearchState.getGroupSearchFailed(String message) = _GroupSearchFailed;
 }

@@ -74,6 +74,7 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<AuthorizationCredentialAppleID?> appleAuth() async {
+
     try {
       final response = await SignInWithApple.getAppleIDCredential(scopes: [
         AppleIDAuthorizationScopes.email,
@@ -144,6 +145,7 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<AuthSuccessResponse> login(String email, String password) async {
+
     final response = await _networkService.call(
         UrlConfig.login, RequestMethod.post,
         data: {"input": email, "password": password});

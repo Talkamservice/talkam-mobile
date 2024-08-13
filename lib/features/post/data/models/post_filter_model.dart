@@ -5,14 +5,17 @@ class PostFilterModel {
   String? category;
   int? limit;
   String? search;
+  String? target;
 
   factory PostFilterModel.all() => PostFilterModel();
 
   factory PostFilterModel.featuredPost({String? category}) =>
       PostFilterModel(tab: 'featured', category: category);
 
-  factory PostFilterModel.recentPost({String? category}) =>
-      PostFilterModel(tab: 'latest', category: category);
+  factory PostFilterModel.recentPost(
+          {String? category, bool? isGroup = false}) =>
+      PostFilterModel(
+          tab: 'latest', category: category, target: isGroup! ? "group" : null);
 
   factory PostFilterModel.trendingPost({String? category}) =>
       PostFilterModel(tab: 'trending', category: category);
@@ -21,12 +24,14 @@ class PostFilterModel {
           {required String categoryId, required String tab}) =>
       PostFilterModel(tab: 'featured', category: categoryId);
 
-  PostFilterModel({this.tab, this.category, this.limit, this.search});
+  PostFilterModel(
+      {this.tab, this.category, this.limit, this.search, this.target});
 
   Map<String, dynamic> toJson() => {
         'tab': tab,
         'category_id': category,
         'limit': limit,
         'search': search,
+        if (target != null) 'target': target,
       };
 }

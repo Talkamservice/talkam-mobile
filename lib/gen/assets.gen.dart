@@ -69,6 +69,9 @@ class $AssetsImagesPngGen {
 class $AssetsImagesSvgsGen {
   const $AssetsImagesSvgsGen();
 
+  /// File path: assets/images/svgs/Group Add.svg
+  String get groupAdd => 'assets/images/svgs/Group Add.svg';
+
   /// File path: assets/images/svgs/IcNew.svg
   String get icNew => 'assets/images/svgs/IcNew.svg';
 
@@ -104,6 +107,9 @@ class $AssetsImagesSvgsGen {
 
   /// File path: assets/images/svgs/blocked_user.svg
   String get blockedUser => 'assets/images/svgs/blocked_user.svg';
+
+  /// File path: assets/images/svgs/calender.svg
+  String get calender => 'assets/images/svgs/calender.svg';
 
   /// File path: assets/images/svgs/camera_icon.svg
   String get cameraIcon => 'assets/images/svgs/camera_icon.svg';
@@ -168,8 +174,14 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/image-plus.svg
   String get imagePlus => 'assets/images/svgs/image-plus.svg';
 
+  /// File path: assets/images/svgs/info-circle.svg
+  String get infoCircle => 'assets/images/svgs/info-circle.svg';
+
   /// File path: assets/images/svgs/intologo.svg
   String get intologo => 'assets/images/svgs/intologo.svg';
+
+  /// File path: assets/images/svgs/keylock.svg
+  String get keylock => 'assets/images/svgs/keylock.svg';
 
   /// File path: assets/images/svgs/link-01.svg
   String get link01 => 'assets/images/svgs/link-01.svg';
@@ -179,6 +191,9 @@ class $AssetsImagesSvgsGen {
 
   /// File path: assets/images/svgs/logo2.svg
   String get logo2 => 'assets/images/svgs/logo2.svg';
+
+  /// File path: assets/images/svgs/member.svg
+  String get member => 'assets/images/svgs/member.svg';
 
   /// File path: assets/images/svgs/message.svg
   String get message => 'assets/images/svgs/message.svg';
@@ -245,6 +260,7 @@ class $AssetsImagesSvgsGen {
 
   /// List of all assets
   List<String> get values => [
+        groupAdd,
         icNew,
         icTrending,
         icfeatured,
@@ -257,6 +273,7 @@ class $AssetsImagesSvgsGen {
         arrowUpRight,
         bellPlus,
         blockedUser,
+        calender,
         cameraIcon,
         chevronRight,
         comment,
@@ -278,10 +295,13 @@ class $AssetsImagesSvgsGen {
         icSetting,
         image03,
         imagePlus,
+        infoCircle,
         intologo,
+        keylock,
         link01,
         list,
         logo2,
+        member,
         message,
         notification,
         profile,
@@ -313,16 +333,11 @@ class Assets {
 }
 
 class AssetGenImage {
-  const AssetGenImage(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  });
+  const AssetGenImage(this._assetName, {this.size = null});
 
   final String _assetName;
 
   final Size? size;
-  final Set<String> flavors;
 
   Image image({
     Key? key,

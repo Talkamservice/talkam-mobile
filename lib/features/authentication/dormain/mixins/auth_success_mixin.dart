@@ -8,7 +8,6 @@ import 'package:talkam/features/authentication/presentation/screens/verify_otp_s
 mixin AuthSuccessMixin<T extends StatefulWidget> on State<T> {
   void handleLoginSuccess(BuildContext context, TalkamUser state) {
     if (state.emailVerifiedAt == null) {
-
       context.pushNamed(PageUrl.verifyOtpScreen, queryParameters: {
         PathParam.email: state.email,
         PathParam.otpType: VerifyOtpType.auth.name

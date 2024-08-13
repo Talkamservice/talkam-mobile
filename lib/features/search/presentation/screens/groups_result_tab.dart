@@ -64,6 +64,7 @@ class _GroupsResultTabState extends State<GroupsResultTab>
                       itemCount: paginationMeta.canLoadMore!
                           ? posts.length + 1
                           : posts.length,
+
                       itemBuilder: (context, index) {
                         if (index >= posts.length) {
                           return const Center(

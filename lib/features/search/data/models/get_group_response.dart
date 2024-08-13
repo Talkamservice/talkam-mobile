@@ -1,5 +1,7 @@
+import 'package:talkam/features/post/data/models/get_categories_response.dart';
+
 class GetGroupsResponse {
-  final PaginationMeta? paginationMeta;
+  final GroupPaginationMeta? paginationMeta;
   final List<TalkamGroup>? groups;
   final bool? success;
   final int? code;
@@ -18,7 +20,7 @@ class GetGroupsResponse {
 
     return GetGroupsResponse(
       paginationMeta: json['data']['pagination_meta'] != null
-          ? PaginationMeta.fromJson(json['data']['pagination_meta'])
+          ? GroupPaginationMeta.fromJson(json['data']['pagination_meta'])
           : null,
       groups: groups,
       success: json['success'],
@@ -27,7 +29,8 @@ class GetGroupsResponse {
   }
 }
 
-class PaginationMeta {
+class GroupPaginationMeta {
+
   final int? currentPage;
   final String? firstPageUrl;
   final int? from;
@@ -41,7 +44,7 @@ class PaginationMeta {
   final int? total;
   final bool? canLoadMore;
 
-  PaginationMeta({
+  GroupPaginationMeta({
     this.currentPage,
     this.firstPageUrl,
     this.from,
@@ -56,8 +59,8 @@ class PaginationMeta {
     this.canLoadMore,
   });
 
-  factory PaginationMeta.fromJson(Map<String, dynamic> json) {
-    return PaginationMeta(
+  factory GroupPaginationMeta.fromJson(Map<String, dynamic> json) {
+    return GroupPaginationMeta(
       currentPage: json['current_page'],
       firstPageUrl: json['first_page_url'],
       from: json['from'],
@@ -74,47 +77,7 @@ class PaginationMeta {
   }
 }
 
-class GroupCategory {
-  final int? id;
-  final String? name;
-  final String? description;
-  final String? backgroundImage;
-  final String? iconImage;
-  final bool? isFollowing;
-  final int? followersCount;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
 
-  GroupCategory({
-    this.id,
-    this.name,
-    this.description,
-    this.backgroundImage,
-    this.iconImage,
-    this.isFollowing,
-    this.followersCount,
-    this.createdAt,
-    this.updatedAt,
-  });
-
-  factory GroupCategory.fromJson(Map<String, dynamic> json) {
-    return GroupCategory(
-      id: json['id'],
-      name: json['name'],
-      description: json['description'],
-      backgroundImage: json['background_image'],
-      iconImage: json['icon_image'],
-      isFollowing: json['is_following'],
-      followersCount: json['followers_count'],
-      createdAt: json['created_at'] != null
-          ? DateTime.parse(json['created_at'])
-          : null,
-      updatedAt: json['updated_at'] != null
-          ? DateTime.parse(json['updated_at'])
-          : null,
-    );
-  }
-}
 
 class GroupGuideline {
   final int? id;
@@ -187,7 +150,7 @@ class TalkamGroup {
   final String? image;
   final bool? isFollowing;
   final int? totalMembers;
-  final GroupCategory? category;
+  final PostCategory? category;
   final List<GroupGuideline>? guidelines;
   final String? description;
   final GroupOwner? owner;
@@ -198,6 +161,7 @@ class TalkamGroup {
     this.name,
     this.uuid,
     this.status,
+
     this.groupAccess,
     this.image,
     this.isFollowing,
@@ -224,7 +188,7 @@ class TalkamGroup {
       isFollowing: json['is_following'],
       totalMembers: json['total_members'],
       category: json['category'] != null
-          ? GroupCategory.fromJson(json['category'])
+          ? PostCategory.fromJson(json['category'])
           : null,
       guidelines: guidelines,
       description: json['description'],

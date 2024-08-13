@@ -7,7 +7,8 @@ import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const CustomAppBar({
+  const
+  CustomAppBar({
     super.key,
     this.actions,
     this.leading,
@@ -41,9 +42,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showDivider;
 
   @override
+
   Widget build(BuildContext context) {
     return Padding(
-      padding: padding ?? EdgeInsets.symmetric(horizontal: 8.0.w),
+      padding: padding ?? EdgeInsets.symmetric(horizontal: 0.w),
       child: Column(
         children: [
           1.verticalSpace,

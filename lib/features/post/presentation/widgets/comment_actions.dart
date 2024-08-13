@@ -68,8 +68,10 @@ class _CommentActionsState extends State<CommentActions> {
               id: widget.comment.id.toString(),
               reaction: widget.comment.reaction,
               onLikeAdded: () {
-                if (widget.comment.reaction?.isLike ?? false) {
+                if (widget.comment.reaction?.isDisLike ?? false) {
                   widget.comment.unlikes -= 1;
+                }else{
+
                 }
                 widget.comment.reaction = PostReaction.like();
                 widget.comment.likes += 1;

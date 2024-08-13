@@ -21,7 +21,7 @@ mixin _$GroupsSearchState {
     required TResult Function() initial,
     required TResult Function() getGroupSearchLoading,
     required TResult Function(
-            List<TalkamGroup> groupResults, PaginationMeta paginationData)
+            List<TalkamGroup> groupResults, GroupPaginationMeta paginationData)
         groupSearchLoaded,
     required TResult Function(String message) getGroupSearchFailed,
   }) =>
@@ -31,7 +31,7 @@ mixin _$GroupsSearchState {
     TResult? Function()? initial,
     TResult? Function()? getGroupSearchLoading,
     TResult? Function(
-            List<TalkamGroup> groupResults, PaginationMeta paginationData)?
+            List<TalkamGroup> groupResults, GroupPaginationMeta paginationData)?
         groupSearchLoaded,
     TResult? Function(String message)? getGroupSearchFailed,
   }) =>
@@ -41,7 +41,7 @@ mixin _$GroupsSearchState {
     TResult Function()? initial,
     TResult Function()? getGroupSearchLoading,
     TResult Function(
-            List<TalkamGroup> groupResults, PaginationMeta paginationData)?
+            List<TalkamGroup> groupResults, GroupPaginationMeta paginationData)?
         groupSearchLoaded,
     TResult Function(String message)? getGroupSearchFailed,
     required TResult orElse(),
@@ -133,7 +133,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function() initial,
     required TResult Function() getGroupSearchLoading,
     required TResult Function(
-            List<TalkamGroup> groupResults, PaginationMeta paginationData)
+            List<TalkamGroup> groupResults, GroupPaginationMeta paginationData)
         groupSearchLoaded,
     required TResult Function(String message) getGroupSearchFailed,
   }) {
@@ -146,7 +146,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? initial,
     TResult? Function()? getGroupSearchLoading,
     TResult? Function(
-            List<TalkamGroup> groupResults, PaginationMeta paginationData)?
+            List<TalkamGroup> groupResults, GroupPaginationMeta paginationData)?
         groupSearchLoaded,
     TResult? Function(String message)? getGroupSearchFailed,
   }) {
@@ -159,7 +159,7 @@ class _$InitialImpl implements _Initial {
     TResult Function()? initial,
     TResult Function()? getGroupSearchLoading,
     TResult Function(
-            List<TalkamGroup> groupResults, PaginationMeta paginationData)?
+            List<TalkamGroup> groupResults, GroupPaginationMeta paginationData)?
         groupSearchLoaded,
     TResult Function(String message)? getGroupSearchFailed,
     required TResult orElse(),
@@ -253,7 +253,7 @@ class _$GroupSearchLoadingImpl implements _GroupSearchLoading {
     required TResult Function() initial,
     required TResult Function() getGroupSearchLoading,
     required TResult Function(
-            List<TalkamGroup> groupResults, PaginationMeta paginationData)
+            List<TalkamGroup> groupResults, GroupPaginationMeta paginationData)
         groupSearchLoaded,
     required TResult Function(String message) getGroupSearchFailed,
   }) {
@@ -266,7 +266,7 @@ class _$GroupSearchLoadingImpl implements _GroupSearchLoading {
     TResult? Function()? initial,
     TResult? Function()? getGroupSearchLoading,
     TResult? Function(
-            List<TalkamGroup> groupResults, PaginationMeta paginationData)?
+            List<TalkamGroup> groupResults, GroupPaginationMeta paginationData)?
         groupSearchLoaded,
     TResult? Function(String message)? getGroupSearchFailed,
   }) {
@@ -279,7 +279,7 @@ class _$GroupSearchLoadingImpl implements _GroupSearchLoading {
     TResult Function()? initial,
     TResult Function()? getGroupSearchLoading,
     TResult Function(
-            List<TalkamGroup> groupResults, PaginationMeta paginationData)?
+            List<TalkamGroup> groupResults, GroupPaginationMeta paginationData)?
         groupSearchLoaded,
     TResult Function(String message)? getGroupSearchFailed,
     required TResult orElse(),
@@ -338,7 +338,8 @@ abstract class _$$GroupSearchLoadedImplCopyWith<$Res> {
           $Res Function(_$GroupSearchLoadedImpl) then) =
       __$$GroupSearchLoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<TalkamGroup> groupResults, PaginationMeta paginationData});
+  $Res call(
+      {List<TalkamGroup> groupResults, GroupPaginationMeta paginationData});
 }
 
 /// @nodoc
@@ -363,7 +364,7 @@ class __$$GroupSearchLoadedImplCopyWithImpl<$Res>
       paginationData: null == paginationData
           ? _value.paginationData
           : paginationData // ignore: cast_nullable_to_non_nullable
-              as PaginationMeta,
+              as GroupPaginationMeta,
     ));
   }
 }
@@ -385,7 +386,7 @@ class _$GroupSearchLoadedImpl implements _GroupSearchLoaded {
   }
 
   @override
-  final PaginationMeta paginationData;
+  final GroupPaginationMeta paginationData;
 
   @override
   String toString() {
@@ -420,7 +421,7 @@ class _$GroupSearchLoadedImpl implements _GroupSearchLoaded {
     required TResult Function() initial,
     required TResult Function() getGroupSearchLoading,
     required TResult Function(
-            List<TalkamGroup> groupResults, PaginationMeta paginationData)
+            List<TalkamGroup> groupResults, GroupPaginationMeta paginationData)
         groupSearchLoaded,
     required TResult Function(String message) getGroupSearchFailed,
   }) {
@@ -433,7 +434,7 @@ class _$GroupSearchLoadedImpl implements _GroupSearchLoaded {
     TResult? Function()? initial,
     TResult? Function()? getGroupSearchLoading,
     TResult? Function(
-            List<TalkamGroup> groupResults, PaginationMeta paginationData)?
+            List<TalkamGroup> groupResults, GroupPaginationMeta paginationData)?
         groupSearchLoaded,
     TResult? Function(String message)? getGroupSearchFailed,
   }) {
@@ -446,7 +447,7 @@ class _$GroupSearchLoadedImpl implements _GroupSearchLoaded {
     TResult Function()? initial,
     TResult Function()? getGroupSearchLoading,
     TResult Function(
-            List<TalkamGroup> groupResults, PaginationMeta paginationData)?
+            List<TalkamGroup> groupResults, GroupPaginationMeta paginationData)?
         groupSearchLoaded,
     TResult Function(String message)? getGroupSearchFailed,
     required TResult orElse(),
@@ -497,11 +498,12 @@ class _$GroupSearchLoadedImpl implements _GroupSearchLoaded {
 
 abstract class _GroupSearchLoaded implements GroupsSearchState {
   const factory _GroupSearchLoaded(
-      {required final List<TalkamGroup> groupResults,
-      required final PaginationMeta paginationData}) = _$GroupSearchLoadedImpl;
+          {required final List<TalkamGroup> groupResults,
+          required final GroupPaginationMeta paginationData}) =
+      _$GroupSearchLoadedImpl;
 
   List<TalkamGroup> get groupResults;
-  PaginationMeta get paginationData;
+  GroupPaginationMeta get paginationData;
   @JsonKey(ignore: true)
   _$$GroupSearchLoadedImplCopyWith<_$GroupSearchLoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -575,7 +577,7 @@ class _$GroupSearchFailedImpl implements _GroupSearchFailed {
     required TResult Function() initial,
     required TResult Function() getGroupSearchLoading,
     required TResult Function(
-            List<TalkamGroup> groupResults, PaginationMeta paginationData)
+            List<TalkamGroup> groupResults, GroupPaginationMeta paginationData)
         groupSearchLoaded,
     required TResult Function(String message) getGroupSearchFailed,
   }) {
@@ -588,7 +590,7 @@ class _$GroupSearchFailedImpl implements _GroupSearchFailed {
     TResult? Function()? initial,
     TResult? Function()? getGroupSearchLoading,
     TResult? Function(
-            List<TalkamGroup> groupResults, PaginationMeta paginationData)?
+            List<TalkamGroup> groupResults, GroupPaginationMeta paginationData)?
         groupSearchLoaded,
     TResult? Function(String message)? getGroupSearchFailed,
   }) {
@@ -601,7 +603,7 @@ class _$GroupSearchFailedImpl implements _GroupSearchFailed {
     TResult Function()? initial,
     TResult Function()? getGroupSearchLoading,
     TResult Function(
-            List<TalkamGroup> groupResults, PaginationMeta paginationData)?
+            List<TalkamGroup> groupResults, GroupPaginationMeta paginationData)?
         groupSearchLoaded,
     TResult Function(String message)? getGroupSearchFailed,
     required TResult orElse(),

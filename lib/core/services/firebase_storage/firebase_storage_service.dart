@@ -9,6 +9,7 @@ class FirebaseStorageService {
   Future<List<String>> uploadMultipleFiles(
       String basePath, List<File> files) async {
     try {
+
       final List<Future<String>> uploadFutures = files.map((file) async {
         final String fileName = file.path.split('/').last; // Get filename
         final String filePath = '$basePath/$fileName';
@@ -37,6 +38,9 @@ class FirebaseStorageService {
       rethrow;
     }
   }
+
+
+
 }
 
 class FirebaseStoragePaths {

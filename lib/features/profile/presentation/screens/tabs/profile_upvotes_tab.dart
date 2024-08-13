@@ -7,10 +7,8 @@ import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_upvotes_cubit/profile_upvotes_cubit.dart';
-import 'package:timeago/timeago.dart' as timeago;
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_posts_tab_cubit/profile_posts_tab_cubit.dart';
-import 'package:talkam/features/profile/presentation/widgets/profile_post_item_tile.dart';
 
 class ProfileUpvotesTab extends StatefulWidget {
   const ProfileUpvotesTab({super.key});

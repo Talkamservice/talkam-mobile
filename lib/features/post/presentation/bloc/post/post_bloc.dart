@@ -20,7 +20,8 @@ part 'post_bloc.freezed.dart';
 
 class PostBloc extends Bloc<PostEvent, PostState> {
   final PostRepository _postRepository;
-  List<TalkamGuidelineModel> rules = [];
+  List<TalkamGuidelineModel> talkamRules = [];
+  List<PostCategory> categories = [];
 
   PostBloc(this._postRepository) : super(const PostState.initial()) {
     on<PostEvent>((event, emit) async {
@@ -29,6 +30,8 @@ class PostBloc extends Bloc<PostEvent, PostState> {
             await _mapGetGuideLinesEventToState(emit, e),
         getCategories: (e) async =>
             await _mapGetCategoriesEventToState(emit, e),
+        getSubCategories: (e) async =>
+            await _mapGetSubCategoriesEventToState(emit, e),
         getPosts: (e) async => await _mapGetPostsEventToState(emit),
         createPost: (e) async =>
             await _mapCreatePostEventToState(e.postData, emit),
@@ -59,10 +62,29 @@ class PostBloc extends Bloc<PostEvent, PostState> {
 
   Future<void> _mapGetCategoriesEventToState(
       Emitter<PostState> emit, _GetCategoriesEvent e) async {
+
+
     emit(const PostState.getCategoriesLoading());
     try {
+
+
+
       final response =
           await _postRepository.getCategories(categoryId: e.categoryId);
+
+      categories = response.data;
+
+      emit(PostState.getCategoriesSuccess(response));
+    } catch (error) {
+      emit(PostState.getCategoriesFailure(error.toString()));
+    }
+  }
+
+  Future<void> _mapGetSubCategoriesEventToState(
+      Emitter<PostState> emit, _GetSubCategoriesEvent e) async {
+    emit(const PostState.getCategoriesLoading());
+    try {
+      final response = await _postRepository.getSubCategories();
 
       emit(PostState.getCategoriesSuccess(response));
     } catch (error) {
@@ -216,12 +238,12 @@ class PostBloc extends Bloc<PostEvent, PostState> {
 
   _mapGetGuideLinesEventToState(
       Emitter<PostState> emit, _GetGuidelines e) async {
-    if (rules.isEmpty) {
+    if (talkamRules.isEmpty) {
       emit(const PostState.getGuidelinesLoading());
     }
     try {
       var response = await _postRepository.getRules();
-      rules = response.data;
+      talkamRules = response.data;
       emit(PostState.getGuideLinesSuccess(response));
     } catch (error) {
       emit(PostState.getGuideLinesFailed(error.toString()));

@@ -274,6 +274,23 @@ class PostRepositoryImpl extends PostRepository {
     }
   }
 
+  @override
+  Future<GetCategoriesResponse> getSubCategories() async {
+    try {
+      final response = await _networkService.call(
+        UrlConfig.getSubCategories,
+        RequestMethod.get,
+      );
+
+      return GetCategoriesResponse.fromJson(response.data);
+    } catch (e, stack) {
+      logger.e(e);
+      logger.e(stack);
+
+      rethrow;
+    }
+  }
+
 //   @override
 //   Future<TalkamPost> getAPosts(String id) async {
 //     try {

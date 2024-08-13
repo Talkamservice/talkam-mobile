@@ -27,11 +27,11 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController();
   final tabItems = [
-    HomeTabItemModel(
+    TabItemModel(
         imagePath: Assets.images.svgs.icfeatured, tittle: "Featured"),
-    HomeTabItemModel(
+    TabItemModel(
         imagePath: Assets.images.svgs.icTrending, tittle: "Trending"),
-    HomeTabItemModel(imagePath: Assets.images.svgs.icNew, tittle: "Recent"),
+    TabItemModel(imagePath: Assets.images.svgs.icNew, tittle: "Recent"),
   ];
 
   int selecteIndex = 0;
@@ -204,9 +204,9 @@ class HomeAppBar extends StatelessWidget {
   }
 }
 
-class HomeTabItemModel {
+class TabItemModel {
   String imagePath;
   String tittle;
 
-  HomeTabItemModel({required this.imagePath, required this.tittle});
+  TabItemModel({required this.imagePath, required this.tittle});
 }

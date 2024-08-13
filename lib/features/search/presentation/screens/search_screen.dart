@@ -40,6 +40,8 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: context.theme.cardColor,
+
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () async {
@@ -122,6 +124,7 @@ class _SearchScreenState extends State<SearchScreen> {
                 ),
                 Container(
                   width: 1.sw,
+                  height: 1.sh,
                   decoration: BoxDecoration(color: context.colorScheme.surface),
                   padding:
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
@@ -252,13 +255,16 @@ class _SearchScreenState extends State<SearchScreen> {
                                   if (response.data.isNotEmpty)
                                     ...List.generate(
                                       response.data.length,
-                                      (index) => _RecentSearchItem(
-                                        response: response.data[index],
-                                        onDelete: () {
-                                          response.data
-                                              .remove(response.data[index]);
-                                          setState(() {});
-                                        },
+                                      (index) => Padding(
+                                        padding: const EdgeInsets.symmetric(vertical: 4.0),
+                                        child: _RecentSearchItem(
+                                          response: response.data[index],
+                                          onDelete: () {
+                                            response.data
+                                                .remove(response.data[index]);
+                                            setState(() {});
+                                          },
+                                        ),
                                       ),
                                     ),
                                   if (response.data.isEmpty)
@@ -276,6 +282,7 @@ class _SearchScreenState extends State<SearchScreen> {
                           );
                         },
                       )
+
                     ],
                   ),
                 )
@@ -376,45 +383,52 @@ class SearchAppBar extends StatelessWidget {
       color: context.colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.only(top: 20, left: 1, right: 18),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+        child: Column(
           children: [
-            IconButton(
-                onPressed: () {
-                  context.read<DrawerCubit>().closeDrawer();
-                  context.read<DrawerCubit>().openDrawer();
-/**/
-                },
-                icon: Icon(
-                  Icons.menu_outlined,
-                  color: context.colorScheme.onSurface,
-                )),
-            ImageWidget(imageUrl: Assets.images.svgs.logo2),
-            const Spacer(),
-            InkWell(
-              onTap: () {
-                // SessionManager.instance.logOut();
-                // context.goNamed(PageUrl.onboardingIntro);
+            Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                IconButton(
+                    onPressed: () {
+                      context.read<DrawerCubit>().closeDrawer();
+                      context.read<DrawerCubit>().openDrawer();
+            /**/
+                    },
+                    icon: Icon(
+                      Icons.menu_outlined,
+                      color: context.colorScheme.onSurface,
+                    )),
+                ImageWidget(imageUrl: Assets.images.svgs.logo2),
+                const Spacer(),
+                InkWell(
+                  onTap: () {
+                    // SessionManager.instance.logOut();
+                    // context.goNamed(PageUrl.onboardingIntro);
 
-                // context.pushNamed(PageUrl.notifications);
-              },
-              child: ImageWidget(
-                imageUrl: Assets.images.svgs.notification,
-                onTap: () {
-                  // context.pushNamed(PageUrl.notifications);
-                },
-              ),
+                    // context.pushNamed(PageUrl.notifications);
+                  },
+                  child: ImageWidget(
+                    imageUrl: Assets.images.svgs.notification,
+                    onTap: () {
+                      // context.pushNamed(PageUrl.notifications);
+                    },
+                  ),
+                ),
+                20.horizontalSpace,
+                GuestUserHelper.guestUserWidget(
+                    widget: ImageWidget(
+                  imageUrl: injector.get<ProfileBloc>().appUser?.avatar ??
+                      Assets.images.svgs.uploadAvatar,
+                  fit: BoxFit.scaleDown,
+                  size: 40,
+                  onTap: () {
+                    context.pushNamed(PageUrl.profileScreen);
+                  },
+                )),
+              ],
             ),
-            20.horizontalSpace,
-            GuestUserHelper.guestUserWidget(
-                widget: ImageWidget(
-              imageUrl: injector.get<ProfileBloc>().appUser?.avatar ??
-                  Assets.images.svgs.uploadAvatar,
-              size: 40,
-              onTap: () {
-                context.pushNamed(PageUrl.profileScreen);
-              },
-            )),
+
+            const Divider(thickness: 1,)
           ],
         ),
       ),
@@ -439,12 +453,12 @@ class _RecentSearchItem extends StatelessWidget {
       child: Row(
         children: [
           Expanded(child: TextView(text: response.word)),
-          IconButton(
-              onPressed: () {
+          InkWell(
+              onTap: () {
                 injector.get<SearchCubit>().deleteSearch(response.id);
                 onDelete();
               },
-              icon: const Icon(Icons.close))
+              child: const Icon(Icons.close))
         ],
       ),
     );

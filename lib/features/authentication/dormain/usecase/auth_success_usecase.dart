@@ -14,4 +14,5 @@ class AuthSuccessUsecase {
     logger.i("USER DETAILS SAVED");
     injector.get<ProfileBloc>().add(SaveUserLocallyEvent(response.data.user));
   }
+
 }

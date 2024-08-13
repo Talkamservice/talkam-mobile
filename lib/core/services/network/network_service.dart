@@ -184,13 +184,15 @@ class NetworkService {
   }
 
   _getOptions() {
+
     return Options(contentType: Headers.jsonContentType, headers: {
       HttpHeaders.authorizationHeader:
-          "Bearer ${SessionManager.instance.authToken}",
+      "Bearer ${SessionManager.instance.authToken}",
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       "timezone": TimezoneService().currentTimeZone
     });
+
   }
 }
 
