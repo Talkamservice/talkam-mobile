@@ -19,7 +19,7 @@ import 'package:talkam/features/search/dormain/repository%20/search_repository_i
 import 'package:talkam/features/search/presentation/blocs/search/search_cubit.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
-import '../../data/repository /search_repository.dart';
+import '../../data/repository/search_repository.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});

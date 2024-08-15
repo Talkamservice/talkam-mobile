@@ -4,7 +4,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/search/data/models/get_search_response.dart';
 
-import '../../../data/repository /search_repository.dart';
+import '../../../data/repository/search_repository.dart';
 
 part 'search_state.dart';
 
