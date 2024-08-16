@@ -1,6 +1,12 @@
+import 'dart:io';
+
+import 'package:talkam/core/_core.dart';
+import 'package:talkam/core/services/firebase_storage/firebase_storage_service.dart';
 import 'package:talkam/core/services/network/network_service.dart';
 import 'package:talkam/core/services/network/url_config.dart';
+import 'package:talkam/features/group/data/models/create_group_payload.dart';
 import 'package:talkam/features/group/data/models/groups_filter_model.dart';
+import 'package:talkam/features/group/data/models/update_group_payload.dart';
 import 'package:talkam/features/group/dormain/repository/group_repository.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 
@@ -36,24 +42,31 @@ class GroupsRepositoryImpl extends GroupsRepository {
   }
 
   @override
-  Future<dynamic> updateGroup(
-      String groupId, Map<String, dynamic> groupData) async {
+  Future<TalkamGroup> updateGroup(
+
+      String groupId, CreateGroupPayload payload) async {
     try {
+      var imageUrl = payload.image.isURL
+          ? payload.image
+          : await FirebaseStorageService().uploadImage(
+              FirebaseStoragePaths.groupImage, File(payload.image));
+
       final response = await _networkService.call(
-          '${UrlConfig.updateGroup}$groupId', RequestMethod.put,
-          data: groupData);
-      return response.data;
+
+          UrlConfig.createGroup, RequestMethod.post,
+          data: payload.copyWith(image: imageUrl).toJson());
+      return TalkamGroup.fromJson(response.data['data']);
     } catch (e) {
       rethrow;
     }
   }
 
   @override
-  Future<dynamic> getGroup(String groupId) async {
+  Future<TalkamGroup> getGroup(String groupId) async {
     try {
       final response = await _networkService.call(
           '${UrlConfig.getGroup}$groupId', RequestMethod.get);
-      return response.data;
+      return TalkamGroup.fromJson(response.data['data']);
     } catch (e) {
       rethrow;
     }
@@ -64,7 +77,21 @@ class GroupsRepositoryImpl extends GroupsRepository {
     try {
       final response = await _networkService.call(
           '${UrlConfig.deleteGroup}$groupId', RequestMethod.delete);
-      return response.data;
+      return TalkamGroup.fromJson(response.data['data']);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<TalkamGroup> createGroup(CreateGroupPayload payload) async {
+    try {
+      var imageUrl = await FirebaseStorageService()
+          .uploadImage(FirebaseStoragePaths.groupImage, File(payload.image));
+      final response = await _networkService.call(
+          UrlConfig.createGroup, RequestMethod.post,
+          data: payload.copyWith(image: imageUrl).toJson());
+      return TalkamGroup.fromJson(response.data['data']);
     } catch (e) {
       rethrow;
     }

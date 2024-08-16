@@ -7,12 +7,16 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/dialog_texts.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/features/group/dormain/model/group_overview_data.dart';
 import 'package:talkam/features/group/presentation/screens/group_details_screen.dart';
+import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class GroupRulesTab extends StatefulWidget {
-  const GroupRulesTab({super.key, this.isPreview = false});
+  const GroupRulesTab({super.key, this.isPreview = false, required this.data});
+
   final bool? isPreview;
+  final TalkamGroup data;
 
   @override
   State<GroupRulesTab> createState() => _GroupRulesTabState();
@@ -33,9 +37,9 @@ class _GroupRulesTabState extends State<GroupRulesTab> {
               children: [
                 CircularBorder(
                     child: ImageWidget(
-                  imageUrl: Assets.images.svgs.rules,
-                  color: context.colorScheme.onSurface,
-                )),
+                      imageUrl: Assets.images.svgs.rules,
+                      color: context.colorScheme.onSurface,
+                    )),
                 8.horizontalSpace,
                 const Expanded(
                   child: TextView(
@@ -44,23 +48,26 @@ class _GroupRulesTabState extends State<GroupRulesTab> {
                     fontWeight: FontWeight.w700,
                   ),
                 ),
-                if(!widget.isPreview!)
-                TextButton(
-                    style: outlinedButtonStyle(),
-                    onPressed: () {},
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        ImageWidget(imageUrl: Assets.images.svgs.icPersonEdit),
-                        10.horizontalSpace,
-                        TextView(
-                          text: "Edit",
-                          fontSize: 14,
-                          color: context.colorScheme.onSurface,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ],
-                    )),
+                // if (!widget.isPreview!)
+
+                if (false)
+                  TextButton(
+                      style: outlinedButtonStyle(),
+                      onPressed: () {},
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ImageWidget(
+                              imageUrl: Assets.images.svgs.icPersonEdit),
+                          10.horizontalSpace,
+                          TextView(
+                            text: "Edit",
+                            fontSize: 14,
+                            color: context.colorScheme.onSurface,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ],
+                      )),
               ],
             ),
             14.verticalSpace,
@@ -68,10 +75,14 @@ class _GroupRulesTabState extends State<GroupRulesTab> {
               text: groupRuleIntro,
             ),
             16.verticalSpace,
-            const TextView(
-                text: "This is a group for dating and relationship advice."),
+            TextView(text: widget.data.description.toString()),
             18.verticalSpace,
-            const GroupRuleItem(index: 1)
+            ...List.generate(
+                widget.data.guidelines!.length,
+                    (index) => GroupRuleItem(
+                  index: index + 1,
+                  guidline: widget.data.guidelines![index],
+                )),
           ],
         ),
       ),
@@ -97,7 +108,9 @@ class CircularBorder extends StatelessWidget {
 }
 
 class GroupRuleItem extends StatelessWidget {
-  const GroupRuleItem({super.key, required this.index});
+  const GroupRuleItem({super.key, required this.index, required this.guidline});
+
+  final GroupGuideline guidline;
 
   final int index;
 
@@ -110,16 +123,16 @@ class GroupRuleItem extends StatelessWidget {
         12.horizontalSpace,
         Expanded(
             child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const TextView(
-              text: "Stay on topic",
-              fontWeight: FontWeight.w700,
-            ),
-            4.verticalSpace,
-            const TextView(text: groupRuleIntro)
-          ],
-        ))
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TextView(
+                  text: guidline.title.toString(),
+                  fontWeight: FontWeight.w700,
+                ),
+                4.verticalSpace,
+                TextView(text: guidline.description.toString())
+              ],
+            ))
       ],
     );
   }

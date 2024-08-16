@@ -6,6 +6,7 @@ import 'dart:convert';
 
 import 'package:talkam/features/post/data/models/create_post_payload.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
+import 'package:talkam/features/search/data/models/get_group_response.dart';
 
 GetPostsResponse getPostsResponseFromJson(String str) =>
     GetPostsResponse.fromJson(json.decode(str));
@@ -92,6 +93,7 @@ class TalkamPost {
   dynamic type;
   bool? isReported;
   dynamic uuid;
+  TalkamGroup? group;
   PostCategory category;
   PostCreator user;
   int canComment;
@@ -129,6 +131,7 @@ class TalkamPost {
     required this.publishAt,
     required this.attachments,
     required this.polls,
+    required this.group,
     required this.reaction,
     required this.createdAt,
     required this.updatedAt,
@@ -142,6 +145,7 @@ class TalkamPost {
     bool? isReported,
     String? uuid,
     PostCategory? category,
+    TalkamGroup? group,
     PostCreator? user,
     int? canComment,
     int? isAnonymous,
@@ -179,6 +183,7 @@ class TalkamPost {
         reaction: reaction ?? this.reaction,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
+        group: group ?? this.group,
       );
 
   factory TalkamPost.fromJson(Map<String, dynamic> json) => TalkamPost(
@@ -189,6 +194,7 @@ class TalkamPost {
         uuid: json["uuid"],
         isReported: json["is_reported"],
         category: PostCategory.fromJson(json["category"]),
+        group: json["group"] == null ?null: TalkamGroup.fromJson(json["group"]),
         user: PostCreator.fromJson(json["user"]),
         canComment: json["can_comment"],
         isAnonymous: json["is_anonymous"],

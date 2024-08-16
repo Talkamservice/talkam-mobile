@@ -62,7 +62,7 @@ class _SelectGroupTabState extends State<SelectGroupTab> {
             builder: (context, state) {
               return state.maybeWhen(
                 orElse: () => 0.verticalSpace,
-                getGroupsFailure: (error) => AppPromptWidget(
+                getGroupsFailure: (error) => AppErrorWidget(
                   onTap: () {
                     groupsCubit.getGroups(); // Re-fetch groups on error
                   },

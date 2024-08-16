@@ -12,7 +12,6 @@ import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart'
 import 'package:talkam/features/messaging/presentation/screens/chat_screen.dart';
 import 'package:talkam/features/messaging/presentation/widgets/messages_list.dart';
 import 'package:talkam/features/search/data/models/get_search_response.dart';
-import 'package:talkam/features/search/data/repository/search_repository.dart';
 import 'package:talkam/features/search/presentation/blocs/search/search_cubit.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
@@ -46,11 +45,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
             child: GenericTypeAheadField<SearchResponse>(
               labelText: "Search messages",
               suggestionsCallback: (query) async {
-                logger.w(query);
-                return (await injector
-                        .get<SearchRepository>()
-                        .fetchSearchSuggestions(query))
-                    .data;
+                return [];
               },
               itemBuilder: (context, suggestion) {
                 return Padding(

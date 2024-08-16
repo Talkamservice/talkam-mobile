@@ -7,10 +7,12 @@ import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class PreviewGroupHeader extends StatefulWidget {
-  const PreviewGroupHeader({super.key, required this.onSubmitted, this.banner});
+  const PreviewGroupHeader(
+      {super.key, required this.onSubmitted, this.banner, this.isEdit = false});
 
   final Function() onSubmitted;
   final String? banner;
+  final bool? isEdit;
 
   @override
   State<PreviewGroupHeader> createState() => _PreviewGroupHeaderState();
@@ -23,6 +25,7 @@ class _PreviewGroupHeaderState extends State<PreviewGroupHeader> {
       height: 130,
       child: Stack(
         children: [
+
           ImageWidget(
             height: 130,
             width: 1.sw,
@@ -45,6 +48,7 @@ class _PreviewGroupHeaderState extends State<PreviewGroupHeader> {
                     const TextView(
                       text: "Preview Group",
                       fontWeight: FontWeight.w700,
+                      color: Pallets.white,
                       fontSize: 16,
                     ),
                     const Spacer(),
@@ -62,7 +66,10 @@ class _PreviewGroupHeaderState extends State<PreviewGroupHeader> {
                               Icons.add,
                             ),
                             8.horizontalSpace,
-                            const TextView(text: "Finish and Create")
+                            TextView(
+                                text: widget.isEdit!
+                                    ? "Update"
+                                    : "Finish and Create")
                           ],
                         ))
                   ],

@@ -57,6 +57,7 @@ class _IntroScreenState extends State<IntroScreen> with AuthSuccessMixin {
                   child: Column(
                     children: [
                       70.verticalSpace,
+
                       ImageWidget(
                         imageUrl: Assets.images.svgs.intologo,
                         width: 186.w,
@@ -213,6 +214,7 @@ class _IntroScreenState extends State<IntroScreen> with AuthSuccessMixin {
                           ],
                         ),
                       ),
+
                     ],
                   ),
                 ),

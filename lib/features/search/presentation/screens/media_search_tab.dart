@@ -71,7 +71,7 @@ class _MediaSearchResultTabState extends State<MediaSearchResultTab>
                     ),
                   );
                 },
-                getMediaSearchFailed: (error) => AppPromptWidget(
+                getMediaSearchFailed: (error) => AppErrorWidget(
                   onTap: () {
                     bloc.getMediaPosts(widget.query);
                   },

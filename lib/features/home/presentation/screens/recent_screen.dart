@@ -41,7 +41,7 @@ class _RecentScreenState extends State<RecentScreen>
                 getRecentPostsLoading: () => Center(
                   child: CustomDialogs.getLoading(size: 50),
                 ),
-                getRecentPostsFailed: (error) => AppPromptWidget(
+                getRecentPostsFailed: (error) => AppErrorWidget(
                   message: error,
                   onTap: () {
                     injector

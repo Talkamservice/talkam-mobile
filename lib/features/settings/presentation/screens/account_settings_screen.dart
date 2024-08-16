@@ -83,7 +83,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
               }
 
               if (state is GetProfileFailureState) {
-                return const AppPromptWidget();
+                return const AppErrorWidget();
               }
 
               if (state is GetProfileSuccessState) {

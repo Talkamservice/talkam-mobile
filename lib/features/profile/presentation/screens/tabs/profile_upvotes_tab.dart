@@ -54,7 +54,7 @@ class _ProfileUpvotesTabState extends State<ProfileUpvotesTab>
           loading: () => Center(
             child: CustomDialogs.getLoading(size: 50),
           ),
-          error: (e) => AppPromptWidget(
+          error: (e) => AppErrorWidget(
             message: e.toString(),
             onTap: () {},
           ),

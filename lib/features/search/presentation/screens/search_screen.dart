@@ -15,7 +15,7 @@ import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/search/data/models/get_search_response.dart';
-import 'package:talkam/features/search/dormain/repository%20/search_repository_impl.dart';
+import 'package:talkam/features/search/dormain/repository/search_repository_impl.dart';
 import 'package:talkam/features/search/presentation/blocs/search/search_cubit.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
@@ -154,7 +154,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               );
                             },
                             fetchTrendingSearchesFailure: (error) {
-                              return AppPromptWidget(
+                              return AppErrorWidget(
                                 onTap: () => injector
                                     .get<SearchCubit>()
                                     .fetchTrendingSearches(),
@@ -242,7 +242,7 @@ class _SearchScreenState extends State<SearchScreen> {
                               );
                             },
                             fetchRecentSearchesFailure: (error) {
-                              return AppPromptWidget(
+                              return AppErrorWidget(
                                 onTap: () => injector
                                     .get<SearchCubit>()
                                     .loadSearchScreen(),

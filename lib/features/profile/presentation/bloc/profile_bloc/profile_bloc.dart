@@ -76,9 +76,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
   }
 
-
-
-
   FutureOr<void> _mapGetAvatarsEventToState(
       GetAvatarsEvent event, Emitter<ProfileState> emit) async {
     emit(GetAvatarsLoadingState());
@@ -94,7 +91,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       BlockUerEvent event, Emitter<ProfileState> emit) async {
     emit(BlockUserLoadingState());
     try {
-      final response = await _profileRepository.getAvatars();
+      final response = await _profileRepository.blockUser(event.userId);
       emit(BlockUserSuccessState(response: response));
     } catch (error) {
       emit(BlockUserFailureState(error: error.toString()));

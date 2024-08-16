@@ -112,7 +112,7 @@ class _SelectAvatarSheetState extends State<SelectAvatarSheet> {
                         );
                       }
 
-                      return AppPromptWidget(
+                      return AppErrorWidget(
                         onTap: () {
                           injector.get<ProfileBloc>().add(GetAvatarsEvent());
                         },

@@ -93,7 +93,7 @@ class _CategoriesListState extends State<CategoriesList> {
                 builder: (context, state) {
                   return state.maybeWhen(
                     orElse: () => 0.verticalSpace,
-                    getCategoriesFailure: (error) => AppPromptWidget(
+                    getCategoriesFailure: (error) => AppErrorWidget(
                       onTap: () {
                         postBloc.add(const PostEvent.getCategories());
                       },

@@ -97,7 +97,7 @@ class _RulesSheetState extends State<RulesSheet>
                             ),
                           ),
                         ),
-                        getGuideLinesFailed: (error) => AppPromptWidget(
+                        getGuideLinesFailed: (error) => AppErrorWidget(
                           title: "Something went wrong",
                           message: error,
                         ),

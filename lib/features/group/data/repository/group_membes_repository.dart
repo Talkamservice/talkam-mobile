@@ -1,5 +1,6 @@
 import 'package:talkam/core/services/network/network_service.dart';
 import 'package:talkam/core/services/network/url_config.dart';
+import 'package:talkam/features/group/data/models/get_group_members_response.dart';
 import 'package:talkam/features/group/dormain/repository/group_members_repository.dart';
 
 class GroupMembersRepositoryImpl extends GroupMembersRepository {
@@ -8,11 +9,11 @@ class GroupMembersRepositoryImpl extends GroupMembersRepository {
   GroupMembersRepositoryImpl(this._networkService);
 
   @override
-  Future<dynamic> getGroupMembers(String groupId) async {
+  Future<GetGroupMembersResponse> getGroupMembers(String groupId) async {
     try {
       final response = await _networkService.call(
           '${UrlConfig.getGroupMembers}?group_id=$groupId', RequestMethod.get);
-      return response.data;
+      return GetGroupMembersResponse.fromJson(response.data);
     } catch (e) {
       rethrow;
     }
@@ -43,11 +44,11 @@ class GroupMembersRepositoryImpl extends GroupMembersRepository {
   }
 
   @override
-  Future<dynamic> getMember(String memberId) async {
+  Future<GroupMemberDetails> getMember(String memberId) async {
     try {
       final response = await _networkService.call(
           '${UrlConfig.getMember}$memberId', RequestMethod.get);
-      return response.data;
+      return GroupMemberDetails.fromJson(response.data);
     } catch (e) {
       rethrow;
     }

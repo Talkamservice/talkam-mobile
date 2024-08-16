@@ -53,7 +53,7 @@ class _BlockedUsersScreenState extends State<BlockedUsersScreen> {
                     orElse: () => 0.verticalSpace,
                     fetchBlockedUsersLoading: () =>
                         CustomDialogs.getLoading(size: 40),
-                    fetchBlockedUsersFailure: (error) => AppPromptWidget(
+                    fetchBlockedUsersFailure: (error) => AppErrorWidget(
                       onTap: () {
                         settingsBloc
                             .add(const SettingsEvent.fetchBlockedUsers());

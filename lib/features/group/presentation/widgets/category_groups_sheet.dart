@@ -4,7 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/features/components/talkam_tab_bar.dart';
-import 'package:talkam/features/post/presentation/widgets/select_category_sheet.dart';
+import 'package:talkam/features/post/presentation/widgets/select_sub_category_sheet.dart';
 import 'package:talkam/features/post/presentation/widgets/select_group_tab.dart';
 
 enum _CategoryTabOptions {
@@ -94,7 +94,7 @@ class _CategoryGroupsSheetState extends State<CategoryGroupsSheet> {
                     : _CategoryTabOptions.groups;
                 setState(() {});
               },
-              children: const [SelectCategoryTab(), SelectGroupTab()],
+              children: const [SelectSubCategoryTab(), SelectGroupTab()],
             ),
           )
         ],

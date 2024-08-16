@@ -5,10 +5,14 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/dialog_texts.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/features/group/data/models/create_group_payload.dart';
+import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class CreateGroupSuccessScreen extends StatefulWidget {
-  const CreateGroupSuccessScreen({super.key});
+  const CreateGroupSuccessScreen({super.key, required this.payload});
+
+  final TalkamGroup payload;
 
   @override
   State<CreateGroupSuccessScreen> createState() =>
@@ -28,7 +32,13 @@ class _CreateGroupSuccessScreenState extends State<CreateGroupSuccessScreen> {
             30.verticalSpace,
             CustomButton(
               onPressed: () {
-                context.goNamed(PageUrl.groups);
+                context
+                    .pushNamed(PageUrl.groupsInfoScreen, extra: widget.payload.id.toString())
+                    .then(
+                      (value) {
+                        context.goNamed(PageUrl.groups);
+                      },
+                    );
               },
               text: "Continue",
             )
@@ -42,20 +52,19 @@ class _CreateGroupSuccessScreenState extends State<CreateGroupSuccessScreen> {
             mainAxisSize: MainAxisSize.min,
             children: [
               ImageWidget(
-                imageUrl: Assets.images.png.sports.path,
+                imageUrl: widget.payload.category?.iconImage,
                 size: 100,
               ),
               16.verticalSpace,
-              const TextView(
-                text: "Dating Advice",
+              TextView(
+                text: widget.payload.name.toString(),
                 fontWeight: FontWeight.w500,
                 fontSize: 20,
               ),
               16.verticalSpace,
-              const TextView(
+              TextView(
                 align: TextAlign.center,
-                text:
-                    "We’re a small group of people seeking to help the next person with dating advice and counsel. Please be respectful.",
+                text: widget.payload.about.toString(),
                 fontSize: 16,
               )
             ],

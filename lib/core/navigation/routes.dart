@@ -12,17 +12,19 @@ import 'package:talkam/features/authentication/presentation/screens/signup_scree
 import 'package:talkam/features/authentication/presentation/screens/splash_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/username_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/verify_otp_screen.dart';
-import 'package:talkam/features/group/presentation/screens/add_group_rules_screen.dart';
-import 'package:talkam/features/group/presentation/screens/create_group_screen.dart';
-import 'package:talkam/features/group/presentation/screens/create_group_success_screen.dart';
+import 'package:talkam/features/group/data/models/create_group_payload.dart';
+import 'package:talkam/features/group/presentation/screens/create_group/add_group_rules_screen.dart';
+import 'package:talkam/features/group/presentation/screens/create_group/create_group_screen.dart';
+import 'package:talkam/features/group/presentation/screens/create_group/create_group_success_screen.dart';
 import 'package:talkam/features/group/presentation/screens/group_details_screen.dart';
 import 'package:talkam/features/group/presentation/screens/group_info_screen.dart';
 import 'package:talkam/features/group/presentation/screens/group_members_screen.dart';
 import 'package:talkam/features/group/presentation/screens/groups_screen.dart';
-import 'package:talkam/features/group/presentation/screens/preview_group_screen.dart';
+import 'package:talkam/features/group/presentation/screens/create_group/preview_group_screen.dart';
 import 'package:talkam/features/group/presentation/tabs/group_media_tab.dart';
 import 'package:talkam/features/home/presentation/screens/base_page.dart';
 import 'package:talkam/features/home/presentation/screens/home_screen.dart';
+import 'package:talkam/features/messaging/presentation/screens/chat_screen.dart';
 import 'package:talkam/features/messaging/presentation/screens/messages_screen.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
@@ -82,7 +84,6 @@ class CustomRoutes {
         path: '/verifyOtpScreen',
         name: PageUrl.verifyOtpScreen,
         builder: (context, state) => VerifyOtpScreen(
-
             email: state.uri.queryParameters[PathParam.email] ?? '',
             verifyOtpType: verifyOtpFromString(
               state.uri.queryParameters[PathParam.otpType] ?? '',
@@ -202,15 +203,15 @@ class CustomRoutes {
         path: '/groupsInfoScreen',
         name: PageUrl.groupsInfoScreen,
         builder: (context, state) => GroupInfoScreen(
-          group: state.extra as TalkamGroup,
+          groupId: state.extra as String,
         ),
       ),
       GoRoute(
         path: '/groupDetailsScreen',
         name: PageUrl.groupDetailsScreen,
-        builder: (context, state) => const GroupDetailsScreen(
-            // query: state.extra as String,
-            ),
+        builder: (context, state) => GroupDetailsScreen(
+          group: state.extra as TalkamGroup,
+        ),
       ),
       GoRoute(
         path: '/groupMembersScreen',
@@ -229,32 +230,40 @@ class CustomRoutes {
       GoRoute(
         path: '/createGroupScreen',
         name: PageUrl.createGroupScreen,
-        builder: (context, state) => const CreateGroupScreen(
-            // query: state.extra as String,
+        builder: (context, state) =>  CreateGroupScreen(
+            group: state.extra as TalkamGroup?,
             ),
+
       ),
-      GoRoute(
-        path: '/createGroupRulesScreen',
-        name: PageUrl.createGroupRulesScreen,
-        builder: (context, state) => const AddGroupRulesScreen(
-            // query: state.extra as String,
-            ),
-      ),
+      // GoRoute(
+      //   path: '/createGroupRulesScreen',
+      //   name: PageUrl.createGroupRulesScreen,
+      //   builder: (context, state) => const AddGroupRulesScreen(
+      //       // query: state.extra as String,
+      //       ),
+      // ),
       GoRoute(
         path: '/previewGroupScreen',
         name: PageUrl.previewGroupScreen,
-        builder: (context, state) => const PreviewGroupScreen(
-            // query: state.extra as String,
-            ),
+        builder: (context, state) => PreviewGroupScreen(
+          payload: state.extra as PreviewGroupScreenParam,
+          // query: state.extra as String,
+        ),
       ),
       GoRoute(
         path: '/createGroupSuccessScreen',
         name: PageUrl.createGroupSuccessScreen,
-        builder: (context, state) => const CreateGroupSuccessScreen(
-            // query: state.extra as String,
+        builder: (context, state) =>  CreateGroupSuccessScreen(
+            payload: state.extra as TalkamGroup,
             ),
       ),
+      GoRoute(
+        path: '/chatScreen',
+        name: PageUrl.chatScreen,
+        builder: (context, state) =>  ChatScreen(
 
+            ),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return BasePage(navigationShell: navigationShell);
@@ -271,10 +280,8 @@ class CustomRoutes {
                 ),
                 routes: const [],
               ),
-
             ],
           ),
-
           StatefulShellBranch(
             navigatorKey: _shellNavigatorBKey,
             routes: [
@@ -287,7 +294,6 @@ class CustomRoutes {
               ),
             ],
           ),
-
           StatefulShellBranch(
             navigatorKey: _shellNavigatorCKey,
             routes: [
@@ -298,10 +304,8 @@ class CustomRoutes {
                   child: GroupsScreen(),
                 ),
               ),
-
             ],
           ),
-
           StatefulShellBranch(
             navigatorKey: _shellNavigatorDKey,
             routes: [
@@ -314,11 +318,8 @@ class CustomRoutes {
               ),
             ],
           ),
-
         ],
       ),
-
-
     ],
   );
 

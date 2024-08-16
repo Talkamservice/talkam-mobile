@@ -146,6 +146,7 @@ class UrlConfig {
   static const String updateGroup = '/user/groups/';
   static const String getGroup = '/user/groups/';
   static const String deleteGroup = '/user/groups/';
+  static const String createGroup = '/user/groups/';
 
 
   static const String getPendingGroupMembers = '/user/group-members';

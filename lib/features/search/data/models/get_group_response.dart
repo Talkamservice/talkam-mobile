@@ -1,4 +1,7 @@
+import 'package:talkam/features/group/dormain/model/group_overview_data.dart';
+import 'package:talkam/features/group/presentation/screens/group_details_screen.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
+import 'package:talkam/gen/assets.gen.dart';
 
 class GetGroupsResponse {
   final GroupPaginationMeta? paginationMeta;
@@ -30,7 +33,6 @@ class GetGroupsResponse {
 }
 
 class GroupPaginationMeta {
-
   final int? currentPage;
   final String? firstPageUrl;
   final int? from;
@@ -77,8 +79,6 @@ class GroupPaginationMeta {
   }
 }
 
-
-
 class GroupGuideline {
   final int? id;
   final String? title;
@@ -115,6 +115,177 @@ class GroupGuideline {
   }
 }
 
+class TalkamGroup {
+  final int? id;
+  final String? name;
+  final String? uuid;
+  final String? userRole;
+  final String? status;
+  final String? groupAccess;
+  final String? image;
+  final bool? isFollowing;
+  final int? totalMembers;
+  final PostCategory? category;
+  final List<GroupGuideline>? guidelines;
+  final String? description;
+  final GroupOwner? owner;
+  final String? about;
+  final DateTime? createdAt; // New field
+  final DateTime? updatedAt;
+
+  TalkamGroup({
+    this.id,
+    this.name,
+    this.uuid,
+    this.status,
+    this.groupAccess,
+    this.image,
+    this.isFollowing,
+    this.totalMembers,
+    this.category,
+    this.guidelines,
+    this.description,
+    this.owner,
+    this.about,
+    this.userRole,
+    this.createdAt,
+    this.updatedAt,
+  });
+
+  factory TalkamGroup.fromJson(Map<String, dynamic> json) {
+    var guidelinesList = json['guidelines'] as List?;
+    List<GroupGuideline>? guidelines =
+        guidelinesList?.map((i) => GroupGuideline.fromJson(i)).toList();
+
+    return TalkamGroup(
+      id: json['id'],
+      name: json['name'],
+      uuid: json['uuid'],
+      userRole: json['user_role'],
+      status: json['status'],
+      groupAccess: json['group_access'],
+      image: json['image'],
+      isFollowing: json['is_following'],
+      totalMembers: json['total_members'],
+      category: json['category'] != null
+          ? PostCategory.fromJson(json['category'])
+          : null,
+      guidelines: guidelines,
+      description: json['description'],
+      owner: json['owner'] != null ? GroupOwner.fromJson(json['owner']) : null,
+      about: json['about'],
+      createdAt: json['created_at'] != null
+          ? DateTime.parse(json['created_at'])
+          : null,
+      updatedAt: json['updated_at'] != null
+          ? DateTime.parse(json['updated_at'])
+          : null,
+    );
+  }
+
+
+
+  GroupDetailsScreenParam toGroupDetailsScreenParam({bool isPreview = false}) {
+    return GroupDetailsScreenParam(
+      isPreview: isPreview,
+      rulesData: toGroupGuidlineTabData(),
+      membersData: toGroupMembersTabData(),
+      // Assuming you have methods to fetch admins and members
+      overview: toGroupOverViewData(),
+      about: toGroupAboutData(),
+    );
+  }
+
+  GroupAppBarData toGroupAppBarData() {
+    return GroupAppBarData(
+      id: uuid ?? "",
+      // Use uuid if available, otherwise an empty string
+      isPreview: false,
+      // You might need to set this based on your logic
+      banner: image ?? Assets.images.jpegs.football.path,
+      // Indicate presence of banner image
+      name: name ?? "", // Use name if available, otherwise an empty string
+    );
+  }
+
+  GroupAboutData toGroupAboutData() {
+    return GroupAboutData(
+      about: about ?? "",
+      // Use about if available, otherwise an empty string
+      creator: owner ?? GroupOwner(username: "Unknown"),
+      // Use owner if available, otherwise create a dummy member
+      isPublic: groupAccess == "Opened",
+      // Check if group access is public
+      accesibility:
+          groupAccess == "Opened" ? "Anyone can join" : "Approval required",
+      createdAt: createdAt!,
+      updatedAt: updatedAt, // Set accessibility based on groupAccess
+    );
+  }
+
+  GroupMembersTabData toGroupMembersTabData() {
+    // Assuming there's a way to access group admins and members in your app
+    List<TalkamGroupMemberInfo> admins =
+        []; // Replace with actual admin retrieval logic
+    List<TalkamGroupMemberInfo> members =
+        []; // Replace with actual member retrieval logic
+
+    return GroupMembersTabData(
+      admin: admins,
+      members: members,
+      owner: [],
+      groupId: id.toString(),
+      iPreview: false,
+      // Use owner if available, otherwise create a dummy member
+    );
+  }
+
+
+  GroupGuidlineTabData toGroupGuidlineTabData() {
+    String groupDescription = description ?? ""; // Use description if available
+    List<String> guidelineTitles = [];
+    List<String> guidelineDescriptions = [];
+
+    if (guidelines != null) {
+      for (GroupGuideline guideline in guidelines!) {
+        guidelineTitles.add(guideline.title ?? ""); // Use title if available
+        guidelineDescriptions
+            .add(guideline.description ?? ""); // Use description if available
+      }
+    }
+
+    return GroupGuidlineTabData(
+      groupDescription: description,
+      guidlines: guidelines ?? [],
+    );
+  }
+
+  GroupOverViewData toGroupOverViewData() {
+    return GroupOverViewData(
+      id: uuid ?? "",
+      // Use uuid if available, otherwise an empty string
+      name: name ?? "",
+      // Use name if available, otherwise an empty string
+      status: status ?? "",
+      // Use status if available, otherwise an empty string
+      category: category!,
+      // Use category if available, otherwise create a dummy category
+      owner: owner ?? GroupOwner(username: "Unknown"),
+      // Use owner if available, otherwise create a dummy member
+      about: about ?? "",
+      // Use about if available, otherwise an empty string
+      totalMembers:
+          totalMembers ?? 0, // Use totalMembers if available, otherwise 0
+    );
+  }
+
+
+
+  bool get isPublic => groupAccess== null || groupAccess == "Opened";
+
+
+}
+
 class GroupOwner {
   final int? id;
   final String? avatar;
@@ -141,59 +312,37 @@ class GroupOwner {
   }
 }
 
-class TalkamGroup {
+class TalkamGroupMemberInfo {
   final int? id;
+  final String? avatar;
   final String? name;
-  final String? uuid;
-  final String? status;
-  final String? groupAccess;
-  final String? image;
-  final bool? isFollowing;
-  final int? totalMembers;
-  final PostCategory? category;
-  final List<GroupGuideline>? guidelines;
-  final String? description;
-  final GroupOwner? owner;
-  final String? about;
+  final String? username;
+  final String? email;
+  final String? role;
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
 
-  TalkamGroup({
+  TalkamGroupMemberInfo({
     this.id,
+    this.avatar,
     this.name,
-    this.uuid,
-    this.status,
-
-    this.groupAccess,
-    this.image,
-    this.isFollowing,
-    this.totalMembers,
-    this.category,
-    this.guidelines,
-    this.description,
-    this.owner,
-    this.about,
+    this.username,
+    this.role,
+    this.email,
+    this.createdAt,
+    this.updatedAt,
   });
 
-  factory TalkamGroup.fromJson(Map<String, dynamic> json) {
-    var guidelinesList = json['guidelines'] as List?;
-    List<GroupGuideline>? guidelines =
-        guidelinesList?.map((i) => GroupGuideline.fromJson(i)).toList();
-
-    return TalkamGroup(
+  factory TalkamGroupMemberInfo.fromJson(Map<String, dynamic> json) {
+    return TalkamGroupMemberInfo(
       id: json['id'],
+      avatar: json['avatar'],
       name: json['name'],
-      uuid: json['uuid'],
-      status: json['status'],
-      groupAccess: json['group_access'],
-      image: json['image'],
-      isFollowing: json['is_following'],
-      totalMembers: json['total_members'],
-      category: json['category'] != null
-          ? PostCategory.fromJson(json['category'])
-          : null,
-      guidelines: guidelines,
-      description: json['description'],
-      owner: json['owner'] != null ? GroupOwner.fromJson(json['owner']) : null,
-      about: json['about'],
+      role: json['role'],
+      username: json['username'],
+      email: json['email'],
+      createdAt: json['created_at'],
+      updatedAt: json['updated_at'],
     );
   }
 }

@@ -41,7 +41,7 @@ class _TrendingScreenState extends State<TrendingScreen>
                 getTrendingPostsLoading: () => Center(
                   child: CustomDialogs.getLoading(size: 50),
                 ),
-                getTrendingPostsFailed: (error) => AppPromptWidget(
+                getTrendingPostsFailed: (error) => AppErrorWidget(
                   message: error,
                   onTap: () {
                     injector

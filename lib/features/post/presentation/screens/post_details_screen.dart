@@ -163,7 +163,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen>
                     builder: (context, state) {
                       return state.maybeWhen(
                         orElse: () => 0.verticalSpace,
-                        getCommentsFailure: (error) => AppPromptWidget(
+                        getCommentsFailure: (error) => AppErrorWidget(
                           onTap: () {
                             commentBloc.add(CommentsEvent.getComments(
                                 widget.post.id.toString()));
