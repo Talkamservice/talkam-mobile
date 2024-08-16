@@ -9,7 +9,6 @@ import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
-import 'package:talkam/features/messaging/presentation/screens/chat_screen.dart';
 import 'package:talkam/features/messaging/presentation/widgets/messages_list.dart';
 import 'package:talkam/features/search/data/models/get_search_response.dart';
 import 'package:talkam/features/search/data/repository/search_repository.dart';
@@ -24,6 +23,30 @@ class MessagesScreen extends StatefulWidget {
 }
 
 class _MessagesScreenState extends State<MessagesScreen> {
+  final List<String> names = [
+    "MysticMaven",
+    "ShadowScribe",
+    "SolarFlare88",
+    "HorizonHunter",
+    "PhoenixFeather",
+    "TurboTitan",
+    "PixelPioneer",
+    "QuantumQuestor",
+    "ElectricEchoes",
+  ];
+
+  final List<String> messages = [
+    "I will! Thanks for the heads-up.",
+    "Not much.",
+    "Thinking about going hiking if the weather's nice.",
+    "True.",
+    "All I want is nothing more than to hear you.",
+    "Sounds perfect.",
+    "Thanks! Enjoy your relaxing weekend.",
+    "Just once. We barely made it out in time, but it was a blast.",
+    "I missed it. Heard it was a close one th....",
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,7 +109,10 @@ class _MessagesScreenState extends State<MessagesScreen> {
                   onTap: () {
                     context.pushNamed(PageUrl.chatScreen);
                   },
-                  child: MessagesList()))
+                  child: MessagesList(
+                    name: names,
+                    message: messages,
+                  )))
         ],
       ),
     );
@@ -124,22 +150,27 @@ class MessageAppBar extends StatelessWidget {
                 ),
                 const Spacer(),
                 20.horizontalSpace,
-                Row(
-                  children: [
-                    const TextView(
-                      text: "4",
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                    ),
-                    const SizedBox(
-                      width: 3,
-                    ),
-                    const TextView(
-                      text: "New",
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ],
+                GestureDetector(
+                  onTap: () {
+                    context.pushNamed(PageUrl.new_requestScreen);
+                  },
+                  child: Row(
+                    children: [
+                      const TextView(
+                        text: "4",
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                      ),
+                      const SizedBox(
+                        width: 3,
+                      ),
+                      const TextView(
+                        text: "New",
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),

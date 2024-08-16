@@ -23,7 +23,10 @@ import 'package:talkam/features/group/presentation/screens/preview_group_screen.
 import 'package:talkam/features/group/presentation/tabs/group_media_tab.dart';
 import 'package:talkam/features/home/presentation/screens/base_page.dart';
 import 'package:talkam/features/home/presentation/screens/home_screen.dart';
+import 'package:talkam/features/messaging/presentation/screens/chat_screen.dart';
 import 'package:talkam/features/messaging/presentation/screens/messages_screen.dart';
+import 'package:talkam/features/messaging/presentation/screens/new_message_screen.dart';
+import 'package:talkam/features/messaging/presentation/screens/new_request_screen.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/presentation/screens/categories_screen.dart';
@@ -82,7 +85,6 @@ class CustomRoutes {
         path: '/verifyOtpScreen',
         name: PageUrl.verifyOtpScreen,
         builder: (context, state) => VerifyOtpScreen(
-
             email: state.uri.queryParameters[PathParam.email] ?? '',
             verifyOtpType: verifyOtpFromString(
               state.uri.queryParameters[PathParam.otpType] ?? '',
@@ -254,7 +256,27 @@ class CustomRoutes {
             // query: state.extra as String,
             ),
       ),
-
+      GoRoute(
+        path: '/chatScreen',
+        name: PageUrl.chatScreen,
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: ChatScreen(),
+        ),
+      ),
+      GoRoute(
+        path: '/new_requestScreen',
+        name: PageUrl.new_requestScreen,
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: NewRequestScreen(),
+        ),
+      ),
+      GoRoute(
+        path: '/new_messageScreen',
+        name: PageUrl.new_messageScreen,
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: NewMessageScreen(),
+        ),
+      ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
           return BasePage(navigationShell: navigationShell);
@@ -271,10 +293,8 @@ class CustomRoutes {
                 ),
                 routes: const [],
               ),
-
             ],
           ),
-
           StatefulShellBranch(
             navigatorKey: _shellNavigatorBKey,
             routes: [
@@ -287,7 +307,6 @@ class CustomRoutes {
               ),
             ],
           ),
-
           StatefulShellBranch(
             navigatorKey: _shellNavigatorCKey,
             routes: [
@@ -298,10 +317,8 @@ class CustomRoutes {
                   child: GroupsScreen(),
                 ),
               ),
-
             ],
           ),
-
           StatefulShellBranch(
             navigatorKey: _shellNavigatorDKey,
             routes: [
@@ -314,11 +331,8 @@ class CustomRoutes {
               ),
             ],
           ),
-
         ],
       ),
-
-
     ],
   );
 

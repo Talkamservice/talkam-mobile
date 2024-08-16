@@ -7,13 +7,12 @@ import 'package:talkam/features/post/data/repository/post_repository_impl.dart';
 import 'package:talkam/features/post/dormain/repository/post_repository.dart';
 import 'package:talkam/features/profile/data/repository/profile_repository_impl.dart';
 import 'package:talkam/features/profile/dormain/repository/profile_repository.dart';
-import 'package:talkam/features/search/data/repository%20/search_repository.dart';
-import 'package:talkam/features/search/dormain/repository%20/search_repository_impl.dart';
+import 'package:talkam/features/search/data/repository/search_repository.dart';
+import 'package:talkam/features/search/dormain/repository/search_repository_impl.dart';
 import 'package:talkam/features/settings/data/repository/settings_repository_impl.dart';
 import 'package:talkam/features/settings/dormain/repository/settings_repoitory.dart';
 
 void setup(GetIt getIt) {
-
   getIt.registerLazySingleton<AuthRepository>(
     () => AuthRepositoryImpl(getIt.get()),
   );
@@ -33,5 +32,4 @@ void setup(GetIt getIt) {
   getIt.registerLazySingleton<GroupsRepository>(
     () => GroupsRepositoryImpl(getIt.get()),
   );
-
 }

@@ -7,7 +7,14 @@ import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class MessagesList extends StatefulWidget {
-  const MessagesList({super.key});
+  final List<String> name;
+  final List<String> message;
+
+  const MessagesList({
+    super.key,
+    required this.name,
+    required this.message,
+  });
 
   @override
   State<MessagesList> createState() => _MessagesListState();
@@ -15,30 +22,6 @@ class MessagesList extends StatefulWidget {
 
 class _MessagesListState extends State<MessagesList> {
   File? image;
-
-  final List<String> names = [
-    "MysticMaven",
-    "ShadowScribe",
-    "SolarFlare88",
-    "HorizonHunter",
-    "PhoenixFeather",
-    "TurboTitan",
-    "PixelPioneer",
-    "QuantumQuestor",
-    "ElectricEchoes",
-  ];
-
-  final List<String> messages = [
-    "I will! Thanks for the heads-up.",
-    "Not much.",
-    "Thinking about going hiking if the weather's nice.",
-    "True.",
-    "All I want is nothing more than to hear you.",
-    "Sounds perfect.",
-    "Thanks! Enjoy your relaxing weekend.",
-    "Just once. We barely made it out in time, but it was a blast.",
-    "I missed it. Heard it was a close one th....",
-  ];
 
   Future<void> pickImage() async {
     try {
@@ -63,9 +46,8 @@ class _MessagesListState extends State<MessagesList> {
   Widget build(BuildContext context) {
     return ListView.separated(
       padding: const EdgeInsets.all(16.0),
-      itemCount: names.length,
+      itemCount: widget.name.length,
       itemBuilder: (BuildContext context, index) {
-        bool isSeen = index % 2 == 0;
         String messageTime = "12:34 PM";
 
         return GestureDetector(
@@ -97,52 +79,54 @@ class _MessagesListState extends State<MessagesList> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    TextView(
-                      text: names[index],
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        TextView(
+                          text: widget.name[index],
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                        ),
+                        TextView(
+                          text: messageTime,
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: Color(0xff888888),
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 8),
-                    TextView(
-                      text: messages[index],
-                      color: const Color(0xff666666),
-                      maxLines: 1,
-                      textOverflow: TextOverflow.ellipsis,
-                      fontSize: 14,
-                      fontWeight: FontWeight.w400,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Expanded(
+                          child: TextView(
+                            text: widget.message[index],
+                            color: const Color(0xff666666),
+                            maxLines: 1,
+                            textOverflow: TextOverflow.ellipsis,
+                            fontSize: 14,
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                        Container(
+                          height: 16,
+                          width: 16,
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color: const Color(0xffAEAEAE),
+                          ),
+                          child: const Icon(
+                            Icons.check,
+                            size: 12,
+                            color: Color(0xffFFFFFF),
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ),
-              const SizedBox(width: 16),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: [
-                  TextView(
-                    text: messageTime,
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: Color(0xff888888),
-                      fontWeight: FontWeight.w400,
-                    ),
-                  ),
-                  const SizedBox(height: 8),
-                  Container(
-                    height: 16,
-                    width: 16,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: Color(0xffAEAEAE),
-                    ),
-                    child: ClipOval(
-                      child: Icon(
-                        Icons.check,
-                        size: 12,
-                        color: Color(0xffFFFFFF),
-                      ),
-                    ),
-                  )
-                ],
               ),
             ],
           ),

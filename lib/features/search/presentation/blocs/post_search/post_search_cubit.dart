@@ -3,7 +3,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/search/data/models/talkam_search_result.dart';
-import 'package:talkam/features/search/data/repository%20/search_repository.dart';
+import 'package:talkam/features/search/data/repository/search_repository.dart';
 
 part 'post_search_state.dart';
 
@@ -13,7 +13,6 @@ class PostSearchCubit extends Cubit<PostSearchState> {
   PostSearchCubit(this.searchRepository)
       : super(const PostSearchState.initial());
   final SearchRepository searchRepository;
-
 
   Future<void> searchPosts(String query) async {
     emit(const PostSearchState.getPostSearchLoading());
