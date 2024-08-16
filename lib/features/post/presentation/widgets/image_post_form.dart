@@ -46,10 +46,6 @@ class _ImagePostFormState extends State<ImagePostForm>
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // 16.verticalSpace,
-
-
-
-
               InkWell(
                 onTap: () {
                   selectTags(context);

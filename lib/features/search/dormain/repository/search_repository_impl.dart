@@ -5,7 +5,7 @@ import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/features/search/data/models/get_search_response.dart';
 import 'package:talkam/features/search/data/models/talkam_search_result.dart';
-import 'package:talkam/features/search/data/repository%20/search_repository.dart';
+import 'package:talkam/features/search/data/repository/search_repository.dart';
 
 class SearchRepositoryImpl extends SearchRepository {
   final NetworkService _networkService;

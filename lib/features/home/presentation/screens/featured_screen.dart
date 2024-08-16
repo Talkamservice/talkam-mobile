@@ -42,7 +42,7 @@ class _FeaturedScreenState extends State<FeaturedScreen>
                 getFeaturedPostsLoading: () => Center(
                   child: CustomDialogs.getLoading(size: 50),
                 ),
-                getFeaturedPostsFailed: (error) => AppPromptWidget(
+                getFeaturedPostsFailed: (error) => AppErrorWidget(
                   message: error,
                   onTap: () {
                     injector

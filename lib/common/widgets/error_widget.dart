@@ -1,12 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
-class AppPromptWidget extends StatelessWidget {
+class AppErrorWidget extends StatelessWidget {
   final String? message;
   final String? title;
   final String? retryText;
@@ -14,10 +13,11 @@ class AppPromptWidget extends StatelessWidget {
   final String? imagePath;
   final bool? isSvgResource;
   final bool? canTryAgain;
+  final bool? showImage;
   final Color? textColor;
   final Color? retryTextColor;
 
-  const AppPromptWidget({
+  const AppErrorWidget({
     Key? key,
     this.message =
         'Ooops something went wrong ensure you have a good network and retry.',
@@ -29,6 +29,7 @@ class AppPromptWidget extends StatelessWidget {
     this.retryText = 'Try again',
     this.textColor,
     this.retryTextColor,
+    this.showImage = true,
   }) : super(key: key);
 
   @override
@@ -39,11 +40,11 @@ class AppPromptWidget extends StatelessWidget {
           child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // if (imagePath != null)
-          SvgPicture.asset(
-            imagePath ?? Assets.images.svgs.sorry,
-            height: 150,
-          ),
+          if (showImage!)
+            SvgPicture.asset(
+              imagePath ?? Assets.images.svgs.sorry,
+              height: 150,
+            ),
           if (title != null)
             Column(
               children: [

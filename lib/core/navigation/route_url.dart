@@ -50,4 +50,6 @@ class PageUrl {
   static const createGroupRulesScreen = 'createGroupRulesScreen';
   static const previewGroupScreen = 'previewGroupScreen';
   static const createGroupSuccessScreen = 'createGroupSuccessScreen';
+
+  static const chatScreen = 'chatScreen';
 }

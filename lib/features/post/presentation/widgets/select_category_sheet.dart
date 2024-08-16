@@ -12,17 +12,17 @@ import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
-class SelectCategoryTab extends StatefulWidget {
-  const SelectCategoryTab({super.key});
+class SelectCategorySheet extends StatefulWidget {
+  const SelectCategorySheet({super.key});
 
   @override
-  State<SelectCategoryTab> createState() => _SelectCategoryTabState();
+  State<SelectCategorySheet> createState() => _SelectCategorySheetState();
 }
 
-class _SelectCategoryTabState extends State<SelectCategoryTab> {
+class _SelectCategorySheetState extends State<SelectCategorySheet> {
   @override
   void initState() {
-    postBloc.add(const PostEvent.getSubCategories());
+    postBloc.add(const PostEvent.getCategories());
     super.initState();
   }
 
@@ -32,68 +32,72 @@ class _SelectCategoryTabState extends State<SelectCategoryTab> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
+    return Container(
+      height: 0.7.sh,
+      color: context.colorScheme.surface,
+      padding: const EdgeInsets.all(16),
 
-        OutlinedFormField(
-          hint: "Search ",
-          radius: 100.r,
-          onChange: (d) {
-            filterList(d);
-          },
-          preffix: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ImageWidget(imageUrl: Assets.images.svgs.searchMd),
-          ),
-        ),
-        Expanded(
-          child: BlocConsumer<PostBloc, PostState>(
-            bloc: postBloc,
-            listener: (context, state) {
-              state.maybeWhen(
-                orElse: () => null,
-                getCategoriesSuccess: (response) {
-                  allLists = response.data;
-                  filteredList = response.data;
-                  setState(() {});
-                },
-              );
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          OutlinedFormField(
+            hint: "Search ",
+            radius: 100.r,
+            onChange: (d) {
+              filterList(d);
             },
-            builder: (context, state) {
-              return state.maybeWhen(
-                orElse: () => 0.verticalSpace,
-                getCategoriesFailure: (error) => AppPromptWidget(
-                  onTap: () {
-                    postBloc.add(const PostEvent.getSubCategories());
+            preffix: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ImageWidget(imageUrl: Assets.images.svgs.searchMd),
+            ),
+          ),
+          Expanded(
+            child: BlocConsumer<PostBloc, PostState>(
+              bloc: postBloc,
+              listener: (context, state) {
+                state.maybeWhen(
+                  orElse: () => null,
+                  getCategoriesSuccess: (response) {
+                    allLists = response.data;
+                    filteredList = response.data;
+                    setState(() {});
                   },
-                ),
-                getCategoriesLoading: () =>
-                    CustomDialogs.getLoading(size: 50),
-                getCategoriesSuccess: (response) {
-                  if (filteredList.isEmpty) {
-                    return const Center(
-                      child: TextView(text: "There are no categories yet"),
-                    );
-                  }
+                );
+              },
+              builder: (context, state) {
+                return state.maybeWhen(
+                  orElse: () => 0.verticalSpace,
+                  getCategoriesFailure: (error) => AppErrorWidget(
+                    onTap: () {
+                      postBloc.add(const PostEvent.getCategories());
+                    },
+                  ),
+                  getCategoriesLoading: () => CustomDialogs.getLoading(size: 50),
+                  getCategoriesSuccess: (response) {
+                    if (filteredList.isEmpty) {
+                      return const Center(
+                        child: TextView(text: "There are no categories yet"),
+                      );
+                    }
 
-                  return ListView.builder(
-                    itemCount: filteredList.length,
-                    shrinkWrap: true,
-                    // physics: const BouncingScrollPhysics(),
-                    itemBuilder: (context, index) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: CategoryItem(
-                        postCategory: filteredList[index],
+                    return ListView.builder(
+                      itemCount: filteredList.length,
+                      shrinkWrap: true,
+                      // physics: const BouncingScrollPhysics(),
+                      itemBuilder: (context, index) => Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: CategoryItem(
+                          postCategory: filteredList[index],
+                        ),
                       ),
-                    ),
-                  );
-                },
-              );
-            },
+                    );
+                  },
+                );
+              },
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 

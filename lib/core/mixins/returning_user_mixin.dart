@@ -23,6 +23,7 @@ mixin ReturningUserMixin<T extends StatefulWidget> on State<T> {
       context.goNamed(PageUrl.userNameScreen);
     } else {
       injector.get<PostBloc>().add(const PostEvent.getGuidelines());
+      injector.get<PostBloc>().add(const PostEvent.getCategories());
       context.goNamed(PageUrl.homeScreen);
     }
   }

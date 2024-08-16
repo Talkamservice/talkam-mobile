@@ -63,6 +63,7 @@ class PostCategory {
   dynamic isFollowing;
   DateTime? createdAt;
   DateTime? updatedAt;
+  ParentCategory? parentCategory;
 
   String get postCategoryImage => iconImage ?? backgroundImage;
 
@@ -75,6 +76,7 @@ class PostCategory {
     required this.iconImage,
     required this.createdAt,
     required this.updatedAt,
+    required this.parentCategory,
     required this.isFollowing,
   });
 
@@ -88,6 +90,7 @@ class PostCategory {
     DateTime? createdAt,
     bool? isFollowing,
     DateTime? updatedAt,
+    ParentCategory? parentCategory,
   }) =>
       PostCategory(
         id: id ?? this.id,
@@ -98,6 +101,7 @@ class PostCategory {
         backgroundImage: backgroundImage ?? this.backgroundImage,
         iconImage: iconImage ?? this.iconImage,
         createdAt: createdAt ?? this.createdAt,
+        parentCategory: parentCategory ?? this.parentCategory,
         updatedAt: updatedAt ?? this.updatedAt,
       );
 
@@ -109,6 +113,7 @@ class PostCategory {
         backgroundImage: json["background_image"],
         iconImage: json["icon_image"],
         isFollowing: json["is_following"],
+        parentCategory: json["parent_category"] == null ? null: ParentCategory.fromJson(json["parent_category"]),
         createdAt: json["created_at"] == null
             ? null
             : DateTime.parse(json["created_at"]),
@@ -125,6 +130,7 @@ class PostCategory {
         "icon_image": iconImage,
         "is_following": isFollowing,
         "followers_count": followersCount,
+        "parent_category": parentCategory?.toJson(),
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
       };
@@ -133,4 +139,33 @@ class PostCategory {
   String toString() {
     return name;
   }
+}
+
+class ParentCategory {
+  String name;
+  String description;
+
+  ParentCategory({
+    required this.name,
+    required this.description,
+  });
+
+  ParentCategory copyWith({
+    String? name,
+    String? description,
+  }) =>
+      ParentCategory(
+        name: name ?? this.name,
+        description: description ?? this.description,
+      );
+
+  factory ParentCategory.fromJson(Map<String, dynamic> json) => ParentCategory(
+        name: json["name"],
+        description: json["description"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "name": name,
+        "description": description,
+      };
 }

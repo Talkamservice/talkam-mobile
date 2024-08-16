@@ -4,49 +4,88 @@ import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/features/group/dormain/model/group_overview_data.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class GroupInfoAppBar extends StatelessWidget {
-  const GroupInfoAppBar({super.key});
+  const GroupInfoAppBar({super.key, required this.data});
+
+  final GroupAppBarData data;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         ImageWidget(
-          imageUrl: Assets.images.jpegs.football.path,
+          imageUrl: data.banner,
           width: 1.sw,
           onTap: () {},
           height: 150,
         ),
-        Column(
-          children: [
-            40.verticalSpace,
-            Row(
-              children: [
-                InkWell(
-                    onTap: () {
-                      context.pop();
-                    },
-                    child: ImageWidget(imageUrl: Assets.images.svgs.arrowLeft)),
-                const Spacer(),
-                const JoinGroupButton(),
-                24.horizontalSpace,
-                ImageWidget(
-                  imageUrl: Assets.images.svgs.share,
-                  color: Pallets.white,
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Column(
+            children: [
+              40.verticalSpace,
+              if (data.isPreview)
+                Row(
+                  children: [
+                    InkWell(
+                        onTap: () {
+                          context.pop();
+                        },
+                        child: ImageWidget(
+                            imageUrl: Assets.images.svgs.arrowLeft)),
+                    const Spacer(),
+                    TextButton(
+                        style: TextButton.styleFrom(
+                            backgroundColor: Pallets.white,
+                            shape: const StadiumBorder()),
+                        onPressed: () {},
+                        child: Row(
+                          children: [
+                            const TextView(
+                              text: "Finish and Create",
+                              color: Pallets.black,
+                            ),
+                            5.horizontalSpace,
+                            const Icon(
+                              Icons.add,
+                              color: Pallets.black,
+                            )
+                          ],
+                        ))
+                  ],
                 ),
-                24.horizontalSpace,
-                IconButton(
-                    style: IconButton.styleFrom(foregroundColor: Pallets.white),
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.more_vert_rounded,
+              if (!data.isPreview)
+                Row(
+                  children: [
+                    InkWell(
+                        onTap: () {
+                          context.pop();
+                        },
+                        child: ImageWidget(
+                            imageUrl: Assets.images.svgs.arrowLeft)),
+                    const Spacer(),
+                    const JoinGroupButton(),
+                    24.horizontalSpace,
+                    ImageWidget(
+                      imageUrl: Assets.images.svgs.share,
                       color: Pallets.white,
-                    ))
-              ],
-            )
-          ],
+                    ),
+                    24.horizontalSpace,
+                    IconButton(
+                        style: IconButton.styleFrom(
+                            foregroundColor: Pallets.white),
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.more_vert_rounded,
+                          color: Pallets.white,
+                        ))
+                  ],
+                ),
+            ],
+          ),
         ),
       ],
     );
@@ -68,22 +107,8 @@ class _JoinGroupButtonState extends State<JoinGroupButton> {
             backgroundColor: Pallets.primary,
             foregroundColor: Pallets.white,
             shape: const StadiumBorder()),
-        onPressed: () {
-          // var userInterests =
-          //     injector.get<ProfileBloc>().appUser!.interests;
-          // bloc.add(UpdateInterestEvent(widget.category.id.toString()));
-        },
+        onPressed: () {},
         child: Builder(builder: (context) {
-          // if (state is UpdateInterestLoadingState) {
-          //   return const SizedBox(
-          //     height: 20,
-          //     width: 20,
-          //     child: CircularProgressIndicator(
-          //       color: Pallets.white,
-          //     ),
-          //   );
-          // }
-
           return Row(
             children: [
               // if (!widget.category.isFollowing)

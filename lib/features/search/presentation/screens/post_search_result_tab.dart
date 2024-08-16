@@ -71,7 +71,7 @@ class _PostSearchResultTabState extends State<PostSearchResultTab>
                     ),
                   );
                 },
-                getPostSearchFailed: (error) => AppPromptWidget(
+                getPostSearchFailed: (error) => AppErrorWidget(
                   onTap: () {
                     bloc.searchPosts(widget.query);
                   },

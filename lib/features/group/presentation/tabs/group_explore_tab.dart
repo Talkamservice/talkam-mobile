@@ -31,11 +31,12 @@ class _GroupExploreRecentTabState extends State<GroupExploreTab>
     "Politicians"
   ];
   String _selectedTile = '';
-  final bloc = GroupsCubit(injector.get());
+  // final bloc = GroupsCubit(injector.get());
+
 
   @override
   void initState() {
-    bloc.getGroups();
+    injector.get<GroupsCubit>().getGroups();
 
     super.initState();
   }
@@ -53,30 +54,32 @@ class _GroupExploreRecentTabState extends State<GroupExploreTab>
                     children: [
                       CategoriesChips(
                         onSelected: (p0) {
-                          bloc.getGroups(
+                          injector.get<GroupsCubit>().getGroups(
                               filter: GroupsFilterModel(
                                   category: p0?.id.toString()));
                         },
                       ),
+
                       BlocProvider<GroupsCubit>.value(
-                        value: bloc,
+                        value: injector.get<GroupsCubit>(),
                         child: const SuggestedGroups(),
                       ),
+                      16.verticalSpace,
                     ],
                   ),
                 ),
               ];
             },
             body: BlocConsumer<GroupsCubit, GroupsState>(
-              bloc: bloc,
+              bloc: injector.get<GroupsCubit>(),
               listener: (context, state) {},
               builder: (context, state) {
                 return Column(
                   children: [
                     state.maybeWhen(orElse: () {
-                      return AppPromptWidget(
+                      return AppErrorWidget(
                         onTap: () {
-                          bloc.getGroups();
+                          injector.get<GroupsCubit>().getGroups();
                         },
                       );
                     }, getGroupsLoading: () {
@@ -88,17 +91,19 @@ class _GroupExploreRecentTabState extends State<GroupExploreTab>
                       );
                     }, getGroupsSuccess: (groups, paginationData) {
                       if (groups.isEmpty) {
-                        return const SizedBox(
-                          height: 300,
-                          child: Center(
-                            child: TextView(text: "No groups in this category"),
+                        return const Expanded(
+                          child: SizedBox(
+                            height: 300,
+                            child: Center(
+                              child: TextView(text: "No groups in this category"),
+                            ),
                           ),
                         );
                       }
                       return Expanded(
                         child: RefreshIndicator(
                           onRefresh: () async {
-                            bloc.getGroups();
+                            injector.get<GroupsCubit>().getGroups();
                           },
                           child: ListView.builder(
                             itemCount: groups.length,
@@ -109,7 +114,8 @@ class _GroupExploreRecentTabState extends State<GroupExploreTab>
                                     onTap: () {
                                       context.pushNamed(
                                           PageUrl.groupsInfoScreen,
-                                          extra: groups[index]);
+                                          extra: groups[index].id.toString());
+
                                     },
                                     child:
                                         GroupResultItem(group: groups[index]),

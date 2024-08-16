@@ -49,7 +49,7 @@ class _TrendingPostByCategoryScreenState
                 getTrendingPostsLoading: () => Center(
                   child: CustomDialogs.getLoading(size: 50),
                 ),
-                getTrendingPostsFailed: (error) => AppPromptWidget(
+                getTrendingPostsFailed: (error) => AppErrorWidget(
                   message: error,
                   onTap: () {
                     bloc.getTrendingPosts(PostFilterModel.trendingPost(
@@ -71,8 +71,9 @@ class _TrendingPostByCategoryScreenState
                     child: ListView.builder(
                       itemCount: respone.data.data.length,
                       addAutomaticKeepAlives: true,
+                      padding:  EdgeInsets.zero,
                       itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.only(bottom: 4.0),
+                        padding:  EdgeInsets.zero,
                         child: PostItem(
                           post: respone.data.data[index],
                         ),

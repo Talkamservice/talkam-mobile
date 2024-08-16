@@ -37,7 +37,7 @@ class _GroupRecentTabState extends State<GroupRecentTab>
             builder: (context, state) {
               return state.maybeWhen(
                 orElse: () {
-                  return AppPromptWidget(
+                  return AppErrorWidget(
                     onTap: () {
                       bloc.getRecentPosts();
                     },
@@ -46,7 +46,7 @@ class _GroupRecentTabState extends State<GroupRecentTab>
                 getRecentPostsLoading: () => Center(
                   child: CustomDialogs.getLoading(size: 50),
                 ),
-                getRecentPostsFailed: (error) => AppPromptWidget(
+                getRecentPostsFailed: (error) => AppErrorWidget(
                   message: error,
                   onTap: () {
                     bloc.getRecentPosts();

@@ -231,6 +231,9 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/sorry.svg
   String get sorry => 'assets/images/svgs/sorry.svg';
 
+  /// File path: assets/images/svgs/suspend.svg
+  String get suspend => 'assets/images/svgs/suspend.svg';
+
   /// File path: assets/images/svgs/text.svg
   String get text => 'assets/images/svgs/text.svg';
 
@@ -254,6 +257,12 @@ class $AssetsImagesSvgsGen {
 
   /// File path: assets/images/svgs/upload_icon.svg
   String get uploadIcon => 'assets/images/svgs/upload_icon.svg';
+
+  /// File path: assets/images/svgs/user-02.svg
+  String get user02 => 'assets/images/svgs/user-02.svg';
+
+  /// File path: assets/images/svgs/user-up-01.svg
+  String get userUp01 => 'assets/images/svgs/user-up-01.svg';
 
   /// File path: assets/images/svgs/user.svg
   String get user => 'assets/images/svgs/user.svg';
@@ -314,6 +323,7 @@ class $AssetsImagesSvgsGen {
         share,
         slashCircle01,
         sorry,
+        suspend,
         text,
         thumbsDownSvg,
         thumbsDownSvg_,
@@ -322,6 +332,8 @@ class $AssetsImagesSvgsGen {
         trash03,
         uploadAvatar,
         uploadIcon,
+        user02,
+        userUp01,
         user
       ];
 }
@@ -333,11 +345,16 @@ class Assets {
 }
 
 class AssetGenImage {
-  const AssetGenImage(this._assetName, {this.size = null});
+  const AssetGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+  });
 
   final String _assetName;
 
   final Size? size;
+  final Set<String> flavors;
 
   Image image({
     Key? key,

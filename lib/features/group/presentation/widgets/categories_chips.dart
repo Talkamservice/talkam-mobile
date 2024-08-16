@@ -6,6 +6,7 @@ import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/features/group/presentation/widgets/horizontal_chips_shimmer.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 
@@ -25,7 +26,7 @@ class _CategoriesChipsState extends State<CategoriesChips> {
 
   @override
   void initState() {
-    if (injector.get<PostBloc>().categories.isEmpty) {
+    if (injector.get<PostBloc>().subcategories.isEmpty) {
       injector.get<PostBloc>().add(const PostEvent.getCategories());
     }
     super.initState();
@@ -35,66 +36,67 @@ class _CategoriesChipsState extends State<CategoriesChips> {
   Widget build(BuildContext context) {
     return BlocConsumer<PostBloc, PostState>(
       bloc: injector.get<PostBloc>(),
+      buildWhen: _buildWhen,
       listener: (context, state) {},
       builder: (context, state) {
         return state.maybeWhen(
-          orElse: () => 0.verticalSpace,
-          getCategoriesFailure: (error) => AppPromptWidget(
+          orElse: () => Padding(
+            padding: const EdgeInsets.only(top: 18.0),
+            child: SizedBox(
+              width: double.infinity,
+              height: 40,
+              child: ListView.separated(
+                padding: const EdgeInsets.symmetric(horizontal: 18),
+                scrollDirection: Axis.horizontal,
+                itemCount: injector.get<PostBloc>().subcategories.length,
+                separatorBuilder: (_, __) => 14.horizontalSpace,
+                itemBuilder: (_, int index) {
+                  return InkWell(
+                    onTap: () {
+                      selectCategory(index);
+                    },
+                    child: _CategoryTile(
+                      tile: injector.get<PostBloc>().subcategories[index].name,
+                      key: Key(
+                          injector.get<PostBloc>().subcategories[index].name),
+                      isSelected: _selectedTile ==
+                          injector.get<PostBloc>().subcategories[index],
+                    ),
+                  );
+                },
+              ),
+            ),
+          ),
+          getCategoriesFailure: (error) => AppErrorWidget(
+            showImage: false,
             onTap: () {
               injector.get<PostBloc>().add(const PostEvent.getSubCategories());
             },
           ),
-          getCategoriesLoading: () => 0.verticalSpace,
-          getCategoriesSuccess: (response) {
-
-            // if (response.data.isEmpty) {
-            //   return const Center(
-            //     child: TextView(text: "There are no categories yet"),
-            //   );
-            // }
-
-            return Padding(
-              padding: const EdgeInsets.only(top: 18.0),
-              child: SizedBox(
-                width: double.infinity,
-                height: 40,
-                child: ListView.separated(
-                  padding: const EdgeInsets.symmetric(horizontal: 18),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: injector.get<PostBloc>().categories.length,
-                  separatorBuilder: (_, __) => 14.horizontalSpace,
-                  itemBuilder: (_, int index) {
-                    return InkWell(
-                      onTap: () {
-                        selectCategory(index);
-                      },
-                      child: _CategoryTile(
-                        tile: injector.get<PostBloc>().categories[index].name,
-                        key: Key(
-                            injector.get<PostBloc>().categories[index].name),
-                        isSelected: _selectedTile ==
-                            injector.get<PostBloc>().categories[index],
-                      ),
-                    );
-                  },
-                ),
-              ),
-            );
-          },
+          getCategoriesLoading: () => const HorizontalChipsShimmer(),
         );
       },
     );
   }
 
   void selectCategory(int index) {
-    if (_selectedTile == injector.get<PostBloc>().categories[index]) {
+    if (_selectedTile == injector.get<PostBloc>().subcategories[index]) {
       _selectedTile = null;
       widget.onSelected(null);
     } else {
-      _selectedTile = injector.get<PostBloc>().categories[index];
+      _selectedTile = injector.get<PostBloc>().subcategories[index];
       widget.onSelected(_selectedTile);
     }
     setState(() {});
+  }
+
+  bool _buildWhen(PostState previous, PostState current) {
+    return current.maybeWhen(
+      orElse: () => false,
+      getCategoriesSuccess: (response) => true,
+      getCategoriesLoading: () => true,
+      getCategoriesFailure: (error) => true,
+    );
   }
 }
 

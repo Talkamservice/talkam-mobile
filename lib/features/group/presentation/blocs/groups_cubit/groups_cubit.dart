@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/features/group/data/models/create_group_payload.dart';
 import 'package:talkam/features/group/data/models/groups_filter_model.dart';
+import 'package:talkam/features/group/data/models/update_group_payload.dart';
 import 'package:talkam/features/group/dormain/repository/group_repository.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 
@@ -19,7 +21,7 @@ class GroupsCubit extends Cubit<GroupsState> {
 
     try {
       final GetGroupsResponse response =
-          await groupRepository.getGroups(page: 1,filter: filter);
+          await groupRepository.getGroups(page: 1, filter: filter);
 
       emit(GroupsState.getGroupsSuccess(
         groups: response.groups!,
@@ -80,11 +82,11 @@ class GroupsCubit extends Cubit<GroupsState> {
   }
 
   Future<void> updateGroup(
-      String groupId, Map<String, dynamic> groupData) async {
+      String groupId, CreateGroupPayload payload) async {
     emit(const GroupsState.updateGroupLoading());
 
     try {
-      final response = await groupRepository.updateGroup(groupId, groupData);
+      final response = await groupRepository.updateGroup(groupId, payload);
 
       emit(GroupsState.updateGroupSuccess(response));
     } catch (e, stack) {

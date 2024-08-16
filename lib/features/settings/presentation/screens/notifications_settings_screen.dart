@@ -113,7 +113,7 @@ class _NotificationsSettingsScreenState
                 // CustomDialogs.showLoading(context);
               },
               fetchNotificationPreferencesFailure: (error) {
-                return AppPromptWidget(
+                return AppErrorWidget(
                   onTap: () {},
                 );
               },

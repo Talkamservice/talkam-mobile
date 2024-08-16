@@ -79,7 +79,7 @@ class _SubcategoryListState extends State<SubcategoryList> {
             builder: (context, state) {
               return state.maybeWhen(
                 orElse: () => 0.verticalSpace,
-                getCategoriesFailure: (error) => AppPromptWidget(
+                getCategoriesFailure: (error) => AppErrorWidget(
                   onTap: () {
                     postBloc.add(const PostEvent.getCategories());
                   },
@@ -91,20 +91,18 @@ class _SubcategoryListState extends State<SubcategoryList> {
                     return const SizedBox(
                       height: 300,
                       child: Center(
-                        child: TextView(text: "There are no sub categories here"),
+                        child:
+                            TextView(text: "There are no sub categories here"),
                       ),
                     );
                   }
-
-
-
 
                   return ListView.builder(
                     itemCount: response.data.length,
                     shrinkWrap: true,
                     // physics: const BouncingScrollPhysics(),
                     itemBuilder: (context, index) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      padding: const EdgeInsets.symmetric(vertical: 3.0),
                       child: NavCategoryItem(
                         category: response.data[index],
                         onTap: () {

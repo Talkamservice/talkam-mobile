@@ -32,12 +32,14 @@ class PostHeader extends StatelessWidget {
   final PostCategory category;
   final VoidCallback onMenuTap;
   final TalkamPost post;
+  final bool? showGroupAndCategory;
 
   const PostHeader({
     required this.userName,
     required this.category,
     required this.onMenuTap,
     required this.post,
+    this.showGroupAndCategory = true,
   });
 
   @override
@@ -81,20 +83,72 @@ class PostHeader extends StatelessWidget {
                   ),
                 ],
               ),
-              InkWell(
-                onTap: () {
-                  if (!post.isAnonymous.toBool) {
-                    viewUsersProfile(context);
-                  } else {
-                    CustomDialogs.showToast("User is anonymous");
-                  }
-                },
-                child: TextView(
-                  text: "Posted by $userName",
-                  color: Pallets.grey,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 12,
-                ),
+              Row(
+                children: [
+                  InkWell(
+                    onTap: () {
+                      if (!post.isAnonymous.toBool) {
+                        viewUsersProfile(context);
+                      } else {
+                        CustomDialogs.showToast("User is anonymous");
+                      }
+                    },
+                    child: TextView(
+                      text: "Posted by $userName to",
+                      color: Pallets.grey,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 12,
+                    ),
+                  ),
+                  if (showGroupAndCategory!)
+                    Expanded(
+                      child: Builder(
+                        builder: (context) {
+                          if (post.group != null) {
+                            return InkWell(
+                              onTap: () {
+                                context.pushNamed(PageUrl.groupsInfoScreen,
+                                    extra: post.group!.id.toString());
+
+                                // if (!post.isAnonymous.toBool) {
+                                //   viewUsersProfile(context);
+                                // } else {
+                                //   CustomDialogs.showToast("User is anonymous");
+                                // }
+                              },
+                              child: TextView(
+                                text: " ${post.group!.name}",
+                                maxLines: 1,
+                                textOverflow: TextOverflow.ellipsis,
+                                color: Pallets.primary,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 12,
+                              ),
+                            );
+                          }
+                          return InkWell(
+                            onTap: () {
+
+                              context.pushNamed(PageUrl.categoriesScreen,
+                                  extra: post.category);
+
+                              // if (!post.isAnonymous.toBool) {
+                              //   viewUsersProfile(context);
+                              // } else {
+                              //   CustomDialogs.showToast("User is anonymous");
+                              // }
+                            },
+                            child: TextView(
+                              text: " ${post.category.name}",
+                              color: Pallets.primary,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 12,
+                            ),
+                          );
+                        },
+                      ),
+                    )
+                ],
               ),
             ],
           ),

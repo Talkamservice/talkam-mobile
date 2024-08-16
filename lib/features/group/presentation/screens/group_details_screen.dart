@@ -1,19 +1,40 @@
 import 'package:flutter/material.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
+import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/features/group/dormain/model/group_overview_data.dart';
 import 'package:talkam/features/group/presentation/tabs/group_members_tab.dart';
 import 'package:talkam/features/group/presentation/tabs/group_rules_tab.dart';
 import 'package:talkam/features/group/presentation/tabs/groups_about_tab.dart';
+import 'package:talkam/features/group/presentation/widgets/group_action_sheet.dart';
 import 'package:talkam/features/group/presentation/widgets/group_details_header.dart';
 import 'package:talkam/features/home/presentation/screens/home_screen.dart';
+import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
+class GroupDetailsScreenParam {
+  final bool isPreview;
+  GroupGuidlineTabData rulesData;
+  GroupMembersTabData membersData;
+  GroupOverViewData overview;
+  GroupAboutData about;
+
+  GroupDetailsScreenParam(
+      {required this.isPreview,
+      required this.rulesData,
+      required this.membersData,
+      required this.overview,
+      required this.about});
+}
+
 class GroupDetailsScreen extends StatefulWidget {
-  const GroupDetailsScreen({super.key});
+  const GroupDetailsScreen({super.key, required this.group});
+
+  final TalkamGroup group;
 
   @override
   State<GroupDetailsScreen> createState() => _GroupDetailsScreenState();
@@ -38,17 +59,29 @@ class _GroupDetailsScreenState extends State<GroupDetailsScreen> {
         leadingWidth: 40,
         tittle: Row(
           children: [
-            ImageWidget(imageUrl: Assets.images.png.sports.path),
+            ImageWidget(
+              imageUrl: widget.group.image!,
+              borderRadius: BorderRadius.circular(100),
+            ),
             11.horizontalSpace,
-            const TextView(
-              text: "Dating Advice",
+            TextView(
+              text: widget.group.name!,
               fontSize: 18,
               fontWeight: FontWeight.w700,
             )
           ],
         ),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.more_vert))
+          IconButton(
+              onPressed: () {
+
+                CustomDialogs.showBottomSheet(
+                    context,
+                    GroupActionSheet(
+                      group: widget.group,
+                    ));
+              },
+              icon: const Icon(Icons.more_vert))
         ],
       ),
       body: DefaultTabController(
@@ -56,12 +89,13 @@ class _GroupDetailsScreenState extends State<GroupDetailsScreen> {
         child: NestedScrollView(
             headerSliverBuilder: (context, innerBoxIsScrolled) {
               return [
-                const SliverToBoxAdapter(
+                SliverToBoxAdapter(
                   child: Column(
                     children: [
-                      GroupDetailsHeader(),
-
-                      Divider(),
+                      GroupDetailsHeader(
+                        group: widget.group,
+                      ),
+                      const Divider(),
                     ],
                   ),
                 )
@@ -120,10 +154,16 @@ class _GroupDetailsScreenState extends State<GroupDetailsScreen> {
                       onPageChanged: (int index) {
                         // setState(() {});
                       },
-                      children: const [
-                        GroupRulesTab(),
-                        GroupMembersTab(),
-                        GroupsAboutTab()
+                      children: [
+                        GroupRulesTab(
+                          data: widget.group,
+                        ),
+                        GroupMembersTab(
+                          data: widget.group,
+                        ),
+                        GroupsAboutTab(
+                          data: widget.group,
+                        )
                       ],
                     ),
                   ),

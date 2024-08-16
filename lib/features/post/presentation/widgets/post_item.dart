@@ -12,7 +12,9 @@ import 'package:talkam/features/post/presentation/widgets/post_content.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item_components.dart';
 
 class PostItem extends StatelessWidget {
-  const PostItem({super.key, required this.post});
+  const PostItem({super.key, required this.post, this.showGroupAndCategory= true});
+
+  final bool? showGroupAndCategory;
 
   final TalkamPost post;
 
@@ -26,16 +28,17 @@ class PostItem extends StatelessWidget {
         decoration: BoxDecoration(
             color: context.theme.cardColor,
             borderRadius: BorderRadius.circular(10)),
-
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               PostHeader(
+                showGroupAndCategory: showGroupAndCategory,
                 userName: userName,
                 post: post,
                 category: post.category,
+
                 onMenuTap: () async {
                   var isReported = await CustomDialogs.showBottomSheet(
                       context,
@@ -47,7 +50,6 @@ class PostItem extends StatelessWidget {
                   }
                 },
               ),
-
               10.verticalSpace,
               PostContent(
                 post: post,

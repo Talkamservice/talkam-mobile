@@ -62,13 +62,15 @@ class GroupResultItem extends StatelessWidget {
     );
   }
 
-  formatMemberCount(totalMembers) {
-    if (totalMembers >= 1000) {
-      return '${(totalMembers / 1000).toFixed(1)}k';
-    } else if (totalMembers <= 1) {
-      return "${totalMembers.toString()} Member";
-    } else {
-      return "${totalMembers.toString()} Members";
-    }
+
+}
+
+formatMemberCount(totalMembers) {
+  if (totalMembers >= 1000) {
+    return '${(totalMembers / 1000).toFixed(1)}k';
+  } else if (totalMembers <= 1) {
+    return "${totalMembers.toString()} Member";
+  } else {
+    return "${totalMembers.toString()} Members";
   }
 }

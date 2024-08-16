@@ -119,6 +119,7 @@ class _CreatePostScreenState extends State<CreatePostScreen>
                           hint: "A sharp title for your post works best."),
                     ),
                     16.verticalSpace,
+
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
                       child: switch (postType) {

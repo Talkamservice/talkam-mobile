@@ -46,7 +46,7 @@ class _FeaturedPostByCategoryScreenState
                 getFeaturedPostsLoading: () => Center(
                   child: CustomDialogs.getLoading(size: 50),
                 ),
-                getFeaturedPostsFailed: (error) => AppPromptWidget(
+                getFeaturedPostsFailed: (error) => AppErrorWidget(
                   message: error,
                   onTap: () {
                     bloc.getFeaturedPosts(PostFilterModel.featuredPost(category: widget.categoryId));

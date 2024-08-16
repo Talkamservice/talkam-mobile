@@ -75,7 +75,7 @@ class _GroupsResultTabState extends State<GroupsResultTab>
                     ),
                   );
                 },
-                getGroupSearchFailed: (error) => AppPromptWidget(
+                getGroupSearchFailed: (error) => AppErrorWidget(
                   onTap: () {
                     bloc.searchGroup(widget.query);
                   },

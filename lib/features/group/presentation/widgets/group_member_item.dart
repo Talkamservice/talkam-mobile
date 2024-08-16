@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/features/group/presentation/widgets/groupmember_action_sheet.dart';
+import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class GroupMemberItem extends StatelessWidget {
-  const GroupMemberItem({super.key});
+  const GroupMemberItem({super.key, required this.member});
+
+  final TalkamGroupMemberInfo member;
 
   @override
   Widget build(BuildContext context) {
@@ -14,31 +20,44 @@ class GroupMemberItem extends StatelessWidget {
       children: [
         ImageWidget(imageUrl: Assets.images.svgs.member),
         10.horizontalSpace,
-        const Expanded(
+        Expanded(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               TextView(
-                text: "u/ougqd9uh0qess",
+                text: getDisplayName,
                 fontSize: 16,
                 fontWeight: FontWeight.w500,
               ),
               TextView(
-                text: "Member since Dec, 2022",
+                text:
+                    "Member since ${TimeUtil.formatDate((member.createdAt ?? DateTime.now()).toIso8601String())}",
                 fontSize: 12,
               ),
             ],
           ),
         ),
         IconButton(
-            onPressed: () {},
-            icon: IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.more_vert,
-                  color: context.colorScheme.onSurface,
-                )))
+            onPressed: () {
+              CustomDialogs.showBottomSheet(
+                context,
+
+                GroupmemberActionSheet(
+                  currentUserIsAdmin: false,
+                  member: member,
+                ));
+              },
+            icon: Icon(
+              Icons.more_vert,
+              color: context.colorScheme.onSurface,
+            ))
       ],
     );
   }
+
+  String get getDisplayName => (member.name??"").isNotEmpty
+      ? member.name!
+      : member.username!.isNotEmpty
+          ? member.username!
+          : member.email!;
 }

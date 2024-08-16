@@ -2,13 +2,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/constants/package_exports.dart';
+import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/features/group/presentation/screens/group_details_screen.dart';
-import 'package:talkam/features/group/presentation/screens/group_info_screen.dart';
+import 'package:talkam/features/post/data/models/post_test_models.dart';
+import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
+import 'group_overview_section.dart';
+
 class GroupDetailsHeader extends StatefulWidget {
-  const GroupDetailsHeader({super.key});
+  const GroupDetailsHeader({super.key, required this.group});
+
+  final TalkamGroup group;
 
   @override
   State<GroupDetailsHeader> createState() => _GroupDetailsHeaderState();
@@ -20,6 +27,7 @@ class _GroupDetailsHeaderState extends State<GroupDetailsHeader> {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16.0),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             children: [
@@ -29,10 +37,10 @@ class _GroupDetailsHeaderState extends State<GroupDetailsHeader> {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      ImageWidget(imageUrl: Assets.images.png.sports.path),
+                      ImageWidget(imageUrl: widget.group.category?.iconImage),
                       10.horizontalSpace,
                       TextView(
-                        text: "Dating & Relationship",
+                        text: widget.group.category?.name,
                         fontSize: 14,
                         color: context.colorScheme.onSurface,
 
@@ -43,7 +51,11 @@ class _GroupDetailsHeaderState extends State<GroupDetailsHeader> {
               const Spacer(),
               TextButton(
                   style: outlinedButtonStyle(),
-                  onPressed: () {},
+                  onPressed: () {
+
+                    context.pushNamed(PageUrl.createGroupScreen,
+                        extra: widget.group);
+                  },
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -60,8 +72,9 @@ class _GroupDetailsHeaderState extends State<GroupDetailsHeader> {
             ],
           ),
           12.verticalSpace,
-          const GroupOverViewSection(
+          GroupOverViewSection(
             showAbout: false,
+            data: widget.group,
           )
         ],
       ),

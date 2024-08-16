@@ -1,6 +1,12 @@
 import 'dart:convert';
+import 'dart:math';
+import 'package:talkam/features/group/dormain/model/group_overview_data.dart';
+import 'package:talkam/features/group/presentation/screens/group_details_screen.dart';
 import 'package:talkam/features/post/data/models/create_post_payload.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
+import 'package:talkam/features/search/data/models/get_group_response.dart';
+import 'package:talkam/gen/assets.gen.dart';
+import 'package:uuid/uuid.dart';
 
 import 'get_posts_response.dart';
 
@@ -27,7 +33,7 @@ class TestFactories {
       polls: [],
       reaction: createPostReaction(),
       createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
+      updatedAt: DateTime.now(), group: null,
     );
   }
 
@@ -41,7 +47,7 @@ class TestFactories {
       iconImage: "",
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
-      isFollowing: false,
+      isFollowing: false, parentCategory: null,
     );
   }
 
@@ -83,6 +89,93 @@ class TestFactories {
       anonymous: null,
       expiresAt: DateTime.now().add(Duration(days: 1)),
       createdAt: DateTime.now(),
+    );
+  }
+
+  static GroupOverViewData createDummyGroupOverview() {
+    return GroupOverViewData(
+      id: "dummy_id",
+      name: "Dummy Group Name",
+      status: "active",
+      category: PostCategory(
+          id: 1,
+          name: "Dummy Category",
+          description: 'FD',
+          backgroundImage: null,
+          followersCount: null,
+          iconImage: null,
+          createdAt: null,
+          updatedAt: null,
+          isFollowing: false, parentCategory: null),
+      owner: GroupOwner(id: Random().nextInt(5), username: "Dummy Owner"),
+      about: "This is a dummy group about something interesting.",
+      totalMembers: 123,
+    );
+  }
+
+  static GroupGuidlineTabData createDummyGroupGuidelines() {
+    return GroupGuidlineTabData(
+      groupDescription: "Welcome to this dummy group!",
+      guidlines: [],
+    );
+  }
+
+  static GroupMembersTabData createDummyGroupMembers() {
+    TalkamGroupMemberInfo dummyAdmin =
+        TalkamGroupMemberInfo(id: Random().nextInt(5), username: "Admin User");
+    TalkamGroupMemberInfo dummyMember = TalkamGroupMemberInfo(
+        id: Random().nextInt(5), username: "Regular Member");
+
+    return GroupMembersTabData(
+      admin: [dummyAdmin],
+      members: [dummyMember],
+      owner: [],
+      groupId: '0001',
+      iPreview: false, // Assuming owner is also an admin here
+    );
+  }
+
+  static GroupAboutData createDummyGroupAbout() {
+    GroupOwner dummyCreator =
+        GroupOwner(id: Random().nextInt(5), username: "Group Creator");
+
+    return GroupAboutData(
+      about: createDummyGroupOverview().about,
+      creator: dummyCreator,
+      isPublic: true,
+      createdAt: DateTime.now(),
+      updatedAt: DateTime.now(),
+      accesibility: "Anyone can join",
+    );
+  }
+
+  static GroupDetailsScreenParam createDummyGroupDetails() {
+    return GroupDetailsScreenParam(
+      isPreview: false,
+      // Adjust as needed
+      rulesData: createDummyGroupGuidelines(),
+      membersData: createDummyGroupMembers(),
+      overview: createDummyGroupOverview(),
+      about: createDummyGroupAbout(),
+    );
+  }
+
+  static GroupAppBarData createDummyGroupAppBarData() {
+    return GroupAppBarData(
+      id: "dummy_group_id",
+      isPreview: false, // Adjust as needed
+      banner: Assets.images.jpegs.football.path, // Adjust as needed
+      name: "Dummy Group",
+    );
+  }
+
+  static GroupDetailsScreenParam createDummyGroupDetailsScreenParam() {
+    return GroupDetailsScreenParam(
+      isPreview: false,
+      rulesData: createDummyGroupGuidelines(),
+      membersData: createDummyGroupMembers(),
+      overview: createDummyGroupOverview(),
+      about: createDummyGroupAbout(),
     );
   }
 }

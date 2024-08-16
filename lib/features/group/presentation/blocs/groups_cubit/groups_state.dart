@@ -26,8 +26,9 @@ class GroupsState with _$GroupsState {
 
   // Get Group States
   const factory GroupsState.getGroupLoading() = _GetGroupLoading;
-  const factory GroupsState.getGroupSuccess(dynamic response) = _GetGroupSuccess;
+  const factory GroupsState.getGroupSuccess(TalkamGroup response) = _GetGroupSuccess;
   const factory GroupsState.getGroupFailure(String error) = _GetGroupFailure;
+
 
   // Delete Group States
   const factory GroupsState.deleteGroupLoading() = _DeleteGroupLoading;

@@ -47,7 +47,7 @@ class _RecentPostByCategoryScreenState extends State<RecentPostByCategoryScreen>
                 getRecentPostsLoading: () => Center(
                   child: CustomDialogs.getLoading(size: 50),
                 ),
-                getRecentPostsFailed: (error) => AppPromptWidget(
+                getRecentPostsFailed: (error) => AppErrorWidget(
                   message: error,
                   onTap: () {
                     bloc.getRecentPosts(PostFilterModel.recentPost(

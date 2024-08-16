@@ -1,19 +1,24 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/constants/dialog_texts.dart';
+import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/features/group/presentation/widgets/about_group_item.dart';
+import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
-import 'group_rules_tab.dart';
-
 class GroupsAboutTab extends StatefulWidget {
-  const GroupsAboutTab({super.key});
+  const GroupsAboutTab({super.key, required this.data});
+
+  final TalkamGroup data;
 
   @override
   State<GroupsAboutTab> createState() => _GroupsAboutTabState();
@@ -33,8 +38,7 @@ class _GroupsAboutTabState extends State<GroupsAboutTab> {
               text: groupRuleIntro,
             ),
             16.verticalSpace,
-            const TextView(
-                text: "This is a group for dating and relationship advice."),
+            TextView(text: widget.data.about.toString()),
             18.verticalSpace,
             AboutGroupItem(
               icon: Assets.images.svgs.calender,
@@ -43,12 +47,19 @@ class _GroupsAboutTabState extends State<GroupsAboutTab> {
                   text: TextSpan(
                       style: GoogleFonts.nunito(
                           color: context.colorScheme.onSurface),
-                      children: const [
+                      children: [
                     TextSpan(
-                        text: "The group was created on the 13th Jan, 2024 by"),
+                        text:
+                            "The group was created on the ${TimeUtil.formatDate(widget.data.createdAt.toString())} by "),
                     TextSpan(
-                        text: " u/ougqd9uh0qess",
-                        style: TextStyle(
+                        text: widget.data.owner?.username,
+                        recognizer: TapGestureRecognizer()
+                          ..onTap = () {
+
+                            context.pushNamed(PageUrl.userProfileScreen,
+                                extra: widget.data.owner?.id.toString());
+                          },
+                        style: const TextStyle(
                             color: Pallets.primary,
                             fontWeight: FontWeight.w700)),
                   ])),
@@ -57,8 +68,9 @@ class _GroupsAboutTabState extends State<GroupsAboutTab> {
             AboutGroupItem(
               icon: Assets.images.svgs.keylock,
               tittle: "Discoverability",
-              description:
-                  "The group is publicly open to everyone. Members can join without approval",
+              description: widget.data.isPublic
+                  ? publicGroupDiscoverText
+                  : privateGroupDiscoverText,
             ),
             16.verticalSpace,
             AboutGroupItem(
@@ -71,43 +83,6 @@ class _GroupsAboutTabState extends State<GroupsAboutTab> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class AboutGroupItem extends StatelessWidget {
-  const AboutGroupItem(
-      {super.key,
-      required this.icon,
-      this.descriptionWidget,
-      this.description,
-      required this.tittle});
-
-  final String icon;
-  final Widget? descriptionWidget;
-  final String? description;
-  final String tittle;
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        CircularBorder(padding: 4, child: ImageWidget(imageUrl: icon)),
-        12.horizontalSpace,
-        Expanded(
-            child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextView(
-              text: tittle,
-              fontWeight: FontWeight.w700,
-            ),
-            4.verticalSpace,
-            descriptionWidget ?? const TextView(text: groupRuleIntro)
-          ],
-        ))
-      ],
     );
   }
 }
