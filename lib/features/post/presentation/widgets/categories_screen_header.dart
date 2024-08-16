@@ -191,7 +191,9 @@ class _FollowCategoryButtonState extends State<FollowCategoryButton> {
                       Icons.add,
                       color: Pallets.white,
                     ),
-                  10.horizontalSpace,
+                  if (!widget.category.isFollowing)
+
+                  5.horizontalSpace,
                   TextView(
                       text:
                           widget.category.isFollowing ? "Unfollow" : "Follow"),
