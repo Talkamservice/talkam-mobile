@@ -132,12 +132,16 @@ class PostHeader extends StatelessWidget {
                               context.pushNamed(PageUrl.categoriesScreen,
                                   extra: post.category);
 
+
                               // if (!post.isAnonymous.toBool) {
                               //   viewUsersProfile(context);
                               // } else {
                               //   CustomDialogs.showToast("User is anonymous");
                               // }
+
+
                             },
+
                             child: TextView(
                               text: " ${post.category.name}",
                               color: Pallets.primary,

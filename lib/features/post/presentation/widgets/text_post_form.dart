@@ -40,8 +40,10 @@ class _TextPostFormState extends State<TextPostForm>
                   fillColor: Pallets.borderGrey.withOpacity(0.15),
                   radius: 4,
                   filled: true,
-                  validator:
-                      RequiredValidator(errorText: "Field is required").call,
+
+
+                  // validator:
+                  //     RequiredValidator(errorText: "Field is required").call,
                   controller: bodyController,
                   onChange: (d) {
                     setState(() {});

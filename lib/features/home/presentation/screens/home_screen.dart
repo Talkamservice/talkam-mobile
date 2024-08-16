@@ -24,106 +24,115 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenState extends State<HomeScreen>
+    with SingleTickerProviderStateMixin {
   final PageController _pageController = PageController();
   final tabItems = [
-    TabItemModel(
-        imagePath: Assets.images.svgs.icfeatured, tittle: "Featured"),
-    TabItemModel(
-        imagePath: Assets.images.svgs.icTrending, tittle: "Trending"),
+    TabItemModel(imagePath: Assets.images.svgs.icfeatured, tittle: "Featured"),
+    TabItemModel(imagePath: Assets.images.svgs.icTrending, tittle: "Trending"),
     TabItemModel(imagePath: Assets.images.svgs.icNew, tittle: "Recent"),
   ];
 
   int selecteIndex = 0;
 
+  late TabController _tabController;
+
   @override
   void initState() {
+    _tabController = TabController(length: 3, vsync: this);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: DefaultTabController(
-        length: 3,
-        child: SafeArea(
-          child: Column(
-            children: [
-              const HomeAppBar(),
-              Container(
-                color: Pallets.grey90,
-                height: 1,
-              ),
-              Container(
-                color: context.colorScheme.surface,
-                width: 1.sw,
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      top: 16,
-                      bottom: 0,
-                    ),
-                    child: TabBar(
-                        tabAlignment: TabAlignment.center,
-                        indicatorColor: context.colorScheme.primary,
-                        indicatorSize: TabBarIndicatorSize.label,
-                        indicatorWeight: 3,
-                        onTap: (value) {
-                          selecteIndex = value;
-                          _pageController.jumpToPage(value);
-                          setState(() {});
-                        },
-                        tabs: List.generate(
-                          tabItems.length,
-                          (index) => Tab(
-                            child: Row(
-                              children: [
-                                ImageWidget(
-                                  imageUrl: tabItems[index].imagePath,
-                                  color: selecteIndex == index
-                                      ? context.colorScheme.primary
-                                      : Pallets.grey,
-                                ),
-                                8.horizontalSpace,
-                                TextView(
-                                  fontSize: 15,
-                                  fontWeight: FontWeight.w600,
-                                  text: tabItems[index].tittle,
-                                  color: selecteIndex == index
-                                      ? context.colorScheme.onSurface
-                                      : Pallets.grey60,
-                                  // fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ).toList()),
-                  ),
-                ),
-              ),
-              Container(
-                color: Pallets.grey90,
-                height: 1,
-              ),
-              Expanded(
+      body: SafeArea(
+        child: Column(
+          children: [
+            const HomeAppBar(),
+            Container(
+              color: Pallets.grey90,
+              height: 1,
+            ),
+            Container(
+              color: context.colorScheme.surface,
+              width: 1.sw,
+              child: Center(
                 child: Padding(
-                  padding: const EdgeInsets.only(top: 10),
-                  child: PageView(
-                    controller: _pageController,
-                    physics: const NeverScrollableScrollPhysics(),
-                    onPageChanged: (int index) {
-                      // setState(() {});
-                    },
-                    children: const [
-                      FeaturedScreen(),
-                      TrendingScreen(),
-                      RecentScreen(),
-                    ],
+                  padding: const EdgeInsets.only(
+                    top: 16,
+                    bottom: 0,
                   ),
+                  child: TabBar(
+                      tabAlignment: TabAlignment.center,
+                      indicatorColor: context.colorScheme.primary,
+                      indicatorSize: TabBarIndicatorSize.label,
+                      indicatorWeight: 3,
+
+                      
+                      controller: _tabController,
+                      onTap: (value) {
+
+
+                       
+                        _pageController.jumpToPage(value);
+                        setState(() {});
+                      },
+                      tabs: List.generate(
+                        tabItems.length,
+                        (index) => Tab(
+                          child: Row(
+                            children: [
+                              ImageWidget(
+                                imageUrl: tabItems[index].imagePath,
+                                color: selecteIndex == index
+                                    ? context.colorScheme.primary
+                                    : Pallets.grey,
+                              ),
+                              8.horizontalSpace,
+                              TextView(
+                                fontSize: 15,
+                                fontWeight: FontWeight.w600,
+                                text: tabItems[index].tittle,
+                                color: selecteIndex == index
+                                    ? context.colorScheme.onSurface
+                                    : Pallets.grey60,
+                                // fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ).toList()),
                 ),
-              )
-            ],
-          ),
+              ),
+            ),
+            Container(
+              color: Pallets.grey90,
+              height: 1,
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: PageView(
+                  controller: _pageController,
+
+                  // physics: const NeverScrollableScrollPhysics(),
+                  onPageChanged: (int index) {
+                    
+                    _tabController.animateTo(index);
+                    selecteIndex = index;
+
+                    setState(() {});
+                  },
+                  children: const [
+                    FeaturedScreen(),
+                    TrendingScreen(),
+                    RecentScreen(),
+                  ],
+                ),
+              ),
+            )
+          ],
         ),
       ),
     );
