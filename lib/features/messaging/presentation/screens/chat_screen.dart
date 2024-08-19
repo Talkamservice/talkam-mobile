@@ -45,6 +45,7 @@ class _ChatScreenState extends State<ChatScreen> {
     String messageTime = "12:34 PM";
     return Scaffold(
       appBar: CustomAppBar(
+        padding: EdgeInsets.only(top: 13),
         leadingWidth: 25,
         tittle: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -68,14 +69,11 @@ class _ChatScreenState extends State<ChatScreen> {
               ),
             ),
             11.horizontalSpace,
-            Padding(
-              padding: const EdgeInsets.only(top: 2),
-              child: const TextView(
-                text: "ElectricEchoes",
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-              ),
-            )
+            const TextView(
+              text: "ElectricEchoes",
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+            ),
           ],
         ),
         centerTile: false,

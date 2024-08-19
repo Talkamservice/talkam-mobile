@@ -3,7 +3,7 @@ import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/navigation/route_url.dart';
-import 'package:talkam/features/messaging/presentation/widgets/messages_list.dart';
+import 'package:talkam/features/messaging/presentation/widgets/new_request_list.dart'; // Import the NewRequestList widget
 
 class NewRequestScreen extends StatefulWidget {
   const NewRequestScreen({super.key});
@@ -28,17 +28,15 @@ class _NewRequestScreenState extends State<NewRequestScreen> {
     return Scaffold(
       appBar: CustomAppBar(
         leadingWidth: 25,
+        padding: EdgeInsets.only(top: 13),
         tittle: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 5),
-              child: const TextView(
-                text: "New Requests",
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-              ),
-            )
+            const TextView(
+              text: "New Requests",
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+            ),
           ],
         ),
         centerTile: false,
@@ -47,11 +45,16 @@ class _NewRequestScreenState extends State<NewRequestScreen> {
       body: Column(
         children: [
           Expanded(
-              child: GestureDetector(
-                  onTap: () {
-                    context.pushNamed(PageUrl.new_messageScreen);
-                  },
-                  child: MessagesList(name: names, message: messages))),
+            child: GestureDetector(
+              onTap: () {
+                context.pushNamed(PageUrl.new_messageScreen);
+              },
+              child: NewRequestList(
+                name1: names,
+                message2: messages,
+              ),
+            ),
+          ),
         ],
       ),
     );

@@ -27,10 +27,8 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final PageController _pageController = PageController();
   final tabItems = [
-    TabItemModel(
-        imagePath: Assets.images.svgs.icfeatured, tittle: "Featured"),
-    TabItemModel(
-        imagePath: Assets.images.svgs.icTrending, tittle: "Trending"),
+    TabItemModel(imagePath: Assets.images.svgs.icfeatured, tittle: "Featured"),
+    TabItemModel(imagePath: Assets.images.svgs.icTrending, tittle: "Trending"),
     TabItemModel(imagePath: Assets.images.svgs.icNew, tittle: "Recent"),
   ];
 
@@ -156,15 +154,14 @@ class HomeAppBar extends StatelessWidget {
             const Spacer(),
             InkWell(
               onTap: () {
-                SessionManager.instance.logOut();
-                context.goNamed(PageUrl.onboardingIntro);
+                // context.goNamed(PageUrl.onboardingIntro);
 
-                // context.pushNamed(PageUrl.notifications);
+                context.pushNamed(PageUrl.notificationScreen);
               },
               child: ImageWidget(
                 imageUrl: Assets.images.svgs.notification,
                 onTap: () {
-                  // context.pushNamed(PageUrl.notifications);
+                  context.pushNamed(PageUrl.notificationScreen);
                 },
               ),
             ),

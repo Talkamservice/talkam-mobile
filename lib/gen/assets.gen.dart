@@ -60,10 +60,23 @@ class $AssetsImagesPngGen {
 
   /// File path: assets/images/png/woman.png
   AssetGenImage get woman => const AssetGenImage('assets/images/png/woman.png');
+  AssetGenImage get woman_driving =>
+      const AssetGenImage('assets/images/png/woman_driving.png');
+  AssetGenImage get man_shoping =>
+      const AssetGenImage('assets/images/png/man_shoping.png');
 
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [add, appIcon, back1, dating, mancity, sports, woman];
+  List<AssetGenImage> get values => [
+        add,
+        appIcon,
+        back1,
+        dating,
+        mancity,
+        sports,
+        woman,
+        woman_driving,
+        man_shoping
+      ];
 }
 
 class $AssetsImagesSvgsGen {

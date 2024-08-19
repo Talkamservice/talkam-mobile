@@ -43,6 +43,7 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
     return Scaffold(
       appBar: CustomAppBar(
         leadingWidth: 25,
+        padding: EdgeInsets.only(top: 13),
         tittle: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -65,14 +66,11 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
               ),
             ),
             11.horizontalSpace,
-            Padding(
-              padding: const EdgeInsets.only(top: 2),
-              child: const TextView(
-                text: "SolarFlare88",
-                fontSize: 16,
-                fontWeight: FontWeight.w700,
-              ),
-            )
+            const TextView(
+              text: "SolarFlare88",
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+            ),
           ],
         ),
         centerTile: false,
@@ -203,7 +201,7 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(left: 16, top: 39),
+            padding: const EdgeInsets.only(left: 35, top: 39),
             child: Row(
               children: [
                 Container(

@@ -54,4 +54,6 @@ class PageUrl {
   static const chatScreen = 'chatScreen';
   static const new_requestScreen = 'new_requestScreen';
   static const new_messageScreen = 'new_messageScreen';
+  //Notifications
+  static const notificationScreen = 'notificationScreen';
 }

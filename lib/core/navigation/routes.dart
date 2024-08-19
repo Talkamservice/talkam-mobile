@@ -20,13 +20,13 @@ import 'package:talkam/features/group/presentation/screens/group_info_screen.dar
 import 'package:talkam/features/group/presentation/screens/group_members_screen.dart';
 import 'package:talkam/features/group/presentation/screens/groups_screen.dart';
 import 'package:talkam/features/group/presentation/screens/preview_group_screen.dart';
-import 'package:talkam/features/group/presentation/tabs/group_media_tab.dart';
 import 'package:talkam/features/home/presentation/screens/base_page.dart';
 import 'package:talkam/features/home/presentation/screens/home_screen.dart';
 import 'package:talkam/features/messaging/presentation/screens/chat_screen.dart';
 import 'package:talkam/features/messaging/presentation/screens/messages_screen.dart';
 import 'package:talkam/features/messaging/presentation/screens/new_message_screen.dart';
 import 'package:talkam/features/messaging/presentation/screens/new_request_screen.dart';
+import 'package:talkam/features/messaging/presentation/screens/notifications_screen.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/presentation/screens/categories_screen.dart';
@@ -275,6 +275,13 @@ class CustomRoutes {
         name: PageUrl.new_messageScreen,
         pageBuilder: (context, state) => const NoTransitionPage(
           child: NewMessageScreen(),
+        ),
+      ),
+      GoRoute(
+        path: '/notificationScreen',
+        name: PageUrl.notificationScreen,
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: NotificationsScreen(),
         ),
       ),
       StatefulShellRoute.indexedStack(
