@@ -59,10 +59,10 @@ class _NewNotificationListState extends State<NewNotificationList> {
                         fontWeight: FontWeight.w700,
                       ),
                       SizedBox(
-                        width: 10,
+                        width: 5,
                       ),
                       Container(
-                        width: 200,
+                        width: 215,
                         child: TextView(
                           text: widget.message[index],
                           color: const Color(0xff000000),
