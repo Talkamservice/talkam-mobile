@@ -14,7 +14,6 @@ class PostSearchCubit extends Cubit<PostSearchState> {
       : super(const PostSearchState.initial());
   final SearchRepository searchRepository;
 
-
   Future<void> searchPosts(String query) async {
     emit(const PostSearchState.getPostSearchLoading());
 

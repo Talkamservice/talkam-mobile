@@ -7,7 +7,6 @@ import 'package:talkam/features/group/dormain/repository/group_repository.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 
 part 'groups_state.dart';
-
 part 'groups_cubit.freezed.dart';
 
 class GroupsCubit extends Cubit<GroupsState> {

@@ -41,7 +41,6 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.theme.cardColor,
-
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () async {
@@ -256,7 +255,8 @@ class _SearchScreenState extends State<SearchScreen> {
                                     ...List.generate(
                                       response.data.length,
                                       (index) => Padding(
-                                        padding: const EdgeInsets.symmetric(vertical: 4.0),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 4.0),
                                         child: _RecentSearchItem(
                                           response: response.data[index],
                                           onDelete: () {
@@ -282,7 +282,6 @@ class _SearchScreenState extends State<SearchScreen> {
                           );
                         },
                       )
-
                     ],
                   ),
                 )
@@ -392,7 +391,7 @@ class SearchAppBar extends StatelessWidget {
                     onPressed: () {
                       context.read<DrawerCubit>().closeDrawer();
                       context.read<DrawerCubit>().openDrawer();
-            /**/
+                      /**/
                     },
                     icon: Icon(
                       Icons.menu_outlined,
@@ -427,8 +426,9 @@ class SearchAppBar extends StatelessWidget {
                 )),
               ],
             ),
-
-            const Divider(thickness: 1,)
+            const Divider(
+              thickness: 1,
+            )
           ],
         ),
       ),

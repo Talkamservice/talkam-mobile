@@ -6,21 +6,21 @@ import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
-class MessagesList extends StatefulWidget {
-  final List<String> name;
-  final List<String> message;
+class NewRequestList extends StatefulWidget {
+  final List<String> name1;
+  final List<String> message2;
 
-  const MessagesList({
+  const NewRequestList({
     super.key,
-    required this.name,
-    required this.message,
+    required this.name1,
+    required this.message2,
   });
 
   @override
-  State<MessagesList> createState() => _MessagesListState();
+  _NewRequestListState createState() => _NewRequestListState();
 }
 
-class _MessagesListState extends State<MessagesList> {
+class _NewRequestListState extends State<NewRequestList> {
   File? image;
 
   Future<void> pickImage() async {
@@ -46,13 +46,15 @@ class _MessagesListState extends State<MessagesList> {
   Widget build(BuildContext context) {
     return ListView.separated(
       padding: const EdgeInsets.all(16.0),
-      itemCount: widget.name.length,
+      itemCount: widget.name1.length,
       itemBuilder: (BuildContext context, index) {
         String messageTime = "12:34 PM";
+        String name = widget.name1[index];
+        String message = widget.message2[index];
 
         return GestureDetector(
           onTap: () {
-            context.pushNamed(PageUrl.chatScreen);
+            context.pushNamed(PageUrl.new_messageScreen);
           },
           child: Row(
             children: [
@@ -83,7 +85,7 @@ class _MessagesListState extends State<MessagesList> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         TextView(
-                          text: widget.name[index],
+                          text: name,
                           fontSize: 16,
                           fontWeight: FontWeight.w700,
                         ),
@@ -102,7 +104,7 @@ class _MessagesListState extends State<MessagesList> {
                       children: [
                         Expanded(
                           child: TextView(
-                            text: widget.message[index],
+                            text: message,
                             color: const Color(0xff666666),
                             maxLines: 1,
                             textOverflow: TextOverflow.ellipsis,

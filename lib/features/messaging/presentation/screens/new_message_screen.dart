@@ -6,19 +6,17 @@ import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
-import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/messaging/presentation/widgets/message_bubbles/blue_bubbles.dart';
-import 'package:talkam/features/messaging/presentation/widgets/message_bubbles/gray_bubbles.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
-class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key});
+class NewMessageScreen extends StatefulWidget {
+  const NewMessageScreen({super.key});
 
   @override
-  State<ChatScreen> createState() => _ChatScreenState();
+  State<NewMessageScreen> createState() => _NewMessageScreenState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class _NewMessageScreenState extends State<NewMessageScreen> {
   File? image;
 
   Future<void> pickImage() async {
@@ -42,11 +40,10 @@ class _ChatScreenState extends State<ChatScreen> {
 
   @override
   Widget build(BuildContext context) {
-    String messageTime = "12:34 PM";
     return Scaffold(
       appBar: CustomAppBar(
-        padding: EdgeInsets.only(top: 13),
         leadingWidth: 25,
+        padding: EdgeInsets.only(top: 13),
         tittle: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -70,7 +67,7 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
             11.horizontalSpace,
             const TextView(
-              text: "ElectricEchoes",
+              text: "SolarFlare88",
               fontSize: 16,
               fontWeight: FontWeight.w700,
             ),
@@ -158,10 +155,11 @@ class _ChatScreenState extends State<ChatScreen> {
               icon: const Icon(Icons.more_vert)),
         ],
       ),
-      body: Stack(
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: EdgeInsets.only(top: 320, left: 151),
+            padding: EdgeInsets.only(top: 20, left: 151),
             child: Container(
               height: 24,
               width: 115,
@@ -183,112 +181,71 @@ class _ChatScreenState extends State<ChatScreen> {
             ),
           ),
           Padding(
-            padding: const EdgeInsets.only(top: 300),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            padding: const EdgeInsets.only(right: 110, top: 20),
+            child: BlueBubbles(
+              message:
+                  "Yeah, I watched that new sci-fi movie Galactic Odyssey. It was epic!",
+              time: "11:53 AM",
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 450, left: 16),
+            child: Center(
+              child: TextView(
+                color: Color(0xff212121),
+                text:
+                    '     SolarFlare88 is sending you a message to\nconnect. Do you want to accept their request to\n                send and receive messages?',
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(left: 35, top: 39),
+            child: Row(
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(right: 110),
-                  child: BlueBubbles(
-                    message:
-                        "Yeah, I watched that new sci-fi movie Galactic Odyssey. It was epic!",
-                    time: "11:53 AM",
+                Container(
+                  height: 44,
+                  width: 175,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFFFFFFF),
+                    borderRadius: BorderRadius.circular(12),
+                    border: Border.all(
+                      color: Color(0xFFFFA9A9),
+                      width: 1.0,
+                    ),
+                  ),
+                  child: Center(
+                    child: TextView(
+                      color: Color(0xFFEE1414),
+                      text: 'Reject',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 110),
-                  child: GrayBubbles(
-                    message:
-                        "Oh, I've heard about that one! Is it worth watching?",
-                    time: "11:53 AM",
-                  ),
+                SizedBox(
+                  width: 11,
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(right: 200),
-                  child: BlueBubbles(
-                    message: "Definitely!",
-                    time: "11:53 AM",
+                Container(
+                  height: 44,
+                  width: 175,
+                  decoration: BoxDecoration(
+                    color: Color(0xFF272727),
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 110),
-                  child: GrayBubbles(
-                    message:
-                        "Cool, I'll add it to my watchlist. By the way, are you free this weekend? Thinking of having a game night.",
-                    time: "11:53 AM",
+                  child: Center(
+                    child: TextView(
+                      color: Color(0xFFFFFFFF),
+                      text: 'Accept',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                    ),
                   ),
                 ),
               ],
             ),
-          ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: [
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 8.0, vertical: 4.0),
-                child: TextField(
-                  decoration: InputDecoration(
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.all(13.0),
-                      child: GestureDetector(
-                        onTap: () {},
-                        child: Icon(Icons.emoji_emotions_outlined,
-                            size: 20, color: Pallets.grey),
-                      ),
-                    ),
-                    suffixIcon: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        GestureDetector(
-                          onTap: () {},
-                          child: Icon(Icons.image_outlined,
-                              size: 20, color: Pallets.grey),
-                        ),
-                        8.horizontalSpace,
-                        GestureDetector(
-                          onTap: () {},
-                          child: Icon(Icons.attach_file,
-                              size: 18,
-                              color: const Color.fromARGB(255, 9, 8, 8)),
-                        ),
-                        16.horizontalSpace,
-                      ],
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    hintText: "Type your message here ...",
-                    hintStyle: const TextStyle(
-                      color: Color(0xff444444),
-                      fontSize: 16,
-                      fontWeight: FontWeight.w400,
-                    ),
-                    contentPadding: const EdgeInsets.all(16),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(40),
-                      borderSide: const BorderSide(
-                        color: Pallets.borderGrey,
-                      ),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(40),
-                      borderSide: const BorderSide(
-                        color: Pallets.borderGrey,
-                      ),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(40),
-                      borderSide: const BorderSide(
-                        color: Pallets.borderGrey,
-                      ),
-                    ),
-                  ),
-                  style: const TextStyle(height: 1.0),
-                ),
-              ),
-            ],
-          ),
+          )
         ],
       ),
     );

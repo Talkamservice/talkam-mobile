@@ -20,12 +20,16 @@ import 'package:talkam/features/group/presentation/screens/group_details_screen.
 import 'package:talkam/features/group/presentation/screens/group_info_screen.dart';
 import 'package:talkam/features/group/presentation/screens/group_members_screen.dart';
 import 'package:talkam/features/group/presentation/screens/groups_screen.dart';
+import 'package:talkam/features/group/presentation/screens/preview_group_screen.dart';
 import 'package:talkam/features/group/presentation/screens/create_group/preview_group_screen.dart';
 import 'package:talkam/features/group/presentation/tabs/group_media_tab.dart';
 import 'package:talkam/features/home/presentation/screens/base_page.dart';
 import 'package:talkam/features/home/presentation/screens/home_screen.dart';
 import 'package:talkam/features/messaging/presentation/screens/chat_screen.dart';
 import 'package:talkam/features/messaging/presentation/screens/messages_screen.dart';
+import 'package:talkam/features/messaging/presentation/screens/new_message_screen.dart';
+import 'package:talkam/features/messaging/presentation/screens/new_request_screen.dart';
+import 'package:talkam/features/messaging/presentation/screens/notifications_screen.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/presentation/screens/categories_screen.dart';
@@ -203,7 +207,7 @@ class CustomRoutes {
         path: '/groupsInfoScreen',
         name: PageUrl.groupsInfoScreen,
         builder: (context, state) => GroupInfoScreen(
-          groupId: state.extra as String,
+          group: state.extra as TalkamGroup,
         ),
       ),
       GoRoute(
@@ -230,39 +234,58 @@ class CustomRoutes {
       GoRoute(
         path: '/createGroupScreen',
         name: PageUrl.createGroupScreen,
-        builder: (context, state) =>  CreateGroupScreen(
-            group: state.extra as TalkamGroup?,
+        builder: (context, state) => const CreateGroupScreen(
+            // query: state.extra as String,
             ),
-
       ),
-      // GoRoute(
-      //   path: '/createGroupRulesScreen',
-      //   name: PageUrl.createGroupRulesScreen,
-      //   builder: (context, state) => const AddGroupRulesScreen(
-      //       // query: state.extra as String,
-      //       ),
-      // ),
+      GoRoute(
+        path: '/createGroupRulesScreen',
+        name: PageUrl.createGroupRulesScreen,
+        builder: (context, state) => const AddGroupRulesScreen(
+            // query: state.extra as String,
+            ),
+      ),
       GoRoute(
         path: '/previewGroupScreen',
         name: PageUrl.previewGroupScreen,
-        builder: (context, state) => PreviewGroupScreen(
-          payload: state.extra as PreviewGroupScreenParam,
-          // query: state.extra as String,
-        ),
+        builder: (context, state) => const PreviewGroupScreen(
+            // query: state.extra as String,
+            ),
       ),
       GoRoute(
         path: '/createGroupSuccessScreen',
         name: PageUrl.createGroupSuccessScreen,
-        builder: (context, state) =>  CreateGroupSuccessScreen(
-            payload: state.extra as TalkamGroup,
+        builder: (context, state) => const CreateGroupSuccessScreen(
+            // query: state.extra as String,
             ),
       ),
       GoRoute(
         path: '/chatScreen',
         name: PageUrl.chatScreen,
-        builder: (context, state) =>  ChatScreen(
-
-            ),
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: ChatScreen(),
+        ),
+      ),
+      GoRoute(
+        path: '/new_requestScreen',
+        name: PageUrl.new_requestScreen,
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: NewRequestScreen(),
+        ),
+      ),
+      GoRoute(
+        path: '/new_messageScreen',
+        name: PageUrl.new_messageScreen,
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: NewMessageScreen(),
+        ),
+      ),
+      GoRoute(
+        path: '/notificationScreen',
+        name: PageUrl.notificationScreen,
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: NotificationsScreen(),
+        ),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
@@ -280,8 +303,10 @@ class CustomRoutes {
                 ),
                 routes: const [],
               ),
+
             ],
           ),
+
           StatefulShellBranch(
             navigatorKey: _shellNavigatorBKey,
             routes: [
@@ -294,6 +319,7 @@ class CustomRoutes {
               ),
             ],
           ),
+
           StatefulShellBranch(
             navigatorKey: _shellNavigatorCKey,
             routes: [

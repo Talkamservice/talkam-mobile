@@ -20,7 +20,7 @@ class GroupsSearchCubit extends Cubit<GroupsSearchState> {
 
     try {
       final SearchResult<GetGroupsResponse> response =
-          await searchRepository.search(query,sort: SearchSort.group);
+          await searchRepository.search(query, sort: SearchSort.group);
 
       emit(GroupsSearchState.groupSearchLoaded(
         groupResults: response.result.groups ?? [],
