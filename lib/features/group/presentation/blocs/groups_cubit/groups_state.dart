@@ -41,4 +41,13 @@ class GroupsState with _$GroupsState {
   const factory GroupsState.getRecommendedLoading() = _GetRecommendedLoading;
   const factory GroupsState.getRecommendedSuccess(GetGroupsResponse response) = _GetRecommendedSuccess;
   const factory GroupsState.getRecommendedFailure(String error) = _GetRecommendedFailure;
+
+
+
+
+
+  // JOIN Group States
+  const factory GroupsState.joinGroupLoading() = _JoinGroupLoading;
+  const factory GroupsState.joinGroupSuccess(dynamic response) = _JoinGroupSuccess;
+  const factory GroupsState.joinGroupFailureState(String error) = _JoinGroupFailure;
 }

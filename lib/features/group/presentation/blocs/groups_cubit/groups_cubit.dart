@@ -3,7 +3,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/group/data/models/create_group_payload.dart';
 import 'package:talkam/features/group/data/models/groups_filter_model.dart';
-import 'package:talkam/features/group/data/models/update_group_payload.dart';
 import 'package:talkam/features/group/dormain/repository/group_repository.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 
@@ -81,8 +80,7 @@ class GroupsCubit extends Cubit<GroupsState> {
     }
   }
 
-  Future<void> updateGroup(
-      String groupId, CreateGroupPayload payload) async {
+  Future<void> updateGroup(String groupId, CreateGroupPayload payload) async {
     emit(const GroupsState.updateGroupLoading());
 
     try {
@@ -118,6 +116,20 @@ class GroupsCubit extends Cubit<GroupsState> {
     } catch (e, stack) {
       logger.e(e.toString(), stackTrace: stack);
       emit(GroupsState.deleteGroupFailure(e.toString()));
+    }
+  }
+
+  Future<void> joinGroup(
+      {required String groupId, required String userId}) async {
+    emit(const GroupsState.joinGroupLoading());
+
+    try {
+      final response = await groupRepository.getGroup(groupId);
+
+      emit(GroupsState.joinGroupSuccess(response));
+    } catch (e, stack) {
+      logger.e(e.toString(), stackTrace: stack);
+      emit(GroupsState.joinGroupFailureState(e.toString()));
     }
   }
 }

@@ -49,6 +49,7 @@ class CreatePostCubit extends Cubit<CreatePostState> {
       type: updatedData.type,
       title: updatedData.title,
       body: updatedData.body,
+      groupId: updatedData.groupId,
       status: updatedData.status,
       publishAt: updatedData.publishAt,
       canComment: updatedData.canComment,
@@ -56,6 +57,7 @@ class CreatePostCubit extends Cubit<CreatePostState> {
       attachments: updatedData.attachments,
       tags: updatedData.tags,
       poll: updatedData.poll,
+
     );
   }
 }

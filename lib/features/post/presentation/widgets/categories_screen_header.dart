@@ -9,10 +9,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/presentation/widgets/rules_button.dart';
-import 'package:talkam/features/profile/data/models/update_profile_payload.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
-import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
-import 'package:talkam/gen/assets.gen.dart';
 
 class CategoriesScreenHeader extends StatefulWidget {
   const CategoriesScreenHeader({super.key, required this.category});
@@ -165,7 +162,8 @@ class _FollowCategoryButtonState extends State<FollowCategoryButton> {
       builder: (context, state) {
         return TextButton(
             style: TextButton.styleFrom(
-                backgroundColor: Pallets.primary,
+                backgroundColor:
+                    widget.category.isFollowing ? Pallets.red : Pallets.primary,
                 foregroundColor: Pallets.white,
                 shape: const StadiumBorder()),
             onPressed: () {
@@ -191,9 +189,7 @@ class _FollowCategoryButtonState extends State<FollowCategoryButton> {
                       Icons.add,
                       color: Pallets.white,
                     ),
-                  if (!widget.category.isFollowing)
-
-                  5.horizontalSpace,
+                  if (!widget.category.isFollowing) 5.horizontalSpace,
                   TextView(
                       text:
                           widget.category.isFollowing ? "Unfollow" : "Follow"),

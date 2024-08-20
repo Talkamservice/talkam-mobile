@@ -123,7 +123,7 @@ class TalkamGroup {
   final String? status;
   final String? groupAccess;
   final String? image;
-  final bool? isFollowing;
+   bool? isFollowing;
   final int? totalMembers;
   final PostCategory? category;
   final List<GroupGuideline>? guidelines;

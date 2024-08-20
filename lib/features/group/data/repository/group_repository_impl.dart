@@ -1,12 +1,10 @@
 import 'dart:io';
-
 import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/services/firebase_storage/firebase_storage_service.dart';
 import 'package:talkam/core/services/network/network_service.dart';
 import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/features/group/data/models/create_group_payload.dart';
 import 'package:talkam/features/group/data/models/groups_filter_model.dart';
-import 'package:talkam/features/group/data/models/update_group_payload.dart';
 import 'package:talkam/features/group/dormain/repository/group_repository.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 
@@ -43,7 +41,6 @@ class GroupsRepositoryImpl extends GroupsRepository {
 
   @override
   Future<TalkamGroup> updateGroup(
-
       String groupId, CreateGroupPayload payload) async {
     try {
       var imageUrl = payload.image.isURL
@@ -52,7 +49,6 @@ class GroupsRepositoryImpl extends GroupsRepository {
               FirebaseStoragePaths.groupImage, File(payload.image));
 
       final response = await _networkService.call(
-
           UrlConfig.createGroup, RequestMethod.post,
           data: payload.copyWith(image: imageUrl).toJson());
       return TalkamGroup.fromJson(response.data['data']);
@@ -92,6 +88,19 @@ class GroupsRepositoryImpl extends GroupsRepository {
           UrlConfig.createGroup, RequestMethod.post,
           data: payload.copyWith(image: imageUrl).toJson());
       return TalkamGroup.fromJson(response.data['data']);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future join({required String groupId, required String userId}) async {
+    try {
+      final response = await _networkService.call(
+        UrlConfig.groupMembers,
+        RequestMethod.post,
+      );
+      return response.data;
     } catch (e) {
       rethrow;
     }

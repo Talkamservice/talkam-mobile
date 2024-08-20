@@ -67,7 +67,7 @@ class GroupInfoAppBar extends StatelessWidget {
                         child: ImageWidget(
                             imageUrl: Assets.images.svgs.arrowLeft)),
                     const Spacer(),
-                    const JoinGroupButton(),
+                    const _JoinGroupButton(),
                     24.horizontalSpace,
                     ImageWidget(
                       imageUrl: Assets.images.svgs.share,
@@ -92,14 +92,14 @@ class GroupInfoAppBar extends StatelessWidget {
   }
 }
 
-class JoinGroupButton extends StatefulWidget {
-  const JoinGroupButton({super.key});
+class _JoinGroupButton extends StatefulWidget {
+  const _JoinGroupButton({super.key});
 
   @override
-  State<JoinGroupButton> createState() => _JoinGroupButtonState();
+  State<_JoinGroupButton> createState() => _JoinGroupButtonState();
 }
 
-class _JoinGroupButtonState extends State<JoinGroupButton> {
+class _JoinGroupButtonState extends State<_JoinGroupButton> {
   @override
   Widget build(BuildContext context) {
     return TextButton(

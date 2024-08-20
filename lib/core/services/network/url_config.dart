@@ -159,5 +159,6 @@ class UrlConfig {
   static const String updateMemberRole = '/user/group-members/';
   static const String getMember = '/user/group-members/';
   static const String deleteMember = '/user/group-members/';
+  static const String groupMembers = '/user/group-members/';
 
 }

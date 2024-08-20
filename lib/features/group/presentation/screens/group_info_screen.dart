@@ -10,7 +10,6 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
-import 'package:talkam/features/group/dormain/model/group_overview_data.dart';
 import 'package:talkam/features/group/presentation/blocs/group_post_cubit/group_post_cubit.dart';
 import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
 import 'package:talkam/features/group/presentation/tabs/group_media_tab.dart';
@@ -18,8 +17,6 @@ import 'package:talkam/features/group/presentation/tabs/group_posts_tab.dart';
 import 'package:talkam/features/group/presentation/widgets/group_app_bar.dart';
 import 'package:talkam/features/group/presentation/widgets/group_overview_section.dart';
 import 'package:talkam/features/home/presentation/screens/home_screen.dart';
-import 'package:talkam/features/post/data/models/post_test_models.dart';
-import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class GroupInfoScreen extends StatefulWidget {
