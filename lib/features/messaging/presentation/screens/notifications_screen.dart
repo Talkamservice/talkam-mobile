@@ -32,7 +32,6 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: CustomAppBar(
-        padding: EdgeInsets.only(top: 13),
         leadingWidth: 25,
         tittle: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -73,11 +72,12 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                           width: 4,
                           color: context.colorScheme.primary,
                         ),
-                        insets: EdgeInsets.only(
+                        insets: const EdgeInsets.only(
                           left: 10.0,
                         ),
                       ),
-                      indicatorSize: TabBarIndicatorSize.label,
+                      indicatorSize: TabBarIndicatorSize.tab,
+
                       onTap: (value) {
                         selecteIndex = value;
                         _pageController.jumpToPage(value);
@@ -102,7 +102,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                         ),
                       ).toList(),
                     ),
-                    Container(
+                    SizedBox(
                       width: 1.sw,
                       child: const Divider(
                         thickness: 1,
@@ -137,5 +137,6 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
 class TabItemModel2 {
   String tittle;
+
   TabItemModel2({required this.tittle});
 }

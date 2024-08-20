@@ -3,9 +3,12 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
+import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
+import 'package:talkam/common/widgets/custom_outlined_button.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
+import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/messaging/presentation/widgets/message_bubbles/blue_bubbles.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
@@ -41,9 +44,68 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+
+          children: [
+            const Center(
+              child: TextView(
+                color: Color(0xff212121),
+                text:
+                '     SolarFlare88 is sending you a message to\nconnect. Do you want to accept their request to\n                send and receive messages?',
+                fontSize: 16,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            33.verticalSpace,
+
+            Row(
+              children: [
+
+
+
+                Expanded(
+                  child: CustomOutlinedButton(
+                    radius: 8,
+                    outlinedColr: Pallets.red,
+                    foreGroundColor: Pallets.red,
+                    child:const TextView(
+                    color: Color(0xFFEE1414),
+                    text: 'Reject',
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                  ) , onPressed: () {
+
+                  },),
+                ),
+
+
+
+             11.horizontalSpace,
+
+                Expanded(
+                  child: CustomButton(
+
+                    borderRadius: BorderRadius.circular(8),
+                    bgColor: Pallets.buttonBlack,
+                    onPressed: () {
+
+                  },text: "Accept",),
+                ),
+
+              ],
+            ),
+
+
+            18.verticalSpace,
+          ],
+        ),
+      ),
       appBar: CustomAppBar(
         leadingWidth: 25,
-        padding: EdgeInsets.only(top: 13),
+
         tittle: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -188,64 +250,8 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
               time: "11:53 AM",
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 450, left: 16),
-            child: Center(
-              child: TextView(
-                color: Color(0xff212121),
-                text:
-                    '     SolarFlare88 is sending you a message to\nconnect. Do you want to accept their request to\n                send and receive messages?',
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(left: 35, top: 39),
-            child: Row(
-              children: [
-                Container(
-                  height: 44,
-                  width: 175,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFFFFFFF),
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(
-                      color: Color(0xFFFFA9A9),
-                      width: 1.0,
-                    ),
-                  ),
-                  child: Center(
-                    child: TextView(
-                      color: Color(0xFFEE1414),
-                      text: 'Reject',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-                SizedBox(
-                  width: 11,
-                ),
-                Container(
-                  height: 44,
-                  width: 175,
-                  decoration: BoxDecoration(
-                    color: Color(0xFF272727),
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: Center(
-                    child: TextView(
-                      color: Color(0xFFFFFFFF),
-                      text: 'Accept',
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          )
+
+
         ],
       ),
     );

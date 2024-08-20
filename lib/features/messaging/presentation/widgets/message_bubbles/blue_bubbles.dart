@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/theme/pallets.dart';
 
 class BlueBubbles extends StatelessWidget {
   final String message;
@@ -14,7 +15,7 @@ class BlueBubbles extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Align(
-      alignment: Alignment.centerRight,
+      alignment: Alignment.centerLeft,
       child: LayoutBuilder(
         builder: (context, constraints) {
           bool isShortMessage = message.length <= 20;
@@ -22,9 +23,9 @@ class BlueBubbles extends StatelessWidget {
           return Container(
             margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
             padding: const EdgeInsets.all(10.0),
-            decoration: BoxDecoration(
-              color: Colors.blue,
-              borderRadius: const BorderRadius.only(
+            decoration: const BoxDecoration(
+              color: Pallets.blueBubbleColor,
+              borderRadius: BorderRadius.only(
                 topLeft: Radius.circular(0),
                 topRight: Radius.circular(12),
                 bottomLeft: Radius.circular(12),
@@ -33,33 +34,33 @@ class BlueBubbles extends StatelessWidget {
             ),
             constraints: isShortMessage
                 ? const BoxConstraints(
-                    minWidth: 200,
+
+
                     minHeight: 20,
                     maxWidth: 280,
                   )
                 : const BoxConstraints(maxWidth: 280),
             child: isShortMessage
-                ? Stack(
+                ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start ,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(right: 40.0),
-                        child: TextView(
-                          text: message,
-                          color: const Color(0xffFFFFFF),
-                          fontWeight: FontWeight.w600,
-                          fontSize: 15,
-                        ),
+
+                      TextView(
+                        text: message,
+                        color: const Color(0xffFFFFFF),
+                        fontWeight: FontWeight.w600,
+                        fontSize: 15,
                       ),
-                      Positioned(
-                        right: 0,
-                        bottom: 2,
+                      Container(
+                        constraints: BoxConstraints(minWidth: 150),
                         child: TextView(
                           text: time,
+                          align: TextAlign.end,
                           color: const Color(0xffFFFFFF),
                           fontWeight: FontWeight.w600,
                           fontSize: 13,
                         ),
-                      ),
+                      )
                     ],
                   )
                 : Column(

@@ -20,7 +20,6 @@ import 'package:talkam/features/group/presentation/screens/group_details_screen.
 import 'package:talkam/features/group/presentation/screens/group_info_screen.dart';
 import 'package:talkam/features/group/presentation/screens/group_members_screen.dart';
 import 'package:talkam/features/group/presentation/screens/groups_screen.dart';
-import 'package:talkam/features/group/presentation/screens/preview_group_screen.dart';
 import 'package:talkam/features/group/presentation/screens/create_group/preview_group_screen.dart';
 import 'package:talkam/features/group/presentation/tabs/group_media_tab.dart';
 import 'package:talkam/features/home/presentation/screens/base_page.dart';
@@ -207,7 +206,7 @@ class CustomRoutes {
         path: '/groupsInfoScreen',
         name: PageUrl.groupsInfoScreen,
         builder: (context, state) => GroupInfoScreen(
-          group: state.extra as TalkamGroup,
+          groupId: state.extra as String,
         ),
       ),
       GoRoute(
@@ -248,16 +247,16 @@ class CustomRoutes {
       GoRoute(
         path: '/previewGroupScreen',
         name: PageUrl.previewGroupScreen,
-        builder: (context, state) => const PreviewGroupScreen(
-            // query: state.extra as String,
-            ),
+        builder: (context, state) => PreviewGroupScreen(
+          payload: state.extra as PreviewGroupScreenParam,
+        ),
       ),
       GoRoute(
         path: '/createGroupSuccessScreen',
         name: PageUrl.createGroupSuccessScreen,
-        builder: (context, state) => const CreateGroupSuccessScreen(
-            // query: state.extra as String,
-            ),
+        builder: (context, state) => CreateGroupSuccessScreen(
+          payload: state.extra as TalkamGroup,
+        ),
       ),
       GoRoute(
         path: '/chatScreen',
@@ -303,10 +302,8 @@ class CustomRoutes {
                 ),
                 routes: const [],
               ),
-
             ],
           ),
-
           StatefulShellBranch(
             navigatorKey: _shellNavigatorBKey,
             routes: [
@@ -319,7 +316,6 @@ class CustomRoutes {
               ),
             ],
           ),
-
           StatefulShellBranch(
             navigatorKey: _shellNavigatorCKey,
             routes: [

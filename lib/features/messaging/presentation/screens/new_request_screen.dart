@@ -26,13 +26,12 @@ class _NewRequestScreenState extends State<NewRequestScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(
+      appBar: const CustomAppBar(
         leadingWidth: 25,
-        padding: EdgeInsets.only(top: 13),
         tittle: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const TextView(
+            TextView(
               text: "New Requests",
               fontSize: 16,
               fontWeight: FontWeight.w700,

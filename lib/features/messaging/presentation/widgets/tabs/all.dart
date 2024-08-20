@@ -27,11 +27,12 @@ class _AllTabState extends State<AllTab> {
   ];
 
   final List<AssetGenImage> images = [
-    Assets.images.png.woman_driving,
-    Assets.images.png.man_shoping,
-    Assets.images.png.woman_driving,
-    Assets.images.png.man_shoping,
-    Assets.images.png.woman_driving,
+    Assets.images.jpegs.manShopping,
+    Assets.images.png.womanDriving,
+    Assets.images.jpegs.manShopping,
+    Assets.images.png.womanDriving,
+    Assets.images.jpegs.manShopping,
+
   ];
 
   @override

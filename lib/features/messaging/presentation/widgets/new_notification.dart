@@ -25,8 +25,8 @@ class _NewNotificationListState extends State<NewNotificationList> {
     int imageCount = widget.image.length;
 
     final List<AssetGenImage> defaultImages = [
-      Assets.images.png.woman_driving,
-      Assets.images.png.man_shoping,
+
+      Assets.images.png.manShoping,
     ];
 
     return ListView.separated(

@@ -29,8 +29,12 @@ class $AssetsImagesJpegsGen {
   AssetGenImage get football =>
       const AssetGenImage('assets/images/jpegs/football.jpeg');
 
+  /// File path: assets/images/jpegs/manShopping.jpeg
+  AssetGenImage get manShopping =>
+      const AssetGenImage('assets/images/jpegs/manShopping.jpeg');
+
   /// List of all assets
-  List<AssetGenImage> get values => [football];
+  List<AssetGenImage> get values => [football, manShopping];
 }
 
 class $AssetsImagesPngGen {
@@ -50,6 +54,10 @@ class $AssetsImagesPngGen {
   AssetGenImage get dating =>
       const AssetGenImage('assets/images/png/dating.png');
 
+  /// File path: assets/images/png/man_shoping.png
+  AssetGenImage get manShoping =>
+      const AssetGenImage('assets/images/png/man_shoping.png');
+
   /// File path: assets/images/png/mancity.png
   AssetGenImage get mancity =>
       const AssetGenImage('assets/images/png/mancity.png');
@@ -60,10 +68,10 @@ class $AssetsImagesPngGen {
 
   /// File path: assets/images/png/woman.png
   AssetGenImage get woman => const AssetGenImage('assets/images/png/woman.png');
-  AssetGenImage get woman_driving =>
+
+  /// File path: assets/images/png/woman_driving.png
+  AssetGenImage get womanDriving =>
       const AssetGenImage('assets/images/png/woman_driving.png');
-  AssetGenImage get man_shoping =>
-      const AssetGenImage('assets/images/png/man_shoping.png');
 
   /// List of all assets
   List<AssetGenImage> get values => [
@@ -71,11 +79,11 @@ class $AssetsImagesPngGen {
         appIcon,
         back1,
         dating,
+        manShoping,
         mancity,
         sports,
         woman,
-        woman_driving,
-        man_shoping
+        womanDriving
       ];
 }
 
@@ -358,16 +366,11 @@ class Assets {
 }
 
 class AssetGenImage {
-  const AssetGenImage(
-    this._assetName, {
-    this.size,
-    this.flavors = const {},
-  });
+  const AssetGenImage(this._assetName, {this.size = null});
 
   final String _assetName;
 
   final Size? size;
-  final Set<String> flavors;
 
   Image image({
     Key? key,

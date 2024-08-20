@@ -17,7 +17,8 @@ class _MessagesState extends State<Messages> {
     "replied: @jhness that is not what I meant, look at\n what I said again and you’ll understand",
   ];
   final List<AssetGenImage> images = [
-    Assets.images.png.man_shoping,
+    Assets.images.png.manShoping,
+
   ];
   @override
   Widget build(BuildContext context) {

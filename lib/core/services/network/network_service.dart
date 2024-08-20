@@ -27,6 +27,8 @@ void printDioLogs(Object object) {
 }
 
 class NetworkService {
+
+
   static const CONNECT_TIME_OUT = Duration(seconds: 30);
   static const RECEIVE_TIME_OUT = Duration(seconds: 30);
 
