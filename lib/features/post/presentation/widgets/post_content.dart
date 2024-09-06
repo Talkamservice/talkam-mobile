@@ -261,14 +261,15 @@ class _VotedPollItemState extends State<VotedPollItem>
       },
     );
 
-    logger.i("init Called");
+    // logger.i("init Called");
     super.initState();
   }
 
   @override
   void didChangeDependencies() {
-    logger.i("dependency change Called");
+    // logger.i("dependency change Called");
     super.didChangeDependencies();
+
   }
 
 

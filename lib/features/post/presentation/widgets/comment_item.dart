@@ -10,6 +10,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/extensions/int_extension.dart';
+import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/post/data/models/get_comments_response.dart';
 import 'package:talkam/features/post/presentation/bloc/comments/comments_bloc.dart';
 import 'package:talkam/features/post/presentation/widgets/comment_actions.dart';
@@ -107,7 +108,9 @@ class _CommentItemState extends State<CommentItem> {
                         if (widget.comment.attachment != null)
                           ImageWidget(
                             imageUrl: widget.comment.attachment!,
-                            height: 150,
+                            height: 200,
+                            canPreview: true,
+                            
                             width: 1.sw,
                           ),
                         16.verticalSpace,
@@ -176,15 +179,19 @@ class _CommentItemState extends State<CommentItem> {
   }
 
   void viewUserProfile(BuildContext context) {
-    var me = injector.get<ProfileBloc>().appUser;
-    if (me?.id == widget.comment.user.id) {
-      context.pushNamed(
-        PageUrl.profileScreen,
-      );
-    } else {
-      context.pushNamed(PageUrl.userProfileScreen,
-          extra: widget.comment.user.id.toString());
-    }
+    GuestUserHelper.handleGuestUserAction(action: () {
+      var me = injector.get<ProfileBloc>().appUser;
+      if (me?.id == widget.comment.user.id) {
+        context.pushNamed(
+          PageUrl.profileScreen,
+        );
+      } else {
+        context.pushNamed(PageUrl.userProfileScreen,
+            extra: widget.comment.user.id.toString());
+      }
+    },);
+
+
   }
 
   String get posterName {

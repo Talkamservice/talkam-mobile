@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/outlined_form_field.dart';
 import 'package:talkam/common/widgets/text_view.dart';
-import 'package:talkam/core/constants/dialog_texts.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
@@ -20,6 +18,8 @@ import 'package:talkam/gen/assets.gen.dart';
 
 class AddGroupRulesScreen extends StatefulWidget {
   const AddGroupRulesScreen({super.key});
+
+  // final
 
   @override
   State<AddGroupRulesScreen> createState() => _AddGroupRulesScreenState();
@@ -138,7 +138,7 @@ class _AddGroupRulesScreenState extends State<AddGroupRulesScreen> {
                   17.verticalSpace,
                   const TextView(
                       text:
-                          "You group can have up to 8 different rules. Make your rules clear for healthy participation of all members"),
+                          "Your group can have up to 8 different rules. Make your rules clear for healthy participation of all members"),
                   10.verticalSpace,
                   const TextView(
                     text: "You should add at least 2 rules",

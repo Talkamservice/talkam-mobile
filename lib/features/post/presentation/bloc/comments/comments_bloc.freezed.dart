@@ -1254,7 +1254,7 @@ mixin _$CommentsState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() getCommentsLoading,
-    required TResult Function(dynamic response) getCommentsSuccess,
+    required TResult Function(GetCommentsResponse response) getCommentsSuccess,
     required TResult Function(String error) getCommentsFailure,
     required TResult Function() getACommentLoading,
     required TResult Function(dynamic response) getACommentSuccess,
@@ -1276,7 +1276,7 @@ mixin _$CommentsState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? getCommentsLoading,
-    TResult? Function(dynamic response)? getCommentsSuccess,
+    TResult? Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult? Function(String error)? getCommentsFailure,
     TResult? Function()? getACommentLoading,
     TResult? Function(dynamic response)? getACommentSuccess,
@@ -1298,7 +1298,7 @@ mixin _$CommentsState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? getCommentsLoading,
-    TResult Function(dynamic response)? getCommentsSuccess,
+    TResult Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult Function(String error)? getCommentsFailure,
     TResult Function()? getACommentLoading,
     TResult Function(dynamic response)? getACommentSuccess,
@@ -1456,7 +1456,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() getCommentsLoading,
-    required TResult Function(dynamic response) getCommentsSuccess,
+    required TResult Function(GetCommentsResponse response) getCommentsSuccess,
     required TResult Function(String error) getCommentsFailure,
     required TResult Function() getACommentLoading,
     required TResult Function(dynamic response) getACommentSuccess,
@@ -1481,7 +1481,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? getCommentsLoading,
-    TResult? Function(dynamic response)? getCommentsSuccess,
+    TResult? Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult? Function(String error)? getCommentsFailure,
     TResult? Function()? getACommentLoading,
     TResult? Function(dynamic response)? getACommentSuccess,
@@ -1506,7 +1506,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? getCommentsLoading,
-    TResult Function(dynamic response)? getCommentsSuccess,
+    TResult Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult Function(String error)? getCommentsFailure,
     TResult Function()? getACommentLoading,
     TResult Function(dynamic response)? getACommentSuccess,
@@ -1669,7 +1669,7 @@ class _$GetCommentsLoadingStateImpl implements GetCommentsLoadingState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() getCommentsLoading,
-    required TResult Function(dynamic response) getCommentsSuccess,
+    required TResult Function(GetCommentsResponse response) getCommentsSuccess,
     required TResult Function(String error) getCommentsFailure,
     required TResult Function() getACommentLoading,
     required TResult Function(dynamic response) getACommentSuccess,
@@ -1694,7 +1694,7 @@ class _$GetCommentsLoadingStateImpl implements GetCommentsLoadingState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? getCommentsLoading,
-    TResult? Function(dynamic response)? getCommentsSuccess,
+    TResult? Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult? Function(String error)? getCommentsFailure,
     TResult? Function()? getACommentLoading,
     TResult? Function(dynamic response)? getACommentSuccess,
@@ -1719,7 +1719,7 @@ class _$GetCommentsLoadingStateImpl implements GetCommentsLoadingState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? getCommentsLoading,
-    TResult Function(dynamic response)? getCommentsSuccess,
+    TResult Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult Function(String error)? getCommentsFailure,
     TResult Function()? getACommentLoading,
     TResult Function(dynamic response)? getACommentSuccess,
@@ -1846,7 +1846,7 @@ abstract class _$$GetCommentsSuccessStateImplCopyWith<$Res> {
           $Res Function(_$GetCommentsSuccessStateImpl) then) =
       __$$GetCommentsSuccessStateImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({dynamic response});
+  $Res call({GetCommentsResponse response});
 }
 
 /// @nodoc
@@ -1861,13 +1861,13 @@ class __$$GetCommentsSuccessStateImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? response = freezed,
+    Object? response = null,
   }) {
     return _then(_$GetCommentsSuccessStateImpl(
-      freezed == response
+      null == response
           ? _value.response
           : response // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as GetCommentsResponse,
     ));
   }
 }
@@ -1878,7 +1878,7 @@ class _$GetCommentsSuccessStateImpl implements GetCommentsSuccessState {
   const _$GetCommentsSuccessStateImpl(this.response);
 
   @override
-  final dynamic response;
+  final GetCommentsResponse response;
 
   @override
   String toString() {
@@ -1890,12 +1890,12 @@ class _$GetCommentsSuccessStateImpl implements GetCommentsSuccessState {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GetCommentsSuccessStateImpl &&
-            const DeepCollectionEquality().equals(other.response, response));
+            (identical(other.response, response) ||
+                other.response == response));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
+  int get hashCode => Object.hash(runtimeType, response);
 
   @JsonKey(ignore: true)
   @override
@@ -1909,7 +1909,7 @@ class _$GetCommentsSuccessStateImpl implements GetCommentsSuccessState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() getCommentsLoading,
-    required TResult Function(dynamic response) getCommentsSuccess,
+    required TResult Function(GetCommentsResponse response) getCommentsSuccess,
     required TResult Function(String error) getCommentsFailure,
     required TResult Function() getACommentLoading,
     required TResult Function(dynamic response) getACommentSuccess,
@@ -1934,7 +1934,7 @@ class _$GetCommentsSuccessStateImpl implements GetCommentsSuccessState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? getCommentsLoading,
-    TResult? Function(dynamic response)? getCommentsSuccess,
+    TResult? Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult? Function(String error)? getCommentsFailure,
     TResult? Function()? getACommentLoading,
     TResult? Function(dynamic response)? getACommentSuccess,
@@ -1959,7 +1959,7 @@ class _$GetCommentsSuccessStateImpl implements GetCommentsSuccessState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? getCommentsLoading,
-    TResult Function(dynamic response)? getCommentsSuccess,
+    TResult Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult Function(String error)? getCommentsFailure,
     TResult Function()? getACommentLoading,
     TResult Function(dynamic response)? getACommentSuccess,
@@ -2076,10 +2076,10 @@ class _$GetCommentsSuccessStateImpl implements GetCommentsSuccessState {
 }
 
 abstract class GetCommentsSuccessState implements CommentsState {
-  const factory GetCommentsSuccessState(final dynamic response) =
+  const factory GetCommentsSuccessState(final GetCommentsResponse response) =
       _$GetCommentsSuccessStateImpl;
 
-  dynamic get response;
+  GetCommentsResponse get response;
   @JsonKey(ignore: true)
   _$$GetCommentsSuccessStateImplCopyWith<_$GetCommentsSuccessStateImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -2154,7 +2154,7 @@ class _$GetCommentsFailureStateImpl implements GetCommentsFailureState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() getCommentsLoading,
-    required TResult Function(dynamic response) getCommentsSuccess,
+    required TResult Function(GetCommentsResponse response) getCommentsSuccess,
     required TResult Function(String error) getCommentsFailure,
     required TResult Function() getACommentLoading,
     required TResult Function(dynamic response) getACommentSuccess,
@@ -2179,7 +2179,7 @@ class _$GetCommentsFailureStateImpl implements GetCommentsFailureState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? getCommentsLoading,
-    TResult? Function(dynamic response)? getCommentsSuccess,
+    TResult? Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult? Function(String error)? getCommentsFailure,
     TResult? Function()? getACommentLoading,
     TResult? Function(dynamic response)? getACommentSuccess,
@@ -2204,7 +2204,7 @@ class _$GetCommentsFailureStateImpl implements GetCommentsFailureState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? getCommentsLoading,
-    TResult Function(dynamic response)? getCommentsSuccess,
+    TResult Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult Function(String error)? getCommentsFailure,
     TResult Function()? getACommentLoading,
     TResult Function(dynamic response)? getACommentSuccess,
@@ -2373,7 +2373,7 @@ class _$GetACommentLoadingStateImpl implements GetACommentLoadingState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() getCommentsLoading,
-    required TResult Function(dynamic response) getCommentsSuccess,
+    required TResult Function(GetCommentsResponse response) getCommentsSuccess,
     required TResult Function(String error) getCommentsFailure,
     required TResult Function() getACommentLoading,
     required TResult Function(dynamic response) getACommentSuccess,
@@ -2398,7 +2398,7 @@ class _$GetACommentLoadingStateImpl implements GetACommentLoadingState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? getCommentsLoading,
-    TResult? Function(dynamic response)? getCommentsSuccess,
+    TResult? Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult? Function(String error)? getCommentsFailure,
     TResult? Function()? getACommentLoading,
     TResult? Function(dynamic response)? getACommentSuccess,
@@ -2423,7 +2423,7 @@ class _$GetACommentLoadingStateImpl implements GetACommentLoadingState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? getCommentsLoading,
-    TResult Function(dynamic response)? getCommentsSuccess,
+    TResult Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult Function(String error)? getCommentsFailure,
     TResult Function()? getACommentLoading,
     TResult Function(dynamic response)? getACommentSuccess,
@@ -2613,7 +2613,7 @@ class _$GetACommentSuccessStateImpl implements GetACommentSuccessState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() getCommentsLoading,
-    required TResult Function(dynamic response) getCommentsSuccess,
+    required TResult Function(GetCommentsResponse response) getCommentsSuccess,
     required TResult Function(String error) getCommentsFailure,
     required TResult Function() getACommentLoading,
     required TResult Function(dynamic response) getACommentSuccess,
@@ -2638,7 +2638,7 @@ class _$GetACommentSuccessStateImpl implements GetACommentSuccessState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? getCommentsLoading,
-    TResult? Function(dynamic response)? getCommentsSuccess,
+    TResult? Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult? Function(String error)? getCommentsFailure,
     TResult? Function()? getACommentLoading,
     TResult? Function(dynamic response)? getACommentSuccess,
@@ -2663,7 +2663,7 @@ class _$GetACommentSuccessStateImpl implements GetACommentSuccessState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? getCommentsLoading,
-    TResult Function(dynamic response)? getCommentsSuccess,
+    TResult Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult Function(String error)? getCommentsFailure,
     TResult Function()? getACommentLoading,
     TResult Function(dynamic response)? getACommentSuccess,
@@ -2858,7 +2858,7 @@ class _$GetACommentFailureStateImpl implements GetACommentFailureState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() getCommentsLoading,
-    required TResult Function(dynamic response) getCommentsSuccess,
+    required TResult Function(GetCommentsResponse response) getCommentsSuccess,
     required TResult Function(String error) getCommentsFailure,
     required TResult Function() getACommentLoading,
     required TResult Function(dynamic response) getACommentSuccess,
@@ -2883,7 +2883,7 @@ class _$GetACommentFailureStateImpl implements GetACommentFailureState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? getCommentsLoading,
-    TResult? Function(dynamic response)? getCommentsSuccess,
+    TResult? Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult? Function(String error)? getCommentsFailure,
     TResult? Function()? getACommentLoading,
     TResult? Function(dynamic response)? getACommentSuccess,
@@ -2908,7 +2908,7 @@ class _$GetACommentFailureStateImpl implements GetACommentFailureState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? getCommentsLoading,
-    TResult Function(dynamic response)? getCommentsSuccess,
+    TResult Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult Function(String error)? getCommentsFailure,
     TResult Function()? getACommentLoading,
     TResult Function(dynamic response)? getACommentSuccess,
@@ -3077,7 +3077,7 @@ class _$SaveACommentLoadingStateImpl implements SaveACommentLoadingState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() getCommentsLoading,
-    required TResult Function(dynamic response) getCommentsSuccess,
+    required TResult Function(GetCommentsResponse response) getCommentsSuccess,
     required TResult Function(String error) getCommentsFailure,
     required TResult Function() getACommentLoading,
     required TResult Function(dynamic response) getACommentSuccess,
@@ -3102,7 +3102,7 @@ class _$SaveACommentLoadingStateImpl implements SaveACommentLoadingState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? getCommentsLoading,
-    TResult? Function(dynamic response)? getCommentsSuccess,
+    TResult? Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult? Function(String error)? getCommentsFailure,
     TResult? Function()? getACommentLoading,
     TResult? Function(dynamic response)? getACommentSuccess,
@@ -3127,7 +3127,7 @@ class _$SaveACommentLoadingStateImpl implements SaveACommentLoadingState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? getCommentsLoading,
-    TResult Function(dynamic response)? getCommentsSuccess,
+    TResult Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult Function(String error)? getCommentsFailure,
     TResult Function()? getACommentLoading,
     TResult Function(dynamic response)? getACommentSuccess,
@@ -3290,7 +3290,7 @@ class _$SaveACommentSuccessStateImpl implements SaveACommentSuccessState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() getCommentsLoading,
-    required TResult Function(dynamic response) getCommentsSuccess,
+    required TResult Function(GetCommentsResponse response) getCommentsSuccess,
     required TResult Function(String error) getCommentsFailure,
     required TResult Function() getACommentLoading,
     required TResult Function(dynamic response) getACommentSuccess,
@@ -3315,7 +3315,7 @@ class _$SaveACommentSuccessStateImpl implements SaveACommentSuccessState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? getCommentsLoading,
-    TResult? Function(dynamic response)? getCommentsSuccess,
+    TResult? Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult? Function(String error)? getCommentsFailure,
     TResult? Function()? getACommentLoading,
     TResult? Function(dynamic response)? getACommentSuccess,
@@ -3340,7 +3340,7 @@ class _$SaveACommentSuccessStateImpl implements SaveACommentSuccessState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? getCommentsLoading,
-    TResult Function(dynamic response)? getCommentsSuccess,
+    TResult Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult Function(String error)? getCommentsFailure,
     TResult Function()? getACommentLoading,
     TResult Function(dynamic response)? getACommentSuccess,
@@ -3529,7 +3529,7 @@ class _$SaveACommentFailureStateImpl implements SaveACommentFailureState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() getCommentsLoading,
-    required TResult Function(dynamic response) getCommentsSuccess,
+    required TResult Function(GetCommentsResponse response) getCommentsSuccess,
     required TResult Function(String error) getCommentsFailure,
     required TResult Function() getACommentLoading,
     required TResult Function(dynamic response) getACommentSuccess,
@@ -3554,7 +3554,7 @@ class _$SaveACommentFailureStateImpl implements SaveACommentFailureState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? getCommentsLoading,
-    TResult? Function(dynamic response)? getCommentsSuccess,
+    TResult? Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult? Function(String error)? getCommentsFailure,
     TResult? Function()? getACommentLoading,
     TResult? Function(dynamic response)? getACommentSuccess,
@@ -3579,7 +3579,7 @@ class _$SaveACommentFailureStateImpl implements SaveACommentFailureState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? getCommentsLoading,
-    TResult Function(dynamic response)? getCommentsSuccess,
+    TResult Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult Function(String error)? getCommentsFailure,
     TResult Function()? getACommentLoading,
     TResult Function(dynamic response)? getACommentSuccess,
@@ -3748,7 +3748,7 @@ class _$DeleteCommentLoadingStateImpl implements DeleteCommentLoadingState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() getCommentsLoading,
-    required TResult Function(dynamic response) getCommentsSuccess,
+    required TResult Function(GetCommentsResponse response) getCommentsSuccess,
     required TResult Function(String error) getCommentsFailure,
     required TResult Function() getACommentLoading,
     required TResult Function(dynamic response) getACommentSuccess,
@@ -3773,7 +3773,7 @@ class _$DeleteCommentLoadingStateImpl implements DeleteCommentLoadingState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? getCommentsLoading,
-    TResult? Function(dynamic response)? getCommentsSuccess,
+    TResult? Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult? Function(String error)? getCommentsFailure,
     TResult? Function()? getACommentLoading,
     TResult? Function(dynamic response)? getACommentSuccess,
@@ -3798,7 +3798,7 @@ class _$DeleteCommentLoadingStateImpl implements DeleteCommentLoadingState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? getCommentsLoading,
-    TResult Function(dynamic response)? getCommentsSuccess,
+    TResult Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult Function(String error)? getCommentsFailure,
     TResult Function()? getACommentLoading,
     TResult Function(dynamic response)? getACommentSuccess,
@@ -3961,7 +3961,7 @@ class _$DeleteCommentSuccessStateImpl implements DeleteCommentSuccessState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() getCommentsLoading,
-    required TResult Function(dynamic response) getCommentsSuccess,
+    required TResult Function(GetCommentsResponse response) getCommentsSuccess,
     required TResult Function(String error) getCommentsFailure,
     required TResult Function() getACommentLoading,
     required TResult Function(dynamic response) getACommentSuccess,
@@ -3986,7 +3986,7 @@ class _$DeleteCommentSuccessStateImpl implements DeleteCommentSuccessState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? getCommentsLoading,
-    TResult? Function(dynamic response)? getCommentsSuccess,
+    TResult? Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult? Function(String error)? getCommentsFailure,
     TResult? Function()? getACommentLoading,
     TResult? Function(dynamic response)? getACommentSuccess,
@@ -4011,7 +4011,7 @@ class _$DeleteCommentSuccessStateImpl implements DeleteCommentSuccessState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? getCommentsLoading,
-    TResult Function(dynamic response)? getCommentsSuccess,
+    TResult Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult Function(String error)? getCommentsFailure,
     TResult Function()? getACommentLoading,
     TResult Function(dynamic response)? getACommentSuccess,
@@ -4200,7 +4200,7 @@ class _$DeleteCommentFailureStateImpl implements DeleteCommentFailureState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() getCommentsLoading,
-    required TResult Function(dynamic response) getCommentsSuccess,
+    required TResult Function(GetCommentsResponse response) getCommentsSuccess,
     required TResult Function(String error) getCommentsFailure,
     required TResult Function() getACommentLoading,
     required TResult Function(dynamic response) getACommentSuccess,
@@ -4225,7 +4225,7 @@ class _$DeleteCommentFailureStateImpl implements DeleteCommentFailureState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? getCommentsLoading,
-    TResult? Function(dynamic response)? getCommentsSuccess,
+    TResult? Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult? Function(String error)? getCommentsFailure,
     TResult? Function()? getACommentLoading,
     TResult? Function(dynamic response)? getACommentSuccess,
@@ -4250,7 +4250,7 @@ class _$DeleteCommentFailureStateImpl implements DeleteCommentFailureState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? getCommentsLoading,
-    TResult Function(dynamic response)? getCommentsSuccess,
+    TResult Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult Function(String error)? getCommentsFailure,
     TResult Function()? getACommentLoading,
     TResult Function(dynamic response)? getACommentSuccess,
@@ -4419,7 +4419,7 @@ class _$CommentReactionLoadingStateImpl implements CommentReactionLoadingState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() getCommentsLoading,
-    required TResult Function(dynamic response) getCommentsSuccess,
+    required TResult Function(GetCommentsResponse response) getCommentsSuccess,
     required TResult Function(String error) getCommentsFailure,
     required TResult Function() getACommentLoading,
     required TResult Function(dynamic response) getACommentSuccess,
@@ -4444,7 +4444,7 @@ class _$CommentReactionLoadingStateImpl implements CommentReactionLoadingState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? getCommentsLoading,
-    TResult? Function(dynamic response)? getCommentsSuccess,
+    TResult? Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult? Function(String error)? getCommentsFailure,
     TResult? Function()? getACommentLoading,
     TResult? Function(dynamic response)? getACommentSuccess,
@@ -4469,7 +4469,7 @@ class _$CommentReactionLoadingStateImpl implements CommentReactionLoadingState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? getCommentsLoading,
-    TResult Function(dynamic response)? getCommentsSuccess,
+    TResult Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult Function(String error)? getCommentsFailure,
     TResult Function()? getACommentLoading,
     TResult Function(dynamic response)? getACommentSuccess,
@@ -4633,7 +4633,7 @@ class _$CommentReactionSuccessStateImpl implements CommentReactionSuccessState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() getCommentsLoading,
-    required TResult Function(dynamic response) getCommentsSuccess,
+    required TResult Function(GetCommentsResponse response) getCommentsSuccess,
     required TResult Function(String error) getCommentsFailure,
     required TResult Function() getACommentLoading,
     required TResult Function(dynamic response) getACommentSuccess,
@@ -4658,7 +4658,7 @@ class _$CommentReactionSuccessStateImpl implements CommentReactionSuccessState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? getCommentsLoading,
-    TResult? Function(dynamic response)? getCommentsSuccess,
+    TResult? Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult? Function(String error)? getCommentsFailure,
     TResult? Function()? getACommentLoading,
     TResult? Function(dynamic response)? getACommentSuccess,
@@ -4683,7 +4683,7 @@ class _$CommentReactionSuccessStateImpl implements CommentReactionSuccessState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? getCommentsLoading,
-    TResult Function(dynamic response)? getCommentsSuccess,
+    TResult Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult Function(String error)? getCommentsFailure,
     TResult Function()? getACommentLoading,
     TResult Function(dynamic response)? getACommentSuccess,
@@ -4873,7 +4873,7 @@ class _$CommentReactionFailureStateImpl implements CommentReactionFailureState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() getCommentsLoading,
-    required TResult Function(dynamic response) getCommentsSuccess,
+    required TResult Function(GetCommentsResponse response) getCommentsSuccess,
     required TResult Function(String error) getCommentsFailure,
     required TResult Function() getACommentLoading,
     required TResult Function(dynamic response) getACommentSuccess,
@@ -4898,7 +4898,7 @@ class _$CommentReactionFailureStateImpl implements CommentReactionFailureState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? getCommentsLoading,
-    TResult? Function(dynamic response)? getCommentsSuccess,
+    TResult? Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult? Function(String error)? getCommentsFailure,
     TResult? Function()? getACommentLoading,
     TResult? Function(dynamic response)? getACommentSuccess,
@@ -4923,7 +4923,7 @@ class _$CommentReactionFailureStateImpl implements CommentReactionFailureState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? getCommentsLoading,
-    TResult Function(dynamic response)? getCommentsSuccess,
+    TResult Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult Function(String error)? getCommentsFailure,
     TResult Function()? getACommentLoading,
     TResult Function(dynamic response)? getACommentSuccess,
@@ -5116,7 +5116,7 @@ class _$CommentStaggedStateImpl implements CommentStaggedState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() getCommentsLoading,
-    required TResult Function(dynamic response) getCommentsSuccess,
+    required TResult Function(GetCommentsResponse response) getCommentsSuccess,
     required TResult Function(String error) getCommentsFailure,
     required TResult Function() getACommentLoading,
     required TResult Function(dynamic response) getACommentSuccess,
@@ -5141,7 +5141,7 @@ class _$CommentStaggedStateImpl implements CommentStaggedState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? getCommentsLoading,
-    TResult? Function(dynamic response)? getCommentsSuccess,
+    TResult? Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult? Function(String error)? getCommentsFailure,
     TResult? Function()? getACommentLoading,
     TResult? Function(dynamic response)? getACommentSuccess,
@@ -5166,7 +5166,7 @@ class _$CommentStaggedStateImpl implements CommentStaggedState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? getCommentsLoading,
-    TResult Function(dynamic response)? getCommentsSuccess,
+    TResult Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult Function(String error)? getCommentsFailure,
     TResult Function()? getACommentLoading,
     TResult Function(dynamic response)? getACommentSuccess,
@@ -5334,7 +5334,7 @@ class _$StaggedCommentRemovedImpl implements StaggedCommentRemoved {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() getCommentsLoading,
-    required TResult Function(dynamic response) getCommentsSuccess,
+    required TResult Function(GetCommentsResponse response) getCommentsSuccess,
     required TResult Function(String error) getCommentsFailure,
     required TResult Function() getACommentLoading,
     required TResult Function(dynamic response) getACommentSuccess,
@@ -5359,7 +5359,7 @@ class _$StaggedCommentRemovedImpl implements StaggedCommentRemoved {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? getCommentsLoading,
-    TResult? Function(dynamic response)? getCommentsSuccess,
+    TResult? Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult? Function(String error)? getCommentsFailure,
     TResult? Function()? getACommentLoading,
     TResult? Function(dynamic response)? getACommentSuccess,
@@ -5384,7 +5384,7 @@ class _$StaggedCommentRemovedImpl implements StaggedCommentRemoved {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? getCommentsLoading,
-    TResult Function(dynamic response)? getCommentsSuccess,
+    TResult Function(GetCommentsResponse response)? getCommentsSuccess,
     TResult Function(String error)? getCommentsFailure,
     TResult Function()? getACommentLoading,
     TResult Function(dynamic response)? getACommentSuccess,

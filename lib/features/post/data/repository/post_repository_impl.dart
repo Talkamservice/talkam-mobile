@@ -251,7 +251,7 @@ class PostRepositoryImpl extends PostRepository {
   Future<GetGuidlinesResponse> getRules() async {
     try {
       final response = await _networkService.call(
-        UrlConfig.getRules,
+        UrlConfig.guideline,
         RequestMethod.get,
       );
 

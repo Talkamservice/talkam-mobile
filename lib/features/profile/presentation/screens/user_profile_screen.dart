@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
+import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
@@ -10,11 +10,9 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/authentication/data/models/auth_response.dart';
-import 'package:talkam/features/profile/presentation/bloc/profile_screen_cubit/profile_screen_cubit.dart';
+import 'package:talkam/features/messaging/data/models/get_conversations_response.dart';
+import 'package:talkam/features/messaging/presentation/screens/chat_screen.dart';
 import 'package:talkam/features/profile/presentation/bloc/user_profile_cubit/user_profile_cubit.dart';
-import 'package:talkam/features/profile/presentation/screens/tabs/profile_comments_tab.dart';
-import 'package:talkam/features/profile/presentation/screens/tabs/profile_posts_tab.dart';
-import 'package:talkam/features/profile/presentation/screens/tabs/profile_upvotes_tab.dart';
 import 'package:talkam/features/profile/presentation/screens/user_profile_tabs/user_profile_comments_tab.dart';
 import 'package:talkam/features/profile/presentation/screens/user_profile_tabs/user_profile_posts_tab.dart';
 import 'package:talkam/features/profile/presentation/screens/user_profile_tabs/user_profile_upvotes_tab.dart';
@@ -104,16 +102,14 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           ),
           body: SafeArea(
             child: state.maybeWhen(
-                profileLoading: () =>
-                    Center(child: CustomDialogs.getLoading(size: 50)),
-                getProfileError: () => const SizedBox(),
+                profileLoading: () => Center(child: CustomDialogs.getLoading(size: 50)),
+                getProfileError: () => const AppErrorWidget(),
                 orElse: () {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding:
-                            EdgeInsets.only(top: 20.h, right: 16.w, left: 16.w),
+                        padding: EdgeInsets.only(top: 20.h, right: 16.w, left: 16.w),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -123,8 +119,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               shape: BoxShape.circle,
                               canPreview: true,
                               fit: BoxFit.cover,
-                              imageUrl:
-                                  _talkamUser.avatar ?? Assets.images.svgs.user,
+                              imageUrl: _talkamUser.avatar ?? Assets.images.svgs.user,
                             ),
                             10.horizontalSpace,
                             Padding(
@@ -135,6 +130,32 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 color: Pallets.boldBlackV2,
                               ),
                             ),
+                            const Spacer(),
+                            InkWell(
+                              onTap: () {
+                                var user = _talkamUser;
+
+                                context.pushNamed(PageUrl.chatScreen,
+                                    extra: ChatScreenParam(
+                                        user: ConversationUser(id: user.id, name: user.name, avatar: user.avatar, email: user.email, username: user.username)));
+                              },
+                              child: Container(
+                                height: 40.h,
+                                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(56),
+                                  border: Border.all(color: Pallets.borderGrey),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ImageWidget(imageUrl: Assets.images.svgs.messageBubbles),
+                                    4.horizontalSpace,
+                                    const TextView(text: "Send a message")
+                                  ],
+                                ),
+                              ),
+                            )
                           ],
                         ),
                       ),
@@ -144,8 +165,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           children: [
                             ..._ProfileTabOptions.values.map((tabOption) {
                               return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                 child: TalkamTabBar(
                                   key: Key(tabOption.title),
                                   useExpandedAsParent: false,
@@ -179,18 +199,15 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           },
                           children: [
                             UserProfilePostTab(
-                              key: const PageStorageKey(
-                                  _ProfileTabOptions.posts),
+                              key: const PageStorageKey(_ProfileTabOptions.posts),
                               userId: widget.userId,
                             ),
                             UserProfileCommentsTab(
-                              key: const PageStorageKey(
-                                  _ProfileTabOptions.comments),
+                              key: const PageStorageKey(_ProfileTabOptions.comments),
                               userID: widget.userId,
                             ),
                             UserProfileUpvotesTab(
-                              key: const PageStorageKey(
-                                  _ProfileTabOptions.upVotes),
+                              key: const PageStorageKey(_ProfileTabOptions.upVotes),
                               userId: widget.userId,
                             ),
                           ],

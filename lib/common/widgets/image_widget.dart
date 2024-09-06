@@ -71,7 +71,9 @@ class _ImageWidgetState extends State<ImageWidget> {
                   context: context,
                   builder: (context) => ImagePreviewer(
                     imageUrl: widget.imageUrl,
-                    imageType: ImageType.network,
+                    imageType: widget.imageType == ImageWidgetType.file
+                        ? ImageType.file
+                        : ImageType.network,
                   ),
                 );
               }
@@ -111,7 +113,9 @@ class _ImageWidgetState extends State<ImageWidget> {
                 context: context,
                 builder: (context) => ImagePreviewer(
                   imageUrl: widget.imageUrl,
-                  imageType: ImageType.asset,
+                  imageType: widget.imageType == ImageWidgetType.file
+                      ? ImageType.file
+                      : ImageType.network,
                 ),
               );
             }
@@ -150,6 +154,8 @@ class _ImageWidgetState extends State<ImageWidget> {
   }
 
   Container _ErrorWidget() {
+
+
     return Container(
       key: widget.key,
       height: widget.size ?? widget.height,
@@ -166,6 +172,8 @@ class _ImageWidgetState extends State<ImageWidget> {
             }),
       ),
     );
+
+
   }
 }
 

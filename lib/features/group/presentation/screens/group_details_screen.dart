@@ -40,7 +40,8 @@ class GroupDetailsScreen extends StatefulWidget {
   State<GroupDetailsScreen> createState() => _GroupDetailsScreenState();
 }
 
-class _GroupDetailsScreenState extends State<GroupDetailsScreen> {
+class _GroupDetailsScreenState extends State<GroupDetailsScreen>
+    with SingleTickerProviderStateMixin {
   final tabItems = [
     TabItemModel(imagePath: Assets.images.svgs.icfeatured, tittle: "Rules"),
     TabItemModel(imagePath: Assets.images.svgs.icTrending, tittle: "Members"),
@@ -48,6 +49,14 @@ class _GroupDetailsScreenState extends State<GroupDetailsScreen> {
   ];
   int selecteIndex = 0;
   final PageController _pageController = PageController();
+
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    _tabController = TabController(length: 3, vsync: this);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -74,7 +83,6 @@ class _GroupDetailsScreenState extends State<GroupDetailsScreen> {
         actions: [
           IconButton(
               onPressed: () {
-
                 CustomDialogs.showBottomSheet(
                     context,
                     GroupActionSheet(
@@ -84,93 +92,97 @@ class _GroupDetailsScreenState extends State<GroupDetailsScreen> {
               icon: const Icon(Icons.more_vert))
         ],
       ),
-      body: DefaultTabController(
-        length: 3,
-        child: NestedScrollView(
-            headerSliverBuilder: (context, innerBoxIsScrolled) {
-              return [
-                SliverToBoxAdapter(
-                  child: Column(
-                    children: [
-                      GroupDetailsHeader(
-                        group: widget.group,
-                      ),
-                      const Divider(),
-                    ],
-                  ),
-                )
-              ];
-            },
-            body: Column(
-              children: [
-                Container(
-                  color: context.colorScheme.surface,
-                  width: 1.sw,
-                  child: Center(
-                    child: TabBar(
-                        tabAlignment: TabAlignment.center,
-                        indicatorColor: context.colorScheme.primary,
-                        indicatorSize: TabBarIndicatorSize.label,
-                        indicatorWeight: 3,
-                        onTap: (value) {
-                          selecteIndex = value;
-                          _pageController.jumpToPage(value);
-                          setState(() {});
-                        },
-                        tabs: List.generate(
-                          tabItems.length,
-                          (index) => Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 16.0),
-                            child: Tab(
-                              child: Row(
-                                children: [
-                                  TextView(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w600,
-                                    text: tabItems[index].tittle,
-                                    color: selecteIndex == index
-                                        ? context.colorScheme.onSurface
-                                        : Pallets.grey60,
-                                    // fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
-                                  ),
-                                ],
-                              ),
+      body: NestedScrollView(
+          headerSliverBuilder: (context, innerBoxIsScrolled) {
+            return [
+              SliverToBoxAdapter(
+                child: Column(
+                  children: [
+                    GroupDetailsHeader(
+                      group: widget.group,
+                    ),
+                    const Divider(),
+                  ],
+                ),
+              )
+            ];
+          },
+          body: Column(
+            children: [
+              Container(
+                color: context.colorScheme.surface,
+                width: 1.sw,
+                child: Center(
+                  child: TabBar(
+
+                      controller: _tabController,
+                      tabAlignment: TabAlignment.center,
+                      indicatorColor: context.colorScheme.primary,
+                      indicatorSize: TabBarIndicatorSize.label,
+                      indicatorWeight: 3,
+                      onTap: (value) {
+                        selecteIndex = value;
+                        _pageController.jumpToPage(value);
+                        setState(() {});
+                      },
+                      tabs: List.generate(
+                        tabItems.length,
+                        (index) => Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Tab(
+                            child: Row(
+                              children: [
+                                TextView(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                  text: tabItems[index].tittle,
+                                  color: selecteIndex == index
+                                      ? context.colorScheme.onSurface
+                                      : Pallets.grey60,
+                                  // fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+                                ),
+                              ],
                             ),
                           ),
-                        ).toList()),
+                        ),
+                      ).toList()),
+                ),
+              ),
+              Container(
+                color: Pallets.grey90,
+                height: 1,
+              ),
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 5),
+                  child: PageView(
+                    controller: _pageController,
+
+                    // physics: const NeverScrollableScrollPhysics(),
+                    onPageChanged: (int index) {
+                      // setState(() {});
+
+                      _tabController.animateTo(index);
+                      selecteIndex = index;
+                      setState(() {});
+                    },
+                    children: [
+                      GroupRulesTab(
+                        group: widget.group,
+                      ),
+
+                      GroupMembersTab(
+                        group: widget.group,
+                      ),
+                      GroupsAboutTab(
+                        data: widget.group,
+                      )
+                    ],
                   ),
                 ),
-                Container(
-                  color: Pallets.grey90,
-                  height: 1,
-                ),
-                Expanded(
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 5),
-                    child: PageView(
-                      controller: _pageController,
-                      physics: const NeverScrollableScrollPhysics(),
-                      onPageChanged: (int index) {
-                        // setState(() {});
-                      },
-                      children: [
-                        GroupRulesTab(
-                          data: widget.group,
-                        ),
-                        GroupMembersTab(
-                          data: widget.group,
-                        ),
-                        GroupsAboutTab(
-                          data: widget.group,
-                        )
-                      ],
-                    ),
-                  ),
-                )
-              ],
-            )),
-      ),
+              )
+            ],
+          )),
     );
   }
 }

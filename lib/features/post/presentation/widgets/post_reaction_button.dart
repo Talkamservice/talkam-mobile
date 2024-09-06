@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
@@ -62,13 +63,17 @@ class _PostReactionButtonState extends State<PostReactionButton> {
           onTap: () {
             // changeIsActive();
 
-            if (widget.reactionType == ReactionType.like) {
-              handleLikeClicked();
-            } else {
-              handleDislikeClicked();
-            }
+            GuestUserHelper.handleGuestUserAction(action: () {
+              if (widget.reactionType == ReactionType.like) {
+                handleLikeClicked();
+              } else {
+                handleDislikeClicked();
+              }
 
-            setState(() {});
+              setState(() {});
+            },);
+
+
           },
           child: switch (widget.reactionType) {
             ReactionType.like => ImageWidget(

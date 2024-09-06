@@ -1,76 +1,164 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/core/utils/guest_user_helper.dart';
+import 'package:talkam/features/group/data/models/get_group_members_response.dart';
+import 'package:talkam/features/group/presentation/blocs/group_members_cubit/group_members_cubit.dart';
+import 'package:talkam/features/messaging/data/models/get_conversations_response.dart';
+import 'package:talkam/features/messaging/presentation/screens/chat_screen.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class GroupmemberActionSheet extends StatefulWidget {
   const GroupmemberActionSheet(
-      {super.key, required this.currentUserIsAdmin, required this.member});
+      {super.key,
+      required this.currentUserIsAdmin,
+      required this.member,
+      required this.group,
+      required this.onActionSuccess});
 
   final bool currentUserIsAdmin;
-  final TalkamGroupMemberInfo member;
+  final TalkamGroup group;
+  final GroupMemberDetails member;
+  final VoidCallback onActionSuccess;
 
   @override
   State<GroupmemberActionSheet> createState() => _GroupmemberActionSheetState();
 }
 
 class _GroupmemberActionSheetState extends State<GroupmemberActionSheet> {
+  final groupMemberBLoc = GroupMembersCubit(injector.get());
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-      decoration: BoxDecoration(
-          color: context.theme.cardColor,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(8.r),
-            topRight: Radius.circular(8.r),
-          )),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _ActionItem(
-            imagePath: Assets.images.svgs.user02,
-            tittle: "View Profile",
-            onTap: () {
+    return BlocConsumer<GroupMembersCubit, GroupMembersState>(
+      bloc: groupMemberBLoc,
+      listener: (context, state) {
+        state.maybeWhen(
+          orElse: () => null,
+          deleteMemberSuccess: (response) {
+            context.pop();
+            context.pop();
+            widget.onActionSuccess();
+          },
+          updateMemberRoleSuccess: (response) {
+            context.pop();
+            context.pop();
+            widget.onActionSuccess();
+          },
+          deleteMemberLoading: () {
+            CustomDialogs.showLoading(context);
+          },
+          updateMemberRoleLoading: () {
+            CustomDialogs.showLoading(context);
+          },
+          updateMemberRoleFailure: (error) => CustomDialogs.error(error),
+          deleteMemberFailure: (error) {
+            context.pop();
+            CustomDialogs.error(error);
+          },
+        );
+      },
+      builder: (context, state) {
+        return Container(
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+          decoration: BoxDecoration(
+              color: context.theme.cardColor,
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(8.r),
+                topRight: Radius.circular(8.r),
+              )),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _ActionItem(
+                imagePath: Assets.images.svgs.user02,
+                tittle: "View Profile",
+                onTap: () {
+                  context.pop();
+
+                  GuestUserHelper.handleGuestUserAction(action: () {
+                    if (SessionManager().isMe(widget.member.user.id.toString())) {
+                      context.pushNamed(PageUrl.profileScreen,
+                          extra: widget.member.user.id.toString());
+                    } else {
+                      context.pushNamed(PageUrl.userProfileScreen,
+                          extra: widget.member.user.id.toString());
+                    }
+                  },message: "Sign in to view user profile");
 
 
-              context.pushNamed(PageUrl.userProfileScreen,
-                  extra: widget.member.id.toString());
-            },
+
+
+                },
+              ),
+              if (widget.currentUserIsAdmin)
+                _ActionItem(
+                  imagePath: Assets.images.svgs.suspend,
+                  tittle: "Suspend user",
+                  onTap: () {},
+                ),
+              if (widget.currentUserIsAdmin)
+                _ActionItem(
+                  imagePath: Assets.images.svgs.slashCircle01,
+                  tittle: "Remove ${widget.member.user.name}",
+                  onTap: () {
+                    groupMemberBLoc.deleteMember(widget.member.id.toString(),
+                        widget.group.id.toString());
+                  },
+                ),
+              if (widget.currentUserIsAdmin &&
+                  widget.member.role.toLowerCase() != "admin")
+                _ActionItem(
+                  imagePath: Assets.images.svgs.userUp01,
+                  tittle: "Make moderator",
+                  onTap: () {
+                    groupMemberBLoc.updateMemberRole(
+                        widget.member.id.toString(), "Admin");
+                  },
+                ),
+              if (!SessionManager().isMe(widget.member.user.id.toString()))
+                _ActionItem(
+                  imagePath: Assets.images.svgs.messageBubbles,
+                  tittle: "Send a message",
+                  onTap: () {
+
+                    var user = widget.member.user;
+
+                    context.pushNamed(PageUrl.chatScreen,
+
+                        extra: ChatScreenParam(
+                            user: ConversationUser(
+                                id: user.id!,
+                                name: user.name!,
+                                avatar: user.avatar,
+                                email: user.email!,
+                                username: user.username!)));
+                  },
+                ),
+              if (widget.currentUserIsAdmin &&
+                  widget.member.role.toLowerCase() == "admin")
+                _ActionItem(
+                  imagePath: Assets.images.svgs.userUp01,
+                  tittle: "Remove as moderator",
+                  onTap: () {
+                    groupMemberBLoc.updateMemberRole(
+                        widget.member.id.toString(), "Member");
+                  },
+                ),
+            ],
           ),
-          if (widget.currentUserIsAdmin)
-            _ActionItem(
-              imagePath: Assets.images.svgs.suspend,
-              tittle: "Suspend user",
-              onTap: () {},
-            ),
-          if (widget.currentUserIsAdmin)
-            _ActionItem(
-              imagePath: Assets.images.svgs.blockedUser,
-              tittle: "Remove u/ou098h4d",
-              onTap: () {},
-            ),
-          if (widget.currentUserIsAdmin &&
-              widget.member.role?.toLowerCase() != "moderator")
-            _ActionItem(
-              imagePath: Assets.images.svgs.userUp01,
-              tittle: "Make moderator",
-              onTap: () {},
-            ),
-          if (widget.currentUserIsAdmin &&
-              widget.member.role?.toLowerCase() == "moderator")
-            _ActionItem(
-              imagePath: Assets.images.svgs.userUp01,
-              tittle: "Remove as moderator",
-              onTap: () {},
-            ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

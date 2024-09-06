@@ -18,7 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PostEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? categoryId) getCategories,
+    required TResult Function(String? categoryId, bool? refresh) getCategories,
     required TResult Function() getSubCategories,
     required TResult Function() getPosts,
     required TResult Function(CreatePostPayload postData) createPost,
@@ -39,7 +39,7 @@ mixin _$PostEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? categoryId)? getCategories,
+    TResult? Function(String? categoryId, bool? refresh)? getCategories,
     TResult? Function()? getSubCategories,
     TResult? Function()? getPosts,
     TResult? Function(CreatePostPayload postData)? createPost,
@@ -60,7 +60,7 @@ mixin _$PostEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? categoryId)? getCategories,
+    TResult Function(String? categoryId, bool? refresh)? getCategories,
     TResult Function()? getSubCategories,
     TResult Function()? getPosts,
     TResult Function(CreatePostPayload postData)? createPost,
@@ -166,7 +166,7 @@ abstract class _$$GetCategoriesEventImplCopyWith<$Res> {
           $Res Function(_$GetCategoriesEventImpl) then) =
       __$$GetCategoriesEventImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({String? categoryId});
+  $Res call({String? categoryId, bool? refresh});
 }
 
 /// @nodoc
@@ -181,12 +181,17 @@ class __$$GetCategoriesEventImplCopyWithImpl<$Res>
   @override
   $Res call({
     Object? categoryId = freezed,
+    Object? refresh = freezed,
   }) {
     return _then(_$GetCategoriesEventImpl(
       categoryId: freezed == categoryId
           ? _value.categoryId
           : categoryId // ignore: cast_nullable_to_non_nullable
               as String?,
+      refresh: freezed == refresh
+          ? _value.refresh
+          : refresh // ignore: cast_nullable_to_non_nullable
+              as bool?,
     ));
   }
 }
@@ -194,14 +199,16 @@ class __$$GetCategoriesEventImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$GetCategoriesEventImpl implements _GetCategoriesEvent {
-  const _$GetCategoriesEventImpl({this.categoryId});
+  const _$GetCategoriesEventImpl({this.categoryId, this.refresh});
 
   @override
   final String? categoryId;
+  @override
+  final bool? refresh;
 
   @override
   String toString() {
-    return 'PostEvent.getCategories(categoryId: $categoryId)';
+    return 'PostEvent.getCategories(categoryId: $categoryId, refresh: $refresh)';
   }
 
   @override
@@ -210,11 +217,12 @@ class _$GetCategoriesEventImpl implements _GetCategoriesEvent {
         (other.runtimeType == runtimeType &&
             other is _$GetCategoriesEventImpl &&
             (identical(other.categoryId, categoryId) ||
-                other.categoryId == categoryId));
+                other.categoryId == categoryId) &&
+            (identical(other.refresh, refresh) || other.refresh == refresh));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, categoryId);
+  int get hashCode => Object.hash(runtimeType, categoryId, refresh);
 
   @JsonKey(ignore: true)
   @override
@@ -226,7 +234,7 @@ class _$GetCategoriesEventImpl implements _GetCategoriesEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? categoryId) getCategories,
+    required TResult Function(String? categoryId, bool? refresh) getCategories,
     required TResult Function() getSubCategories,
     required TResult Function() getPosts,
     required TResult Function(CreatePostPayload postData) createPost,
@@ -244,13 +252,13 @@ class _$GetCategoriesEventImpl implements _GetCategoriesEvent {
     required TResult Function(String commentId, String action) commentReaction,
     required TResult Function() getGuidelines,
   }) {
-    return getCategories(categoryId);
+    return getCategories(categoryId, refresh);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? categoryId)? getCategories,
+    TResult? Function(String? categoryId, bool? refresh)? getCategories,
     TResult? Function()? getSubCategories,
     TResult? Function()? getPosts,
     TResult? Function(CreatePostPayload postData)? createPost,
@@ -268,13 +276,13 @@ class _$GetCategoriesEventImpl implements _GetCategoriesEvent {
     TResult? Function(String commentId, String action)? commentReaction,
     TResult? Function()? getGuidelines,
   }) {
-    return getCategories?.call(categoryId);
+    return getCategories?.call(categoryId, refresh);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? categoryId)? getCategories,
+    TResult Function(String? categoryId, bool? refresh)? getCategories,
     TResult Function()? getSubCategories,
     TResult Function()? getPosts,
     TResult Function(CreatePostPayload postData)? createPost,
@@ -294,7 +302,7 @@ class _$GetCategoriesEventImpl implements _GetCategoriesEvent {
     required TResult orElse(),
   }) {
     if (getCategories != null) {
-      return getCategories(categoryId);
+      return getCategories(categoryId, refresh);
     }
     return orElse();
   }
@@ -374,10 +382,12 @@ class _$GetCategoriesEventImpl implements _GetCategoriesEvent {
 }
 
 abstract class _GetCategoriesEvent implements PostEvent {
-  const factory _GetCategoriesEvent({final String? categoryId}) =
-      _$GetCategoriesEventImpl;
+  const factory _GetCategoriesEvent(
+      {final String? categoryId,
+      final bool? refresh}) = _$GetCategoriesEventImpl;
 
   String? get categoryId;
+  bool? get refresh;
   @JsonKey(ignore: true)
   _$$GetCategoriesEventImplCopyWith<_$GetCategoriesEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -423,7 +433,7 @@ class _$GetSubCategoriesEventImpl implements _GetSubCategoriesEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? categoryId) getCategories,
+    required TResult Function(String? categoryId, bool? refresh) getCategories,
     required TResult Function() getSubCategories,
     required TResult Function() getPosts,
     required TResult Function(CreatePostPayload postData) createPost,
@@ -447,7 +457,7 @@ class _$GetSubCategoriesEventImpl implements _GetSubCategoriesEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? categoryId)? getCategories,
+    TResult? Function(String? categoryId, bool? refresh)? getCategories,
     TResult? Function()? getSubCategories,
     TResult? Function()? getPosts,
     TResult? Function(CreatePostPayload postData)? createPost,
@@ -471,7 +481,7 @@ class _$GetSubCategoriesEventImpl implements _GetSubCategoriesEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? categoryId)? getCategories,
+    TResult Function(String? categoryId, bool? refresh)? getCategories,
     TResult Function()? getSubCategories,
     TResult Function()? getPosts,
     TResult Function(CreatePostPayload postData)? createPost,
@@ -612,7 +622,7 @@ class _$GetPostsEventImpl implements _GetPostsEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? categoryId) getCategories,
+    required TResult Function(String? categoryId, bool? refresh) getCategories,
     required TResult Function() getSubCategories,
     required TResult Function() getPosts,
     required TResult Function(CreatePostPayload postData) createPost,
@@ -636,7 +646,7 @@ class _$GetPostsEventImpl implements _GetPostsEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? categoryId)? getCategories,
+    TResult? Function(String? categoryId, bool? refresh)? getCategories,
     TResult? Function()? getSubCategories,
     TResult? Function()? getPosts,
     TResult? Function(CreatePostPayload postData)? createPost,
@@ -660,7 +670,7 @@ class _$GetPostsEventImpl implements _GetPostsEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? categoryId)? getCategories,
+    TResult Function(String? categoryId, bool? refresh)? getCategories,
     TResult Function()? getSubCategories,
     TResult Function()? getPosts,
     TResult Function(CreatePostPayload postData)? createPost,
@@ -829,7 +839,7 @@ class _$CreatePostEventImpl implements _CreatePostEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? categoryId) getCategories,
+    required TResult Function(String? categoryId, bool? refresh) getCategories,
     required TResult Function() getSubCategories,
     required TResult Function() getPosts,
     required TResult Function(CreatePostPayload postData) createPost,
@@ -853,7 +863,7 @@ class _$CreatePostEventImpl implements _CreatePostEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? categoryId)? getCategories,
+    TResult? Function(String? categoryId, bool? refresh)? getCategories,
     TResult? Function()? getSubCategories,
     TResult? Function()? getPosts,
     TResult? Function(CreatePostPayload postData)? createPost,
@@ -877,7 +887,7 @@ class _$CreatePostEventImpl implements _CreatePostEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? categoryId)? getCategories,
+    TResult Function(String? categoryId, bool? refresh)? getCategories,
     TResult Function()? getSubCategories,
     TResult Function()? getPosts,
     TResult Function(CreatePostPayload postData)? createPost,
@@ -1051,7 +1061,7 @@ class _$GetPostDetailsEventImpl implements _GetPostDetailsEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? categoryId) getCategories,
+    required TResult Function(String? categoryId, bool? refresh) getCategories,
     required TResult Function() getSubCategories,
     required TResult Function() getPosts,
     required TResult Function(CreatePostPayload postData) createPost,
@@ -1075,7 +1085,7 @@ class _$GetPostDetailsEventImpl implements _GetPostDetailsEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? categoryId)? getCategories,
+    TResult? Function(String? categoryId, bool? refresh)? getCategories,
     TResult? Function()? getSubCategories,
     TResult? Function()? getPosts,
     TResult? Function(CreatePostPayload postData)? createPost,
@@ -1099,7 +1109,7 @@ class _$GetPostDetailsEventImpl implements _GetPostDetailsEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? categoryId)? getCategories,
+    TResult Function(String? categoryId, bool? refresh)? getCategories,
     TResult Function()? getSubCategories,
     TResult Function()? getPosts,
     TResult Function(CreatePostPayload postData)? createPost,
@@ -1273,7 +1283,7 @@ class _$DeletePostEventImpl implements _DeletePostEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? categoryId) getCategories,
+    required TResult Function(String? categoryId, bool? refresh) getCategories,
     required TResult Function() getSubCategories,
     required TResult Function() getPosts,
     required TResult Function(CreatePostPayload postData) createPost,
@@ -1297,7 +1307,7 @@ class _$DeletePostEventImpl implements _DeletePostEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? categoryId)? getCategories,
+    TResult? Function(String? categoryId, bool? refresh)? getCategories,
     TResult? Function()? getSubCategories,
     TResult? Function()? getPosts,
     TResult? Function(CreatePostPayload postData)? createPost,
@@ -1321,7 +1331,7 @@ class _$DeletePostEventImpl implements _DeletePostEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? categoryId)? getCategories,
+    TResult Function(String? categoryId, bool? refresh)? getCategories,
     TResult Function()? getSubCategories,
     TResult Function()? getPosts,
     TResult Function(CreatePostPayload postData)? createPost,
@@ -1502,7 +1512,7 @@ class _$PostReactionEventImpl implements _PostReactionEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? categoryId) getCategories,
+    required TResult Function(String? categoryId, bool? refresh) getCategories,
     required TResult Function() getSubCategories,
     required TResult Function() getPosts,
     required TResult Function(CreatePostPayload postData) createPost,
@@ -1526,7 +1536,7 @@ class _$PostReactionEventImpl implements _PostReactionEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? categoryId)? getCategories,
+    TResult? Function(String? categoryId, bool? refresh)? getCategories,
     TResult? Function()? getSubCategories,
     TResult? Function()? getPosts,
     TResult? Function(CreatePostPayload postData)? createPost,
@@ -1550,7 +1560,7 @@ class _$PostReactionEventImpl implements _PostReactionEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? categoryId)? getCategories,
+    TResult Function(String? categoryId, bool? refresh)? getCategories,
     TResult Function()? getSubCategories,
     TResult Function()? getPosts,
     TResult Function(CreatePostPayload postData)? createPost,
@@ -1733,7 +1743,7 @@ class _$ReportPostEventImpl implements ReportPostEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? categoryId) getCategories,
+    required TResult Function(String? categoryId, bool? refresh) getCategories,
     required TResult Function() getSubCategories,
     required TResult Function() getPosts,
     required TResult Function(CreatePostPayload postData) createPost,
@@ -1757,7 +1767,7 @@ class _$ReportPostEventImpl implements ReportPostEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? categoryId)? getCategories,
+    TResult? Function(String? categoryId, bool? refresh)? getCategories,
     TResult? Function()? getSubCategories,
     TResult? Function()? getPosts,
     TResult? Function(CreatePostPayload postData)? createPost,
@@ -1781,7 +1791,7 @@ class _$ReportPostEventImpl implements ReportPostEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? categoryId)? getCategories,
+    TResult Function(String? categoryId, bool? refresh)? getCategories,
     TResult Function()? getSubCategories,
     TResult Function()? getPosts,
     TResult Function(CreatePostPayload postData)? createPost,
@@ -1973,7 +1983,7 @@ class _$ReportCommentEventImpl implements ReportCommentEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? categoryId) getCategories,
+    required TResult Function(String? categoryId, bool? refresh) getCategories,
     required TResult Function() getSubCategories,
     required TResult Function() getPosts,
     required TResult Function(CreatePostPayload postData) createPost,
@@ -1997,7 +2007,7 @@ class _$ReportCommentEventImpl implements ReportCommentEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? categoryId)? getCategories,
+    TResult? Function(String? categoryId, bool? refresh)? getCategories,
     TResult? Function()? getSubCategories,
     TResult? Function()? getPosts,
     TResult? Function(CreatePostPayload postData)? createPost,
@@ -2021,7 +2031,7 @@ class _$ReportCommentEventImpl implements ReportCommentEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? categoryId)? getCategories,
+    TResult Function(String? categoryId, bool? refresh)? getCategories,
     TResult Function()? getSubCategories,
     TResult Function()? getPosts,
     TResult Function(CreatePostPayload postData)? createPost,
@@ -2171,7 +2181,7 @@ class _$GetPollsEventImpl implements _GetPollsEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? categoryId) getCategories,
+    required TResult Function(String? categoryId, bool? refresh) getCategories,
     required TResult Function() getSubCategories,
     required TResult Function() getPosts,
     required TResult Function(CreatePostPayload postData) createPost,
@@ -2195,7 +2205,7 @@ class _$GetPollsEventImpl implements _GetPollsEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? categoryId)? getCategories,
+    TResult? Function(String? categoryId, bool? refresh)? getCategories,
     TResult? Function()? getSubCategories,
     TResult? Function()? getPosts,
     TResult? Function(CreatePostPayload postData)? createPost,
@@ -2219,7 +2229,7 @@ class _$GetPollsEventImpl implements _GetPollsEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? categoryId)? getCategories,
+    TResult Function(String? categoryId, bool? refresh)? getCategories,
     TResult Function()? getSubCategories,
     TResult Function()? getPosts,
     TResult Function(CreatePostPayload postData)? createPost,
@@ -2387,7 +2397,7 @@ class _$GetCommentsEventImpl implements _GetCommentsEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? categoryId) getCategories,
+    required TResult Function(String? categoryId, bool? refresh) getCategories,
     required TResult Function() getSubCategories,
     required TResult Function() getPosts,
     required TResult Function(CreatePostPayload postData) createPost,
@@ -2411,7 +2421,7 @@ class _$GetCommentsEventImpl implements _GetCommentsEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? categoryId)? getCategories,
+    TResult? Function(String? categoryId, bool? refresh)? getCategories,
     TResult? Function()? getSubCategories,
     TResult? Function()? getPosts,
     TResult? Function(CreatePostPayload postData)? createPost,
@@ -2435,7 +2445,7 @@ class _$GetCommentsEventImpl implements _GetCommentsEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? categoryId)? getCategories,
+    TResult Function(String? categoryId, bool? refresh)? getCategories,
     TResult Function()? getSubCategories,
     TResult Function()? getPosts,
     TResult Function(CreatePostPayload postData)? createPost,
@@ -2609,7 +2619,7 @@ class _$GetACommentEventImpl implements _GetACommentEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? categoryId) getCategories,
+    required TResult Function(String? categoryId, bool? refresh) getCategories,
     required TResult Function() getSubCategories,
     required TResult Function() getPosts,
     required TResult Function(CreatePostPayload postData) createPost,
@@ -2633,7 +2643,7 @@ class _$GetACommentEventImpl implements _GetACommentEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? categoryId)? getCategories,
+    TResult? Function(String? categoryId, bool? refresh)? getCategories,
     TResult? Function()? getSubCategories,
     TResult? Function()? getPosts,
     TResult? Function(CreatePostPayload postData)? createPost,
@@ -2657,7 +2667,7 @@ class _$GetACommentEventImpl implements _GetACommentEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? categoryId)? getCategories,
+    TResult Function(String? categoryId, bool? refresh)? getCategories,
     TResult Function()? getSubCategories,
     TResult Function()? getPosts,
     TResult Function(CreatePostPayload postData)? createPost,
@@ -2831,7 +2841,7 @@ class _$SaveACommentEventImpl implements _SaveACommentEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? categoryId) getCategories,
+    required TResult Function(String? categoryId, bool? refresh) getCategories,
     required TResult Function() getSubCategories,
     required TResult Function() getPosts,
     required TResult Function(CreatePostPayload postData) createPost,
@@ -2855,7 +2865,7 @@ class _$SaveACommentEventImpl implements _SaveACommentEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? categoryId)? getCategories,
+    TResult? Function(String? categoryId, bool? refresh)? getCategories,
     TResult? Function()? getSubCategories,
     TResult? Function()? getPosts,
     TResult? Function(CreatePostPayload postData)? createPost,
@@ -2879,7 +2889,7 @@ class _$SaveACommentEventImpl implements _SaveACommentEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? categoryId)? getCategories,
+    TResult Function(String? categoryId, bool? refresh)? getCategories,
     TResult Function()? getSubCategories,
     TResult Function()? getPosts,
     TResult Function(CreatePostPayload postData)? createPost,
@@ -3054,7 +3064,7 @@ class _$DeleteCommentEventImpl implements _DeleteCommentEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? categoryId) getCategories,
+    required TResult Function(String? categoryId, bool? refresh) getCategories,
     required TResult Function() getSubCategories,
     required TResult Function() getPosts,
     required TResult Function(CreatePostPayload postData) createPost,
@@ -3078,7 +3088,7 @@ class _$DeleteCommentEventImpl implements _DeleteCommentEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? categoryId)? getCategories,
+    TResult? Function(String? categoryId, bool? refresh)? getCategories,
     TResult? Function()? getSubCategories,
     TResult? Function()? getPosts,
     TResult? Function(CreatePostPayload postData)? createPost,
@@ -3102,7 +3112,7 @@ class _$DeleteCommentEventImpl implements _DeleteCommentEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? categoryId)? getCategories,
+    TResult Function(String? categoryId, bool? refresh)? getCategories,
     TResult Function()? getSubCategories,
     TResult Function()? getPosts,
     TResult Function(CreatePostPayload postData)? createPost,
@@ -3286,7 +3296,7 @@ class _$CommentReactionEventImpl implements _CommentReactionEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? categoryId) getCategories,
+    required TResult Function(String? categoryId, bool? refresh) getCategories,
     required TResult Function() getSubCategories,
     required TResult Function() getPosts,
     required TResult Function(CreatePostPayload postData) createPost,
@@ -3310,7 +3320,7 @@ class _$CommentReactionEventImpl implements _CommentReactionEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? categoryId)? getCategories,
+    TResult? Function(String? categoryId, bool? refresh)? getCategories,
     TResult? Function()? getSubCategories,
     TResult? Function()? getPosts,
     TResult? Function(CreatePostPayload postData)? createPost,
@@ -3334,7 +3344,7 @@ class _$CommentReactionEventImpl implements _CommentReactionEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? categoryId)? getCategories,
+    TResult Function(String? categoryId, bool? refresh)? getCategories,
     TResult Function()? getSubCategories,
     TResult Function()? getPosts,
     TResult Function(CreatePostPayload postData)? createPost,
@@ -3482,7 +3492,7 @@ class _$GetGuidelinesImpl implements _GetGuidelines {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String? categoryId) getCategories,
+    required TResult Function(String? categoryId, bool? refresh) getCategories,
     required TResult Function() getSubCategories,
     required TResult Function() getPosts,
     required TResult Function(CreatePostPayload postData) createPost,
@@ -3506,7 +3516,7 @@ class _$GetGuidelinesImpl implements _GetGuidelines {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String? categoryId)? getCategories,
+    TResult? Function(String? categoryId, bool? refresh)? getCategories,
     TResult? Function()? getSubCategories,
     TResult? Function()? getPosts,
     TResult? Function(CreatePostPayload postData)? createPost,
@@ -3530,7 +3540,7 @@ class _$GetGuidelinesImpl implements _GetGuidelines {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String? categoryId)? getCategories,
+    TResult Function(String? categoryId, bool? refresh)? getCategories,
     TResult Function()? getSubCategories,
     TResult Function()? getPosts,
     TResult Function(CreatePostPayload postData)? createPost,

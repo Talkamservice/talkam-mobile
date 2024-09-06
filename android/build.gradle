@@ -16,3 +16,5 @@ subprojects {
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
+
+apply from: 'pusher_channels_flutter_fix.gradle'

@@ -47,7 +47,7 @@ class _SelectCategoryDropDownButtonState
             ImageWidget(imageUrl: iconImage ?? Assets.images.png.sports.path),
             10.horizontalSpace,
             TextView(
-              text: name ?? "Select category or group",
+              text: name ?? "Select sub-category or group",
               fontSize: 14,
               color: context.colorScheme.onSurface,
               fontWeight: FontWeight.w600,

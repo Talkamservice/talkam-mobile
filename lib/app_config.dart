@@ -14,6 +14,7 @@ import 'package:talkam/gen/assets.gen.dart';
 import 'package:tiktok_login_flutter/tiktok_login_flutter.dart';
 import 'core/services/firebase/notifiactions.dart';
 import 'core/services/pay/pay_service.dart';
+import 'core/services/pusher/pusher_channel_service.dart';
 import 'firebase_options.dart';
 
 class AppConfig {
@@ -51,6 +52,8 @@ class AppConfig {
     // StripeService.initialize(),
     await TimezoneService().init();
     await _getLoggedInUser();
+    var pusherService = await PusherChannelService.getInstance;
+    await pusherService.initialize();
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,

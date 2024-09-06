@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
+import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
@@ -99,7 +100,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
             child: state.maybeWhen(
                 loading: () =>
                     Center(child: CustomDialogs.getLoading(size: 50)),
-                error: () => const SizedBox(),
+                error: () => AppErrorWidget(
+                      onTap: () {
+                        injector.get<ProfileScreenCubit>().fetchUserProfile();
+                      },
+                    ),
                 orElse: () {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -205,7 +210,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: PageView(
                             controller: _pageController,
                             onPageChanged: (int index) {
-
                               _selectedTab = index == 0
                                   ? _ProfileTabOptions.posts
                                   : index == 1
@@ -218,7 +222,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 key: PageStorageKey(_ProfileTabOptions.posts),
                               ),
                               ProfileCommentsTab(
-                                key: PageStorageKey(_ProfileTabOptions.comments),
+                                key:
+                                    PageStorageKey(_ProfileTabOptions.comments),
                               ),
                               ProfileUpvotesTab(
                                 key: PageStorageKey(_ProfileTabOptions.upVotes),

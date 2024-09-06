@@ -2,10 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
-import 'package:talkam/features/messaging/presentation/widgets/tabs/all.dart';
-import 'package:talkam/features/messaging/presentation/widgets/tabs/messages.dart';
+import 'package:talkam/features/notifications/presentation/bloc/notification_bloc.dart';
+import 'package:talkam/features/notifications/presentation/screens/post_activities.dart';
+import 'package:talkam/features/notifications/presentation/screens/conversations_tab.dart';
+import 'package:talkam/features/notifications/presentation/screens/system_admin.dart';
 
 class NotificationsScreen extends StatefulWidget {
   const NotificationsScreen({super.key});
@@ -14,17 +17,23 @@ class NotificationsScreen extends StatefulWidget {
   State<NotificationsScreen> createState() => _NotificationsScreenState();
 }
 
-class _NotificationsScreenState extends State<NotificationsScreen> {
+class _NotificationsScreenState extends State<NotificationsScreen> with SingleTickerProviderStateMixin {
   final PageController _pageController = PageController();
   final tabItems = [
-    TabItemModel2(tittle: "All"),
-    TabItemModel2(tittle: "Mentions"),
+    TabItemModel2(tittle: "Post activities"),
+    TabItemModel2(tittle: "Conversations"),
+    TabItemModel2(tittle: "System admin"),
   ];
 
   int selecteIndex = 0;
+  late TabController _tabController;
+
+  final bloc = NotificationsBloc(injector.get(), injector.get());
 
   @override
   void initState() {
+    _tabController = TabController(length: 3, vsync: this);
+    bloc.add(GetNotificationsEvent());
     super.initState();
   }
 
@@ -33,6 +42,7 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
     return Scaffold(
       appBar: CustomAppBar(
         leadingWidth: 25,
+        elevation: 0,
         tittle: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -43,11 +53,16 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
             ),
             const Spacer(),
             20.horizontalSpace,
-            const TextView(
-              color: Color(0xff212121),
-              text: "Mark as read",
-              fontSize: 16,
-              fontWeight: FontWeight.w500,
+            TextButton(
+              onPressed: () {
+                bloc.add(const ReadAllNotificationEvent());
+              },
+              child: const TextView(
+                color: Color(0xff212121),
+                text: "Mark all as read",
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
             ),
           ],
         ),
@@ -66,18 +81,12 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 child: Column(
                   children: [
                     TabBar(
-                      tabAlignment: TabAlignment.center,
-                      indicator: UnderlineTabIndicator(
-                        borderSide: BorderSide(
-                          width: 4,
-                          color: context.colorScheme.primary,
-                        ),
-                        insets: const EdgeInsets.only(
-                          left: 10.0,
-                        ),
-                      ),
-                      indicatorSize: TabBarIndicatorSize.tab,
-
+                      tabAlignment: TabAlignment.start,
+                      indicatorColor: context.colorScheme.primary,
+                      indicatorSize: TabBarIndicatorSize.label,
+                      indicatorWeight: 3,
+                      isScrollable: true,
+                      controller: _tabController,
                       onTap: (value) {
                         selecteIndex = value;
                         _pageController.jumpToPage(value);
@@ -93,39 +102,36 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                                 fontSize: 15,
                                 fontWeight: FontWeight.w600,
                                 text: tabItems[index].tittle,
-                                color: selecteIndex == index
-                                    ? Pallets.grey60
-                                    : Pallets.grey60,
+                                color: selecteIndex == index ? Pallets.grey60 : Pallets.grey60,
                               ),
                             ],
                           ),
                         ),
                       ).toList(),
                     ),
-                    SizedBox(
-                      width: 1.sw,
-                      child: const Divider(
-                        thickness: 1,
-                      ),
+                    Container(
+                      color: Pallets.grey90,
+                      height: 1,
                     ),
                   ],
                 ),
               ),
             ),
             Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 10),
-                child: PageView(
-                  controller: _pageController,
-                  physics: const NeverScrollableScrollPhysics(),
-                  onPageChanged: (int index) {
-                    // setState(() {});
-                  },
-                  children: const [
-                    AllTab(),
-                    Messages(),
-                  ],
-                ),
+              child: PageView(
+                controller: _pageController,
+                // physics: const NeverScrollableScrollPhysics(),
+                onPageChanged: (int index) {
+                  // setState(() {});
+                  _tabController.animateTo(index);
+                  selecteIndex = index;
+                  setState(() {});
+                },
+                children: const [
+                  PostActivitiesTab(),
+                  ConversationsTab(),
+                  SystemAdminTab(),
+                ],
               ),
             )
           ],

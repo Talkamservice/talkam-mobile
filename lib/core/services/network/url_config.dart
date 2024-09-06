@@ -31,8 +31,7 @@ class UrlConfig {
   //     String.fromEnvironment('FACE_PLUS_PROD_API_KEY');
   // static const String facePlusProdApiSecret =
   //     String.fromEnvironment('FACE_PLUS_PROD_API_SECRET');
-  static final coreBaseUrl =
-      environment == Environment.production ? PRODUCTION_URL : STAGING_URL;
+  static final coreBaseUrl = environment == Environment.production ? PRODUCTION_URL : STAGING_URL;
   static final webUrl = environment == Environment.production
       ? WEB_PRODUCTION_URL
       : WEB_STAGING_URL;
@@ -45,10 +44,11 @@ class UrlConfig {
 
   static const String clearNotifications = "/notifications/clear-all";
 
-  static String readNotificationEndpoint(String id) =>
-      "/notifications/$id/show";
 
-  static String getNotificationsEndpoint = '/notifications/list';
+
+
+
+
 
   static String deleteAccountEndpoint = '/user/profile/delete-account';
 
@@ -116,7 +116,7 @@ class UrlConfig {
   static String deleteComment(String id) => '/user/post-comments/$id';
   static const String commentReaction = '/user/post-comments/reaction';
 
-  static const String getRules = '/user/guildlines';
+  static const String guideline = '/user/guidelines';
   static const String selectPoll = '/user/post-polls/';
   static const String deletePoll = '/user/post-polls/';
   static String addOrRemoveInterest = '/user/profile/interests/add-remove';
@@ -140,16 +140,16 @@ class UrlConfig {
   static const String deleteSearch = '/user/search';
   static const String fetchSearchSuggestions = '/user/search/suggestions';
 
-
   static const String getGroups = '/user/groups';
-  static const String getFollowingGroupMembers = '/user/groups/members/following';
+  static const String getMyGroups = '/user/groups/members/following';
+  static const String getFollowingGroupMembers =
+      '/user/groups/members/following';
   static const String updateGroup = '/user/groups/';
   static const String getGroup = '/user/groups/';
   static const String deleteGroup = '/user/groups/';
   static const String createGroup = '/user/groups/';
 
-
-  static const String getPendingGroupMembers = '/user/group-members';
+  static const String getPendingGroupMembers = '/user/groups/members/list?';
   static const String requestAccess = '/user/groups/';
   static const String updateAccessRequest = '/user/groups/';
   static const String deleteGroupMember = '/user/group-members/';
@@ -158,7 +158,54 @@ class UrlConfig {
   static const String addGroupMember = '/user/group-members';
   static const String updateMemberRole = '/user/group-members/';
   static const String getMember = '/user/group-members/';
-  static const String deleteMember = '/user/group-members/';
+  static const String deleteMember = '/user/groups/unfollow-group';
+
+
+
   static const String groupMembers = '/user/group-members/';
+
+
+
+  static  String deleteRequest(String id) => '/user/group-members/$id';
+
+  static String acceptOrDecline(String groupId) =>
+      '/user/groups/$groupId/update-access-request';
+
+  static String sendJoinRequest(String groupId) =>
+      '/user/groups/$groupId/request-access';
+
+  static const String suspendOrCancelSuspension = '/user/groups/unfollow-group';
+
+
+
+  // Messaging
+  static const String getConversations = '/user/messaging/conversations';
+  static const String getConversationById = '/user/messaging/conversations/:id';
+  static const String deleteConversationById = '/user/messaging/deleteconversations/:id';
+  static const String createConversation = '/user/messaging/createconversations';
+  static const String fetchCurrentConversation = '/user/messaging/conversations/current/fetch';
+  static const String updateConversationById = '/user/messaging/conversations';
+  static const String updateConversationStatus = '/user/messaging/conversations/update-status';
+  static const String reportConversation = '/user/messaging/conversations/report';
+  static const String sendMessage = '/user/messaging/messages/send';
+  static const String getMessages = '/user/messaging/messages/list';
+  static const String deleteConversation = '/user/messaging/conversations/';
+
+
+
+
+
+//   Notifications
+  static String showNotification(String id) => '/notifications/$id/show';
+
+  static String getNotificationsEndpoint(int page) => '/user/notifications/list?page=$page';
+
+  static String readNotificationEndpoint(String id) => "/user/notifications/$id/show";
+  static const String markAllAsRead = '/user/notifications/mark-all';
+
+  static const String getNotificationsStats = '/user/notifications/get-notification-status';
+
+
+
 
 }

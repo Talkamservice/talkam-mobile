@@ -105,6 +105,8 @@ class _CreatePostScreenState extends State<CreatePostScreen>
                               ? "Post tittle/ Question"
                               : "Post title",
                           fillColor: Pallets.borderGrey.withOpacity(0.1),
+                          textCapitalization: TextCapitalization.sentences,
+
                           radius: 4,
                           filled: true,
                           maxLength: 280,

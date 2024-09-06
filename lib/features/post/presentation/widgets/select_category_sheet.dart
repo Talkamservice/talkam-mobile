@@ -36,7 +36,6 @@ class _SelectCategorySheetState extends State<SelectCategorySheet> {
       height: 0.7.sh,
       color: context.colorScheme.surface,
       padding: const EdgeInsets.all(16),
-
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -72,7 +71,8 @@ class _SelectCategorySheetState extends State<SelectCategorySheet> {
                       postBloc.add(const PostEvent.getCategories());
                     },
                   ),
-                  getCategoriesLoading: () => CustomDialogs.getLoading(size: 50),
+                  getCategoriesLoading: () =>
+                      CustomDialogs.getLoading(size: 50),
                   getCategoriesSuccess: (response) {
                     if (filteredList.isEmpty) {
                       return const Center(
@@ -87,6 +87,8 @@ class _SelectCategorySheetState extends State<SelectCategorySheet> {
                       itemBuilder: (context, index) => Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         child: CategoryItem(
+
+                          showArrow: false,
                           postCategory: filteredList[index],
                         ),
                       ),
@@ -117,7 +119,10 @@ class _SelectCategorySheetState extends State<SelectCategorySheet> {
 }
 
 class CategoryItem extends StatelessWidget {
-  const CategoryItem({super.key, required this.postCategory});
+  const CategoryItem(
+      {super.key, required this.postCategory, this.showArrow = true});
+
+  final bool? showArrow;
 
   final PostCategory postCategory;
 
@@ -143,6 +148,7 @@ class CategoryItem extends StatelessWidget {
               ),
             ),
             8.horizontalSpace,
+            if(showArrow!)
             ImageWidget(imageUrl: Assets.images.svgs.chevronRight)
           ],
         ),

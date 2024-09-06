@@ -151,17 +151,17 @@ class GroupMemberDetails {
         "updated_at": updatedAt.toIso8601String(),
       };
 
-  TalkamGroupMemberInfo toTalkamGroupMemberInfo() {
-    return TalkamGroupMemberInfo(
-        email: user.email,
-        avatar: user.avatar,
-        createdAt: createdAt,
-        updatedAt: updatedAt,
-        id: user.id,
-        role: role,
-        username: user.username,
-        name: user.name);
-  }
+  // TalkamGroupMemberInfo toTalkamGroupMemberInfo() {
+  //   return TalkamGroupMemberInfo(
+  //       email: user.email,
+  //       avatar: user.avatar,
+  //       createdAt: createdAt,
+  //       updatedAt: updatedAt,
+  //       id: user.id,
+  //       role: role,
+  //       username: user.username,
+  //       name: user.name);
+  // }
 }
 
 class TalkamGroupPreview {

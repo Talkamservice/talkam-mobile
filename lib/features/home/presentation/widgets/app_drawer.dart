@@ -31,8 +31,6 @@ class AppDrawer extends StatelessWidget {
                   buildWhen: _buildWhen,
                   listener: (context, state) {},
                   builder: (context, state) {
-
-
                     return state.maybeWhen(
                       orElse: () => CategoriesList(),
                       categoryView: () => CategoriesList(),
@@ -40,8 +38,6 @@ class AppDrawer extends StatelessWidget {
                         category: subCategory,
                       ),
                     );
-
-
                   },
                 ),
               ),
@@ -84,10 +80,14 @@ class AppDrawer extends StatelessWidget {
 
 class NavCategoryItem extends StatelessWidget {
   const NavCategoryItem(
-      {super.key, required this.category, required this.onTap});
+      {super.key,
+      required this.category,
+      required this.onTap,
+      this.showArrow = true});
 
   final PostCategory category;
   final VoidCallback onTap;
+  final bool? showArrow;
 
   @override
   Widget build(BuildContext context) {
@@ -109,6 +109,7 @@ class NavCategoryItem extends StatelessWidget {
               ),
             ),
             8.horizontalSpace,
+            if(showArrow!)
             ImageWidget(imageUrl: Assets.images.svgs.chevronRight)
           ],
         ),

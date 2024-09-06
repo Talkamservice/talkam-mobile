@@ -61,6 +61,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(const OauthFailureState(error: "Apple Authentication canceled"));
         return;
       }
+
       var res = await _authRepository.oauthSignIn(OauthReqDto(
         token: response?.identityToken,
         provider: 'apple',
@@ -69,6 +70,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       emit(OauthSuccessState(res));
     } catch (e) {
+      logger.e(e);
       emit(OauthFailureState(error: e.toString()));
     }
   }

@@ -91,13 +91,15 @@ class Data {
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     id: json["id"],
-    talkamNews: json["talkam_news"],
-    talkamResearch: json["talkam_research"],
-    userActivities: json["user_activities"],
-    comments: json["comments"],
-    moderationActivities: json["moderation_activities"],
+    talkamNews: json["talkam_news"]??0,
+    talkamResearch: json["talkam_research"]??0,
+
+    userActivities: json["user_activities"]??0,
+    comments: json["comments"]??0,
+    moderationActivities: json["moderation_activities"]??0,
     user: RelatedUser.fromJson(json["user"]),
   );
+
 
   Map<String, dynamic> toJson() => {
     "id": id,

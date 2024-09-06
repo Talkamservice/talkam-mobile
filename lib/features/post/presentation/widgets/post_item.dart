@@ -12,7 +12,8 @@ import 'package:talkam/features/post/presentation/widgets/post_content.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item_components.dart';
 
 class PostItem extends StatelessWidget {
-  const PostItem({super.key, required this.post, this.showGroupAndCategory= true});
+  const PostItem(
+      {super.key, required this.post, this.showGroupAndCategory = true});
 
   final bool? showGroupAndCategory;
 
@@ -22,7 +23,7 @@ class PostItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.pushNamed(PageUrl.postDetailsScreen, extra: post);
+        context.pushNamed(PageUrl.postDetailsScreen, extra: post.id.toString());
       },
       child: Container(
         decoration: BoxDecoration(
@@ -38,12 +39,12 @@ class PostItem extends StatelessWidget {
                 userName: userName,
                 post: post,
                 category: post.category,
-
                 onMenuTap: () async {
                   var isReported = await CustomDialogs.showBottomSheet(
                       context,
                       PostActionSheet(
                         post: post,
+                        onPostDeleted: () {},
                       ));
                   if (isReported ?? false) {
                     post.isReported = true;

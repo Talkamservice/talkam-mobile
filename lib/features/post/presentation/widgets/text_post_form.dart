@@ -40,6 +40,7 @@ class _TextPostFormState extends State<TextPostForm>
                   fillColor: Pallets.borderGrey.withOpacity(0.15),
                   radius: 4,
                   filled: true,
+                  textCapitalization: TextCapitalization.sentences,
 
 
                   // validator:

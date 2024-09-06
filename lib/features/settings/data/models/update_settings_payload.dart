@@ -16,11 +16,11 @@ class UpdateSettingsPayload {
   String? comments;
 
   UpdateSettingsPayload({
-     this.talkamNews,
-     this.talkamResearch,
-     this.moderationActivities,
-     this.userActivities,
-     this.comments,
+    this.talkamNews,
+    this.talkamResearch,
+    this.moderationActivities,
+    this.userActivities,
+    this.comments,
   });
 
   UpdateSettingsPayload copyWith({
@@ -39,18 +39,18 @@ class UpdateSettingsPayload {
       );
 
   factory UpdateSettingsPayload.fromJson(Map<String, dynamic> json) => UpdateSettingsPayload(
-    talkamNews: json["talkam_news"],
-    talkamResearch: json["talkam_research"],
-    moderationActivities: json["moderation_activities"],
-    userActivities: json["user_activities"],
-    comments: json["comments"],
-  );
+        talkamNews: json["talkam_news"],
+        talkamResearch: json["talkam_research"],
+        moderationActivities: json["moderation_activities"],
+        userActivities: json["user_activities"],
+        comments: json["comments"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "talkam_news": talkamNews,
-    "talkam_research": talkamResearch,
-    "moderation_activities": moderationActivities,
-    "user_activities": userActivities,
-    "comments": comments,
-  };
+        if (talkamNews != null) "talkam_news": talkamNews,
+        if (talkamResearch != null) "talkam_research": talkamResearch,
+        if (moderationActivities != null) "moderation_activities": moderationActivities,
+        if (userActivities != null) "user_activities": userActivities,
+        if (comments != null) "comments": comments,
+      };
 }

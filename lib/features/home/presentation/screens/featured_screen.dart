@@ -16,13 +16,11 @@ class FeaturedScreen extends StatefulWidget {
   State<FeaturedScreen> createState() => _FeaturedScreenState();
 }
 
-class _FeaturedScreenState extends State<FeaturedScreen>
-    with AutomaticKeepAliveClientMixin {
+class _FeaturedScreenState extends State<FeaturedScreen> with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
-    injector
-        .get<FeaturedPostCubit>()
-        .getFeaturedPosts(PostFilterModel.featuredPost());
+    injector.get<FeaturedPostCubit>().getFeaturedPosts(PostFilterModel.featuredPost());
+
     super.initState();
   }
 
@@ -45,9 +43,7 @@ class _FeaturedScreenState extends State<FeaturedScreen>
                 getFeaturedPostsFailed: (error) => AppErrorWidget(
                   message: error,
                   onTap: () {
-                    injector
-                        .get<FeaturedPostCubit>()
-                        .getFeaturedPosts(PostFilterModel.featuredPost());
+                    injector.get<FeaturedPostCubit>().getFeaturedPosts(PostFilterModel.featuredPost());
                   },
                 ),
                 getFeaturedPostsSuccess: (respone) {
@@ -59,20 +55,28 @@ class _FeaturedScreenState extends State<FeaturedScreen>
 
                   return RefreshIndicator(
                     onRefresh: () async {
-                      injector
-                          .get<FeaturedPostCubit>()
-                          .getFeaturedPosts(PostFilterModel.featuredPost());
+                      injector.get<FeaturedPostCubit>().getFeaturedPosts(PostFilterModel.featuredPost());
                     },
                     child: ListView.builder(
-                      itemCount: respone.data.data.length,
                       addAutomaticKeepAlives: true,
-                      itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.only(bottom: 4.0),
+                      itemCount: respone.data.paginationMeta.canLoadMore ? respone.data.data.length + 1 : respone.data.data.length,
+                      itemBuilder: (context, index) {
+                        if (index == respone.data.data.length) {
+                          injector.get<FeaturedPostCubit>().loadMore(respone);
+                          return SizedBox(
+                            height: 100,
+                            width: 100,
+                            child: Center(child: CustomDialogs.getLoading(size: 50)),
+                          );
+                        }
 
-                        child: PostItem(
-                          post: respone.data.data[index],
-                        ),
-                      ),
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 4.0),
+                          child: PostItem(
+                            post: respone.data.data[index],
+                          ),
+                        );
+                      },
                     ),
                   );
                 },

@@ -7,6 +7,7 @@ import 'package:talkam/features/group/dormain/repository/group_repository.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 
 part 'groups_state.dart';
+
 part 'groups_cubit.freezed.dart';
 
 class GroupsCubit extends Cubit<GroupsState> {
@@ -14,12 +15,13 @@ class GroupsCubit extends Cubit<GroupsState> {
 
   final GroupsRepository groupRepository;
 
-  Future<void> getGroups({GroupsFilterModel? filter}) async {
-    emit(const GroupsState.getGroupsLoading());
+  Future<void> getGroups({GroupsFilterModel? filter, bool? shouldRefresh = true, bool? isFollowing}) async {
+    if (shouldRefresh!) {
+      emit(const GroupsState.getGroupsLoading());
+    }
 
     try {
-      final GetGroupsResponse response =
-          await groupRepository.getGroups(page: 1, filter: filter);
+      final GetGroupsResponse response = await groupRepository.getGroups(page: 1, filter: filter, isFollowing: isFollowing);
 
       emit(GroupsState.getGroupsSuccess(
         groups: response.groups!,
@@ -35,8 +37,7 @@ class GroupsCubit extends Cubit<GroupsState> {
     emit(const GroupsState.getRecommendedLoading());
 
     try {
-      final GetGroupsResponse response = await groupRepository.getGroups(
-          page: 1, filter: GroupsFilterModel.recommended());
+      final GetGroupsResponse response = await groupRepository.getGroups(page: 1, filter: GroupsFilterModel.recommended());
 
       emit(GroupsState.getRecommendedSuccess(response));
     } catch (e, stack) {
@@ -45,8 +46,7 @@ class GroupsCubit extends Cubit<GroupsState> {
     }
   }
 
-  Future<void> fetchNextPage(
-      List<TalkamGroup> groups, GroupPaginationMeta paginationData) async {
+  Future<void> fetchNextPage(List<TalkamGroup> groups, GroupPaginationMeta paginationData) async {
     if (!paginationData.canLoadMore!) return;
 
     try {
@@ -92,8 +92,10 @@ class GroupsCubit extends Cubit<GroupsState> {
     }
   }
 
-  Future<void> getGroup(String groupId) async {
-    emit(const GroupsState.getGroupLoading());
+  Future<void> getGroup(String groupId, {bool? refresh = true}) async {
+    if (refresh!) {
+      emit(const GroupsState.getGroupLoading());
+    }
 
     try {
       final response = await groupRepository.getGroup(groupId);
@@ -118,8 +120,7 @@ class GroupsCubit extends Cubit<GroupsState> {
     }
   }
 
-  Future<void> joinGroup(
-      {required String groupId, required String userId}) async {
+  Future<void> joinGroup({required String groupId, required String userId}) async {
     emit(const GroupsState.joinGroupLoading());
 
     try {
@@ -129,6 +130,51 @@ class GroupsCubit extends Cubit<GroupsState> {
     } catch (e, stack) {
       logger.e(e.toString(), stackTrace: stack);
       emit(GroupsState.joinGroupFailureState(e.toString()));
+    }
+  }
+
+  Future<void> getGroupRules({
+    required String groupId,
+  }) async {
+    emit(const GroupsState.getGroupRuleLoading());
+
+    try {
+      final response = await groupRepository.getGroupRules(groupId: groupId);
+
+      emit(GroupsState.getGroupRuleSuccess(response));
+    } catch (e, stack) {
+      logger.e(e.toString(), stackTrace: stack);
+      emit(GroupsState.getGroupRuleFailureState(e.toString()));
+    }
+  }
+
+  Future<void> addGroupRule({required String groupId, required GuidelinePayload rule}) async {
+    emit(const GroupsState.addGroupRuleLoading());
+
+    try {
+      final response = await groupRepository.addGroupRule(groupId: groupId, rule: rule);
+
+      emit(GroupsState.addGroupRuleSuccess(response));
+    } catch (e, stack) {
+      logger.e(e.toString(), stackTrace: stack);
+
+      emit(GroupsState.addGroupRuleFailureState(e.toString()));
+    }
+  }
+
+  Future<void> deleteGroupRule({
+    required String guidelineId,
+  }) async {
+    emit(const GroupsState.deleteGroupRuleLoading());
+
+    try {
+      final response = await groupRepository.deleteGroupRule(guidelineId: guidelineId);
+
+      emit(GroupsState.deleteGroupRuleSuccess(response));
+    } catch (e, stack) {
+      logger.e(e.toString(), stackTrace: stack);
+
+      emit(GroupsState.deleteGroupRuleFailureState(e.toString()));
     }
   }
 }

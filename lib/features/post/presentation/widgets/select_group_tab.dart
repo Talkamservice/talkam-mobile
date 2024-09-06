@@ -22,8 +22,7 @@ class _SelectGroupTabState extends State<SelectGroupTab> {
   @override
   void initState() {
     super.initState();
-    groupsCubit
-        .getGroups(); // Assuming fetchGroups method exists in GroupsCubit
+    groupsCubit.getGroups(isFollowing: true); // Assuming fetchGroups method exists in GroupsCubit
   }
 
   final groupsCubit = GroupsCubit(injector.get());
@@ -64,7 +63,9 @@ class _SelectGroupTabState extends State<SelectGroupTab> {
                 orElse: () => 0.verticalSpace,
                 getGroupsFailure: (error) => AppErrorWidget(
                   onTap: () {
-                    groupsCubit.getGroups(); // Re-fetch groups on error
+
+
+                    groupsCubit.getGroups(isFollowing: true); // Re-fetch groups on error
                   },
                 ),
                 getGroupsLoading: () => CustomDialogs.getLoading(size: 50),
@@ -125,8 +126,7 @@ class _GroupItem extends StatelessWidget {
         child: Row(
           children: [
             ImageWidget(
-              imageUrl:
-                  group.category?.iconImage! ?? Assets.images.png.sports.path,
+              imageUrl: group.category?.iconImage! ?? Assets.images.png.sports.path,
               size: 30,
             ),
             8.horizontalSpace,

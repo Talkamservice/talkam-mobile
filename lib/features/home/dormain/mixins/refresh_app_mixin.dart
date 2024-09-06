@@ -18,5 +18,6 @@ mixin RefreshAppMixin{
         .getTrendingPosts(PostFilterModel.trendingPost(), reload: reload);
     
     injector.get<ProfileBloc>().add(const GetRemoteUser());
+
   }
 }

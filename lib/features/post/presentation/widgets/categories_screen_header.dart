@@ -7,6 +7,7 @@ import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/presentation/widgets/rules_button.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
@@ -78,10 +79,7 @@ class _CategoriesScreenHeaderState extends State<CategoriesScreenHeader> {
                 children: [
                   Row(
                     children: [
-                      ImageWidget(
-                          size: 50,
-                          fit: BoxFit.contain,
-                          imageUrl: widget.category.iconImage.toString()),
+                      ImageWidget(size: 50, fit: BoxFit.contain, imageUrl: widget.category.iconImage.toString()),
                       10.horizontalSpace,
                       Expanded(
                         child: Column(
@@ -92,8 +90,7 @@ class _CategoriesScreenHeaderState extends State<CategoriesScreenHeader> {
                               fontSize: 16,
                             ),
                             TextView(
-                              text:
-                                  "${widget.category.followersCount} Followers",
+                              text: "${widget.category.followersCount} Followers",
                               fontSize: 12,
                             ),
                           ],
@@ -149,55 +146,54 @@ class _FollowCategoryButtonState extends State<FollowCategoryButton> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<ProfileBloc, ProfileState>(
-      bloc: bloc,
-      listener: (context, state) {
-        if (state is UpdateInterestFailureState) {
-          CustomDialogs.error(state.error);
-        }
-        if (state is UpdateInterestSuccessState) {
-          widget.category.isFollowing = !widget.category.isFollowing;
-        }
-      },
-      builder: (context, state) {
-        return TextButton(
-            style: TextButton.styleFrom(
-                backgroundColor:
-                    widget.category.isFollowing ? Pallets.red : Pallets.primary,
-                foregroundColor: Pallets.white,
-                shape: const StadiumBorder()),
-            onPressed: () {
-              // var userInterests =
-              //     injector.get<ProfileBloc>().appUser!.interests;
-              bloc.add(UpdateInterestEvent(widget.category.id.toString()));
-            },
-            child: Builder(builder: (context) {
-              if (state is UpdateInterestLoadingState) {
-                return const SizedBox(
-                  height: 20,
-                  width: 20,
-                  child: CircularProgressIndicator(
-                    color: Pallets.white,
-                  ),
-                );
-              }
+    return GuestUserHelper.guestUserWidget(
 
-              return Row(
-                children: [
-                  if (!widget.category.isFollowing)
-                    const Icon(
-                      Icons.add,
-                      color: Pallets.white,
-                    ),
-                  if (!widget.category.isFollowing) 5.horizontalSpace,
-                  TextView(
-                      text:
-                          widget.category.isFollowing ? "Unfollow" : "Follow"),
-                ],
-              );
-              // CustomDialogs.success("");
-            }));
-      },
-    );
+        widget: BlocConsumer<ProfileBloc, ProfileState>(
+          bloc: bloc,
+          listener: (context, state) {
+            if (state is UpdateInterestFailureState) {
+              CustomDialogs.error(state.error);
+            }
+            if (state is UpdateInterestSuccessState) {
+              widget.category.isFollowing = !widget.category.isFollowing;
+            }
+          },
+          builder: (context, state) {
+            return TextButton(
+                style: TextButton.styleFrom(
+                    backgroundColor: widget.category.isFollowing ? Pallets.red : Pallets.primary, foregroundColor: Pallets.white, shape: const StadiumBorder()),
+                onPressed: () {
+                  // var userInterests =
+                  //     injector.get<ProfileBloc>().appUser!.interests;
+
+                  bloc.add(UpdateInterestEvent(widget.category.id.toString()));
+                },
+                child: Builder(builder: (context) {
+                  if (state is UpdateInterestLoadingState) {
+                    return const SizedBox(
+                      height: 20,
+                      width: 20,
+                      child: CircularProgressIndicator(
+                        color: Pallets.white,
+                      ),
+                    );
+                  }
+
+                  return Row(
+                    children: [
+                      if (!widget.category.isFollowing)
+                        const Icon(
+                          Icons.add,
+                          color: Pallets.white,
+                        ),
+                      if (!widget.category.isFollowing) 5.horizontalSpace,
+                      TextView(text: widget.category.isFollowing ? "Unfollow" : "Follow"),
+                    ],
+                  );
+                  // CustomDialogs.success("");
+                }));
+          },
+        ),
+        guestWidget: 0.verticalSpace);
   }
 }

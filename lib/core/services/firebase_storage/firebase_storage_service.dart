@@ -46,7 +46,7 @@ class FirebaseStorageService {
 class FirebaseStoragePaths {
   static const String profilePictures = 'profile_pictures';
   static const String productImages = 'product_images';
-  static const String chatImages = 'chat_images';
+  static const String chatFiles = 'chat_files';
   static const String posts = 'posts';
   static const String groupImage = 'group_images';
 }

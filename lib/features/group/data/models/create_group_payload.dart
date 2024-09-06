@@ -107,7 +107,8 @@ class CreateGroupPayload {
         "rules_summary": rulesSummary,
         "tags": List<dynamic>.from(tags.map((x) => x)),
         "group_access": groupAccess,
-        "guidelines": List<dynamic>.from(guidelines.map((x) => x.toJson())),
+        if (guidelines.isNotEmpty)
+          "guidelines": List<dynamic>.from(guidelines.map((x) => x.toJson())),
       };
 
   factory CreateGroupPayload.empty() => CreateGroupPayload(

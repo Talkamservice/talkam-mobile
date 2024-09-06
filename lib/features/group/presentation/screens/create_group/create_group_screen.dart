@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -81,7 +79,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                       children: [
                         TextView(
                             text:
-                                widget.group != null ? "Save changes" : "Next"),
+                            widget.group != null ? "Save changes" : "Next"),
                         4.horizontalSpace,
                         const Icon(Icons.keyboard_arrow_right_rounded)
                       ],
@@ -98,16 +96,19 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
             orElse: () => null,
             updateGroupLoading: () => CustomDialogs.showLoading(context),
             updateGroupSuccess: (response) {
+              context.pop();
               injector.get<GroupsCubit>().getGroups();
-              context
-                  .pushNamed(PageUrl.groupsInfoScreen, extra: response.id.toString())
-                  .then(
-                (value) {
-                  context.goNamed(
-                    PageUrl.homeScreen,
-                  );
-                },
+              context.goNamed(
+                PageUrl.groups,
               );
+              // context
+              //     .pushNamed(PageUrl.groupsInfoScreen,
+              //         extra: response.id.toString())
+              //     .then(
+              //   (value) {
+              //
+              //   },
+              // );
             },
             updateGroupFailure: (error) {
               context.pop();
@@ -119,10 +120,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
           return Column(
             children: [
               CreateGroupHeader(
-
-
-
-                banner: widget.group?.image,
+                banner: _bannerImage ?? widget.group?.image,
                 onBannerUpdated: (String bannerImage) {
                   _bannerImage = bannerImage;
                 },
@@ -140,10 +138,12 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                             maxLine: 1,
                             radius: 8,
                             filled: true,
+
+                            textCapitalization: TextCapitalization.sentences,
                             // padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 16),
                             placeHolder: "Name",
                             validator: RequiredValidator(
-                                    errorText: "Field is required")
+                                errorText: "Field is required")
                                 .call,
                             controller: groupNameController,
                             onChange: (d) {
@@ -161,6 +161,8 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                               radius: 8,
                               enabled: false,
                               filled: true,
+                              textCapitalization: TextCapitalization.sentences,
+
                               preffix: Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: ImageWidget(
@@ -168,7 +170,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                                         Assets.images.png.sports.path),
                               ),
                               suffix:
-                                  const Icon(Icons.keyboard_arrow_down_rounded),
+                              const Icon(Icons.keyboard_arrow_down_rounded),
                               // padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 16),
                               placeHolder: "Category",
                               // validator:
@@ -193,11 +195,12 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                             minLine: 4,
                             filled: true,
                             maxLength: 100,
+                            textCapitalization: TextCapitalization.sentences,
 
                             // padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 16),
                             placeHolder: "Group purpose",
                             validator: RequiredValidator(
-                                    errorText: "Field is required")
+                                errorText: "Field is required")
                                 .call,
                             controller: purposeController,
                             onChange: (d) {
@@ -212,10 +215,12 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                             minLine: 4,
                             filled: true,
                             maxLength: 500,
+                            textCapitalization: TextCapitalization.sentences,
+
                             // padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 16),
                             placeHolder: "Group information",
                             validator: RequiredValidator(
-                                    errorText: "Field is required")
+                                errorText: "Field is required")
                                 .call,
                             controller: groupInfoController,
                             onChange: (d) {
@@ -233,38 +238,38 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                             8.horizontalSpace,
                             Expanded(
                                 child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                CustomDropdownFieldButton<String>(
-                                    label: "Discoverability",
-                                    hint: "Public / Open to everyone",
-                                    value: discoverability,
-                                    onChanged: (p0) {
-                                      discoverability = p0!;
-                                      setState(() {});
-                                    },
-                                    items: const [
-                                      DropdownMenuItem<String>(
-                                        value: "Opened",
-                                        child: TextView(
-                                          text: "Opened",
-                                        ),
-                                      ),
-                                      DropdownMenuItem<String>(
-                                        value: "Closed",
-                                        child: TextView(
-                                          text: "Closed",
-                                        ),
-                                      ),
-                                    ]),
-                                10.verticalSpace,
-                                TextView(
-                                  text: discoverability == "Opened"
-                                      ? publicGroupInfo
-                                      : privateGroupInfo,
-                                ),
-                              ],
-                            ))
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    CustomDropdownFieldButton<String>(
+                                        label: "Discoverability",
+                                        hint: "Public / Open to everyone",
+                                        value: discoverability,
+                                        onChanged: (p0) {
+                                          discoverability = p0!;
+                                          setState(() {});
+                                        },
+                                        items: const [
+                                          DropdownMenuItem<String>(
+                                            value: "Opened",
+                                            child: TextView(
+                                              text: "Opened",
+                                            ),
+                                          ),
+                                          DropdownMenuItem<String>(
+                                            value: "Closed",
+                                            child: TextView(
+                                              text: "Closed",
+                                            ),
+                                          ),
+                                        ]),
+                                    10.verticalSpace,
+                                    TextView(
+                                      text: discoverability == "Opened"
+                                          ? publicGroupInfo
+                                          : privateGroupInfo,
+                                    ),
+                                  ],
+                                ))
                           ],
                         ),
                         50.verticalSpace
@@ -281,6 +286,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
   }
 
   void validateAndSubmit(BuildContext context) {
+
     if (formKey.currentState?.validate() ?? false) {
       if (selectedCategory == null) {
         logger.e("No Category");
@@ -293,15 +299,15 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
         if (widget.group != null) {
           updateGroup();
         } else {
-
           context.pushNamed(PageUrl.createGroupRulesScreen);
-
         }
       }
     }
+
   }
 
   void updatePayload() {
+
     injector.get<CreateGroupCubit>().updateGroupPayload(
         name: groupNameController.text,
         image: _bannerImage,
@@ -312,12 +318,12 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
         description: groupInfoController.text,
         status: "Active",
         groupAccess: discoverability);
+
   }
 
   Future<void> selectCategory(BuildContext context) async {
     var categoryorGroup = await CustomDialogs.showBottomSheet(
         context, const SelectCategorySheet());
-
 
     if (categoryorGroup is PostCategory) {
       selectedCategory = categoryorGroup;
@@ -333,24 +339,32 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
 
   void _prefill() {
     if (widget.group != null) {
+      Future.delayed(
+        Duration.zero,
+            () {
 
-      var group = widget.group!;
-      logger.w(group.image.toString());
+          var group = widget.group!;
+          logger.w(group.image.toString());
+          _bannerImage = group.image;
+          groupNameController.text = group.name.toString();
+          purposeController.text = group.about.toString();
+          groupInfoController.text = group.description.toString();
+          selectedCategory = group.category;
+          categoryController.text = selectedCategory!.name.toString();
+          discoverability = group.groupAccess!;
+          setState(() {
 
-      _bannerImage = group.image;
-      groupNameController.text = group.name.toString();
-      purposeController.text = group.about.toString();
-      groupInfoController.text = group.description.toString();
-      selectedCategory = group.category;
+          });
 
-
+        },
+      );
     }
   }
 
   void updateGroup() {
-
     _createGroupBloc.updateGroup(widget.group!.id.toString(),
-        injector.get<CreateGroupCubit>().groupPayload);
-
+        injector
+            .get<CreateGroupCubit>()
+            .groupPayload);
   }
 }

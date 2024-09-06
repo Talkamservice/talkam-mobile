@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/services/image_manipulation/image_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
@@ -25,7 +26,7 @@ class _CreateGroupHeaderState extends State<CreateGroupHeader> {
     Future.delayed(
       Duration.zero,
       () {
-          _banner = widget.banner;
+        _banner = widget.banner;
         setState(() {});
       },
     );
@@ -41,8 +42,9 @@ class _CreateGroupHeaderState extends State<CreateGroupHeader> {
         children: [
           ImageWidget(
             height: 130,
+            // canPreview: true,
             width: 1.sw,
-
+            imageType: bannerImageType,
             imageUrl: _banner ?? Assets.images.jpegs.football.path,
           ),
           Column(
@@ -96,6 +98,14 @@ class _CreateGroupHeaderState extends State<CreateGroupHeader> {
         ],
       ),
     );
+  }
+
+  ImageWidgetType get bannerImageType {
+    return _banner.toString().isURL
+              ? ImageWidgetType.network
+              : _banner == null
+                  ? ImageWidgetType.asset
+                  : ImageWidgetType.file;
   }
 
   void selectImage() async {

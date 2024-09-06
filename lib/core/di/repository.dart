@@ -7,6 +7,10 @@ import 'package:talkam/features/group/data/repository/group_repository_impl.dart
 import 'package:talkam/features/group/dormain/repository/group_members_access.dart';
 import 'package:talkam/features/group/dormain/repository/group_members_repository.dart';
 import 'package:talkam/features/group/dormain/repository/group_repository.dart';
+import 'package:talkam/features/messaging/data/repository/messaging_repository_impl.dart';
+import 'package:talkam/features/messaging/dormain/repository/messaging_repository.dart';
+import 'package:talkam/features/notifications/data/repository/notifications_repository_impl.dart';
+import 'package:talkam/features/notifications/dormain/repository/notifications_repository.dart';
 import 'package:talkam/features/post/data/repository/post_repository_impl.dart';
 import 'package:talkam/features/post/dormain/repository/post_repository.dart';
 import 'package:talkam/features/profile/data/repository/profile_repository_impl.dart';
@@ -39,7 +43,10 @@ void setup(GetIt getIt) {
   getIt.registerLazySingleton<GroupMembersRepository>(
     () => GroupMembersRepositoryImpl(getIt.get()),
   );
-  getIt.registerLazySingleton<GroupMembersAccessRepository>(
-    () => GroupMembersAccessRepositoryImpl(getIt.get()),
+  getIt.registerLazySingleton<MessagingRepository>(
+    () => MessagingRepositoryImpl(getIt.get()),
+  );
+  getIt.registerLazySingleton<NotificationsRepository>(
+    () => NotificationRepositoryImpl(getIt.get()),
   );
 }

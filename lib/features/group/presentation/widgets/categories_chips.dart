@@ -26,7 +26,7 @@ class _CategoriesChipsState extends State<CategoriesChips> {
 
   @override
   void initState() {
-    if (injector.get<PostBloc>().subcategories.isEmpty) {
+    if (injector.get<PostBloc>().categories.isEmpty) {
       injector.get<PostBloc>().add(const PostEvent.getCategories());
     }
     super.initState();
@@ -44,11 +44,11 @@ class _CategoriesChipsState extends State<CategoriesChips> {
             padding: const EdgeInsets.only(top: 18.0),
             child: SizedBox(
               width: double.infinity,
-              height: 40,
+              height: 33,
               child: ListView.separated(
                 padding: const EdgeInsets.symmetric(horizontal: 18),
                 scrollDirection: Axis.horizontal,
-                itemCount: injector.get<PostBloc>().subcategories.length,
+                itemCount: injector.get<PostBloc>().categories.length,
                 separatorBuilder: (_, __) => 14.horizontalSpace,
                 itemBuilder: (_, int index) {
                   return InkWell(
@@ -56,11 +56,11 @@ class _CategoriesChipsState extends State<CategoriesChips> {
                       selectCategory(index);
                     },
                     child: _CategoryTile(
-                      tile: injector.get<PostBloc>().subcategories[index].name,
+                      tile: injector.get<PostBloc>().categories[index].name,
                       key: Key(
-                          injector.get<PostBloc>().subcategories[index].name),
+                          injector.get<PostBloc>().categories[index].name),
                       isSelected: _selectedTile ==
-                          injector.get<PostBloc>().subcategories[index],
+                          injector.get<PostBloc>().categories[index],
                     ),
                   );
                 },
@@ -80,11 +80,11 @@ class _CategoriesChipsState extends State<CategoriesChips> {
   }
 
   void selectCategory(int index) {
-    if (_selectedTile == injector.get<PostBloc>().subcategories[index]) {
+    if (_selectedTile == injector.get<PostBloc>().categories[index]) {
       _selectedTile = null;
       widget.onSelected(null);
     } else {
-      _selectedTile = injector.get<PostBloc>().subcategories[index];
+      _selectedTile = injector.get<PostBloc>().categories[index];
       widget.onSelected(_selectedTile);
     }
     setState(() {});
@@ -114,7 +114,7 @@ class _CategoryTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 27.h,
+      height: 25.h,
       padding: EdgeInsets.symmetric(horizontal: 6.w),
       decoration: BoxDecoration(
         color: isSelected ? Pallets.tabBarBlue : Colors.transparent,

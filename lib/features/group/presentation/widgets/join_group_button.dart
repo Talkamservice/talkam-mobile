@@ -5,7 +5,8 @@ import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/theme/pallets.dart';
-import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
+import 'package:talkam/core/utils/guest_user_helper.dart';
+import 'package:talkam/features/group/presentation/blocs/group_members_cubit/group_members_cubit.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 
@@ -13,73 +14,158 @@ class JoinGroupButton extends StatefulWidget {
   const JoinGroupButton({
     super.key,
     required this.group,
+    required this.onStateChanged,
+    this.textSize,
+    this.showIcon = true,
   });
 
+  final VoidCallback onStateChanged;
+
   final TalkamGroup group;
+  final double? textSize;
+  final bool? showIcon;
 
   @override
   State<JoinGroupButton> createState() => _JoinGroupButtonState();
 }
 
 class _JoinGroupButtonState extends State<JoinGroupButton> {
-  final bloc = GroupsCubit(injector.get());
+  final bloc = GroupMembersCubit(injector.get());
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<GroupsCubit, GroupsState>(
+    return BlocConsumer<GroupMembersCubit, GroupMembersState>(
       bloc: bloc,
-      listener: (context, state) {
-        state.maybeWhen(
-          orElse: () => null,
-          joinGroupSuccess: (response) {
-            widget.group.isFollowing = !widget.group.isFollowing!;
-          },
-          joinGroupFailureState: (error) {
-            CustomDialogs.error(error);
-          },
-        );
-      },
+      listener: listenToGroupStates,
       builder: (context, state) {
         return TextButton(
             style: TextButton.styleFrom(
-                backgroundColor:
-                    widget.group.isFollowing! ? Pallets.red : Pallets.primary,
+                padding: const EdgeInsets.all(8),
+                fixedSize: const Size.fromHeight(5),
+                backgroundColor: Pallets.primary,
                 foregroundColor: Pallets.white,
                 shape: const StadiumBorder()),
             onPressed: () {
-              // var userInterests =
-              //     injector.get<ProfileBloc>().appUser!.interests;
-              bloc.joinGroup(
-                  groupId: widget.group.id.toString(),
-                  userId: injector.get<ProfileBloc>().appUser!.id.toString());
+              GuestUserHelper.handleGuestUserAction(
+                action: () {
+                  handleJoinGroupAction();
+                },
+              );
             },
             child: Builder(builder: (context) {
               return state.maybeWhen(
-                orElse: () => Row(
-                  children: [
-                    if (!widget.group.isFollowing!)
-                      const Icon(
-                        Icons.add,
-                        color: Pallets.white,
+                  orElse: () => Row(
+                        children: [
+                          if (showIcon)
+                            const Icon(
+                              Icons.add,
+                              size: 16,
+                              color: Pallets.white,
+                            ),
+                          if (showIcon) 5.horizontalSpace,
+                          TextView(
+                            text: tittleText,
+                            fontSize: widget.textSize,
+                          ),
+                        ],
                       ),
-
-                    if (!widget.group.isFollowing!) 5.horizontalSpace,
-                    TextView(
-                        text: widget.group.isFollowing! ? "Leave" : "Join"),
-                  ],
-                ),
-                joinGroupLoading: () => SizedBox(
-                  height: 20,
-                  width: 20,
-                  child: CircularProgressIndicator(
-                    color: Pallets.white,
-                  ),
-                ),
-              );
-
+                  addGroupMemberLoading: () => const _Loader(),
+                  deleteMemberLoading: () => const _Loader(),
+                  sendRequestLoading: () => const _Loader(),
+                  cancelRequestLoading: () => const _Loader());
               // CustomDialogs.success("");
             }));
       },
+    );
+  }
+
+  bool get showIcon {
+    return !widget.group.isFollowing! && !widget.group.hasRequested! && widget.showIcon!;
+  }
+
+  void listenToGroupStates(context, GroupMembersState state) {
+    state.maybeWhen(
+      orElse: () => null,
+      addGroupMemberSuccess: (response) {
+        widget.group.isFollowing = !widget.group.isFollowing!;
+        widget.onStateChanged();
+      },
+      addGroupMemberFailure: (error) {
+        CustomDialogs.error(error);
+        widget.onStateChanged();
+      },
+      deleteMemberSuccess: (response) {
+        widget.group.isFollowing = false;
+        widget.group.hasRequested = false;
+      },
+      deleteMemberFailure: (error) {
+        CustomDialogs.error(error);
+      },
+      cancelRequestSuccess: (response) {
+        widget.group.hasRequested = false;
+        widget.group.isFollowing = false;
+
+        widget.onStateChanged();
+      },
+      cancelRequestFailure: (error) {
+        CustomDialogs.error(error);
+        widget.onStateChanged();
+      },
+      sendRequestSyccess: (response) {
+        widget.group.hasRequested = !widget.group.hasRequested!;
+        widget.onStateChanged();
+      },
+      sendRequestFailure: (error) {
+        CustomDialogs.error(error);
+        widget.onStateChanged();
+      },
+    );
+  }
+
+  void handleJoinGroupAction() {
+    if (canJoinGroup) {
+      logger.w("Joining ");
+
+      bloc.addGroupMember(groupId: widget.group.id.toString(), userId: injector.get<ProfileBloc>().appUser!.id.toString());
+    } else if (shouldSendJoinRequest) {
+      logger.w("Sending request");
+
+      bloc.sendGroupRequest(
+        widget.group.id.toString(),
+      );
+    } else if (widget.group.hasRequested!) {
+      logger.w("Cancelling request");
+      // bloc.cancelRequest(injector.get<ProfileBloc>().appUser!.id.toString());
+      bloc.deleteMember(injector.get<ProfileBloc>().appUser!.id.toString(), widget.group.id.toString());
+    } else {
+      bloc.deleteMember(injector.get<ProfileBloc>().appUser!.id.toString(), widget.group.id.toString());
+    }
+  }
+
+  bool get shouldSendJoinRequest => !widget.group.isFollowing! && !widget.group.isPublic && !widget.group.hasRequested!;
+
+  bool get canJoinGroup => !widget.group.isFollowing! && widget.group.isPublic && !widget.group.hasRequested! && widget.group.isPublic;
+
+  String get tittleText => widget.group.isFollowing!
+      ? "Unfollow"
+      : widget.group.hasRequested!
+          ? "Cancel Request"
+          : "Join";
+}
+
+class _Loader extends StatelessWidget {
+  const _Loader({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const SizedBox(
+      height: 20,
+      width: 20,
+      child: CircularProgressIndicator(
+        color: Pallets.white,
+      ),
     );
   }
 }

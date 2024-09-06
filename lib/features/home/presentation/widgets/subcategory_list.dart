@@ -104,6 +104,8 @@ class _SubcategoryListState extends State<SubcategoryList> {
                     itemBuilder: (context, index) => Padding(
                       padding: const EdgeInsets.symmetric(vertical: 3.0),
                       child: NavCategoryItem(
+                        showArrow: false,
+
                         category: response.data[index],
                         onTap: () {
                           context.pushNamed(PageUrl.categoriesScreen,

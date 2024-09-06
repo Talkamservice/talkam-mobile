@@ -33,7 +33,8 @@ class TestFactories {
       polls: [],
       reaction: createPostReaction(),
       createdAt: DateTime.now(),
-      updatedAt: DateTime.now(), group: null,
+      updatedAt: DateTime.now(),
+      group: null,
     );
   }
 
@@ -47,7 +48,8 @@ class TestFactories {
       iconImage: "",
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
-      isFollowing: false, parentCategory: null,
+      isFollowing: false,
+      parentCategory: null,
     );
   }
 
@@ -106,7 +108,8 @@ class TestFactories {
           iconImage: null,
           createdAt: null,
           updatedAt: null,
-          isFollowing: false, parentCategory: null),
+          isFollowing: false,
+          parentCategory: null),
       owner: GroupOwner(id: Random().nextInt(5), username: "Dummy Owner"),
       about: "This is a dummy group about something interesting.",
       totalMembers: 123,
@@ -120,20 +123,20 @@ class TestFactories {
     );
   }
 
-  static GroupMembersTabData createDummyGroupMembers() {
-    TalkamGroupMemberInfo dummyAdmin =
-        TalkamGroupMemberInfo(id: Random().nextInt(5), username: "Admin User");
-    TalkamGroupMemberInfo dummyMember = TalkamGroupMemberInfo(
-        id: Random().nextInt(5), username: "Regular Member");
-
-    return GroupMembersTabData(
-      admin: [dummyAdmin],
-      members: [dummyMember],
-      owner: [],
-      groupId: '0001',
-      iPreview: false, // Assuming owner is also an admin here
-    );
-  }
+  // static GroupMembersTabData createDummyGroupMembers() {
+  //   TalkamGroupMemberInfo dummyAdmin =
+  //       TalkamGroupMemberInfo(id: Random().nextInt(5), username: "Admin User");
+  //   TalkamGroupMemberInfo dummyMember = TalkamGroupMemberInfo(
+  //       id: Random().nextInt(5), username: "Regular Member");
+  //
+  //   return GroupMembersTabData(
+  //     admin: [dummyAdmin],
+  //     members: [dummyMember],
+  //     owner: [],
+  //     groupId: '0001',
+  //     iPreview: false, // Assuming owner is also an admin here
+  //   );
+  // }
 
   static GroupAboutData createDummyGroupAbout() {
     GroupOwner dummyCreator =
@@ -149,16 +152,16 @@ class TestFactories {
     );
   }
 
-  static GroupDetailsScreenParam createDummyGroupDetails() {
-    return GroupDetailsScreenParam(
-      isPreview: false,
-      // Adjust as needed
-      rulesData: createDummyGroupGuidelines(),
-      membersData: createDummyGroupMembers(),
-      overview: createDummyGroupOverview(),
-      about: createDummyGroupAbout(),
-    );
-  }
+  // static GroupDetailsScreenParam createDummyGroupDetails() {
+  //   return GroupDetailsScreenParam(
+  //     isPreview: false,
+  //     // Adjust as needed
+  //     rulesData: createDummyGroupGuidelines(),
+  //     membersData: createDummyGroupMembers(),
+  //     overview: createDummyGroupOverview(),
+  //     about: createDummyGroupAbout(),
+  //   );
+  // }
 
   static GroupAppBarData createDummyGroupAppBarData() {
     return GroupAppBarData(
@@ -168,14 +171,35 @@ class TestFactories {
       name: "Dummy Group",
     );
   }
+  //
+  // static GroupDetailsScreenParam createDummyGroupDetailsScreenParam() {
+  //   return GroupDetailsScreenParam(
+  //     isPreview: false,
+  //     rulesData: createDummyGroupGuidelines(),
+  //     membersData: createDummyGroupMembers(),
+  //     overview: createDummyGroupOverview(),
+  //     about: createDummyGroupAbout(),
+  //   );
+  // }
 
-  static GroupDetailsScreenParam createDummyGroupDetailsScreenParam() {
-    return GroupDetailsScreenParam(
-      isPreview: false,
-      rulesData: createDummyGroupGuidelines(),
-      membersData: createDummyGroupMembers(),
-      overview: createDummyGroupOverview(),
-      about: createDummyGroupAbout(),
-    );
-  }
+  static TalkamGroup emptyGroup = TalkamGroup(
+    id: 1,
+    name: 'null',
+    uuid: 'null',
+    userRole: null,
+    status: null,
+    groupAccess: null,
+    image: null,
+    isFollowing: null,
+    hasRequested: null,
+    isSuspended: null,
+    totalMembers: null,
+    category: null,
+    guidelines: null,
+    description: null,
+    owner: null,
+    about: null,
+    createdAt: null,
+    updatedAt: null,
+  );
 }

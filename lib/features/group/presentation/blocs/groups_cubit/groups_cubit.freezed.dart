@@ -42,6 +42,15 @@ mixin _$GroupsState {
     required TResult Function() joinGroupLoading,
     required TResult Function(dynamic response) joinGroupSuccess,
     required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -70,6 +79,15 @@ mixin _$GroupsState {
     TResult? Function()? joinGroupLoading,
     TResult? Function(dynamic response)? joinGroupSuccess,
     TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -98,6 +116,15 @@ mixin _$GroupsState {
     TResult Function()? joinGroupLoading,
     TResult Function(dynamic response)? joinGroupSuccess,
     TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -131,6 +158,20 @@ mixin _$GroupsState {
     required TResult Function(_JoinGroupLoading value) joinGroupLoading,
     required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
     required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -160,6 +201,16 @@ mixin _$GroupsState {
     TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -189,6 +240,16 @@ mixin _$GroupsState {
     TResult Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -274,6 +335,15 @@ class _$InitialImpl implements _Initial {
     required TResult Function() joinGroupLoading,
     required TResult Function(dynamic response) joinGroupSuccess,
     required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
   }) {
     return initial();
   }
@@ -305,6 +375,15 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? joinGroupLoading,
     TResult? Function(dynamic response)? joinGroupSuccess,
     TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
   }) {
     return initial?.call();
   }
@@ -336,6 +415,15 @@ class _$InitialImpl implements _Initial {
     TResult Function()? joinGroupLoading,
     TResult Function(dynamic response)? joinGroupSuccess,
     TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -375,6 +463,20 @@ class _$InitialImpl implements _Initial {
     required TResult Function(_JoinGroupLoading value) joinGroupLoading,
     required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
     required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
   }) {
     return initial(this);
   }
@@ -407,6 +509,16 @@ class _$InitialImpl implements _Initial {
     TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
   }) {
     return initial?.call(this);
   }
@@ -439,6 +551,16 @@ class _$InitialImpl implements _Initial {
     TResult Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -514,6 +636,15 @@ class _$GetGroupsLoadingImpl implements _GetGroupsLoading {
     required TResult Function() joinGroupLoading,
     required TResult Function(dynamic response) joinGroupSuccess,
     required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
   }) {
     return getGroupsLoading();
   }
@@ -545,6 +676,15 @@ class _$GetGroupsLoadingImpl implements _GetGroupsLoading {
     TResult? Function()? joinGroupLoading,
     TResult? Function(dynamic response)? joinGroupSuccess,
     TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
   }) {
     return getGroupsLoading?.call();
   }
@@ -576,6 +716,15 @@ class _$GetGroupsLoadingImpl implements _GetGroupsLoading {
     TResult Function()? joinGroupLoading,
     TResult Function(dynamic response)? joinGroupSuccess,
     TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (getGroupsLoading != null) {
@@ -615,6 +764,20 @@ class _$GetGroupsLoadingImpl implements _GetGroupsLoading {
     required TResult Function(_JoinGroupLoading value) joinGroupLoading,
     required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
     required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
   }) {
     return getGroupsLoading(this);
   }
@@ -647,6 +810,16 @@ class _$GetGroupsLoadingImpl implements _GetGroupsLoading {
     TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
   }) {
     return getGroupsLoading?.call(this);
   }
@@ -679,6 +852,16 @@ class _$GetGroupsLoadingImpl implements _GetGroupsLoading {
     TResult Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (getGroupsLoading != null) {
@@ -799,6 +982,15 @@ class _$GetGroupsSuccessImpl implements _GetGroupsSuccess {
     required TResult Function() joinGroupLoading,
     required TResult Function(dynamic response) joinGroupSuccess,
     required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
   }) {
     return getGroupsSuccess(groups, paginationData);
   }
@@ -830,6 +1022,15 @@ class _$GetGroupsSuccessImpl implements _GetGroupsSuccess {
     TResult? Function()? joinGroupLoading,
     TResult? Function(dynamic response)? joinGroupSuccess,
     TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
   }) {
     return getGroupsSuccess?.call(groups, paginationData);
   }
@@ -861,6 +1062,15 @@ class _$GetGroupsSuccessImpl implements _GetGroupsSuccess {
     TResult Function()? joinGroupLoading,
     TResult Function(dynamic response)? joinGroupSuccess,
     TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (getGroupsSuccess != null) {
@@ -900,6 +1110,20 @@ class _$GetGroupsSuccessImpl implements _GetGroupsSuccess {
     required TResult Function(_JoinGroupLoading value) joinGroupLoading,
     required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
     required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
   }) {
     return getGroupsSuccess(this);
   }
@@ -932,6 +1156,16 @@ class _$GetGroupsSuccessImpl implements _GetGroupsSuccess {
     TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
   }) {
     return getGroupsSuccess?.call(this);
   }
@@ -964,6 +1198,16 @@ class _$GetGroupsSuccessImpl implements _GetGroupsSuccess {
     TResult Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (getGroupsSuccess != null) {
@@ -1075,6 +1319,15 @@ class _$GetGroupsFailureImpl implements _GetGroupsFailure {
     required TResult Function() joinGroupLoading,
     required TResult Function(dynamic response) joinGroupSuccess,
     required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
   }) {
     return getGroupsFailure(error);
   }
@@ -1106,6 +1359,15 @@ class _$GetGroupsFailureImpl implements _GetGroupsFailure {
     TResult? Function()? joinGroupLoading,
     TResult? Function(dynamic response)? joinGroupSuccess,
     TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
   }) {
     return getGroupsFailure?.call(error);
   }
@@ -1137,6 +1399,15 @@ class _$GetGroupsFailureImpl implements _GetGroupsFailure {
     TResult Function()? joinGroupLoading,
     TResult Function(dynamic response)? joinGroupSuccess,
     TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (getGroupsFailure != null) {
@@ -1176,6 +1447,20 @@ class _$GetGroupsFailureImpl implements _GetGroupsFailure {
     required TResult Function(_JoinGroupLoading value) joinGroupLoading,
     required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
     required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
   }) {
     return getGroupsFailure(this);
   }
@@ -1208,6 +1493,16 @@ class _$GetGroupsFailureImpl implements _GetGroupsFailure {
     TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
   }) {
     return getGroupsFailure?.call(this);
   }
@@ -1240,6 +1535,16 @@ class _$GetGroupsFailureImpl implements _GetGroupsFailure {
     TResult Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (getGroupsFailure != null) {
@@ -1325,6 +1630,15 @@ class _$GetFollowingGroupMembersLoadingImpl
     required TResult Function() joinGroupLoading,
     required TResult Function(dynamic response) joinGroupSuccess,
     required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
   }) {
     return getFollowingGroupMembersLoading();
   }
@@ -1356,6 +1670,15 @@ class _$GetFollowingGroupMembersLoadingImpl
     TResult? Function()? joinGroupLoading,
     TResult? Function(dynamic response)? joinGroupSuccess,
     TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
   }) {
     return getFollowingGroupMembersLoading?.call();
   }
@@ -1387,6 +1710,15 @@ class _$GetFollowingGroupMembersLoadingImpl
     TResult Function()? joinGroupLoading,
     TResult Function(dynamic response)? joinGroupSuccess,
     TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (getFollowingGroupMembersLoading != null) {
@@ -1426,6 +1758,20 @@ class _$GetFollowingGroupMembersLoadingImpl
     required TResult Function(_JoinGroupLoading value) joinGroupLoading,
     required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
     required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
   }) {
     return getFollowingGroupMembersLoading(this);
   }
@@ -1458,6 +1804,16 @@ class _$GetFollowingGroupMembersLoadingImpl
     TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
   }) {
     return getFollowingGroupMembersLoading?.call(this);
   }
@@ -1490,6 +1846,16 @@ class _$GetFollowingGroupMembersLoadingImpl
     TResult Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (getFollowingGroupMembersLoading != null) {
@@ -1599,6 +1965,15 @@ class _$GetFollowingGroupMembersSuccessImpl
     required TResult Function() joinGroupLoading,
     required TResult Function(dynamic response) joinGroupSuccess,
     required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
   }) {
     return getFollowingGroupMembersSuccess(response);
   }
@@ -1630,6 +2005,15 @@ class _$GetFollowingGroupMembersSuccessImpl
     TResult? Function()? joinGroupLoading,
     TResult? Function(dynamic response)? joinGroupSuccess,
     TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
   }) {
     return getFollowingGroupMembersSuccess?.call(response);
   }
@@ -1661,6 +2045,15 @@ class _$GetFollowingGroupMembersSuccessImpl
     TResult Function()? joinGroupLoading,
     TResult Function(dynamic response)? joinGroupSuccess,
     TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (getFollowingGroupMembersSuccess != null) {
@@ -1700,6 +2093,20 @@ class _$GetFollowingGroupMembersSuccessImpl
     required TResult Function(_JoinGroupLoading value) joinGroupLoading,
     required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
     required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
   }) {
     return getFollowingGroupMembersSuccess(this);
   }
@@ -1732,6 +2139,16 @@ class _$GetFollowingGroupMembersSuccessImpl
     TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
   }) {
     return getFollowingGroupMembersSuccess?.call(this);
   }
@@ -1764,6 +2181,16 @@ class _$GetFollowingGroupMembersSuccessImpl
     TResult Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (getFollowingGroupMembersSuccess != null) {
@@ -1878,6 +2305,15 @@ class _$GetFollowingGroupMembersFailureImpl
     required TResult Function() joinGroupLoading,
     required TResult Function(dynamic response) joinGroupSuccess,
     required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
   }) {
     return getFollowingGroupMembersFailure(error);
   }
@@ -1909,6 +2345,15 @@ class _$GetFollowingGroupMembersFailureImpl
     TResult? Function()? joinGroupLoading,
     TResult? Function(dynamic response)? joinGroupSuccess,
     TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
   }) {
     return getFollowingGroupMembersFailure?.call(error);
   }
@@ -1940,6 +2385,15 @@ class _$GetFollowingGroupMembersFailureImpl
     TResult Function()? joinGroupLoading,
     TResult Function(dynamic response)? joinGroupSuccess,
     TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (getFollowingGroupMembersFailure != null) {
@@ -1979,6 +2433,20 @@ class _$GetFollowingGroupMembersFailureImpl
     required TResult Function(_JoinGroupLoading value) joinGroupLoading,
     required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
     required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
   }) {
     return getFollowingGroupMembersFailure(this);
   }
@@ -2011,6 +2479,16 @@ class _$GetFollowingGroupMembersFailureImpl
     TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
   }) {
     return getFollowingGroupMembersFailure?.call(this);
   }
@@ -2043,6 +2521,16 @@ class _$GetFollowingGroupMembersFailureImpl
     TResult Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (getFollowingGroupMembersFailure != null) {
@@ -2125,6 +2613,15 @@ class _$UpdateGroupLoadingImpl implements _UpdateGroupLoading {
     required TResult Function() joinGroupLoading,
     required TResult Function(dynamic response) joinGroupSuccess,
     required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
   }) {
     return updateGroupLoading();
   }
@@ -2156,6 +2653,15 @@ class _$UpdateGroupLoadingImpl implements _UpdateGroupLoading {
     TResult? Function()? joinGroupLoading,
     TResult? Function(dynamic response)? joinGroupSuccess,
     TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
   }) {
     return updateGroupLoading?.call();
   }
@@ -2187,6 +2693,15 @@ class _$UpdateGroupLoadingImpl implements _UpdateGroupLoading {
     TResult Function()? joinGroupLoading,
     TResult Function(dynamic response)? joinGroupSuccess,
     TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (updateGroupLoading != null) {
@@ -2226,6 +2741,20 @@ class _$UpdateGroupLoadingImpl implements _UpdateGroupLoading {
     required TResult Function(_JoinGroupLoading value) joinGroupLoading,
     required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
     required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
   }) {
     return updateGroupLoading(this);
   }
@@ -2258,6 +2787,16 @@ class _$UpdateGroupLoadingImpl implements _UpdateGroupLoading {
     TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
   }) {
     return updateGroupLoading?.call(this);
   }
@@ -2290,6 +2829,16 @@ class _$UpdateGroupLoadingImpl implements _UpdateGroupLoading {
     TResult Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (updateGroupLoading != null) {
@@ -2393,6 +2942,15 @@ class _$UpdateGroupSuccessImpl implements _UpdateGroupSuccess {
     required TResult Function() joinGroupLoading,
     required TResult Function(dynamic response) joinGroupSuccess,
     required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
   }) {
     return updateGroupSuccess(response);
   }
@@ -2424,6 +2982,15 @@ class _$UpdateGroupSuccessImpl implements _UpdateGroupSuccess {
     TResult? Function()? joinGroupLoading,
     TResult? Function(dynamic response)? joinGroupSuccess,
     TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
   }) {
     return updateGroupSuccess?.call(response);
   }
@@ -2455,6 +3022,15 @@ class _$UpdateGroupSuccessImpl implements _UpdateGroupSuccess {
     TResult Function()? joinGroupLoading,
     TResult Function(dynamic response)? joinGroupSuccess,
     TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (updateGroupSuccess != null) {
@@ -2494,6 +3070,20 @@ class _$UpdateGroupSuccessImpl implements _UpdateGroupSuccess {
     required TResult Function(_JoinGroupLoading value) joinGroupLoading,
     required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
     required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
   }) {
     return updateGroupSuccess(this);
   }
@@ -2526,6 +3116,16 @@ class _$UpdateGroupSuccessImpl implements _UpdateGroupSuccess {
     TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
   }) {
     return updateGroupSuccess?.call(this);
   }
@@ -2558,6 +3158,16 @@ class _$UpdateGroupSuccessImpl implements _UpdateGroupSuccess {
     TResult Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (updateGroupSuccess != null) {
@@ -2666,6 +3276,15 @@ class _$UpdateGroupFailureImpl implements _UpdateGroupFailure {
     required TResult Function() joinGroupLoading,
     required TResult Function(dynamic response) joinGroupSuccess,
     required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
   }) {
     return updateGroupFailure(error);
   }
@@ -2697,6 +3316,15 @@ class _$UpdateGroupFailureImpl implements _UpdateGroupFailure {
     TResult? Function()? joinGroupLoading,
     TResult? Function(dynamic response)? joinGroupSuccess,
     TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
   }) {
     return updateGroupFailure?.call(error);
   }
@@ -2728,6 +3356,15 @@ class _$UpdateGroupFailureImpl implements _UpdateGroupFailure {
     TResult Function()? joinGroupLoading,
     TResult Function(dynamic response)? joinGroupSuccess,
     TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (updateGroupFailure != null) {
@@ -2767,6 +3404,20 @@ class _$UpdateGroupFailureImpl implements _UpdateGroupFailure {
     required TResult Function(_JoinGroupLoading value) joinGroupLoading,
     required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
     required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
   }) {
     return updateGroupFailure(this);
   }
@@ -2799,6 +3450,16 @@ class _$UpdateGroupFailureImpl implements _UpdateGroupFailure {
     TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
   }) {
     return updateGroupFailure?.call(this);
   }
@@ -2831,6 +3492,16 @@ class _$UpdateGroupFailureImpl implements _UpdateGroupFailure {
     TResult Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (updateGroupFailure != null) {
@@ -2912,6 +3583,15 @@ class _$GetGroupLoadingImpl implements _GetGroupLoading {
     required TResult Function() joinGroupLoading,
     required TResult Function(dynamic response) joinGroupSuccess,
     required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
   }) {
     return getGroupLoading();
   }
@@ -2943,6 +3623,15 @@ class _$GetGroupLoadingImpl implements _GetGroupLoading {
     TResult? Function()? joinGroupLoading,
     TResult? Function(dynamic response)? joinGroupSuccess,
     TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
   }) {
     return getGroupLoading?.call();
   }
@@ -2974,6 +3663,15 @@ class _$GetGroupLoadingImpl implements _GetGroupLoading {
     TResult Function()? joinGroupLoading,
     TResult Function(dynamic response)? joinGroupSuccess,
     TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (getGroupLoading != null) {
@@ -3013,6 +3711,20 @@ class _$GetGroupLoadingImpl implements _GetGroupLoading {
     required TResult Function(_JoinGroupLoading value) joinGroupLoading,
     required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
     required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
   }) {
     return getGroupLoading(this);
   }
@@ -3045,6 +3757,16 @@ class _$GetGroupLoadingImpl implements _GetGroupLoading {
     TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
   }) {
     return getGroupLoading?.call(this);
   }
@@ -3077,6 +3799,16 @@ class _$GetGroupLoadingImpl implements _GetGroupLoading {
     TResult Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (getGroupLoading != null) {
@@ -3180,6 +3912,15 @@ class _$GetGroupSuccessImpl implements _GetGroupSuccess {
     required TResult Function() joinGroupLoading,
     required TResult Function(dynamic response) joinGroupSuccess,
     required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
   }) {
     return getGroupSuccess(response);
   }
@@ -3211,6 +3952,15 @@ class _$GetGroupSuccessImpl implements _GetGroupSuccess {
     TResult? Function()? joinGroupLoading,
     TResult? Function(dynamic response)? joinGroupSuccess,
     TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
   }) {
     return getGroupSuccess?.call(response);
   }
@@ -3242,6 +3992,15 @@ class _$GetGroupSuccessImpl implements _GetGroupSuccess {
     TResult Function()? joinGroupLoading,
     TResult Function(dynamic response)? joinGroupSuccess,
     TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (getGroupSuccess != null) {
@@ -3281,6 +4040,20 @@ class _$GetGroupSuccessImpl implements _GetGroupSuccess {
     required TResult Function(_JoinGroupLoading value) joinGroupLoading,
     required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
     required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
   }) {
     return getGroupSuccess(this);
   }
@@ -3313,6 +4086,16 @@ class _$GetGroupSuccessImpl implements _GetGroupSuccess {
     TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
   }) {
     return getGroupSuccess?.call(this);
   }
@@ -3345,6 +4128,16 @@ class _$GetGroupSuccessImpl implements _GetGroupSuccess {
     TResult Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (getGroupSuccess != null) {
@@ -3453,6 +4246,15 @@ class _$GetGroupFailureImpl implements _GetGroupFailure {
     required TResult Function() joinGroupLoading,
     required TResult Function(dynamic response) joinGroupSuccess,
     required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
   }) {
     return getGroupFailure(error);
   }
@@ -3484,6 +4286,15 @@ class _$GetGroupFailureImpl implements _GetGroupFailure {
     TResult? Function()? joinGroupLoading,
     TResult? Function(dynamic response)? joinGroupSuccess,
     TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
   }) {
     return getGroupFailure?.call(error);
   }
@@ -3515,6 +4326,15 @@ class _$GetGroupFailureImpl implements _GetGroupFailure {
     TResult Function()? joinGroupLoading,
     TResult Function(dynamic response)? joinGroupSuccess,
     TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (getGroupFailure != null) {
@@ -3554,6 +4374,20 @@ class _$GetGroupFailureImpl implements _GetGroupFailure {
     required TResult Function(_JoinGroupLoading value) joinGroupLoading,
     required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
     required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
   }) {
     return getGroupFailure(this);
   }
@@ -3586,6 +4420,16 @@ class _$GetGroupFailureImpl implements _GetGroupFailure {
     TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
   }) {
     return getGroupFailure?.call(this);
   }
@@ -3618,6 +4462,16 @@ class _$GetGroupFailureImpl implements _GetGroupFailure {
     TResult Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (getGroupFailure != null) {
@@ -3698,6 +4552,15 @@ class _$DeleteGroupLoadingImpl implements _DeleteGroupLoading {
     required TResult Function() joinGroupLoading,
     required TResult Function(dynamic response) joinGroupSuccess,
     required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
   }) {
     return deleteGroupLoading();
   }
@@ -3729,6 +4592,15 @@ class _$DeleteGroupLoadingImpl implements _DeleteGroupLoading {
     TResult? Function()? joinGroupLoading,
     TResult? Function(dynamic response)? joinGroupSuccess,
     TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
   }) {
     return deleteGroupLoading?.call();
   }
@@ -3760,6 +4632,15 @@ class _$DeleteGroupLoadingImpl implements _DeleteGroupLoading {
     TResult Function()? joinGroupLoading,
     TResult Function(dynamic response)? joinGroupSuccess,
     TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (deleteGroupLoading != null) {
@@ -3799,6 +4680,20 @@ class _$DeleteGroupLoadingImpl implements _DeleteGroupLoading {
     required TResult Function(_JoinGroupLoading value) joinGroupLoading,
     required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
     required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
   }) {
     return deleteGroupLoading(this);
   }
@@ -3831,6 +4726,16 @@ class _$DeleteGroupLoadingImpl implements _DeleteGroupLoading {
     TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
   }) {
     return deleteGroupLoading?.call(this);
   }
@@ -3863,6 +4768,16 @@ class _$DeleteGroupLoadingImpl implements _DeleteGroupLoading {
     TResult Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (deleteGroupLoading != null) {
@@ -3966,6 +4881,15 @@ class _$DeleteGroupSuccessImpl implements _DeleteGroupSuccess {
     required TResult Function() joinGroupLoading,
     required TResult Function(dynamic response) joinGroupSuccess,
     required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
   }) {
     return deleteGroupSuccess(response);
   }
@@ -3997,6 +4921,15 @@ class _$DeleteGroupSuccessImpl implements _DeleteGroupSuccess {
     TResult? Function()? joinGroupLoading,
     TResult? Function(dynamic response)? joinGroupSuccess,
     TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
   }) {
     return deleteGroupSuccess?.call(response);
   }
@@ -4028,6 +4961,15 @@ class _$DeleteGroupSuccessImpl implements _DeleteGroupSuccess {
     TResult Function()? joinGroupLoading,
     TResult Function(dynamic response)? joinGroupSuccess,
     TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (deleteGroupSuccess != null) {
@@ -4067,6 +5009,20 @@ class _$DeleteGroupSuccessImpl implements _DeleteGroupSuccess {
     required TResult Function(_JoinGroupLoading value) joinGroupLoading,
     required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
     required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
   }) {
     return deleteGroupSuccess(this);
   }
@@ -4099,6 +5055,16 @@ class _$DeleteGroupSuccessImpl implements _DeleteGroupSuccess {
     TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
   }) {
     return deleteGroupSuccess?.call(this);
   }
@@ -4131,6 +5097,16 @@ class _$DeleteGroupSuccessImpl implements _DeleteGroupSuccess {
     TResult Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (deleteGroupSuccess != null) {
@@ -4239,6 +5215,15 @@ class _$DeleteGroupFailureImpl implements _DeleteGroupFailure {
     required TResult Function() joinGroupLoading,
     required TResult Function(dynamic response) joinGroupSuccess,
     required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
   }) {
     return deleteGroupFailure(error);
   }
@@ -4270,6 +5255,15 @@ class _$DeleteGroupFailureImpl implements _DeleteGroupFailure {
     TResult? Function()? joinGroupLoading,
     TResult? Function(dynamic response)? joinGroupSuccess,
     TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
   }) {
     return deleteGroupFailure?.call(error);
   }
@@ -4301,6 +5295,15 @@ class _$DeleteGroupFailureImpl implements _DeleteGroupFailure {
     TResult Function()? joinGroupLoading,
     TResult Function(dynamic response)? joinGroupSuccess,
     TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (deleteGroupFailure != null) {
@@ -4340,6 +5343,20 @@ class _$DeleteGroupFailureImpl implements _DeleteGroupFailure {
     required TResult Function(_JoinGroupLoading value) joinGroupLoading,
     required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
     required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
   }) {
     return deleteGroupFailure(this);
   }
@@ -4372,6 +5389,16 @@ class _$DeleteGroupFailureImpl implements _DeleteGroupFailure {
     TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
   }) {
     return deleteGroupFailure?.call(this);
   }
@@ -4404,6 +5431,16 @@ class _$DeleteGroupFailureImpl implements _DeleteGroupFailure {
     TResult Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (deleteGroupFailure != null) {
@@ -4487,6 +5524,15 @@ class _$GetRecommendedLoadingImpl implements _GetRecommendedLoading {
     required TResult Function() joinGroupLoading,
     required TResult Function(dynamic response) joinGroupSuccess,
     required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
   }) {
     return getRecommendedLoading();
   }
@@ -4518,6 +5564,15 @@ class _$GetRecommendedLoadingImpl implements _GetRecommendedLoading {
     TResult? Function()? joinGroupLoading,
     TResult? Function(dynamic response)? joinGroupSuccess,
     TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
   }) {
     return getRecommendedLoading?.call();
   }
@@ -4549,6 +5604,15 @@ class _$GetRecommendedLoadingImpl implements _GetRecommendedLoading {
     TResult Function()? joinGroupLoading,
     TResult Function(dynamic response)? joinGroupSuccess,
     TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (getRecommendedLoading != null) {
@@ -4588,6 +5652,20 @@ class _$GetRecommendedLoadingImpl implements _GetRecommendedLoading {
     required TResult Function(_JoinGroupLoading value) joinGroupLoading,
     required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
     required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
   }) {
     return getRecommendedLoading(this);
   }
@@ -4620,6 +5698,16 @@ class _$GetRecommendedLoadingImpl implements _GetRecommendedLoading {
     TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
   }) {
     return getRecommendedLoading?.call(this);
   }
@@ -4652,6 +5740,16 @@ class _$GetRecommendedLoadingImpl implements _GetRecommendedLoading {
     TResult Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (getRecommendedLoading != null) {
@@ -4756,6 +5854,15 @@ class _$GetRecommendedSuccessImpl implements _GetRecommendedSuccess {
     required TResult Function() joinGroupLoading,
     required TResult Function(dynamic response) joinGroupSuccess,
     required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
   }) {
     return getRecommendedSuccess(response);
   }
@@ -4787,6 +5894,15 @@ class _$GetRecommendedSuccessImpl implements _GetRecommendedSuccess {
     TResult? Function()? joinGroupLoading,
     TResult? Function(dynamic response)? joinGroupSuccess,
     TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
   }) {
     return getRecommendedSuccess?.call(response);
   }
@@ -4818,6 +5934,15 @@ class _$GetRecommendedSuccessImpl implements _GetRecommendedSuccess {
     TResult Function()? joinGroupLoading,
     TResult Function(dynamic response)? joinGroupSuccess,
     TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (getRecommendedSuccess != null) {
@@ -4857,6 +5982,20 @@ class _$GetRecommendedSuccessImpl implements _GetRecommendedSuccess {
     required TResult Function(_JoinGroupLoading value) joinGroupLoading,
     required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
     required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
   }) {
     return getRecommendedSuccess(this);
   }
@@ -4889,6 +6028,16 @@ class _$GetRecommendedSuccessImpl implements _GetRecommendedSuccess {
     TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
   }) {
     return getRecommendedSuccess?.call(this);
   }
@@ -4921,6 +6070,16 @@ class _$GetRecommendedSuccessImpl implements _GetRecommendedSuccess {
     TResult Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (getRecommendedSuccess != null) {
@@ -5030,6 +6189,15 @@ class _$GetRecommendedFailureImpl implements _GetRecommendedFailure {
     required TResult Function() joinGroupLoading,
     required TResult Function(dynamic response) joinGroupSuccess,
     required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
   }) {
     return getRecommendedFailure(error);
   }
@@ -5061,6 +6229,15 @@ class _$GetRecommendedFailureImpl implements _GetRecommendedFailure {
     TResult? Function()? joinGroupLoading,
     TResult? Function(dynamic response)? joinGroupSuccess,
     TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
   }) {
     return getRecommendedFailure?.call(error);
   }
@@ -5092,6 +6269,15 @@ class _$GetRecommendedFailureImpl implements _GetRecommendedFailure {
     TResult Function()? joinGroupLoading,
     TResult Function(dynamic response)? joinGroupSuccess,
     TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (getRecommendedFailure != null) {
@@ -5131,6 +6317,20 @@ class _$GetRecommendedFailureImpl implements _GetRecommendedFailure {
     required TResult Function(_JoinGroupLoading value) joinGroupLoading,
     required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
     required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
   }) {
     return getRecommendedFailure(this);
   }
@@ -5163,6 +6363,16 @@ class _$GetRecommendedFailureImpl implements _GetRecommendedFailure {
     TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
   }) {
     return getRecommendedFailure?.call(this);
   }
@@ -5195,6 +6405,16 @@ class _$GetRecommendedFailureImpl implements _GetRecommendedFailure {
     TResult Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (getRecommendedFailure != null) {
@@ -5276,6 +6496,15 @@ class _$JoinGroupLoadingImpl implements _JoinGroupLoading {
     required TResult Function() joinGroupLoading,
     required TResult Function(dynamic response) joinGroupSuccess,
     required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
   }) {
     return joinGroupLoading();
   }
@@ -5307,6 +6536,15 @@ class _$JoinGroupLoadingImpl implements _JoinGroupLoading {
     TResult? Function()? joinGroupLoading,
     TResult? Function(dynamic response)? joinGroupSuccess,
     TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
   }) {
     return joinGroupLoading?.call();
   }
@@ -5338,6 +6576,15 @@ class _$JoinGroupLoadingImpl implements _JoinGroupLoading {
     TResult Function()? joinGroupLoading,
     TResult Function(dynamic response)? joinGroupSuccess,
     TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (joinGroupLoading != null) {
@@ -5377,6 +6624,20 @@ class _$JoinGroupLoadingImpl implements _JoinGroupLoading {
     required TResult Function(_JoinGroupLoading value) joinGroupLoading,
     required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
     required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
   }) {
     return joinGroupLoading(this);
   }
@@ -5409,6 +6670,16 @@ class _$JoinGroupLoadingImpl implements _JoinGroupLoading {
     TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
   }) {
     return joinGroupLoading?.call(this);
   }
@@ -5441,6 +6712,16 @@ class _$JoinGroupLoadingImpl implements _JoinGroupLoading {
     TResult Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (joinGroupLoading != null) {
@@ -5544,6 +6825,15 @@ class _$JoinGroupSuccessImpl implements _JoinGroupSuccess {
     required TResult Function() joinGroupLoading,
     required TResult Function(dynamic response) joinGroupSuccess,
     required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
   }) {
     return joinGroupSuccess(response);
   }
@@ -5575,6 +6865,15 @@ class _$JoinGroupSuccessImpl implements _JoinGroupSuccess {
     TResult? Function()? joinGroupLoading,
     TResult? Function(dynamic response)? joinGroupSuccess,
     TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
   }) {
     return joinGroupSuccess?.call(response);
   }
@@ -5606,6 +6905,15 @@ class _$JoinGroupSuccessImpl implements _JoinGroupSuccess {
     TResult Function()? joinGroupLoading,
     TResult Function(dynamic response)? joinGroupSuccess,
     TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (joinGroupSuccess != null) {
@@ -5645,6 +6953,20 @@ class _$JoinGroupSuccessImpl implements _JoinGroupSuccess {
     required TResult Function(_JoinGroupLoading value) joinGroupLoading,
     required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
     required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
   }) {
     return joinGroupSuccess(this);
   }
@@ -5677,6 +6999,16 @@ class _$JoinGroupSuccessImpl implements _JoinGroupSuccess {
     TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
   }) {
     return joinGroupSuccess?.call(this);
   }
@@ -5709,6 +7041,16 @@ class _$JoinGroupSuccessImpl implements _JoinGroupSuccess {
     TResult Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (joinGroupSuccess != null) {
@@ -5817,6 +7159,15 @@ class _$JoinGroupFailureImpl implements _JoinGroupFailure {
     required TResult Function() joinGroupLoading,
     required TResult Function(dynamic response) joinGroupSuccess,
     required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
   }) {
     return joinGroupFailureState(error);
   }
@@ -5848,6 +7199,15 @@ class _$JoinGroupFailureImpl implements _JoinGroupFailure {
     TResult? Function()? joinGroupLoading,
     TResult? Function(dynamic response)? joinGroupSuccess,
     TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
   }) {
     return joinGroupFailureState?.call(error);
   }
@@ -5879,6 +7239,15 @@ class _$JoinGroupFailureImpl implements _JoinGroupFailure {
     TResult Function()? joinGroupLoading,
     TResult Function(dynamic response)? joinGroupSuccess,
     TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (joinGroupFailureState != null) {
@@ -5918,6 +7287,20 @@ class _$JoinGroupFailureImpl implements _JoinGroupFailure {
     required TResult Function(_JoinGroupLoading value) joinGroupLoading,
     required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
     required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
   }) {
     return joinGroupFailureState(this);
   }
@@ -5950,6 +7333,16 @@ class _$JoinGroupFailureImpl implements _JoinGroupFailure {
     TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
   }) {
     return joinGroupFailureState?.call(this);
   }
@@ -5982,6 +7375,16 @@ class _$JoinGroupFailureImpl implements _JoinGroupFailure {
     TResult Function(_JoinGroupLoading value)? joinGroupLoading,
     TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
     TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
     required TResult orElse(),
   }) {
     if (joinGroupFailureState != null) {
@@ -5998,4 +7401,2923 @@ abstract class _JoinGroupFailure implements GroupsState {
   @JsonKey(ignore: true)
   _$$JoinGroupFailureImplCopyWith<_$JoinGroupFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AddGroupRuleLoadingImplCopyWith<$Res> {
+  factory _$$AddGroupRuleLoadingImplCopyWith(_$AddGroupRuleLoadingImpl value,
+          $Res Function(_$AddGroupRuleLoadingImpl) then) =
+      __$$AddGroupRuleLoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$AddGroupRuleLoadingImplCopyWithImpl<$Res>
+    extends _$GroupsStateCopyWithImpl<$Res, _$AddGroupRuleLoadingImpl>
+    implements _$$AddGroupRuleLoadingImplCopyWith<$Res> {
+  __$$AddGroupRuleLoadingImplCopyWithImpl(_$AddGroupRuleLoadingImpl _value,
+      $Res Function(_$AddGroupRuleLoadingImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$AddGroupRuleLoadingImpl implements _AddGroupRuleLoading {
+  const _$AddGroupRuleLoadingImpl();
+
+  @override
+  String toString() {
+    return 'GroupsState.addGroupRuleLoading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AddGroupRuleLoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() getGroupsLoading,
+    required TResult Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)
+        getGroupsSuccess,
+    required TResult Function(String error) getGroupsFailure,
+    required TResult Function() getFollowingGroupMembersLoading,
+    required TResult Function(dynamic response) getFollowingGroupMembersSuccess,
+    required TResult Function(String error) getFollowingGroupMembersFailure,
+    required TResult Function() updateGroupLoading,
+    required TResult Function(dynamic response) updateGroupSuccess,
+    required TResult Function(String error) updateGroupFailure,
+    required TResult Function() getGroupLoading,
+    required TResult Function(TalkamGroup response) getGroupSuccess,
+    required TResult Function(String error) getGroupFailure,
+    required TResult Function() deleteGroupLoading,
+    required TResult Function(dynamic response) deleteGroupSuccess,
+    required TResult Function(String error) deleteGroupFailure,
+    required TResult Function() getRecommendedLoading,
+    required TResult Function(GetGroupsResponse response) getRecommendedSuccess,
+    required TResult Function(String error) getRecommendedFailure,
+    required TResult Function() joinGroupLoading,
+    required TResult Function(dynamic response) joinGroupSuccess,
+    required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
+  }) {
+    return addGroupRuleLoading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? getGroupsLoading,
+    TResult? Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)?
+        getGroupsSuccess,
+    TResult? Function(String error)? getGroupsFailure,
+    TResult? Function()? getFollowingGroupMembersLoading,
+    TResult? Function(dynamic response)? getFollowingGroupMembersSuccess,
+    TResult? Function(String error)? getFollowingGroupMembersFailure,
+    TResult? Function()? updateGroupLoading,
+    TResult? Function(dynamic response)? updateGroupSuccess,
+    TResult? Function(String error)? updateGroupFailure,
+    TResult? Function()? getGroupLoading,
+    TResult? Function(TalkamGroup response)? getGroupSuccess,
+    TResult? Function(String error)? getGroupFailure,
+    TResult? Function()? deleteGroupLoading,
+    TResult? Function(dynamic response)? deleteGroupSuccess,
+    TResult? Function(String error)? deleteGroupFailure,
+    TResult? Function()? getRecommendedLoading,
+    TResult? Function(GetGroupsResponse response)? getRecommendedSuccess,
+    TResult? Function(String error)? getRecommendedFailure,
+    TResult? Function()? joinGroupLoading,
+    TResult? Function(dynamic response)? joinGroupSuccess,
+    TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
+  }) {
+    return addGroupRuleLoading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? getGroupsLoading,
+    TResult Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)?
+        getGroupsSuccess,
+    TResult Function(String error)? getGroupsFailure,
+    TResult Function()? getFollowingGroupMembersLoading,
+    TResult Function(dynamic response)? getFollowingGroupMembersSuccess,
+    TResult Function(String error)? getFollowingGroupMembersFailure,
+    TResult Function()? updateGroupLoading,
+    TResult Function(dynamic response)? updateGroupSuccess,
+    TResult Function(String error)? updateGroupFailure,
+    TResult Function()? getGroupLoading,
+    TResult Function(TalkamGroup response)? getGroupSuccess,
+    TResult Function(String error)? getGroupFailure,
+    TResult Function()? deleteGroupLoading,
+    TResult Function(dynamic response)? deleteGroupSuccess,
+    TResult Function(String error)? deleteGroupFailure,
+    TResult Function()? getRecommendedLoading,
+    TResult Function(GetGroupsResponse response)? getRecommendedSuccess,
+    TResult Function(String error)? getRecommendedFailure,
+    TResult Function()? joinGroupLoading,
+    TResult Function(dynamic response)? joinGroupSuccess,
+    TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
+    required TResult orElse(),
+  }) {
+    if (addGroupRuleLoading != null) {
+      return addGroupRuleLoading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_GetGroupsLoading value) getGroupsLoading,
+    required TResult Function(_GetGroupsSuccess value) getGroupsSuccess,
+    required TResult Function(_GetGroupsFailure value) getGroupsFailure,
+    required TResult Function(_GetFollowingGroupMembersLoading value)
+        getFollowingGroupMembersLoading,
+    required TResult Function(_GetFollowingGroupMembersSuccess value)
+        getFollowingGroupMembersSuccess,
+    required TResult Function(_GetFollowingGroupMembersFailure value)
+        getFollowingGroupMembersFailure,
+    required TResult Function(_UpdateGroupLoading value) updateGroupLoading,
+    required TResult Function(_UpdateGroupSuccess value) updateGroupSuccess,
+    required TResult Function(_UpdateGroupFailure value) updateGroupFailure,
+    required TResult Function(_GetGroupLoading value) getGroupLoading,
+    required TResult Function(_GetGroupSuccess value) getGroupSuccess,
+    required TResult Function(_GetGroupFailure value) getGroupFailure,
+    required TResult Function(_DeleteGroupLoading value) deleteGroupLoading,
+    required TResult Function(_DeleteGroupSuccess value) deleteGroupSuccess,
+    required TResult Function(_DeleteGroupFailure value) deleteGroupFailure,
+    required TResult Function(_GetRecommendedLoading value)
+        getRecommendedLoading,
+    required TResult Function(_GetRecommendedSuccess value)
+        getRecommendedSuccess,
+    required TResult Function(_GetRecommendedFailure value)
+        getRecommendedFailure,
+    required TResult Function(_JoinGroupLoading value) joinGroupLoading,
+    required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
+    required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
+  }) {
+    return addGroupRuleLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_GetGroupsLoading value)? getGroupsLoading,
+    TResult? Function(_GetGroupsSuccess value)? getGroupsSuccess,
+    TResult? Function(_GetGroupsFailure value)? getGroupsFailure,
+    TResult? Function(_GetFollowingGroupMembersLoading value)?
+        getFollowingGroupMembersLoading,
+    TResult? Function(_GetFollowingGroupMembersSuccess value)?
+        getFollowingGroupMembersSuccess,
+    TResult? Function(_GetFollowingGroupMembersFailure value)?
+        getFollowingGroupMembersFailure,
+    TResult? Function(_UpdateGroupLoading value)? updateGroupLoading,
+    TResult? Function(_UpdateGroupSuccess value)? updateGroupSuccess,
+    TResult? Function(_UpdateGroupFailure value)? updateGroupFailure,
+    TResult? Function(_GetGroupLoading value)? getGroupLoading,
+    TResult? Function(_GetGroupSuccess value)? getGroupSuccess,
+    TResult? Function(_GetGroupFailure value)? getGroupFailure,
+    TResult? Function(_DeleteGroupLoading value)? deleteGroupLoading,
+    TResult? Function(_DeleteGroupSuccess value)? deleteGroupSuccess,
+    TResult? Function(_DeleteGroupFailure value)? deleteGroupFailure,
+    TResult? Function(_GetRecommendedLoading value)? getRecommendedLoading,
+    TResult? Function(_GetRecommendedSuccess value)? getRecommendedSuccess,
+    TResult? Function(_GetRecommendedFailure value)? getRecommendedFailure,
+    TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
+    TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
+    TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
+  }) {
+    return addGroupRuleLoading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_GetGroupsLoading value)? getGroupsLoading,
+    TResult Function(_GetGroupsSuccess value)? getGroupsSuccess,
+    TResult Function(_GetGroupsFailure value)? getGroupsFailure,
+    TResult Function(_GetFollowingGroupMembersLoading value)?
+        getFollowingGroupMembersLoading,
+    TResult Function(_GetFollowingGroupMembersSuccess value)?
+        getFollowingGroupMembersSuccess,
+    TResult Function(_GetFollowingGroupMembersFailure value)?
+        getFollowingGroupMembersFailure,
+    TResult Function(_UpdateGroupLoading value)? updateGroupLoading,
+    TResult Function(_UpdateGroupSuccess value)? updateGroupSuccess,
+    TResult Function(_UpdateGroupFailure value)? updateGroupFailure,
+    TResult Function(_GetGroupLoading value)? getGroupLoading,
+    TResult Function(_GetGroupSuccess value)? getGroupSuccess,
+    TResult Function(_GetGroupFailure value)? getGroupFailure,
+    TResult Function(_DeleteGroupLoading value)? deleteGroupLoading,
+    TResult Function(_DeleteGroupSuccess value)? deleteGroupSuccess,
+    TResult Function(_DeleteGroupFailure value)? deleteGroupFailure,
+    TResult Function(_GetRecommendedLoading value)? getRecommendedLoading,
+    TResult Function(_GetRecommendedSuccess value)? getRecommendedSuccess,
+    TResult Function(_GetRecommendedFailure value)? getRecommendedFailure,
+    TResult Function(_JoinGroupLoading value)? joinGroupLoading,
+    TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
+    TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
+    required TResult orElse(),
+  }) {
+    if (addGroupRuleLoading != null) {
+      return addGroupRuleLoading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AddGroupRuleLoading implements GroupsState {
+  const factory _AddGroupRuleLoading() = _$AddGroupRuleLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$AddGroupRuleSuccessImplCopyWith<$Res> {
+  factory _$$AddGroupRuleSuccessImplCopyWith(_$AddGroupRuleSuccessImpl value,
+          $Res Function(_$AddGroupRuleSuccessImpl) then) =
+      __$$AddGroupRuleSuccessImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({GroupGuideline response});
+}
+
+/// @nodoc
+class __$$AddGroupRuleSuccessImplCopyWithImpl<$Res>
+    extends _$GroupsStateCopyWithImpl<$Res, _$AddGroupRuleSuccessImpl>
+    implements _$$AddGroupRuleSuccessImplCopyWith<$Res> {
+  __$$AddGroupRuleSuccessImplCopyWithImpl(_$AddGroupRuleSuccessImpl _value,
+      $Res Function(_$AddGroupRuleSuccessImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? response = null,
+  }) {
+    return _then(_$AddGroupRuleSuccessImpl(
+      null == response
+          ? _value.response
+          : response // ignore: cast_nullable_to_non_nullable
+              as GroupGuideline,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$AddGroupRuleSuccessImpl implements _AddGroupRuleSuccess {
+  const _$AddGroupRuleSuccessImpl(this.response);
+
+  @override
+  final GroupGuideline response;
+
+  @override
+  String toString() {
+    return 'GroupsState.addGroupRuleSuccess(response: $response)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AddGroupRuleSuccessImpl &&
+            (identical(other.response, response) ||
+                other.response == response));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, response);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AddGroupRuleSuccessImplCopyWith<_$AddGroupRuleSuccessImpl> get copyWith =>
+      __$$AddGroupRuleSuccessImplCopyWithImpl<_$AddGroupRuleSuccessImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() getGroupsLoading,
+    required TResult Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)
+        getGroupsSuccess,
+    required TResult Function(String error) getGroupsFailure,
+    required TResult Function() getFollowingGroupMembersLoading,
+    required TResult Function(dynamic response) getFollowingGroupMembersSuccess,
+    required TResult Function(String error) getFollowingGroupMembersFailure,
+    required TResult Function() updateGroupLoading,
+    required TResult Function(dynamic response) updateGroupSuccess,
+    required TResult Function(String error) updateGroupFailure,
+    required TResult Function() getGroupLoading,
+    required TResult Function(TalkamGroup response) getGroupSuccess,
+    required TResult Function(String error) getGroupFailure,
+    required TResult Function() deleteGroupLoading,
+    required TResult Function(dynamic response) deleteGroupSuccess,
+    required TResult Function(String error) deleteGroupFailure,
+    required TResult Function() getRecommendedLoading,
+    required TResult Function(GetGroupsResponse response) getRecommendedSuccess,
+    required TResult Function(String error) getRecommendedFailure,
+    required TResult Function() joinGroupLoading,
+    required TResult Function(dynamic response) joinGroupSuccess,
+    required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
+  }) {
+    return addGroupRuleSuccess(response);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? getGroupsLoading,
+    TResult? Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)?
+        getGroupsSuccess,
+    TResult? Function(String error)? getGroupsFailure,
+    TResult? Function()? getFollowingGroupMembersLoading,
+    TResult? Function(dynamic response)? getFollowingGroupMembersSuccess,
+    TResult? Function(String error)? getFollowingGroupMembersFailure,
+    TResult? Function()? updateGroupLoading,
+    TResult? Function(dynamic response)? updateGroupSuccess,
+    TResult? Function(String error)? updateGroupFailure,
+    TResult? Function()? getGroupLoading,
+    TResult? Function(TalkamGroup response)? getGroupSuccess,
+    TResult? Function(String error)? getGroupFailure,
+    TResult? Function()? deleteGroupLoading,
+    TResult? Function(dynamic response)? deleteGroupSuccess,
+    TResult? Function(String error)? deleteGroupFailure,
+    TResult? Function()? getRecommendedLoading,
+    TResult? Function(GetGroupsResponse response)? getRecommendedSuccess,
+    TResult? Function(String error)? getRecommendedFailure,
+    TResult? Function()? joinGroupLoading,
+    TResult? Function(dynamic response)? joinGroupSuccess,
+    TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
+  }) {
+    return addGroupRuleSuccess?.call(response);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? getGroupsLoading,
+    TResult Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)?
+        getGroupsSuccess,
+    TResult Function(String error)? getGroupsFailure,
+    TResult Function()? getFollowingGroupMembersLoading,
+    TResult Function(dynamic response)? getFollowingGroupMembersSuccess,
+    TResult Function(String error)? getFollowingGroupMembersFailure,
+    TResult Function()? updateGroupLoading,
+    TResult Function(dynamic response)? updateGroupSuccess,
+    TResult Function(String error)? updateGroupFailure,
+    TResult Function()? getGroupLoading,
+    TResult Function(TalkamGroup response)? getGroupSuccess,
+    TResult Function(String error)? getGroupFailure,
+    TResult Function()? deleteGroupLoading,
+    TResult Function(dynamic response)? deleteGroupSuccess,
+    TResult Function(String error)? deleteGroupFailure,
+    TResult Function()? getRecommendedLoading,
+    TResult Function(GetGroupsResponse response)? getRecommendedSuccess,
+    TResult Function(String error)? getRecommendedFailure,
+    TResult Function()? joinGroupLoading,
+    TResult Function(dynamic response)? joinGroupSuccess,
+    TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
+    required TResult orElse(),
+  }) {
+    if (addGroupRuleSuccess != null) {
+      return addGroupRuleSuccess(response);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_GetGroupsLoading value) getGroupsLoading,
+    required TResult Function(_GetGroupsSuccess value) getGroupsSuccess,
+    required TResult Function(_GetGroupsFailure value) getGroupsFailure,
+    required TResult Function(_GetFollowingGroupMembersLoading value)
+        getFollowingGroupMembersLoading,
+    required TResult Function(_GetFollowingGroupMembersSuccess value)
+        getFollowingGroupMembersSuccess,
+    required TResult Function(_GetFollowingGroupMembersFailure value)
+        getFollowingGroupMembersFailure,
+    required TResult Function(_UpdateGroupLoading value) updateGroupLoading,
+    required TResult Function(_UpdateGroupSuccess value) updateGroupSuccess,
+    required TResult Function(_UpdateGroupFailure value) updateGroupFailure,
+    required TResult Function(_GetGroupLoading value) getGroupLoading,
+    required TResult Function(_GetGroupSuccess value) getGroupSuccess,
+    required TResult Function(_GetGroupFailure value) getGroupFailure,
+    required TResult Function(_DeleteGroupLoading value) deleteGroupLoading,
+    required TResult Function(_DeleteGroupSuccess value) deleteGroupSuccess,
+    required TResult Function(_DeleteGroupFailure value) deleteGroupFailure,
+    required TResult Function(_GetRecommendedLoading value)
+        getRecommendedLoading,
+    required TResult Function(_GetRecommendedSuccess value)
+        getRecommendedSuccess,
+    required TResult Function(_GetRecommendedFailure value)
+        getRecommendedFailure,
+    required TResult Function(_JoinGroupLoading value) joinGroupLoading,
+    required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
+    required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
+  }) {
+    return addGroupRuleSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_GetGroupsLoading value)? getGroupsLoading,
+    TResult? Function(_GetGroupsSuccess value)? getGroupsSuccess,
+    TResult? Function(_GetGroupsFailure value)? getGroupsFailure,
+    TResult? Function(_GetFollowingGroupMembersLoading value)?
+        getFollowingGroupMembersLoading,
+    TResult? Function(_GetFollowingGroupMembersSuccess value)?
+        getFollowingGroupMembersSuccess,
+    TResult? Function(_GetFollowingGroupMembersFailure value)?
+        getFollowingGroupMembersFailure,
+    TResult? Function(_UpdateGroupLoading value)? updateGroupLoading,
+    TResult? Function(_UpdateGroupSuccess value)? updateGroupSuccess,
+    TResult? Function(_UpdateGroupFailure value)? updateGroupFailure,
+    TResult? Function(_GetGroupLoading value)? getGroupLoading,
+    TResult? Function(_GetGroupSuccess value)? getGroupSuccess,
+    TResult? Function(_GetGroupFailure value)? getGroupFailure,
+    TResult? Function(_DeleteGroupLoading value)? deleteGroupLoading,
+    TResult? Function(_DeleteGroupSuccess value)? deleteGroupSuccess,
+    TResult? Function(_DeleteGroupFailure value)? deleteGroupFailure,
+    TResult? Function(_GetRecommendedLoading value)? getRecommendedLoading,
+    TResult? Function(_GetRecommendedSuccess value)? getRecommendedSuccess,
+    TResult? Function(_GetRecommendedFailure value)? getRecommendedFailure,
+    TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
+    TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
+    TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
+  }) {
+    return addGroupRuleSuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_GetGroupsLoading value)? getGroupsLoading,
+    TResult Function(_GetGroupsSuccess value)? getGroupsSuccess,
+    TResult Function(_GetGroupsFailure value)? getGroupsFailure,
+    TResult Function(_GetFollowingGroupMembersLoading value)?
+        getFollowingGroupMembersLoading,
+    TResult Function(_GetFollowingGroupMembersSuccess value)?
+        getFollowingGroupMembersSuccess,
+    TResult Function(_GetFollowingGroupMembersFailure value)?
+        getFollowingGroupMembersFailure,
+    TResult Function(_UpdateGroupLoading value)? updateGroupLoading,
+    TResult Function(_UpdateGroupSuccess value)? updateGroupSuccess,
+    TResult Function(_UpdateGroupFailure value)? updateGroupFailure,
+    TResult Function(_GetGroupLoading value)? getGroupLoading,
+    TResult Function(_GetGroupSuccess value)? getGroupSuccess,
+    TResult Function(_GetGroupFailure value)? getGroupFailure,
+    TResult Function(_DeleteGroupLoading value)? deleteGroupLoading,
+    TResult Function(_DeleteGroupSuccess value)? deleteGroupSuccess,
+    TResult Function(_DeleteGroupFailure value)? deleteGroupFailure,
+    TResult Function(_GetRecommendedLoading value)? getRecommendedLoading,
+    TResult Function(_GetRecommendedSuccess value)? getRecommendedSuccess,
+    TResult Function(_GetRecommendedFailure value)? getRecommendedFailure,
+    TResult Function(_JoinGroupLoading value)? joinGroupLoading,
+    TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
+    TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
+    required TResult orElse(),
+  }) {
+    if (addGroupRuleSuccess != null) {
+      return addGroupRuleSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AddGroupRuleSuccess implements GroupsState {
+  const factory _AddGroupRuleSuccess(final GroupGuideline response) =
+      _$AddGroupRuleSuccessImpl;
+
+  GroupGuideline get response;
+  @JsonKey(ignore: true)
+  _$$AddGroupRuleSuccessImplCopyWith<_$AddGroupRuleSuccessImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$AddGroupRuleFailureImplCopyWith<$Res> {
+  factory _$$AddGroupRuleFailureImplCopyWith(_$AddGroupRuleFailureImpl value,
+          $Res Function(_$AddGroupRuleFailureImpl) then) =
+      __$$AddGroupRuleFailureImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class __$$AddGroupRuleFailureImplCopyWithImpl<$Res>
+    extends _$GroupsStateCopyWithImpl<$Res, _$AddGroupRuleFailureImpl>
+    implements _$$AddGroupRuleFailureImplCopyWith<$Res> {
+  __$$AddGroupRuleFailureImplCopyWithImpl(_$AddGroupRuleFailureImpl _value,
+      $Res Function(_$AddGroupRuleFailureImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$AddGroupRuleFailureImpl(
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$AddGroupRuleFailureImpl implements _AddGroupRuleFailure {
+  const _$AddGroupRuleFailureImpl(this.error);
+
+  @override
+  final String error;
+
+  @override
+  String toString() {
+    return 'GroupsState.addGroupRuleFailureState(error: $error)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$AddGroupRuleFailureImpl &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$AddGroupRuleFailureImplCopyWith<_$AddGroupRuleFailureImpl> get copyWith =>
+      __$$AddGroupRuleFailureImplCopyWithImpl<_$AddGroupRuleFailureImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() getGroupsLoading,
+    required TResult Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)
+        getGroupsSuccess,
+    required TResult Function(String error) getGroupsFailure,
+    required TResult Function() getFollowingGroupMembersLoading,
+    required TResult Function(dynamic response) getFollowingGroupMembersSuccess,
+    required TResult Function(String error) getFollowingGroupMembersFailure,
+    required TResult Function() updateGroupLoading,
+    required TResult Function(dynamic response) updateGroupSuccess,
+    required TResult Function(String error) updateGroupFailure,
+    required TResult Function() getGroupLoading,
+    required TResult Function(TalkamGroup response) getGroupSuccess,
+    required TResult Function(String error) getGroupFailure,
+    required TResult Function() deleteGroupLoading,
+    required TResult Function(dynamic response) deleteGroupSuccess,
+    required TResult Function(String error) deleteGroupFailure,
+    required TResult Function() getRecommendedLoading,
+    required TResult Function(GetGroupsResponse response) getRecommendedSuccess,
+    required TResult Function(String error) getRecommendedFailure,
+    required TResult Function() joinGroupLoading,
+    required TResult Function(dynamic response) joinGroupSuccess,
+    required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
+  }) {
+    return addGroupRuleFailureState(error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? getGroupsLoading,
+    TResult? Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)?
+        getGroupsSuccess,
+    TResult? Function(String error)? getGroupsFailure,
+    TResult? Function()? getFollowingGroupMembersLoading,
+    TResult? Function(dynamic response)? getFollowingGroupMembersSuccess,
+    TResult? Function(String error)? getFollowingGroupMembersFailure,
+    TResult? Function()? updateGroupLoading,
+    TResult? Function(dynamic response)? updateGroupSuccess,
+    TResult? Function(String error)? updateGroupFailure,
+    TResult? Function()? getGroupLoading,
+    TResult? Function(TalkamGroup response)? getGroupSuccess,
+    TResult? Function(String error)? getGroupFailure,
+    TResult? Function()? deleteGroupLoading,
+    TResult? Function(dynamic response)? deleteGroupSuccess,
+    TResult? Function(String error)? deleteGroupFailure,
+    TResult? Function()? getRecommendedLoading,
+    TResult? Function(GetGroupsResponse response)? getRecommendedSuccess,
+    TResult? Function(String error)? getRecommendedFailure,
+    TResult? Function()? joinGroupLoading,
+    TResult? Function(dynamic response)? joinGroupSuccess,
+    TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
+  }) {
+    return addGroupRuleFailureState?.call(error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? getGroupsLoading,
+    TResult Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)?
+        getGroupsSuccess,
+    TResult Function(String error)? getGroupsFailure,
+    TResult Function()? getFollowingGroupMembersLoading,
+    TResult Function(dynamic response)? getFollowingGroupMembersSuccess,
+    TResult Function(String error)? getFollowingGroupMembersFailure,
+    TResult Function()? updateGroupLoading,
+    TResult Function(dynamic response)? updateGroupSuccess,
+    TResult Function(String error)? updateGroupFailure,
+    TResult Function()? getGroupLoading,
+    TResult Function(TalkamGroup response)? getGroupSuccess,
+    TResult Function(String error)? getGroupFailure,
+    TResult Function()? deleteGroupLoading,
+    TResult Function(dynamic response)? deleteGroupSuccess,
+    TResult Function(String error)? deleteGroupFailure,
+    TResult Function()? getRecommendedLoading,
+    TResult Function(GetGroupsResponse response)? getRecommendedSuccess,
+    TResult Function(String error)? getRecommendedFailure,
+    TResult Function()? joinGroupLoading,
+    TResult Function(dynamic response)? joinGroupSuccess,
+    TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
+    required TResult orElse(),
+  }) {
+    if (addGroupRuleFailureState != null) {
+      return addGroupRuleFailureState(error);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_GetGroupsLoading value) getGroupsLoading,
+    required TResult Function(_GetGroupsSuccess value) getGroupsSuccess,
+    required TResult Function(_GetGroupsFailure value) getGroupsFailure,
+    required TResult Function(_GetFollowingGroupMembersLoading value)
+        getFollowingGroupMembersLoading,
+    required TResult Function(_GetFollowingGroupMembersSuccess value)
+        getFollowingGroupMembersSuccess,
+    required TResult Function(_GetFollowingGroupMembersFailure value)
+        getFollowingGroupMembersFailure,
+    required TResult Function(_UpdateGroupLoading value) updateGroupLoading,
+    required TResult Function(_UpdateGroupSuccess value) updateGroupSuccess,
+    required TResult Function(_UpdateGroupFailure value) updateGroupFailure,
+    required TResult Function(_GetGroupLoading value) getGroupLoading,
+    required TResult Function(_GetGroupSuccess value) getGroupSuccess,
+    required TResult Function(_GetGroupFailure value) getGroupFailure,
+    required TResult Function(_DeleteGroupLoading value) deleteGroupLoading,
+    required TResult Function(_DeleteGroupSuccess value) deleteGroupSuccess,
+    required TResult Function(_DeleteGroupFailure value) deleteGroupFailure,
+    required TResult Function(_GetRecommendedLoading value)
+        getRecommendedLoading,
+    required TResult Function(_GetRecommendedSuccess value)
+        getRecommendedSuccess,
+    required TResult Function(_GetRecommendedFailure value)
+        getRecommendedFailure,
+    required TResult Function(_JoinGroupLoading value) joinGroupLoading,
+    required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
+    required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
+  }) {
+    return addGroupRuleFailureState(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_GetGroupsLoading value)? getGroupsLoading,
+    TResult? Function(_GetGroupsSuccess value)? getGroupsSuccess,
+    TResult? Function(_GetGroupsFailure value)? getGroupsFailure,
+    TResult? Function(_GetFollowingGroupMembersLoading value)?
+        getFollowingGroupMembersLoading,
+    TResult? Function(_GetFollowingGroupMembersSuccess value)?
+        getFollowingGroupMembersSuccess,
+    TResult? Function(_GetFollowingGroupMembersFailure value)?
+        getFollowingGroupMembersFailure,
+    TResult? Function(_UpdateGroupLoading value)? updateGroupLoading,
+    TResult? Function(_UpdateGroupSuccess value)? updateGroupSuccess,
+    TResult? Function(_UpdateGroupFailure value)? updateGroupFailure,
+    TResult? Function(_GetGroupLoading value)? getGroupLoading,
+    TResult? Function(_GetGroupSuccess value)? getGroupSuccess,
+    TResult? Function(_GetGroupFailure value)? getGroupFailure,
+    TResult? Function(_DeleteGroupLoading value)? deleteGroupLoading,
+    TResult? Function(_DeleteGroupSuccess value)? deleteGroupSuccess,
+    TResult? Function(_DeleteGroupFailure value)? deleteGroupFailure,
+    TResult? Function(_GetRecommendedLoading value)? getRecommendedLoading,
+    TResult? Function(_GetRecommendedSuccess value)? getRecommendedSuccess,
+    TResult? Function(_GetRecommendedFailure value)? getRecommendedFailure,
+    TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
+    TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
+    TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
+  }) {
+    return addGroupRuleFailureState?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_GetGroupsLoading value)? getGroupsLoading,
+    TResult Function(_GetGroupsSuccess value)? getGroupsSuccess,
+    TResult Function(_GetGroupsFailure value)? getGroupsFailure,
+    TResult Function(_GetFollowingGroupMembersLoading value)?
+        getFollowingGroupMembersLoading,
+    TResult Function(_GetFollowingGroupMembersSuccess value)?
+        getFollowingGroupMembersSuccess,
+    TResult Function(_GetFollowingGroupMembersFailure value)?
+        getFollowingGroupMembersFailure,
+    TResult Function(_UpdateGroupLoading value)? updateGroupLoading,
+    TResult Function(_UpdateGroupSuccess value)? updateGroupSuccess,
+    TResult Function(_UpdateGroupFailure value)? updateGroupFailure,
+    TResult Function(_GetGroupLoading value)? getGroupLoading,
+    TResult Function(_GetGroupSuccess value)? getGroupSuccess,
+    TResult Function(_GetGroupFailure value)? getGroupFailure,
+    TResult Function(_DeleteGroupLoading value)? deleteGroupLoading,
+    TResult Function(_DeleteGroupSuccess value)? deleteGroupSuccess,
+    TResult Function(_DeleteGroupFailure value)? deleteGroupFailure,
+    TResult Function(_GetRecommendedLoading value)? getRecommendedLoading,
+    TResult Function(_GetRecommendedSuccess value)? getRecommendedSuccess,
+    TResult Function(_GetRecommendedFailure value)? getRecommendedFailure,
+    TResult Function(_JoinGroupLoading value)? joinGroupLoading,
+    TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
+    TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
+    required TResult orElse(),
+  }) {
+    if (addGroupRuleFailureState != null) {
+      return addGroupRuleFailureState(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _AddGroupRuleFailure implements GroupsState {
+  const factory _AddGroupRuleFailure(final String error) =
+      _$AddGroupRuleFailureImpl;
+
+  String get error;
+  @JsonKey(ignore: true)
+  _$$AddGroupRuleFailureImplCopyWith<_$AddGroupRuleFailureImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GetGroupRuleLoadingImplCopyWith<$Res> {
+  factory _$$GetGroupRuleLoadingImplCopyWith(_$GetGroupRuleLoadingImpl value,
+          $Res Function(_$GetGroupRuleLoadingImpl) then) =
+      __$$GetGroupRuleLoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetGroupRuleLoadingImplCopyWithImpl<$Res>
+    extends _$GroupsStateCopyWithImpl<$Res, _$GetGroupRuleLoadingImpl>
+    implements _$$GetGroupRuleLoadingImplCopyWith<$Res> {
+  __$$GetGroupRuleLoadingImplCopyWithImpl(_$GetGroupRuleLoadingImpl _value,
+      $Res Function(_$GetGroupRuleLoadingImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$GetGroupRuleLoadingImpl implements _GetGroupRuleLoading {
+  const _$GetGroupRuleLoadingImpl();
+
+  @override
+  String toString() {
+    return 'GroupsState.getGroupRuleLoading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetGroupRuleLoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() getGroupsLoading,
+    required TResult Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)
+        getGroupsSuccess,
+    required TResult Function(String error) getGroupsFailure,
+    required TResult Function() getFollowingGroupMembersLoading,
+    required TResult Function(dynamic response) getFollowingGroupMembersSuccess,
+    required TResult Function(String error) getFollowingGroupMembersFailure,
+    required TResult Function() updateGroupLoading,
+    required TResult Function(dynamic response) updateGroupSuccess,
+    required TResult Function(String error) updateGroupFailure,
+    required TResult Function() getGroupLoading,
+    required TResult Function(TalkamGroup response) getGroupSuccess,
+    required TResult Function(String error) getGroupFailure,
+    required TResult Function() deleteGroupLoading,
+    required TResult Function(dynamic response) deleteGroupSuccess,
+    required TResult Function(String error) deleteGroupFailure,
+    required TResult Function() getRecommendedLoading,
+    required TResult Function(GetGroupsResponse response) getRecommendedSuccess,
+    required TResult Function(String error) getRecommendedFailure,
+    required TResult Function() joinGroupLoading,
+    required TResult Function(dynamic response) joinGroupSuccess,
+    required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
+  }) {
+    return getGroupRuleLoading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? getGroupsLoading,
+    TResult? Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)?
+        getGroupsSuccess,
+    TResult? Function(String error)? getGroupsFailure,
+    TResult? Function()? getFollowingGroupMembersLoading,
+    TResult? Function(dynamic response)? getFollowingGroupMembersSuccess,
+    TResult? Function(String error)? getFollowingGroupMembersFailure,
+    TResult? Function()? updateGroupLoading,
+    TResult? Function(dynamic response)? updateGroupSuccess,
+    TResult? Function(String error)? updateGroupFailure,
+    TResult? Function()? getGroupLoading,
+    TResult? Function(TalkamGroup response)? getGroupSuccess,
+    TResult? Function(String error)? getGroupFailure,
+    TResult? Function()? deleteGroupLoading,
+    TResult? Function(dynamic response)? deleteGroupSuccess,
+    TResult? Function(String error)? deleteGroupFailure,
+    TResult? Function()? getRecommendedLoading,
+    TResult? Function(GetGroupsResponse response)? getRecommendedSuccess,
+    TResult? Function(String error)? getRecommendedFailure,
+    TResult? Function()? joinGroupLoading,
+    TResult? Function(dynamic response)? joinGroupSuccess,
+    TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
+  }) {
+    return getGroupRuleLoading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? getGroupsLoading,
+    TResult Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)?
+        getGroupsSuccess,
+    TResult Function(String error)? getGroupsFailure,
+    TResult Function()? getFollowingGroupMembersLoading,
+    TResult Function(dynamic response)? getFollowingGroupMembersSuccess,
+    TResult Function(String error)? getFollowingGroupMembersFailure,
+    TResult Function()? updateGroupLoading,
+    TResult Function(dynamic response)? updateGroupSuccess,
+    TResult Function(String error)? updateGroupFailure,
+    TResult Function()? getGroupLoading,
+    TResult Function(TalkamGroup response)? getGroupSuccess,
+    TResult Function(String error)? getGroupFailure,
+    TResult Function()? deleteGroupLoading,
+    TResult Function(dynamic response)? deleteGroupSuccess,
+    TResult Function(String error)? deleteGroupFailure,
+    TResult Function()? getRecommendedLoading,
+    TResult Function(GetGroupsResponse response)? getRecommendedSuccess,
+    TResult Function(String error)? getRecommendedFailure,
+    TResult Function()? joinGroupLoading,
+    TResult Function(dynamic response)? joinGroupSuccess,
+    TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
+    required TResult orElse(),
+  }) {
+    if (getGroupRuleLoading != null) {
+      return getGroupRuleLoading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_GetGroupsLoading value) getGroupsLoading,
+    required TResult Function(_GetGroupsSuccess value) getGroupsSuccess,
+    required TResult Function(_GetGroupsFailure value) getGroupsFailure,
+    required TResult Function(_GetFollowingGroupMembersLoading value)
+        getFollowingGroupMembersLoading,
+    required TResult Function(_GetFollowingGroupMembersSuccess value)
+        getFollowingGroupMembersSuccess,
+    required TResult Function(_GetFollowingGroupMembersFailure value)
+        getFollowingGroupMembersFailure,
+    required TResult Function(_UpdateGroupLoading value) updateGroupLoading,
+    required TResult Function(_UpdateGroupSuccess value) updateGroupSuccess,
+    required TResult Function(_UpdateGroupFailure value) updateGroupFailure,
+    required TResult Function(_GetGroupLoading value) getGroupLoading,
+    required TResult Function(_GetGroupSuccess value) getGroupSuccess,
+    required TResult Function(_GetGroupFailure value) getGroupFailure,
+    required TResult Function(_DeleteGroupLoading value) deleteGroupLoading,
+    required TResult Function(_DeleteGroupSuccess value) deleteGroupSuccess,
+    required TResult Function(_DeleteGroupFailure value) deleteGroupFailure,
+    required TResult Function(_GetRecommendedLoading value)
+        getRecommendedLoading,
+    required TResult Function(_GetRecommendedSuccess value)
+        getRecommendedSuccess,
+    required TResult Function(_GetRecommendedFailure value)
+        getRecommendedFailure,
+    required TResult Function(_JoinGroupLoading value) joinGroupLoading,
+    required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
+    required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
+  }) {
+    return getGroupRuleLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_GetGroupsLoading value)? getGroupsLoading,
+    TResult? Function(_GetGroupsSuccess value)? getGroupsSuccess,
+    TResult? Function(_GetGroupsFailure value)? getGroupsFailure,
+    TResult? Function(_GetFollowingGroupMembersLoading value)?
+        getFollowingGroupMembersLoading,
+    TResult? Function(_GetFollowingGroupMembersSuccess value)?
+        getFollowingGroupMembersSuccess,
+    TResult? Function(_GetFollowingGroupMembersFailure value)?
+        getFollowingGroupMembersFailure,
+    TResult? Function(_UpdateGroupLoading value)? updateGroupLoading,
+    TResult? Function(_UpdateGroupSuccess value)? updateGroupSuccess,
+    TResult? Function(_UpdateGroupFailure value)? updateGroupFailure,
+    TResult? Function(_GetGroupLoading value)? getGroupLoading,
+    TResult? Function(_GetGroupSuccess value)? getGroupSuccess,
+    TResult? Function(_GetGroupFailure value)? getGroupFailure,
+    TResult? Function(_DeleteGroupLoading value)? deleteGroupLoading,
+    TResult? Function(_DeleteGroupSuccess value)? deleteGroupSuccess,
+    TResult? Function(_DeleteGroupFailure value)? deleteGroupFailure,
+    TResult? Function(_GetRecommendedLoading value)? getRecommendedLoading,
+    TResult? Function(_GetRecommendedSuccess value)? getRecommendedSuccess,
+    TResult? Function(_GetRecommendedFailure value)? getRecommendedFailure,
+    TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
+    TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
+    TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
+  }) {
+    return getGroupRuleLoading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_GetGroupsLoading value)? getGroupsLoading,
+    TResult Function(_GetGroupsSuccess value)? getGroupsSuccess,
+    TResult Function(_GetGroupsFailure value)? getGroupsFailure,
+    TResult Function(_GetFollowingGroupMembersLoading value)?
+        getFollowingGroupMembersLoading,
+    TResult Function(_GetFollowingGroupMembersSuccess value)?
+        getFollowingGroupMembersSuccess,
+    TResult Function(_GetFollowingGroupMembersFailure value)?
+        getFollowingGroupMembersFailure,
+    TResult Function(_UpdateGroupLoading value)? updateGroupLoading,
+    TResult Function(_UpdateGroupSuccess value)? updateGroupSuccess,
+    TResult Function(_UpdateGroupFailure value)? updateGroupFailure,
+    TResult Function(_GetGroupLoading value)? getGroupLoading,
+    TResult Function(_GetGroupSuccess value)? getGroupSuccess,
+    TResult Function(_GetGroupFailure value)? getGroupFailure,
+    TResult Function(_DeleteGroupLoading value)? deleteGroupLoading,
+    TResult Function(_DeleteGroupSuccess value)? deleteGroupSuccess,
+    TResult Function(_DeleteGroupFailure value)? deleteGroupFailure,
+    TResult Function(_GetRecommendedLoading value)? getRecommendedLoading,
+    TResult Function(_GetRecommendedSuccess value)? getRecommendedSuccess,
+    TResult Function(_GetRecommendedFailure value)? getRecommendedFailure,
+    TResult Function(_JoinGroupLoading value)? joinGroupLoading,
+    TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
+    TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
+    required TResult orElse(),
+  }) {
+    if (getGroupRuleLoading != null) {
+      return getGroupRuleLoading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetGroupRuleLoading implements GroupsState {
+  const factory _GetGroupRuleLoading() = _$GetGroupRuleLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$GetGroupRuleSuccessImplCopyWith<$Res> {
+  factory _$$GetGroupRuleSuccessImplCopyWith(_$GetGroupRuleSuccessImpl value,
+          $Res Function(_$GetGroupRuleSuccessImpl) then) =
+      __$$GetGroupRuleSuccessImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({dynamic response});
+}
+
+/// @nodoc
+class __$$GetGroupRuleSuccessImplCopyWithImpl<$Res>
+    extends _$GroupsStateCopyWithImpl<$Res, _$GetGroupRuleSuccessImpl>
+    implements _$$GetGroupRuleSuccessImplCopyWith<$Res> {
+  __$$GetGroupRuleSuccessImplCopyWithImpl(_$GetGroupRuleSuccessImpl _value,
+      $Res Function(_$GetGroupRuleSuccessImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? response = freezed,
+  }) {
+    return _then(_$GetGroupRuleSuccessImpl(
+      freezed == response
+          ? _value.response
+          : response // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetGroupRuleSuccessImpl implements _GetGroupRuleSuccess {
+  const _$GetGroupRuleSuccessImpl(this.response);
+
+  @override
+  final dynamic response;
+
+  @override
+  String toString() {
+    return 'GroupsState.getGroupRuleSuccess(response: $response)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetGroupRuleSuccessImpl &&
+            const DeepCollectionEquality().equals(other.response, response));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetGroupRuleSuccessImplCopyWith<_$GetGroupRuleSuccessImpl> get copyWith =>
+      __$$GetGroupRuleSuccessImplCopyWithImpl<_$GetGroupRuleSuccessImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() getGroupsLoading,
+    required TResult Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)
+        getGroupsSuccess,
+    required TResult Function(String error) getGroupsFailure,
+    required TResult Function() getFollowingGroupMembersLoading,
+    required TResult Function(dynamic response) getFollowingGroupMembersSuccess,
+    required TResult Function(String error) getFollowingGroupMembersFailure,
+    required TResult Function() updateGroupLoading,
+    required TResult Function(dynamic response) updateGroupSuccess,
+    required TResult Function(String error) updateGroupFailure,
+    required TResult Function() getGroupLoading,
+    required TResult Function(TalkamGroup response) getGroupSuccess,
+    required TResult Function(String error) getGroupFailure,
+    required TResult Function() deleteGroupLoading,
+    required TResult Function(dynamic response) deleteGroupSuccess,
+    required TResult Function(String error) deleteGroupFailure,
+    required TResult Function() getRecommendedLoading,
+    required TResult Function(GetGroupsResponse response) getRecommendedSuccess,
+    required TResult Function(String error) getRecommendedFailure,
+    required TResult Function() joinGroupLoading,
+    required TResult Function(dynamic response) joinGroupSuccess,
+    required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
+  }) {
+    return getGroupRuleSuccess(response);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? getGroupsLoading,
+    TResult? Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)?
+        getGroupsSuccess,
+    TResult? Function(String error)? getGroupsFailure,
+    TResult? Function()? getFollowingGroupMembersLoading,
+    TResult? Function(dynamic response)? getFollowingGroupMembersSuccess,
+    TResult? Function(String error)? getFollowingGroupMembersFailure,
+    TResult? Function()? updateGroupLoading,
+    TResult? Function(dynamic response)? updateGroupSuccess,
+    TResult? Function(String error)? updateGroupFailure,
+    TResult? Function()? getGroupLoading,
+    TResult? Function(TalkamGroup response)? getGroupSuccess,
+    TResult? Function(String error)? getGroupFailure,
+    TResult? Function()? deleteGroupLoading,
+    TResult? Function(dynamic response)? deleteGroupSuccess,
+    TResult? Function(String error)? deleteGroupFailure,
+    TResult? Function()? getRecommendedLoading,
+    TResult? Function(GetGroupsResponse response)? getRecommendedSuccess,
+    TResult? Function(String error)? getRecommendedFailure,
+    TResult? Function()? joinGroupLoading,
+    TResult? Function(dynamic response)? joinGroupSuccess,
+    TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
+  }) {
+    return getGroupRuleSuccess?.call(response);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? getGroupsLoading,
+    TResult Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)?
+        getGroupsSuccess,
+    TResult Function(String error)? getGroupsFailure,
+    TResult Function()? getFollowingGroupMembersLoading,
+    TResult Function(dynamic response)? getFollowingGroupMembersSuccess,
+    TResult Function(String error)? getFollowingGroupMembersFailure,
+    TResult Function()? updateGroupLoading,
+    TResult Function(dynamic response)? updateGroupSuccess,
+    TResult Function(String error)? updateGroupFailure,
+    TResult Function()? getGroupLoading,
+    TResult Function(TalkamGroup response)? getGroupSuccess,
+    TResult Function(String error)? getGroupFailure,
+    TResult Function()? deleteGroupLoading,
+    TResult Function(dynamic response)? deleteGroupSuccess,
+    TResult Function(String error)? deleteGroupFailure,
+    TResult Function()? getRecommendedLoading,
+    TResult Function(GetGroupsResponse response)? getRecommendedSuccess,
+    TResult Function(String error)? getRecommendedFailure,
+    TResult Function()? joinGroupLoading,
+    TResult Function(dynamic response)? joinGroupSuccess,
+    TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
+    required TResult orElse(),
+  }) {
+    if (getGroupRuleSuccess != null) {
+      return getGroupRuleSuccess(response);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_GetGroupsLoading value) getGroupsLoading,
+    required TResult Function(_GetGroupsSuccess value) getGroupsSuccess,
+    required TResult Function(_GetGroupsFailure value) getGroupsFailure,
+    required TResult Function(_GetFollowingGroupMembersLoading value)
+        getFollowingGroupMembersLoading,
+    required TResult Function(_GetFollowingGroupMembersSuccess value)
+        getFollowingGroupMembersSuccess,
+    required TResult Function(_GetFollowingGroupMembersFailure value)
+        getFollowingGroupMembersFailure,
+    required TResult Function(_UpdateGroupLoading value) updateGroupLoading,
+    required TResult Function(_UpdateGroupSuccess value) updateGroupSuccess,
+    required TResult Function(_UpdateGroupFailure value) updateGroupFailure,
+    required TResult Function(_GetGroupLoading value) getGroupLoading,
+    required TResult Function(_GetGroupSuccess value) getGroupSuccess,
+    required TResult Function(_GetGroupFailure value) getGroupFailure,
+    required TResult Function(_DeleteGroupLoading value) deleteGroupLoading,
+    required TResult Function(_DeleteGroupSuccess value) deleteGroupSuccess,
+    required TResult Function(_DeleteGroupFailure value) deleteGroupFailure,
+    required TResult Function(_GetRecommendedLoading value)
+        getRecommendedLoading,
+    required TResult Function(_GetRecommendedSuccess value)
+        getRecommendedSuccess,
+    required TResult Function(_GetRecommendedFailure value)
+        getRecommendedFailure,
+    required TResult Function(_JoinGroupLoading value) joinGroupLoading,
+    required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
+    required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
+  }) {
+    return getGroupRuleSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_GetGroupsLoading value)? getGroupsLoading,
+    TResult? Function(_GetGroupsSuccess value)? getGroupsSuccess,
+    TResult? Function(_GetGroupsFailure value)? getGroupsFailure,
+    TResult? Function(_GetFollowingGroupMembersLoading value)?
+        getFollowingGroupMembersLoading,
+    TResult? Function(_GetFollowingGroupMembersSuccess value)?
+        getFollowingGroupMembersSuccess,
+    TResult? Function(_GetFollowingGroupMembersFailure value)?
+        getFollowingGroupMembersFailure,
+    TResult? Function(_UpdateGroupLoading value)? updateGroupLoading,
+    TResult? Function(_UpdateGroupSuccess value)? updateGroupSuccess,
+    TResult? Function(_UpdateGroupFailure value)? updateGroupFailure,
+    TResult? Function(_GetGroupLoading value)? getGroupLoading,
+    TResult? Function(_GetGroupSuccess value)? getGroupSuccess,
+    TResult? Function(_GetGroupFailure value)? getGroupFailure,
+    TResult? Function(_DeleteGroupLoading value)? deleteGroupLoading,
+    TResult? Function(_DeleteGroupSuccess value)? deleteGroupSuccess,
+    TResult? Function(_DeleteGroupFailure value)? deleteGroupFailure,
+    TResult? Function(_GetRecommendedLoading value)? getRecommendedLoading,
+    TResult? Function(_GetRecommendedSuccess value)? getRecommendedSuccess,
+    TResult? Function(_GetRecommendedFailure value)? getRecommendedFailure,
+    TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
+    TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
+    TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
+  }) {
+    return getGroupRuleSuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_GetGroupsLoading value)? getGroupsLoading,
+    TResult Function(_GetGroupsSuccess value)? getGroupsSuccess,
+    TResult Function(_GetGroupsFailure value)? getGroupsFailure,
+    TResult Function(_GetFollowingGroupMembersLoading value)?
+        getFollowingGroupMembersLoading,
+    TResult Function(_GetFollowingGroupMembersSuccess value)?
+        getFollowingGroupMembersSuccess,
+    TResult Function(_GetFollowingGroupMembersFailure value)?
+        getFollowingGroupMembersFailure,
+    TResult Function(_UpdateGroupLoading value)? updateGroupLoading,
+    TResult Function(_UpdateGroupSuccess value)? updateGroupSuccess,
+    TResult Function(_UpdateGroupFailure value)? updateGroupFailure,
+    TResult Function(_GetGroupLoading value)? getGroupLoading,
+    TResult Function(_GetGroupSuccess value)? getGroupSuccess,
+    TResult Function(_GetGroupFailure value)? getGroupFailure,
+    TResult Function(_DeleteGroupLoading value)? deleteGroupLoading,
+    TResult Function(_DeleteGroupSuccess value)? deleteGroupSuccess,
+    TResult Function(_DeleteGroupFailure value)? deleteGroupFailure,
+    TResult Function(_GetRecommendedLoading value)? getRecommendedLoading,
+    TResult Function(_GetRecommendedSuccess value)? getRecommendedSuccess,
+    TResult Function(_GetRecommendedFailure value)? getRecommendedFailure,
+    TResult Function(_JoinGroupLoading value)? joinGroupLoading,
+    TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
+    TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
+    required TResult orElse(),
+  }) {
+    if (getGroupRuleSuccess != null) {
+      return getGroupRuleSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetGroupRuleSuccess implements GroupsState {
+  const factory _GetGroupRuleSuccess(final dynamic response) =
+      _$GetGroupRuleSuccessImpl;
+
+  dynamic get response;
+  @JsonKey(ignore: true)
+  _$$GetGroupRuleSuccessImplCopyWith<_$GetGroupRuleSuccessImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GetGroupRuleFailureImplCopyWith<$Res> {
+  factory _$$GetGroupRuleFailureImplCopyWith(_$GetGroupRuleFailureImpl value,
+          $Res Function(_$GetGroupRuleFailureImpl) then) =
+      __$$GetGroupRuleFailureImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class __$$GetGroupRuleFailureImplCopyWithImpl<$Res>
+    extends _$GroupsStateCopyWithImpl<$Res, _$GetGroupRuleFailureImpl>
+    implements _$$GetGroupRuleFailureImplCopyWith<$Res> {
+  __$$GetGroupRuleFailureImplCopyWithImpl(_$GetGroupRuleFailureImpl _value,
+      $Res Function(_$GetGroupRuleFailureImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$GetGroupRuleFailureImpl(
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetGroupRuleFailureImpl implements _GetGroupRuleFailure {
+  const _$GetGroupRuleFailureImpl(this.error);
+
+  @override
+  final String error;
+
+  @override
+  String toString() {
+    return 'GroupsState.getGroupRuleFailureState(error: $error)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetGroupRuleFailureImpl &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetGroupRuleFailureImplCopyWith<_$GetGroupRuleFailureImpl> get copyWith =>
+      __$$GetGroupRuleFailureImplCopyWithImpl<_$GetGroupRuleFailureImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() getGroupsLoading,
+    required TResult Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)
+        getGroupsSuccess,
+    required TResult Function(String error) getGroupsFailure,
+    required TResult Function() getFollowingGroupMembersLoading,
+    required TResult Function(dynamic response) getFollowingGroupMembersSuccess,
+    required TResult Function(String error) getFollowingGroupMembersFailure,
+    required TResult Function() updateGroupLoading,
+    required TResult Function(dynamic response) updateGroupSuccess,
+    required TResult Function(String error) updateGroupFailure,
+    required TResult Function() getGroupLoading,
+    required TResult Function(TalkamGroup response) getGroupSuccess,
+    required TResult Function(String error) getGroupFailure,
+    required TResult Function() deleteGroupLoading,
+    required TResult Function(dynamic response) deleteGroupSuccess,
+    required TResult Function(String error) deleteGroupFailure,
+    required TResult Function() getRecommendedLoading,
+    required TResult Function(GetGroupsResponse response) getRecommendedSuccess,
+    required TResult Function(String error) getRecommendedFailure,
+    required TResult Function() joinGroupLoading,
+    required TResult Function(dynamic response) joinGroupSuccess,
+    required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
+  }) {
+    return getGroupRuleFailureState(error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? getGroupsLoading,
+    TResult? Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)?
+        getGroupsSuccess,
+    TResult? Function(String error)? getGroupsFailure,
+    TResult? Function()? getFollowingGroupMembersLoading,
+    TResult? Function(dynamic response)? getFollowingGroupMembersSuccess,
+    TResult? Function(String error)? getFollowingGroupMembersFailure,
+    TResult? Function()? updateGroupLoading,
+    TResult? Function(dynamic response)? updateGroupSuccess,
+    TResult? Function(String error)? updateGroupFailure,
+    TResult? Function()? getGroupLoading,
+    TResult? Function(TalkamGroup response)? getGroupSuccess,
+    TResult? Function(String error)? getGroupFailure,
+    TResult? Function()? deleteGroupLoading,
+    TResult? Function(dynamic response)? deleteGroupSuccess,
+    TResult? Function(String error)? deleteGroupFailure,
+    TResult? Function()? getRecommendedLoading,
+    TResult? Function(GetGroupsResponse response)? getRecommendedSuccess,
+    TResult? Function(String error)? getRecommendedFailure,
+    TResult? Function()? joinGroupLoading,
+    TResult? Function(dynamic response)? joinGroupSuccess,
+    TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
+  }) {
+    return getGroupRuleFailureState?.call(error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? getGroupsLoading,
+    TResult Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)?
+        getGroupsSuccess,
+    TResult Function(String error)? getGroupsFailure,
+    TResult Function()? getFollowingGroupMembersLoading,
+    TResult Function(dynamic response)? getFollowingGroupMembersSuccess,
+    TResult Function(String error)? getFollowingGroupMembersFailure,
+    TResult Function()? updateGroupLoading,
+    TResult Function(dynamic response)? updateGroupSuccess,
+    TResult Function(String error)? updateGroupFailure,
+    TResult Function()? getGroupLoading,
+    TResult Function(TalkamGroup response)? getGroupSuccess,
+    TResult Function(String error)? getGroupFailure,
+    TResult Function()? deleteGroupLoading,
+    TResult Function(dynamic response)? deleteGroupSuccess,
+    TResult Function(String error)? deleteGroupFailure,
+    TResult Function()? getRecommendedLoading,
+    TResult Function(GetGroupsResponse response)? getRecommendedSuccess,
+    TResult Function(String error)? getRecommendedFailure,
+    TResult Function()? joinGroupLoading,
+    TResult Function(dynamic response)? joinGroupSuccess,
+    TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
+    required TResult orElse(),
+  }) {
+    if (getGroupRuleFailureState != null) {
+      return getGroupRuleFailureState(error);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_GetGroupsLoading value) getGroupsLoading,
+    required TResult Function(_GetGroupsSuccess value) getGroupsSuccess,
+    required TResult Function(_GetGroupsFailure value) getGroupsFailure,
+    required TResult Function(_GetFollowingGroupMembersLoading value)
+        getFollowingGroupMembersLoading,
+    required TResult Function(_GetFollowingGroupMembersSuccess value)
+        getFollowingGroupMembersSuccess,
+    required TResult Function(_GetFollowingGroupMembersFailure value)
+        getFollowingGroupMembersFailure,
+    required TResult Function(_UpdateGroupLoading value) updateGroupLoading,
+    required TResult Function(_UpdateGroupSuccess value) updateGroupSuccess,
+    required TResult Function(_UpdateGroupFailure value) updateGroupFailure,
+    required TResult Function(_GetGroupLoading value) getGroupLoading,
+    required TResult Function(_GetGroupSuccess value) getGroupSuccess,
+    required TResult Function(_GetGroupFailure value) getGroupFailure,
+    required TResult Function(_DeleteGroupLoading value) deleteGroupLoading,
+    required TResult Function(_DeleteGroupSuccess value) deleteGroupSuccess,
+    required TResult Function(_DeleteGroupFailure value) deleteGroupFailure,
+    required TResult Function(_GetRecommendedLoading value)
+        getRecommendedLoading,
+    required TResult Function(_GetRecommendedSuccess value)
+        getRecommendedSuccess,
+    required TResult Function(_GetRecommendedFailure value)
+        getRecommendedFailure,
+    required TResult Function(_JoinGroupLoading value) joinGroupLoading,
+    required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
+    required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
+  }) {
+    return getGroupRuleFailureState(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_GetGroupsLoading value)? getGroupsLoading,
+    TResult? Function(_GetGroupsSuccess value)? getGroupsSuccess,
+    TResult? Function(_GetGroupsFailure value)? getGroupsFailure,
+    TResult? Function(_GetFollowingGroupMembersLoading value)?
+        getFollowingGroupMembersLoading,
+    TResult? Function(_GetFollowingGroupMembersSuccess value)?
+        getFollowingGroupMembersSuccess,
+    TResult? Function(_GetFollowingGroupMembersFailure value)?
+        getFollowingGroupMembersFailure,
+    TResult? Function(_UpdateGroupLoading value)? updateGroupLoading,
+    TResult? Function(_UpdateGroupSuccess value)? updateGroupSuccess,
+    TResult? Function(_UpdateGroupFailure value)? updateGroupFailure,
+    TResult? Function(_GetGroupLoading value)? getGroupLoading,
+    TResult? Function(_GetGroupSuccess value)? getGroupSuccess,
+    TResult? Function(_GetGroupFailure value)? getGroupFailure,
+    TResult? Function(_DeleteGroupLoading value)? deleteGroupLoading,
+    TResult? Function(_DeleteGroupSuccess value)? deleteGroupSuccess,
+    TResult? Function(_DeleteGroupFailure value)? deleteGroupFailure,
+    TResult? Function(_GetRecommendedLoading value)? getRecommendedLoading,
+    TResult? Function(_GetRecommendedSuccess value)? getRecommendedSuccess,
+    TResult? Function(_GetRecommendedFailure value)? getRecommendedFailure,
+    TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
+    TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
+    TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
+  }) {
+    return getGroupRuleFailureState?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_GetGroupsLoading value)? getGroupsLoading,
+    TResult Function(_GetGroupsSuccess value)? getGroupsSuccess,
+    TResult Function(_GetGroupsFailure value)? getGroupsFailure,
+    TResult Function(_GetFollowingGroupMembersLoading value)?
+        getFollowingGroupMembersLoading,
+    TResult Function(_GetFollowingGroupMembersSuccess value)?
+        getFollowingGroupMembersSuccess,
+    TResult Function(_GetFollowingGroupMembersFailure value)?
+        getFollowingGroupMembersFailure,
+    TResult Function(_UpdateGroupLoading value)? updateGroupLoading,
+    TResult Function(_UpdateGroupSuccess value)? updateGroupSuccess,
+    TResult Function(_UpdateGroupFailure value)? updateGroupFailure,
+    TResult Function(_GetGroupLoading value)? getGroupLoading,
+    TResult Function(_GetGroupSuccess value)? getGroupSuccess,
+    TResult Function(_GetGroupFailure value)? getGroupFailure,
+    TResult Function(_DeleteGroupLoading value)? deleteGroupLoading,
+    TResult Function(_DeleteGroupSuccess value)? deleteGroupSuccess,
+    TResult Function(_DeleteGroupFailure value)? deleteGroupFailure,
+    TResult Function(_GetRecommendedLoading value)? getRecommendedLoading,
+    TResult Function(_GetRecommendedSuccess value)? getRecommendedSuccess,
+    TResult Function(_GetRecommendedFailure value)? getRecommendedFailure,
+    TResult Function(_JoinGroupLoading value)? joinGroupLoading,
+    TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
+    TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
+    required TResult orElse(),
+  }) {
+    if (getGroupRuleFailureState != null) {
+      return getGroupRuleFailureState(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetGroupRuleFailure implements GroupsState {
+  const factory _GetGroupRuleFailure(final String error) =
+      _$GetGroupRuleFailureImpl;
+
+  String get error;
+  @JsonKey(ignore: true)
+  _$$GetGroupRuleFailureImplCopyWith<_$GetGroupRuleFailureImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DeleteGroupRuleLoadingImplCopyWith<$Res> {
+  factory _$$DeleteGroupRuleLoadingImplCopyWith(
+          _$DeleteGroupRuleLoadingImpl value,
+          $Res Function(_$DeleteGroupRuleLoadingImpl) then) =
+      __$$DeleteGroupRuleLoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$DeleteGroupRuleLoadingImplCopyWithImpl<$Res>
+    extends _$GroupsStateCopyWithImpl<$Res, _$DeleteGroupRuleLoadingImpl>
+    implements _$$DeleteGroupRuleLoadingImplCopyWith<$Res> {
+  __$$DeleteGroupRuleLoadingImplCopyWithImpl(
+      _$DeleteGroupRuleLoadingImpl _value,
+      $Res Function(_$DeleteGroupRuleLoadingImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$DeleteGroupRuleLoadingImpl implements _DeleteGroupRuleLoading {
+  const _$DeleteGroupRuleLoadingImpl();
+
+  @override
+  String toString() {
+    return 'GroupsState.deleteGroupRuleLoading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeleteGroupRuleLoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() getGroupsLoading,
+    required TResult Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)
+        getGroupsSuccess,
+    required TResult Function(String error) getGroupsFailure,
+    required TResult Function() getFollowingGroupMembersLoading,
+    required TResult Function(dynamic response) getFollowingGroupMembersSuccess,
+    required TResult Function(String error) getFollowingGroupMembersFailure,
+    required TResult Function() updateGroupLoading,
+    required TResult Function(dynamic response) updateGroupSuccess,
+    required TResult Function(String error) updateGroupFailure,
+    required TResult Function() getGroupLoading,
+    required TResult Function(TalkamGroup response) getGroupSuccess,
+    required TResult Function(String error) getGroupFailure,
+    required TResult Function() deleteGroupLoading,
+    required TResult Function(dynamic response) deleteGroupSuccess,
+    required TResult Function(String error) deleteGroupFailure,
+    required TResult Function() getRecommendedLoading,
+    required TResult Function(GetGroupsResponse response) getRecommendedSuccess,
+    required TResult Function(String error) getRecommendedFailure,
+    required TResult Function() joinGroupLoading,
+    required TResult Function(dynamic response) joinGroupSuccess,
+    required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
+  }) {
+    return deleteGroupRuleLoading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? getGroupsLoading,
+    TResult? Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)?
+        getGroupsSuccess,
+    TResult? Function(String error)? getGroupsFailure,
+    TResult? Function()? getFollowingGroupMembersLoading,
+    TResult? Function(dynamic response)? getFollowingGroupMembersSuccess,
+    TResult? Function(String error)? getFollowingGroupMembersFailure,
+    TResult? Function()? updateGroupLoading,
+    TResult? Function(dynamic response)? updateGroupSuccess,
+    TResult? Function(String error)? updateGroupFailure,
+    TResult? Function()? getGroupLoading,
+    TResult? Function(TalkamGroup response)? getGroupSuccess,
+    TResult? Function(String error)? getGroupFailure,
+    TResult? Function()? deleteGroupLoading,
+    TResult? Function(dynamic response)? deleteGroupSuccess,
+    TResult? Function(String error)? deleteGroupFailure,
+    TResult? Function()? getRecommendedLoading,
+    TResult? Function(GetGroupsResponse response)? getRecommendedSuccess,
+    TResult? Function(String error)? getRecommendedFailure,
+    TResult? Function()? joinGroupLoading,
+    TResult? Function(dynamic response)? joinGroupSuccess,
+    TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
+  }) {
+    return deleteGroupRuleLoading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? getGroupsLoading,
+    TResult Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)?
+        getGroupsSuccess,
+    TResult Function(String error)? getGroupsFailure,
+    TResult Function()? getFollowingGroupMembersLoading,
+    TResult Function(dynamic response)? getFollowingGroupMembersSuccess,
+    TResult Function(String error)? getFollowingGroupMembersFailure,
+    TResult Function()? updateGroupLoading,
+    TResult Function(dynamic response)? updateGroupSuccess,
+    TResult Function(String error)? updateGroupFailure,
+    TResult Function()? getGroupLoading,
+    TResult Function(TalkamGroup response)? getGroupSuccess,
+    TResult Function(String error)? getGroupFailure,
+    TResult Function()? deleteGroupLoading,
+    TResult Function(dynamic response)? deleteGroupSuccess,
+    TResult Function(String error)? deleteGroupFailure,
+    TResult Function()? getRecommendedLoading,
+    TResult Function(GetGroupsResponse response)? getRecommendedSuccess,
+    TResult Function(String error)? getRecommendedFailure,
+    TResult Function()? joinGroupLoading,
+    TResult Function(dynamic response)? joinGroupSuccess,
+    TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
+    required TResult orElse(),
+  }) {
+    if (deleteGroupRuleLoading != null) {
+      return deleteGroupRuleLoading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_GetGroupsLoading value) getGroupsLoading,
+    required TResult Function(_GetGroupsSuccess value) getGroupsSuccess,
+    required TResult Function(_GetGroupsFailure value) getGroupsFailure,
+    required TResult Function(_GetFollowingGroupMembersLoading value)
+        getFollowingGroupMembersLoading,
+    required TResult Function(_GetFollowingGroupMembersSuccess value)
+        getFollowingGroupMembersSuccess,
+    required TResult Function(_GetFollowingGroupMembersFailure value)
+        getFollowingGroupMembersFailure,
+    required TResult Function(_UpdateGroupLoading value) updateGroupLoading,
+    required TResult Function(_UpdateGroupSuccess value) updateGroupSuccess,
+    required TResult Function(_UpdateGroupFailure value) updateGroupFailure,
+    required TResult Function(_GetGroupLoading value) getGroupLoading,
+    required TResult Function(_GetGroupSuccess value) getGroupSuccess,
+    required TResult Function(_GetGroupFailure value) getGroupFailure,
+    required TResult Function(_DeleteGroupLoading value) deleteGroupLoading,
+    required TResult Function(_DeleteGroupSuccess value) deleteGroupSuccess,
+    required TResult Function(_DeleteGroupFailure value) deleteGroupFailure,
+    required TResult Function(_GetRecommendedLoading value)
+        getRecommendedLoading,
+    required TResult Function(_GetRecommendedSuccess value)
+        getRecommendedSuccess,
+    required TResult Function(_GetRecommendedFailure value)
+        getRecommendedFailure,
+    required TResult Function(_JoinGroupLoading value) joinGroupLoading,
+    required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
+    required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
+  }) {
+    return deleteGroupRuleLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_GetGroupsLoading value)? getGroupsLoading,
+    TResult? Function(_GetGroupsSuccess value)? getGroupsSuccess,
+    TResult? Function(_GetGroupsFailure value)? getGroupsFailure,
+    TResult? Function(_GetFollowingGroupMembersLoading value)?
+        getFollowingGroupMembersLoading,
+    TResult? Function(_GetFollowingGroupMembersSuccess value)?
+        getFollowingGroupMembersSuccess,
+    TResult? Function(_GetFollowingGroupMembersFailure value)?
+        getFollowingGroupMembersFailure,
+    TResult? Function(_UpdateGroupLoading value)? updateGroupLoading,
+    TResult? Function(_UpdateGroupSuccess value)? updateGroupSuccess,
+    TResult? Function(_UpdateGroupFailure value)? updateGroupFailure,
+    TResult? Function(_GetGroupLoading value)? getGroupLoading,
+    TResult? Function(_GetGroupSuccess value)? getGroupSuccess,
+    TResult? Function(_GetGroupFailure value)? getGroupFailure,
+    TResult? Function(_DeleteGroupLoading value)? deleteGroupLoading,
+    TResult? Function(_DeleteGroupSuccess value)? deleteGroupSuccess,
+    TResult? Function(_DeleteGroupFailure value)? deleteGroupFailure,
+    TResult? Function(_GetRecommendedLoading value)? getRecommendedLoading,
+    TResult? Function(_GetRecommendedSuccess value)? getRecommendedSuccess,
+    TResult? Function(_GetRecommendedFailure value)? getRecommendedFailure,
+    TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
+    TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
+    TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
+  }) {
+    return deleteGroupRuleLoading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_GetGroupsLoading value)? getGroupsLoading,
+    TResult Function(_GetGroupsSuccess value)? getGroupsSuccess,
+    TResult Function(_GetGroupsFailure value)? getGroupsFailure,
+    TResult Function(_GetFollowingGroupMembersLoading value)?
+        getFollowingGroupMembersLoading,
+    TResult Function(_GetFollowingGroupMembersSuccess value)?
+        getFollowingGroupMembersSuccess,
+    TResult Function(_GetFollowingGroupMembersFailure value)?
+        getFollowingGroupMembersFailure,
+    TResult Function(_UpdateGroupLoading value)? updateGroupLoading,
+    TResult Function(_UpdateGroupSuccess value)? updateGroupSuccess,
+    TResult Function(_UpdateGroupFailure value)? updateGroupFailure,
+    TResult Function(_GetGroupLoading value)? getGroupLoading,
+    TResult Function(_GetGroupSuccess value)? getGroupSuccess,
+    TResult Function(_GetGroupFailure value)? getGroupFailure,
+    TResult Function(_DeleteGroupLoading value)? deleteGroupLoading,
+    TResult Function(_DeleteGroupSuccess value)? deleteGroupSuccess,
+    TResult Function(_DeleteGroupFailure value)? deleteGroupFailure,
+    TResult Function(_GetRecommendedLoading value)? getRecommendedLoading,
+    TResult Function(_GetRecommendedSuccess value)? getRecommendedSuccess,
+    TResult Function(_GetRecommendedFailure value)? getRecommendedFailure,
+    TResult Function(_JoinGroupLoading value)? joinGroupLoading,
+    TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
+    TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
+    required TResult orElse(),
+  }) {
+    if (deleteGroupRuleLoading != null) {
+      return deleteGroupRuleLoading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeleteGroupRuleLoading implements GroupsState {
+  const factory _DeleteGroupRuleLoading() = _$DeleteGroupRuleLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$DeleteGroupRuleSuccessImplCopyWith<$Res> {
+  factory _$$DeleteGroupRuleSuccessImplCopyWith(
+          _$DeleteGroupRuleSuccessImpl value,
+          $Res Function(_$DeleteGroupRuleSuccessImpl) then) =
+      __$$DeleteGroupRuleSuccessImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({dynamic response});
+}
+
+/// @nodoc
+class __$$DeleteGroupRuleSuccessImplCopyWithImpl<$Res>
+    extends _$GroupsStateCopyWithImpl<$Res, _$DeleteGroupRuleSuccessImpl>
+    implements _$$DeleteGroupRuleSuccessImplCopyWith<$Res> {
+  __$$DeleteGroupRuleSuccessImplCopyWithImpl(
+      _$DeleteGroupRuleSuccessImpl _value,
+      $Res Function(_$DeleteGroupRuleSuccessImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? response = freezed,
+  }) {
+    return _then(_$DeleteGroupRuleSuccessImpl(
+      freezed == response
+          ? _value.response
+          : response // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DeleteGroupRuleSuccessImpl implements _DeleteGroupRuleSuccess {
+  const _$DeleteGroupRuleSuccessImpl(this.response);
+
+  @override
+  final dynamic response;
+
+  @override
+  String toString() {
+    return 'GroupsState.deleteGroupRuleSuccess(response: $response)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeleteGroupRuleSuccessImpl &&
+            const DeepCollectionEquality().equals(other.response, response));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DeleteGroupRuleSuccessImplCopyWith<_$DeleteGroupRuleSuccessImpl>
+      get copyWith => __$$DeleteGroupRuleSuccessImplCopyWithImpl<
+          _$DeleteGroupRuleSuccessImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() getGroupsLoading,
+    required TResult Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)
+        getGroupsSuccess,
+    required TResult Function(String error) getGroupsFailure,
+    required TResult Function() getFollowingGroupMembersLoading,
+    required TResult Function(dynamic response) getFollowingGroupMembersSuccess,
+    required TResult Function(String error) getFollowingGroupMembersFailure,
+    required TResult Function() updateGroupLoading,
+    required TResult Function(dynamic response) updateGroupSuccess,
+    required TResult Function(String error) updateGroupFailure,
+    required TResult Function() getGroupLoading,
+    required TResult Function(TalkamGroup response) getGroupSuccess,
+    required TResult Function(String error) getGroupFailure,
+    required TResult Function() deleteGroupLoading,
+    required TResult Function(dynamic response) deleteGroupSuccess,
+    required TResult Function(String error) deleteGroupFailure,
+    required TResult Function() getRecommendedLoading,
+    required TResult Function(GetGroupsResponse response) getRecommendedSuccess,
+    required TResult Function(String error) getRecommendedFailure,
+    required TResult Function() joinGroupLoading,
+    required TResult Function(dynamic response) joinGroupSuccess,
+    required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
+  }) {
+    return deleteGroupRuleSuccess(response);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? getGroupsLoading,
+    TResult? Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)?
+        getGroupsSuccess,
+    TResult? Function(String error)? getGroupsFailure,
+    TResult? Function()? getFollowingGroupMembersLoading,
+    TResult? Function(dynamic response)? getFollowingGroupMembersSuccess,
+    TResult? Function(String error)? getFollowingGroupMembersFailure,
+    TResult? Function()? updateGroupLoading,
+    TResult? Function(dynamic response)? updateGroupSuccess,
+    TResult? Function(String error)? updateGroupFailure,
+    TResult? Function()? getGroupLoading,
+    TResult? Function(TalkamGroup response)? getGroupSuccess,
+    TResult? Function(String error)? getGroupFailure,
+    TResult? Function()? deleteGroupLoading,
+    TResult? Function(dynamic response)? deleteGroupSuccess,
+    TResult? Function(String error)? deleteGroupFailure,
+    TResult? Function()? getRecommendedLoading,
+    TResult? Function(GetGroupsResponse response)? getRecommendedSuccess,
+    TResult? Function(String error)? getRecommendedFailure,
+    TResult? Function()? joinGroupLoading,
+    TResult? Function(dynamic response)? joinGroupSuccess,
+    TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
+  }) {
+    return deleteGroupRuleSuccess?.call(response);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? getGroupsLoading,
+    TResult Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)?
+        getGroupsSuccess,
+    TResult Function(String error)? getGroupsFailure,
+    TResult Function()? getFollowingGroupMembersLoading,
+    TResult Function(dynamic response)? getFollowingGroupMembersSuccess,
+    TResult Function(String error)? getFollowingGroupMembersFailure,
+    TResult Function()? updateGroupLoading,
+    TResult Function(dynamic response)? updateGroupSuccess,
+    TResult Function(String error)? updateGroupFailure,
+    TResult Function()? getGroupLoading,
+    TResult Function(TalkamGroup response)? getGroupSuccess,
+    TResult Function(String error)? getGroupFailure,
+    TResult Function()? deleteGroupLoading,
+    TResult Function(dynamic response)? deleteGroupSuccess,
+    TResult Function(String error)? deleteGroupFailure,
+    TResult Function()? getRecommendedLoading,
+    TResult Function(GetGroupsResponse response)? getRecommendedSuccess,
+    TResult Function(String error)? getRecommendedFailure,
+    TResult Function()? joinGroupLoading,
+    TResult Function(dynamic response)? joinGroupSuccess,
+    TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
+    required TResult orElse(),
+  }) {
+    if (deleteGroupRuleSuccess != null) {
+      return deleteGroupRuleSuccess(response);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_GetGroupsLoading value) getGroupsLoading,
+    required TResult Function(_GetGroupsSuccess value) getGroupsSuccess,
+    required TResult Function(_GetGroupsFailure value) getGroupsFailure,
+    required TResult Function(_GetFollowingGroupMembersLoading value)
+        getFollowingGroupMembersLoading,
+    required TResult Function(_GetFollowingGroupMembersSuccess value)
+        getFollowingGroupMembersSuccess,
+    required TResult Function(_GetFollowingGroupMembersFailure value)
+        getFollowingGroupMembersFailure,
+    required TResult Function(_UpdateGroupLoading value) updateGroupLoading,
+    required TResult Function(_UpdateGroupSuccess value) updateGroupSuccess,
+    required TResult Function(_UpdateGroupFailure value) updateGroupFailure,
+    required TResult Function(_GetGroupLoading value) getGroupLoading,
+    required TResult Function(_GetGroupSuccess value) getGroupSuccess,
+    required TResult Function(_GetGroupFailure value) getGroupFailure,
+    required TResult Function(_DeleteGroupLoading value) deleteGroupLoading,
+    required TResult Function(_DeleteGroupSuccess value) deleteGroupSuccess,
+    required TResult Function(_DeleteGroupFailure value) deleteGroupFailure,
+    required TResult Function(_GetRecommendedLoading value)
+        getRecommendedLoading,
+    required TResult Function(_GetRecommendedSuccess value)
+        getRecommendedSuccess,
+    required TResult Function(_GetRecommendedFailure value)
+        getRecommendedFailure,
+    required TResult Function(_JoinGroupLoading value) joinGroupLoading,
+    required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
+    required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
+  }) {
+    return deleteGroupRuleSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_GetGroupsLoading value)? getGroupsLoading,
+    TResult? Function(_GetGroupsSuccess value)? getGroupsSuccess,
+    TResult? Function(_GetGroupsFailure value)? getGroupsFailure,
+    TResult? Function(_GetFollowingGroupMembersLoading value)?
+        getFollowingGroupMembersLoading,
+    TResult? Function(_GetFollowingGroupMembersSuccess value)?
+        getFollowingGroupMembersSuccess,
+    TResult? Function(_GetFollowingGroupMembersFailure value)?
+        getFollowingGroupMembersFailure,
+    TResult? Function(_UpdateGroupLoading value)? updateGroupLoading,
+    TResult? Function(_UpdateGroupSuccess value)? updateGroupSuccess,
+    TResult? Function(_UpdateGroupFailure value)? updateGroupFailure,
+    TResult? Function(_GetGroupLoading value)? getGroupLoading,
+    TResult? Function(_GetGroupSuccess value)? getGroupSuccess,
+    TResult? Function(_GetGroupFailure value)? getGroupFailure,
+    TResult? Function(_DeleteGroupLoading value)? deleteGroupLoading,
+    TResult? Function(_DeleteGroupSuccess value)? deleteGroupSuccess,
+    TResult? Function(_DeleteGroupFailure value)? deleteGroupFailure,
+    TResult? Function(_GetRecommendedLoading value)? getRecommendedLoading,
+    TResult? Function(_GetRecommendedSuccess value)? getRecommendedSuccess,
+    TResult? Function(_GetRecommendedFailure value)? getRecommendedFailure,
+    TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
+    TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
+    TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
+  }) {
+    return deleteGroupRuleSuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_GetGroupsLoading value)? getGroupsLoading,
+    TResult Function(_GetGroupsSuccess value)? getGroupsSuccess,
+    TResult Function(_GetGroupsFailure value)? getGroupsFailure,
+    TResult Function(_GetFollowingGroupMembersLoading value)?
+        getFollowingGroupMembersLoading,
+    TResult Function(_GetFollowingGroupMembersSuccess value)?
+        getFollowingGroupMembersSuccess,
+    TResult Function(_GetFollowingGroupMembersFailure value)?
+        getFollowingGroupMembersFailure,
+    TResult Function(_UpdateGroupLoading value)? updateGroupLoading,
+    TResult Function(_UpdateGroupSuccess value)? updateGroupSuccess,
+    TResult Function(_UpdateGroupFailure value)? updateGroupFailure,
+    TResult Function(_GetGroupLoading value)? getGroupLoading,
+    TResult Function(_GetGroupSuccess value)? getGroupSuccess,
+    TResult Function(_GetGroupFailure value)? getGroupFailure,
+    TResult Function(_DeleteGroupLoading value)? deleteGroupLoading,
+    TResult Function(_DeleteGroupSuccess value)? deleteGroupSuccess,
+    TResult Function(_DeleteGroupFailure value)? deleteGroupFailure,
+    TResult Function(_GetRecommendedLoading value)? getRecommendedLoading,
+    TResult Function(_GetRecommendedSuccess value)? getRecommendedSuccess,
+    TResult Function(_GetRecommendedFailure value)? getRecommendedFailure,
+    TResult Function(_JoinGroupLoading value)? joinGroupLoading,
+    TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
+    TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
+    required TResult orElse(),
+  }) {
+    if (deleteGroupRuleSuccess != null) {
+      return deleteGroupRuleSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeleteGroupRuleSuccess implements GroupsState {
+  const factory _DeleteGroupRuleSuccess(final dynamic response) =
+      _$DeleteGroupRuleSuccessImpl;
+
+  dynamic get response;
+  @JsonKey(ignore: true)
+  _$$DeleteGroupRuleSuccessImplCopyWith<_$DeleteGroupRuleSuccessImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$DeleteGroupRuleFailureImplCopyWith<$Res> {
+  factory _$$DeleteGroupRuleFailureImplCopyWith(
+          _$DeleteGroupRuleFailureImpl value,
+          $Res Function(_$DeleteGroupRuleFailureImpl) then) =
+      __$$DeleteGroupRuleFailureImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class __$$DeleteGroupRuleFailureImplCopyWithImpl<$Res>
+    extends _$GroupsStateCopyWithImpl<$Res, _$DeleteGroupRuleFailureImpl>
+    implements _$$DeleteGroupRuleFailureImplCopyWith<$Res> {
+  __$$DeleteGroupRuleFailureImplCopyWithImpl(
+      _$DeleteGroupRuleFailureImpl _value,
+      $Res Function(_$DeleteGroupRuleFailureImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$DeleteGroupRuleFailureImpl(
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$DeleteGroupRuleFailureImpl implements _DeleteGroupRuleFailure {
+  const _$DeleteGroupRuleFailureImpl(this.error);
+
+  @override
+  final String error;
+
+  @override
+  String toString() {
+    return 'GroupsState.deleteGroupRuleFailureState(error: $error)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$DeleteGroupRuleFailureImpl &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$DeleteGroupRuleFailureImplCopyWith<_$DeleteGroupRuleFailureImpl>
+      get copyWith => __$$DeleteGroupRuleFailureImplCopyWithImpl<
+          _$DeleteGroupRuleFailureImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() getGroupsLoading,
+    required TResult Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)
+        getGroupsSuccess,
+    required TResult Function(String error) getGroupsFailure,
+    required TResult Function() getFollowingGroupMembersLoading,
+    required TResult Function(dynamic response) getFollowingGroupMembersSuccess,
+    required TResult Function(String error) getFollowingGroupMembersFailure,
+    required TResult Function() updateGroupLoading,
+    required TResult Function(dynamic response) updateGroupSuccess,
+    required TResult Function(String error) updateGroupFailure,
+    required TResult Function() getGroupLoading,
+    required TResult Function(TalkamGroup response) getGroupSuccess,
+    required TResult Function(String error) getGroupFailure,
+    required TResult Function() deleteGroupLoading,
+    required TResult Function(dynamic response) deleteGroupSuccess,
+    required TResult Function(String error) deleteGroupFailure,
+    required TResult Function() getRecommendedLoading,
+    required TResult Function(GetGroupsResponse response) getRecommendedSuccess,
+    required TResult Function(String error) getRecommendedFailure,
+    required TResult Function() joinGroupLoading,
+    required TResult Function(dynamic response) joinGroupSuccess,
+    required TResult Function(String error) joinGroupFailureState,
+    required TResult Function() addGroupRuleLoading,
+    required TResult Function(GroupGuideline response) addGroupRuleSuccess,
+    required TResult Function(String error) addGroupRuleFailureState,
+    required TResult Function() getGroupRuleLoading,
+    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(String error) getGroupRuleFailureState,
+    required TResult Function() deleteGroupRuleLoading,
+    required TResult Function(dynamic response) deleteGroupRuleSuccess,
+    required TResult Function(String error) deleteGroupRuleFailureState,
+  }) {
+    return deleteGroupRuleFailureState(error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? getGroupsLoading,
+    TResult? Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)?
+        getGroupsSuccess,
+    TResult? Function(String error)? getGroupsFailure,
+    TResult? Function()? getFollowingGroupMembersLoading,
+    TResult? Function(dynamic response)? getFollowingGroupMembersSuccess,
+    TResult? Function(String error)? getFollowingGroupMembersFailure,
+    TResult? Function()? updateGroupLoading,
+    TResult? Function(dynamic response)? updateGroupSuccess,
+    TResult? Function(String error)? updateGroupFailure,
+    TResult? Function()? getGroupLoading,
+    TResult? Function(TalkamGroup response)? getGroupSuccess,
+    TResult? Function(String error)? getGroupFailure,
+    TResult? Function()? deleteGroupLoading,
+    TResult? Function(dynamic response)? deleteGroupSuccess,
+    TResult? Function(String error)? deleteGroupFailure,
+    TResult? Function()? getRecommendedLoading,
+    TResult? Function(GetGroupsResponse response)? getRecommendedSuccess,
+    TResult? Function(String error)? getRecommendedFailure,
+    TResult? Function()? joinGroupLoading,
+    TResult? Function(dynamic response)? joinGroupSuccess,
+    TResult? Function(String error)? joinGroupFailureState,
+    TResult? Function()? addGroupRuleLoading,
+    TResult? Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult? Function(String error)? addGroupRuleFailureState,
+    TResult? Function()? getGroupRuleLoading,
+    TResult? Function(dynamic response)? getGroupRuleSuccess,
+    TResult? Function(String error)? getGroupRuleFailureState,
+    TResult? Function()? deleteGroupRuleLoading,
+    TResult? Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult? Function(String error)? deleteGroupRuleFailureState,
+  }) {
+    return deleteGroupRuleFailureState?.call(error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? getGroupsLoading,
+    TResult Function(
+            List<TalkamGroup> groups, GroupPaginationMeta paginationData)?
+        getGroupsSuccess,
+    TResult Function(String error)? getGroupsFailure,
+    TResult Function()? getFollowingGroupMembersLoading,
+    TResult Function(dynamic response)? getFollowingGroupMembersSuccess,
+    TResult Function(String error)? getFollowingGroupMembersFailure,
+    TResult Function()? updateGroupLoading,
+    TResult Function(dynamic response)? updateGroupSuccess,
+    TResult Function(String error)? updateGroupFailure,
+    TResult Function()? getGroupLoading,
+    TResult Function(TalkamGroup response)? getGroupSuccess,
+    TResult Function(String error)? getGroupFailure,
+    TResult Function()? deleteGroupLoading,
+    TResult Function(dynamic response)? deleteGroupSuccess,
+    TResult Function(String error)? deleteGroupFailure,
+    TResult Function()? getRecommendedLoading,
+    TResult Function(GetGroupsResponse response)? getRecommendedSuccess,
+    TResult Function(String error)? getRecommendedFailure,
+    TResult Function()? joinGroupLoading,
+    TResult Function(dynamic response)? joinGroupSuccess,
+    TResult Function(String error)? joinGroupFailureState,
+    TResult Function()? addGroupRuleLoading,
+    TResult Function(GroupGuideline response)? addGroupRuleSuccess,
+    TResult Function(String error)? addGroupRuleFailureState,
+    TResult Function()? getGroupRuleLoading,
+    TResult Function(dynamic response)? getGroupRuleSuccess,
+    TResult Function(String error)? getGroupRuleFailureState,
+    TResult Function()? deleteGroupRuleLoading,
+    TResult Function(dynamic response)? deleteGroupRuleSuccess,
+    TResult Function(String error)? deleteGroupRuleFailureState,
+    required TResult orElse(),
+  }) {
+    if (deleteGroupRuleFailureState != null) {
+      return deleteGroupRuleFailureState(error);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_GetGroupsLoading value) getGroupsLoading,
+    required TResult Function(_GetGroupsSuccess value) getGroupsSuccess,
+    required TResult Function(_GetGroupsFailure value) getGroupsFailure,
+    required TResult Function(_GetFollowingGroupMembersLoading value)
+        getFollowingGroupMembersLoading,
+    required TResult Function(_GetFollowingGroupMembersSuccess value)
+        getFollowingGroupMembersSuccess,
+    required TResult Function(_GetFollowingGroupMembersFailure value)
+        getFollowingGroupMembersFailure,
+    required TResult Function(_UpdateGroupLoading value) updateGroupLoading,
+    required TResult Function(_UpdateGroupSuccess value) updateGroupSuccess,
+    required TResult Function(_UpdateGroupFailure value) updateGroupFailure,
+    required TResult Function(_GetGroupLoading value) getGroupLoading,
+    required TResult Function(_GetGroupSuccess value) getGroupSuccess,
+    required TResult Function(_GetGroupFailure value) getGroupFailure,
+    required TResult Function(_DeleteGroupLoading value) deleteGroupLoading,
+    required TResult Function(_DeleteGroupSuccess value) deleteGroupSuccess,
+    required TResult Function(_DeleteGroupFailure value) deleteGroupFailure,
+    required TResult Function(_GetRecommendedLoading value)
+        getRecommendedLoading,
+    required TResult Function(_GetRecommendedSuccess value)
+        getRecommendedSuccess,
+    required TResult Function(_GetRecommendedFailure value)
+        getRecommendedFailure,
+    required TResult Function(_JoinGroupLoading value) joinGroupLoading,
+    required TResult Function(_JoinGroupSuccess value) joinGroupSuccess,
+    required TResult Function(_JoinGroupFailure value) joinGroupFailureState,
+    required TResult Function(_AddGroupRuleLoading value) addGroupRuleLoading,
+    required TResult Function(_AddGroupRuleSuccess value) addGroupRuleSuccess,
+    required TResult Function(_AddGroupRuleFailure value)
+        addGroupRuleFailureState,
+    required TResult Function(_GetGroupRuleLoading value) getGroupRuleLoading,
+    required TResult Function(_GetGroupRuleSuccess value) getGroupRuleSuccess,
+    required TResult Function(_GetGroupRuleFailure value)
+        getGroupRuleFailureState,
+    required TResult Function(_DeleteGroupRuleLoading value)
+        deleteGroupRuleLoading,
+    required TResult Function(_DeleteGroupRuleSuccess value)
+        deleteGroupRuleSuccess,
+    required TResult Function(_DeleteGroupRuleFailure value)
+        deleteGroupRuleFailureState,
+  }) {
+    return deleteGroupRuleFailureState(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_GetGroupsLoading value)? getGroupsLoading,
+    TResult? Function(_GetGroupsSuccess value)? getGroupsSuccess,
+    TResult? Function(_GetGroupsFailure value)? getGroupsFailure,
+    TResult? Function(_GetFollowingGroupMembersLoading value)?
+        getFollowingGroupMembersLoading,
+    TResult? Function(_GetFollowingGroupMembersSuccess value)?
+        getFollowingGroupMembersSuccess,
+    TResult? Function(_GetFollowingGroupMembersFailure value)?
+        getFollowingGroupMembersFailure,
+    TResult? Function(_UpdateGroupLoading value)? updateGroupLoading,
+    TResult? Function(_UpdateGroupSuccess value)? updateGroupSuccess,
+    TResult? Function(_UpdateGroupFailure value)? updateGroupFailure,
+    TResult? Function(_GetGroupLoading value)? getGroupLoading,
+    TResult? Function(_GetGroupSuccess value)? getGroupSuccess,
+    TResult? Function(_GetGroupFailure value)? getGroupFailure,
+    TResult? Function(_DeleteGroupLoading value)? deleteGroupLoading,
+    TResult? Function(_DeleteGroupSuccess value)? deleteGroupSuccess,
+    TResult? Function(_DeleteGroupFailure value)? deleteGroupFailure,
+    TResult? Function(_GetRecommendedLoading value)? getRecommendedLoading,
+    TResult? Function(_GetRecommendedSuccess value)? getRecommendedSuccess,
+    TResult? Function(_GetRecommendedFailure value)? getRecommendedFailure,
+    TResult? Function(_JoinGroupLoading value)? joinGroupLoading,
+    TResult? Function(_JoinGroupSuccess value)? joinGroupSuccess,
+    TResult? Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult? Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult? Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult? Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult? Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult? Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult? Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult? Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult? Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult? Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
+  }) {
+    return deleteGroupRuleFailureState?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_GetGroupsLoading value)? getGroupsLoading,
+    TResult Function(_GetGroupsSuccess value)? getGroupsSuccess,
+    TResult Function(_GetGroupsFailure value)? getGroupsFailure,
+    TResult Function(_GetFollowingGroupMembersLoading value)?
+        getFollowingGroupMembersLoading,
+    TResult Function(_GetFollowingGroupMembersSuccess value)?
+        getFollowingGroupMembersSuccess,
+    TResult Function(_GetFollowingGroupMembersFailure value)?
+        getFollowingGroupMembersFailure,
+    TResult Function(_UpdateGroupLoading value)? updateGroupLoading,
+    TResult Function(_UpdateGroupSuccess value)? updateGroupSuccess,
+    TResult Function(_UpdateGroupFailure value)? updateGroupFailure,
+    TResult Function(_GetGroupLoading value)? getGroupLoading,
+    TResult Function(_GetGroupSuccess value)? getGroupSuccess,
+    TResult Function(_GetGroupFailure value)? getGroupFailure,
+    TResult Function(_DeleteGroupLoading value)? deleteGroupLoading,
+    TResult Function(_DeleteGroupSuccess value)? deleteGroupSuccess,
+    TResult Function(_DeleteGroupFailure value)? deleteGroupFailure,
+    TResult Function(_GetRecommendedLoading value)? getRecommendedLoading,
+    TResult Function(_GetRecommendedSuccess value)? getRecommendedSuccess,
+    TResult Function(_GetRecommendedFailure value)? getRecommendedFailure,
+    TResult Function(_JoinGroupLoading value)? joinGroupLoading,
+    TResult Function(_JoinGroupSuccess value)? joinGroupSuccess,
+    TResult Function(_JoinGroupFailure value)? joinGroupFailureState,
+    TResult Function(_AddGroupRuleLoading value)? addGroupRuleLoading,
+    TResult Function(_AddGroupRuleSuccess value)? addGroupRuleSuccess,
+    TResult Function(_AddGroupRuleFailure value)? addGroupRuleFailureState,
+    TResult Function(_GetGroupRuleLoading value)? getGroupRuleLoading,
+    TResult Function(_GetGroupRuleSuccess value)? getGroupRuleSuccess,
+    TResult Function(_GetGroupRuleFailure value)? getGroupRuleFailureState,
+    TResult Function(_DeleteGroupRuleLoading value)? deleteGroupRuleLoading,
+    TResult Function(_DeleteGroupRuleSuccess value)? deleteGroupRuleSuccess,
+    TResult Function(_DeleteGroupRuleFailure value)?
+        deleteGroupRuleFailureState,
+    required TResult orElse(),
+  }) {
+    if (deleteGroupRuleFailureState != null) {
+      return deleteGroupRuleFailureState(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _DeleteGroupRuleFailure implements GroupsState {
+  const factory _DeleteGroupRuleFailure(final String error) =
+      _$DeleteGroupRuleFailureImpl;
+
+  String get error;
+  @JsonKey(ignore: true)
+  _$$DeleteGroupRuleFailureImplCopyWith<_$DeleteGroupRuleFailureImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

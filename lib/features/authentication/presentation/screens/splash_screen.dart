@@ -8,7 +8,6 @@ import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
-
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 

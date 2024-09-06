@@ -90,6 +90,9 @@ class $AssetsImagesPngGen {
 class $AssetsImagesSvgsGen {
   const $AssetsImagesSvgsGen();
 
+  /// File path: assets/images/svgs/Empty-cuate.svg
+  String get emptyCuate => 'assets/images/svgs/Empty-cuate.svg';
+
   /// File path: assets/images/svgs/Group Add.svg
   String get groupAdd => 'assets/images/svgs/Group Add.svg';
 
@@ -168,6 +171,9 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/grid-03.svg
   String get grid03 => 'assets/images/svgs/grid-03.svg';
 
+  /// File path: assets/images/svgs/groupRequests.svg
+  String get groupRequests => 'assets/images/svgs/groupRequests.svg';
+
   /// File path: assets/images/svgs/groups.svg
   String get groups => 'assets/images/svgs/groups.svg';
 
@@ -218,6 +224,19 @@ class $AssetsImagesSvgsGen {
 
   /// File path: assets/images/svgs/message.svg
   String get message => 'assets/images/svgs/message.svg';
+
+  /// File path: assets/images/svgs/message_bubbles.svg
+  String get messageBubbles => 'assets/images/svgs/message_bubbles.svg';
+
+  /// File path: assets/images/svgs/message_read.svg
+  String get messageRead => 'assets/images/svgs/message_read.svg';
+
+  /// File path: assets/images/svgs/message_sent.svg
+  String get messageSent => 'assets/images/svgs/message_sent.svg';
+
+  /// File path: assets/images/svgs/new_message_indicator.svg
+  String get newMessageIndicator =>
+      'assets/images/svgs/new_message_indicator.svg';
 
   /// File path: assets/images/svgs/notification.svg
   String get notification => 'assets/images/svgs/notification.svg';
@@ -290,6 +309,7 @@ class $AssetsImagesSvgsGen {
 
   /// List of all assets
   List<String> get values => [
+        emptyCuate,
         groupAdd,
         icNew,
         icTrending,
@@ -316,6 +336,7 @@ class $AssetsImagesSvgsGen {
         gif,
         googleAuth,
         grid03,
+        groupRequests,
         groups,
         groupsAdd,
         guidlineIndicatior,
@@ -333,6 +354,10 @@ class $AssetsImagesSvgsGen {
         logo2,
         member,
         message,
+        messageBubbles,
+        messageRead,
+        messageSent,
+        newMessageIndicator,
         notification,
         profile,
         radioActive,
@@ -366,11 +391,16 @@ class Assets {
 }
 
 class AssetGenImage {
-  const AssetGenImage(this._assetName, {this.size = null});
+  const AssetGenImage(
+    this._assetName, {
+    this.size,
+    this.flavors = const {},
+  });
 
   final String _assetName;
 
   final Size? size;
+  final Set<String> flavors;
 
   Image image({
     Key? key,

@@ -67,7 +67,10 @@ class _GroupMediaTabState extends State<GroupMediaTab> {
                               child: CircularProgressIndicator());
                         }
 
-                        return PostItem(post: media[index]);
+                        return PostItem(
+                          post: media[index],
+                          showGroupAndCategory: false,
+                        );
                       },
                     ),
                   ),

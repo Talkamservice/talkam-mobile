@@ -17,14 +17,17 @@ import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 import 'package:talkam/features/post/presentation/widgets/confirm_report_dialog.dart';
 import 'package:talkam/features/post/presentation/widgets/report_sucess_dialog.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_posts_tab_cubit/profile_posts_tab_cubit.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 
 class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
-  PostActionSheet({super.key, required this.post});
+  PostActionSheet({super.key, required this.post, required this.onPostDeleted});
+
   TalkamPost post;
   final profileBloc = ProfileBloc(injector.get());
   final postBloc = PostBloc(injector.get());
+  final VoidCallback onPostDeleted;
 
   @override
   Widget build(BuildContext context) {
@@ -64,7 +67,7 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
                     tittle: "Get notifications for this post",
                     onTap: () {},
                   ),
-                  if (!post.isAnonymous.toBool && !commentIsFromLoggedInUser)
+                  if (!post.isAnonymous.toBool && !postIsFromLoggedInUser)
                     BlocListener<ProfileBloc, ProfileState>(
                       bloc: profileBloc,
                       listener: (context, state) {
@@ -91,7 +94,7 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
                         },
                       ),
                     ),
-                  if (!commentIsFromLoggedInUser && !(post.isReported ?? false))
+                  if (!postIsFromLoggedInUser && !(post.isReported ?? false))
                     BlocListener<PostBloc, PostState>(
                       bloc: postBloc,
                       listener: (context, state) {
@@ -142,6 +145,45 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
                         },
                       ),
                     ),
+
+                  if(postIsFromLoggedInUser)
+                    BlocListener<PostBloc, PostState>(
+                      bloc: postBloc,
+                      listener: (context, state) {
+                        state.maybeWhen(
+                          orElse: () => null,
+                          deletePostLoading: () =>
+                              CustomDialogs.showLoading(context),
+                          deletePostSuccess: () {
+                            // injector.get<ProfilePostsTabCubit>().fetchUserPosts();
+                            context.pop();
+                            context.pop();
+                            onPostDeleted();
+                        refreshPost(reload: false);
+                            CustomDialogs.success("Post Deleted");
+                          },
+                        );
+                      },
+                      child: _PostAction(
+                        imagePath: Assets.images.svgs.icDelete,
+                        tittle: "Delete post",
+                        onTap: () async {
+
+                          CustomDialogs.showConfirmDialog(
+                            context,
+                            message: "Are you sure you want to delete this post ?",
+                            tittle: "Delete post",
+                            onYes: () {
+
+                              context.pop();
+                              postBloc.add(PostEvent.deletePost(post.id.toString()));
+                            },
+                          );
+
+
+                        },
+                      ),
+                    ),
                 ],
               ),
               guestWidget: 0.verticalSpace),
@@ -152,22 +194,24 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
 
   void blockUser(BuildContext context) async {
     var reason =
-        await CustomDialogs.showCustomDialog(BlockReasonSheet(), context);
+    await CustomDialogs.showCustomDialog(BlockReasonSheet(), context);
     if (reason != null) {
       profileBloc.add(BlockUerEvent(post.user.id.toString()));
     }
   }
 
-  bool get commentIsFromLoggedInUser =>
-      post.user.id == injector.get<ProfileBloc>().appUser?.id;
+  bool get postIsFromLoggedInUser =>
+      post.user.id == injector
+          .get<ProfileBloc>()
+          .appUser
+          ?.id;
 }
 
 class _PostAction extends StatelessWidget {
-  const _PostAction(
-      {super.key,
-      required this.imagePath,
-      required this.tittle,
-      required this.onTap});
+  const _PostAction({super.key,
+    required this.imagePath,
+    required this.tittle,
+    required this.onTap});
 
   final String imagePath;
   final String tittle;
@@ -194,8 +238,8 @@ class _PostAction extends StatelessWidget {
             ),
           ),
           const Divider(
-              // thickness: 1,
-              )
+            // thickness: 1,
+          )
         ],
       ),
     );

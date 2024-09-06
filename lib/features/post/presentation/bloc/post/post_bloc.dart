@@ -21,6 +21,7 @@ part 'post_bloc.freezed.dart';
 class PostBloc extends Bloc<PostEvent, PostState> {
   final PostRepository _postRepository;
   List<TalkamGuidelineModel> talkamRules = [];
+  List<PostCategory> categories = [];
   List<PostCategory> subcategories = [];
 
   PostBloc(this._postRepository) : super(const PostState.initial()) {
@@ -63,16 +64,17 @@ class PostBloc extends Bloc<PostEvent, PostState> {
   Future<void> _mapGetCategoriesEventToState(
       Emitter<PostState> emit, _GetCategoriesEvent e) async {
 
+    if(e.refresh??true){
 
-    emit(const PostState.getCategoriesLoading());
+      emit(const PostState.getCategoriesLoading());
+    }
+
+
     try {
 
+      final response = await _postRepository.getCategories(categoryId: e.categoryId);
 
-
-      final response =
-          await _postRepository.getCategories(categoryId: e.categoryId);
-
-      subcategories = response.data;
+      categories = response.data;
 
       emit(PostState.getCategoriesSuccess(response));
     } catch (error) {
@@ -85,7 +87,6 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     emit(const PostState.getCategoriesLoading());
     try {
       final response = await _postRepository.getSubCategories();
-
       emit(PostState.getCategoriesSuccess(response));
     } catch (error) {
       emit(PostState.getCategoriesFailure(error.toString()));

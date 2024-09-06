@@ -11,6 +11,7 @@ import 'package:talkam/core/di/injector.dart';
 
 /// A class for managing sessions, handles saving and retrieving of data
 class SessionManager {
+
   SessionManager._internal();
 
   SharedPreferences? sharedPreferences;
@@ -44,6 +45,7 @@ class SessionManager {
   static const String IS_CONTACT_PERMITTED = 'permit_contact';
   static const String KEY_USER_EMAIL = 'logged_in_user_email';
 
+
   Map<String, dynamic> get usersData =>
       json.decode(sharedPreferences!.getString(KEY_USERS_DATA) ?? '{}');
 
@@ -58,6 +60,8 @@ class SessionManager {
   set arrivedHome(bool allowed) {
     sharedPreferences!.setBool(IS_CONTACT_PERMITTED, allowed);
   }
+
+  bool isMe(String id) => usersData["id"].toString() == id;
 
   bool get arrivedHome =>
       sharedPreferences!.getBool(IS_CONTACT_PERMITTED) ?? false;

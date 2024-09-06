@@ -2,10 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item.dart';
 import 'package:talkam/features/search/presentation/blocs/groups_search/groups_search_cubit.dart';
 import 'package:talkam/features/search/presentation/blocs/post_search/post_search_cubit.dart';
@@ -70,7 +72,19 @@ class _GroupsResultTabState extends State<GroupsResultTab>
                           return const Center(
                               child: CircularProgressIndicator());
                         }
-                        return GroupResultItem(group: posts[index]);
+                        return InkWell(
+                          onTap: () {
+
+                            context.pushNamed(
+                                PageUrl.groupsInfoScreen,
+                                extra: posts[index].id.toString());
+                          },
+                          child: GroupResultItem(group: posts[index], onJoinStateChanged: () {
+
+                            bloc.searchGroup(widget.query,shouldRefresh: false);
+
+                          },),
+                        );
                       },
                     ),
                   );

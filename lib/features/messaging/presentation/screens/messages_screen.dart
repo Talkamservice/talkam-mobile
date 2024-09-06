@@ -1,15 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:talkam/common/widgets/custom_dialogs.dart';
+import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/common/widgets/typeahead_widget.dart';
+import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
+import 'package:talkam/features/messaging/data/models/conversations_filter.dart';
+import 'package:talkam/features/messaging/presentation/blocs/conversations/conversations_cubit.dart';
+import 'package:talkam/features/messaging/presentation/blocs/conversations/conversations_cubit.dart';
 import 'package:talkam/features/messaging/presentation/widgets/messages_list.dart';
+import 'package:talkam/features/notifications/presentation/bloc/notification_bloc.dart';
 import 'package:talkam/features/search/data/models/get_search_response.dart';
 import 'package:talkam/features/search/presentation/blocs/search/search_cubit.dart';
 import 'package:talkam/gen/assets.gen.dart';
@@ -46,72 +54,102 @@ class _MessagesScreenState extends State<MessagesScreen> {
     "I missed it. Heard it was a close one th....",
   ];
 
+  final _searchController = TextEditingController();
+
+  @override
+  void initState() {
+    injector.get<ConversationsCubit>().getConversations();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Pallets.white,
       body: Column(
         children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 30, left: 1, right: 18),
+          const Padding(
+            padding: EdgeInsets.only(top: 30, left: 1, right: 18),
             child: MessageAppBar(),
           ),
           2.verticalSpace,
-          Container(
+          SizedBox(
             width: 1.sw,
             child: const Divider(
               thickness: 1,
             ),
           ),
-          Padding(
+
+          GuestUserHelper.guestUserWidget(widget: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: GenericTypeAheadField<SearchResponse>(
-              labelText: "Search messages",
-              suggestionsCallback: (query) async {
-                return [];
-              },
-              itemBuilder: (context, suggestion) {
-                return Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16.0, vertical: 5),
-                  child: TextView(text: suggestion.word),
-                );
-              },
-              builder: (p0, p1, p2) {
-                return MessageSearchField(
-                  controller: p1,
-                  focusNode: p2,
-                );
-              },
-              onSuggestionSelected: (suggestion) {
-                injector.get<SearchCubit>().fetchRecentSearches();
-                context
-                    .pushNamed(PageUrl.searchResultScreen,
-                        extra: suggestion.word)
-                    .then(
-                  (value) {
-                    FocusScope.of(context).unfocus();
-                    injector
-                        .get<SearchCubit>()
-                        .fetchRecentSearches(reload: false);
+            child: MessageSearchField(
+              controller: _searchController,
+              onChanged: (p0) {
+                GuestUserHelper.handleGuestUserAction(
+                  action: () {
+
+                    Debouncer(milliseconds: 100).run(
+                          () {
+                        injector
+                            .get<ConversationsCubit>()
+                            .getConversations(reload: false, filter: ConversationsFilter(status: "", search: _searchController.text, tab: ""));
+                      },
+                    );
                   },
                 );
               },
+              // focusNode: p2,
             ),
-          ),
-          Expanded(
-              child: GestureDetector(
-                  onTap: () {
-                    context.pushNamed(PageUrl.chatScreen);
-                  },
-                  child: MessagesList(
-                    name: names,
-                    message: messages,
-                  )))
+          ),guestWidget: 0.verticalSpace ),
+          GuestUserHelper.guestUserWidget(
+              guestWidget:  AppErrorWidget(
+                title: "You are a guest",
+                retryText: "Sign In",
+                onTap: () {
+
+                  context.pushNamed(PageUrl.onboardingIntro);
+                },
+                message: "You cannot view messages because you are a guest, Please signin to view messages.",
+              ),
+              widget: Expanded(
+                  child: BlocConsumer<ConversationsCubit, ConversationsState>(
+                bloc: injector.get(),
+                buildWhen: _buildWhen,
+                listener: (context, state) {},
+                builder: (context, state) {
+                  return state.maybeWhen(
+                    orElse: () => 0.verticalSpace,
+                    getConversationsFailure: (error) {
+                      return AppErrorWidget(
+                        onTap: () {
+                          injector.get<ConversationsCubit>().getConversations();
+                        },
+                      );
+                    },
+                    getConversationsLoading: () {
+                      return CustomDialogs.getLoading(size: 40);
+                    },
+                    getConversationsSuccess: (response) {
+                      return MessagesList(
+                        message: response.data,
+                      );
+                    },
+                  );
+                },
+              )))
         ],
       ),
     );
   }
+}
+
+bool _buildWhen(ConversationsState previous, ConversationsState current) {
+  return current.maybeWhen(
+    orElse: () => false,
+    getConversationsFailure: (error) => true,
+    getConversationsLoading: () => true,
+    getConversationsSuccess: (response) => true,
+  );
 }
 
 class MessageAppBar extends StatelessWidget {
@@ -145,28 +183,50 @@ class MessageAppBar extends StatelessWidget {
                 ),
                 const Spacer(),
                 20.horizontalSpace,
-                GestureDetector(
-                  onTap: () {
-                    context.pushNamed(PageUrl.new_requestScreen);
-                  },
-                  child: Row(
-                    children: [
-                      const TextView(
-                        text: "4",
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                      ),
-                      const SizedBox(
-                        width: 3,
-                      ),
-                      const TextView(
-                        text: "New",
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ],
+                GuestUserHelper.guestUserWidget(
+                  widget: InkWell(
+                    onTap: () => context.pushNamed(PageUrl.new_requestScreen),
+                    child: BlocBuilder<NotificationsBloc, NotificationsState>(
+                      bloc: injector.get<NotificationsBloc>(),
+                      builder: (context, state) {
+                        final stat = injector.get<NotificationsBloc>().stats;
+                        return Stack(
+                          clipBehavior: Clip.none,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                context.pushNamed(PageUrl.new_requestScreen);
+                              },
+                              child: const TextView(
+                                text: "Requests",
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                            if (stat.totalRequests != 0)
+                              Positioned(
+                                top: -10,
+
+                                right: -10,
+
+                                child: CircleAvatar(
+                                  radius: 8,
+                                  backgroundColor: Colors.red,
+                                  foregroundColor: Colors.white,
+                                  child: TextView(
+                                    text: stat.totalRequests.toString(),
+                                    fontSize: 8,
+                                  ),
+                                ),
+                              ),
+                          ],
+                        );
+                      },
+                    ),
                   ),
-                ),
+                  guestWidget: const SizedBox.shrink(), // Or your desired guest widget
+                )
+                ,
               ],
             ),
           ),
@@ -177,32 +237,22 @@ class MessageAppBar extends StatelessWidget {
 }
 
 class MessageSearchField extends StatelessWidget {
-  const MessageSearchField(
-      {super.key, required this.controller, this.focusNode});
+  const MessageSearchField({super.key, required this.controller, this.focusNode, this.onSubmitted, this.onChanged});
 
   final TextEditingController controller;
   final FocusNode? focusNode;
+  final Function(String)? onSubmitted;
+  final Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
     return TextField(
       controller: controller,
       focusNode: focusNode,
-
       // keyboardType: TextInputType.,
 
-      onSubmitted: (value) {
-        if (controller.text.isNotEmpty) {
-          injector.get<SearchCubit>().fetchRecentSearches();
-          context
-              .pushNamed(PageUrl.searchResultScreen, extra: controller.text)
-              .then(
-            (value) {
-              injector.get<SearchCubit>().fetchRecentSearches(reload: false);
-            },
-          );
-        }
-      },
+      onSubmitted: onSubmitted,
+      onChanged: onChanged,
       decoration: InputDecoration(
         prefixIcon: Padding(
           padding: const EdgeInsets.all(13.0),
@@ -214,7 +264,7 @@ class MessageSearchField extends StatelessWidget {
         filled: true,
         fillColor: Colors.white,
         hintText: "Search messages",
-        hintStyle: TextStyle(
+        hintStyle: const TextStyle(
           color: Color(0xff212121),
         ),
         contentPadding: const EdgeInsets.all(16),

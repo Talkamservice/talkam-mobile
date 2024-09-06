@@ -22,107 +22,112 @@ class CategoriesScreen extends StatefulWidget {
   State<CategoriesScreen> createState() => _CategoriesScreenState();
 }
 
-class _CategoriesScreenState extends State<CategoriesScreen> {
+class _CategoriesScreenState extends State<CategoriesScreen> with SingleTickerProviderStateMixin {
   final PageController _pageController = PageController();
+  late TabController _tabController;
+
   final tabItems = [
-    TabItemModel(
-        imagePath: Assets.images.svgs.icfeatured, tittle: "Featured"),
-    TabItemModel(
-        imagePath: Assets.images.svgs.icTrending, tittle: "Trending"),
-    TabItemModel(imagePath: Assets.images.svgs.icNew, tittle: "Recent"),
+    TabItemModel(imagePath: Assets.images.svgs.icNew, tittle: "Just In"),
+    TabItemModel(imagePath: Assets.images.svgs.icfeatured, tittle: "Featured"),
+    TabItemModel(imagePath: Assets.images.svgs.icTrending, tittle: "Trending"),
   ];
 
   int selecteIndex = 0;
 
   @override
+  void initState() {
+    _tabController = TabController(length: 3, vsync: this);
+
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 3,
-      child: Scaffold(
-        body: NestedScrollView(
-          headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return [
-              SliverToBoxAdapter(
-                child: Column(
-                  children: [
-                    CategoriesScreenHeader(category: widget.category),
-                    Container(
-                      color: context.colorScheme.surface,
-                      width: 1.sw,
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                            top: 16,
-                            bottom: 0,
-                          ),
-                          child: TabBar(
-                              tabAlignment: TabAlignment.center,
-                              indicatorColor: context.colorScheme.primary,
-                              indicatorSize: TabBarIndicatorSize.label,
-                              indicatorWeight: 3,
-                              onTap: (value) {
-                                selecteIndex = value;
-                                _pageController.jumpToPage(value);
-                                setState(() {});
-                              },
-                              tabs: List.generate(
-                                tabItems.length,
-                                (index) => Tab(
-                                  child: Row(
-                                    children: [
-                                      ImageWidget(
-                                        imageUrl: tabItems[index].imagePath,
-                                        color: selecteIndex == index
-                                            ? context.colorScheme.primary
-                                            : Pallets.grey,
-                                      ),
-                                      8.horizontalSpace,
-                                      TextView(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.w600,
-                                        text: tabItems[index].tittle,
-                                        color: selecteIndex == index
-                                            ? context.colorScheme.onSurface
-                                            : Pallets.grey60,
-                                        // fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                              ).toList()),
+    return Scaffold(
+      body: NestedScrollView(
+        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+          return [
+            SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  CategoriesScreenHeader(category: widget.category),
+                  Container(
+                    color: context.colorScheme.surface,
+                    width: 1.sw,
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.only(
+                          top: 16,
+                          bottom: 0,
                         ),
+                        child: TabBar(
+                            tabAlignment: TabAlignment.center,
+                            indicatorColor: context.colorScheme.primary,
+                            controller: _tabController,
+                            indicatorSize: TabBarIndicatorSize.label,
+                            indicatorWeight: 3,
+                            onTap: (value) {
+                              selecteIndex = value;
+                              _pageController.jumpToPage(value);
+                              setState(() {});
+                            },
+                            tabs: List.generate(
+                              tabItems.length,
+                              (index) => Tab(
+                                child: Row(
+                                  children: [
+                                    ImageWidget(
+                                      imageUrl: tabItems[index].imagePath,
+                                      color: selecteIndex == index ? context.colorScheme.primary : Pallets.grey,
+                                    ),
+                                    8.horizontalSpace,
+                                    TextView(
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w600,
+                                      text: tabItems[index].tittle,
+                                      color: selecteIndex == index ? context.colorScheme.onSurface : Pallets.grey60,
+                                      // fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ).toList()),
                       ),
                     ),
-                    4.verticalSpace,
-                  ],
-                ),
-              )
-            ];
-          },
-          body: Column(
-            children: [
-              Expanded(
-                child: PageView(
-                  controller: _pageController,
-                  physics: const NeverScrollableScrollPhysics(),
-                  onPageChanged: (int index) {
-                    // setState(() {});
-                  },
-                  children: [
-                    FeaturedPostByCategoryScreen(
-                      categoryId: widget.category.id.toString(),
-                    ),
-                    TrendingPostByCategoryScreen(
-                      categoryId: widget.category.id.toString(),
-                    ),
-                    RecentPostByCategoryScreen(
-                      categoryId: widget.category.id.toString(),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
+                  ),
+                  4.verticalSpace,
+                ],
+              ),
+            )
+          ];
+        },
+        body: Column(
+          children: [
+            Expanded(
+              child: PageView(
+                controller: _pageController,
+                // physics: const NeverScrollableScrollPhysics(),
+                onPageChanged: (int index) {
+                  _tabController.animateTo(index);
+                  selecteIndex = index;
+
+                  setState(() {});
+                  // setState(() {});
+                },
+                children: [
+                  RecentPostByCategoryScreen(
+                    categoryId: widget.category.id.toString(),
+                  ),
+                  FeaturedPostByCategoryScreen(
+                    categoryId: widget.category.id.toString(),
+                  ),
+                  TrendingPostByCategoryScreen(
+                    categoryId: widget.category.id.toString(),
+                  ),
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );

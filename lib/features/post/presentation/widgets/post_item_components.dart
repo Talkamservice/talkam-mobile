@@ -8,6 +8,7 @@ import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/extensions/int_extension.dart';
+import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/core/utils/time_util.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
@@ -69,9 +70,14 @@ class PostHeader extends StatelessWidget {
             children: [
               Row(
                 children: [
-                  TextView(
-                    text: category.name,
-                    fontWeight: FontWeight.w500,
+                  Expanded(
+                    child: TextView(
+                      text: category.name,
+                      maxLines: 1,
+                      textOverflow: TextOverflow.ellipsis,
+
+                      fontWeight: FontWeight.w500,
+                    ),
                   ),
                   4.horizontalSpace,
                   ImageWidget(imageUrl: Assets.images.svgs.grid03),
@@ -94,7 +100,7 @@ class PostHeader extends StatelessWidget {
                       }
                     },
                     child: TextView(
-                      text: "Posted by $userName to",
+                      text: "Posted by $userName ",
                       color: Pallets.grey,
                       fontWeight: FontWeight.w600,
                       fontSize: 12,
@@ -116,13 +122,22 @@ class PostHeader extends StatelessWidget {
                                 //   CustomDialogs.showToast("User is anonymous");
                                 // }
                               },
-                              child: TextView(
-                                text: " ${post.group!.name}",
-                                maxLines: 1,
-                                textOverflow: TextOverflow.ellipsis,
-                                color: Pallets.primary,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 12,
+                              child: Row(
+                                children: [
+                                  const TextView(text: "to", color: Pallets.grey,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 12,),
+                                  Expanded(
+                                    child: TextView(
+                                      text: " ${post.group!.name}",
+                                      maxLines: 1,
+                                      textOverflow: TextOverflow.ellipsis,
+                                      color: Pallets.primary,
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
                               ),
                             );
                           }
@@ -142,11 +157,24 @@ class PostHeader extends StatelessWidget {
 
                             },
 
-                            child: TextView(
-                              text: " ${post.category.name}",
-                              color: Pallets.primary,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 12,
+                            child: Row(
+                              children: [
+
+                                const TextView(text: "to", color: Pallets.grey,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 12,),
+                                Expanded(
+                                  child: TextView(
+                                    text: " ${post.category.name}",
+                                    color: Pallets.primary,
+                                    fontWeight: FontWeight.w600,
+                                    maxLines: 1,
+                                    textOverflow: TextOverflow.ellipsis,
+
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
                             ),
                           );
                         },
@@ -167,15 +195,20 @@ class PostHeader extends StatelessWidget {
   }
 
   void viewUsersProfile(BuildContext context) {
-    var me = injector.get<ProfileBloc>().appUser;
-    if (me?.id == post.user.id) {
-      context.pushNamed(
-        PageUrl.profileScreen,
-      );
-    } else {
-      context.pushNamed(PageUrl.userProfileScreen,
-          extra: post.user.id.toString());
-    }
+
+    GuestUserHelper.handleGuestUserAction(action: () {
+      var me = injector.get<ProfileBloc>().appUser;
+      if (me?.id == post.user.id) {
+        context.pushNamed(
+          PageUrl.profileScreen,
+        );
+      } else {
+        context.pushNamed(PageUrl.userProfileScreen,
+            extra: post.user.id.toString());
+      }
+    },message: "Login to view user profile");
+
+
   }
 }
 

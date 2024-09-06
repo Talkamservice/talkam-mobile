@@ -7,9 +7,10 @@ import 'package:talkam/features/group/presentation/widgets/join_group_button.dar
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 
 class GroupResultItem extends StatelessWidget {
-  const GroupResultItem({super.key, required this.group});
+  const GroupResultItem({super.key, required this.group, required this.onJoinStateChanged});
 
   final TalkamGroup group;
+  final Function() onJoinStateChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -19,12 +20,7 @@ class GroupResultItem extends StatelessWidget {
         children: [
           Row(
             children: [
-              ImageWidget(
-                  width: 78,
-                  height: 54,
-                  fit: BoxFit.cover,
-                  borderRadius: BorderRadius.circular(2),
-                  imageUrl: group.image.toString()),
+              ImageWidget(width: 78, height: 54, fit: BoxFit.cover, borderRadius: BorderRadius.circular(2), imageUrl: group.image.toString()),
               12.horizontalSpace,
               Expanded(
                 child: Column(
@@ -41,9 +37,12 @@ class GroupResultItem extends StatelessWidget {
                     ),
                   ],
                 ),
-
               ),
-              JoinGroupButton(group: group,)
+              10.horizontalSpace,
+              JoinGroupButton(
+                group: group,
+                onStateChanged: onJoinStateChanged,
+              )
             ],
           ),
           12.verticalSpace,
@@ -77,7 +76,6 @@ class GroupResultItem extends StatelessWidget {
 // }
 
 formatMemberCount(totalMembers) {
-
   if (totalMembers >= 1000) {
     return '${(totalMembers / 1000).toFixed(1)}k';
   } else if (totalMembers <= 1) {
@@ -85,5 +83,4 @@ formatMemberCount(totalMembers) {
   } else {
     return "${totalMembers.toString()} Members";
   }
-
 }

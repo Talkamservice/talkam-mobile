@@ -63,13 +63,26 @@ class _TrendingScreenState extends State<TrendingScreen>
                           .getTrendingPosts(PostFilterModel.trendingPost());
                     },
                     child: ListView.builder(
-                      itemCount: response.data.data.length,
-                      itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.only(bottom: 4.0),
-                        child: PostItem(
-                          post: response.data.data[index],
-                        ),
-                      ),
+                      addAutomaticKeepAlives: true,
+                      itemCount: response.data.paginationMeta.canLoadMore ? response.data.data.length + 1 : response.data.data.length,
+                      itemBuilder: (context, index) {
+
+                        if (index == response.data.data.length) {
+                          injector.get<TrendingPostCubit>().loadMore(response);
+                          return SizedBox(
+                            height: 100,
+                            width: 100,
+                            child: Center(child: CustomDialogs.getLoading(size: 50)),
+                          );
+                        }
+
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 4.0),
+                          child: PostItem(
+                            post: response.data.data[index],
+                          ),
+                        );
+                      },
                     ),
                   );
                 },

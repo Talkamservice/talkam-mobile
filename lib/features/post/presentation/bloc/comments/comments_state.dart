@@ -4,8 +4,9 @@ part of 'comments_bloc.dart';
 class CommentsState with _$CommentsState {
   const factory CommentsState.initial() = _Initial;
 
+
   const factory CommentsState.getCommentsLoading() = GetCommentsLoadingState;
-  const factory CommentsState.getCommentsSuccess(dynamic response) = GetCommentsSuccessState;
+  const factory CommentsState.getCommentsSuccess(GetCommentsResponse response) = GetCommentsSuccessState;
   const factory CommentsState.getCommentsFailure(String error) = GetCommentsFailureState;
 
   const factory CommentsState.getACommentLoading() = GetACommentLoadingState;

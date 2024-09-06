@@ -1,4 +1,3 @@
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -15,7 +14,8 @@ import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class PreviewGroupRulesTab extends StatefulWidget {
-  const PreviewGroupRulesTab({super.key, this.isPreview = false, required this.data});
+  const PreviewGroupRulesTab(
+      {super.key, this.isPreview = false, required this.data});
 
   final bool? isPreview;
   final CreateGroupPayload data;
@@ -37,11 +37,11 @@ class _PreviewGroupRulesTabState extends State<PreviewGroupRulesTab> {
             10.verticalSpace,
             Row(
               children: [
-                CircularBorder(
+                TalkamCircularBorder(
                     child: ImageWidget(
-                      imageUrl: Assets.images.svgs.rules,
-                      color: context.colorScheme.onSurface,
-                    )),
+                  imageUrl: Assets.images.svgs.rules,
+                  color: context.colorScheme.onSurface,
+                )),
                 8.horizontalSpace,
                 const Expanded(
                   child: TextView(
@@ -79,10 +79,10 @@ class _PreviewGroupRulesTabState extends State<PreviewGroupRulesTab> {
             18.verticalSpace,
             ...List.generate(
                 widget.data.guidelines.length,
-                    (index) => GroupRuleItem(
-                  index: index + 1,
-                  guidline: widget.data.guidelines[index],
-                )),
+                (index) => GroupRuleItem(
+                      index: index + 1,
+                      guidline: widget.data.guidelines[index],
+                    )),
           ],
         ),
       ),
@@ -90,18 +90,21 @@ class _PreviewGroupRulesTabState extends State<PreviewGroupRulesTab> {
   }
 }
 
-class CircularBorder extends StatelessWidget {
-  const CircularBorder({super.key, required this.child, this.padding = 8});
+class TalkamCircularBorder extends StatelessWidget {
+  const TalkamCircularBorder(
+      {super.key, required this.child, this.padding = 8, this.borderColor});
 
   final Widget child;
   final double? padding;
+  final Color? borderColor;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(8),
       decoration: BoxDecoration(
-          border: Border.all(color: Pallets.grey75), shape: BoxShape.circle),
+          border: Border.all(color: borderColor ?? Pallets.grey75),
+          shape: BoxShape.circle),
       child: child,
     );
   }
@@ -119,25 +122,22 @@ class GroupRuleItem extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CircularBorder(padding: 4, child: TextView(text: index.toString())),
+        TalkamCircularBorder(
+            padding: 4, child: TextView(text: index.toString())),
         12.horizontalSpace,
         Expanded(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextView(
-                  text: guidline.title.toString(),
-                  fontWeight: FontWeight.w700,
-                ),
-                4.verticalSpace,
-                TextView(text: guidline.description.toString())
-              ],
-            ))
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextView(
+              text: guidline.title.toString(),
+              fontWeight: FontWeight.w700,
+            ),
+            4.verticalSpace,
+            TextView(text: guidline.description.toString())
+          ],
+        ))
       ],
     );
   }
 }
-
-
-
-

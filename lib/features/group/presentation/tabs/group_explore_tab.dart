@@ -31,8 +31,8 @@ class _GroupExploreRecentTabState extends State<GroupExploreTab>
     "Politicians"
   ];
   String _selectedTile = '';
-  // final bloc = GroupsCubit(injector.get());
 
+  // final bloc = GroupsCubit(injector.get());
 
   @override
   void initState() {
@@ -59,7 +59,6 @@ class _GroupExploreRecentTabState extends State<GroupExploreTab>
                                   category: p0?.id.toString()));
                         },
                       ),
-
                       BlocProvider<GroupsCubit>.value(
                         value: injector.get<GroupsCubit>(),
                         child: const SuggestedGroups(),
@@ -95,7 +94,8 @@ class _GroupExploreRecentTabState extends State<GroupExploreTab>
                           child: SizedBox(
                             height: 300,
                             child: Center(
-                              child: TextView(text: "No groups in this category"),
+                              child:
+                                  TextView(text: "No groups in this category"),
                             ),
                           ),
                         );
@@ -115,10 +115,16 @@ class _GroupExploreRecentTabState extends State<GroupExploreTab>
                                       context.pushNamed(
                                           PageUrl.groupsInfoScreen,
                                           extra: groups[index].id.toString());
-
                                     },
-                                    child:
-                                        GroupResultItem(group: groups[index]),
+                                    child: GroupResultItem(
+                                      group: groups[index],
+                                      onJoinStateChanged: () {
+
+                                        injector
+                                            .get<GroupsCubit>()
+                                            .getGroups(shouldRefresh: false);
+                                      },
+                                    ),
                                   ),
                                   Container(
                                       height: 1.0, color: Pallets.borderGrey),

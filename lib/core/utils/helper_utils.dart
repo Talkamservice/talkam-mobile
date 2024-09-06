@@ -8,6 +8,8 @@ import 'package:flutter/services.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 
 import 'package:share_plus/share_plus.dart';
+import 'package:talkam/common/widgets/image_previewer.dart';
+import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:url_launcher/url_launcher.dart' as launch;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
@@ -16,8 +18,6 @@ import '../_core.dart';
 import '_utils.dart';
 
 class Helpers {
-
-
   static String getFileName(File file, {String? prefix}) {
     var name = file.path.split('/').last;
     if (prefix != null) {
@@ -40,11 +40,7 @@ class Helpers {
     num dLat = degreesToRadians(lat2 - lat1);
     num dLon = degreesToRadians(lon2 - lon1);
 
-    num a = sin(dLat / 2) * sin(dLat / 2) +
-        cos(degreesToRadians(lat1)) *
-            cos(degreesToRadians(lat2)) *
-            sin(dLon / 2) *
-            sin(dLon / 2);
+    num a = sin(dLat / 2) * sin(dLat / 2) + cos(degreesToRadians(lat1)) * cos(degreesToRadians(lat2)) * sin(dLon / 2) * sin(dLon / 2);
     num c = 2 * atan2(sqrt(a), sqrt(1 - a));
 
     return (earthRadius * c).floor();
@@ -81,9 +77,7 @@ class Helpers {
   }
 
   static launchInappWebView(String url) {
-    launch.launchUrl(Uri.parse(url),
-        mode: LaunchMode.inAppWebView,
-        webViewConfiguration: const WebViewConfiguration());
+    launch.launchUrl(Uri.parse(url), mode: LaunchMode.inAppWebView, webViewConfiguration: const WebViewConfiguration());
   }
 
   static void share(String text) {
@@ -97,8 +91,7 @@ class Helpers {
     return uuid.v1();
   }
 
-  static bool hasTextOverflow(String text, TextStyle style,
-      {double minWidth = 0, int maxLines = 3}) {
+  static bool hasTextOverflow(String text, TextStyle style, {double minWidth = 0, int maxLines = 3}) {
     final TextPainter textPainter = TextPainter(
       text: TextSpan(text: text, style: style),
       maxLines: maxLines,
@@ -193,10 +186,83 @@ class Helpers {
   }
 
   static String? encodeQueryParameters(Map<String, String> params) {
-    return params.entries
-        .map((MapEntry<String, String> e) =>
-    '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
-        .join('&');
+    return params.entries.map((MapEntry<String, String> e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}').join('&');
   }
 
+// Function toget the file extension from a URL or path
+  static String getFileExtension(String urlOrPath) {
+    final fileName = urlOrPath.split('/').last;
+    final parts = fileName.split('.');
+    if (parts.length > 1) {
+      return parts.last.toLowerCase();
+    } else {
+      return ''; // No extension found
+    }
+  }
+
+// Function to open the document using the appropriate method
+ static Future<void> openDocument(String urlOrPath, BuildContext context) async {
+    final extension = getFileExtension(urlOrPath);
+
+    // Check if it's an image or GIF
+    if (['jpg', 'jpeg', 'png', 'gif'].contains(extension)) {
+      _showImageDialog(urlOrPath, context);
+    } else {
+
+      final _launchUrl = urlOrPath;
+      if (await canLaunchUrl(Uri.parse(_launchUrl))) {
+        await launch.launchUrl(
+          Uri.parse(_launchUrl),
+          mode: launch.LaunchMode.externalApplication,
+        );
+
+
+      } else {
+        CustomDialogs.error("Cannot open file");
+      }
+    }
+  }
+
+// Helper function to show an image dialog
+  static void _showImageDialog(String urlOrPath, BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => ImagePreviewer(
+        imageUrl: urlOrPath,
+        imageType: urlOrPath.isURL ? ImageType.network : ImageType.file,
+      ),
+    );
+  }
+
+ static String getFileNameFromUrl(String url) {
+    if (url.isEmpty) {
+      return ''; // Return empty string for emptyURLs
+    }
+
+    // Remove any query parameters or fragments
+    final uri = Uri.parse(url);
+    final path = uri.path;
+
+    // Split the path by '/' and get the last part
+    final parts = path.split('/');
+    if (parts.isNotEmpty) {return parts.last;
+    } else {
+      return ''; // Return empty string if no file name is found
+    }
+  }
+
+
+
+ static bool pathIsImage(String filePath) {
+    final extension = filePath.split('.').last.toLowerCase();
+    final imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
+    return imageExtensions.contains(extension);
+  }
+
+
+ static bool pathIsDocument(String filePath) {
+    final extension = filePath.split('.').last.toLowerCase();
+    final documentExtensions = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'txt'];
+    return documentExtensions.contains(extension);
+  }
 }

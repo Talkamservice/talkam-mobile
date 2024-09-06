@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/post/data/models/get_comments_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/presentation/bloc/comments/comments_bloc.dart';
@@ -40,7 +41,7 @@ class _CommentActionsState extends State<CommentActions> {
     return Row(
       // mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        InkWell(
+        GuestUserHelper.guestUserWidget(widget:  InkWell(
           onTap: () {
             context
                 .read<CommentsBloc>()
@@ -53,7 +54,8 @@ class _CommentActionsState extends State<CommentActions> {
               fontWeight: FontWeight.w700,
             ),
           ),
-        ),
+        ),  guestWidget: 0.verticalSpace),
+
         39.horizontalSpace,
         Row(
           children: [

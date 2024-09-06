@@ -14,8 +14,7 @@ class FeaturedPostCubit extends Cubit<FeaturedPostState> {
 
   var curentPage = 1;
 
-  FeaturedPostCubit(this.postRepository)
-      : super(const FeaturedPostState.initial());
+  FeaturedPostCubit(this.postRepository) : super(const FeaturedPostState.initial());
 
   void getFeaturedPosts(PostFilterModel filter, {bool? reload}) async {
     if (reload ?? true) {
@@ -31,27 +30,15 @@ class FeaturedPostCubit extends Cubit<FeaturedPostState> {
     }
   }
 
-  void loadMore() async {
-    // try {
-    //   if (state is PostLoadingMoreState || _hasReachedEndOfList) return;
-    //   emit(const PostState.loadingMoreEvents());
-    //   _perPage += 1;
-    //   final PalynxUser? palynxUser = SessionManager.instance.palynxUser;
-    //   assert(palynxUser != null);
-    //   final List<PalynxEvent> paginatedEvents =
-    //   await _userEventsService.getCreatorsEventAndEventUserIsAttending(
-    //       creatorId: palynxUser!.id, page: _perPage);
-    //   _hasReachedEndOfList = paginatedEvents.isEmpty;
-    //   emit(PostState.fetchEventsLoadedState(initialEvents + paginatedEvents));
-    // } catch (exception) {
-    //   _perPage -= 1;
-    //   emit(PostState.fetchEventsLoadedState(initialEvents));
-    // }
+  void loadMore(GetPostsResponse previousPosts) async {
+    // emit(const RecentPostState.loadingMore());
 
-    emit(const FeaturedPostState.loadingMore());
     try {
-      final response = await postRepository.getPosts(PostFilterModel());
-      emit(FeaturedPostState.getFeaturedPostsSuccess(response));
+      final response = await postRepository.getPosts(PostFilterModel(page: previousPosts.data.paginationMeta.currentPage + 1, tab: "featured"));
+
+      var updated = response.copyWith(data: response.data.copyWith(data: [...previousPosts.data.data, ...response.data.data]));
+
+      emit(FeaturedPostState.getFeaturedPostsSuccess(updated));
     } catch (error) {
       emit(FeaturedPostState.getFeaturedPostsFailed(error.toString()));
     }

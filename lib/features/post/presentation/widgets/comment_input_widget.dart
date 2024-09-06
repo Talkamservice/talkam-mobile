@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -95,6 +96,7 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
                           controller: _commentController,
                           maxLines: 8,
                           minLines: 1,
+                          textCapitalization: TextCapitalization.sentences,
                           validator:
                               RequiredValidator(errorText: "Field is required")
                                   .call,
@@ -118,9 +120,14 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
                               ),
                             ),
                             16.horizontalSpace,
-                            ImageWidget(
-                              imageUrl: Assets.images.svgs.gif,
-                              size: 24,
+                            InkWell(
+                              onTap: () {
+                                selectGifImage();
+                              },
+                              child: ImageWidget(
+                                imageUrl: Assets.images.svgs.gif,
+                                size: 24,
+                              ),
                             ),
                             16.horizontalSpace,
                             AnonymousSwitcher(
@@ -214,6 +221,20 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
     if (image != null) {
       stagedFile = image;
       setState(() {});
+    }
+  }
+
+  void selectGifImage() async {
+    try {
+      var image = await ImageManager()
+          .fetchFiles(allowedExtensions: ['gif'], fileType: FileType.custom);
+
+      if (image.isNotEmpty) {
+        stagedFile = File(image.first);
+        setState(() {});
+      }
+    } catch (e) {
+      logger.w('message${e}');
     }
   }
 }

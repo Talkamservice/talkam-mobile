@@ -16,13 +16,10 @@ class RecentScreen extends StatefulWidget {
   State<RecentScreen> createState() => _RecentScreenState();
 }
 
-class _RecentScreenState extends State<RecentScreen>
-    with AutomaticKeepAliveClientMixin {
+class _RecentScreenState extends State<RecentScreen> with AutomaticKeepAliveClientMixin {
   @override
   void initState() {
-    injector
-        .get<RecentPostCubit>()
-        .getRecentPosts(PostFilterModel.recentPost());
+    injector.get<RecentPostCubit>().getRecentPosts(PostFilterModel.recentPost());
     super.initState();
   }
 
@@ -34,6 +31,7 @@ class _RecentScreenState extends State<RecentScreen>
           Expanded(
               child: BlocConsumer<RecentPostCubit, RecentPostState>(
             bloc: injector.get(),
+            buildWhen: _buildWhen,
             listener: (context, state) {},
             builder: (context, state) {
               return state.maybeWhen(
@@ -44,9 +42,7 @@ class _RecentScreenState extends State<RecentScreen>
                 getRecentPostsFailed: (error) => AppErrorWidget(
                   message: error,
                   onTap: () {
-                    injector
-                        .get<RecentPostCubit>()
-                        .getRecentPosts(PostFilterModel.recentPost());
+                    injector.get<RecentPostCubit>().getRecentPosts(PostFilterModel.recentPost());
                   },
                 ),
                 getRecentPostsSuccess: (response) {
@@ -58,19 +54,28 @@ class _RecentScreenState extends State<RecentScreen>
 
                   return RefreshIndicator(
                     onRefresh: () async {
-                      injector
-                          .get<RecentPostCubit>()
-                          .getRecentPosts(PostFilterModel.recentPost());
+                      injector.get<RecentPostCubit>().getRecentPosts(PostFilterModel.recentPost());
                     },
                     child: ListView.builder(
                       addAutomaticKeepAlives: true,
-                      itemCount: response.data.data.length,
-                      itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.only(bottom: 4.0),
-                        child: PostItem(
-                          post: response.data.data[index],
-                        ),
-                      ),
+                      itemCount: response.data.paginationMeta.canLoadMore ? response.data.data.length + 1 : response.data.data.length,
+                      itemBuilder: (context, index) {
+
+                        if (index == response.data.data.length) {
+                          injector.get<RecentPostCubit>().loadMore(response);
+                          return SizedBox(
+                            height: 100,
+                            width: 100,
+                            child: Center(child: CustomDialogs.getLoading(size: 50)),
+                          );
+                        }
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 4.0),
+                          child: PostItem(
+                            post: response.data.data[index],
+                          ),
+                        );
+                      },
                     ),
                   );
                 },
@@ -84,4 +89,13 @@ class _RecentScreenState extends State<RecentScreen>
 
   @override
   bool get wantKeepAlive => true;
+
+  bool _buildWhen(RecentPostState previous, RecentPostState current) {
+    return current.maybeWhen(
+      orElse: () => false,
+      getRecentPostsSuccess: (response) => true,
+      getRecentPostsFailed: (error) => true,
+      getRecentPostsLoading: () => true,
+    );
+  }
 }

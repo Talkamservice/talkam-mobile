@@ -3,6 +3,9 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/group/presentation/blocs/create_group_cubit/create_group_cubit.dart';
 import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
+import 'package:talkam/features/messaging/presentation/blocs/conversations/conversations_cubit.dart';
+import 'package:talkam/features/messaging/presentation/blocs/messaging/messaging_cubit.dart';
+import 'package:talkam/features/notifications/presentation/bloc/notification_bloc.dart';
 import 'package:talkam/features/post/presentation/bloc/create_post/create_post_cubit.dart';
 import 'package:talkam/features/post/presentation/bloc/featured_posts/featured_post_cubit.dart';
 import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
@@ -31,6 +34,7 @@ void setup(GetIt getIt) {
   getIt.registerLazySingleton<CreatePostCubit>(
     () => CreatePostCubit(injector.get()),
   );
+
   getIt.registerLazySingleton<FeaturedPostCubit>(
     () => FeaturedPostCubit(injector.get()),
   );
@@ -45,7 +49,6 @@ void setup(GetIt getIt) {
 
   getIt.registerLazySingleton<PostBloc>(
     () => PostBloc(injector.get()),
-
   );
 
   getIt.registerLazySingleton<ProfileScreenCubit>(
@@ -71,5 +74,14 @@ void setup(GetIt getIt) {
       () => UserProfileCommentsCubit(injector.get()));
   getIt.registerLazySingleton<SearchCubit>(() => SearchCubit(injector.get()));
   getIt.registerLazySingleton<GroupsCubit>(() => GroupsCubit(injector.get()));
-  getIt.registerLazySingleton<CreateGroupCubit>(() => CreateGroupCubit (injector.get()));
+
+  getIt.registerLazySingleton<CreateGroupCubit>(
+      () => CreateGroupCubit(injector.get()));
+
+  getIt.registerLazySingleton<ConversationsCubit>(
+      () => ConversationsCubit(injector.get()));
+  getIt.registerLazySingleton<MessagingCubit>(
+      () => MessagingCubit(injector.get()));
+  getIt.registerLazySingleton<NotificationsBloc>(
+      () => NotificationsBloc(injector.get(),injector.get()));
 }

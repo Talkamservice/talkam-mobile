@@ -274,6 +274,8 @@ class ImageManager {
       bool? checkSize = true,
       List<String>? allowedExtensions}) async {
     try {
+
+
       FilePicker filePicker = FilePicker.platform;
       FilePickerResult? result = await filePicker.pickFiles(
         type: fileType,
@@ -283,12 +285,17 @@ class ImageManager {
         allowMultiple: allowMultiple,
         allowedExtensions: allowedExtensions,
       );
+
       if (result != null) {
+
         if (checkSize!) {
           var all = await Future.wait(result.files
               .map((e) => fileSizeIsAccurate(File(e.path ?? ""), fileType)));
+          logger.i("FILES${all}");
 
-          if (all.any((element) => !element)) {
+
+
+          if (all.any((element) => false)) {
             return [];
           }
         }
@@ -298,6 +305,7 @@ class ImageManager {
         return [];
       }
     } catch (e) {
+      logger.w(e.toString());
       return [];
     }
   }

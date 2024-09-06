@@ -27,8 +27,6 @@ void printDioLogs(Object object) {
 }
 
 class NetworkService {
-
-
   static const CONNECT_TIME_OUT = Duration(seconds: 30);
   static const RECEIVE_TIME_OUT = Duration(seconds: 30);
 
@@ -49,7 +47,7 @@ class NetworkService {
       baseUrl: baseUrl ?? UrlConfig.coreBaseUrl,
     ));
     authToken ??= SessionManager.instance.authToken;
-    logger.i("authToken is ${SessionManager.instance.usersData}");
+    // logger.i("authToken is ${SessionManager.instance.usersData}");
     dio!.interceptors.add(LogInterceptor(
       requestBody: true,
       responseBody: true,
@@ -186,15 +184,13 @@ class NetworkService {
   }
 
   _getOptions() {
-
     return Options(contentType: Headers.jsonContentType, headers: {
       HttpHeaders.authorizationHeader:
-      "Bearer ${SessionManager.instance.authToken}",
+          "Bearer ${SessionManager.instance.authToken}",
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       "timezone": TimezoneService().currentTimeZone
     });
-
   }
 }
 

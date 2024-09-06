@@ -15,7 +15,7 @@ enum _CategoryTabOptions {
   String get title {
     switch (this) {
       case _CategoryTabOptions.subcategories:
-        return "Categories";
+        return "Sub-Categories";
       case _CategoryTabOptions.groups:
         return "Groups";
     }

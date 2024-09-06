@@ -4,20 +4,23 @@ import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/theme/pallets.dart';
-import 'package:talkam/features/group/dormain/model/group_overview_data.dart';
+import 'package:talkam/features/group/presentation/widgets/join_group_button.dart';
+import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class GroupInfoAppBar extends StatelessWidget {
-  const GroupInfoAppBar({super.key, required this.data});
+  const GroupInfoAppBar(
+      {super.key, required this.group, required this.onStateChanged});
 
-  final GroupAppBarData data;
+  final TalkamGroup group;
+  final VoidCallback onStateChanged;
 
   @override
   Widget build(BuildContext context) {
     return Stack(
       children: [
         ImageWidget(
-          imageUrl: data.banner,
+          imageUrl: group.image!,
           width: 1.sw,
           onTap: () {},
           height: 150,
@@ -27,63 +30,35 @@ class GroupInfoAppBar extends StatelessWidget {
           child: Column(
             children: [
               40.verticalSpace,
-              if (data.isPreview)
-                Row(
-                  children: [
-                    InkWell(
-                        onTap: () {
-                          context.pop();
-                        },
-                        child: ImageWidget(
-                            imageUrl: Assets.images.svgs.arrowLeft)),
-                    const Spacer(),
-                    TextButton(
-                        style: TextButton.styleFrom(
-                            backgroundColor: Pallets.white,
-                            shape: const StadiumBorder()),
-                        onPressed: () {},
-                        child: Row(
-                          children: [
-                            const TextView(
-                              text: "Finish and Create",
-                              color: Pallets.black,
-                            ),
-                            5.horizontalSpace,
-                            const Icon(
-                              Icons.add,
-                              color: Pallets.black,
-                            )
-                          ],
-                        ))
-                  ],
-                ),
-              if (!data.isPreview)
-                Row(
-                  children: [
-                    InkWell(
-                        onTap: () {
-                          context.pop();
-                        },
-                        child: ImageWidget(
-                            imageUrl: Assets.images.svgs.arrowLeft)),
-                    const Spacer(),
-                    const _JoinGroupButton(),
-                    24.horizontalSpace,
-                    ImageWidget(
-                      imageUrl: Assets.images.svgs.share,
-                      color: Pallets.white,
-                    ),
-                    24.horizontalSpace,
-                    IconButton(
-                        style: IconButton.styleFrom(
-                            foregroundColor: Pallets.white),
-                        onPressed: () {},
-                        icon: const Icon(
-                          Icons.more_vert_rounded,
-                          color: Pallets.white,
-                        ))
-                  ],
-                ),
+              Row(
+                children: [
+                  InkWell(
+                      onTap: () {
+                        context.pop();
+                      },
+                      child:
+                          ImageWidget(imageUrl: Assets.images.svgs.arrowLeft)),
+                  const Spacer(),
+                  JoinGroupButton(
+                    group: group,
+                    onStateChanged: onStateChanged,
+                  ),
+                  24.horizontalSpace,
+                  ImageWidget(
+                    imageUrl: Assets.images.svgs.share,
+                    color: Pallets.white,
+                  ),
+                  24.horizontalSpace,
+                  IconButton(
+                      style:
+                          IconButton.styleFrom(foregroundColor: Pallets.white),
+                      onPressed: () {},
+                      icon: const Icon(
+                        Icons.more_vert_rounded,
+                        color: Pallets.white,
+                      ))
+                ],
+              ),
             ],
           ),
         ),

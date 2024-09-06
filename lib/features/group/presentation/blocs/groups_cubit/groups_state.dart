@@ -50,4 +50,26 @@ class GroupsState with _$GroupsState {
   const factory GroupsState.joinGroupLoading() = _JoinGroupLoading;
   const factory GroupsState.joinGroupSuccess(dynamic response) = _JoinGroupSuccess;
   const factory GroupsState.joinGroupFailureState(String error) = _JoinGroupFailure;
+
+
+
+
+  //  Add Rule States
+  const factory GroupsState.addGroupRuleLoading() = _AddGroupRuleLoading;
+  const factory GroupsState.addGroupRuleSuccess(GroupGuideline response) = _AddGroupRuleSuccess;
+  const factory GroupsState.addGroupRuleFailureState(String error) = _AddGroupRuleFailure;
+
+
+  //  Get Rules States
+  const factory GroupsState.getGroupRuleLoading() = _GetGroupRuleLoading;
+  const factory GroupsState.getGroupRuleSuccess(dynamic response) = _GetGroupRuleSuccess;
+  const factory GroupsState.getGroupRuleFailureState(String error) = _GetGroupRuleFailure;
+
+
+  //  Delete Rules States
+  const factory GroupsState.deleteGroupRuleLoading() = _DeleteGroupRuleLoading;
+  const factory GroupsState.deleteGroupRuleSuccess(dynamic response) = _DeleteGroupRuleSuccess;
+  const factory GroupsState.deleteGroupRuleFailureState(String error) = _DeleteGroupRuleFailure;
+
+
 }

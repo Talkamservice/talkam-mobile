@@ -15,8 +15,12 @@ class GroupsSearchCubit extends Cubit<GroupsSearchState> {
 
   final SearchRepository searchRepository;
 
-  Future<void> searchGroup(String query) async {
-    emit(const GroupsSearchState.getGroupSearchLoading());
+  Future<void> searchGroup(String query,{bool? shouldRefresh = true}) async {
+
+    if(shouldRefresh!){
+      emit(const GroupsSearchState.getGroupSearchLoading());
+
+    }
 
     try {
       final SearchResult<GetGroupsResponse> response =

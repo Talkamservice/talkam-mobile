@@ -194,7 +194,8 @@ class TalkamPost {
         uuid: json["uuid"],
         isReported: json["is_reported"],
         category: PostCategory.fromJson(json["category"]),
-        group: json["group"] == null ?null: TalkamGroup.fromJson(json["group"]),
+        group:
+            json["group"] == null ? null : TalkamGroup.fromJson(json["group"]),
         user: PostCreator.fromJson(json["user"]),
         canComment: json["can_comment"],
         isAnonymous: json["is_anonymous"],
@@ -303,7 +304,9 @@ class TalkamPoll {
         count: json["count"],
         percentage: json["percentage"],
         anonymous: json["anonymous"],
-        expiresAt: DateTime.parse(json["expires_at"]),
+        expiresAt: json["expires_at"] == null
+            ? DateTime.now()
+            : DateTime.parse(json["expires_at"]),
         createdAt: DateTime.parse(json["created_at"]),
       );
 
@@ -483,7 +486,8 @@ class PostsPaginationData {
         canLoadMore: canLoadMore ?? this.canLoadMore,
       );
 
-  factory PostsPaginationData.fromJson(Map<String, dynamic> json) => PostsPaginationData(
+  factory PostsPaginationData.fromJson(Map<String, dynamic> json) =>
+      PostsPaginationData(
         currentPage: json["current_page"],
         firstPageUrl: json["first_page_url"],
         from: json["from"],
