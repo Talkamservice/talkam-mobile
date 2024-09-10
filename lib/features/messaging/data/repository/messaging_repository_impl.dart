@@ -97,14 +97,14 @@ class MessagingRepositoryImpl extends MessagingRepository {
   }
 
   @override
-  Future<dynamic> updateConversationStatus({required String conversationId, required String status}) async {
+  Future<TalkamConversation> updateConversationStatus({required String conversationId, required String status}) async {
     try {
       final response = await _networkService.call(
         UrlConfig.updateConversationStatus,
         RequestMethod.post,
         data: {"status": status, "conversation_id": conversationId},
       );
-      return response.data;
+      return TalkamConversation.fromJson(response.data["data"]);
     } catch (e) {
       rethrow;
     }
@@ -126,9 +126,9 @@ class MessagingRepositoryImpl extends MessagingRepository {
 
   @override
   Future<dynamic> sendMessage(AppMessageModel messageData) async {
-
-    var imageUrl =
-        messageData.assetUrl != null ? (await FirebaseStorageService().uploadMultipleFiles(FirebaseStoragePaths.chatFiles, [File(messageData.assetUrl!)])).first : null;
+    var imageUrl = messageData.assetUrl != null
+        ? (await FirebaseStorageService().uploadMultipleFiles(FirebaseStoragePaths.chatFiles, [File(messageData.assetUrl!)])).first
+        : null;
 
     try {
       final response = await _networkService.call(

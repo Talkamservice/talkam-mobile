@@ -13,16 +13,19 @@ import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/messaging/data/models/get_conversations_response.dart';
 import 'package:talkam/features/messaging/presentation/screens/chat_screen.dart';
 import 'package:talkam/features/profile/presentation/bloc/user_profile_cubit/user_profile_cubit.dart';
+import 'package:talkam/features/profile/presentation/screens/user_profile_tabs/user_media_tab.dart';
 import 'package:talkam/features/profile/presentation/screens/user_profile_tabs/user_profile_comments_tab.dart';
 import 'package:talkam/features/profile/presentation/screens/user_profile_tabs/user_profile_posts_tab.dart';
 import 'package:talkam/features/profile/presentation/screens/user_profile_tabs/user_profile_upvotes_tab.dart';
 import 'package:talkam/features/components/talkam_tab_bar.dart';
+import 'package:talkam/features/profile/presentation/widgets/user_profile_actions.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 enum _ProfileTabOptions {
   posts,
   comments,
-  upVotes;
+  upVotes,
+  media;
 
   String get title {
     switch (this) {
@@ -34,6 +37,8 @@ enum _ProfileTabOptions {
 
       case upVotes:
         return "Upvotes";
+      case media:
+        return "Media";
     }
   }
 }
@@ -86,18 +91,23 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             tittleText: userName ?? "",
             centerTile: false,
             showDivider: true,
-            actions: const [
-              // Padding(
-              //   padding: EdgeInsets.only(right: 10.w),
-              //   child: GestureDetector(
-              //     onTap: () {
-              //       context.pushNamed(PageUrl.settingsScreen);
-              //     },
-              //     child: SvgPicture.asset(
-              //       Assets.images.svgs.icSetting,
-              //     ),
-              //   ),
-              // )
+            actions: [
+              IconButton(
+                  onPressed: () async {
+                    var refresh = await CustomDialogs.showBottomSheet(
+                        context,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+                        ),
+                        UserProfileActions(
+                          user: _talkamUser,
+                        ));
+
+                    if (refresh ?? false) {
+                      injector.get<UserProfileCubit>().fetchUserProfile(widget.userId, reload: false);
+                    }
+                  },
+                  icon: const Icon(Icons.more_vert)),
             ],
           ),
           body: SafeArea(
@@ -105,6 +115,24 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                 profileLoading: () => Center(child: CustomDialogs.getLoading(size: 50)),
                 getProfileError: () => const AppErrorWidget(),
                 orElse: () {
+                  if (_talkamUser.isBlocked) {
+                    return Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextView(
+                            text: "@${_talkamUser.username} is Blocked",
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18,
+                          ),
+                          10.verticalSpace,
+                          const TextView(text: "Unblock them to view their activities and posts."),
+                          60.verticalSpace,
+                        ],
+                      ),
+                    );
+                  }
+
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -190,11 +218,15 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         child: PageView(
                           controller: _pageController,
                           onPageChanged: (int index) {
+
+
                             _selectedTab = index == 0
                                 ? _ProfileTabOptions.posts
                                 : index == 1
                                     ? _ProfileTabOptions.comments
-                                    : _ProfileTabOptions.upVotes;
+                                    : index == 2
+                                        ? _ProfileTabOptions.upVotes
+                                        : _ProfileTabOptions.media;
                             setState(() {});
                           },
                           children: [
@@ -208,6 +240,10 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             ),
                             UserProfileUpvotesTab(
                               key: const PageStorageKey(_ProfileTabOptions.upVotes),
+                              userId: widget.userId,
+                            ),
+                            UserProfileMediaTab(
+                              key: const PageStorageKey(_ProfileTabOptions.media),
                               userId: widget.userId,
                             ),
                           ],

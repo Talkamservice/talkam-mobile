@@ -31,12 +31,12 @@ class _NotificationsPreferencesGroupState extends State<NotificationsPreferences
           notificationItemType: NotificationItemType.switchType,
           tittle: 'Email Notifications',
           subtittle: 'Receive notifications via you email address',
-          selected: widget.data.data.talkamNews.toBool,
+          selected: widget.data.data.canReceiveEmail.toBool,
           onTap: () {
-            widget.data.data.talkamNews = (!widget.data.data.talkamNews.toBool).toInt;
+            widget.data.data.canReceiveEmail = (!widget.data.data.canReceiveEmail.toBool).toInt;
 
             context.read<SettingsBloc>().add(SettingsEvent.saveNotificationPreferences(UpdateSettingsPayload(
-                  talkamNews: (widget.data.data.talkamNews.toBool).toInt,
+                  canReceiveEmail: (widget.data.data.canReceiveEmail.toBool).toInt,
                 )));
 
             setState(() {});
@@ -49,14 +49,14 @@ class _NotificationsPreferencesGroupState extends State<NotificationsPreferences
           notificationItemType: NotificationItemType.switchType,
           tittle: 'Push Notifications',
           subtittle: 'Get Notifications on device push notifications',
-          selected: widget.data.data.talkamResearch.toBool,
+          selected: widget.data.data.canReceivePush.toBool,
           onTap: () async {
-            widget.data.data.talkamResearch = (!widget.data.data.talkamResearch.toBool).toInt;
+            widget.data.data.canReceivePush = (!widget.data.data.canReceivePush.toBool).toInt;
 
             var granted = await PermissionHandlerService().requestPermission(Permission.notification);
             if (granted) {
               context.read<SettingsBloc>().add(SettingsEvent.saveNotificationPreferences(UpdateSettingsPayload(
-                    talkamResearch: (widget.data.data.talkamResearch.toBool).toInt,
+                    canReceivePush: (widget.data.data.canReceivePush.toBool).toInt,
                   )));
 
               setState(() {});

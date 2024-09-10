@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
@@ -112,10 +114,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 child: PageView(
                   controller: _pageController,
 
-                  // physics: const NeverScrollableScrollPhysics(),
-                  onPageChanged: (int index) {
-                    _tabController.animateTo(index);
-                    selecteIndex = index;
+                    // physics: const NeverScrollableScrollPhysics(),
+                    onPageChanged: (int index) {
+                      _tabController.animateTo(index);
+                      selecteIndex = index;
 
                     setState(() {});
                   },

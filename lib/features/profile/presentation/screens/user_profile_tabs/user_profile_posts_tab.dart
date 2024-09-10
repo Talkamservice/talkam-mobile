@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
+import 'package:talkam/common/widgets/empty_state.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/profile/presentation/bloc/user_profile_posts_cubit/user_profile_posts_cubit.dart';
@@ -57,6 +58,26 @@ class _UserProfilePostTabState extends State<UserProfilePostTab>
           ),
           error: () => const SizedBox.shrink(),
           orElse: () {
+            if(_posts.isEmpty){
+
+              return RefreshIndicator(
+                onRefresh: () async {
+                  _cubit.fetchUserPosts(widget.userId);
+                },
+                child: ListView(
+                  children: [
+                    60.verticalSpace,
+                    const EmptyState(
+                      title: 'No posts yet',
+                      subtitle: "Posts  will appear here if any ",
+
+                    ),
+                  ],
+                ),
+              );
+
+
+            }
             return RefreshIndicator(
               onRefresh: () async{
                 _cubit.fetchUserPosts(widget.userId);

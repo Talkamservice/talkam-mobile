@@ -11,6 +11,8 @@ String updateSettingsPayloadToJson(UpdateSettingsPayload data) => json.encode(da
 class UpdateSettingsPayload {
   int? talkamNews;
   int? talkamResearch;
+  int? canReceiveEmail;
+  int? canReceivePush;
   int? moderationActivities;
   int? userActivities;
   String? comments;
@@ -20,6 +22,8 @@ class UpdateSettingsPayload {
     this.talkamResearch,
     this.moderationActivities,
     this.userActivities,
+     this.canReceiveEmail,
+     this.canReceivePush,
     this.comments,
   });
 
@@ -28,6 +32,8 @@ class UpdateSettingsPayload {
     int? talkamResearch,
     int? moderationActivities,
     int? userActivities,
+    int? canReceiveEmail,
+    int? canReceivePush,
     String? comments,
   }) =>
       UpdateSettingsPayload(
@@ -36,6 +42,8 @@ class UpdateSettingsPayload {
         moderationActivities: moderationActivities ?? this.moderationActivities,
         userActivities: userActivities ?? this.userActivities,
         comments: comments ?? this.comments,
+        canReceiveEmail: canReceiveEmail ?? this.canReceiveEmail,
+        canReceivePush: canReceivePush ?? this.canReceivePush,
       );
 
   factory UpdateSettingsPayload.fromJson(Map<String, dynamic> json) => UpdateSettingsPayload(
@@ -44,6 +52,8 @@ class UpdateSettingsPayload {
         moderationActivities: json["moderation_activities"],
         userActivities: json["user_activities"],
         comments: json["comments"],
+        canReceivePush: json["can_receive_push"] ?? 0,
+        canReceiveEmail: json["can_receive_mail"] ?? 0,
       );
 
   Map<String, dynamic> toJson() => {
@@ -52,5 +62,7 @@ class UpdateSettingsPayload {
         if (moderationActivities != null) "moderation_activities": moderationActivities,
         if (userActivities != null) "user_activities": userActivities,
         if (comments != null) "comments": comments,
+        if (canReceiveEmail != null) "can_receive_mail": canReceiveEmail,
+        if (canReceivePush != null) "can_receive_push": canReceivePush,
       };
 }

@@ -35,9 +35,10 @@ class MessagingState with _$MessagingState {
 
 
 
+
   // Update Conversation Status States
   const factory MessagingState.updateConversationStatusLoading() = _UpdateConversationStatusLoading;
-  const factory MessagingState.updateConversationStatusSuccess(dynamic response) = _UpdateConversationStatusSuccess;
+  const factory MessagingState.updateConversationStatusSuccess(TalkamConversation response) = _UpdateConversationStatusSuccess;
   const factory MessagingState.updateConversationStatusFailure(String error) = _UpdateConversationStatusFailure;
 
 

@@ -38,17 +38,18 @@ class _PostImageState extends State<PostImage> {
             },
           ),
         ),
-        Positioned(
-          bottom: 20,
-          right: 0,
-          left: 0,
-          child: Center(
-            child: Indicator(
-              seledtedIndex: _selectedIndex,
-              items_count: widget.images.length,
+        if (widget.images.length > 1)
+          Positioned(
+            bottom: 20,
+            right: 0,
+            left: 0,
+            child: Center(
+              child: Indicator(
+                seledtedIndex: _selectedIndex,
+                items_count: widget.images.length,
+              ),
             ),
           ),
-        ),
       ],
     );
   }

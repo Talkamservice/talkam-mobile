@@ -21,7 +21,7 @@ abstract class MessagingRepository {
   Future<dynamic> updateConversationById(
       String id,bool status);
 
-  Future<dynamic> updateConversationStatus(
+  Future<TalkamConversation> updateConversationStatus(
       {required String conversationId, required String status});
 
   Future<dynamic> reportConversation(Map<String, dynamic> reportData);

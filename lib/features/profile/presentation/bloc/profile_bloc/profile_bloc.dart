@@ -8,6 +8,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/authentication/data/models/get_avatars_response.dart';
 import 'package:talkam/features/post/data/models/update_profile_response.dart';
+import 'package:talkam/features/profile/data/models/block_user_response.dart';
 import 'package:talkam/features/profile/data/models/update_profile_payload.dart';
 import 'package:talkam/features/profile/dormain/repository/profile_repository.dart';
 
@@ -34,8 +35,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<GetRemoteUser>(_mapGetRemoteUserEventToState);
   }
 
-  FutureOr<void> _mapSaveUserEventToState(
-      SaveUserLocallyEvent event, Emitter<ProfileState> emit) {
+  FutureOr<void> _mapSaveUserEventToState(SaveUserLocallyEvent event, Emitter<ProfileState> emit) {
     _userStorage.saveUser(event.appUser);
     appUser = event.appUser;
 
@@ -43,8 +43,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     emit(UserCachedState(event.appUser));
   }
 
-  FutureOr<void> _mapGetUserEventToState(
-      GetCachedUserEvent event, Emitter<ProfileState> emit) async {
+  FutureOr<void> _mapGetUserEventToState(GetCachedUserEvent event, Emitter<ProfileState> emit) async {
     var user = await _userStorage.getUser();
 
     if (user != null) {
@@ -53,8 +52,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
   }
 
-  Future<void> _onUploadAvatar(
-      UploadAvatarEvent event, Emitter<ProfileState> emit) async {
+  Future<void> _onUploadAvatar(UploadAvatarEvent event, Emitter<ProfileState> emit) async {
     emit(UploadAvatarLoading());
     try {
       final response = await _profileRepository.uploadAvatar(event.filePath);
@@ -64,8 +62,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
   }
 
-  Future<void> _onUpdateProfile(
-      UpdateProfileEvent event, Emitter<ProfileState> emit) async {
+  Future<void> _onUpdateProfile(UpdateProfileEvent event, Emitter<ProfileState> emit) async {
     emit(UpdateProfileLoading());
     try {
       final response = await _profileRepository.updateProfile(event.payload);
@@ -76,8 +73,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
   }
 
-  FutureOr<void> _mapGetAvatarsEventToState(
-      GetAvatarsEvent event, Emitter<ProfileState> emit) async {
+  FutureOr<void> _mapGetAvatarsEventToState(GetAvatarsEvent event, Emitter<ProfileState> emit) async {
     emit(GetAvatarsLoadingState());
     try {
       final response = await _profileRepository.getAvatars();
@@ -87,19 +83,21 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
   }
 
-  FutureOr<void> _mapBlockUerEventToState(
-      BlockUerEvent event, Emitter<ProfileState> emit) async {
-    emit(BlockUserLoadingState());
+  FutureOr<void> _mapBlockUerEventToState(BlockUerEvent event, Emitter<ProfileState> emit) async {
+
+    if (event.reload!) {
+      emit(BlockUserLoadingState());
+    }
     try {
       final response = await _profileRepository.blockUser(event.userId);
+
       emit(BlockUserSuccessState(response: response));
     } catch (error) {
       emit(BlockUserFailureState(error: error.toString()));
     }
   }
 
-  FutureOr<void> _mapGetRemoteUserEventToState(
-      GetRemoteUser event, Emitter<ProfileState> emit) async {
+  FutureOr<void> _mapGetRemoteUserEventToState(GetRemoteUser event, Emitter<ProfileState> emit) async {
     emit(GetProfileLoadingState());
     try {
       var user = injector.get<ProfileBloc>().appUser;
@@ -112,13 +110,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     }
   }
 
-  FutureOr<void> _mapUpdateInterestEventToState(
-      UpdateInterestEvent event, Emitter<ProfileState> emit) async {
+  FutureOr<void> _mapUpdateInterestEventToState(UpdateInterestEvent event, Emitter<ProfileState> emit) async {
     emit(UpdateInterestLoadingState());
     try {
       // var user = injector.get<ProfileBloc>().appUser;
-      final response =
-          await _profileRepository.addOrRemoveInterest(event.categoryId);
+      final response = await _profileRepository.addOrRemoveInterest(event.categoryId);
       // injector.get<ProfileBloc>().add(SaveUserLocallyEvent(response));
       // CustomDialogs.error(response.toString());
       emit(UpdateInterestSuccessState(response: response));

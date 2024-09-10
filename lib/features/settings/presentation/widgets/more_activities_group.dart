@@ -39,7 +39,7 @@ class _MoreActivitiesPreferenceGroupState
             context.read<SettingsBloc>().add(
                     SettingsEvent.saveNotificationPreferences(
                         UpdateSettingsPayload(
-                  moderationActivities: (widget.data.data.userActivities),
+                  userActivities: (widget.data.data.userActivities),
                 )));
 
             setState(() {});
@@ -57,7 +57,7 @@ class _MoreActivitiesPreferenceGroupState
             context.read<SettingsBloc>().add(
                     SettingsEvent.saveNotificationPreferences(
                         UpdateSettingsPayload(
-                  moderationActivities: (widget.data.data.userActivities),
+                  userActivities: (widget.data.data.userActivities),
                 )));
 
             setState(() {});

@@ -94,7 +94,7 @@ class BlockUserLoadingState extends ProfileState {
 }
 
 class BlockUserSuccessState extends ProfileState {
-  final dynamic response;
+  final BlockUserResponse response;
 
   const BlockUserSuccessState({required this.response});
 

@@ -131,7 +131,7 @@ class TalkamConversation {
       };
 
   ConversationUser get otherUser =>
-      SessionManager().isMe(members.first.id.toString())
+      SessionManager().isMe(members.firstOrNull?.id.toString()??'0')
           ? members.last
           : members.first;
 }
@@ -146,6 +146,7 @@ class LastMessage {
   String assetUrl;
   bool read;
   DateTime createdAt;
+
   DateTime updatedAt;
 
   LastMessage({

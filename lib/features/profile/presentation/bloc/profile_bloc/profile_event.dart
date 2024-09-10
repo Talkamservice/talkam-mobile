@@ -43,11 +43,12 @@ class GetAvatarsEvent extends ProfileEvent {
 
 class BlockUerEvent extends ProfileEvent {
   final String userId;
+  final bool? reload;
 
-  const BlockUerEvent(this.userId);
+  const BlockUerEvent(this.userId, {this.reload = true});
 
   @override
-  List<Object?> get props => [];
+  List<Object?> get props => [userId,reload];
 }
 
 class GetRemoteUser extends ProfileEvent {

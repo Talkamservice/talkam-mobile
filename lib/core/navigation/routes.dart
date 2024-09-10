@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talkam/core/navigation/path_params.dart';
 import 'package:talkam/core/navigation/route_url.dart';
@@ -46,6 +47,8 @@ import 'package:talkam/features/settings/presentation/screens/settings_screen.da
 import 'package:talkam/features/profile/presentation/screens/user_profile_screen.dart';
 import 'package:talkam/features/search/presentation/screens/search_result_screen.dart';
 import 'package:talkam/features/search/presentation/screens/search_screen.dart';
+
+import '../../common/widgets/custom_dialogs.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'rootNavigator');
 final _shellNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'shellA');
@@ -367,8 +370,7 @@ class CustomRoutes {
     return CustomTransitionPage<T>(
       key: state.pageKey,
       child: child,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-          FadeTransition(opacity: animation, child: child),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(opacity: animation, child: child),
     );
   }
 

@@ -10,11 +10,11 @@ import 'package:talkam/core/theme/pallets.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 final NotificationService notificationService = NotificationService();
+final FirebaseMessaging _firebaseMessaging = FirebaseMessaging.instance;
 
 String notiToken = '';
 String voipToken = '';
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
 /// Define a top-level named handler which background/terminated messages will
 /// call.
@@ -55,12 +55,11 @@ class NotificationService {
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
     flutterLocalNotificationsPlugin.initialize(
-
       const InitializationSettings(
         android: AndroidInitializationSettings('@drawable/launcher'),
         iOS: DarwinInitializationSettings(),
       ),
-      onDidReceiveNotificationResponse:_receivedResponse,
+      onDidReceiveNotificationResponse: _receivedResponse,
     );
 
     if (!kIsWeb) {
@@ -77,15 +76,9 @@ class NotificationService {
       ///
       /// We use this channel in the `AndroidManifest.xml` file to override the
       /// default FCM channel to enable heads up notifications.
-      await flutterLocalNotificationsPlugin
-          .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin>()
-          ?.createNotificationChannel(channel);
+      await flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.createNotificationChannel(channel);
 
-      flutterLocalNotificationsPlugin
-          .resolvePlatformSpecificImplementation<
-              IOSFlutterLocalNotificationsPlugin>()
-          ?.requestPermissions(
+      flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<IOSFlutterLocalNotificationsPlugin>()?.requestPermissions(
             alert: true,
             badge: true,
             sound: true,
@@ -93,8 +86,7 @@ class NotificationService {
 
       /// Update the iOS foreground notification presentation options to allow
       /// heads up notifications.
-      await FirebaseMessaging.instance
-          .setForegroundNotificationPresentationOptions(
+      await FirebaseMessaging.instance.setForegroundNotificationPresentationOptions(
         alert: true,
         badge: true,
         sound: true,
@@ -124,10 +116,7 @@ class NotificationService {
 
   _requestPermission() {
     if (Platform.isAndroid) {
-      flutterLocalNotificationsPlugin
-          .resolvePlatformSpecificImplementation<
-              AndroidFlutterLocalNotificationsPlugin>()
-          ?.requestNotificationsPermission();
+      flutterLocalNotificationsPlugin.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>()?.requestNotificationsPermission();
     }
 
     /// initialize
@@ -136,8 +125,7 @@ class NotificationService {
 
   /// Get initialize messages
   Future<RemoteMessage?> getInitialMessage() async {
-    RemoteMessage? message =
-        await FirebaseMessaging.instance.getInitialMessage();
+    RemoteMessage? message = await FirebaseMessaging.instance.getInitialMessage();
 
     if (message != null) {
       logger.i(message);
@@ -155,15 +143,12 @@ class NotificationService {
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       logger.i('Got a message whilst in the foreground!');
       logger.i('Message data: ${message.data}');
-      logger.i(
-          'Message type: ${message.data["therapist"].runtimeType.toString()}');
+      logger.i('Message type: ${message.data["therapist"].runtimeType.toString()}');
 
       DeepLinkNavigator.handleForegroundMessages(message);
       if (message.notification?.title.toString() != 'Incoming Call') {
         notificationService.triggerHeadsUp(
-            message.notification.hashCode,
-            message.notification?.title ?? message.data['title'],
-            message.notification?.body ?? message.data['body'],
+            message.notification.hashCode, message.notification?.title ?? message.data['title'], message.notification?.body ?? message.data['body'],
             payload: jsonEncode(message.data));
         return;
       }
@@ -174,8 +159,7 @@ class NotificationService {
 
   void _openMessageApp() {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      logger.i(
-          'A new onMessageOpenedApp event was published! ${message.data['test']}');
+      logger.i('A new onMessageOpenedApp event was published! ${message.data['test']}');
       // injector.get<DeepLinkBloc>().add(DeepLinkReceived(message.data));
       // DeepLinkNavigator.handlePushNotificationClick(message.data);
     });
@@ -209,6 +193,17 @@ class NotificationService {
     });
   }
 
+  Future<String?> get deviceToken async {
+    try {
+      final String? token = await FirebaseMessaging.instance.getToken();
+      logger.i('My Token: $token');
+      return token;
+    } catch (e) {
+      logger.e(e);
+      return null;
+    }
+  }
+
   void triggerHeadsUp(int hashCode, data, data2, {dynamic payload}) {
     flutterLocalNotificationsPlugin.show(
         hashCode,
@@ -234,14 +229,9 @@ class NotificationService {
   }
 
   void _receivedResponse(NotificationResponse details) {
-
-
-    DeepLinkNavigator.handlePushNotificationClick(
-        jsonDecode(details.payload ?? '{}'));
+    DeepLinkNavigator.handlePushNotificationClick(jsonDecode(details.payload ?? '{}'));
   }
 }
-
-
 
 // duTCCKu0Y0j_mH6x2C-VP_:APA91bHuWI3pwOcr5oY35xMV7_84DICprR3_kC9-WvcvAzV31pjAow5Nx7xxeSqsJc5AcigQK5aHywbquONqG4sAof72w_Q5uemO1LmUHaV3cBiYrNT1Z6CYSbsQzdazbn3m9K3FBwGm
 // 5480c256e09588dbd02918899311dad7561ecd16811e0a1bae983744bfbca7cb

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:talkam/common/widgets/filled_textfield.dart';
+import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/services/image_manipulation/image_manager.dart';
@@ -72,6 +73,21 @@ class _ConversationActionsWidgetState extends State<ConversationActionsWidget> {
         if (conversationIsNotYetFetched) {
           return 0.verticalSpace;
         } else {
+          if(widget.currentConversation?.userBlocked??false){
+            return Column(children: [
+              20.verticalSpace,
+
+              TextView(
+                text: "@${widget.currentConversation?.otherUser.username} is Blocked",
+                fontWeight: FontWeight.w600,
+                fontSize: 18,
+              ),
+              10.verticalSpace,
+              const TextView(text: "Unblock them to  send them messages"),
+              60.verticalSpace
+
+            ],);
+          }
           if (widget.isPendingRequest) {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
@@ -113,6 +129,7 @@ class _ConversationActionsWidgetState extends State<ConversationActionsWidget> {
                 ),
               const SizedBox(height: 8),
               FilledTextField(
+                focusNode: _focusNode,
                 suffix: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
@@ -75,8 +77,7 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
   }
 
   void _goBranch(int index) {
-    if(index == widget.navigationShell.currentIndex){
-
+    if (index == widget.navigationShell.currentIndex) {
       refreshPost();
     }
     widget.navigationShell.goBranch(index, initialLocation: index == widget.navigationShell.currentIndex);
@@ -85,109 +86,135 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: baseScaffoldKey,
-      extendBody: true,
-      drawer: const AppDrawer(),
-      // backgroundColor: Pallets.defaultBackgroundColor,
-      body: BlocConsumer<DrawerCubit, DrawerState>(
-        listener: (context, state) {
-          state.maybeWhen(
-            openDrawer: () => _openDrawer(),
-            closeDrawer: () => _closeDrawer,
-            orElse: () => null,
-          );
-        },
-        builder: (BuildContext context, DrawerState state) {
-          return widget.navigationShell;
-        },
-        // child: ,
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.only(left: 12, right: 12, bottom: 12),
-        child: Container(
-          height: 64.h,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(100.r),
-            color: Pallets.boldBlack,
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              _BottomNavIcon(
-                onTap: _goBranch,
-                currentIndex: widget.navigationShell.currentIndex,
-                iconPath: Assets.images.svgs.home,
-                itemIndex: 0,
-              ),
-              _BottomNavIcon(
-                onTap: _goBranch,
-                currentIndex: widget.navigationShell.currentIndex,
-                iconPath: Assets.images.svgs.search,
-                itemIndex: 1,
-              ),
-              _BottomNavIcon(
-                onTap: (p0) {
-                  GuestUserHelper.handleGuestUserAction(
-                    message: "Login or Signup to create post",
-                    action: () {
-                      context.pushNamed(PageUrl.createPostScreen);
-                    },
-                  );
+    return PopScope(
+      canPop: false,
+      onPopInvoked: (val) {
+        CustomDialogs.showConfirmDialog(
+          context,
+          tittle: "Exit",
+          message: "Are you sure you want to exit",
+          onYes: () {
+            SystemNavigator.pop();
+          },
+          onCancel: () {
+            Navigator.pop(context);
+          },
+        );
+      },
+      child: Scaffold(
+        key: baseScaffoldKey,
+        extendBody: true,
+        drawer: const AppDrawer(),
+        // backgroundColor: Pallets.defaultBackgroundColor,
+        body: BlocConsumer<DrawerCubit, DrawerState>(
+          listener: (context, state) {
+            state.maybeWhen(
+              openDrawer: () => _openDrawer(),
+              closeDrawer: () => _closeDrawer,
+              orElse: () => null,
+            );
+          },
+          builder: (BuildContext context, DrawerState state) {
+            return widget.navigationShell;
+          },
+          // child: ,
+        ),
+        bottomNavigationBar: WillPopScope(
+          onWillPop: ()async {
+            CustomDialogs.showConfirmDialog(
+              context,
+              tittle: "Exit",
+              message: "Are you sure you want to exit",
+              onYes: () {
+                SystemNavigator.pop();
+              },
+              onCancel: () {
+                Navigator.pop(context);
+              },
+            );
 
-                  // SessionManager.instance.logOut();
-                },
-                currentIndex: widget.navigationShell.currentIndex,
-                iconPath: Assets.images.svgs.add,
-                bgColor: Pallets.white,
-                itemIndex: 2,
+            return false;
+          },
+          child: Padding(
+            padding: const EdgeInsets.only(left: 12, right: 12, bottom: 12),
+            child: Container(
+              height: 64.h,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(100.r),
+                color: Pallets.boldBlack,
               ),
-
-              _BottomNavIcon(
-                onTap: (p0) {
-                  _goBranch(2);
-                },
-                currentIndex: widget.navigationShell.currentIndex,
-                iconPath: Assets.images.svgs.groups,
-                itemIndex: 2,
-              ),
-
-              BlocBuilder<NotificationsBloc, NotificationsState>(
-                bloc: injector.get<NotificationsBloc>(),
-
-                builder: (context, state) {
-                  var stat = injector.get<NotificationsBloc>().stats;
-                  return Stack(
-                    children: [
-                      _BottomNavIcon(
-                        onTap: (p0) {
-                          _goBranch(3);
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  _BottomNavIcon(
+                    onTap: _goBranch,
+                    currentIndex: widget.navigationShell.currentIndex,
+                    iconPath: Assets.images.svgs.home,
+                    itemIndex: 0,
+                  ),
+                  _BottomNavIcon(
+                    onTap: _goBranch,
+                    currentIndex: widget.navigationShell.currentIndex,
+                    iconPath: Assets.images.svgs.search,
+                    itemIndex: 1,
+                  ),
+                  _BottomNavIcon(
+                    onTap: (p0) {
+                      GuestUserHelper.handleGuestUserAction(
+                        message: "Login or Signup to create post",
+                        action: () {
+                          context.pushNamed(PageUrl.createPostScreen);
                         },
-                        currentIndex: widget.navigationShell.currentIndex,
-                        iconPath: Assets.images.svgs.message,
-                        itemIndex: 3,
-                      ),
-                      if (stat.unreadMessages != 0)
-                         Positioned(
-                            top: 10,
-                            right: 6,
-                            child: CircleAvatar(
-
-                              radius: 8,
-                              backgroundColor: Colors.red,
-                              foregroundColor: Colors.white,
-                              child: TextView(
-
-                                text: stat.unreadMessages.toString(),
-                                fontSize: 8,
-                              ),
-                            ))
-                    ],
-                  );
-                },
+                      );
+                      // SessionManager.instance.logOut();
+                    },
+                    currentIndex: widget.navigationShell.currentIndex,
+                    iconPath: Assets.images.svgs.add,
+                    bgColor: Pallets.white,
+                    itemIndex: 2,
+                  ),
+                  _BottomNavIcon(
+                    onTap: (p0) {
+                      _goBranch(2);
+                    },
+                    currentIndex: widget.navigationShell.currentIndex,
+                    iconPath: Assets.images.svgs.groups,
+                    itemIndex: 2,
+                  ),
+                  BlocBuilder<NotificationsBloc, NotificationsState>(
+                    bloc: injector.get<NotificationsBloc>(),
+                    builder: (context, state) {
+                      var stat = injector.get<NotificationsBloc>().stats;
+                      return Stack(
+                        children: [
+                          _BottomNavIcon(
+                            onTap: (p0) {
+                              _goBranch(3);
+                            },
+                            currentIndex: widget.navigationShell.currentIndex,
+                            iconPath: Assets.images.svgs.message,
+                            itemIndex: 3,
+                          ),
+                          if (stat.unreadMessages != 0)
+                            Positioned(
+                                top: 10,
+                                right: 6,
+                                child: CircleAvatar(
+                                  radius: 8,
+                                  backgroundColor: Colors.red,
+                                  foregroundColor: Colors.white,
+                                  child: TextView(
+                                    text: stat.unreadMessages.toString(),
+                                    fontSize: 8,
+                                  ),
+                                ))
+                        ],
+                      );
+                    },
+                  ),
+                ],
               ),
-
-            ],
+            ),
           ),
         ),
       ),

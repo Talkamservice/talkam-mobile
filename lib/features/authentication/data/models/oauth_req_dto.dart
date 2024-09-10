@@ -4,29 +4,36 @@
 class OauthReqDto {
   OauthReqDto({
     this.token,
+    this.fcmToken,
     this.provider,
   });
 
   OauthReqDto.fromJson(dynamic json) {
     token = json['token'];
+    fcmToken = json['fcm_token'];
     provider = json['provider'];
   }
 
+
   String? token;
+  String? fcmToken;
   String? provider;
 
   OauthReqDto copyWith({
     String? token,
+    String? fcmToken,
     String? provider,
   }) =>
       OauthReqDto(
         token: token ?? this.token,
+        fcmToken: fcmToken ?? this.fcmToken,
         provider: provider ?? this.provider,
       );
 
   Map<String, dynamic> toJson() {
     final map = <String, dynamic>{};
     map['token'] = token;
+    map['fcm_token'] = fcmToken;
     map['provider'] = provider;
     return map;
   }

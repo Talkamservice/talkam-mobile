@@ -110,7 +110,13 @@ class _ChatScreenState extends State<ChatScreen> with RefreshConversationsMixin 
             updateConversationStatusSuccess: (response) {
               context.pop();
               refreshAllConversations();
-              messagingCubit.fetchCurrentConversation(widget.param.user.id.toString());
+
+              if(response.status == "Accepted"){
+                messagingCubit.fetchCurrentConversation(widget.param.user.id.toString());
+
+              }else{
+                context.pop();
+              }
             },
             getMessagesSuccess: (response) {
               refreshAllConversations();

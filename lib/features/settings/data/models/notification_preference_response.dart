@@ -55,6 +55,8 @@ class Data {
   int id;
   int talkamNews;
   int talkamResearch;
+  int canReceiveEmail;
+  int canReceivePush;
   int userActivities;
   dynamic comments;
   int moderationActivities;
@@ -65,6 +67,8 @@ class Data {
     required this.talkamNews,
     required this.talkamResearch,
     required this.userActivities,
+    required this.canReceiveEmail,
+    required this.canReceivePush,
     required this.comments,
     required this.moderationActivities,
     required this.user,
@@ -75,6 +79,8 @@ class Data {
     int? talkamNews,
     int? talkamResearch,
     int? userActivities,
+    int? canReceiveEmail,
+    int? canReceivePush,
     String? comments,
     int? moderationActivities,
     RelatedUser? user,
@@ -83,6 +89,8 @@ class Data {
         id: id ?? this.id,
         talkamNews: talkamNews ?? this.talkamNews,
         talkamResearch: talkamResearch ?? this.talkamResearch,
+        canReceiveEmail: canReceiveEmail ?? this.canReceiveEmail,
+        canReceivePush: canReceivePush ?? this.canReceivePush,
         userActivities: userActivities ?? this.userActivities,
         comments: comments ?? this.comments,
         moderationActivities: moderationActivities ?? this.moderationActivities,
@@ -95,6 +103,8 @@ class Data {
     talkamResearch: json["talkam_research"]??0,
 
     userActivities: json["user_activities"]??0,
+    canReceivePush: json["can_receive_push"]??0,
+    canReceiveEmail: json["can_receive_mail"]??0,
     comments: json["comments"]??0,
     moderationActivities: json["moderation_activities"]??0,
     user: RelatedUser.fromJson(json["user"]),
@@ -106,6 +116,8 @@ class Data {
     "talkam_news": talkamNews,
     "talkam_research": talkamResearch,
     "user_activities": userActivities,
+    "can_receive_mail": canReceiveEmail,
+    "can_receive_push": canReceivePush,
     "comments": comments,
     "moderation_activities": moderationActivities,
     "user": user.toJson(),

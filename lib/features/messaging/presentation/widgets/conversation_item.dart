@@ -84,6 +84,6 @@ class MessageIndicator extends StatelessWidget {
     
     return SessionManager().isMe(lastMessage.senderId.toString())
         ? ImageWidget(imageUrl: lastMessage.read ? Assets.images.svgs.messageRead : Assets.images.svgs.messageSent)
-        : 0.verticalSpace;
+        : lastMessage.read ? 0.verticalSpace:ImageWidget(imageUrl: Assets.images.svgs.newMessageIndicator);
   }
 }

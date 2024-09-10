@@ -143,7 +143,6 @@ class PostHeader extends StatelessWidget {
                           }
                           return InkWell(
                             onTap: () {
-
                               context.pushNamed(PageUrl.categoriesScreen,
                                   extra: post.category);
 
@@ -195,9 +194,10 @@ class PostHeader extends StatelessWidget {
   }
 
   void viewUsersProfile(BuildContext context) {
-
     GuestUserHelper.handleGuestUserAction(action: () {
-      var me = injector.get<ProfileBloc>().appUser;
+      var me = injector
+          .get<ProfileBloc>()
+          .appUser;
       if (me?.id == post.user.id) {
         context.pushNamed(
           PageUrl.profileScreen,
@@ -206,9 +206,7 @@ class PostHeader extends StatelessWidget {
         context.pushNamed(PageUrl.userProfileScreen,
             extra: post.user.id.toString());
       }
-    },message: "Login to view user profile");
-
-
+    }, message: "Login to view user profile");
   }
 }
 
@@ -309,7 +307,7 @@ class _PostActionsState extends State<PostActions> {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
             decoration: BoxDecoration(
-                // shape: BoxShape.circle,
+              // shape: BoxShape.circle,
                 borderRadius: BorderRadius.circular(100.r),
                 border: Border.all(
                   width: 1,
@@ -328,6 +326,6 @@ class _PostActionsState extends State<PostActions> {
         foregroundColor: Pallets.grey,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
         shape:
-            const StadiumBorder(side: BorderSide(color: Pallets.borderGrey)));
+        const StadiumBorder(side: BorderSide(color: Pallets.borderGrey)));
   }
 }

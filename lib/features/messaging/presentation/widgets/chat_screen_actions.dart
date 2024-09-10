@@ -48,6 +48,7 @@ class _ChatScreenActionsState extends State<ChatScreenActions> with RefreshPosts
                   context.pop();
                   context.pop();
                   context.pop();
+                  context.pop();
                   CustomDialogs.success("Conversation deleted");
                 },
                 deleteConversationByIdLoading: () {
@@ -84,9 +85,12 @@ class _ChatScreenActionsState extends State<ChatScreenActions> with RefreshPosts
               refreshPost(reload: false);
               refreshAllConversations();
               context.pop();
-              context.pop();
-              context.pop();
-              CustomDialogs.success("User Blocked");
+              context.pop(true);
+              if (state.response.data.isBlocked) {
+                CustomDialogs.success("User Blocked");
+              } else {
+                CustomDialogs.success("User UnBlocked");
+              }
             }
           },
         )
@@ -153,7 +157,7 @@ class _ChatScreenActionsState extends State<ChatScreenActions> with RefreshPosts
             ),
             _buildOptionRow(
               icon: Icons.block_outlined,
-              text: 'Block ${widget.conversation.otherUser.username}',
+              text: widget.conversation.userBlocked ? 'UnBlock ${widget.conversation.otherUser.username}' : 'Block ${widget.conversation.otherUser.username}',
               onTap: () {
                 blockUser(context);
               },
@@ -183,10 +187,37 @@ class _ChatScreenActionsState extends State<ChatScreenActions> with RefreshPosts
   }
 
   void blockUser(BuildContext context) async {
-    var reason = await CustomDialogs.showCustomDialog(BlockReasonSheet(), context);
-    if (reason != null) {
-      profileBloc.add(BlockUerEvent(widget.conversation.otherUser.id.toString()));
+    if (!widget.conversation.userBlocked) {
+      CustomDialogs.showConfirmDialog(
+        context,
+        confirmButtonBgColor: Pallets.red,
+        message: "Are you sure you want to block ${widget.conversation.otherUser.username}",
+        onCancel: () {
+          context.pop();
+        },
+        onYes: () {
+          context.pop();
+
+          profileBloc.add(BlockUerEvent(widget.conversation.otherUser.id.toString()));
+        },
+      );
+    } else {
+      CustomDialogs.showConfirmDialog(
+        context,
+        confirmButtonBgColor: Pallets.primary,
+        message: "Are you sure you want to unblock ${widget.conversation.otherUser.username}",
+        onCancel: () {
+          context.pop();
+        },
+        onYes: () {
+          context.pop();
+
+          profileBloc.add(BlockUerEvent(widget.conversation.otherUser.id.toString()));
+        },
+      );
     }
+
+
   }
 }
 

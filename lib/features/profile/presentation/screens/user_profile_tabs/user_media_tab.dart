@@ -2,30 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/empty_state.dart';
+import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item.dart';
+import 'package:talkam/features/profile/data/models/user_media_response.dart';
+import 'package:talkam/features/profile/presentation/bloc/user_profile_media_tab/user_profile_media_tab_cubit.dart';
 import 'package:talkam/features/profile/presentation/bloc/user_profile_upvotes_cubit/user_profile_upvotes_cubit.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 
-class UserProfileUpvotesTab extends StatefulWidget {
-  const UserProfileUpvotesTab({super.key, required this.userId});
+class UserProfileMediaTab extends StatefulWidget {
+  const UserProfileMediaTab({super.key, required this.userId});
 
   final String userId;
 
+
   @override
-  State<UserProfileUpvotesTab> createState() => _UserProfileUpvotesTabState();
+  State<UserProfileMediaTab> createState() => _UserProfileMediaTabState();
 }
 
-class _UserProfileUpvotesTabState extends State<UserProfileUpvotesTab>
+class _UserProfileMediaTabState extends State<UserProfileMediaTab>
     with AutomaticKeepAliveClientMixin {
-  final UserProfileUpvotesCubit _cubit = injector.get();
-  List<TalkamPost> _posts = [];
+  final UserProfileMediaTabCubit _cubit = injector.get();
+  List<UserMedia> _posts = [];
   final ScrollController _scrollController = ScrollController();
 
   @override
   void initState() {
-    _cubit.fetchUserPosts(widget.userId);
+    _cubit.fetchUserMedia(widget.userId);
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
@@ -39,11 +43,11 @@ class _UserProfileUpvotesTabState extends State<UserProfileUpvotesTab>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return BlocConsumer<UserProfileUpvotesCubit, UserProfileUpvotesState>(
+    return BlocConsumer<UserProfileMediaTabCubit, UserProfileMediaTabState>(
       bloc: _cubit,
       listener: (context, state) {
         state.maybeWhen(
-          loaded: (List<TalkamPost> posts) {
+          loaded: (List<UserMedia> posts) {
             _posts = posts;
             setState(() {});
           },
@@ -61,14 +65,14 @@ class _UserProfileUpvotesTabState extends State<UserProfileUpvotesTab>
 
               return RefreshIndicator(
                 onRefresh: () async {
-                  _cubit.fetchUserPosts(widget.userId);
+                  _cubit.fetchUserMedia(widget.userId);
                 },
                 child: ListView(
                   children: [
                     60.verticalSpace,
                     const EmptyState(
-                      title: 'No upvote yet',
-                      subtitle: "Upvotes  will appear here ",
+                      title: 'No media yet',
+                      subtitle: "Media items will appear here if any ",
 
                     ),
                   ],
@@ -79,18 +83,26 @@ class _UserProfileUpvotesTabState extends State<UserProfileUpvotesTab>
             }
             return RefreshIndicator(
               onRefresh: () async {
-                _cubit.fetchUserPosts(widget.userId);
+                _cubit.fetchUserMedia(widget.userId);
               },
-              child: ListView(
+              child: GridView(
                 controller: _scrollController,
                 physics: const AlwaysScrollableScrollPhysics(),
                 // padding: EdgeInsets.only(top: 2),
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
                 children: [
                   for (int i = 0; i < _posts.length; i++) ...[
-                    PostItem(post: _posts[i]),
-                    4.verticalSpace,
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 2.0),
+                      child: ImageWidget(
+                        canPreview: true,
+
+                          imageUrl: _posts[i].url),
+                    ),
+
                   ],
-                  if (state is UserProfileUpvotesTabLoadingMoreState)
+
+                  if (state is UserProfileMediaTabLoadingMoreState)
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 16.h),
                       child: Center(child: CustomDialogs.getLoading(size: 50)),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
+import 'package:talkam/common/widgets/empty_state.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/post/data/models/talk_am_comment.dart';
@@ -16,8 +17,7 @@ class UserProfileCommentsTab extends StatefulWidget {
   State<UserProfileCommentsTab> createState() => _UserProfileCommentsTabState();
 }
 
-class _UserProfileCommentsTabState extends State<UserProfileCommentsTab>
-    with AutomaticKeepAliveClientMixin {
+class _UserProfileCommentsTabState extends State<UserProfileCommentsTab> with AutomaticKeepAliveClientMixin {
   final UserProfileCommentsCubit _cubit = injector.get();
   List<TalkAmComment> _comments = [];
   final ScrollController _scrollController = ScrollController();
@@ -49,6 +49,22 @@ class _UserProfileCommentsTabState extends State<UserProfileCommentsTab>
           ),
           error: () => const SizedBox.shrink(),
           orElse: () {
+            if (_comments.isEmpty) {
+              return RefreshIndicator(
+                onRefresh: () async {
+                  _cubit.fetchUserComments(widget.userID);
+                },
+                child: ListView(
+                  children: [
+                    60.verticalSpace,
+                    const EmptyState(
+                      title: 'No comments yet',
+                      subtitle: "Comments will appear here if any ",
+                    ),
+                  ],
+                ),
+              );
+            }
             return RefreshIndicator(
               onRefresh: () async {
                 _cubit.fetchUserComments(widget.userID);
