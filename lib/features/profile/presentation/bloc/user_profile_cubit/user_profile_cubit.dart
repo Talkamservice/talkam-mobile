@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
@@ -26,7 +28,7 @@ class UserProfileCubit extends Cubit<UserProfileState> {
       }
     } catch (exception, stackTrace) {
       logger.e(exception, stackTrace: stackTrace);
-      emit(const UserProfileState.getProfileError());
+      emit( UserProfileState.getProfileError(exception.toString()));
     }
   }
 }

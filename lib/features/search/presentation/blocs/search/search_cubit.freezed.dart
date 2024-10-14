@@ -37,6 +37,10 @@ mixin _$SearchState {
     required TResult Function(String error) fetchTrendingSearchesFailure,
     required TResult Function(String error) deleteSearchFailure,
     required TResult Function(String error) fetchSearchSuggestionsFailure,
+    required TResult Function() searchUserLoading,
+    required TResult Function(List<SearchedUser> searchResults)
+        searchUserSuccess,
+    required TResult Function(String errorMessage) searchUserError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -58,6 +62,9 @@ mixin _$SearchState {
     TResult? Function(String error)? fetchTrendingSearchesFailure,
     TResult? Function(String error)? deleteSearchFailure,
     TResult? Function(String error)? fetchSearchSuggestionsFailure,
+    TResult? Function()? searchUserLoading,
+    TResult? Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult? Function(String errorMessage)? searchUserError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -78,6 +85,9 @@ mixin _$SearchState {
     TResult Function(String error)? fetchTrendingSearchesFailure,
     TResult Function(String error)? deleteSearchFailure,
     TResult Function(String error)? fetchSearchSuggestionsFailure,
+    TResult Function()? searchUserLoading,
+    TResult Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult Function(String errorMessage)? searchUserError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -108,6 +118,9 @@ mixin _$SearchState {
     required TResult Function(_DeleteSearchFailure value) deleteSearchFailure,
     required TResult Function(_FetchSearchSuggestionsFailure value)
         fetchSearchSuggestionsFailure,
+    required TResult Function(_searchUserLoading value) searchUserLoading,
+    required TResult Function(_searchUserSuccess value) searchUserSuccess,
+    required TResult Function(_searchUserError value) searchUserError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -137,6 +150,9 @@ mixin _$SearchState {
     TResult? Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult? Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult? Function(_searchUserLoading value)? searchUserLoading,
+    TResult? Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult? Function(_searchUserError value)? searchUserError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -166,6 +182,9 @@ mixin _$SearchState {
     TResult Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult Function(_searchUserLoading value)? searchUserLoading,
+    TResult Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult Function(_searchUserError value)? searchUserError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -246,6 +265,10 @@ class _$InitialImpl implements _Initial {
     required TResult Function(String error) fetchTrendingSearchesFailure,
     required TResult Function(String error) deleteSearchFailure,
     required TResult Function(String error) fetchSearchSuggestionsFailure,
+    required TResult Function() searchUserLoading,
+    required TResult Function(List<SearchedUser> searchResults)
+        searchUserSuccess,
+    required TResult Function(String errorMessage) searchUserError,
   }) {
     return initial();
   }
@@ -270,6 +293,9 @@ class _$InitialImpl implements _Initial {
     TResult? Function(String error)? fetchTrendingSearchesFailure,
     TResult? Function(String error)? deleteSearchFailure,
     TResult? Function(String error)? fetchSearchSuggestionsFailure,
+    TResult? Function()? searchUserLoading,
+    TResult? Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult? Function(String errorMessage)? searchUserError,
   }) {
     return initial?.call();
   }
@@ -293,6 +319,9 @@ class _$InitialImpl implements _Initial {
     TResult Function(String error)? fetchTrendingSearchesFailure,
     TResult Function(String error)? deleteSearchFailure,
     TResult Function(String error)? fetchSearchSuggestionsFailure,
+    TResult Function()? searchUserLoading,
+    TResult Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult Function(String errorMessage)? searchUserError,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -329,6 +358,9 @@ class _$InitialImpl implements _Initial {
     required TResult Function(_DeleteSearchFailure value) deleteSearchFailure,
     required TResult Function(_FetchSearchSuggestionsFailure value)
         fetchSearchSuggestionsFailure,
+    required TResult Function(_searchUserLoading value) searchUserLoading,
+    required TResult Function(_searchUserSuccess value) searchUserSuccess,
+    required TResult Function(_searchUserError value) searchUserError,
   }) {
     return initial(this);
   }
@@ -361,6 +393,9 @@ class _$InitialImpl implements _Initial {
     TResult? Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult? Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult? Function(_searchUserLoading value)? searchUserLoading,
+    TResult? Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult? Function(_searchUserError value)? searchUserError,
   }) {
     return initial?.call(this);
   }
@@ -393,6 +428,9 @@ class _$InitialImpl implements _Initial {
     TResult Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult Function(_searchUserLoading value)? searchUserLoading,
+    TResult Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult Function(_searchUserError value)? searchUserError,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -466,6 +504,10 @@ class _$FetchRecentSearchesLoadingImpl implements _FetchRecentSearchesLoading {
     required TResult Function(String error) fetchTrendingSearchesFailure,
     required TResult Function(String error) deleteSearchFailure,
     required TResult Function(String error) fetchSearchSuggestionsFailure,
+    required TResult Function() searchUserLoading,
+    required TResult Function(List<SearchedUser> searchResults)
+        searchUserSuccess,
+    required TResult Function(String errorMessage) searchUserError,
   }) {
     return fetchRecentSearchesLoading();
   }
@@ -490,6 +532,9 @@ class _$FetchRecentSearchesLoadingImpl implements _FetchRecentSearchesLoading {
     TResult? Function(String error)? fetchTrendingSearchesFailure,
     TResult? Function(String error)? deleteSearchFailure,
     TResult? Function(String error)? fetchSearchSuggestionsFailure,
+    TResult? Function()? searchUserLoading,
+    TResult? Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult? Function(String errorMessage)? searchUserError,
   }) {
     return fetchRecentSearchesLoading?.call();
   }
@@ -513,6 +558,9 @@ class _$FetchRecentSearchesLoadingImpl implements _FetchRecentSearchesLoading {
     TResult Function(String error)? fetchTrendingSearchesFailure,
     TResult Function(String error)? deleteSearchFailure,
     TResult Function(String error)? fetchSearchSuggestionsFailure,
+    TResult Function()? searchUserLoading,
+    TResult Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult Function(String errorMessage)? searchUserError,
     required TResult orElse(),
   }) {
     if (fetchRecentSearchesLoading != null) {
@@ -549,6 +597,9 @@ class _$FetchRecentSearchesLoadingImpl implements _FetchRecentSearchesLoading {
     required TResult Function(_DeleteSearchFailure value) deleteSearchFailure,
     required TResult Function(_FetchSearchSuggestionsFailure value)
         fetchSearchSuggestionsFailure,
+    required TResult Function(_searchUserLoading value) searchUserLoading,
+    required TResult Function(_searchUserSuccess value) searchUserSuccess,
+    required TResult Function(_searchUserError value) searchUserError,
   }) {
     return fetchRecentSearchesLoading(this);
   }
@@ -581,6 +632,9 @@ class _$FetchRecentSearchesLoadingImpl implements _FetchRecentSearchesLoading {
     TResult? Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult? Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult? Function(_searchUserLoading value)? searchUserLoading,
+    TResult? Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult? Function(_searchUserError value)? searchUserError,
   }) {
     return fetchRecentSearchesLoading?.call(this);
   }
@@ -613,6 +667,9 @@ class _$FetchRecentSearchesLoadingImpl implements _FetchRecentSearchesLoading {
     TResult Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult Function(_searchUserLoading value)? searchUserLoading,
+    TResult Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult Function(_searchUserError value)? searchUserError,
     required TResult orElse(),
   }) {
     if (fetchRecentSearchesLoading != null) {
@@ -684,6 +741,10 @@ class _$SearchLoadingImpl implements _SearchLoading {
     required TResult Function(String error) fetchTrendingSearchesFailure,
     required TResult Function(String error) deleteSearchFailure,
     required TResult Function(String error) fetchSearchSuggestionsFailure,
+    required TResult Function() searchUserLoading,
+    required TResult Function(List<SearchedUser> searchResults)
+        searchUserSuccess,
+    required TResult Function(String errorMessage) searchUserError,
   }) {
     return searchLoading();
   }
@@ -708,6 +769,9 @@ class _$SearchLoadingImpl implements _SearchLoading {
     TResult? Function(String error)? fetchTrendingSearchesFailure,
     TResult? Function(String error)? deleteSearchFailure,
     TResult? Function(String error)? fetchSearchSuggestionsFailure,
+    TResult? Function()? searchUserLoading,
+    TResult? Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult? Function(String errorMessage)? searchUserError,
   }) {
     return searchLoading?.call();
   }
@@ -731,6 +795,9 @@ class _$SearchLoadingImpl implements _SearchLoading {
     TResult Function(String error)? fetchTrendingSearchesFailure,
     TResult Function(String error)? deleteSearchFailure,
     TResult Function(String error)? fetchSearchSuggestionsFailure,
+    TResult Function()? searchUserLoading,
+    TResult Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult Function(String errorMessage)? searchUserError,
     required TResult orElse(),
   }) {
     if (searchLoading != null) {
@@ -767,6 +834,9 @@ class _$SearchLoadingImpl implements _SearchLoading {
     required TResult Function(_DeleteSearchFailure value) deleteSearchFailure,
     required TResult Function(_FetchSearchSuggestionsFailure value)
         fetchSearchSuggestionsFailure,
+    required TResult Function(_searchUserLoading value) searchUserLoading,
+    required TResult Function(_searchUserSuccess value) searchUserSuccess,
+    required TResult Function(_searchUserError value) searchUserError,
   }) {
     return searchLoading(this);
   }
@@ -799,6 +869,9 @@ class _$SearchLoadingImpl implements _SearchLoading {
     TResult? Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult? Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult? Function(_searchUserLoading value)? searchUserLoading,
+    TResult? Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult? Function(_searchUserError value)? searchUserError,
   }) {
     return searchLoading?.call(this);
   }
@@ -831,6 +904,9 @@ class _$SearchLoadingImpl implements _SearchLoading {
     TResult Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult Function(_searchUserLoading value)? searchUserLoading,
+    TResult Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult Function(_searchUserError value)? searchUserError,
     required TResult orElse(),
   }) {
     if (searchLoading != null) {
@@ -905,6 +981,10 @@ class _$FetchTrendingSearchesLoadingImpl
     required TResult Function(String error) fetchTrendingSearchesFailure,
     required TResult Function(String error) deleteSearchFailure,
     required TResult Function(String error) fetchSearchSuggestionsFailure,
+    required TResult Function() searchUserLoading,
+    required TResult Function(List<SearchedUser> searchResults)
+        searchUserSuccess,
+    required TResult Function(String errorMessage) searchUserError,
   }) {
     return fetchTrendingSearchesLoading();
   }
@@ -929,6 +1009,9 @@ class _$FetchTrendingSearchesLoadingImpl
     TResult? Function(String error)? fetchTrendingSearchesFailure,
     TResult? Function(String error)? deleteSearchFailure,
     TResult? Function(String error)? fetchSearchSuggestionsFailure,
+    TResult? Function()? searchUserLoading,
+    TResult? Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult? Function(String errorMessage)? searchUserError,
   }) {
     return fetchTrendingSearchesLoading?.call();
   }
@@ -952,6 +1035,9 @@ class _$FetchTrendingSearchesLoadingImpl
     TResult Function(String error)? fetchTrendingSearchesFailure,
     TResult Function(String error)? deleteSearchFailure,
     TResult Function(String error)? fetchSearchSuggestionsFailure,
+    TResult Function()? searchUserLoading,
+    TResult Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult Function(String errorMessage)? searchUserError,
     required TResult orElse(),
   }) {
     if (fetchTrendingSearchesLoading != null) {
@@ -988,6 +1074,9 @@ class _$FetchTrendingSearchesLoadingImpl
     required TResult Function(_DeleteSearchFailure value) deleteSearchFailure,
     required TResult Function(_FetchSearchSuggestionsFailure value)
         fetchSearchSuggestionsFailure,
+    required TResult Function(_searchUserLoading value) searchUserLoading,
+    required TResult Function(_searchUserSuccess value) searchUserSuccess,
+    required TResult Function(_searchUserError value) searchUserError,
   }) {
     return fetchTrendingSearchesLoading(this);
   }
@@ -1020,6 +1109,9 @@ class _$FetchTrendingSearchesLoadingImpl
     TResult? Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult? Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult? Function(_searchUserLoading value)? searchUserLoading,
+    TResult? Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult? Function(_searchUserError value)? searchUserError,
   }) {
     return fetchTrendingSearchesLoading?.call(this);
   }
@@ -1052,6 +1144,9 @@ class _$FetchTrendingSearchesLoadingImpl
     TResult Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult Function(_searchUserLoading value)? searchUserLoading,
+    TResult Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult Function(_searchUserError value)? searchUserError,
     required TResult orElse(),
   }) {
     if (fetchTrendingSearchesLoading != null) {
@@ -1124,6 +1219,10 @@ class _$DeleteSearchLoadingImpl implements _DeleteSearchLoading {
     required TResult Function(String error) fetchTrendingSearchesFailure,
     required TResult Function(String error) deleteSearchFailure,
     required TResult Function(String error) fetchSearchSuggestionsFailure,
+    required TResult Function() searchUserLoading,
+    required TResult Function(List<SearchedUser> searchResults)
+        searchUserSuccess,
+    required TResult Function(String errorMessage) searchUserError,
   }) {
     return deleteSearchLoading();
   }
@@ -1148,6 +1247,9 @@ class _$DeleteSearchLoadingImpl implements _DeleteSearchLoading {
     TResult? Function(String error)? fetchTrendingSearchesFailure,
     TResult? Function(String error)? deleteSearchFailure,
     TResult? Function(String error)? fetchSearchSuggestionsFailure,
+    TResult? Function()? searchUserLoading,
+    TResult? Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult? Function(String errorMessage)? searchUserError,
   }) {
     return deleteSearchLoading?.call();
   }
@@ -1171,6 +1273,9 @@ class _$DeleteSearchLoadingImpl implements _DeleteSearchLoading {
     TResult Function(String error)? fetchTrendingSearchesFailure,
     TResult Function(String error)? deleteSearchFailure,
     TResult Function(String error)? fetchSearchSuggestionsFailure,
+    TResult Function()? searchUserLoading,
+    TResult Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult Function(String errorMessage)? searchUserError,
     required TResult orElse(),
   }) {
     if (deleteSearchLoading != null) {
@@ -1207,6 +1312,9 @@ class _$DeleteSearchLoadingImpl implements _DeleteSearchLoading {
     required TResult Function(_DeleteSearchFailure value) deleteSearchFailure,
     required TResult Function(_FetchSearchSuggestionsFailure value)
         fetchSearchSuggestionsFailure,
+    required TResult Function(_searchUserLoading value) searchUserLoading,
+    required TResult Function(_searchUserSuccess value) searchUserSuccess,
+    required TResult Function(_searchUserError value) searchUserError,
   }) {
     return deleteSearchLoading(this);
   }
@@ -1239,6 +1347,9 @@ class _$DeleteSearchLoadingImpl implements _DeleteSearchLoading {
     TResult? Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult? Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult? Function(_searchUserLoading value)? searchUserLoading,
+    TResult? Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult? Function(_searchUserError value)? searchUserError,
   }) {
     return deleteSearchLoading?.call(this);
   }
@@ -1271,6 +1382,9 @@ class _$DeleteSearchLoadingImpl implements _DeleteSearchLoading {
     TResult Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult Function(_searchUserLoading value)? searchUserLoading,
+    TResult Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult Function(_searchUserError value)? searchUserError,
     required TResult orElse(),
   }) {
     if (deleteSearchLoading != null) {
@@ -1345,6 +1459,10 @@ class _$FetchSearchSuggestionsLoadingImpl
     required TResult Function(String error) fetchTrendingSearchesFailure,
     required TResult Function(String error) deleteSearchFailure,
     required TResult Function(String error) fetchSearchSuggestionsFailure,
+    required TResult Function() searchUserLoading,
+    required TResult Function(List<SearchedUser> searchResults)
+        searchUserSuccess,
+    required TResult Function(String errorMessage) searchUserError,
   }) {
     return fetchSearchSuggestionsLoading();
   }
@@ -1369,6 +1487,9 @@ class _$FetchSearchSuggestionsLoadingImpl
     TResult? Function(String error)? fetchTrendingSearchesFailure,
     TResult? Function(String error)? deleteSearchFailure,
     TResult? Function(String error)? fetchSearchSuggestionsFailure,
+    TResult? Function()? searchUserLoading,
+    TResult? Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult? Function(String errorMessage)? searchUserError,
   }) {
     return fetchSearchSuggestionsLoading?.call();
   }
@@ -1392,6 +1513,9 @@ class _$FetchSearchSuggestionsLoadingImpl
     TResult Function(String error)? fetchTrendingSearchesFailure,
     TResult Function(String error)? deleteSearchFailure,
     TResult Function(String error)? fetchSearchSuggestionsFailure,
+    TResult Function()? searchUserLoading,
+    TResult Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult Function(String errorMessage)? searchUserError,
     required TResult orElse(),
   }) {
     if (fetchSearchSuggestionsLoading != null) {
@@ -1428,6 +1552,9 @@ class _$FetchSearchSuggestionsLoadingImpl
     required TResult Function(_DeleteSearchFailure value) deleteSearchFailure,
     required TResult Function(_FetchSearchSuggestionsFailure value)
         fetchSearchSuggestionsFailure,
+    required TResult Function(_searchUserLoading value) searchUserLoading,
+    required TResult Function(_searchUserSuccess value) searchUserSuccess,
+    required TResult Function(_searchUserError value) searchUserError,
   }) {
     return fetchSearchSuggestionsLoading(this);
   }
@@ -1460,6 +1587,9 @@ class _$FetchSearchSuggestionsLoadingImpl
     TResult? Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult? Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult? Function(_searchUserLoading value)? searchUserLoading,
+    TResult? Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult? Function(_searchUserError value)? searchUserError,
   }) {
     return fetchSearchSuggestionsLoading?.call(this);
   }
@@ -1492,6 +1622,9 @@ class _$FetchSearchSuggestionsLoadingImpl
     TResult Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult Function(_searchUserLoading value)? searchUserLoading,
+    TResult Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult Function(_searchUserError value)? searchUserError,
     required TResult orElse(),
   }) {
     if (fetchSearchSuggestionsLoading != null) {
@@ -1593,6 +1726,10 @@ class _$FetchRecentSearchesSuccessImpl implements _FetchRecentSearchesSuccess {
     required TResult Function(String error) fetchTrendingSearchesFailure,
     required TResult Function(String error) deleteSearchFailure,
     required TResult Function(String error) fetchSearchSuggestionsFailure,
+    required TResult Function() searchUserLoading,
+    required TResult Function(List<SearchedUser> searchResults)
+        searchUserSuccess,
+    required TResult Function(String errorMessage) searchUserError,
   }) {
     return fetchRecentSearchesSuccess(response);
   }
@@ -1617,6 +1754,9 @@ class _$FetchRecentSearchesSuccessImpl implements _FetchRecentSearchesSuccess {
     TResult? Function(String error)? fetchTrendingSearchesFailure,
     TResult? Function(String error)? deleteSearchFailure,
     TResult? Function(String error)? fetchSearchSuggestionsFailure,
+    TResult? Function()? searchUserLoading,
+    TResult? Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult? Function(String errorMessage)? searchUserError,
   }) {
     return fetchRecentSearchesSuccess?.call(response);
   }
@@ -1640,6 +1780,9 @@ class _$FetchRecentSearchesSuccessImpl implements _FetchRecentSearchesSuccess {
     TResult Function(String error)? fetchTrendingSearchesFailure,
     TResult Function(String error)? deleteSearchFailure,
     TResult Function(String error)? fetchSearchSuggestionsFailure,
+    TResult Function()? searchUserLoading,
+    TResult Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult Function(String errorMessage)? searchUserError,
     required TResult orElse(),
   }) {
     if (fetchRecentSearchesSuccess != null) {
@@ -1676,6 +1819,9 @@ class _$FetchRecentSearchesSuccessImpl implements _FetchRecentSearchesSuccess {
     required TResult Function(_DeleteSearchFailure value) deleteSearchFailure,
     required TResult Function(_FetchSearchSuggestionsFailure value)
         fetchSearchSuggestionsFailure,
+    required TResult Function(_searchUserLoading value) searchUserLoading,
+    required TResult Function(_searchUserSuccess value) searchUserSuccess,
+    required TResult Function(_searchUserError value) searchUserError,
   }) {
     return fetchRecentSearchesSuccess(this);
   }
@@ -1708,6 +1854,9 @@ class _$FetchRecentSearchesSuccessImpl implements _FetchRecentSearchesSuccess {
     TResult? Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult? Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult? Function(_searchUserLoading value)? searchUserLoading,
+    TResult? Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult? Function(_searchUserError value)? searchUserError,
   }) {
     return fetchRecentSearchesSuccess?.call(this);
   }
@@ -1740,6 +1889,9 @@ class _$FetchRecentSearchesSuccessImpl implements _FetchRecentSearchesSuccess {
     TResult Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult Function(_searchUserLoading value)? searchUserLoading,
+    TResult Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult Function(_searchUserError value)? searchUserError,
     required TResult orElse(),
   }) {
     if (fetchRecentSearchesSuccess != null) {
@@ -1843,6 +1995,10 @@ class _$SearchSuccessImpl implements _SearchSuccess {
     required TResult Function(String error) fetchTrendingSearchesFailure,
     required TResult Function(String error) deleteSearchFailure,
     required TResult Function(String error) fetchSearchSuggestionsFailure,
+    required TResult Function() searchUserLoading,
+    required TResult Function(List<SearchedUser> searchResults)
+        searchUserSuccess,
+    required TResult Function(String errorMessage) searchUserError,
   }) {
     return searchSuccess(response);
   }
@@ -1867,6 +2023,9 @@ class _$SearchSuccessImpl implements _SearchSuccess {
     TResult? Function(String error)? fetchTrendingSearchesFailure,
     TResult? Function(String error)? deleteSearchFailure,
     TResult? Function(String error)? fetchSearchSuggestionsFailure,
+    TResult? Function()? searchUserLoading,
+    TResult? Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult? Function(String errorMessage)? searchUserError,
   }) {
     return searchSuccess?.call(response);
   }
@@ -1890,6 +2049,9 @@ class _$SearchSuccessImpl implements _SearchSuccess {
     TResult Function(String error)? fetchTrendingSearchesFailure,
     TResult Function(String error)? deleteSearchFailure,
     TResult Function(String error)? fetchSearchSuggestionsFailure,
+    TResult Function()? searchUserLoading,
+    TResult Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult Function(String errorMessage)? searchUserError,
     required TResult orElse(),
   }) {
     if (searchSuccess != null) {
@@ -1926,6 +2088,9 @@ class _$SearchSuccessImpl implements _SearchSuccess {
     required TResult Function(_DeleteSearchFailure value) deleteSearchFailure,
     required TResult Function(_FetchSearchSuggestionsFailure value)
         fetchSearchSuggestionsFailure,
+    required TResult Function(_searchUserLoading value) searchUserLoading,
+    required TResult Function(_searchUserSuccess value) searchUserSuccess,
+    required TResult Function(_searchUserError value) searchUserError,
   }) {
     return searchSuccess(this);
   }
@@ -1958,6 +2123,9 @@ class _$SearchSuccessImpl implements _SearchSuccess {
     TResult? Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult? Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult? Function(_searchUserLoading value)? searchUserLoading,
+    TResult? Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult? Function(_searchUserError value)? searchUserError,
   }) {
     return searchSuccess?.call(this);
   }
@@ -1990,6 +2158,9 @@ class _$SearchSuccessImpl implements _SearchSuccess {
     TResult Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult Function(_searchUserLoading value)? searchUserLoading,
+    TResult Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult Function(_searchUserError value)? searchUserError,
     required TResult orElse(),
   }) {
     if (searchSuccess != null) {
@@ -2098,6 +2269,10 @@ class _$FetchTrendingSearchesSuccessImpl
     required TResult Function(String error) fetchTrendingSearchesFailure,
     required TResult Function(String error) deleteSearchFailure,
     required TResult Function(String error) fetchSearchSuggestionsFailure,
+    required TResult Function() searchUserLoading,
+    required TResult Function(List<SearchedUser> searchResults)
+        searchUserSuccess,
+    required TResult Function(String errorMessage) searchUserError,
   }) {
     return fetchTrendingSearchesSuccess(response);
   }
@@ -2122,6 +2297,9 @@ class _$FetchTrendingSearchesSuccessImpl
     TResult? Function(String error)? fetchTrendingSearchesFailure,
     TResult? Function(String error)? deleteSearchFailure,
     TResult? Function(String error)? fetchSearchSuggestionsFailure,
+    TResult? Function()? searchUserLoading,
+    TResult? Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult? Function(String errorMessage)? searchUserError,
   }) {
     return fetchTrendingSearchesSuccess?.call(response);
   }
@@ -2145,6 +2323,9 @@ class _$FetchTrendingSearchesSuccessImpl
     TResult Function(String error)? fetchTrendingSearchesFailure,
     TResult Function(String error)? deleteSearchFailure,
     TResult Function(String error)? fetchSearchSuggestionsFailure,
+    TResult Function()? searchUserLoading,
+    TResult Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult Function(String errorMessage)? searchUserError,
     required TResult orElse(),
   }) {
     if (fetchTrendingSearchesSuccess != null) {
@@ -2181,6 +2362,9 @@ class _$FetchTrendingSearchesSuccessImpl
     required TResult Function(_DeleteSearchFailure value) deleteSearchFailure,
     required TResult Function(_FetchSearchSuggestionsFailure value)
         fetchSearchSuggestionsFailure,
+    required TResult Function(_searchUserLoading value) searchUserLoading,
+    required TResult Function(_searchUserSuccess value) searchUserSuccess,
+    required TResult Function(_searchUserError value) searchUserError,
   }) {
     return fetchTrendingSearchesSuccess(this);
   }
@@ -2213,6 +2397,9 @@ class _$FetchTrendingSearchesSuccessImpl
     TResult? Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult? Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult? Function(_searchUserLoading value)? searchUserLoading,
+    TResult? Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult? Function(_searchUserError value)? searchUserError,
   }) {
     return fetchTrendingSearchesSuccess?.call(this);
   }
@@ -2245,6 +2432,9 @@ class _$FetchTrendingSearchesSuccessImpl
     TResult Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult Function(_searchUserLoading value)? searchUserLoading,
+    TResult Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult Function(_searchUserError value)? searchUserError,
     required TResult orElse(),
   }) {
     if (fetchTrendingSearchesSuccess != null) {
@@ -2350,6 +2540,10 @@ class _$DeleteSearchSuccessImpl implements _DeleteSearchSuccess {
     required TResult Function(String error) fetchTrendingSearchesFailure,
     required TResult Function(String error) deleteSearchFailure,
     required TResult Function(String error) fetchSearchSuggestionsFailure,
+    required TResult Function() searchUserLoading,
+    required TResult Function(List<SearchedUser> searchResults)
+        searchUserSuccess,
+    required TResult Function(String errorMessage) searchUserError,
   }) {
     return deleteSearchSuccess(response);
   }
@@ -2374,6 +2568,9 @@ class _$DeleteSearchSuccessImpl implements _DeleteSearchSuccess {
     TResult? Function(String error)? fetchTrendingSearchesFailure,
     TResult? Function(String error)? deleteSearchFailure,
     TResult? Function(String error)? fetchSearchSuggestionsFailure,
+    TResult? Function()? searchUserLoading,
+    TResult? Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult? Function(String errorMessage)? searchUserError,
   }) {
     return deleteSearchSuccess?.call(response);
   }
@@ -2397,6 +2594,9 @@ class _$DeleteSearchSuccessImpl implements _DeleteSearchSuccess {
     TResult Function(String error)? fetchTrendingSearchesFailure,
     TResult Function(String error)? deleteSearchFailure,
     TResult Function(String error)? fetchSearchSuggestionsFailure,
+    TResult Function()? searchUserLoading,
+    TResult Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult Function(String errorMessage)? searchUserError,
     required TResult orElse(),
   }) {
     if (deleteSearchSuccess != null) {
@@ -2433,6 +2633,9 @@ class _$DeleteSearchSuccessImpl implements _DeleteSearchSuccess {
     required TResult Function(_DeleteSearchFailure value) deleteSearchFailure,
     required TResult Function(_FetchSearchSuggestionsFailure value)
         fetchSearchSuggestionsFailure,
+    required TResult Function(_searchUserLoading value) searchUserLoading,
+    required TResult Function(_searchUserSuccess value) searchUserSuccess,
+    required TResult Function(_searchUserError value) searchUserError,
   }) {
     return deleteSearchSuccess(this);
   }
@@ -2465,6 +2668,9 @@ class _$DeleteSearchSuccessImpl implements _DeleteSearchSuccess {
     TResult? Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult? Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult? Function(_searchUserLoading value)? searchUserLoading,
+    TResult? Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult? Function(_searchUserError value)? searchUserError,
   }) {
     return deleteSearchSuccess?.call(this);
   }
@@ -2497,6 +2703,9 @@ class _$DeleteSearchSuccessImpl implements _DeleteSearchSuccess {
     TResult Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult Function(_searchUserLoading value)? searchUserLoading,
+    TResult Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult Function(_searchUserError value)? searchUserError,
     required TResult orElse(),
   }) {
     if (deleteSearchSuccess != null) {
@@ -2605,6 +2814,10 @@ class _$FetchSearchSuggestionsSuccessImpl
     required TResult Function(String error) fetchTrendingSearchesFailure,
     required TResult Function(String error) deleteSearchFailure,
     required TResult Function(String error) fetchSearchSuggestionsFailure,
+    required TResult Function() searchUserLoading,
+    required TResult Function(List<SearchedUser> searchResults)
+        searchUserSuccess,
+    required TResult Function(String errorMessage) searchUserError,
   }) {
     return fetchSearchSuggestionsSuccess(response);
   }
@@ -2629,6 +2842,9 @@ class _$FetchSearchSuggestionsSuccessImpl
     TResult? Function(String error)? fetchTrendingSearchesFailure,
     TResult? Function(String error)? deleteSearchFailure,
     TResult? Function(String error)? fetchSearchSuggestionsFailure,
+    TResult? Function()? searchUserLoading,
+    TResult? Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult? Function(String errorMessage)? searchUserError,
   }) {
     return fetchSearchSuggestionsSuccess?.call(response);
   }
@@ -2652,6 +2868,9 @@ class _$FetchSearchSuggestionsSuccessImpl
     TResult Function(String error)? fetchTrendingSearchesFailure,
     TResult Function(String error)? deleteSearchFailure,
     TResult Function(String error)? fetchSearchSuggestionsFailure,
+    TResult Function()? searchUserLoading,
+    TResult Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult Function(String errorMessage)? searchUserError,
     required TResult orElse(),
   }) {
     if (fetchSearchSuggestionsSuccess != null) {
@@ -2688,6 +2907,9 @@ class _$FetchSearchSuggestionsSuccessImpl
     required TResult Function(_DeleteSearchFailure value) deleteSearchFailure,
     required TResult Function(_FetchSearchSuggestionsFailure value)
         fetchSearchSuggestionsFailure,
+    required TResult Function(_searchUserLoading value) searchUserLoading,
+    required TResult Function(_searchUserSuccess value) searchUserSuccess,
+    required TResult Function(_searchUserError value) searchUserError,
   }) {
     return fetchSearchSuggestionsSuccess(this);
   }
@@ -2720,6 +2942,9 @@ class _$FetchSearchSuggestionsSuccessImpl
     TResult? Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult? Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult? Function(_searchUserLoading value)? searchUserLoading,
+    TResult? Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult? Function(_searchUserError value)? searchUserError,
   }) {
     return fetchSearchSuggestionsSuccess?.call(this);
   }
@@ -2752,6 +2977,9 @@ class _$FetchSearchSuggestionsSuccessImpl
     TResult Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult Function(_searchUserLoading value)? searchUserLoading,
+    TResult Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult Function(_searchUserError value)? searchUserError,
     required TResult orElse(),
   }) {
     if (fetchSearchSuggestionsSuccess != null) {
@@ -2858,6 +3086,10 @@ class _$FetchRecentSearchesFailureImpl implements _FetchRecentSearchesFailure {
     required TResult Function(String error) fetchTrendingSearchesFailure,
     required TResult Function(String error) deleteSearchFailure,
     required TResult Function(String error) fetchSearchSuggestionsFailure,
+    required TResult Function() searchUserLoading,
+    required TResult Function(List<SearchedUser> searchResults)
+        searchUserSuccess,
+    required TResult Function(String errorMessage) searchUserError,
   }) {
     return fetchRecentSearchesFailure(error);
   }
@@ -2882,6 +3114,9 @@ class _$FetchRecentSearchesFailureImpl implements _FetchRecentSearchesFailure {
     TResult? Function(String error)? fetchTrendingSearchesFailure,
     TResult? Function(String error)? deleteSearchFailure,
     TResult? Function(String error)? fetchSearchSuggestionsFailure,
+    TResult? Function()? searchUserLoading,
+    TResult? Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult? Function(String errorMessage)? searchUserError,
   }) {
     return fetchRecentSearchesFailure?.call(error);
   }
@@ -2905,6 +3140,9 @@ class _$FetchRecentSearchesFailureImpl implements _FetchRecentSearchesFailure {
     TResult Function(String error)? fetchTrendingSearchesFailure,
     TResult Function(String error)? deleteSearchFailure,
     TResult Function(String error)? fetchSearchSuggestionsFailure,
+    TResult Function()? searchUserLoading,
+    TResult Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult Function(String errorMessage)? searchUserError,
     required TResult orElse(),
   }) {
     if (fetchRecentSearchesFailure != null) {
@@ -2941,6 +3179,9 @@ class _$FetchRecentSearchesFailureImpl implements _FetchRecentSearchesFailure {
     required TResult Function(_DeleteSearchFailure value) deleteSearchFailure,
     required TResult Function(_FetchSearchSuggestionsFailure value)
         fetchSearchSuggestionsFailure,
+    required TResult Function(_searchUserLoading value) searchUserLoading,
+    required TResult Function(_searchUserSuccess value) searchUserSuccess,
+    required TResult Function(_searchUserError value) searchUserError,
   }) {
     return fetchRecentSearchesFailure(this);
   }
@@ -2973,6 +3214,9 @@ class _$FetchRecentSearchesFailureImpl implements _FetchRecentSearchesFailure {
     TResult? Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult? Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult? Function(_searchUserLoading value)? searchUserLoading,
+    TResult? Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult? Function(_searchUserError value)? searchUserError,
   }) {
     return fetchRecentSearchesFailure?.call(this);
   }
@@ -3005,6 +3249,9 @@ class _$FetchRecentSearchesFailureImpl implements _FetchRecentSearchesFailure {
     TResult Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult Function(_searchUserLoading value)? searchUserLoading,
+    TResult Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult Function(_searchUserError value)? searchUserError,
     required TResult orElse(),
   }) {
     if (fetchRecentSearchesFailure != null) {
@@ -3107,6 +3354,10 @@ class _$SearchFailureImpl implements _SearchFailure {
     required TResult Function(String error) fetchTrendingSearchesFailure,
     required TResult Function(String error) deleteSearchFailure,
     required TResult Function(String error) fetchSearchSuggestionsFailure,
+    required TResult Function() searchUserLoading,
+    required TResult Function(List<SearchedUser> searchResults)
+        searchUserSuccess,
+    required TResult Function(String errorMessage) searchUserError,
   }) {
     return searchFailure(error);
   }
@@ -3131,6 +3382,9 @@ class _$SearchFailureImpl implements _SearchFailure {
     TResult? Function(String error)? fetchTrendingSearchesFailure,
     TResult? Function(String error)? deleteSearchFailure,
     TResult? Function(String error)? fetchSearchSuggestionsFailure,
+    TResult? Function()? searchUserLoading,
+    TResult? Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult? Function(String errorMessage)? searchUserError,
   }) {
     return searchFailure?.call(error);
   }
@@ -3154,6 +3408,9 @@ class _$SearchFailureImpl implements _SearchFailure {
     TResult Function(String error)? fetchTrendingSearchesFailure,
     TResult Function(String error)? deleteSearchFailure,
     TResult Function(String error)? fetchSearchSuggestionsFailure,
+    TResult Function()? searchUserLoading,
+    TResult Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult Function(String errorMessage)? searchUserError,
     required TResult orElse(),
   }) {
     if (searchFailure != null) {
@@ -3190,6 +3447,9 @@ class _$SearchFailureImpl implements _SearchFailure {
     required TResult Function(_DeleteSearchFailure value) deleteSearchFailure,
     required TResult Function(_FetchSearchSuggestionsFailure value)
         fetchSearchSuggestionsFailure,
+    required TResult Function(_searchUserLoading value) searchUserLoading,
+    required TResult Function(_searchUserSuccess value) searchUserSuccess,
+    required TResult Function(_searchUserError value) searchUserError,
   }) {
     return searchFailure(this);
   }
@@ -3222,6 +3482,9 @@ class _$SearchFailureImpl implements _SearchFailure {
     TResult? Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult? Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult? Function(_searchUserLoading value)? searchUserLoading,
+    TResult? Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult? Function(_searchUserError value)? searchUserError,
   }) {
     return searchFailure?.call(this);
   }
@@ -3254,6 +3517,9 @@ class _$SearchFailureImpl implements _SearchFailure {
     TResult Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult Function(_searchUserLoading value)? searchUserLoading,
+    TResult Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult Function(_searchUserError value)? searchUserError,
     required TResult orElse(),
   }) {
     if (searchFailure != null) {
@@ -3360,6 +3626,10 @@ class _$FetchTrendingSearchesFailureImpl
     required TResult Function(String error) fetchTrendingSearchesFailure,
     required TResult Function(String error) deleteSearchFailure,
     required TResult Function(String error) fetchSearchSuggestionsFailure,
+    required TResult Function() searchUserLoading,
+    required TResult Function(List<SearchedUser> searchResults)
+        searchUserSuccess,
+    required TResult Function(String errorMessage) searchUserError,
   }) {
     return fetchTrendingSearchesFailure(error);
   }
@@ -3384,6 +3654,9 @@ class _$FetchTrendingSearchesFailureImpl
     TResult? Function(String error)? fetchTrendingSearchesFailure,
     TResult? Function(String error)? deleteSearchFailure,
     TResult? Function(String error)? fetchSearchSuggestionsFailure,
+    TResult? Function()? searchUserLoading,
+    TResult? Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult? Function(String errorMessage)? searchUserError,
   }) {
     return fetchTrendingSearchesFailure?.call(error);
   }
@@ -3407,6 +3680,9 @@ class _$FetchTrendingSearchesFailureImpl
     TResult Function(String error)? fetchTrendingSearchesFailure,
     TResult Function(String error)? deleteSearchFailure,
     TResult Function(String error)? fetchSearchSuggestionsFailure,
+    TResult Function()? searchUserLoading,
+    TResult Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult Function(String errorMessage)? searchUserError,
     required TResult orElse(),
   }) {
     if (fetchTrendingSearchesFailure != null) {
@@ -3443,6 +3719,9 @@ class _$FetchTrendingSearchesFailureImpl
     required TResult Function(_DeleteSearchFailure value) deleteSearchFailure,
     required TResult Function(_FetchSearchSuggestionsFailure value)
         fetchSearchSuggestionsFailure,
+    required TResult Function(_searchUserLoading value) searchUserLoading,
+    required TResult Function(_searchUserSuccess value) searchUserSuccess,
+    required TResult Function(_searchUserError value) searchUserError,
   }) {
     return fetchTrendingSearchesFailure(this);
   }
@@ -3475,6 +3754,9 @@ class _$FetchTrendingSearchesFailureImpl
     TResult? Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult? Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult? Function(_searchUserLoading value)? searchUserLoading,
+    TResult? Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult? Function(_searchUserError value)? searchUserError,
   }) {
     return fetchTrendingSearchesFailure?.call(this);
   }
@@ -3507,6 +3789,9 @@ class _$FetchTrendingSearchesFailureImpl
     TResult Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult Function(_searchUserLoading value)? searchUserLoading,
+    TResult Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult Function(_searchUserError value)? searchUserError,
     required TResult orElse(),
   }) {
     if (fetchTrendingSearchesFailure != null) {
@@ -3611,6 +3896,10 @@ class _$DeleteSearchFailureImpl implements _DeleteSearchFailure {
     required TResult Function(String error) fetchTrendingSearchesFailure,
     required TResult Function(String error) deleteSearchFailure,
     required TResult Function(String error) fetchSearchSuggestionsFailure,
+    required TResult Function() searchUserLoading,
+    required TResult Function(List<SearchedUser> searchResults)
+        searchUserSuccess,
+    required TResult Function(String errorMessage) searchUserError,
   }) {
     return deleteSearchFailure(error);
   }
@@ -3635,6 +3924,9 @@ class _$DeleteSearchFailureImpl implements _DeleteSearchFailure {
     TResult? Function(String error)? fetchTrendingSearchesFailure,
     TResult? Function(String error)? deleteSearchFailure,
     TResult? Function(String error)? fetchSearchSuggestionsFailure,
+    TResult? Function()? searchUserLoading,
+    TResult? Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult? Function(String errorMessage)? searchUserError,
   }) {
     return deleteSearchFailure?.call(error);
   }
@@ -3658,6 +3950,9 @@ class _$DeleteSearchFailureImpl implements _DeleteSearchFailure {
     TResult Function(String error)? fetchTrendingSearchesFailure,
     TResult Function(String error)? deleteSearchFailure,
     TResult Function(String error)? fetchSearchSuggestionsFailure,
+    TResult Function()? searchUserLoading,
+    TResult Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult Function(String errorMessage)? searchUserError,
     required TResult orElse(),
   }) {
     if (deleteSearchFailure != null) {
@@ -3694,6 +3989,9 @@ class _$DeleteSearchFailureImpl implements _DeleteSearchFailure {
     required TResult Function(_DeleteSearchFailure value) deleteSearchFailure,
     required TResult Function(_FetchSearchSuggestionsFailure value)
         fetchSearchSuggestionsFailure,
+    required TResult Function(_searchUserLoading value) searchUserLoading,
+    required TResult Function(_searchUserSuccess value) searchUserSuccess,
+    required TResult Function(_searchUserError value) searchUserError,
   }) {
     return deleteSearchFailure(this);
   }
@@ -3726,6 +4024,9 @@ class _$DeleteSearchFailureImpl implements _DeleteSearchFailure {
     TResult? Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult? Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult? Function(_searchUserLoading value)? searchUserLoading,
+    TResult? Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult? Function(_searchUserError value)? searchUserError,
   }) {
     return deleteSearchFailure?.call(this);
   }
@@ -3758,6 +4059,9 @@ class _$DeleteSearchFailureImpl implements _DeleteSearchFailure {
     TResult Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult Function(_searchUserLoading value)? searchUserLoading,
+    TResult Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult Function(_searchUserError value)? searchUserError,
     required TResult orElse(),
   }) {
     if (deleteSearchFailure != null) {
@@ -3865,6 +4169,10 @@ class _$FetchSearchSuggestionsFailureImpl
     required TResult Function(String error) fetchTrendingSearchesFailure,
     required TResult Function(String error) deleteSearchFailure,
     required TResult Function(String error) fetchSearchSuggestionsFailure,
+    required TResult Function() searchUserLoading,
+    required TResult Function(List<SearchedUser> searchResults)
+        searchUserSuccess,
+    required TResult Function(String errorMessage) searchUserError,
   }) {
     return fetchSearchSuggestionsFailure(error);
   }
@@ -3889,6 +4197,9 @@ class _$FetchSearchSuggestionsFailureImpl
     TResult? Function(String error)? fetchTrendingSearchesFailure,
     TResult? Function(String error)? deleteSearchFailure,
     TResult? Function(String error)? fetchSearchSuggestionsFailure,
+    TResult? Function()? searchUserLoading,
+    TResult? Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult? Function(String errorMessage)? searchUserError,
   }) {
     return fetchSearchSuggestionsFailure?.call(error);
   }
@@ -3912,6 +4223,9 @@ class _$FetchSearchSuggestionsFailureImpl
     TResult Function(String error)? fetchTrendingSearchesFailure,
     TResult Function(String error)? deleteSearchFailure,
     TResult Function(String error)? fetchSearchSuggestionsFailure,
+    TResult Function()? searchUserLoading,
+    TResult Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult Function(String errorMessage)? searchUserError,
     required TResult orElse(),
   }) {
     if (fetchSearchSuggestionsFailure != null) {
@@ -3948,6 +4262,9 @@ class _$FetchSearchSuggestionsFailureImpl
     required TResult Function(_DeleteSearchFailure value) deleteSearchFailure,
     required TResult Function(_FetchSearchSuggestionsFailure value)
         fetchSearchSuggestionsFailure,
+    required TResult Function(_searchUserLoading value) searchUserLoading,
+    required TResult Function(_searchUserSuccess value) searchUserSuccess,
+    required TResult Function(_searchUserError value) searchUserError,
   }) {
     return fetchSearchSuggestionsFailure(this);
   }
@@ -3980,6 +4297,9 @@ class _$FetchSearchSuggestionsFailureImpl
     TResult? Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult? Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult? Function(_searchUserLoading value)? searchUserLoading,
+    TResult? Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult? Function(_searchUserError value)? searchUserError,
   }) {
     return fetchSearchSuggestionsFailure?.call(this);
   }
@@ -4012,6 +4332,9 @@ class _$FetchSearchSuggestionsFailureImpl
     TResult Function(_DeleteSearchFailure value)? deleteSearchFailure,
     TResult Function(_FetchSearchSuggestionsFailure value)?
         fetchSearchSuggestionsFailure,
+    TResult Function(_searchUserLoading value)? searchUserLoading,
+    TResult Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult Function(_searchUserError value)? searchUserError,
     required TResult orElse(),
   }) {
     if (fetchSearchSuggestionsFailure != null) {
@@ -4030,4 +4353,789 @@ abstract class _FetchSearchSuggestionsFailure implements SearchState {
   _$$FetchSearchSuggestionsFailureImplCopyWith<
           _$FetchSearchSuggestionsFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$searchUserLoadingImplCopyWith<$Res> {
+  factory _$$searchUserLoadingImplCopyWith(_$searchUserLoadingImpl value,
+          $Res Function(_$searchUserLoadingImpl) then) =
+      __$$searchUserLoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$searchUserLoadingImplCopyWithImpl<$Res>
+    extends _$SearchStateCopyWithImpl<$Res, _$searchUserLoadingImpl>
+    implements _$$searchUserLoadingImplCopyWith<$Res> {
+  __$$searchUserLoadingImplCopyWithImpl(_$searchUserLoadingImpl _value,
+      $Res Function(_$searchUserLoadingImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$searchUserLoadingImpl implements _searchUserLoading {
+  const _$searchUserLoadingImpl();
+
+  @override
+  String toString() {
+    return 'SearchState.searchUserLoading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$searchUserLoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() fetchRecentSearchesLoading,
+    required TResult Function() searchLoading,
+    required TResult Function() fetchTrendingSearchesLoading,
+    required TResult Function() deleteSearchLoading,
+    required TResult Function() fetchSearchSuggestionsLoading,
+    required TResult Function(GetSearchResponse response)
+        fetchRecentSearchesSuccess,
+    required TResult Function(GetSearchResponse response) searchSuccess,
+    required TResult Function(GetSearchResponse response)
+        fetchTrendingSearchesSuccess,
+    required TResult Function(dynamic response) deleteSearchSuccess,
+    required TResult Function(GetSearchResponse response)
+        fetchSearchSuggestionsSuccess,
+    required TResult Function(String error) fetchRecentSearchesFailure,
+    required TResult Function(String error) searchFailure,
+    required TResult Function(String error) fetchTrendingSearchesFailure,
+    required TResult Function(String error) deleteSearchFailure,
+    required TResult Function(String error) fetchSearchSuggestionsFailure,
+    required TResult Function() searchUserLoading,
+    required TResult Function(List<SearchedUser> searchResults)
+        searchUserSuccess,
+    required TResult Function(String errorMessage) searchUserError,
+  }) {
+    return searchUserLoading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? fetchRecentSearchesLoading,
+    TResult? Function()? searchLoading,
+    TResult? Function()? fetchTrendingSearchesLoading,
+    TResult? Function()? deleteSearchLoading,
+    TResult? Function()? fetchSearchSuggestionsLoading,
+    TResult? Function(GetSearchResponse response)? fetchRecentSearchesSuccess,
+    TResult? Function(GetSearchResponse response)? searchSuccess,
+    TResult? Function(GetSearchResponse response)? fetchTrendingSearchesSuccess,
+    TResult? Function(dynamic response)? deleteSearchSuccess,
+    TResult? Function(GetSearchResponse response)?
+        fetchSearchSuggestionsSuccess,
+    TResult? Function(String error)? fetchRecentSearchesFailure,
+    TResult? Function(String error)? searchFailure,
+    TResult? Function(String error)? fetchTrendingSearchesFailure,
+    TResult? Function(String error)? deleteSearchFailure,
+    TResult? Function(String error)? fetchSearchSuggestionsFailure,
+    TResult? Function()? searchUserLoading,
+    TResult? Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult? Function(String errorMessage)? searchUserError,
+  }) {
+    return searchUserLoading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? fetchRecentSearchesLoading,
+    TResult Function()? searchLoading,
+    TResult Function()? fetchTrendingSearchesLoading,
+    TResult Function()? deleteSearchLoading,
+    TResult Function()? fetchSearchSuggestionsLoading,
+    TResult Function(GetSearchResponse response)? fetchRecentSearchesSuccess,
+    TResult Function(GetSearchResponse response)? searchSuccess,
+    TResult Function(GetSearchResponse response)? fetchTrendingSearchesSuccess,
+    TResult Function(dynamic response)? deleteSearchSuccess,
+    TResult Function(GetSearchResponse response)? fetchSearchSuggestionsSuccess,
+    TResult Function(String error)? fetchRecentSearchesFailure,
+    TResult Function(String error)? searchFailure,
+    TResult Function(String error)? fetchTrendingSearchesFailure,
+    TResult Function(String error)? deleteSearchFailure,
+    TResult Function(String error)? fetchSearchSuggestionsFailure,
+    TResult Function()? searchUserLoading,
+    TResult Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult Function(String errorMessage)? searchUserError,
+    required TResult orElse(),
+  }) {
+    if (searchUserLoading != null) {
+      return searchUserLoading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_FetchRecentSearchesLoading value)
+        fetchRecentSearchesLoading,
+    required TResult Function(_SearchLoading value) searchLoading,
+    required TResult Function(_FetchTrendingSearchesLoading value)
+        fetchTrendingSearchesLoading,
+    required TResult Function(_DeleteSearchLoading value) deleteSearchLoading,
+    required TResult Function(_FetchSearchSuggestionsLoading value)
+        fetchSearchSuggestionsLoading,
+    required TResult Function(_FetchRecentSearchesSuccess value)
+        fetchRecentSearchesSuccess,
+    required TResult Function(_SearchSuccess value) searchSuccess,
+    required TResult Function(_FetchTrendingSearchesSuccess value)
+        fetchTrendingSearchesSuccess,
+    required TResult Function(_DeleteSearchSuccess value) deleteSearchSuccess,
+    required TResult Function(_FetchSearchSuggestionsSuccess value)
+        fetchSearchSuggestionsSuccess,
+    required TResult Function(_FetchRecentSearchesFailure value)
+        fetchRecentSearchesFailure,
+    required TResult Function(_SearchFailure value) searchFailure,
+    required TResult Function(_FetchTrendingSearchesFailure value)
+        fetchTrendingSearchesFailure,
+    required TResult Function(_DeleteSearchFailure value) deleteSearchFailure,
+    required TResult Function(_FetchSearchSuggestionsFailure value)
+        fetchSearchSuggestionsFailure,
+    required TResult Function(_searchUserLoading value) searchUserLoading,
+    required TResult Function(_searchUserSuccess value) searchUserSuccess,
+    required TResult Function(_searchUserError value) searchUserError,
+  }) {
+    return searchUserLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_FetchRecentSearchesLoading value)?
+        fetchRecentSearchesLoading,
+    TResult? Function(_SearchLoading value)? searchLoading,
+    TResult? Function(_FetchTrendingSearchesLoading value)?
+        fetchTrendingSearchesLoading,
+    TResult? Function(_DeleteSearchLoading value)? deleteSearchLoading,
+    TResult? Function(_FetchSearchSuggestionsLoading value)?
+        fetchSearchSuggestionsLoading,
+    TResult? Function(_FetchRecentSearchesSuccess value)?
+        fetchRecentSearchesSuccess,
+    TResult? Function(_SearchSuccess value)? searchSuccess,
+    TResult? Function(_FetchTrendingSearchesSuccess value)?
+        fetchTrendingSearchesSuccess,
+    TResult? Function(_DeleteSearchSuccess value)? deleteSearchSuccess,
+    TResult? Function(_FetchSearchSuggestionsSuccess value)?
+        fetchSearchSuggestionsSuccess,
+    TResult? Function(_FetchRecentSearchesFailure value)?
+        fetchRecentSearchesFailure,
+    TResult? Function(_SearchFailure value)? searchFailure,
+    TResult? Function(_FetchTrendingSearchesFailure value)?
+        fetchTrendingSearchesFailure,
+    TResult? Function(_DeleteSearchFailure value)? deleteSearchFailure,
+    TResult? Function(_FetchSearchSuggestionsFailure value)?
+        fetchSearchSuggestionsFailure,
+    TResult? Function(_searchUserLoading value)? searchUserLoading,
+    TResult? Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult? Function(_searchUserError value)? searchUserError,
+  }) {
+    return searchUserLoading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_FetchRecentSearchesLoading value)?
+        fetchRecentSearchesLoading,
+    TResult Function(_SearchLoading value)? searchLoading,
+    TResult Function(_FetchTrendingSearchesLoading value)?
+        fetchTrendingSearchesLoading,
+    TResult Function(_DeleteSearchLoading value)? deleteSearchLoading,
+    TResult Function(_FetchSearchSuggestionsLoading value)?
+        fetchSearchSuggestionsLoading,
+    TResult Function(_FetchRecentSearchesSuccess value)?
+        fetchRecentSearchesSuccess,
+    TResult Function(_SearchSuccess value)? searchSuccess,
+    TResult Function(_FetchTrendingSearchesSuccess value)?
+        fetchTrendingSearchesSuccess,
+    TResult Function(_DeleteSearchSuccess value)? deleteSearchSuccess,
+    TResult Function(_FetchSearchSuggestionsSuccess value)?
+        fetchSearchSuggestionsSuccess,
+    TResult Function(_FetchRecentSearchesFailure value)?
+        fetchRecentSearchesFailure,
+    TResult Function(_SearchFailure value)? searchFailure,
+    TResult Function(_FetchTrendingSearchesFailure value)?
+        fetchTrendingSearchesFailure,
+    TResult Function(_DeleteSearchFailure value)? deleteSearchFailure,
+    TResult Function(_FetchSearchSuggestionsFailure value)?
+        fetchSearchSuggestionsFailure,
+    TResult Function(_searchUserLoading value)? searchUserLoading,
+    TResult Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult Function(_searchUserError value)? searchUserError,
+    required TResult orElse(),
+  }) {
+    if (searchUserLoading != null) {
+      return searchUserLoading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _searchUserLoading implements SearchState {
+  const factory _searchUserLoading() = _$searchUserLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$searchUserSuccessImplCopyWith<$Res> {
+  factory _$$searchUserSuccessImplCopyWith(_$searchUserSuccessImpl value,
+          $Res Function(_$searchUserSuccessImpl) then) =
+      __$$searchUserSuccessImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({List<SearchedUser> searchResults});
+}
+
+/// @nodoc
+class __$$searchUserSuccessImplCopyWithImpl<$Res>
+    extends _$SearchStateCopyWithImpl<$Res, _$searchUserSuccessImpl>
+    implements _$$searchUserSuccessImplCopyWith<$Res> {
+  __$$searchUserSuccessImplCopyWithImpl(_$searchUserSuccessImpl _value,
+      $Res Function(_$searchUserSuccessImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? searchResults = null,
+  }) {
+    return _then(_$searchUserSuccessImpl(
+      searchResults: null == searchResults
+          ? _value._searchResults
+          : searchResults // ignore: cast_nullable_to_non_nullable
+              as List<SearchedUser>,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$searchUserSuccessImpl implements _searchUserSuccess {
+  const _$searchUserSuccessImpl(
+      {required final List<SearchedUser> searchResults})
+      : _searchResults = searchResults;
+
+  final List<SearchedUser> _searchResults;
+  @override
+  List<SearchedUser> get searchResults {
+    if (_searchResults is EqualUnmodifiableListView) return _searchResults;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_searchResults);
+  }
+
+  @override
+  String toString() {
+    return 'SearchState.searchUserSuccess(searchResults: $searchResults)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$searchUserSuccessImpl &&
+            const DeepCollectionEquality()
+                .equals(other._searchResults, _searchResults));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_searchResults));
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$searchUserSuccessImplCopyWith<_$searchUserSuccessImpl> get copyWith =>
+      __$$searchUserSuccessImplCopyWithImpl<_$searchUserSuccessImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() fetchRecentSearchesLoading,
+    required TResult Function() searchLoading,
+    required TResult Function() fetchTrendingSearchesLoading,
+    required TResult Function() deleteSearchLoading,
+    required TResult Function() fetchSearchSuggestionsLoading,
+    required TResult Function(GetSearchResponse response)
+        fetchRecentSearchesSuccess,
+    required TResult Function(GetSearchResponse response) searchSuccess,
+    required TResult Function(GetSearchResponse response)
+        fetchTrendingSearchesSuccess,
+    required TResult Function(dynamic response) deleteSearchSuccess,
+    required TResult Function(GetSearchResponse response)
+        fetchSearchSuggestionsSuccess,
+    required TResult Function(String error) fetchRecentSearchesFailure,
+    required TResult Function(String error) searchFailure,
+    required TResult Function(String error) fetchTrendingSearchesFailure,
+    required TResult Function(String error) deleteSearchFailure,
+    required TResult Function(String error) fetchSearchSuggestionsFailure,
+    required TResult Function() searchUserLoading,
+    required TResult Function(List<SearchedUser> searchResults)
+        searchUserSuccess,
+    required TResult Function(String errorMessage) searchUserError,
+  }) {
+    return searchUserSuccess(searchResults);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? fetchRecentSearchesLoading,
+    TResult? Function()? searchLoading,
+    TResult? Function()? fetchTrendingSearchesLoading,
+    TResult? Function()? deleteSearchLoading,
+    TResult? Function()? fetchSearchSuggestionsLoading,
+    TResult? Function(GetSearchResponse response)? fetchRecentSearchesSuccess,
+    TResult? Function(GetSearchResponse response)? searchSuccess,
+    TResult? Function(GetSearchResponse response)? fetchTrendingSearchesSuccess,
+    TResult? Function(dynamic response)? deleteSearchSuccess,
+    TResult? Function(GetSearchResponse response)?
+        fetchSearchSuggestionsSuccess,
+    TResult? Function(String error)? fetchRecentSearchesFailure,
+    TResult? Function(String error)? searchFailure,
+    TResult? Function(String error)? fetchTrendingSearchesFailure,
+    TResult? Function(String error)? deleteSearchFailure,
+    TResult? Function(String error)? fetchSearchSuggestionsFailure,
+    TResult? Function()? searchUserLoading,
+    TResult? Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult? Function(String errorMessage)? searchUserError,
+  }) {
+    return searchUserSuccess?.call(searchResults);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? fetchRecentSearchesLoading,
+    TResult Function()? searchLoading,
+    TResult Function()? fetchTrendingSearchesLoading,
+    TResult Function()? deleteSearchLoading,
+    TResult Function()? fetchSearchSuggestionsLoading,
+    TResult Function(GetSearchResponse response)? fetchRecentSearchesSuccess,
+    TResult Function(GetSearchResponse response)? searchSuccess,
+    TResult Function(GetSearchResponse response)? fetchTrendingSearchesSuccess,
+    TResult Function(dynamic response)? deleteSearchSuccess,
+    TResult Function(GetSearchResponse response)? fetchSearchSuggestionsSuccess,
+    TResult Function(String error)? fetchRecentSearchesFailure,
+    TResult Function(String error)? searchFailure,
+    TResult Function(String error)? fetchTrendingSearchesFailure,
+    TResult Function(String error)? deleteSearchFailure,
+    TResult Function(String error)? fetchSearchSuggestionsFailure,
+    TResult Function()? searchUserLoading,
+    TResult Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult Function(String errorMessage)? searchUserError,
+    required TResult orElse(),
+  }) {
+    if (searchUserSuccess != null) {
+      return searchUserSuccess(searchResults);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_FetchRecentSearchesLoading value)
+        fetchRecentSearchesLoading,
+    required TResult Function(_SearchLoading value) searchLoading,
+    required TResult Function(_FetchTrendingSearchesLoading value)
+        fetchTrendingSearchesLoading,
+    required TResult Function(_DeleteSearchLoading value) deleteSearchLoading,
+    required TResult Function(_FetchSearchSuggestionsLoading value)
+        fetchSearchSuggestionsLoading,
+    required TResult Function(_FetchRecentSearchesSuccess value)
+        fetchRecentSearchesSuccess,
+    required TResult Function(_SearchSuccess value) searchSuccess,
+    required TResult Function(_FetchTrendingSearchesSuccess value)
+        fetchTrendingSearchesSuccess,
+    required TResult Function(_DeleteSearchSuccess value) deleteSearchSuccess,
+    required TResult Function(_FetchSearchSuggestionsSuccess value)
+        fetchSearchSuggestionsSuccess,
+    required TResult Function(_FetchRecentSearchesFailure value)
+        fetchRecentSearchesFailure,
+    required TResult Function(_SearchFailure value) searchFailure,
+    required TResult Function(_FetchTrendingSearchesFailure value)
+        fetchTrendingSearchesFailure,
+    required TResult Function(_DeleteSearchFailure value) deleteSearchFailure,
+    required TResult Function(_FetchSearchSuggestionsFailure value)
+        fetchSearchSuggestionsFailure,
+    required TResult Function(_searchUserLoading value) searchUserLoading,
+    required TResult Function(_searchUserSuccess value) searchUserSuccess,
+    required TResult Function(_searchUserError value) searchUserError,
+  }) {
+    return searchUserSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_FetchRecentSearchesLoading value)?
+        fetchRecentSearchesLoading,
+    TResult? Function(_SearchLoading value)? searchLoading,
+    TResult? Function(_FetchTrendingSearchesLoading value)?
+        fetchTrendingSearchesLoading,
+    TResult? Function(_DeleteSearchLoading value)? deleteSearchLoading,
+    TResult? Function(_FetchSearchSuggestionsLoading value)?
+        fetchSearchSuggestionsLoading,
+    TResult? Function(_FetchRecentSearchesSuccess value)?
+        fetchRecentSearchesSuccess,
+    TResult? Function(_SearchSuccess value)? searchSuccess,
+    TResult? Function(_FetchTrendingSearchesSuccess value)?
+        fetchTrendingSearchesSuccess,
+    TResult? Function(_DeleteSearchSuccess value)? deleteSearchSuccess,
+    TResult? Function(_FetchSearchSuggestionsSuccess value)?
+        fetchSearchSuggestionsSuccess,
+    TResult? Function(_FetchRecentSearchesFailure value)?
+        fetchRecentSearchesFailure,
+    TResult? Function(_SearchFailure value)? searchFailure,
+    TResult? Function(_FetchTrendingSearchesFailure value)?
+        fetchTrendingSearchesFailure,
+    TResult? Function(_DeleteSearchFailure value)? deleteSearchFailure,
+    TResult? Function(_FetchSearchSuggestionsFailure value)?
+        fetchSearchSuggestionsFailure,
+    TResult? Function(_searchUserLoading value)? searchUserLoading,
+    TResult? Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult? Function(_searchUserError value)? searchUserError,
+  }) {
+    return searchUserSuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_FetchRecentSearchesLoading value)?
+        fetchRecentSearchesLoading,
+    TResult Function(_SearchLoading value)? searchLoading,
+    TResult Function(_FetchTrendingSearchesLoading value)?
+        fetchTrendingSearchesLoading,
+    TResult Function(_DeleteSearchLoading value)? deleteSearchLoading,
+    TResult Function(_FetchSearchSuggestionsLoading value)?
+        fetchSearchSuggestionsLoading,
+    TResult Function(_FetchRecentSearchesSuccess value)?
+        fetchRecentSearchesSuccess,
+    TResult Function(_SearchSuccess value)? searchSuccess,
+    TResult Function(_FetchTrendingSearchesSuccess value)?
+        fetchTrendingSearchesSuccess,
+    TResult Function(_DeleteSearchSuccess value)? deleteSearchSuccess,
+    TResult Function(_FetchSearchSuggestionsSuccess value)?
+        fetchSearchSuggestionsSuccess,
+    TResult Function(_FetchRecentSearchesFailure value)?
+        fetchRecentSearchesFailure,
+    TResult Function(_SearchFailure value)? searchFailure,
+    TResult Function(_FetchTrendingSearchesFailure value)?
+        fetchTrendingSearchesFailure,
+    TResult Function(_DeleteSearchFailure value)? deleteSearchFailure,
+    TResult Function(_FetchSearchSuggestionsFailure value)?
+        fetchSearchSuggestionsFailure,
+    TResult Function(_searchUserLoading value)? searchUserLoading,
+    TResult Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult Function(_searchUserError value)? searchUserError,
+    required TResult orElse(),
+  }) {
+    if (searchUserSuccess != null) {
+      return searchUserSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _searchUserSuccess implements SearchState {
+  const factory _searchUserSuccess(
+          {required final List<SearchedUser> searchResults}) =
+      _$searchUserSuccessImpl;
+
+  List<SearchedUser> get searchResults;
+  @JsonKey(ignore: true)
+  _$$searchUserSuccessImplCopyWith<_$searchUserSuccessImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$searchUserErrorImplCopyWith<$Res> {
+  factory _$$searchUserErrorImplCopyWith(_$searchUserErrorImpl value,
+          $Res Function(_$searchUserErrorImpl) then) =
+      __$$searchUserErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String errorMessage});
+}
+
+/// @nodoc
+class __$$searchUserErrorImplCopyWithImpl<$Res>
+    extends _$SearchStateCopyWithImpl<$Res, _$searchUserErrorImpl>
+    implements _$$searchUserErrorImplCopyWith<$Res> {
+  __$$searchUserErrorImplCopyWithImpl(
+      _$searchUserErrorImpl _value, $Res Function(_$searchUserErrorImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? errorMessage = null,
+  }) {
+    return _then(_$searchUserErrorImpl(
+      errorMessage: null == errorMessage
+          ? _value.errorMessage
+          : errorMessage // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$searchUserErrorImpl implements _searchUserError {
+  const _$searchUserErrorImpl({required this.errorMessage});
+
+  @override
+  final String errorMessage;
+
+  @override
+  String toString() {
+    return 'SearchState.searchUserError(errorMessage: $errorMessage)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$searchUserErrorImpl &&
+            (identical(other.errorMessage, errorMessage) ||
+                other.errorMessage == errorMessage));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, errorMessage);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$searchUserErrorImplCopyWith<_$searchUserErrorImpl> get copyWith =>
+      __$$searchUserErrorImplCopyWithImpl<_$searchUserErrorImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() fetchRecentSearchesLoading,
+    required TResult Function() searchLoading,
+    required TResult Function() fetchTrendingSearchesLoading,
+    required TResult Function() deleteSearchLoading,
+    required TResult Function() fetchSearchSuggestionsLoading,
+    required TResult Function(GetSearchResponse response)
+        fetchRecentSearchesSuccess,
+    required TResult Function(GetSearchResponse response) searchSuccess,
+    required TResult Function(GetSearchResponse response)
+        fetchTrendingSearchesSuccess,
+    required TResult Function(dynamic response) deleteSearchSuccess,
+    required TResult Function(GetSearchResponse response)
+        fetchSearchSuggestionsSuccess,
+    required TResult Function(String error) fetchRecentSearchesFailure,
+    required TResult Function(String error) searchFailure,
+    required TResult Function(String error) fetchTrendingSearchesFailure,
+    required TResult Function(String error) deleteSearchFailure,
+    required TResult Function(String error) fetchSearchSuggestionsFailure,
+    required TResult Function() searchUserLoading,
+    required TResult Function(List<SearchedUser> searchResults)
+        searchUserSuccess,
+    required TResult Function(String errorMessage) searchUserError,
+  }) {
+    return searchUserError(errorMessage);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? fetchRecentSearchesLoading,
+    TResult? Function()? searchLoading,
+    TResult? Function()? fetchTrendingSearchesLoading,
+    TResult? Function()? deleteSearchLoading,
+    TResult? Function()? fetchSearchSuggestionsLoading,
+    TResult? Function(GetSearchResponse response)? fetchRecentSearchesSuccess,
+    TResult? Function(GetSearchResponse response)? searchSuccess,
+    TResult? Function(GetSearchResponse response)? fetchTrendingSearchesSuccess,
+    TResult? Function(dynamic response)? deleteSearchSuccess,
+    TResult? Function(GetSearchResponse response)?
+        fetchSearchSuggestionsSuccess,
+    TResult? Function(String error)? fetchRecentSearchesFailure,
+    TResult? Function(String error)? searchFailure,
+    TResult? Function(String error)? fetchTrendingSearchesFailure,
+    TResult? Function(String error)? deleteSearchFailure,
+    TResult? Function(String error)? fetchSearchSuggestionsFailure,
+    TResult? Function()? searchUserLoading,
+    TResult? Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult? Function(String errorMessage)? searchUserError,
+  }) {
+    return searchUserError?.call(errorMessage);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? fetchRecentSearchesLoading,
+    TResult Function()? searchLoading,
+    TResult Function()? fetchTrendingSearchesLoading,
+    TResult Function()? deleteSearchLoading,
+    TResult Function()? fetchSearchSuggestionsLoading,
+    TResult Function(GetSearchResponse response)? fetchRecentSearchesSuccess,
+    TResult Function(GetSearchResponse response)? searchSuccess,
+    TResult Function(GetSearchResponse response)? fetchTrendingSearchesSuccess,
+    TResult Function(dynamic response)? deleteSearchSuccess,
+    TResult Function(GetSearchResponse response)? fetchSearchSuggestionsSuccess,
+    TResult Function(String error)? fetchRecentSearchesFailure,
+    TResult Function(String error)? searchFailure,
+    TResult Function(String error)? fetchTrendingSearchesFailure,
+    TResult Function(String error)? deleteSearchFailure,
+    TResult Function(String error)? fetchSearchSuggestionsFailure,
+    TResult Function()? searchUserLoading,
+    TResult Function(List<SearchedUser> searchResults)? searchUserSuccess,
+    TResult Function(String errorMessage)? searchUserError,
+    required TResult orElse(),
+  }) {
+    if (searchUserError != null) {
+      return searchUserError(errorMessage);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_FetchRecentSearchesLoading value)
+        fetchRecentSearchesLoading,
+    required TResult Function(_SearchLoading value) searchLoading,
+    required TResult Function(_FetchTrendingSearchesLoading value)
+        fetchTrendingSearchesLoading,
+    required TResult Function(_DeleteSearchLoading value) deleteSearchLoading,
+    required TResult Function(_FetchSearchSuggestionsLoading value)
+        fetchSearchSuggestionsLoading,
+    required TResult Function(_FetchRecentSearchesSuccess value)
+        fetchRecentSearchesSuccess,
+    required TResult Function(_SearchSuccess value) searchSuccess,
+    required TResult Function(_FetchTrendingSearchesSuccess value)
+        fetchTrendingSearchesSuccess,
+    required TResult Function(_DeleteSearchSuccess value) deleteSearchSuccess,
+    required TResult Function(_FetchSearchSuggestionsSuccess value)
+        fetchSearchSuggestionsSuccess,
+    required TResult Function(_FetchRecentSearchesFailure value)
+        fetchRecentSearchesFailure,
+    required TResult Function(_SearchFailure value) searchFailure,
+    required TResult Function(_FetchTrendingSearchesFailure value)
+        fetchTrendingSearchesFailure,
+    required TResult Function(_DeleteSearchFailure value) deleteSearchFailure,
+    required TResult Function(_FetchSearchSuggestionsFailure value)
+        fetchSearchSuggestionsFailure,
+    required TResult Function(_searchUserLoading value) searchUserLoading,
+    required TResult Function(_searchUserSuccess value) searchUserSuccess,
+    required TResult Function(_searchUserError value) searchUserError,
+  }) {
+    return searchUserError(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_FetchRecentSearchesLoading value)?
+        fetchRecentSearchesLoading,
+    TResult? Function(_SearchLoading value)? searchLoading,
+    TResult? Function(_FetchTrendingSearchesLoading value)?
+        fetchTrendingSearchesLoading,
+    TResult? Function(_DeleteSearchLoading value)? deleteSearchLoading,
+    TResult? Function(_FetchSearchSuggestionsLoading value)?
+        fetchSearchSuggestionsLoading,
+    TResult? Function(_FetchRecentSearchesSuccess value)?
+        fetchRecentSearchesSuccess,
+    TResult? Function(_SearchSuccess value)? searchSuccess,
+    TResult? Function(_FetchTrendingSearchesSuccess value)?
+        fetchTrendingSearchesSuccess,
+    TResult? Function(_DeleteSearchSuccess value)? deleteSearchSuccess,
+    TResult? Function(_FetchSearchSuggestionsSuccess value)?
+        fetchSearchSuggestionsSuccess,
+    TResult? Function(_FetchRecentSearchesFailure value)?
+        fetchRecentSearchesFailure,
+    TResult? Function(_SearchFailure value)? searchFailure,
+    TResult? Function(_FetchTrendingSearchesFailure value)?
+        fetchTrendingSearchesFailure,
+    TResult? Function(_DeleteSearchFailure value)? deleteSearchFailure,
+    TResult? Function(_FetchSearchSuggestionsFailure value)?
+        fetchSearchSuggestionsFailure,
+    TResult? Function(_searchUserLoading value)? searchUserLoading,
+    TResult? Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult? Function(_searchUserError value)? searchUserError,
+  }) {
+    return searchUserError?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_FetchRecentSearchesLoading value)?
+        fetchRecentSearchesLoading,
+    TResult Function(_SearchLoading value)? searchLoading,
+    TResult Function(_FetchTrendingSearchesLoading value)?
+        fetchTrendingSearchesLoading,
+    TResult Function(_DeleteSearchLoading value)? deleteSearchLoading,
+    TResult Function(_FetchSearchSuggestionsLoading value)?
+        fetchSearchSuggestionsLoading,
+    TResult Function(_FetchRecentSearchesSuccess value)?
+        fetchRecentSearchesSuccess,
+    TResult Function(_SearchSuccess value)? searchSuccess,
+    TResult Function(_FetchTrendingSearchesSuccess value)?
+        fetchTrendingSearchesSuccess,
+    TResult Function(_DeleteSearchSuccess value)? deleteSearchSuccess,
+    TResult Function(_FetchSearchSuggestionsSuccess value)?
+        fetchSearchSuggestionsSuccess,
+    TResult Function(_FetchRecentSearchesFailure value)?
+        fetchRecentSearchesFailure,
+    TResult Function(_SearchFailure value)? searchFailure,
+    TResult Function(_FetchTrendingSearchesFailure value)?
+        fetchTrendingSearchesFailure,
+    TResult Function(_DeleteSearchFailure value)? deleteSearchFailure,
+    TResult Function(_FetchSearchSuggestionsFailure value)?
+        fetchSearchSuggestionsFailure,
+    TResult Function(_searchUserLoading value)? searchUserLoading,
+    TResult Function(_searchUserSuccess value)? searchUserSuccess,
+    TResult Function(_searchUserError value)? searchUserError,
+    required TResult orElse(),
+  }) {
+    if (searchUserError != null) {
+      return searchUserError(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _searchUserError implements SearchState {
+  const factory _searchUserError({required final String errorMessage}) =
+      _$searchUserErrorImpl;
+
+  String get errorMessage;
+  @JsonKey(ignore: true)
+  _$$searchUserErrorImplCopyWith<_$searchUserErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

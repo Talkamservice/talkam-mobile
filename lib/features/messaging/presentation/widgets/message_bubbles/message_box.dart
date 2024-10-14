@@ -9,11 +9,12 @@ class ChatMessageBox extends StatefulWidget {
   const ChatMessageBox({
     Key? key,
     required this.message,
-    this.child,
+    this.child, required this.onRetryMessage,
   }) : super(key: key);
 
   final AppMessageModel message;
   final Widget? child;
+  final VoidCallback onRetryMessage;
 
   @override
   State<ChatMessageBox> createState() => _ChatMessageBoxState();
@@ -40,7 +41,7 @@ class _ChatMessageBoxState extends State<ChatMessageBox> {
             )
             : widget.message.iAmSender
                 ? SenderMessageItem(
-                    message: widget.message,
+                    message: widget.message, onRetryMessage: widget.onRetryMessage,
                   )
                 : ReceiverMessageItem(
                     message: widget.message,

@@ -1,5 +1,7 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/material.dart';
 import 'package:open_filex/open_filex.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -7,6 +9,9 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/navigation/routes.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
+import 'package:talkam/features/messaging/data/models/get_conversations_response.dart';
+import 'package:talkam/features/messaging/presentation/screens/chat_screen.dart';
+import 'package:talkam/features/notifications/data/models/get_notifications_response.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DeepLinkNavigator {
@@ -14,8 +19,7 @@ class DeepLinkNavigator {
 
   static void handleForegroundMessages(RemoteMessage message) {}
 
-  static Future<void> handlePushNotificationClick(
-      Map<String, dynamic> payload) async {
+  static Future<void> handlePushNotificationClick(Map<String, dynamic> payload) async {
     logger.w(payload);
     switch (payload['type']) {
       case 'file':
@@ -27,51 +31,68 @@ class DeepLinkNavigator {
 
         // openDownloadsFolder(filePath);
         break;
-      case 'badge':
-        if (isAuthenticated) {
-          // CustomRoutes.goRouter.pushNamed(PageUrl.badgesScreen);
-        }
-        break;
-      case "welness_course":
-        if (isAuthenticated) {
-          // CustomRoutes.goRouter.pushNamed(PageUrl.wellnessLibraryScreen);
-        }
-        break;
-      case "worksheet":
-        if (isAuthenticated) {
-          // context.pop();
-          // CustomRoutes.goRouter.pushNamed(PageUrl.summariesScreen,
-          //     queryParameters: {PathParam.tabIndex: '2'});
-        }
-        break;
-      case 'subscription':
-        if (isAuthenticated) {
-          // context.pop();
+      case "post" || "comment":
+        if(isAuthenticated){
+          CustomRoutes.goRouter.pushNamed(PageUrl.postDetailsScreen, extra: payload['id'].toString());
 
-          // CustomRoutes.goRouter.pushNamed(PageUrl.selectPlanScreen);
         }
         break;
-      case 'conversation':
+
+      case "conversation":
         if (isAuthenticated) {
-          // logger.w();
-          // rootNavigatorKey.currentState?.context
-          //     .pushNamed(PageUrl.therapistChatScreen, queryParameters: {
-          //   PathParam.therapist:
-          //       jsonEncode(jsonDecode(payload["extra"])["therapist"])
-          // });
+          if (ExtraClass.fromJson(jsonDecode(payload['extra'])).sender != null) {
+            var user = ExtraClass.fromJson(jsonDecode(payload['extra'])).sender!;
+            CustomRoutes.goRouter.pushNamed(
+              PageUrl.chatScreen,
+              extra: ChatScreenParam(
+                user: ConversationUser(id: user.id, name: user.name, username: user.username, email: user.email, avatar: user.avatar),
+              ),
+            );
+          }
         }
+
+      // logger.w(notification.userId);
+      // var user = ExtraClass.fromJson(notification.extra);
+
+      case "group":
+        if (isAuthenticated) {
+          CustomRoutes.goRouter.pushNamed(PageUrl.groupsInfoScreen, extra: payload['id'].toString());
+        }
+      case "group_request":
+        if (isAuthenticated) {
+          CustomRoutes.goRouter.pushNamed(PageUrl.pendingRequestsScreen, extra: payload['id'].toString());
+        }
+      case "request":
+        if (isAuthenticated) {
+          CustomRoutes.goRouter.pushNamed(PageUrl.pendingRequestsScreen, extra: payload['id'].toString());
+        }
+      case "mention":
+        if (isAuthenticated) {
+          CustomRoutes.goRouter.pushNamed(PageUrl.postDetailsScreen, extra: payload['id'].toString());
+        }
+      case "notification" || "user":
+        if (isAuthenticated) {
+          CustomRoutes.goRouter.pushNamed(
+            PageUrl.notificationScreen,
+          );
+        }
+
+
+        // showDialog(
+        //   context: rootNavigatorKey.currentState!.context,
+        //   builder: (context) {
+        //
+        //     return AdminNotificationDialog(
+        //       notification: notification,
+        //     );
+        //   },
+        // );
+        // context.pushNamed(PageUrl.postDetailsScreen, extra: notification.dataId.toString());
         break;
-      // case 'ai_session': (This case seems unrelated to authentication)
-      //   // ... your existing code for ai_session ...
-      //   break;
     }
   }
 
-  static get isAuthenticated =>
-      CustomRoutes
-              .goRouter.routerDelegate.currentConfiguration.last.route.path !=
-          "/${PageUrl.onboardingIntro}" &&
-      SessionManager.instance.isLoggedIn;
+  static get isAuthenticated => SessionManager.instance.isLoggedIn;
 
   static Future<void> openDownloadsFolder(String path) async {
     if (Platform.isAndroid) {
@@ -79,8 +100,7 @@ class DeepLinkNavigator {
       final downloadsPath = '${directory?.path}/Download';
       await Process.run('open', [path]); // Or use a specific file manager app
     } else if (Platform.isIOS) {
-      await launch(
-          'file:///var/mobile/Media/Downloads'); // Or use a specific file manager app
+      await launch('file:///var/mobile/Media/Downloads'); // Or use a specific file manager app
     }
   }
 }

@@ -8,6 +8,7 @@ import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/group/data/models/get_group_members_response.dart';
 import 'package:talkam/features/group/presentation/blocs/group_members_cubit/group_members_cubit.dart';
+import 'package:talkam/features/group/presentation/screens/refresh_group_listener.dart';
 import 'package:talkam/features/group/presentation/widgets/group_member_item.dart';
 import 'package:talkam/features/group/presentation/widgets/pending_requests_button.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
@@ -32,47 +33,46 @@ class _GroupMembersTabState extends State<GroupMembersTab> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0),
-      child: BlocConsumer<GroupMembersCubit, GroupMembersState>(
-        bloc: bloc,
-        listener: (context, state) {},
-        builder: (context, state) {
-          return state.maybeWhen(
-            orElse: () => 0.verticalSpace,
-            getGroupMembersLoading: () => SizedBox(
-              height: 200,
-              child: Center(
-                child: CustomDialogs.getLoading(size: 50),
+    return RefreshGroupListener(
+      onRefresh: () {
+        bloc.getGroupMembers(widget.group.id.toString());
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: BlocConsumer<GroupMembersCubit, GroupMembersState>(
+          bloc: bloc,
+          listener: (context, state) {},
+          builder: (context, state) {
+            return state.maybeWhen(
+              orElse: () => 0.verticalSpace,
+              getGroupMembersLoading: () => SizedBox(
+                height: 200,
+                child: Center(
+                  child: CustomDialogs.getLoading(size: 50),
+                ),
               ),
-            ),
-            getGroupMembersSuccess: (response) {
-              if (response.data.member.isEmpty &&
-                  response.data.owner.isEmpty &&
-                  response.data.admin.isEmpty) {
-                return const SizedBox(
-                    height: 300,
-
-                    child: Center(
-                        child: TextView(text: "No members in this group")));
-              }
-              return GroupMembersList(
-                reponse: response,
-                group: widget.group,
-                onActionSuccess: () {
-                  bloc.getGroupMembers(widget.group.id.toString());
-                },
-              );
-            },
-            getGroupMembersFailure: (error) {
-              return AppErrorWidget(
-                onTap: () {
-                  bloc.getGroupMembers(widget.group.id.toString());
-                },
-              );
-            },
-          );
-        },
+              getGroupMembersSuccess: (response) {
+                if (response.data.member.isEmpty && response.data.owner.isEmpty && response.data.admin.isEmpty) {
+                  return const SizedBox(height: 300, child: Center(child: TextView(text: "No members in this group")));
+                }
+                return GroupMembersList(
+                  reponse: response,
+                  group: widget.group,
+                  onActionSuccess: () {
+                    bloc.getGroupMembers(widget.group.id.toString());
+                  },
+                );
+              },
+              getGroupMembersFailure: (error) {
+                return AppErrorWidget(
+                  onTap: () {
+                    bloc.getGroupMembers(widget.group.id.toString());
+                  },
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }
@@ -100,28 +100,30 @@ class GroupMembersList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+    return ListView(
+      // crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         GroupMembersComponent(
-          members: reponse.data.admin,
+          members: reponse.data.owner,
           tittle: "Administrator/Creator",
           group: group,
-          showPendingRequest: reponse.data.admin.isNotEmpty,
+
+          showPendingRequest: false,
           onActionSuccess: onActionSuccess,
         ),
         GroupMembersComponent(
-          members: reponse.data.owner,
-          tittle: "Owner",
+          members: reponse.data.admin,
+          tittle: "Moderators",
+
           group: group,
-          showPendingRequest: reponse.data.admin.isEmpty,
+          showPendingRequest: false,
           onActionSuccess: onActionSuccess,
         ),
         GroupMembersComponent(
           members: reponse.data.member,
           tittle: "All Members",
           group: group,
-
+          showPendingRequest: true,
           onActionSuccess: onActionSuccess,
         ),
       ],
@@ -131,12 +133,8 @@ class GroupMembersList extends StatelessWidget {
 
 class GroupMembersComponent extends StatefulWidget {
   const GroupMembersComponent(
-      {super.key,
-      required this.members,
-      required this.tittle,
-      this.showPendingRequest = false,
-      required this.group,
-      required this.onActionSuccess});
+      {super.key, required this.members, required this.tittle, this.showPendingRequest = false, required this.group, required this.onActionSuccess});
+
 
   final List<GroupMemberDetails> members;
   final String tittle;
@@ -151,6 +149,7 @@ class GroupMembersComponent extends StatefulWidget {
 class _GroupMembersComponentState extends State<GroupMembersComponent> {
   @override
   Widget build(BuildContext context) {
+    logger.i(widget.showPendingRequest);
     if (widget.members.isNotEmpty) {
       return Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -186,7 +185,8 @@ class _GroupMembersComponentState extends State<GroupMembersComponent> {
   }
 
   bool get canViewRequests {
-    return widget.showPendingRequest &&
-        (widget.group.userRole == "Owner" || widget.group.userRole == "Admin");
+
+
+    return widget.showPendingRequest && (widget.group.userRole == "Owner" || widget.group.userRole == "Admin" || widget.group.userRole == "Moderator");
   }
 }

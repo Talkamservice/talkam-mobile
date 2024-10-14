@@ -50,6 +50,7 @@ class TestFactories {
       updatedAt: DateTime.now(),
       isFollowing: false,
       parentCategory: null,
+      type: "Catgory", isSuspended: null, groupAccess: '',
     );
   }
 
@@ -109,7 +110,8 @@ class TestFactories {
           createdAt: null,
           updatedAt: null,
           isFollowing: false,
-          parentCategory: null),
+          parentCategory: null,
+          type: "Category", isSuspended: null, groupAccess: ''),
       owner: GroupOwner(id: Random().nextInt(5), username: "Dummy Owner"),
       about: "This is a dummy group about something interesting.",
       totalMembers: 123,
@@ -139,8 +141,7 @@ class TestFactories {
   // }
 
   static GroupAboutData createDummyGroupAbout() {
-    GroupOwner dummyCreator =
-        GroupOwner(id: Random().nextInt(5), username: "Group Creator");
+    GroupOwner dummyCreator = GroupOwner(id: Random().nextInt(5), username: "Group Creator");
 
     return GroupAboutData(
       about: createDummyGroupOverview().about,
@@ -171,6 +172,7 @@ class TestFactories {
       name: "Dummy Group",
     );
   }
+
   //
   // static GroupDetailsScreenParam createDummyGroupDetailsScreenParam() {
   //   return GroupDetailsScreenParam(

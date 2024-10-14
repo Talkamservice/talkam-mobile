@@ -3,7 +3,6 @@
 import 'package:dio/dio.dart';
 import 'package:collection/collection.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
-
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/navigation/routes.dart';

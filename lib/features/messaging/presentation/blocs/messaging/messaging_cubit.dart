@@ -61,6 +61,51 @@ class MessagingCubit extends Cubit<MessagingState> with MessagingFormatterMixin 
     }
   }
 
+
+
+
+
+
+  Future<void> retryMessage(AppMessageModel message) async {
+
+    messages.firstWhere((element) => element.id == message.id,).sendingState = SendingState.loading;
+    logger.w("cjns");
+
+    emit(const MessagingState.sendMessageLoading());
+    // listController.jumpTo(0);
+
+    try {
+      final response = await messagingRepository.sendMessage(message);
+      logger.w("NO WAY MY ID IS ${injector.get<ProfileBloc>().appUser?.id}");
+      logger.w("NO CONVERSATION ID IS ${currentConversation!.id}");
+
+      _listenForMessages(currentConversation!.id.toString());
+      messages.where((element) => element.id == message.id).first.sendingState = SendingState.success;
+
+      emit(MessagingState.sendMessageSuccess(response));
+    } catch (e) {
+      messages.where((element) => element.id == message.id).first.sendingState = SendingState.failed;
+      emit(MessagingState.sendMessageFailure(e.toString()));
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   Future<void> getMessages(String conversationId, {bool? refresh = true}) async {
     if (refresh!) {
       emit(const MessagingState.fetchCurrentConversationLoading());

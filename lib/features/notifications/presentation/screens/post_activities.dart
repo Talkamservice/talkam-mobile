@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/empty_state.dart';
@@ -8,6 +9,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/messaging/presentation/widgets/new_notification.dart';
 import 'package:talkam/features/notifications/data/models/get_notifications_response.dart';
 import 'package:talkam/features/notifications/presentation/bloc/notification_bloc.dart';
+import 'package:talkam/features/notifications/presentation/widgets/all_notifications_listener.dart';
 
 class PostActivitiesTab extends StatefulWidget {
   const PostActivitiesTab({super.key});
@@ -60,6 +62,9 @@ class _PostActivitiesTabState extends State<PostActivitiesTab> with AutomaticKee
                 } else {
                   return Column(
                     children: [
+                      AllNotificationsListener(onReadAll: () {
+                        bloc.add(GetNotificationsEvent(tab: "post_activity"));
+                      }),
                       Expanded(
                         child: RefreshIndicator(
                           onRefresh: () async {

@@ -18,7 +18,8 @@ class GuestUserHelper {
       guestAction?.call();
       if (guestAction == null) {
         // Show a toast here
-        CustomDialogs.showToast( message ??"Please login to access this feature");
+        // CustomDialogs.showToast( message ??"Please login to access this feature");
+        CustomRoutes.goRouter.pushNamed(PageUrl.login);
       }
     }
   }

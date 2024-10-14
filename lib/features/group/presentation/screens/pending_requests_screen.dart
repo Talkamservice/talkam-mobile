@@ -10,14 +10,15 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/group/presentation/blocs/group_members_cubit/group_members_cubit.dart';
+import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
 import 'package:talkam/features/group/presentation/widgets/pending_request_item.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class PendingRequestsScreen extends StatefulWidget {
-  const PendingRequestsScreen({super.key, required this.group});
+  const PendingRequestsScreen({super.key, required this.groupId});
 
-  final TalkamGroup group;
+  final String groupId;
 
   @override
   State<PendingRequestsScreen> createState() => _PendingRequestsScreenState();
@@ -28,7 +29,7 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
 
   @override
   void initState() {
-    bloc.getPendingRequests(widget.group.id.toString());
+    bloc.getPendingRequests(widget.groupId.toString());
 
     super.initState();
   }
@@ -66,7 +67,8 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
                 },
                 requestActionSuccess: (response) {
                   context.pop();
-                  bloc.getPendingRequests(widget.group.id.toString(),
+                  injector.get<GroupsCubit>().refreshGroups();
+                  bloc.getPendingRequests(widget.groupId.toString(),
                       refresh: false);
                 },
                 requestActionFailure: (error) {
@@ -80,7 +82,7 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
                 orElse: () {
                   return AppErrorWidget(
                     onTap: () {
-                      bloc.getPendingRequests(widget.group.id.toString());
+                      bloc.getPendingRequests(widget.groupId.toString());
                     },
                   );
                 },
@@ -97,7 +99,7 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
 
                   return RefreshIndicator(
                     onRefresh: () async {
-                      bloc.getPendingRequests(widget.group.id.toString());
+                      bloc.getPendingRequests(widget.groupId.toString());
                     },
                     child: ListView.builder(
                       itemCount: response.data.data.length,
@@ -111,7 +113,7 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
                                 memberId:
                                     response.data.data[index].id.toString(),
                                 action: requestAction.name,
-                                groupId: widget.group.id.toString());
+                                groupId: widget.groupId.toString());
                           },
                         ),
                       ),
@@ -122,7 +124,7 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
                   return AppErrorWidget(
                     message: error,
                     onTap: () {
-                      bloc.getPendingRequests(widget.group.id.toString());
+                      bloc.getPendingRequests(widget.groupId.toString());
                     },
                   );
                 },

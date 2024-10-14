@@ -1,3 +1,5 @@
+import 'package:talkam/core/_core.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/services/network/network_service.dart';
 import 'package:talkam/core/services/network/url_config.dart';
@@ -47,7 +49,10 @@ class ProfileRepositoryImpl extends ProfileRepository {
       );
 
       return GetAvatarsResponse.fromJson(response.data);
-    } catch (e) {
+    } catch (e, stack) {
+      logger.e(e);
+      logger.e(stack);
+
       rethrow;
     }
   }
@@ -75,20 +80,24 @@ class ProfileRepositoryImpl extends ProfileRepository {
   }
 
   @override
-  Future<List<TalkamPost>> fetchUserPosts({int page = 1, bool isPaginating = false}) async {
+  Future<List<TalkamPost>> fetchUserPosts({int page = 1, bool isPaginating = false, bool isScheduled = false}) async {
     if (SessionManager.instance.doesUserDataExists) {
       final user = TalkamUser.fromJson(SessionManager.instance.usersData);
       if (!isPaginating) {
         final res = await Future.wait([
-          _networkService.call("/user/posts?user_id=${user.id}?page=1", RequestMethod.get),
-          _networkService.call("/user/post-schedules", RequestMethod.get),
+          if (!isScheduled) _networkService.call("/user/posts?user_id=${user.id}&tab=latest&page=1&exclude_anonymous=1&tab=latest", RequestMethod.get),
+          if (isScheduled) _networkService.call("/user/post-schedules", RequestMethod.get),
         ]);
-        final List<TalkamPost> schedulePosts = List.from(res[1].data['data']).map((e) => TalkamPost.fromJson(e)).toList();
-        final List<TalkamPost> posts = List.from(res[0].data['data']['data']).map((e) => TalkamPost.fromJson(e)).toList();
+        // final List<TalkamPost> schedulePosts = List.from(res[1].data['data']).map((e) => TalkamPost.fromJson(e)).toList();
+        final List<TalkamPost> posts = isScheduled
+            ? List.from(res[0].data['data']).map((e) => TalkamPost.fromJson(e)).toList()
+            : List.from(res[0].data['data']['data']).map((e) => TalkamPost.fromJson(e)).toList();
 
-        return [...schedulePosts, ...posts];
+
+
+        return [...posts];
       } else {
-        final response = await _networkService.call("/user/posts?user_id=${user.id}&page=$page", RequestMethod.get);
+        final response = await _networkService.call("/user/posts?user_id=${user.id}&tab=latest&page=$page&exclude_anonymous=1", RequestMethod.get);
         return List.from(response.data['data']['data']).map((e) => TalkamPost.fromJson(e)).toList();
       }
     } else {
@@ -123,7 +132,8 @@ class ProfileRepositoryImpl extends ProfileRepository {
   @override
   Future<TalkamUser> getProfile(String userId) async {
     try {
-      final response = await _networkService.call(UrlConfig.getUser, RequestMethod.get, queryParams: {"user_id": userId});
+      final response = await _networkService.call(userId.containsAlphabet() ? UrlConfig.getUserByUserName(userId) : UrlConfig.getUser, RequestMethod.get,
+          queryParams: {if (!userId.containsAlphabet()) "user_id": userId});
 
       return TalkamUser.fromJson(response.data['data']);
     } catch (e) {
@@ -145,7 +155,7 @@ class ProfileRepositoryImpl extends ProfileRepository {
   Future<List<TalkamPost>> fetchUserPostsById({int page = 1, bool isPaginating = false, required String userId}) async {
     if (!isPaginating) {
       final res = await Future.wait([
-        _networkService.call("/user/posts?user_id=$userId?page=1", RequestMethod.get),
+        _networkService.call("/user/posts?user_id=$userId?page=1&tab=latest", RequestMethod.get),
         // _networkService.call("/user/post-schedules", RequestMethod.get),
       ]);
       // final List<TalkamPost> schedulePosts = List.from(res[1].data['data'])
@@ -168,7 +178,6 @@ class ProfileRepositoryImpl extends ProfileRepository {
     return newUserResponse;
   }
 
-
   @override
   Future<List<TalkamPost>> fetchUserUpvoteById({int page = 1, required String userId}) async {
     if (SessionManager.instance.doesUserDataExists) {
@@ -187,10 +196,10 @@ class ProfileRepositoryImpl extends ProfileRepository {
   }
 
   @override
-  Future<List<UserMedia>> fetchUserMediaById({int page = 1,}) async {
+  Future<List<UserMedia>> fetchUserMediaById({int page = 1, required String userId}) async {
     if (SessionManager.instance.doesUserDataExists) {
       final user = TalkamUser.fromJson(SessionManager.instance.usersData);
-      final response = await _networkService.call("/user/posts/media/fetch?user_id=13&exclude_anonymous=1&page$page}", RequestMethod.get);
+      final response = await _networkService.call("/user/posts/media/fetch?user_id=$userId&exclude_anonymous=1&page=$page", RequestMethod.get);
       return List.from(response.data['data']['data']).map((e) => UserMedia.fromJson(e)).toList();
     } else {
       return [];

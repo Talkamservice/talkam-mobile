@@ -473,8 +473,8 @@ class CustomDialogs {
         Container(
           padding: const EdgeInsets.all(16.0),
           decoration: BoxDecoration(
-            color: Pallets.primaryLight,
-            border: Border.all(color: Pallets.primary),
+            color: Pallets.transparentOrage,
+            // border: Border.all(color: Pallets.primary),
             borderRadius: BorderRadius.circular(8),
           ),
           child: Row(
@@ -520,6 +520,68 @@ class CustomDialogs {
         margin: const EdgeInsets.all(8),
         flushbarPosition: FlushbarPosition.TOP,
         borderRadius: BorderRadius.circular(8),
+        duration: const Duration(seconds: 3),
+      ).show(context);
+    }
+  }
+
+
+  static void showInfoMessage(BuildContext context, String message,
+      {bool isError = false}) async {
+    if (isError) {
+      showSimpleNotification(
+        Container(
+          padding: const EdgeInsets.all(16.0),
+          decoration: BoxDecoration(
+            color: Pallets.transparentOrage,
+            // border: Border.all(color: Pallets.primary),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Row(
+            children: [
+              const Icon(
+                Icons.info_outline_rounded,
+                size: 24.0,
+                color:Colors.orange,
+              ),
+              SizedBox(width: 12.w),
+              Expanded(
+                child: TextView(
+                  text: message.isEmpty
+                      ? 'An error occurred, please try again'
+                      : message,
+                  fontSize: 14,
+                  color: Pallets.primary,
+                  fontWeight: FontWeight.w500,
+                  maxLines: 2,
+                  textOverflow: TextOverflow.ellipsis,
+                  align: TextAlign.left,
+                ),
+              ),
+            ],
+          ),
+        ),
+        background: Colors.transparent,
+        elevation: 0,
+      );
+    } else {
+      Flushbar(
+        message: message,
+        messageColor: Pallets.white,
+        icon: const Icon(
+          Icons.info,
+          size: 24.0,
+          color: Pallets.white,
+        ),
+        shouldIconPulse: false,
+
+        borderWidth: .5,
+        borderColor: Colors.transparent,
+        backgroundColor: Pallets.primary,
+        margin: const EdgeInsets.all(8),
+        flushbarPosition: FlushbarPosition.TOP,
+        borderRadius: BorderRadius.circular(8),
+
         duration: const Duration(seconds: 3),
       ).show(context);
     }

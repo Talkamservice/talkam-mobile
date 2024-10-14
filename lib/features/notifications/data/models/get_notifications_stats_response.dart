@@ -54,12 +54,18 @@ class NotificationsStats {
   int unreadNotifications;
   int unreadMessages;
   int totalRequests;
+  int postActivity;
+  int conversation;
+  int systemAdmin;
 
   NotificationsStats({
     required this.notifications,
     required this.unreadNotifications,
     required this.unreadMessages,
     required this.totalRequests,
+    required this.postActivity,
+    required this.conversation,
+    required this.systemAdmin,
   });
 
   NotificationsStats copyWith({
@@ -67,12 +73,18 @@ class NotificationsStats {
     int? unreadNotifications,
     int? unreadMessages,
     int? totalRequests,
+    int? postActivity,
+    int? conversation,
+    int? systemAdmin,
   }) =>
       NotificationsStats(
         notifications: notifications ?? this.notifications,
         unreadNotifications: unreadNotifications ?? this.unreadNotifications,
         unreadMessages: unreadMessages ?? this.unreadMessages,
         totalRequests: totalRequests ?? this.totalRequests,
+        postActivity: postActivity ?? this.postActivity,
+        conversation: conversation ?? this.conversation,
+        systemAdmin: systemAdmin ?? this.systemAdmin,
       );
 
   factory NotificationsStats.fromJson(Map<String, dynamic> json) => NotificationsStats(
@@ -80,13 +92,9 @@ class NotificationsStats {
         unreadNotifications: json["unread_notifications"],
         unreadMessages: json["unread_messages"],
         totalRequests: json["total_requests"],
-      );
-
-  factory NotificationsStats.initial() => NotificationsStats(
-        notifications: 0,
-        unreadNotifications: 0,
-        unreadMessages: 0,
-        totalRequests: 0,
+        postActivity: json["post_activity"],
+        conversation: json["conversation"],
+        systemAdmin: json["system_admin"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -94,8 +102,18 @@ class NotificationsStats {
         "unread_notifications": unreadNotifications,
         "unread_messages": unreadMessages,
         "total_requests": totalRequests,
+        "post_activity": postActivity,
+        "conversation": conversation,
+        "system_admin": systemAdmin,
       };
 
-
-
+  factory NotificationsStats.initial() => NotificationsStats(
+        notifications: 0,
+        unreadNotifications: 0,
+        unreadMessages: 0,
+        totalRequests: 0,
+        postActivity: 0,
+        conversation: 0,
+        systemAdmin: 0,
+      );
 }

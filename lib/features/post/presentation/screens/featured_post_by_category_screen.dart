@@ -8,6 +8,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/post/data/models/post_filter_model.dart';
 import 'package:talkam/features/post/presentation/bloc/featured_posts/featured_post_cubit.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item.dart';
+import 'package:talkam/features/post/presentation/widgets/post_loading_shimmer.dart';
 
 class FeaturedPostByCategoryScreen extends StatefulWidget {
   const FeaturedPostByCategoryScreen({super.key, required this.categoryId});
@@ -43,8 +44,8 @@ class _FeaturedPostByCategoryScreenState
             builder: (context, state) {
               return state.maybeWhen(
                 orElse: () => 0.verticalSpace,
-                getFeaturedPostsLoading: () => Center(
-                  child: CustomDialogs.getLoading(size: 50),
+                getFeaturedPostsLoading: () => const Center(
+                  child:           PostLoadingShimmer(),
                 ),
                 getFeaturedPostsFailed: (error) => AppErrorWidget(
                   message: error,

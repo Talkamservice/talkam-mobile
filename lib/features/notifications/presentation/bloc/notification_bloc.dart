@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:convert';
-
 import 'package:bloc/bloc.dart';
 import 'package:crypto/crypto.dart';
 import 'package:equatable/equatable.dart';
@@ -9,6 +8,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/services/pusher/pusher_channel_service.dart';
 import 'package:talkam/features/messaging/presentation/blocs/conversations/conversations_cubit.dart';
+import 'package:talkam/features/notifications/data/models/get_announcements_response.dart';
 import 'package:talkam/features/notifications/data/models/get_notifications_response.dart';
 import 'package:talkam/features/notifications/data/models/get_notifications_stats_response.dart';
 import 'package:talkam/features/notifications/data/models/read_notification_response.dart';
@@ -42,20 +42,20 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     on<ClearNotificationsEvent>(_mapClearNotificationsEventToState);
     on<ReadAllNotificationEvent>(_mapReadAllNotificationEventToState);
     on<LoadMoreNotificationsEvent>(_mapLoadMoreNotificationsEvent);
+    on<GetAnnouncementsEvent>(_mapGetAnnouncementsEvent);
+    on<GetAnnouncementByIdEvent>(_mapGetAnnouncementByIdEvent);
   }
 
   Future<void> _mapGetNotificationsEventToState(
     GetNotificationsEvent event,
     Emitter<NotificationsState> emit,
   ) async {
-
-    if(SessionManager().isLoggedIn) {
+    if (SessionManager().isLoggedIn) {
       emit(GetNotificationsLoadingState());
       try {
-
         _currentPage = 1;
         _hasReachedEndOfList = false;
-        final notificationResponse = await _notificationsRepository.getNotifications(_currentPage,tab: event.tab);
+        final notificationResponse = await _notificationsRepository.getNotifications(_currentPage, tab: event.tab);
         // await _firebaseMessagingService.onUpdatePalynxNotification(false);
         emit(GetNotificationsSuccessState(response: notificationResponse.data));
       } catch (e, stack) {
@@ -114,11 +114,12 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   // }
 
   FutureOr<void> _mapLoadMoreNotificationsEvent(LoadMoreNotificationsEvent event, Emitter<NotificationsState> emit) async {
+    return;
     if (state is LoadingMoreNotificationState || _hasReachedEndOfList) return;
     emit(LoadingMoreNotificationState());
     try {
       _currentPage += 1;
-      final paginatedNotificationResponse = await _notificationsRepository.getNotifications(_currentPage);
+      final paginatedNotificationResponse = await _notificationsRepository.getNotifications(_currentPage, tab: event.tab);
       _hasReachedEndOfList = paginatedNotificationResponse.data.isEmpty;
       final allNotifications = [...event.previousNotifications, ...paginatedNotificationResponse.data];
       emit(GetNotificationsSuccessState(response: allNotifications));
@@ -132,7 +133,6 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   }
 
   FutureOr<void> _mapReadAllNotificationEventToState(ReadAllNotificationEvent event, Emitter<NotificationsState> emit) async {
-
     emit(const ReadAllNotificationLoadingState());
     try {
       final response = await _notificationsRepository.readAllNotifications();
@@ -144,19 +144,19 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   }
 
   FutureOr<void> _mapGetNotificationsStatsEventToState(GetNotificationsStatsEvent event, Emitter<NotificationsState> emit) async {
-    if(SessionManager().isLoggedIn) {
-
-    emit(GetNotificationsStatsLoadingState());
-    try {
-      final notificationResponse = await _notificationsRepository.getNotificationsStats();
-      stats = notificationResponse.data;
-      _listenForMessages();
-      emit(GetNotificationsStatsSuccessState(response: notificationResponse));
-    } catch (e, stack) {
-      logger.e(stack);
-      logger.e(e);
-      emit(GetNotificationsFailureState(error: e.toString()));
-    }}
+    if (SessionManager().isLoggedIn) {
+      emit(GetNotificationsStatsLoadingState());
+      try {
+        final notificationResponse = await _notificationsRepository.getNotificationsStats();
+        stats = notificationResponse.data;
+        _listenForMessages();
+        emit(GetNotificationsStatsSuccessState(response: notificationResponse));
+      } catch (e, stack) {
+        logger.e(stack);
+        logger.e(e);
+        emit(GetNotificationsFailureState(error: e.toString()));
+      }
+    }
   }
 
   void _listenForMessages() async {
@@ -197,7 +197,6 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     }
   }
 
-
   _authorize(String channelName, String socketId, options) async {
     return {
       "auth": "1934aa1e05c3acfdfd3f:${getSignature("$socketId:refresh-notification.$channelName)}")}",
@@ -226,12 +225,41 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
         logger.i('received message${receivedEvent.data}');
         add(GetNotificationsStatsEvent());
         injector.get<ConversationsCubit>().getConversations(reload: false);
-
-
       }
     } catch (e, stack) {
       logger.e(e.toString());
       logger.e(stack.toString());
+    }
+  }
+
+  FutureOr<void> _mapGetAnnouncementsEvent(GetAnnouncementsEvent event, Emitter<NotificationsState> emit) async {
+    if (SessionManager().isLoggedIn) {
+      emit(const GetAnnouncementsLoading());
+      try {
+        final notificationResponse = await _notificationsRepository.getAllAnnouncements();
+        // await _firebaseMessagingService.onUpdatePalynxNotification(false);
+        logger.w(notificationResponse.message);
+        emit(GetAnnouncementsSuccessState(response: notificationResponse));
+      } catch (e, stack) {
+        logger.e(stack);
+        logger.e(e);
+        emit(GetAnnouncementsFailureState(error: e.toString()));
+      }
+    }
+  }
+
+  FutureOr<void> _mapGetAnnouncementByIdEvent(GetAnnouncementByIdEvent event, Emitter<NotificationsState> emit) async {
+    if (SessionManager().isLoggedIn) {
+      emit(const GetAnnouncementsLoading());
+      try {
+        final notificationResponse = await _notificationsRepository.getAnnouncementById(event.id);
+        // await _firebaseMessagingService.onUpdatePalynxNotification(false);
+        emit(GetAnnouncementByIdSuccessState(response: notificationResponse));
+      } catch (e, stack) {
+        logger.e(stack);
+        logger.e(e);
+        emit(GetAnnouncementByIdFailureState(error: e.toString()));
+      }
     }
   }
 }

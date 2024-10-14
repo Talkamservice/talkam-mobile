@@ -3,15 +3,20 @@ import 'package:flutter/material.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
+import 'package:talkam/core/services/network/network_service.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/features/home/presentation/screens/home_screen.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
+import 'package:talkam/features/post/data/repository/post_repository_impl.dart';
+import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 import 'package:talkam/features/post/presentation/screens/featured_post_by_category_screen.dart';
 import 'package:talkam/features/post/presentation/screens/recent_post_by_category_screen.dart';
 import 'package:talkam/features/post/presentation/screens/trending_post_by_category_screen.dart';
 import 'package:talkam/features/post/presentation/widgets/categories_screen_header.dart';
 import 'package:talkam/gen/assets.gen.dart';
+
+import '../../data/repository/local_post_repository.dart';
 
 class CategoriesScreen extends StatefulWidget {
   const CategoriesScreen({super.key, required this.category});
@@ -33,6 +38,8 @@ class _CategoriesScreenState extends State<CategoriesScreen> with SingleTickerPr
   ];
 
   int selecteIndex = 0;
+
+  final bloc = PostBloc(PostRepositoryImpl(NetworkService()));
 
   @override
   void initState() {

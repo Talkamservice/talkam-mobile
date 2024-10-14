@@ -9,6 +9,7 @@ import 'package:talkam/features/post/data/models/post_filter_model.dart';
 import 'package:talkam/features/post/presentation/bloc/featured_posts/featured_post_cubit.dart';
 import 'package:talkam/features/post/presentation/bloc/recent_post/recent_post_cubit.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item.dart';
+import 'package:talkam/features/post/presentation/widgets/post_loading_shimmer.dart';
 
 class RecentPostByCategoryScreen extends StatefulWidget {
   const RecentPostByCategoryScreen({super.key, required this.categoryId});
@@ -44,8 +45,8 @@ class _RecentPostByCategoryScreenState extends State<RecentPostByCategoryScreen>
             builder: (context, state) {
               return state.maybeWhen(
                 orElse: () => 0.verticalSpace,
-                getRecentPostsLoading: () => Center(
-                  child: CustomDialogs.getLoading(size: 50),
+                getRecentPostsLoading: () => const Center(
+                  child:               PostLoadingShimmer(),
                 ),
                 getRecentPostsFailed: (error) => AppErrorWidget(
                   message: error,

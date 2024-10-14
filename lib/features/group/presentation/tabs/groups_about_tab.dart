@@ -52,7 +52,7 @@ class _GroupsAboutTabState extends State<GroupsAboutTab> {
                       children: [
                     TextSpan(
                         text:
-                            "The group was created on the ${TimeUtil.formatDate((widget.data.createdAt ?? DateTime.now()).toIso8601String())} by "),
+                            "The group was created on ${TimeUtil.formatDate((widget.data.createdAt ?? DateTime.now()).toIso8601String())} by "),
                     TextSpan(
                         text: widget.data.owner?.username,
                         recognizer: TapGestureRecognizer()

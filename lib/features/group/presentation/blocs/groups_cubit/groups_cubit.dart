@@ -177,4 +177,20 @@ class GroupsCubit extends Cubit<GroupsState> {
       emit(GroupsState.deleteGroupRuleFailureState(e.toString()));
     }
   }
+
+  Future<void> reportGroup({required String groupId, required String reason}) async {
+    emit(const GroupsState.reportGroupLoading());
+
+    try {
+      final dynamic response = await groupRepository.reportGroup(groupId: groupId, reason: reason);
+
+      emit(GroupsState.reportGroupSuccess(response));
+    } catch (e, stack) {
+      logger.e(e.toString(), stackTrace: stack);
+      emit(GroupsState.reportGroupFailureState(e.toString()));
+    }
+  }
+  void refreshGroups(){
+    emit(const GroupsState.refreshGroups());
+  }
 }

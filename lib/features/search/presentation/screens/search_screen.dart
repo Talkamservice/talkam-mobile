@@ -37,6 +37,7 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   final TextEditingController controller = TextEditingController();
+  List recentSearches = [];
 
   @override
   Widget build(BuildContext context) {
@@ -193,16 +194,40 @@ class _SearchScreenState extends State<SearchScreen> {
                         },
                       ),
                       41.verticalSpace,
-                      const TextView(
-                        text: "Recent searches",
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
+                      Row(
+                        children: [
+                          const Expanded(
+                            child: TextView(
+                              text: "Recent searches",
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          TextButton(
+                              onPressed: () {
+                                recentSearches.clear();
+                                injector.get<SearchCubit>().clearSearchHistory();
+                                setState(() {});
+                              },
+                              child: const TextView(
+                                text: "Clear all",
+                                fontSize: 16,
+                              ))
+                        ],
                       ),
                       11.verticalSpace,
                       BlocConsumer<SearchCubit, SearchState>(
                         bloc: injector.get(),
                         buildWhen: _buildWhen,
-                        listener: (context, state) {},
+                        listener: (context, state) {
+                          state.maybeWhen(
+                            orElse: () => null,
+                            fetchRecentSearchesSuccess: (response) {
+                              recentSearches = response.data;
+                              setState(() {});
+                            },
+                          );
+                        },
                         builder: (context, state) {
                           return state.maybeWhen(
                             orElse: () => 0.verticalSpace,
@@ -223,21 +248,21 @@ class _SearchScreenState extends State<SearchScreen> {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  if (response.data.isNotEmpty)
+                                  if (recentSearches.isNotEmpty)
                                     ...List.generate(
                                       response.data.length,
                                       (index) => Padding(
                                         padding: const EdgeInsets.symmetric(vertical: 4.0),
                                         child: _RecentSearchItem(
-                                          response: response.data[index],
+                                          response: recentSearches[index],
                                           onDelete: () {
-                                            response.data.remove(response.data[index]);
+                                            recentSearches.remove(response.data[index]);
                                             setState(() {});
                                           },
                                         ),
                                       ),
                                     ),
-                                  if (response.data.isEmpty)
+                                  if (recentSearches.isEmpty)
                                     const SizedBox(
                                       height: 200,
                                       child: Center(

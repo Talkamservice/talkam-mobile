@@ -164,8 +164,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen>
                                   context.pop();
                                   // postBloc.comments.insert(0, )''
 
+
                                   postBloc.add(
-                                      PostEvent.getPostDetails(_post!.id.toString()));
+                                      PostEvent.getPostDetails(_post!.id.toString(),refresh: false));
 
                                   commentBloc.add(
                                     CommentsEvent.getComments(_post!.id.toString(),
@@ -191,7 +192,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen>
                                 getCommentsSuccess: (response) {
                                   if (response.data.isEmpty) {
                                     return const Center(
-                                      child: TextView(text: "There are no Comment yet"),
+                                      child: TextView(text: "Be the first to comment."),
                                     );
                                   }
 

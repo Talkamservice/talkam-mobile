@@ -152,6 +152,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     if (state is RegisterSuccess) {
       context.pop();
+
       CustomDialogs.success("Signup successful.");
       context.pushNamed(PageUrl.verifyOtpScreen, queryParameters: {
         PathParam.email: emailController.text.trim(),

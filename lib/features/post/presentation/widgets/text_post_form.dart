@@ -8,6 +8,7 @@ import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/features/post/data/models/create_post_payload.dart';
 import 'package:talkam/features/post/presentation/bloc/create_post/create_post_cubit.dart';
+import 'package:talkam/features/post/presentation/widgets/tags_picker_widget.dart';
 
 class TextPostForm extends StatefulWidget {
   const TextPostForm({super.key});
@@ -16,11 +17,12 @@ class TextPostForm extends StatefulWidget {
   State<TextPostForm> createState() => _TextPostFormState();
 }
 
-class _TextPostFormState extends State<TextPostForm>
-    with AutomaticKeepAliveClientMixin {
+class _TextPostFormState extends State<TextPostForm> with AutomaticKeepAliveClientMixin {
   final tittleController = TextEditingController();
   final bodyController = TextEditingController();
   final formKey = GlobalKey<FormState>();
+
+  List<String> _selectedTags = [];
 
   @override
   Widget build(BuildContext context) {
@@ -34,14 +36,12 @@ class _TextPostFormState extends State<TextPostForm>
           key: formKey,
           child: Column(
             children: [
-
               OutlinedFormField(
                   maxLine: 8,
                   fillColor: Pallets.borderGrey.withOpacity(0.15),
                   radius: 4,
                   filled: true,
                   textCapitalization: TextCapitalization.sentences,
-
 
                   // validator:
                   //     RequiredValidator(errorText: "Field is required").call,
@@ -53,6 +53,11 @@ class _TextPostFormState extends State<TextPostForm>
                   hint: "Write the rest of your text here. (optional)"),
               16.verticalSpace,
 
+              TagsPickerWidget(
+                onTagSelected: (List<String> selectedTags) {
+                  _selectedTags = selectedTags;
+                },
+              )
               // OutlinedFormField(
               //     placeHolder: "Tags",
               //     fillColor: Pallets.borderGrey.withOpacity(0.1),
@@ -76,10 +81,7 @@ class _TextPostFormState extends State<TextPostForm>
     state.maybeWhen(
       validateFormsState: () {
         if (formKey.currentState?.validate() ?? false) {
-          context.read<CreatePostCubit>().updatePayload(CreatePostPayload(
-                title: tittleController.text,
-                body: bodyController.text,
-              ));
+          context.read<CreatePostCubit>().updatePayload(CreatePostPayload(title: tittleController.text, body: bodyController.text, tags: _selectedTags));
           context.read<CreatePostCubit>().validateFormsSuccess();
         }
       },

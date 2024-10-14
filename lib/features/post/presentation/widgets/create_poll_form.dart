@@ -12,6 +12,7 @@ import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/features/post/data/models/create_post_payload.dart';
 import 'package:talkam/features/post/presentation/bloc/create_post/create_post_cubit.dart';
 import 'package:talkam/features/post/presentation/bloc/create_post/create_post_cubit.dart';
+import 'package:talkam/features/post/presentation/widgets/tags_picker_widget.dart';
 import 'package:talkam/features/post/presentation/widgets/time_picker_button.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
@@ -33,6 +34,8 @@ class _CreatePollFormState extends State<CreatePollForm> {
   int pollDays = 2;
   final formKey = GlobalKey<FormState>();
 
+  List<String> _selectedTags = [];
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -45,21 +48,12 @@ class _CreatePollFormState extends State<CreatePollForm> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // OutlinedFormField(
-              //     placeHolder: "Post title/ Question",
-              //     fillColor: Pallets.borderGrey.withOpacity(0.1),
-              //     radius: 4,
-              //     filled: true,
-              //     maxLength: 280,
-              //     validator:
-              //         RequiredValidator(errorText: "Field is required").call,
-              //     controller: tittleController,
-              //     onChange: (d) {
-              //       setState(() {});
-              //     },
-              //     showRequiredAsterics: true,
-              //     hint: "A sharp title for your post works best."),
-              // 16.verticalSpace,
+              TagsPickerWidget(
+                onTagSelected: (List<String> selectedTags) {
+                  _selectedTags = selectedTags;
+                },
+              ),
+              16.verticalSpace,
               Row(
                 children: [
                   TextView(
@@ -75,15 +69,14 @@ class _CreatePollFormState extends State<CreatePollForm> {
                 ],
               ),
               6.verticalSpace,
+
               ...List.generate(
                 choiceControllers.length,
                 (index) => Row(
                   children: [
                     Expanded(
                         child: OutlinedFormField(
-                            validator: RequiredValidator(
-                                    errorText: "Field is required")
-                                .call,
+                            validator: RequiredValidator(errorText: "Field is required").call,
                             controller: choiceControllers[index],
                             hint: "Choice ${index + 1}")),
                     if (index + 1 > 2)
@@ -92,17 +85,14 @@ class _CreatePollFormState extends State<CreatePollForm> {
                             choiceControllers.removeAt(index);
                             setState(() {});
                           },
-                          icon: ImageWidget(
-                              imageUrl: Assets.images.svgs.trash03)),
+                          icon: ImageWidget(imageUrl: Assets.images.svgs.trash03)),
                   ],
                 ),
               ),
               TextButton(
                   style: TextButton.styleFrom(
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 16),
-                      shape: const StadiumBorder(
-                          side: BorderSide(color: Pallets.borderGrey))),
+                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                      shape: const StadiumBorder(side: BorderSide(color: Pallets.borderGrey))),
                   onPressed: () {
                     choiceControllers.add(TextEditingController());
                     setState(() {});
@@ -251,6 +241,7 @@ class _CreatePollFormState extends State<CreatePollForm> {
         if (formKey.currentState?.validate() ?? false) {
           context.read<CreatePostCubit>().updatePayload(CreatePostPayload(
               title: tittleController.text,
+              tags: _selectedTags,
               poll: Poll(
                   type: "Text",
                   options: choiceControllers
@@ -258,9 +249,7 @@ class _CreatePollFormState extends State<CreatePollForm> {
                         (e) => e.text,
                       )
                       .toList(),
-                  duration: Duration(days: pollDays, hours: pollHours)
-                      .inMinutes
-                      .toDouble())));
+                  duration: Duration(days: pollDays, hours: pollHours).inMinutes.toDouble())));
 
           context.read<CreatePostCubit>().validateFormsSuccess();
         }

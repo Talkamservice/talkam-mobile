@@ -21,6 +21,7 @@ import 'package:talkam/features/messaging/presentation/blocs/messaging/messaging
 import 'package:talkam/features/messaging/presentation/widgets/chat_screen_actions.dart';
 import 'package:talkam/features/messaging/presentation/widgets/conversation_actions_widget.dart';
 import 'package:talkam/features/messaging/presentation/widgets/message_bubbles/message_box.dart';
+import 'package:uuid/uuid.dart';
 
 class ChatScreenParam {
   final TalkamConversation? conversation;
@@ -64,6 +65,7 @@ class _ChatScreenState extends State<ChatScreen> with RefreshConversationsMixin 
             ImageWidget(
               width: 32,
               height: 32,
+              shape: BoxShape.circle,
               imageUrl: widget.param.user.avatar.toString(),
             ),
             11.horizontalSpace,
@@ -100,6 +102,7 @@ class _ChatScreenState extends State<ChatScreen> with RefreshConversationsMixin 
         listener: (context, state) {
           state.maybeWhen(
             orElse: () => null,
+            sendMessageFailure: (error) {},
             updateConversationStatusLoading: () {
               CustomDialogs.showLoading(context);
             },
@@ -111,10 +114,9 @@ class _ChatScreenState extends State<ChatScreen> with RefreshConversationsMixin 
               context.pop();
               refreshAllConversations();
 
-              if(response.status == "Accepted"){
+              if (response.status == "Accepted") {
                 messagingCubit.fetchCurrentConversation(widget.param.user.id.toString());
-
-              }else{
+              } else {
                 context.pop();
               }
             },
@@ -142,7 +144,12 @@ class _ChatScreenState extends State<ChatScreen> with RefreshConversationsMixin 
                         controller: messagingCubit.listController,
                         reverse: true,
                         itemCount: messagingCubit.messages.length,
-                        itemBuilder: (context, index) => ChatMessageBox(message: messagingCubit.messages[index]),
+                        itemBuilder: (context, index) => ChatMessageBox(
+                          message: messagingCubit.messages[index],
+                          onRetryMessage: () {
+                            messagingCubit.retryMessage(messagingCubit.messages[index]);
+                          },
+                        ),
                       );
                     },
                     fetchCurrentConversationLoading: () {
@@ -165,7 +172,6 @@ class _ChatScreenState extends State<ChatScreen> with RefreshConversationsMixin 
                 },
                 onSendMessage: (message, {file}) {
                   sendMessage(message: message.trim(), file: file);
-
                 },
                 currentConversation: messagingCubit.currentConversation,
                 isPendingRequest: isAPendingRequest,
@@ -191,6 +197,7 @@ class _ChatScreenState extends State<ChatScreen> with RefreshConversationsMixin 
           content: message,
           iAmSender: true,
           assetUrl: file,
+          id: const Uuid().v4(),
           time: DateTime.now(),
           sendingState: SendingState.loading,
           receiverId: widget.param.user.id.toString(),

@@ -62,6 +62,7 @@ class _SelectGroupTabState extends State<SelectGroupTab> {
               return state.maybeWhen(
                 orElse: () => 0.verticalSpace,
                 getGroupsFailure: (error) => AppErrorWidget(
+
                   onTap: () {
 
 

@@ -295,7 +295,9 @@ class ImageManager {
 
 
 
-          if (all.any((element) => false)) {
+          if (all.any((element) => element== false)) {
+            logger.i("FILE yy}");
+
             return [];
           }
         }

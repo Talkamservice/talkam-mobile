@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:talkam/common/database/local/userstorage.dart';
@@ -26,6 +25,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   ProfileBloc(this._profileRepository) : super(UserInitial()) {
     on<ProfileEvent>((event, emit) {});
     on<SaveUserLocallyEvent>(_mapSaveUserEventToState);
+    on<Logout>(_Logout);
     on<GetCachedUserEvent>(_mapGetUserEventToState);
     on<UploadAvatarEvent>(_onUploadAvatar);
     on<UpdateProfileEvent>(_onUpdateProfile);
@@ -121,5 +121,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     } catch (error) {
       emit(UpdateProfileFailure(error.toString()));
     }
+  }
+
+  FutureOr<void> _Logout(Logout event, Emitter<ProfileState> emit) {
+    emit(ProfileInitial());
   }
 }

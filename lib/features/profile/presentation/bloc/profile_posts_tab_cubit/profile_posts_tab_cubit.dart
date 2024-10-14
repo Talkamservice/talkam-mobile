@@ -16,10 +16,12 @@ class ProfilePostsTabCubit extends Cubit<ProfilePostsTabState> {
 
   ProfilePostsTabCubit(this._profileRepository) : super(const ProfilePostsTabState.initial());
 
-  Future<void> fetchUserPosts() async {
-    emit(const ProfilePostsTabState.loading());
+  Future<void> fetchUserPosts({bool? reload = true,bool? isScheduled = false}) async {
+    if (reload!) {
+      emit(const ProfilePostsTabState.loading());
+    }
     try {
-      final List<TalkamPost> userPosts = await _profileRepository.fetchUserPosts(page: _currentPage);
+      final List<TalkamPost> userPosts = await _profileRepository.fetchUserPosts(page: _currentPage,isScheduled: isScheduled!);
       emit(ProfilePostsTabState.loaded(userPosts));
     } catch (exception, stackTrace) {
       logger.e(exception, stackTrace: stackTrace);
@@ -27,13 +29,12 @@ class ProfilePostsTabCubit extends Cubit<ProfilePostsTabState> {
     }
   }
 
-  Future<void> loadMorePosts(List<TalkamPost> previousPosts) async {
+  Future<void> loadMorePosts(List<TalkamPost> previousPosts, {bool? isScheduled = false}) async {
     if (_hasReachedEndOfList || state is ProfilePostsTabLoadingMoreState) return;
     emit(const ProfilePostsTabState.loadingMore());
     try {
       _currentPage += 1;
-      final List<TalkamPost> newUserPosts =
-          await _profileRepository.fetchUserPosts(page: _currentPage, isPaginating: true);
+      final List<TalkamPost> newUserPosts = await _profileRepository.fetchUserPosts(page: _currentPage, isPaginating: true,isScheduled: isScheduled!);
       _hasReachedEndOfList = newUserPosts.isEmpty;
       emit(ProfilePostsTabState.loaded([...previousPosts, ...newUserPosts]));
     } catch (exception, stackTrace) {

@@ -44,6 +44,7 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<SuccessResponse> verifyOtp({required String email, required String code, required String type}) async {
+
     final response = await _networkService.call(UrlConfig.verifyOtp, RequestMethod.post, data: {"email": email, "code": code, "type": type});
 
     return SuccessResponse.fromJson(response.data);
@@ -81,19 +82,15 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<AuthSuccessResponse> oauthSignIn(OauthReqDto data) async {
     var token = await NotificationService().deviceToken;
-    logger.w("FCM TOKEN${token}");
-    logger.w("BODY RESPONSE ${data
-        .copyWith(
-      fcmToken: token,
-    )
-        .toJson()}");
-
+    logger.w("FCM TOKEN$token");
+    logger.w("BODY RESPONSE ${data.copyWith(
+          fcmToken: token,
+        ).toJson()}");
 
     try {
       final response = await _networkService(
         UrlConfig.oauthLogin,
         RequestMethod.post,
-
         data: data
             .copyWith(
               fcmToken: token,

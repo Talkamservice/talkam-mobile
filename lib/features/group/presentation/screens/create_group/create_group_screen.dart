@@ -97,6 +97,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
             updateGroupLoading: () => CustomDialogs.showLoading(context),
             updateGroupSuccess: (response) {
               context.pop();
+              injector.get<GroupsCubit>().refreshGroups();
               injector.get<GroupsCubit>().getGroups();
               context.goNamed(
                 PageUrl.groups,

@@ -33,7 +33,7 @@ class _CategoriesScreenHeaderState extends State<CategoriesScreenHeader> {
               child: Stack(
                 children: [
                   ImageWidget(
-                    imageUrl: widget.category.backgroundImage,
+                    imageUrl: widget.category.backgroundImage??'',
                     height: 210,
                     width: 1.sw,
                     fit: BoxFit.cover,
@@ -58,11 +58,11 @@ class _CategoriesScreenHeaderState extends State<CategoriesScreenHeader> {
                                 )),
                             const Spacer(),
                             FollowCategoryButton(category: widget.category),
-                            17.horizontalSpace,
-                            const Icon(
-                              Icons.info_outline,
-                              color: Pallets.white,
-                            )
+                            // 17.horizontalSpace,
+                            // const Icon(
+                            //   Icons.info_outline,
+                            //   color: Pallets.white,
+                            // )
                           ],
                         )
                       ],

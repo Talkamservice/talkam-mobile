@@ -10,11 +10,9 @@ import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 
-CreateGroupPayload createGroupPayloadFromJson(String str) =>
-    CreateGroupPayload.fromJson(json.decode(str));
+CreateGroupPayload createGroupPayloadFromJson(String str) => CreateGroupPayload.fromJson(json.decode(str));
 
-String createGroupPayloadToJson(CreateGroupPayload data) =>
-    json.encode(data.toJson());
+String createGroupPayloadToJson(CreateGroupPayload data) => json.encode(data.toJson());
 
 class CreateGroupPayload {
   int categoryId;
@@ -78,8 +76,7 @@ class CreateGroupPayload {
         guidelines: guidelines ?? this.guidelines,
       );
 
-  factory CreateGroupPayload.fromJson(Map<String, dynamic> json) =>
-      CreateGroupPayload(
+  factory CreateGroupPayload.fromJson(Map<String, dynamic> json) => CreateGroupPayload(
         categoryId: json["category_id"],
         name: json["name"],
         description: json["description"],
@@ -90,8 +87,7 @@ class CreateGroupPayload {
         rulesSummary: json["rules_summary"],
         tags: List<String>.from(json["tags"].map((x) => x)),
         groupAccess: json["group_access"],
-        guidelines: List<GuidelinePayload>.from(
-            json["guidelines"].map((x) => GuidelinePayload.fromJson(x))),
+        guidelines: List<GuidelinePayload>.from(json["guidelines"].map((x) => GuidelinePayload.fromJson(x))),
         categoryImage: '',
         categoryName: '',
       );
@@ -107,8 +103,7 @@ class CreateGroupPayload {
         "rules_summary": rulesSummary,
         "tags": List<dynamic>.from(tags.map((x) => x)),
         "group_access": groupAccess,
-        if (guidelines.isNotEmpty)
-          "guidelines": List<dynamic>.from(guidelines.map((x) => x.toJson())),
+        if (guidelines.isNotEmpty) "guidelines": List<dynamic>.from(guidelines.map((x) => x.toJson())),
       };
 
   factory CreateGroupPayload.empty() => CreateGroupPayload(
@@ -128,13 +123,7 @@ class CreateGroupPayload {
 
   GroupMembersTabData toGroupMembersData() {
     var me = injector.get<ProfileBloc>().appUser!;
-    TalkamGroupMemberInfo owner = TalkamGroupMemberInfo(
-        id: me.id,
-        username: me.username,
-        email: me.email,
-        avatar: me.avatar,
-        name: me.name,
-        role: "Owner");
+    TalkamGroupMemberInfo owner = TalkamGroupMemberInfo(id: me.id, username: me.username, email: me.email, avatar: me.avatar, name: me.name, role: "Owner");
 
     return GroupMembersTabData(
       admin: [],
@@ -147,12 +136,7 @@ class CreateGroupPayload {
 
   GroupOverViewData toGroupOverView() {
     var me = injector.get<ProfileBloc>().appUser!;
-    GroupOwner creator = GroupOwner(
-        id: me.id,
-        username: me.username,
-        name: me.name,
-        avatar: me.avatar,
-        email: me.email);
+    GroupOwner creator = GroupOwner(id: me.id, username: me.username, name: me.name, avatar: me.avatar, email: me.email);
     return GroupOverViewData(
       id: "dummy_id",
       name: name,
@@ -167,7 +151,8 @@ class CreateGroupPayload {
           createdAt: null,
           updatedAt: null,
           isFollowing: false,
-          parentCategory: null),
+          parentCategory: null,
+          type: "Catgory", isSuspended: null, groupAccess: ''),
       owner: creator,
       about: about,
       totalMembers: 1,
@@ -176,12 +161,7 @@ class CreateGroupPayload {
 
   GroupAboutData toGroupAboutData() {
     var me = injector.get<ProfileBloc>().appUser!;
-    GroupOwner creator = GroupOwner(
-        id: me.id,
-        username: me.username,
-        name: me.name,
-        avatar: me.avatar,
-        email: me.email);
+    GroupOwner creator = GroupOwner(id: me.id, username: me.username, name: me.name, avatar: me.avatar, email: me.email);
 
     return GroupAboutData(
       about: about,
@@ -212,8 +192,7 @@ class GuidelinePayload {
         description: description ?? this.description,
       );
 
-  factory GuidelinePayload.fromJson(Map<String, dynamic> json) =>
-      GuidelinePayload(
+  factory GuidelinePayload.fromJson(Map<String, dynamic> json) => GuidelinePayload(
         title: json["title"],
         description: json["description"],
       );

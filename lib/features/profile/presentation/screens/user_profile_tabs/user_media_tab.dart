@@ -5,24 +5,20 @@ import 'package:talkam/common/widgets/empty_state.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
-import 'package:talkam/features/post/presentation/widgets/post_item.dart';
+import 'package:talkam/features/post/presentation/widgets/post_video.dart';
 import 'package:talkam/features/profile/data/models/user_media_response.dart';
 import 'package:talkam/features/profile/presentation/bloc/user_profile_media_tab/user_profile_media_tab_cubit.dart';
-import 'package:talkam/features/profile/presentation/bloc/user_profile_upvotes_cubit/user_profile_upvotes_cubit.dart';
-import 'package:talkam/features/post/data/models/get_posts_response.dart';
 
 class UserProfileMediaTab extends StatefulWidget {
   const UserProfileMediaTab({super.key, required this.userId});
 
   final String userId;
 
-
   @override
   State<UserProfileMediaTab> createState() => _UserProfileMediaTabState();
 }
 
-class _UserProfileMediaTabState extends State<UserProfileMediaTab>
-    with AutomaticKeepAliveClientMixin {
+class _UserProfileMediaTabState extends State<UserProfileMediaTab> with AutomaticKeepAliveClientMixin {
   final UserProfileMediaTabCubit _cubit = injector.get();
   List<UserMedia> _posts = [];
   final ScrollController _scrollController = ScrollController();
@@ -31,9 +27,8 @@ class _UserProfileMediaTabState extends State<UserProfileMediaTab>
   void initState() {
     _cubit.fetchUserMedia(widget.userId);
     _scrollController.addListener(() {
-      if (_scrollController.position.pixels ==
-          _scrollController.position.maxScrollExtent) {
-        _cubit.loadMorePosts(_posts);
+      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
+        _cubit.loadMorePosts(_posts, widget.userId);
       }
     });
 
@@ -61,8 +56,7 @@ class _UserProfileMediaTabState extends State<UserProfileMediaTab>
           ),
           error: () => const SizedBox.shrink(),
           orElse: () {
-            if(_posts.isEmpty){
-
+            if (_posts.isEmpty) {
               return RefreshIndicator(
                 onRefresh: () async {
                   _cubit.fetchUserMedia(widget.userId);
@@ -73,13 +67,10 @@ class _UserProfileMediaTabState extends State<UserProfileMediaTab>
                     const EmptyState(
                       title: 'No media yet',
                       subtitle: "Media items will appear here if any ",
-
                     ),
                   ],
                 ),
               );
-
-
             }
             return RefreshIndicator(
               onRefresh: () async {
@@ -92,16 +83,20 @@ class _UserProfileMediaTabState extends State<UserProfileMediaTab>
                 gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3),
                 children: [
                   for (int i = 0; i < _posts.length; i++) ...[
+                    if(_posts[i].type.toLowerCase() == "video")
+                      PostVideo(
+                        radius: 0,
+                        videos:[
+                          _posts[i].url
+                        ],
+                      ),
+                    if(_posts[i].type.toLowerCase() != "video")
+
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 2.0),
-                      child: ImageWidget(
-                        canPreview: true,
-
-                          imageUrl: _posts[i].url),
+                      child: ImageWidget(canPreview: true, imageUrl: _posts[i].url),
                     ),
-
                   ],
-
                   if (state is UserProfileMediaTabLoadingMoreState)
                     Padding(
                       padding: EdgeInsets.symmetric(vertical: 16.h),

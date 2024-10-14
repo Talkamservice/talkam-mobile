@@ -60,7 +60,7 @@ class GetCommentsResponse {
 class PostComment {
   int id;
   PostCreator user;
-  String comment;
+  dynamic comment;
   int isAnonymous;
   int likes;
   int unlikes;

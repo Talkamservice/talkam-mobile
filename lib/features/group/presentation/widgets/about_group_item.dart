@@ -8,12 +8,7 @@ import 'package:talkam/core/constants/dialog_texts.dart';
 import 'package:talkam/features/group/presentation/tabs/group_rules_tab.dart';
 
 class AboutGroupItem extends StatelessWidget {
-  const AboutGroupItem(
-      {super.key,
-      required this.icon,
-      this.descriptionWidget,
-      this.description,
-      required this.tittle});
+  const AboutGroupItem({super.key, required this.icon, this.descriptionWidget, this.description, required this.tittle});
 
   final String icon;
   final Widget? descriptionWidget;
@@ -36,7 +31,11 @@ class AboutGroupItem extends StatelessWidget {
               fontWeight: FontWeight.w700,
             ),
             4.verticalSpace,
-            descriptionWidget ??  TextView(text: description.toString())
+            descriptionWidget ??
+                TextView(
+                  text: description.toString(),
+                  fontSize: 16,
+                )
           ],
         ))
       ],

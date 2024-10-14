@@ -3,7 +3,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
+import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/core/utils/helper_utils.dart';
 import 'package:talkam/features/group/presentation/widgets/join_group_button.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
@@ -44,19 +46,27 @@ class GroupInfoAppBar extends StatelessWidget {
                     onStateChanged: onStateChanged,
                   ),
                   24.horizontalSpace,
-                  ImageWidget(
-                    imageUrl: Assets.images.svgs.share,
-                    color: Pallets.white,
+                  InkWell(
+                    onTap: () {
+                      Helpers.share("${UrlConfig.webUrl}group/${group.id}");
+                    },
+                    child: ImageWidget(
+                      imageUrl: Assets.images.svgs.share,
+                      color: Pallets.white,
+                      onTap: () {
+                        Helpers.share("${UrlConfig.webUrl}group/${group.id}");
+                      },
+                    ),
                   ),
                   24.horizontalSpace,
-                  IconButton(
-                      style:
-                          IconButton.styleFrom(foregroundColor: Pallets.white),
-                      onPressed: () {},
-                      icon: const Icon(
-                        Icons.more_vert_rounded,
-                        color: Pallets.white,
-                      ))
+                  // IconButton(
+                  //     style:
+                  //         IconButton.styleFrom(foregroundColor: Pallets.white),
+                  //     onPressed: () {},
+                  //     icon: const Icon(
+                  //       Icons.more_vert_rounded,
+                  //       color: Pallets.white,
+                  //     ))
                 ],
               ),
             ],

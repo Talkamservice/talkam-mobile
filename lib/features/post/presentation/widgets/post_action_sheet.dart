@@ -46,7 +46,7 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
             imagePath: Assets.images.svgs.link01,
             tittle: "Copy link",
             onTap: () {
-              Helpers.copy("${UrlConfig.coreBaseUrl}/comments/${post.id}");
+              Helpers.copy("${UrlConfig.coreBaseUrl}comment/${post.id}");
               context.pop();
             },
           ),

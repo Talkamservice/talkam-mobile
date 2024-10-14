@@ -6,8 +6,10 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/post/data/models/post_filter_model.dart';
+import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
 import 'package:talkam/features/post/presentation/bloc/recent_post/recent_post_cubit.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item.dart';
+import 'package:talkam/features/post/presentation/widgets/post_loading_shimmer.dart';
 
 class RecentScreen extends StatefulWidget {
   const RecentScreen({super.key});
@@ -16,7 +18,7 @@ class RecentScreen extends StatefulWidget {
   State<RecentScreen> createState() => _RecentScreenState();
 }
 
-class _RecentScreenState extends State<RecentScreen> with AutomaticKeepAliveClientMixin {
+class _RecentScreenState extends State<RecentScreen> with AutomaticKeepAliveClientMixin, RefreshPostsMixin {
   @override
   void initState() {
     injector.get<RecentPostCubit>().getRecentPosts(PostFilterModel.recentPost());
@@ -36,8 +38,8 @@ class _RecentScreenState extends State<RecentScreen> with AutomaticKeepAliveClie
             builder: (context, state) {
               return state.maybeWhen(
                 orElse: () => 0.verticalSpace,
-                getRecentPostsLoading: () => Center(
-                  child: CustomDialogs.getLoading(size: 50),
+                getRecentPostsLoading: () => const Center(
+                  child: PostLoadingShimmer(),
                 ),
                 getRecentPostsFailed: (error) => AppErrorWidget(
                   message: error,
@@ -54,13 +56,13 @@ class _RecentScreenState extends State<RecentScreen> with AutomaticKeepAliveClie
 
                   return RefreshIndicator(
                     onRefresh: () async {
-                      injector.get<RecentPostCubit>().getRecentPosts(PostFilterModel.recentPost());
+                      refreshPost(reload: true);
+                      // injector.get<RecentPostCubit>().getRecentPosts(PostFilterModel.recentPost());
                     },
                     child: ListView.builder(
                       addAutomaticKeepAlives: true,
                       itemCount: response.data.paginationMeta.canLoadMore ? response.data.data.length + 1 : response.data.data.length,
                       itemBuilder: (context, index) {
-
                         if (index == response.data.data.length) {
                           injector.get<RecentPostCubit>().loadMore(response);
                           return SizedBox(
@@ -70,7 +72,7 @@ class _RecentScreenState extends State<RecentScreen> with AutomaticKeepAliveClie
                           );
                         }
                         return Padding(
-                          padding: const EdgeInsets.only(bottom: 4.0),
+                          padding: const EdgeInsets.only(bottom: 8.0),
                           child: PostItem(
                             post: response.data.data[index],
                           ),

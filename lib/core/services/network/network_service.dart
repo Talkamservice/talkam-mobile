@@ -59,7 +59,8 @@ class NetworkService {
   /// Factory constructor used mainly for injecting an instance of [Dio] mock
   NetworkService.test(this.dio);
 
-  Future<Response> call(String path, RequestMethod method,
+  Future<Response> call(
+      String path, RequestMethod method,
       {Map<String, dynamic>? queryParams,
       data,
       FormData? formData,
@@ -67,6 +68,7 @@ class NetworkService {
       classTag = '',
       Options? options}) async {
     Response response;
+
     var params = queryParams ?? {};
     if (params.keys.contains("searchTerm")) {
       params["searchTerm"] = Uri.encodeQueryComponent(params["searchTerm"]);
@@ -74,6 +76,7 @@ class NetworkService {
     if (params.keys.contains("page")) {
       params["page"] = Uri.encodeQueryComponent(params["page"]);
     }
+
     try {
       switch (method) {
         case RequestMethod.post:
@@ -182,6 +185,8 @@ class NetworkService {
       return Future.error(apiError, stackTrace);
     }
   }
+
+
 
   _getOptions() {
     return Options(contentType: Headers.jsonContentType, headers: {

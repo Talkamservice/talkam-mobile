@@ -37,6 +37,7 @@ import 'package:talkam/features/post/presentation/screens/create_post_screen.dar
 import 'package:talkam/features/post/presentation/screens/post_details_screen.dart';
 import 'package:talkam/features/profile/presentation/screens/edit_profile_screen.dart';
 import 'package:talkam/features/profile/presentation/screens/profile_screen.dart';
+import 'package:talkam/features/profile/presentation/screens/sceduled_posts_screen.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/features/settings/presentation/screens/account_settings_screen.dart';
 import 'package:talkam/features/settings/presentation/screens/blocked_users_screen.dart';
@@ -66,6 +67,7 @@ class CustomRoutes {
     navigatorKey: rootNavigatorKey,
     debugLogDiagnostics: true,
     routes: [
+
       GoRoute(
         path: '/splash',
         name: PageUrl.splash,
@@ -113,12 +115,17 @@ class CustomRoutes {
       GoRoute(
         path: '/userNameScreen',
         name: PageUrl.userNameScreen,
-        builder: (context, state) => UsernameScreen(),
+        builder: (context, state) => const UsernameScreen(),
       ),
       GoRoute(
         path: '/editProfileScreen',
         name: PageUrl.editProfileScreen,
-        builder: (context, state) => EditProfileScreen(),
+        builder: (context, state) => const EditProfileScreen(),
+      ),
+      GoRoute(
+        path: '/userScheduledPosts',
+        name: PageUrl.userScheduledPosts,
+        builder: (context, state) => const ScheduledPostsScreen(),
       ),
       GoRoute(
         path: '/passWordResetScreen',
@@ -198,6 +205,8 @@ class CustomRoutes {
           category: state.extra as PostCategory,
         ),
       ),
+
+
       GoRoute(
         path: '/searchResultScreen',
         name: PageUrl.searchResultScreen,
@@ -205,6 +214,9 @@ class CustomRoutes {
           query: state.extra as String,
         ),
       ),
+
+
+
       GoRoute(
         path: '/groupsInfoScreen',
         name: PageUrl.groupsInfoScreen,
@@ -299,7 +311,7 @@ class CustomRoutes {
         name: PageUrl.pendingRequestsScreen,
         pageBuilder: (context, state) => NoTransitionPage(
           child: PendingRequestsScreen(
-            group: state.extra as TalkamGroup,
+            groupId: state.extra as String,
           ),
         ),
       ),

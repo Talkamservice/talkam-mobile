@@ -21,7 +21,7 @@ mixin _$UserProfileState {
     required TResult Function() initial,
     required TResult Function() profileLoading,
     required TResult Function(TalkamUser appUser) profileLoaded,
-    required TResult Function() getProfileError,
+    required TResult Function(String error) getProfileError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -29,7 +29,7 @@ mixin _$UserProfileState {
     TResult? Function()? initial,
     TResult? Function()? profileLoading,
     TResult? Function(TalkamUser appUser)? profileLoaded,
-    TResult? Function()? getProfileError,
+    TResult? Function(String error)? getProfileError,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -37,7 +37,7 @@ mixin _$UserProfileState {
     TResult Function()? initial,
     TResult Function()? profileLoading,
     TResult Function(TalkamUser appUser)? profileLoaded,
-    TResult Function()? getProfileError,
+    TResult Function(String error)? getProfileError,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -127,7 +127,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function() initial,
     required TResult Function() profileLoading,
     required TResult Function(TalkamUser appUser) profileLoaded,
-    required TResult Function() getProfileError,
+    required TResult Function(String error) getProfileError,
   }) {
     return initial();
   }
@@ -138,7 +138,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? initial,
     TResult? Function()? profileLoading,
     TResult? Function(TalkamUser appUser)? profileLoaded,
-    TResult? Function()? getProfileError,
+    TResult? Function(String error)? getProfileError,
   }) {
     return initial?.call();
   }
@@ -149,7 +149,7 @@ class _$InitialImpl implements _Initial {
     TResult Function()? initial,
     TResult Function()? profileLoading,
     TResult Function(TalkamUser appUser)? profileLoaded,
-    TResult Function()? getProfileError,
+    TResult Function(String error)? getProfileError,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -241,7 +241,7 @@ class _$LoadingImpl implements _Loading {
     required TResult Function() initial,
     required TResult Function() profileLoading,
     required TResult Function(TalkamUser appUser) profileLoaded,
-    required TResult Function() getProfileError,
+    required TResult Function(String error) getProfileError,
   }) {
     return profileLoading();
   }
@@ -252,7 +252,7 @@ class _$LoadingImpl implements _Loading {
     TResult? Function()? initial,
     TResult? Function()? profileLoading,
     TResult? Function(TalkamUser appUser)? profileLoaded,
-    TResult? Function()? getProfileError,
+    TResult? Function(String error)? getProfileError,
   }) {
     return profileLoading?.call();
   }
@@ -263,7 +263,7 @@ class _$LoadingImpl implements _Loading {
     TResult Function()? initial,
     TResult Function()? profileLoading,
     TResult Function(TalkamUser appUser)? profileLoaded,
-    TResult Function()? getProfileError,
+    TResult Function(String error)? getProfileError,
     required TResult orElse(),
   }) {
     if (profileLoading != null) {
@@ -381,7 +381,7 @@ class _$LoadedImpl implements _Loaded {
     required TResult Function() initial,
     required TResult Function() profileLoading,
     required TResult Function(TalkamUser appUser) profileLoaded,
-    required TResult Function() getProfileError,
+    required TResult Function(String error) getProfileError,
   }) {
     return profileLoaded(appUser);
   }
@@ -392,7 +392,7 @@ class _$LoadedImpl implements _Loaded {
     TResult? Function()? initial,
     TResult? Function()? profileLoading,
     TResult? Function(TalkamUser appUser)? profileLoaded,
-    TResult? Function()? getProfileError,
+    TResult? Function(String error)? getProfileError,
   }) {
     return profileLoaded?.call(appUser);
   }
@@ -403,7 +403,7 @@ class _$LoadedImpl implements _Loaded {
     TResult Function()? initial,
     TResult Function()? profileLoading,
     TResult Function(TalkamUser appUser)? profileLoaded,
-    TResult Function()? getProfileError,
+    TResult Function(String error)? getProfileError,
     required TResult orElse(),
   }) {
     if (profileLoaded != null) {
@@ -464,6 +464,8 @@ abstract class _$$ErrorImplCopyWith<$Res> {
   factory _$$ErrorImplCopyWith(
           _$ErrorImpl value, $Res Function(_$ErrorImpl) then) =
       __$$ErrorImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String error});
 }
 
 /// @nodoc
@@ -473,26 +475,50 @@ class __$$ErrorImplCopyWithImpl<$Res>
   __$$ErrorImplCopyWithImpl(
       _$ErrorImpl _value, $Res Function(_$ErrorImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$ErrorImpl(
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$ErrorImpl implements _Error {
-  const _$ErrorImpl();
+  const _$ErrorImpl(this.error);
+
+  @override
+  final String error;
 
   @override
   String toString() {
-    return 'UserProfileState.getProfileError()';
+    return 'UserProfileState.getProfileError(error: $error)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
-        (other.runtimeType == runtimeType && other is _$ErrorImpl);
+        (other.runtimeType == runtimeType &&
+            other is _$ErrorImpl &&
+            (identical(other.error, error) || other.error == error));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
+      __$$ErrorImplCopyWithImpl<_$ErrorImpl>(this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -500,9 +526,9 @@ class _$ErrorImpl implements _Error {
     required TResult Function() initial,
     required TResult Function() profileLoading,
     required TResult Function(TalkamUser appUser) profileLoaded,
-    required TResult Function() getProfileError,
+    required TResult Function(String error) getProfileError,
   }) {
-    return getProfileError();
+    return getProfileError(error);
   }
 
   @override
@@ -511,9 +537,9 @@ class _$ErrorImpl implements _Error {
     TResult? Function()? initial,
     TResult? Function()? profileLoading,
     TResult? Function(TalkamUser appUser)? profileLoaded,
-    TResult? Function()? getProfileError,
+    TResult? Function(String error)? getProfileError,
   }) {
-    return getProfileError?.call();
+    return getProfileError?.call(error);
   }
 
   @override
@@ -522,11 +548,11 @@ class _$ErrorImpl implements _Error {
     TResult Function()? initial,
     TResult Function()? profileLoading,
     TResult Function(TalkamUser appUser)? profileLoaded,
-    TResult Function()? getProfileError,
+    TResult Function(String error)? getProfileError,
     required TResult orElse(),
   }) {
     if (getProfileError != null) {
-      return getProfileError();
+      return getProfileError(error);
     }
     return orElse();
   }
@@ -570,5 +596,10 @@ class _$ErrorImpl implements _Error {
 }
 
 abstract class _Error implements UserProfileState {
-  const factory _Error() = _$ErrorImpl;
+  const factory _Error(final String error) = _$ErrorImpl;
+
+  String get error;
+  @JsonKey(ignore: true)
+  _$$ErrorImplCopyWith<_$ErrorImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

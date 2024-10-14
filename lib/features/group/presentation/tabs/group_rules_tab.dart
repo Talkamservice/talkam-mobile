@@ -99,7 +99,7 @@ class _GroupRulesTabState extends State<GroupRulesTab> {
                                   imageUrl: Assets.images.svgs.icPersonEdit),
                               10.horizontalSpace,
                               TextView(
-                                text: "Edit",
+                                text: "Add Rule",
                                 fontSize: 14,
                                 color: context.colorScheme.onSurface,
                                 fontWeight: FontWeight.w600,
@@ -138,18 +138,21 @@ class _GroupRulesTabState extends State<GroupRulesTab> {
                               },
                             );
                           },
-                          child: GroupRuleItem(
-                            index: index + 1,
-                            guidline: widget.group.guidelines![index],
-                            onDeleteClicked: () {
-                              bloc.deleteGroupRule(
-                                  guidelineId: widget
-                                      .group.guidelines![index].id
-                                      .toString());
-                            },
-                            canDelete: widget.group.userRole?.toLowerCase() ==
-                                    "admin" ||
-                                widget.group.userRole?.toLowerCase() == "owner",
+                          child: Padding(
+                            padding: const EdgeInsets.only(bottom: 16.0),
+                            child: GroupRuleItem(
+                              index: index + 1,
+                              guidline: widget.group.guidelines![index],
+                              onDeleteClicked: () {
+                                bloc.deleteGroupRule(
+                                    guidelineId: widget
+                                        .group.guidelines![index].id
+                                        .toString());
+                              },
+                              canDelete: widget.group.userRole?.toLowerCase() ==
+                                      "admin" ||
+                                  widget.group.userRole?.toLowerCase() == "owner",
+                            ),
                           ),
                         )),
               ],

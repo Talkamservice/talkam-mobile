@@ -51,7 +51,6 @@ class GetNotificationsResponse {
 
 class TalkamNotification {
   dynamic id;
-
   dynamic title;
   dynamic message;
   dynamic type;
@@ -98,7 +97,7 @@ class TalkamNotification {
         message: json["message"],
         type: json["type"],
         dataId: json["data_id"],
-        extra: json["extra"] is List ? [] :  json["extra"],
+        extra: json["extra"] is List ? [] : json["extra"],
         readAt: json["read_at"],
         createdAt: DateTime.parse(json["created_at"]),
       );
@@ -116,8 +115,8 @@ class TalkamNotification {
 }
 
 class ExtraClass {
-  Receiver? sender;
-  Receiver? receiver;
+  NotificationUser? sender;
+  NotificationUser? receiver;
 
   ExtraClass({
     this.sender,
@@ -125,8 +124,8 @@ class ExtraClass {
   });
 
   ExtraClass copyWith({
-    Receiver? sender,
-    Receiver? receiver,
+    NotificationUser? sender,
+    NotificationUser? receiver,
   }) =>
       ExtraClass(
         sender: sender ?? this.sender,
@@ -134,8 +133,8 @@ class ExtraClass {
       );
 
   factory ExtraClass.fromJson(Map<String, dynamic> json) => ExtraClass(
-        sender: json["sender"] == null ? null : Receiver.fromJson(json["sender"]),
-        receiver: json["receiver"] == null ? null : Receiver.fromJson(json["receiver"]),
+        sender: json["sender"] == null ? null : NotificationUser.fromJson(json["sender"]),
+        receiver: json["receiver"] == null ? null : NotificationUser.fromJson(json["receiver"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -144,14 +143,14 @@ class ExtraClass {
       };
 }
 
-class Receiver {
-  int id;
+class NotificationUser {
+  dynamic id;
   String avatar;
   String name;
   String username;
   String email;
 
-  Receiver({
+  NotificationUser({
     required this.id,
     required this.avatar,
     required this.name,
@@ -159,14 +158,14 @@ class Receiver {
     required this.email,
   });
 
-  Receiver copyWith({
+  NotificationUser copyWith({
     int? id,
     String? avatar,
     String? name,
     String? username,
     String? email,
   }) =>
-      Receiver(
+      NotificationUser(
         id: id ?? this.id,
         avatar: avatar ?? this.avatar,
         name: name ?? this.name,
@@ -174,7 +173,7 @@ class Receiver {
         email: email ?? this.email,
       );
 
-  factory Receiver.fromJson(Map<String, dynamic> json) => Receiver(
+  factory NotificationUser.fromJson(Map<String, dynamic> json) => NotificationUser(
         id: json["id"],
         avatar: json["avatar"],
         name: json["name"],

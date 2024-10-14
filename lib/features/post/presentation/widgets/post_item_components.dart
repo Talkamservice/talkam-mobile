@@ -59,7 +59,7 @@ class PostHeader extends StatelessWidget {
             },
             child: IgnorePointer(
               child: AvatarImage(
-                  imageUrl: post.user.avatar ?? Assets.images.png.dating.path,
+                  imageUrl: post.user.avatar ?? Assets.images.svgs.dummyUser,
                   size: 32),
             ),
           ),

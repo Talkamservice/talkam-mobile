@@ -29,6 +29,7 @@ class PageUrl {
 
   static const profileScreen = 'profileScreen';
   static const userProfileScreen = 'userProfileScreen';
+  static const userScheduledPosts = 'userScheduledPosts';
   static const editProfileScreen = 'editProfileScreen';
   static const settingsScreen = 'settingsScreen';
   static const categoriesScreen = 'categoriesScreen';

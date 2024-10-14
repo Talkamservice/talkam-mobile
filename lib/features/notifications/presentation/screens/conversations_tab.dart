@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/empty_state.dart';
@@ -8,6 +9,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/messaging/presentation/widgets/new_notification.dart';
 import 'package:talkam/features/notifications/data/models/get_notifications_response.dart';
 import 'package:talkam/features/notifications/presentation/bloc/notification_bloc.dart';
+import 'package:talkam/features/notifications/presentation/widgets/all_notifications_listener.dart';
 
 class ConversationsTab extends StatefulWidget {
   const ConversationsTab({super.key});
@@ -50,13 +52,17 @@ class _ConversationsTabState extends State<ConversationsTab> with AutomaticKeepA
                   return Center(
                     child: AppErrorWidget(
                       onTap: () {
-                        bloc.add(GetNotificationsEvent(tab: "conversation"));
+                        bloc.add(const GetNotificationsEvent(tab: "conversation"));
                       },
                     ),
                   );
                 } else {
                   return Column(
+
                     children: [
+                      AllNotificationsListener(onReadAll: () {
+                        bloc.add(const GetNotificationsEvent(tab: "conversation"));
+                      }),
                       Expanded(
                         child: RefreshIndicator(
                           onRefresh: () async {
@@ -126,22 +132,6 @@ class _ConversationsTabState extends State<ConversationsTab> with AutomaticKeepA
     if (state is ClearNotificationsDetailsSuccessState) {
       context.pop();
       CustomDialogs.success('Notifications cleared');
-      bloc.add(GetNotificationsEvent());
-    }
-
-    if (state is ReadAllNotificationLoadingState) {
-      CustomDialogs.showLoading(context);
-    }
-
-    if (state is ReadAllNotificationFailureState) {
-      context.pop();
-      CustomDialogs.error(state.error);
-    }
-
-    if (state is ReadAllNotificationSuccessState) {
-      context.pop();
-      CustomDialogs.success('All notifications read');
-
       bloc.add(GetNotificationsEvent());
     }
 

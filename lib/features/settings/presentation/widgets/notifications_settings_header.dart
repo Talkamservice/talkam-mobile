@@ -26,6 +26,7 @@ class NotificationSettingHeader extends StatelessWidget {
                 fontSize: 14,
                 fontWeight: FontWeight.w700,
               ),
+              if(subtittle.isNotEmpty)
               TextView(
                 text: subtittle,
                 fontSize: 14,

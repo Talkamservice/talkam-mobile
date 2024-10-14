@@ -6,5 +6,4 @@ Future<void> main() async {
 
   AppConfig.run('Talkam', Environment.development);
 
-  // await initializeService();
 }

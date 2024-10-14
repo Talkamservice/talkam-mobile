@@ -4,11 +4,9 @@
 
 import 'dart:convert';
 
-GetCategoriesResponse getCategoriesResponseFromJson(String str) =>
-    GetCategoriesResponse.fromJson(json.decode(str));
+GetCategoriesResponse getCategoriesResponseFromJson(String str) => GetCategoriesResponse.fromJson(json.decode(str));
 
-String getCategoriesResponseToJson(GetCategoriesResponse data) =>
-    json.encode(data.toJson());
+String getCategoriesResponseToJson(GetCategoriesResponse data) => json.encode(data.toJson());
 
 class GetCategoriesResponse {
   String message;
@@ -36,11 +34,9 @@ class GetCategoriesResponse {
         code: code ?? this.code,
       );
 
-  factory GetCategoriesResponse.fromJson(Map<String, dynamic> json) =>
-      GetCategoriesResponse(
+  factory GetCategoriesResponse.fromJson(Map<String, dynamic> json) => GetCategoriesResponse(
         message: json["message"],
-        data: List<PostCategory>.from(
-            json["data"].map((x) => PostCategory.fromJson(x))),
+        data: List<PostCategory>.from(json["data"].map((x) => PostCategory.fromJson(x))),
         success: json["success"],
         code: json["code"],
       );
@@ -61,6 +57,9 @@ class PostCategory {
   dynamic backgroundImage;
   dynamic? iconImage;
   dynamic isFollowing;
+  bool? isSuspended;
+  final String? groupAccess;
+  dynamic type;
   DateTime? createdAt;
   DateTime? updatedAt;
   ParentCategory? parentCategory;
@@ -77,7 +76,10 @@ class PostCategory {
     required this.createdAt,
     required this.updatedAt,
     required this.parentCategory,
+    required this.type,
     required this.isFollowing,
+    required this.isSuspended,
+    required this.groupAccess,
   });
 
   PostCategory copyWith({
@@ -86,9 +88,12 @@ class PostCategory {
     String? name,
     String? description,
     String? backgroundImage,
+    String? type,
     String? iconImage,
     DateTime? createdAt,
     bool? isFollowing,
+    String? groupAccess,
+    bool? isSuspended,
     DateTime? updatedAt,
     ParentCategory? parentCategory,
   }) =>
@@ -97,10 +102,13 @@ class PostCategory {
         followersCount: followersCount ?? this.followersCount,
         name: name ?? this.name,
         isFollowing: isFollowing ?? this.isFollowing,
+        groupAccess: groupAccess ?? this.groupAccess,
+        isSuspended: isSuspended ?? this.isSuspended,
         description: description ?? this.description,
         backgroundImage: backgroundImage ?? this.backgroundImage,
         iconImage: iconImage ?? this.iconImage,
         createdAt: createdAt ?? this.createdAt,
+        type: type ?? this.type,
         parentCategory: parentCategory ?? this.parentCategory,
         updatedAt: updatedAt ?? this.updatedAt,
       );
@@ -108,18 +116,17 @@ class PostCategory {
   factory PostCategory.fromJson(Map<String, dynamic> json) => PostCategory(
         id: json["id"],
         name: json["name"],
+        groupAccess: json['group_access'],
         description: json["description"],
+        isSuspended: json['is_suspended'],
         followersCount: json["followers_count"],
         backgroundImage: json["background_image"],
+        type: json["type"],
         iconImage: json["icon_image"],
         isFollowing: json["is_following"],
-        parentCategory: json["parent_category"] == null ? null: ParentCategory.fromJson(json["parent_category"]),
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
+        parentCategory: json["parent_category"] == null ? null : ParentCategory.fromJson(json["parent_category"]),
+        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -129,11 +136,17 @@ class PostCategory {
         "background_image": backgroundImage,
         "icon_image": iconImage,
         "is_following": isFollowing,
+        "is_suspended": isSuspended,
+        "group_access": groupAccess,
+        "type": type,
         "followers_count": followersCount,
         "parent_category": parentCategory?.toJson(),
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
       };
+
+  bool get isPublic => groupAccess == null || groupAccess == "Opened";
+
 
   @override
   String toString() {
@@ -143,7 +156,7 @@ class PostCategory {
 
 class ParentCategory {
   String name;
-  String description;
+  dynamic description;
 
   ParentCategory({
     required this.name,

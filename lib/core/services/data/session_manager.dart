@@ -2,6 +2,8 @@ import 'dart:convert';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/network/network_service.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 
 // final sessionProvider = Provider<SessionManager>((ref) {
 //   SessionManager().init();
@@ -10,12 +12,14 @@ import 'package:talkam/core/di/injector.dart';
 // });
 
 /// A class for managing sessions, handles saving and retrieving of data
+///
+// Sesion
 class SessionManager {
 
   SessionManager._internal();
-
   SharedPreferences? sharedPreferences;
   FlutterSecureStorage? secureStorage;
+
 
   static final SessionManager _instance = SessionManager._internal();
 
@@ -23,7 +27,15 @@ class SessionManager {
 
   static SessionManager get instance => _instance;
 
+
+
+
   Future<void> init() async {
+
+
+
+
+
     try {
       sharedPreferences = await SharedPreferences.getInstance();
       secureStorage = const FlutterSecureStorage();
@@ -127,15 +139,17 @@ class SessionManager {
       sharedPreferences!.getBool(SOUND_ENABLED) ?? false;
 
   Future<bool> logOut() async {
-    final holdEmail = sharedPreferences?.getString(KEY_USER_EMAIL);
-    final holdPass = sharedPreferences?.getString(KEY_BALANCE);
+
     final holdUseBio = sharedPreferences?.getBool(KEY_USE_BIO);
     await sharedPreferences!.clear();
-    sharedPreferences?.setString(KEY_USER_EMAIL, holdEmail ?? '');
-    sharedPreferences?.setString(KEY_BALANCE, holdPass ?? '');
+    // sharedPreferences?.setString(KEY_USER_EMAIL, holdEmail ?? '')
     sharedPreferences?.setBool(KEY_USE_BIO, holdUseBio ?? false);
 
     instance.isLoggedIn = false;
+    instance.hasOnboarded = false;
+
+    injector.get<ProfileBloc>().add(const Logout());
+
     // await secureStorage?.deleteAll();
     // await sharedPreferences?.clear();
     // await HiveBoxes.clearAllBox();

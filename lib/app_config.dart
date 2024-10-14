@@ -24,14 +24,23 @@ class AppConfig {
   AppConfig(this.appName, this.enviroment);
 
   static Future<void> run(String appName, Environment enviroment) async {
+
     WidgetsFlutterBinding.ensureInitialized();
+
+
     final appConfig = AppConfig(appName, enviroment);
     await appConfig._setup();
+
     runZonedGuarded(() => runApp(const TalkAmApp()), (error, stack) {
       logger.e(error.toString());
       logger.e(stack.toString());
     });
+
+
+
   }
+
+
 
   Future<void> _setup() async {
 
@@ -45,7 +54,9 @@ class AppConfig {
     await TiktokLoginFlutter.initializeTiktokLogin("sbawv08gbmy7ntisfh");
     // await  TikTokSDK.instance.setup(clientKey: "sbawv08gbmy7ntisfh");
     await initFirebaseServices();
+
     await SessionManager().init();
+
     await PayHelper.instance.initialize(
         defaultGooglePayConfiguration: defaultGooglePay,
         defaultApplePayConfiguration: defaultApplePay);

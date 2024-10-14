@@ -44,9 +44,9 @@ enum _ProfileTabOptions {
 }
 
 class UserProfileScreen extends StatefulWidget {
-  const UserProfileScreen({super.key, required this.userId});
+   UserProfileScreen({super.key, required this.userId});
 
-  final String userId;
+   String userId;
 
   @override
   State<UserProfileScreen> createState() => _UserProfileScreenState();
@@ -79,6 +79,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           profileLoaded: (TalkamUser talkAmUser) {
             _talkamUser = talkAmUser;
             userName = _talkamUser.username;
+            widget.userId = _talkamUser.id.toString();
             setState(() {});
           },
           orElse: () {},
@@ -92,6 +93,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             centerTile: false,
             showDivider: true,
             actions: [
+              if(userName!=null)
               IconButton(
                   onPressed: () async {
                     var refresh = await CustomDialogs.showBottomSheet(
@@ -113,7 +115,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           body: SafeArea(
             child: state.maybeWhen(
                 profileLoading: () => Center(child: CustomDialogs.getLoading(size: 50)),
-                getProfileError: () => const AppErrorWidget(),
+                getProfileError: (e) =>  AppErrorWidget(message: e,),
                 orElse: () {
                   if (_talkamUser.isBlocked) {
                     return Center(
@@ -132,6 +134,26 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                       ),
                     );
                   }
+
+
+                  if (_talkamUser.status.toLowerCase() == "banned") {
+                    return Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextView(
+                            text: "@${_talkamUser.username} is Banned",
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18,
+                          ),
+                          10.verticalSpace,
+                          const TextView(text: "You can view their profile when their account is re-activated"),
+                          60.verticalSpace,
+                        ],
+                      ),
+                    );
+                  }
+
 
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -218,8 +240,6 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                         child: PageView(
                           controller: _pageController,
                           onPageChanged: (int index) {
-
-
                             _selectedTab = index == 0
                                 ? _ProfileTabOptions.posts
                                 : index == 1
@@ -244,7 +264,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                             ),
                             UserProfileMediaTab(
                               key: const PageStorageKey(_ProfileTabOptions.media),
-                              userId: widget.userId,
+                              userId: _talkamUser.id.toString(),
                             ),
                           ],
                         ),

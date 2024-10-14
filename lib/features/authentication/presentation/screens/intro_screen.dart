@@ -12,7 +12,10 @@ import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/mixins/returning_user_mixin.dart';
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/core/services/data/session_manager.dart';
+import 'package:talkam/core/services/network/network_service.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/features/authentication/data/repository/auth_repository_impl.dart';
 import 'package:talkam/features/authentication/dormain/mixins/auth_success_mixin.dart';
 import 'package:talkam/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
@@ -74,7 +77,9 @@ class _IntroScreenState extends State<IntroScreen> with AuthSuccessMixin {
                                 borderRadius: BorderRadius.circular(8.r),
                                 padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 20.w),
                                 onPressed: () {
+
                                   _authBloc.add(const AppleAuthEvent());
+
                                 },
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
@@ -135,7 +140,7 @@ class _IntroScreenState extends State<IntroScreen> with AuthSuccessMixin {
                               ),
                             ),
                             12.verticalSpace,
-                            if(Platform.isAndroid)
+                            if(false)
                             CustomButton(
                               bgColor: Pallets.white,
                               foregroundColor: Pallets.black,
@@ -157,6 +162,8 @@ class _IntroScreenState extends State<IntroScreen> with AuthSuccessMixin {
                                 ],
                               ),
                             ),
+                            if(false)
+
                             16.verticalSpace,
                             const Center(
                               child: TextView(
@@ -187,10 +194,12 @@ class _IntroScreenState extends State<IntroScreen> with AuthSuccessMixin {
                               borderRadius: BorderRadius.circular(8.r),
                               padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 20.w),
                               onPressed: () {
+                                SessionManager().hasOnboarded = true;
+
                                 context.goNamed(PageUrl.homeScreen);
                               },
                               child: const TextView(
-                                text: 'Continue as guest',
+                                text: 'Continue as Guest',
                                 align: TextAlign.center,
                                 fontWeight: FontWeight.w700,
                               ),

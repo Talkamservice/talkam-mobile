@@ -10,8 +10,7 @@ part 'group_members_state.dart';
 part 'group_members_cubit.freezed.dart';
 
 class GroupMembersCubit extends Cubit<GroupMembersState> {
-  GroupMembersCubit(this.groupMembersRepository)
-      : super(const GroupMembersState.initial());
+  GroupMembersCubit(this.groupMembersRepository) : super(const GroupMembersState.initial());
 
   final GroupMembersRepository groupMembersRepository;
 
@@ -19,8 +18,7 @@ class GroupMembersCubit extends Cubit<GroupMembersState> {
     emit(const GroupMembersState.getGroupMembersLoading());
 
     try {
-      final GetGroupMembersResponse response =
-          await groupMembersRepository.getGroupMembers(groupId);
+      final GetGroupMembersResponse response = await groupMembersRepository.getGroupMembers(groupId);
 
       emit(GroupMembersState.getGroupMembersSuccess(response));
     } catch (e, stack) {
@@ -29,13 +27,11 @@ class GroupMembersCubit extends Cubit<GroupMembersState> {
     }
   }
 
-  Future<void> addGroupMember(
-      {required String groupId, required String userId}) async {
+  Future<void> addGroupMember({required String groupId, required String userId}) async {
     emit(const GroupMembersState.addGroupMemberLoading());
 
     try {
-      final response = await groupMembersRepository.addGroupMember(
-          groupId: groupId, userId: userId);
+      final response = await groupMembersRepository.addGroupMember(groupId: groupId, userId: userId);
 
       emit(GroupMembersState.addGroupMemberSuccess(response));
     } catch (e, stack) {
@@ -48,8 +44,7 @@ class GroupMembersCubit extends Cubit<GroupMembersState> {
     emit(const GroupMembersState.updateMemberRoleLoading());
 
     try {
-      final response =
-          await groupMembersRepository.updateMemberRole(memberId, role);
+      final response = await groupMembersRepository.updateMemberRole(memberId, role);
 
       emit(GroupMembersState.updateMemberRoleSuccess(response));
     } catch (e, stack) {
@@ -62,8 +57,7 @@ class GroupMembersCubit extends Cubit<GroupMembersState> {
     emit(const GroupMembersState.getMemberLoading());
 
     try {
-      final GroupMemberDetails memberDetails =
-          await groupMembersRepository.getMember(memberId);
+      final GroupMemberDetails memberDetails = await groupMembersRepository.getMember(memberId);
 
       emit(GroupMembersState.getMemberSuccess(memberDetails));
     } catch (e, stack) {
@@ -72,12 +66,11 @@ class GroupMembersCubit extends Cubit<GroupMembersState> {
     }
   }
 
-  Future<void> deleteMember(String memberId, String groupId) async {
+  Future<void> unfollowGroup(String memberId, String groupId) async {
     emit(const GroupMembersState.deleteMemberLoading());
 
     try {
-      final response =
-          await groupMembersRepository.deleteMember(memberId, groupId);
+      final response = await groupMembersRepository.deleteMember(memberId, groupId);
 
       emit(GroupMembersState.deleteMemberSuccess(response));
     } catch (e, stack) {
@@ -90,8 +83,7 @@ class GroupMembersCubit extends Cubit<GroupMembersState> {
     emit(const GroupMembersState.cancelRequestLoading());
 
     try {
-      final response =
-          await groupMembersRepository.cancelRequest(memberId: memberId);
+      final response = await groupMembersRepository.cancelRequestOrDeleteMember(memberId: memberId);
 
       emit(GroupMembersState.cancelRequestSuccess(response));
     } catch (e, stack) {
@@ -100,15 +92,13 @@ class GroupMembersCubit extends Cubit<GroupMembersState> {
     }
   }
 
-  Future<void> getPendingRequests(String groupId,
-      {bool? refresh = true}) async {
+  Future<void> getPendingRequests(String groupId, {bool? refresh = true}) async {
     if (refresh!) {
       emit(const GroupMembersState.pendingRequestsLoading());
     }
 
     try {
-      final response =
-          await groupMembersRepository.getPendingRequests(groupId: groupId);
+      final response = await groupMembersRepository.getPendingRequests(groupId: groupId);
 
       emit(GroupMembersState.pendingRequestsSuccess(response));
     } catch (e, stack) {
@@ -120,13 +110,26 @@ class GroupMembersCubit extends Cubit<GroupMembersState> {
   Future<void> sendGroupRequest(String groupId) async {
     emit(const GroupMembersState.sendRequestLoading());
     try {
-      final response =
-          await groupMembersRepository.sendJoinRequest(groupId: groupId);
+      final response = await groupMembersRepository.sendJoinRequest(groupId: groupId);
 
       emit(GroupMembersState.sendRequestSyccess(response));
     } catch (e, stack) {
       logger.e(e.toString(), stackTrace: stack);
       emit(GroupMembersState.sendRequestFailure(e.toString()));
+    }
+  }
+
+  Future<void> suspendMember({required String memberId, required String reason, required DateTime endDate}) async {
+    emit(const GroupMembersState.suspensionLoading());
+
+    try {
+      final response = await groupMembersRepository.suspendOrCancelSuspension(memberId: memberId, reason: reason, endDate: endDate);
+
+
+      emit(GroupMembersState.suspensionSuccess(response));
+    } catch (e, stack) {
+      logger.e(e.toString(), stackTrace: stack);
+      emit(GroupMembersState.suspensionFailure(e.toString()));
     }
   }
 
@@ -137,8 +140,7 @@ class GroupMembersCubit extends Cubit<GroupMembersState> {
   }) async {
     emit(const GroupMembersState.requestActionLoading());
     try {
-      final response = await groupMembersRepository.acceptOrDeclineRequest(
-          groupId: groupId, memberId: memberId, action: action);
+      final response = await groupMembersRepository.acceptOrDeclineRequest(groupId: groupId, memberId: memberId, action: action);
 
       emit(GroupMembersState.requestActionSuccess(response));
     } catch (e, stack) {

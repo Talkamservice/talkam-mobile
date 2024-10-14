@@ -25,7 +25,7 @@ class _NotificationsPreferencesGroupState extends State<NotificationsPreferences
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const NotificationSettingHeader(tittle: "Notifications from us", subtittle: "Receive the latest news, updates and industry tutorials from us."),
+        const NotificationSettingHeader(tittle: "Notifications from us", subtittle: ""),
         20.verticalSpace,
         NotificationSettingItem(
           notificationItemType: NotificationItemType.switchType,

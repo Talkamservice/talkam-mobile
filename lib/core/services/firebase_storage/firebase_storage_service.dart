@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:path/path.dart' as path;
 
 class FirebaseStorageService {
   final FirebaseStorage _storage = FirebaseStorage.instance;
@@ -11,10 +12,11 @@ class FirebaseStorageService {
     try {
 
       final List<Future<String>> uploadFutures = files.map((file) async {
+        // var extension = path.extension(file.path);
         final String fileName = file.path.split('/').last; // Get filename
         final String filePath = '$basePath/$fileName';
 
-        return await uploadImage(filePath, file);
+        return await uploadFile(filePath, file);
       }).toList();
 
       // final List<String> downloadUrls = await Future.wait(uploadFutures);
@@ -24,7 +26,7 @@ class FirebaseStorageService {
     }
   }
 
-  Future<String> uploadImage(String path, File imageFile) async {
+  Future<String> uploadFile(String path, File imageFile) async {
     try {
       final reference = _storage.ref().child(path);
       final uploadTask = reference.putFile(imageFile);
@@ -48,5 +50,6 @@ class FirebaseStoragePaths {
   static const String productImages = 'product_images';
   static const String chatFiles = 'chat_files';
   static const String posts = 'posts';
+  static const String comments = 'posts';
   static const String groupImage = 'group_images';
 }

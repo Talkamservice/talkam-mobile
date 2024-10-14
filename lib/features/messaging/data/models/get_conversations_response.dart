@@ -64,6 +64,7 @@ class TalkamConversation {
   bool isAnonymous;
   ConversationUser requestedBy;
   bool userBlocked;
+  bool userBanned;
   String status;
 
   TalkamConversation({
@@ -75,6 +76,7 @@ class TalkamConversation {
     required this.isAnonymous,
     required this.requestedBy,
     required this.userBlocked,
+    required this.userBanned,
     required this.status,
   });
 
@@ -87,6 +89,7 @@ class TalkamConversation {
     bool? isAnonymous,
     ConversationUser? requestedBy,
     bool? userBlocked,
+    bool? userBanned,
     String? status,
   }) =>
       TalkamConversation(
@@ -98,6 +101,7 @@ class TalkamConversation {
         isAnonymous: isAnonymous ?? this.isAnonymous,
         requestedBy: requestedBy ?? this.requestedBy,
         userBlocked: userBlocked ?? this.userBlocked,
+        userBanned: userBanned ?? this.userBanned,
         status: status ?? this.status,
       );
 
@@ -115,6 +119,7 @@ class TalkamConversation {
 
         requestedBy: ConversationUser.fromJson(json["requested_by"]),
         userBlocked: json["user_blocked"],
+        userBanned: json["user_is_banned"],
         status: json["status"],
       );
 
@@ -127,6 +132,7 @@ class TalkamConversation {
         "is_anonymous": isAnonymous,
         "requested_by": requestedBy.toJson(),
         "user_blocked": userBlocked,
+        "user_is_banned": userBanned,
         "status": status,
       };
 

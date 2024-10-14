@@ -50,6 +50,10 @@ class $AssetsImagesPngGen {
   /// File path: assets/images/png/back1.png
   AssetGenImage get back1 => const AssetGenImage('assets/images/png/back1.png');
 
+  /// File path: assets/images/png/birthday_poster.png
+  AssetGenImage get birthdayPoster =>
+      const AssetGenImage('assets/images/png/birthday_poster.png');
+
   /// File path: assets/images/png/dating.png
   AssetGenImage get dating =>
       const AssetGenImage('assets/images/png/dating.png');
@@ -78,6 +82,7 @@ class $AssetsImagesPngGen {
         add,
         appIcon,
         back1,
+        birthdayPoster,
         dating,
         manShoping,
         mancity,
@@ -108,6 +113,9 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/add.svg
   String get add => 'assets/images/svgs/add.svg';
 
+  /// File path: assets/images/svgs/announcement.svg
+  String get announcement => 'assets/images/svgs/announcement.svg';
+
   /// File path: assets/images/svgs/anonymous_active.svg
   String get anonymousActive => 'assets/images/svgs/anonymous_active.svg';
 
@@ -125,6 +133,9 @@ class $AssetsImagesSvgsGen {
 
   /// File path: assets/images/svgs/arrow-up-right.svg
   String get arrowUpRight => 'assets/images/svgs/arrow-up-right.svg';
+
+  /// File path: assets/images/svgs/attatchement.svg
+  String get attatchement => 'assets/images/svgs/attatchement.svg';
 
   /// File path: assets/images/svgs/bell-plus.svg
   String get bellPlus => 'assets/images/svgs/bell-plus.svg';
@@ -315,12 +326,14 @@ class $AssetsImagesSvgsGen {
         icTrending,
         icfeatured,
         add,
+        announcement,
         anonymousActive,
         anonymousInactive,
         apple,
         appleWhite,
         arrowLeft,
         arrowUpRight,
+        attatchement,
         bellPlus,
         blockedUser,
         calender,

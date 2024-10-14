@@ -52,7 +52,13 @@ class _SelectCategoryDropDownButtonState
               color: context.colorScheme.onSurface,
               fontWeight: FontWeight.w600,
             ),
-            14.horizontalSpace,
+            TextView(
+              text: " *",
+              fontSize: 15.sp,
+              color: Pallets.red,
+              fontWeight: FontWeight.w600,
+            ),
+            10.horizontalSpace,
             const Icon(color: Pallets.grey, Icons.keyboard_arrow_down_rounded)
           ],
         ));

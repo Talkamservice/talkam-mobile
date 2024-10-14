@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:overlay_support/overlay_support.dart';
 import 'package:talkam/core/services/theme_service/app_theme.dart';
 import 'package:talkam/features/home/presentation/screens/base_bloc_provider.dart';
+import 'package:talkam/features/notifications/presentation/screens/push_notifications_listener.dart';
 import 'core/constants/package_exports.dart';
 import 'core/navigation/routes.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -34,27 +35,20 @@ class _TalkAmAppState extends State<TalkAmApp> {
           child: BaseBlocProvider(
             child: GestureDetector(
               onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-              child: MaterialApp.router(
-                debugShowCheckedModeBanner: false,
-                title: "Talkam",
-                //TODO: SET LOCALE HERE
-                // locale: ref.watch(localeProvider).locale,
-                localizationsDelegates: const [
-                  // S.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
-                // supportedLocales: S.delegate.supportedLocales,
+              child: PushNotificationListener(
+                child: MaterialApp.router(
+                  debugShowCheckedModeBanner: false,
+                  title: "Talkam",
+                  localizationsDelegates: const [
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
 
-                // theme: ThemeData(
-                //   primarySwatch: Colors.blueGrey,
-                // ),
-                //
+                  theme: AppTheme.lightTheme,
 
-                theme: AppTheme.lightTheme,
-                // darkTheme: AppTheme.darkTheme,
-                routerConfig: CustomRoutes.goRouter,
+                  routerConfig: CustomRoutes.goRouter,
+                ),
               ),
             ),
           ),

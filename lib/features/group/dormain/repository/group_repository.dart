@@ -17,6 +17,8 @@ abstract class GroupsRepository {
 
   Future<dynamic> join({required String groupId, required String userId});
 
+  Future<dynamic> reportGroup({required String groupId, required String reason});
+
   Future<dynamic> getGroupRules({
     required String groupId,
   });

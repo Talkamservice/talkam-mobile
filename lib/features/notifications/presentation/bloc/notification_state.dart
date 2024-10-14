@@ -155,3 +155,61 @@ class GetSenderDetailsFailureState extends NotificationsState {
 }
 
 class LoadingMoreNotificationState extends NotificationsState {}
+
+
+
+class GetAnnouncementsSuccessState extends NotificationsState {
+  final GetAnnounscementsResponse response;
+
+  const GetAnnouncementsSuccessState({required this.response});
+
+  @override
+  List<Object?> get props => [response];
+}
+
+class GetAnnouncementsFailureState extends NotificationsState {
+  final String error;
+
+  const GetAnnouncementsFailureState({required this.error});
+
+  @override
+  List<Object?> get props => [error];
+}
+
+class GetAnnouncementsLoading extends NotificationsState {
+
+
+  const GetAnnouncementsLoading();
+
+  @override
+  List<Object?> get props => [];
+}
+
+
+
+class GetAnnouncementByIdSuccessState extends NotificationsState {
+  final TalkamAnnouncement response;
+
+  const GetAnnouncementByIdSuccessState({required this.response});
+
+  @override
+  List<Object?> get props => [response];
+}
+
+class GetAnnouncementByIdFailureState extends NotificationsState {
+  final String error;
+
+  const GetAnnouncementByIdFailureState({required this.error});
+
+  @override
+  List<Object?> get props => [error];
+}
+
+class GetAnnouncementByIdLoading extends NotificationsState {
+
+
+  const GetAnnouncementByIdLoading();
+
+  @override
+  List<Object?> get props => [];
+}

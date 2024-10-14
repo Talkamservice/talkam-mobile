@@ -42,7 +42,7 @@ class Comment {
   int id;
   Post post;
   User user;
-  String comment;
+  dynamic comment;
   int isAnonymous;
   dynamic replyTo;
   dynamic attachment;
@@ -111,17 +111,17 @@ class Comment {
 
 class Post {
   int id;
-  String title;
-  String type;
-  String uuid;
-  int canComment;
-  int isAnonymous;
+  dynamic title;
+  dynamic type;
+  dynamic uuid;
+  dynamic canComment;
+  dynamic isAnonymous;
   List<dynamic> tags;
-  int viewsCount;
-  String status;
+  dynamic viewsCount;
+  dynamic status;
   dynamic publishAt;
-  DateTime createdAt;
-  User user;
+  dynamic createdAt;
+  User? user;
 
   Post({
     required this.id,
@@ -179,7 +179,7 @@ class Post {
         status: json["status"],
         publishAt: json["publish_at"],
         createdAt: DateTime.parse(json["created_at"]),
-        user: User.fromJson(json["user"]),
+        user: json["user"]== null ?null: User.fromJson(json["user"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -194,16 +194,16 @@ class Post {
         "status": status,
         "publish_at": publishAt,
         "created_at": createdAt.toIso8601String(),
-        "user": user.toJson(),
+        "user": user?.toJson(),
       };
 }
 
 class User {
   int id;
-  String avatar;
-  String name;
-  String username;
-  String email;
+  dynamic avatar;
+  dynamic name;
+  dynamic username;
+  dynamic email;
 
   User({
     required this.id,

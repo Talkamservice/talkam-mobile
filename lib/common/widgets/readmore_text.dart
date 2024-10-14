@@ -1,15 +1,23 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
+import 'package:talkam/core/utils/helper_utils.dart';
 
 class CustomReadMoreText extends StatefulWidget {
-  final String text;
+  final dynamic text;
   final int trimLines;
   final double? fontSize;
   final FontWeight? fontWeight;
+  final Function(String mention)? mentionCallback;
 
-  CustomReadMoreText(
-      {required this.text, this.trimLines = 2, this.fontSize, this.fontWeight});
+  CustomReadMoreText({
+    required this.text,
+    this.trimLines = 4,
+    this.fontSize,
+    this.fontWeight,
+    this.mentionCallback,
+  });
 
   @override
   _CustomReadMoreTextState createState() => _CustomReadMoreTextState();
@@ -20,11 +28,12 @@ class _CustomReadMoreTextState extends State<CustomReadMoreText> {
 
   @override
   Widget build(BuildContext context) {
-    final style = TextStyle(color: Colors.blue);
+    const style = TextStyle(color: Colors.blue);
 
     return Column(
       children: [
         3.verticalSpace,
+        if(widget.text!=null)
         LayoutBuilder(
           builder: (context, size) {
             final span = TextSpan(
@@ -39,11 +48,7 @@ class _CustomReadMoreTextState extends State<CustomReadMoreText> {
             )..layout(maxWidth: size.maxWidth);
 
             if (!tp.didExceedMaxLines) {
-              return TextView(
-                text: widget.text,
-                fontWeight: widget.fontWeight,
-                fontSize: widget.fontSize,
-              );
+              return   Helpers.buildTextWithMentions(widget.text,context,mentionCallback: widget.mentionCallback);
             }
 
             return Column(
@@ -59,7 +64,10 @@ class _CustomReadMoreTextState extends State<CustomReadMoreText> {
                       ),
                 ),
                 InkWell(
-                  child: Text(_readMore ? 'Read Less' : 'Read More', style: style),
+                  child: Text(
+                    _readMore ? 'Read less' : 'Read more',
+                    style: style,
+                  ),
                   onTap: () {
                     setState(() {
                       _readMore = !_readMore;
@@ -73,4 +81,6 @@ class _CustomReadMoreTextState extends State<CustomReadMoreText> {
       ],
     );
   }
+
+
 }

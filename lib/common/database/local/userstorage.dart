@@ -27,6 +27,7 @@ class UserStorage {
 
   // Clear user data from SharedPreferences
   Future<void> clearUser() async {
+
     SessionManager.instance.usersData = {};
   }
 

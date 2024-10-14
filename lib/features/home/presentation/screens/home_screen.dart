@@ -2,13 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
-import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/guest_user_helper.dart';
@@ -17,7 +15,7 @@ import 'package:talkam/features/home/presentation/screens/featured_screen.dart';
 import 'package:talkam/features/home/presentation/screens/recent_screen.dart';
 import 'package:talkam/features/home/presentation/screens/trending_screen.dart';
 import 'package:talkam/features/notifications/presentation/bloc/notification_bloc.dart';
-import 'package:talkam/features/notifications/presentation/bloc/notification_bloc.dart';
+import 'package:talkam/features/notifications/presentation/widgets/announcements_carousel.dart';
 import 'package:talkam/features/notifications/presentation/widgets/notification_icon.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
@@ -43,12 +41,11 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
 
   @override
   void initState() {
-      injector.get<NotificationsBloc>().add(GetNotificationsStatsEvent());
+    injector.get<NotificationsBloc>().add(GetNotificationsStatsEvent());
+    injector.get<NotificationsBloc>().add(const GetAnnouncementsEvent());
     _tabController = TabController(length: 3, vsync: this);
     super.initState();
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -57,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         child: Column(
           children: [
             const HomeAppBar(),
+            const AnnouncementsCarousel(),
             Container(
               color: Pallets.grey90,
               height: 1,
@@ -67,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.only(
-                    top: 16,
+                    // top: 16,
                     bottom: 0,
                   ),
                   child: TabBar(
@@ -114,11 +112,10 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                 child: PageView(
                   controller: _pageController,
 
-                    // physics: const NeverScrollableScrollPhysics(),
-                    onPageChanged: (int index) {
-                      _tabController.animateTo(index);
-                      selecteIndex = index;
-
+                  // physics: const NeverScrollableScrollPhysics(),
+                  onPageChanged: (int index) {
+                    _tabController.animateTo(index);
+                    selecteIndex = index;
                     setState(() {});
                   },
                   children: const [
@@ -141,38 +138,45 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: context.colorScheme.surface,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 20, left: 1, right: 18),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            IconButton(
-                onPressed: () {
-                  context.read<DrawerCubit>().closeDrawer();
-                  context.read<DrawerCubit>().openDrawer();
+    return BlocConsumer<ProfileBloc, ProfileState>(
+      bloc: injector.get(),
+      listener: (context, state) {},
+      builder: (context, state) {
+        return Container(
+          color: context.colorScheme.surface,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 20, left: 1, right: 18),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                IconButton(
+                    onPressed: () {
+                      context.read<DrawerCubit>().closeDrawer();
+                      context.read<DrawerCubit>().openDrawer();
 /**/
-                },
-                icon: Icon(
-                  Icons.menu_outlined,
-                  color: context.colorScheme.onSurface,
+                    },
+                    icon: Icon(
+                      Icons.menu_outlined,
+                      color: context.colorScheme.onSurface,
+                    )),
+                ImageWidget(imageUrl: Assets.images.svgs.logo2),
+                const Spacer(),
+                const NotificationIcon(),
+                20.horizontalSpace,
+                GuestUserHelper.guestUserWidget(
+                    widget: ImageWidget(
+                  shape: BoxShape.circle,
+                  imageUrl: injector.get<ProfileBloc>().appUser?.avatar ?? Assets.images.svgs.user,
+                  size: 40,
+                  onTap: () {
+                    context.pushNamed(PageUrl.profileScreen);
+                  },
                 )),
-            ImageWidget(imageUrl: Assets.images.svgs.logo2),
-            const Spacer(),
-           NotificationIcon(),
-            20.horizontalSpace,
-            GuestUserHelper.guestUserWidget(
-                widget: ImageWidget(
-              imageUrl: injector.get<ProfileBloc>().appUser?.avatar ?? Assets.images.svgs.uploadAvatar,
-              size: 40,
-              onTap: () {
-                context.pushNamed(PageUrl.profileScreen);
-              },
-            )),
-          ],
-        ),
-      ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

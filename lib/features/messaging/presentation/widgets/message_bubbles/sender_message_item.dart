@@ -6,10 +6,12 @@ import 'package:talkam/features/messaging/presentation/widgets/message_bubbles/m
 
 class SenderMessageItem extends StatelessWidget {
   final AppMessageModel message;
+  final VoidCallback onRetryMessage;
 
   const SenderMessageItem({
     Key? key,
     required this.message,
+    required this.onRetryMessage,
   }) : super(key: key);
 
   @override
@@ -42,7 +44,8 @@ class SenderMessageItem extends StatelessWidget {
                 : const BoxConstraints(maxWidth: 280),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
-              children: [if (messageIsMedia) MediaItem(messageModel: message), TextMessageWidget(message: message, isShortMessage: isShortMessage)],
+              children: [if (messageIsMedia) MediaItem(messageModel: message), TextMessageWidget(message: message, isShortMessage: isShortMessage,
+                onRetryMessage: onRetryMessage,)],
             ),
           );
         },
@@ -56,10 +59,13 @@ class SenderMessageItem extends StatelessWidget {
 }
 
 class TextMessageWidget extends StatelessWidget {
-  const TextMessageWidget({Key? key, required this.message, required this.isShortMessage}) : super(key: key);
+  const TextMessageWidget({Key? key, required this.message, required this.isShortMessage, required this.onRetryMessage}) : super(key: key);
 
   final AppMessageModel message;
   final bool isShortMessage;
+  final VoidCallback onRetryMessage;
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +79,6 @@ class TextMessageWidget extends StatelessWidget {
             fontSize: 15,
             fontWeight: FontWeight.w600,
           ),
-
         if (message.content != null) const SizedBox(height: 5.0),
         _buildMessageStatus(context),
       ],
@@ -98,7 +103,7 @@ class TextMessageWidget extends StatelessWidget {
       case SendingState.failed:
         return TextButton(
           onPressed: () {
-// TODO: Implement retry logic
+            onRetryMessage();
           },
           child: const TextView(text: "Retry"),
         );

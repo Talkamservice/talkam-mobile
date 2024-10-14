@@ -6,11 +6,13 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/messaging/data/models/get_conversations_response.dart';
 import 'package:talkam/features/messaging/presentation/screens/chat_screen.dart';
 import 'package:talkam/features/notifications/data/models/get_notifications_response.dart';
 import 'package:talkam/features/notifications/presentation/bloc/notification_bloc.dart';
+import 'package:talkam/features/notifications/presentation/widgets/admin_notification_dialog.dart';
 import 'package:talkam/features/post/data/models/comment_notification_extra.dart';
 
 class TalkamNotificationItem extends StatelessWidget {
@@ -31,8 +33,8 @@ class TalkamNotificationItem extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          if (shouldDisplayUserImage) ImageWidget(imageUrl: (notification.extra as ExtraClass).sender!.avatar),
-          if (shouldDisplayUserImage) 8.horizontalSpace,
+          NotificationImage(notification: notification),
+
           Expanded(
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -86,7 +88,7 @@ class TalkamNotificationItem extends StatelessWidget {
                             height: 60,
                             width: 60,
                             borderRadius: BorderRadius.circular(10),
-                            imageUrl: CommentNotificationExtra.fromJson(notification.extra).postAttachements.first.url);
+                            imageUrl: CommentNotificationExtra.fromJson(notification.extra).postAttachements.firstOrNull?.url??"");
                       }
                       return 0.verticalSpace;
                     })
@@ -99,7 +101,7 @@ class TalkamNotificationItem extends StatelessWidget {
     );
   }
 
-  bool get shouldDisplayUserImage => notification.extra is ExtraClass && ((notification.extra as ExtraClass).sender != null);
+  bool get shouldDisplayUserImage => notification.type == "post" || notification.type == "conversation";
 
   void _handleNotificationClick(BuildContext context) {
     logger.w(notification.type);
@@ -126,10 +128,99 @@ class TalkamNotificationItem extends StatelessWidget {
 
       case "group":
         context.pushNamed(PageUrl.groupsInfoScreen, extra: notification.dataId.toString());
-
+        case "group_request":
+        context.pushNamed(PageUrl.pendingRequestsScreen, extra: notification.dataId.toString());
+        case "request":
+        context.pushNamed(PageUrl.pendingRequestsScreen, extra: notification.dataId.toString());
       case "mention":
         context.pushNamed(PageUrl.postDetailsScreen, extra: notification.dataId.toString());
+      case "notification"||"user":
+        showDialog(
+          context: context,
+          builder: (context) {
+
+            return AdminNotificationDialog(
+              notification: notification,
+            );
+          },
+        );
+        // context.pushNamed(PageUrl.postDetailsScreen, extra: notification.dataId.toString());
         break;
+    }
+  }
+}
+
+class NotificationImage extends StatelessWidget {
+  const NotificationImage({super.key, required this.notification});
+
+  final TalkamNotification notification;
+
+  @override
+  Widget build(BuildContext context) {
+    return Builder(
+      builder: (context) {
+        if ((notification.type == "post" ) && notification.extra is! List&& notification.extra["user"]!= null) {
+          return Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+            child: InkWell(
+              onTap: () {
+                viewProfile(context, NotificationUser.fromJson(notification.extra["user"]).id.toString());
+              },
+              child: IgnorePointer(
+                child: ImageWidget(
+                  fit: BoxFit.scaleDown,
+                  shape: BoxShape.circle,
+                  imageUrl: NotificationUser.fromJson(notification.extra["user"]).avatar.toString(),
+                  size: 40,
+                ),
+              ),
+            ),
+          );
+        }
+
+        // if ((notification.type == "comment" ) && notification.extra is! List) {
+        //   return InkWell(
+        //     onTap: () {
+        //       viewProfile(context, NotificationUser.fromJson(notification.extra["user"]).id.toString());
+        //     },
+        //     child: IgnorePointer(
+        //       child: ImageWidget(
+        //         fit: BoxFit.scaleDown,
+        //         imageUrl: NotificationUser.fromJson(notification.extra["user"]).avatar.toString(),
+        //         size: 40,
+        //       ),
+        //     ),
+        //   );
+        // }
+
+        if (notification.type == "conversation") {
+          return Padding(
+            padding: const EdgeInsets.only(right: 8.0),
+
+            child: InkWell(
+              onTap: () {
+                viewProfile(context, ExtraClass.fromJson(notification.extra).sender!.id.toString());
+              },
+              child: ImageWidget(
+                fit: BoxFit.scaleDown,
+                shape: BoxShape.circle,
+                imageUrl: ExtraClass.fromJson(notification.extra).sender?.avatar ?? "",
+                size: 40,
+              ),
+            ),
+          );
+        }
+
+        return 0.verticalSpace;
+      },
+    );
+  }
+
+  void viewProfile(BuildContext context, String userId) {
+    if (SessionManager().isMe(userId)) {
+      context.pushNamed(PageUrl.profileScreen, extra: userId);
+    } else {
+      context.pushNamed(PageUrl.userProfileScreen, extra: userId);
     }
   }
 }

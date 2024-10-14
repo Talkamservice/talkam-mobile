@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
-import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/profile/data/models/user_media_response.dart';
 import 'package:talkam/features/profile/dormain/repository/profile_repository.dart';
 
@@ -21,7 +20,7 @@ class UserProfileMediaTabCubit extends Cubit<UserProfileMediaTabState> {
     try {
       final List<UserMedia> userPosts =
 
-      await _profileRepository.fetchUserMediaById(page: _currentPage,);
+      await _profileRepository.fetchUserMediaById(page: _currentPage, userId: userId,);
       emit(UserProfileMediaTabState.loaded(userPosts));
     } catch (exception, stackTrace) {
       logger.e(exception, stackTrace: stackTrace);
@@ -29,7 +28,7 @@ class UserProfileMediaTabCubit extends Cubit<UserProfileMediaTabState> {
     }
   }
 
-  Future<void> loadMorePosts(List<UserMedia> previousPosts) async {
+  Future<void> loadMorePosts(List<UserMedia> previousPosts,String userId) async {
     if (_hasReachedEndOfList || state is UserProfileMediaTabLoadingMoreState)
       return;
     emit(const UserProfileMediaTabState.loadingMore());
@@ -37,7 +36,7 @@ class UserProfileMediaTabCubit extends Cubit<UserProfileMediaTabState> {
     try {
       _currentPage += 1;
       final List<UserMedia> newUserPosts = await _profileRepository
-          .fetchUserMediaById(page: _currentPage,);
+          .fetchUserMediaById(page: _currentPage, userId: userId,);
 
       _hasReachedEndOfList = newUserPosts.isEmpty;
       emit(UserProfileMediaTabState.loaded([...previousPosts, ...newUserPosts]));

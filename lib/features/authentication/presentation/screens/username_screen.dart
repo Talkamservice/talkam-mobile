@@ -9,8 +9,10 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/core/utils/validators.dart';
 import 'package:talkam/features/profile/data/models/update_profile_payload.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/profile/presentation/widgets/select_avater_sheet.dart';
@@ -89,6 +91,8 @@ class _UsernameScreenState extends State<UsernameScreen> {
                         controller: usernameController,
                         validator: MultiValidator([
                           RequiredValidator(errorText: "Field is required"),
+                          SpaceValidator(errorText: "Username must not contain space")
+
                         ]).call,
                       ),
                       38.verticalSpace,
@@ -138,6 +142,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
       CustomDialogs.error(state.error);
     }
     if (state is UpdateProfileSuccess) {
+      SessionManager().hasOnboarded = true;
       context.pop();
       CustomDialogs.success("Profile updated");
       context.goNamed(PageUrl.homeScreen);

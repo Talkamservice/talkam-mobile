@@ -23,7 +23,7 @@ abstract class ProfileRepository {
   Future<TalkamUser?> fetchUserProfile();
 
   Future<List<TalkamPost>> fetchUserPosts(
-      {int page = 1, bool isPaginating = false});
+      {int page = 1, bool isPaginating = false,bool isScheduled = false});
 
   Future<List<TalkAmComment>> fetchUserComments();
 
@@ -38,7 +38,7 @@ abstract class ProfileRepository {
       {int page = 1, required String userId});
 
   Future<List<UserMedia>> fetchUserMediaById(
-      {int page = 1});
+      {int page = 1,required String userId});
 
   Future<dynamic> getProfile(String userId);
 }

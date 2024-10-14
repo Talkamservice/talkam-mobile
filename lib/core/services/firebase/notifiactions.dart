@@ -7,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/firebase/deep_link_naigator.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/features/notifications/presentation/bloc/push_notifications_navigator_bloc/deep_link_bloc.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 final NotificationService notificationService = NotificationService();
@@ -129,6 +130,7 @@ class NotificationService {
 
     if (message != null) {
       logger.i(message);
+      injector.get<PushNotificationNavigatorBloc>().add(DeepLinkReceived(message.data));
 
       return message;
     }
@@ -142,16 +144,19 @@ class NotificationService {
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       logger.i('Got a message whilst in the foreground!');
-      logger.i('Message data: ${message.data}');
-      logger.i('Message type: ${message.data["therapist"].runtimeType.toString()}');
+
+      logger.i('Message data: ${message.notification?.body}');
+      logger.i('Message type: ${message.data}');
 
       DeepLinkNavigator.handleForegroundMessages(message);
-      if (message.notification?.title.toString() != 'Incoming Call') {
+
+      if (Platform.isAndroid) {
         notificationService.triggerHeadsUp(
             message.notification.hashCode, message.notification?.title ?? message.data['title'], message.notification?.body ?? message.data['body'],
             payload: jsonEncode(message.data));
-        return;
       }
+
+      return;
 
       //
     });
@@ -159,8 +164,8 @@ class NotificationService {
 
   void _openMessageApp() {
     FirebaseMessaging.onMessageOpenedApp.listen((RemoteMessage message) {
-      logger.i('A new onMessageOpenedApp event was published! ${message.data['test']}');
-      // injector.get<DeepLinkBloc>().add(DeepLinkReceived(message.data));
+      logger.i('A new onMessageOpenedApp event was published! ${message.data}');
+      injector.get<PushNotificationNavigatorBloc>().add(DeepLinkReceived(message.data));
       // DeepLinkNavigator.handlePushNotificationClick(message.data);
     });
   }
@@ -229,7 +234,9 @@ class NotificationService {
   }
 
   void _receivedResponse(NotificationResponse details) {
-    DeepLinkNavigator.handlePushNotificationClick(jsonDecode(details.payload ?? '{}'));
+    injector.get<PushNotificationNavigatorBloc>().add(DeepLinkReceived(details.payload));
+
+    // DeepLinkNavigator.handlePushNotificationClick(jsonDecode(details.payload ?? '{}'));
   }
 }
 

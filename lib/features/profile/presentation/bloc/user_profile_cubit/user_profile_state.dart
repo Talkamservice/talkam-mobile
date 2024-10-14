@@ -11,5 +11,5 @@ class UserProfileState with _$UserProfileState {
 
   const factory UserProfileState.profileLoaded(TalkamUser appUser) = _Loaded;
 
-  const factory UserProfileState.getProfileError() = _Error;
+  const factory UserProfileState.getProfileError(String error) = _Error;
 }

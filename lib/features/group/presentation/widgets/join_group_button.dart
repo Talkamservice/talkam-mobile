@@ -38,6 +38,33 @@ class _JoinGroupButtonState extends State<JoinGroupButton> {
       bloc: bloc,
       listener: listenToGroupStates,
       builder: (context, state) {
+        if (widget.group.isSuspended ?? false) {
+          // if (true) {
+          return TextButton(
+              style: TextButton.styleFrom(
+                  padding: const EdgeInsets.all(8),
+                  fixedSize: const Size.fromHeight(5),
+                  backgroundColor: Colors.transparent,
+                  foregroundColor: Pallets.red,
+                  shape: const StadiumBorder(side: BorderSide(color: Pallets.red))),
+              onPressed: () {
+                CustomDialogs.error("You have been suspended from this group");
+              },
+              child: Row(
+                children: [
+                  const TextView(
+                    text: "Suspended",
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                  ),
+                  5.horizontalSpace,
+                  const Icon(
+                    Icons.info_outline_rounded,
+                    size: 16,
+                  ),
+                ],
+              ));
+        }
         return TextButton(
             style: TextButton.styleFrom(
                 padding: const EdgeInsets.all(8),
@@ -135,10 +162,9 @@ class _JoinGroupButtonState extends State<JoinGroupButton> {
       );
     } else if (widget.group.hasRequested!) {
       logger.w("Cancelling request");
-      // bloc.cancelRequest(injector.get<ProfileBloc>().appUser!.id.toString());
-      bloc.deleteMember(injector.get<ProfileBloc>().appUser!.id.toString(), widget.group.id.toString());
+      bloc.unfollowGroup(injector.get<ProfileBloc>().appUser!.id.toString(), widget.group.id.toString());
     } else {
-      bloc.deleteMember(injector.get<ProfileBloc>().appUser!.id.toString(), widget.group.id.toString());
+      bloc.unfollowGroup(injector.get<ProfileBloc>().appUser!.id.toString(), widget.group.id.toString());
     }
   }
 

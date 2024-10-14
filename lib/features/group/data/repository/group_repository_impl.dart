@@ -16,7 +16,7 @@ class GroupsRepositoryImpl extends GroupsRepository {
   @override
   Future<GetGroupsResponse> getGroups({required int? page, GroupsFilterModel? filter, bool? isFollowing = false}) async {
     try {
-      final response = await _networkService.call((isFollowing??false) ? UrlConfig.getMyGroups : UrlConfig.getGroups, RequestMethod.get,
+      final response = await _networkService.call((isFollowing ?? false) ? UrlConfig.getMyGroups : UrlConfig.getGroups, RequestMethod.get,
           queryParams: {"page": (page ?? 1).toString(), ...(filter ?? GroupsFilterModel.all()).toJson()});
       return GetGroupsResponse.fromJson(response.data);
     } catch (e) {
@@ -37,7 +37,7 @@ class GroupsRepositoryImpl extends GroupsRepository {
   @override
   Future<TalkamGroup> updateGroup(String groupId, CreateGroupPayload payload) async {
     try {
-      var imageUrl = payload.image.isURL ? payload.image : await FirebaseStorageService().uploadImage(FirebaseStoragePaths.groupImage, File(payload.image));
+      var imageUrl = payload.image.isURL ? payload.image : await FirebaseStorageService().uploadFile(FirebaseStoragePaths.groupImage, File(payload.image));
 
       final response = await _networkService.call("${UrlConfig.updateGroup}/$groupId", RequestMethod.put, data: payload.copyWith(image: imageUrl).toJson());
       return TalkamGroup.fromJson(response.data['data']);
@@ -69,7 +69,7 @@ class GroupsRepositoryImpl extends GroupsRepository {
   @override
   Future<TalkamGroup> createGroup(CreateGroupPayload payload) async {
     try {
-      var imageUrl = await FirebaseStorageService().uploadImage(FirebaseStoragePaths.groupImage, File(payload.image));
+      var imageUrl = await FirebaseStorageService().uploadFile(FirebaseStoragePaths.groupImage, File(payload.image));
       final response = await _networkService.call(UrlConfig.createGroup, RequestMethod.post, data: payload.copyWith(image: imageUrl).toJson());
       return TalkamGroup.fromJson(response.data['data']);
     } catch (e) {
@@ -104,6 +104,7 @@ class GroupsRepositoryImpl extends GroupsRepository {
       final response = await _networkService.call(UrlConfig.guideline, RequestMethod.get, queryParams: {
         "group_id": groupId,
       });
+
       return response.data;
     } catch (e) {
       rethrow;
@@ -117,6 +118,16 @@ class GroupsRepositoryImpl extends GroupsRepository {
         "${UrlConfig.guideline}/$guidelineId",
         RequestMethod.delete,
       );
+      return response.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future reportGroup({required String groupId, required String reason}) async {
+    try {
+      final response = await _networkService.call(UrlConfig.reportGroup, RequestMethod.post, data: {"group_id": groupId, "reason": reason});
       return response.data;
     } catch (e) {
       rethrow;

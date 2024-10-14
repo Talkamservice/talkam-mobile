@@ -72,4 +72,14 @@ class GroupsState with _$GroupsState {
   const factory GroupsState.deleteGroupRuleFailureState(String error) = _DeleteGroupRuleFailure;
 
 
+  //  Delete Rules States
+  const factory GroupsState.reportGroupLoading() = _ReportGroupLoading;
+  const factory GroupsState.reportGroupSuccess(dynamic response) = _ReportGroupSuccess;
+  const factory GroupsState.reportGroupFailureState(String error) = _ReportGroupFailure;
+
+  const factory GroupsState.refreshGroups() = _RefreshGroupsState;
+
+
+
+
 }

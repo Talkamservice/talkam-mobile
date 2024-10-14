@@ -43,6 +43,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         token: response?.accessToken,
         provider: 'google',
       ));
+
       AuthSuccessUsecase().execute(res);
       emit(OauthSuccessState(res));
     } catch (e) {
@@ -66,6 +67,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         token: response?.identityToken,
         provider: 'apple',
       ));
+
       AuthSuccessUsecase().execute(res);
 
       emit(OauthSuccessState(res));

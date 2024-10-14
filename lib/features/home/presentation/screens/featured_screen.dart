@@ -6,8 +6,10 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/post/data/models/post_filter_model.dart';
+import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
 import 'package:talkam/features/post/presentation/bloc/featured_posts/featured_post_cubit.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item.dart';
+import 'package:talkam/features/post/presentation/widgets/post_loading_shimmer.dart';
 
 class FeaturedScreen extends StatefulWidget {
   const FeaturedScreen({super.key});
@@ -16,7 +18,7 @@ class FeaturedScreen extends StatefulWidget {
   State<FeaturedScreen> createState() => _FeaturedScreenState();
 }
 
-class _FeaturedScreenState extends State<FeaturedScreen> with AutomaticKeepAliveClientMixin {
+class _FeaturedScreenState extends State<FeaturedScreen> with AutomaticKeepAliveClientMixin,RefreshPostsMixin {
   @override
   void initState() {
     injector.get<FeaturedPostCubit>().getFeaturedPosts(PostFilterModel.featuredPost());
@@ -38,7 +40,7 @@ class _FeaturedScreenState extends State<FeaturedScreen> with AutomaticKeepAlive
               return state.maybeWhen(
                 orElse: () => 0.verticalSpace,
                 getFeaturedPostsLoading: () => Center(
-                  child: CustomDialogs.getLoading(size: 50),
+                  child: PostLoadingShimmer(),
                 ),
                 getFeaturedPostsFailed: (error) => AppErrorWidget(
                   message: error,
@@ -55,7 +57,8 @@ class _FeaturedScreenState extends State<FeaturedScreen> with AutomaticKeepAlive
 
                   return RefreshIndicator(
                     onRefresh: () async {
-                      injector.get<FeaturedPostCubit>().getFeaturedPosts(PostFilterModel.featuredPost());
+                      refreshPost(reload: true);
+                      // injector.get<FeaturedPostCubit>().getFeaturedPosts(PostFilterModel.featuredPost());
                     },
                     child: ListView.builder(
                       addAutomaticKeepAlives: true,
@@ -71,7 +74,7 @@ class _FeaturedScreenState extends State<FeaturedScreen> with AutomaticKeepAlive
                         }
 
                         return Padding(
-                          padding: const EdgeInsets.only(bottom: 4.0),
+                          padding: const EdgeInsets.only(bottom: 8.0),
                           child: PostItem(
                             post: respone.data.data[index],
                           ),

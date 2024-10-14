@@ -62,12 +62,14 @@ class _SplashScreenState extends State<SplashScreen>
     return Scaffold(
       key: scaffoldKey,
       body: Center(
-        child: ImageWidget(
-          // size: 100,
-          width: 100,
-          height: 100,
-          fit: BoxFit.cover,
-          imageUrl: Assets.images.png.appIcon.path,
+        child: IgnorePointer(
+          child: ImageWidget(
+            // size: 100,
+            width: 100,
+            height: 100,
+            fit: BoxFit.cover,
+            imageUrl: Assets.images.png.appIcon.path,
+          ),
         ),
       ),
     );
@@ -80,8 +82,16 @@ class _SplashScreenState extends State<SplashScreen>
       gotoNextScreen(context, injector.get<ProfileBloc>().appUser!);
     } else {
 
+      if(SessionManager().hasOnboarded){
 
-      context.goNamed(PageUrl.onboardingIntro);
+
+        context.goNamed(PageUrl.homeScreen);
+
+      }else{
+        context.goNamed(PageUrl.onboardingIntro);
+
+      }
+
 
 
     }

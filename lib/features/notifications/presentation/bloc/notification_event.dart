@@ -5,13 +5,30 @@ abstract class NotificationsEvent extends Equatable {
 }
 
 class GetNotificationsEvent extends NotificationsEvent {
-   final String? tab;
+  final String? tab;
 
-   GetNotificationsEvent({this.tab});
+  const GetNotificationsEvent({this.tab});
 
   @override
   List<Object?> get props => [tab];
 }
+
+class GetAnnouncementsEvent extends NotificationsEvent {
+  const GetAnnouncementsEvent();
+
+  @override
+  List<Object?> get props => [];
+}
+
+class GetAnnouncementByIdEvent extends NotificationsEvent {
+  final String id;
+
+  const GetAnnouncementByIdEvent(this.id);
+
+  @override
+  List<Object?> get props => [];
+}
+
 class GetNotificationsStatsEvent extends NotificationsEvent {
   @override
   List<Object?> get props => throw UnimplementedError();
@@ -27,13 +44,10 @@ class ReadNotificationEvent extends NotificationsEvent {
 }
 
 class ReadAllNotificationEvent extends NotificationsEvent {
-
-
   const ReadAllNotificationEvent();
 
   @override
   List<Object?> get props => [];
-
 }
 
 class GetNotificationsDetailsEvent extends NotificationsEvent {
@@ -65,9 +79,7 @@ class LoadMoreNotificationsEvent extends NotificationsEvent {
   final List<TalkamNotification> previousNotifications;
   final String? tab;
 
-
-
-  const LoadMoreNotificationsEvent({required this.previousNotifications,this.tab});
+  const LoadMoreNotificationsEvent({required this.previousNotifications, this.tab});
 
   @override
   List<Object?> get props => [previousNotifications];

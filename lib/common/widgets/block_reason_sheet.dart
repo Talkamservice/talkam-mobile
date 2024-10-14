@@ -7,15 +7,16 @@ class BlockReasonSheet extends StatelessWidget {
   BlockReasonSheet({super.key});
 
   final List<String> accountBlocReasons = [
-    'Pornography',
-    'Policy violations',
-    'Payment issues',
-    'Gory or harmful content',
-    'Inactivity',
-    'Hatred and Bullying',
-    'Technical glitch',
-    'Child abuse',
-    'Gory or harmful content',
+    "Spam",
+    "Self-promotion",
+    "Misinformation",
+    "Hate speech",
+    "Violence or threats",
+    "Harassment",
+    "Rule violation",
+    "Nudity or sexually suggestive content",
+    "Copyright infringement",
+    "Other"
   ];
 
   @override
@@ -25,8 +26,7 @@ class BlockReasonSheet extends StatelessWidget {
       child: ListView.builder(
         itemCount: accountBlocReasons.length,
         shrinkWrap: true,
-        itemBuilder: (context, index) =>
-            _Reason(reason: accountBlocReasons[index]),
+        itemBuilder: (context, index) => _Reason(reason: accountBlocReasons[index]),
       ),
     );
   }

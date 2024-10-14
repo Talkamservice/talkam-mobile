@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/theme/pallets.dart';
@@ -61,25 +63,22 @@ class _PostReactionButtonState extends State<PostReactionButton> {
       builder: (context, state) {
         return InkWell(
           onTap: () {
-            // changeIsActive();
+            GuestUserHelper.handleGuestUserAction(
+              action: () {
+                if (widget.reactionType == ReactionType.like) {
+                  handleLikeClicked();
+                } else {
+                  handleDislikeClicked();
+                }
 
-            GuestUserHelper.handleGuestUserAction(action: () {
-              if (widget.reactionType == ReactionType.like) {
-                handleLikeClicked();
-              } else {
-                handleDislikeClicked();
-              }
-
-              setState(() {});
-            },);
-
-
+                setState(() {});
+              },
+            );
           },
           child: switch (widget.reactionType) {
             ReactionType.like => ImageWidget(
                 imageUrl: Assets.images.svgs.thumbsUp,
-                color:
-                    widget.reaction?.isLike ?? false ? Pallets.primary : null,
+                color: widget.reaction?.isLike ?? false ? Pallets.primary : null,
               ),
             ReactionType.dislike => ImageWidget(
                 imageUrl: Assets.images.svgs.thumbsDownSvg_,
@@ -116,12 +115,9 @@ class _PostReactionButtonState extends State<PostReactionButton> {
     }
   }
 
-  String get nextAction =>
-      (widget.reaction?.isLike ?? false) ? "Dislike" : "Like";
+  String get nextAction => (widget.reaction?.isLike ?? false) ? "Dislike" : "Like";
 
-  PostReaction get nextReaction => (widget.reaction?.isLike ?? false)
-      ? PostReaction.dislike()
-      : PostReaction.like();
+  PostReaction get nextReaction => (widget.reaction?.isLike ?? false) ? PostReaction.dislike() : PostReaction.like();
 
   void setIsActive() {
     if (widget.reactionType == ReactionType.like) {

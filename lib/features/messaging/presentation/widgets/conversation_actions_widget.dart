@@ -76,14 +76,29 @@ class _ConversationActionsWidgetState extends State<ConversationActionsWidget> {
           if(widget.currentConversation?.userBlocked??false){
             return Column(children: [
               20.verticalSpace,
-
               TextView(
                 text: "@${widget.currentConversation?.otherUser.username} is Blocked",
                 fontWeight: FontWeight.w600,
                 fontSize: 18,
               ),
               10.verticalSpace,
-              const TextView(text: "Unblock them to  send them messages"),
+              const TextView(text: "Unblock them to send them messages"),
+              60.verticalSpace
+
+            ],);
+          }
+
+          if(widget.currentConversation!.userBanned){
+
+            return Column(children: [
+              20.verticalSpace,
+              TextView(
+                text: "@${widget.currentConversation?.otherUser.username} is Banned",
+                fontWeight: FontWeight.w600,
+                fontSize: 18,
+              ),
+              10.verticalSpace,
+              const TextView(text: "You can view their profile when their account is re-activated"),
               60.verticalSpace
 
             ],);

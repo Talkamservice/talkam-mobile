@@ -9,6 +9,7 @@ class UserProfileCommentsState with _$UserProfileCommentsState {
   const factory UserProfileCommentsState.loaded(List<TalkAmComment> comments) =
       _Loaded;
 
+
   const factory UserProfileCommentsState.loadingMore() =
       UserProfileCommentLoadingMoreTabState;
 

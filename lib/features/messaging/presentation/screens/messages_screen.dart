@@ -30,29 +30,6 @@ class MessagesScreen extends StatefulWidget {
 }
 
 class _MessagesScreenState extends State<MessagesScreen> {
-  final List<String> names = [
-    "MysticMaven",
-    "ShadowScribe",
-    "SolarFlare88",
-    "HorizonHunter",
-    "PhoenixFeather",
-    "TurboTitan",
-    "PixelPioneer",
-    "QuantumQuestor",
-    "ElectricEchoes",
-  ];
-
-  final List<String> messages = [
-    "I will! Thanks for the heads-up.",
-    "Not much.",
-    "Thinking about going hiking if the weather's nice.",
-    "True.",
-    "All I want is nothing more than to hear you.",
-    "Sounds perfect.",
-    "Thanks! Enjoy your relaxing weekend.",
-    "Just once. We barely made it out in time, but it was a blast.",
-    "I missed it. Heard it was a close one th....",
-  ];
 
   final _searchController = TextEditingController();
 

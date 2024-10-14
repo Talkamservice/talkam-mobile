@@ -145,6 +145,7 @@ dependencies:
   flutter_typeahead: ^5.2.0
   pusher_channels_flutter: ^2.2.1
   emoji_picker_flutter: ^2.1.1
+  carousel_slider: ^5.0.0
   # flutter_background: ^1.2.0
 #  audio_manager: ^0.8.2
 

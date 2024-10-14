@@ -14,7 +14,7 @@ abstract class GroupMembersRepository {
   Future<dynamic> acceptOrDeclineRequest(
       {required String memberId, required String action, required groupId});
 
-  Future<dynamic> cancelRequest({
+  Future<dynamic> cancelRequestOrDeleteMember({
     required String memberId,
   });
 
@@ -24,6 +24,8 @@ abstract class GroupMembersRepository {
 
   Future<dynamic> suspendOrCancelSuspension({
     required String memberId,
+    required  String reason,
+    required DateTime endDate
   });
 
   Future<GetPendingRequestsResponse> getPendingRequests(

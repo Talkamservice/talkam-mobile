@@ -80,7 +80,15 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
     if (index == widget.navigationShell.currentIndex) {
       refreshPost();
     }
-    widget.navigationShell.goBranch(index, initialLocation: index == widget.navigationShell.currentIndex);
+    if (index == 3) {
+      GuestUserHelper.handleGuestUserAction(
+        action: () {
+          widget.navigationShell.goBranch(index, initialLocation: index == widget.navigationShell.currentIndex);
+        },
+      );
+    } else {
+      widget.navigationShell.goBranch(index, initialLocation: index == widget.navigationShell.currentIndex);
+    }
     setState(() {});
   }
 
@@ -120,7 +128,7 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
           // child: ,
         ),
         bottomNavigationBar: WillPopScope(
-          onWillPop: ()async {
+          onWillPop: () async {
             CustomDialogs.showConfirmDialog(
               context,
               tittle: "Exit",

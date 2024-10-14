@@ -7,6 +7,7 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/dialog_texts.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/_utils.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
@@ -17,7 +18,7 @@ import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
 import 'package:talkam/features/post/presentation/bloc/create_post/create_post_cubit.dart';
 import 'package:talkam/features/post/presentation/widgets/create_poll_form.dart';
 import 'package:talkam/features/post/presentation/widgets/create_post_header.dart';
-import 'package:talkam/features/post/presentation/widgets/image_post_form.dart';
+import 'package:talkam/features/post/presentation/widgets/media_post_form.dart';
 import 'package:talkam/features/post/presentation/widgets/schedule_post_form.dart';
 import 'package:talkam/features/post/presentation/widgets/text_post_form.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
@@ -31,8 +32,7 @@ class CreatePostScreen extends StatefulWidget {
   State<CreatePostScreen> createState() => _CreatePostScreenState();
 }
 
-class _CreatePostScreenState extends State<CreatePostScreen>
-    with RefreshPostsMixin {
+class _CreatePostScreenState extends State<CreatePostScreen> with RefreshPostsMixin {
   PostType postType = PostType.text;
   bool schedulePost = false;
   bool isAnonymous = false;
@@ -101,19 +101,14 @@ class _CreatePostScreenState extends State<CreatePostScreen>
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
                       child: OutlinedFormField(
-                          placeHolder: postType == PostType.poll
-                              ? "Post tittle/ Question"
-                              : "Post title",
+                          placeHolder: postType == PostType.poll ? "Post title / Question" : "Post title",
                           fillColor: Pallets.borderGrey.withOpacity(0.1),
                           textCapitalization: TextCapitalization.sentences,
-
                           radius: 4,
                           filled: true,
                           maxLength: 280,
                           controller: tittleController,
-                          validator:
-                              RequiredValidator(errorText: "Field is required")
-                                  .call,
+                          validator: RequiredValidator(errorText: "Field is required").call,
                           onChange: (d) {
                             setState(() {});
                           },
@@ -121,12 +116,11 @@ class _CreatePostScreenState extends State<CreatePostScreen>
                           hint: "A sharp title for your post works best."),
                     ),
                     16.verticalSpace,
-
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
                       child: switch (postType) {
                         PostType.text => const TextPostForm(),
-                        PostType.file => const ImagePostForm(),
+                        PostType.file => const MediaPostForm(),
                         PostType.poll => const CreatePollForm(),
                       },
                     ),
@@ -178,9 +172,8 @@ class _CreatePostScreenState extends State<CreatePostScreen>
                   groupId: selectedGroup?.id!,
                   isAnonymous: isAnonymous.toInt,
                   title: tittleController.text,
-                  type: postType.name.capitalizeFirst));
-              logger.w(
-                  context.read<CreatePostCubit>().createPostPayload.toJson());
+                  type: postType.name.capitalizeFirst == "File" ? null : postType.name.capitalizeFirst));
+              logger.w(context.read<CreatePostCubit>().createPostPayload.toJson());
               context.read<CreatePostCubit>().createPost();
             }
           }
@@ -193,8 +186,8 @@ class _CreatePostScreenState extends State<CreatePostScreen>
       },
       createPostSuccess: (response) {
         refreshPost();
-        context.pop();
-        context.pop();
+        context.goNamed(PageUrl.homeScreen);
+
         CustomDialogs.success("Post created");
       },
     );
@@ -215,21 +208,18 @@ class CreatePostAppBar extends StatelessWidget implements PreferredSizeWidget {
         fontWeight: FontWeight.w600,
       ),
       actions: [
-        TextButton(
-            onPressed: () {},
-            child: const TextView(
-              text: "Drafts",
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-            )),
+        // TextButton(
+        //     onPressed: () {},
+        //     child: const TextView(
+        //       text: "Drafts",
+        //       fontSize: 16,
+        //       fontWeight: FontWeight.w700,
+        //     )),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: TextButton(
               style: TextButton.styleFrom(
-                  padding: EdgeInsets.zero,
-                  shape: const StadiumBorder(),
-                  backgroundColor: context.colorScheme.primary,
-                  foregroundColor: Pallets.white),
+                  padding: EdgeInsets.zero, shape: const StadiumBorder(), backgroundColor: context.colorScheme.primary, foregroundColor: Pallets.white),
               onPressed: () async {
                 context.read<CreatePostCubit>().validateForms();
               },

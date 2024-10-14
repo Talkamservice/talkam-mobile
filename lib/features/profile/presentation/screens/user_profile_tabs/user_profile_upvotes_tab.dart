@@ -7,6 +7,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item.dart';
 import 'package:talkam/features/profile/presentation/bloc/user_profile_upvotes_cubit/user_profile_upvotes_cubit.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
+import 'package:talkam/features/profile/presentation/widgets/refresh_post_listener.dart';
 
 class UserProfileUpvotesTab extends StatefulWidget {
   const UserProfileUpvotesTab({super.key, required this.userId});
@@ -39,68 +40,75 @@ class _UserProfileUpvotesTabState extends State<UserProfileUpvotesTab>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return BlocConsumer<UserProfileUpvotesCubit, UserProfileUpvotesState>(
-      bloc: _cubit,
-      listener: (context, state) {
-        state.maybeWhen(
-          loaded: (List<TalkamPost> posts) {
-            _posts = posts;
-            setState(() {});
-          },
-          orElse: () {},
-        );
-      },
-      builder: (context, state) {
-        return state.maybeWhen(
-          loading: () => Center(
-            child: CustomDialogs.getLoading(size: 50),
-          ),
-          error: () => const SizedBox.shrink(),
-          orElse: () {
-            if(_posts.isEmpty){
+    return RefreshPostListener(
+      onRefresh: () {
+        _cubit.fetchUserPosts(widget.userId,reload: false);
 
+
+      },
+      child: BlocConsumer<UserProfileUpvotesCubit, UserProfileUpvotesState>(
+        bloc: _cubit,
+        listener: (context, state) {
+          state.maybeWhen(
+            loaded: (List<TalkamPost> posts) {
+              _posts = posts;
+              setState(() {});
+            },
+            orElse: () {},
+          );
+        },
+        builder: (context, state) {
+          return state.maybeWhen(
+            loading: () => Center(
+              child: CustomDialogs.getLoading(size: 50),
+            ),
+            error: () => const SizedBox.shrink(),
+            orElse: () {
+              if(_posts.isEmpty){
+
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    _cubit.fetchUserPosts(widget.userId);
+                  },
+                  child: ListView(
+                    children: [
+                      60.verticalSpace,
+                      const EmptyState(
+                        title: 'No upvote yet',
+                        subtitle: "Upvotes  will appear here ",
+
+                      ),
+                    ],
+                  ),
+                );
+
+
+              }
               return RefreshIndicator(
                 onRefresh: () async {
                   _cubit.fetchUserPosts(widget.userId);
                 },
                 child: ListView(
+                  controller: _scrollController,
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  // padding: EdgeInsets.only(top: 2),
                   children: [
-                    60.verticalSpace,
-                    const EmptyState(
-                      title: 'No upvote yet',
-                      subtitle: "Upvotes  will appear here ",
-
-                    ),
+                    for (int i = 0; i < _posts.length; i++) ...[
+                      PostItem(post: _posts[i]),
+                      4.verticalSpace,
+                    ],
+                    if (state is UserProfileUpvotesTabLoadingMoreState)
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 16.h),
+                        child: Center(child: CustomDialogs.getLoading(size: 50)),
+                      )
                   ],
                 ),
               );
-
-
-            }
-            return RefreshIndicator(
-              onRefresh: () async {
-                _cubit.fetchUserPosts(widget.userId);
-              },
-              child: ListView(
-                controller: _scrollController,
-                physics: const AlwaysScrollableScrollPhysics(),
-                // padding: EdgeInsets.only(top: 2),
-                children: [
-                  for (int i = 0; i < _posts.length; i++) ...[
-                    PostItem(post: _posts[i]),
-                    4.verticalSpace,
-                  ],
-                  if (state is UserProfileUpvotesTabLoadingMoreState)
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 16.h),
-                      child: Center(child: CustomDialogs.getLoading(size: 50)),
-                    )
-                ],
-              ),
-            );
-          },
-        );
-      },
+            },
+          );
+        },
+      ),
     );
   }
 

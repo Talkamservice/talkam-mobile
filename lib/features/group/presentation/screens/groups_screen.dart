@@ -11,13 +11,16 @@ import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
 import 'package:talkam/features/group/presentation/tabs/group_explore_tab.dart';
 import 'package:talkam/features/group/presentation/tabs/group_recent_tab.dart';
+import 'package:talkam/features/group/presentation/tabs/my_groups_tab.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
 import 'package:talkam/features/home/presentation/screens/home_screen.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 enum _GroupsTabOptions {
   recent,
-  explore;
+  explore,
+  myGroups;
+
 
   String get title {
     switch (this) {
@@ -26,6 +29,8 @@ enum _GroupsTabOptions {
 
       case explore:
         return "Explore";
+        case myGroups:
+        return "My Groups";
 
       default:
         return "";
@@ -46,13 +51,14 @@ class _GroupsScreenState extends State<GroupsScreen>  with SingleTickerProviderS
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
     super.initState();
   }
 
   final tabItems = [
     TabItemModel(imagePath: Assets.images.svgs.icfeatured, tittle: "Recent"),
     TabItemModel(imagePath: Assets.images.svgs.icTrending, tittle: "Explore"),
+    TabItemModel(imagePath: Assets.images.svgs.icTrending, tittle: "My Groups"),
   ];
   int selecteIndex = 0;
   final PageController _pageController = PageController();
@@ -130,9 +136,14 @@ class _GroupsScreenState extends State<GroupsScreen>  with SingleTickerProviderS
                       _tabController.animateTo(index);
                       selecteIndex = index;
                       setState(() {});
+
                       // setState(() {});
                     },
-                    children: const [GroupRecentTab(), GroupExploreTab()],
+                    children: const [
+                      GroupRecentTab(),
+                      GroupExploreTab(),
+                      MyGroupsTab(),
+                    ],
                   );
                 },
               ),

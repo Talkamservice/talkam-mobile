@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:talkam/features/group/data/models/get_group_members_response.dart';
 import 'package:talkam/features/group/dormain/model/group_overview_data.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
@@ -19,7 +20,7 @@ class GetGroupsResponse {
   factory GetGroupsResponse.fromJson(Map<String, dynamic> json) {
     var groupList = json['data']["data"] as List?;
     List<TalkamGroup>? groups =
-        groupList?.map((i) => TalkamGroup.fromJson(i)).toList();
+    groupList?.map((i) => TalkamGroup.fromJson(i)).toList();
 
     return GetGroupsResponse(
       paginationMeta: json['data']['pagination_meta'] != null
@@ -125,10 +126,12 @@ class TalkamGroup extends Codec<TalkamGroup, String> {
   final String? image;
   bool? isFollowing;
   bool? hasRequested;
+  bool? isReported;
   bool? isSuspended;
+  int? pendingCount;
   final int? totalMembers;
   final PostCategory? category;
-   List<GroupGuideline>? guidelines;
+  List<GroupGuideline>? guidelines;
   final String? description;
   final GroupOwner? owner;
   final String? about;
@@ -144,6 +147,7 @@ class TalkamGroup extends Codec<TalkamGroup, String> {
     this.image,
     this.isFollowing,
     this.hasRequested,
+    this.isReported,
     this.isSuspended,
     this.totalMembers,
     this.category,
@@ -152,6 +156,7 @@ class TalkamGroup extends Codec<TalkamGroup, String> {
     this.owner,
     this.about,
     this.userRole,
+    this.pendingCount,
     this.createdAt,
     this.updatedAt,
   });
@@ -159,7 +164,7 @@ class TalkamGroup extends Codec<TalkamGroup, String> {
   factory TalkamGroup.fromJson(Map<String, dynamic> json) {
     var guidelinesList = json['guidelines'] as List?;
     List<GroupGuideline>? guidelines =
-        guidelinesList?.map((i) => GroupGuideline.fromJson(i)).toList();
+    guidelinesList?.map((i) => GroupGuideline.fromJson(i)).toList();
 
     return TalkamGroup(
       id: json['id'],
@@ -168,9 +173,11 @@ class TalkamGroup extends Codec<TalkamGroup, String> {
       userRole: json['user_role'],
       status: json['status'],
       groupAccess: json['group_access'],
+      pendingCount: json['pending_count'],
       image: json['image'],
       isFollowing: json['is_following'],
       isSuspended: json['is_suspended'],
+      isReported: json['is_reported'],
       hasRequested: json['has_requested'],
       totalMembers: json['total_members'],
       category: json['category'] != null
@@ -290,7 +297,7 @@ class TalkamGroup extends Codec<TalkamGroup, String> {
       about: about ?? "",
       // Use about if available, otherwise an empty string
       totalMembers:
-          totalMembers ?? 0, // Use totalMembers if available, otherwise 0
+      totalMembers ?? 0, // Use totalMembers if available, otherwise 0
     );
   }
 
@@ -330,6 +337,16 @@ class GroupOwner {
       username: json['username'],
       email: json['email'],
     );
+  }
+
+  GroupMemberDetails toGroupMemberDetail() {
+    return GroupMemberDetails(id: id!,
+        role: "Owner",
+        status: "Active",
+        isSuspended: false,
+        isBanned: false,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(), user: GroupUser(id: id,username: username,email: email,avatar: avatar,name: name));
   }
 }
 
