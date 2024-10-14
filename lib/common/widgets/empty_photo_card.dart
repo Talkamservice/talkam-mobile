@@ -13,10 +13,12 @@ class EmptyPhotoCard extends StatefulWidget {
     super.key,
     this.height,
     this.width,
+     this.icon,
   });
 
   final double? height;
   final double? width;
+  final Widget? icon;
 
   @override
   State<EmptyPhotoCard> createState() => _EmptyPhotoCardState();
@@ -43,7 +45,7 @@ class _EmptyPhotoCardState extends State<EmptyPhotoCard> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ImageWidget(imageUrl: Assets.images.svgs.imagePlus),
+           widget.icon??   ImageWidget(imageUrl: Assets.images.svgs.imagePlus),
               // 8.verticalSpace,
               // TextView(
               //   text: 'Upload Document',

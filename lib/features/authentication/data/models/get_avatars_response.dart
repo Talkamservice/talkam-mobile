@@ -56,11 +56,12 @@ class GetAvatarsResponse {
 class TalkamAvatar {
   int id;
   dynamic title;
-  String description;
-  String status;
+  dynamic description;
+  dynamic status;
   String image;
   DateTime createdAt;
   DateTime updatedAt;
+
 
   TalkamAvatar({
     required this.id,

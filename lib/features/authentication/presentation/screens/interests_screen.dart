@@ -37,6 +37,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
       bloc: postBloc,
       listener: (context, state) {},
       builder: (context, state) {
+
         return Scaffold(
           bottomNavigationBar: BlocListener<ProfileBloc, ProfileState>(
             bloc: profileBloc,

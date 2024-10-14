@@ -20,6 +20,7 @@ class AppInterceptor extends Interceptor {
     return super.onRequest(options, handler);
   }
 
+
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) async {
     if (response.statusCode! >= 200 && response.statusCode! < 400) {

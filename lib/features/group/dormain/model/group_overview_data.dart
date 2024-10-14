@@ -28,8 +28,8 @@ class GroupGuidlineTabData {
 }
 
 class GroupMembersTabData {
-  final List<TalkamGroupMemberInfo> admin;
-  final List<TalkamGroupMemberInfo> members;
+  final List<dynamic> admin;
+  final List<dynamic> members;
   final String groupId;
   final bool iPreview;
 

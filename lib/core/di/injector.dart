@@ -6,6 +6,7 @@ import 'package:talkam/core/di/repository.dart' as repositoryModule;
 import 'package:get_it/get_it.dart';
 
 GetIt injector = GetIt.instance;
+
 final logger = Logger(level: Level.debug);
 
 Future<void> init() async {
@@ -14,4 +15,5 @@ Future<void> init() async {
   repositoryModule.setup(injector);
   blocModule.setup(injector);
   serviceModule.setup(injector);
+
 }

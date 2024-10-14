@@ -9,6 +9,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
+import 'package:talkam/features/group/presentation/widgets/join_group_button.dart';
 import 'package:talkam/features/group/presentation/widgets/suggestion_shimmer.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 
@@ -43,7 +44,6 @@ class _SuggestedGroupsState extends State<SuggestedGroups> {
         builder: (context, state) {
           return state.maybeWhen(
             orElse: () {
-
               return 0.verticalSpace;
               // return AppPromptWidget(
               //   onTap: () {
@@ -91,7 +91,8 @@ class _SuggestedGroupsState extends State<SuggestedGroups> {
                             return _SuggestedTile(
                               onTap: () {
                                 context.pushNamed(PageUrl.groupsInfoScreen,
-                                    extra: response.groups![index].id.toString());
+                                    extra:
+                                        response.groups![index].id.toString());
                               },
                               group: response.groups![index],
                             );
@@ -150,7 +151,7 @@ class _SuggestedTile extends StatelessWidget {
       child: Container(
         width: 268.w,
         height: 100.h,
-        padding: EdgeInsets.symmetric(horizontal: 14.w),
+        padding: const EdgeInsets.symmetric(horizontal: 10),
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12.0),
             border: Border.all(color: Pallets.borderGrey, width: 1.5)),
@@ -159,7 +160,7 @@ class _SuggestedTile extends StatelessWidget {
             ImageWidget(
               imageUrl: group.image.toString(),
               width: 93.w,
-              height: 70.h,
+              height: 80.h,
               borderRadius: BorderRadius.circular(8.0),
             ),
             12.horizontalSpace,
@@ -184,15 +185,15 @@ class _SuggestedTile extends StatelessWidget {
                   ),
                   2.verticalSpace,
                   Container(
-                    width: 70,
-                    height: 22,
+                    width: 65,
+                    height: 25,
                     decoration: BoxDecoration(
                       color: Pallets.tabBarBlue,
                       borderRadius: BorderRadius.circular(22.0),
                     ),
                     child: const Center(
                       child: TextView(
-                        text: "Join",
+                        text: "View",
                         fontWeight: FontWeight.w700,
                         color: Pallets.white,
                       ),

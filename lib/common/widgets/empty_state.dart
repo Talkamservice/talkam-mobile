@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/gen/assets.gen.dart';
 
 import 'image_widget.dart';
-
 
 class EmptyState extends StatelessWidget {
   const EmptyState({
     super.key,
     this.title,
     this.subtitle,
-    required this.imageUrl,
+    this.imageUrl,
     this.canTryAgain = false,
     this.retryText,
     this.onTap,
@@ -19,7 +19,7 @@ class EmptyState extends StatelessWidget {
 
   final String? title;
   final String? subtitle;
-  final String imageUrl;
+  final String? imageUrl;
   final String? retryText;
   final bool? canTryAgain;
   final VoidCallback? onTap;
@@ -32,17 +32,22 @@ class EmptyState extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           24.verticalSpace,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ImageWidget(imageUrl: imageUrl),
-            ],
-          ),
-          24.verticalSpace,
+          // SizedBox(
+          //   height: 200,
+          //   width: 100,
+          //
+          //   child: ImageWidget(
+          //
+          //
+          //
+          //       fit: BoxFit.cover,
+          //       imageUrl: imageUrl?? Assets.images.svgs.emptyCuate),
+          // ),
+          // 24.verticalSpace,
           TextView(
             text: title ?? 'No activity to show !',
             fontWeight: FontWeight.w700,
-            fontSize: 20,
+            fontSize: 18,
           ),
           11.verticalSpace,
           if (subtitle?.isNotEmpty ?? false)
@@ -50,7 +55,6 @@ class EmptyState extends StatelessWidget {
               text: subtitle ??
                   'You don’t have any transactions done. Once you make any transactions it will show here.',
               fontWeight: FontWeight.w400,
-              fontSize: 12,
               align: TextAlign.center,
             ),
           if (canTryAgain!)

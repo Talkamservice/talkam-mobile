@@ -88,13 +88,14 @@ class TalkamUser {
   dynamic avatar;
   String name;
   String email;
-  String role;
+  dynamic role;
   dynamic age;
   dynamic googleId;
   dynamic facebookId;
   dynamic tiktokId;
   dynamic appleId;
   dynamic isBlocked;
+  dynamic iamBlocked;
   String username;
   String status;
   List<PostCategory> interests;
@@ -120,6 +121,7 @@ class TalkamUser {
     required this.tiktokId,
     required this.appleId,
     required this.isBlocked,
+    required this.iamBlocked,
   });
 
   TalkamUser copyWith({
@@ -134,6 +136,7 @@ class TalkamUser {
     dynamic tiktokId,
     dynamic appleId,
     dynamic isBlocked,
+    dynamic iamBlocked,
     String? username,
     String? status,
     List<PostCategory>? interests,
@@ -159,6 +162,7 @@ class TalkamUser {
         tiktokId: tiktokId ?? this.tiktokId,
         appleId: appleId ?? this.appleId,
         isBlocked: isBlocked ?? this.isBlocked,
+        iamBlocked: iamBlocked ?? this.iamBlocked,
       );
 
   factory TalkamUser.fromJson(Map<String, dynamic> json) => TalkamUser(
@@ -173,6 +177,7 @@ class TalkamUser {
         tiktokId: json["tiktok_id"],
         appleId: json["apple_id"],
         isBlocked: json["is_blocked"],
+        iamBlocked: json["i_am_blocked"],
         username: json["username"],
         status: json["status"],
         interests: List<PostCategory>.from(
@@ -192,6 +197,7 @@ class TalkamUser {
         "role": role,
         "age": age,
         "is_blocked": isBlocked,
+        "i_am_blocked": iamBlocked,
         "apple_id": appleId,
         "google_id": googleId,
         "facebook_id": facebookId,
@@ -224,6 +230,7 @@ class TalkamUser {
       tiktokId: null,
       appleId: null,
       isBlocked: null,
+      iamBlocked: null,
     );
   }
 }

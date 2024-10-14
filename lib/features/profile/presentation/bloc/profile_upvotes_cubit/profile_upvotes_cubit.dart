@@ -16,8 +16,11 @@ class ProfileUpvotesCubit extends Cubit<ProfileUpvotesState> {
   ProfileUpvotesCubit(this._profileRepository)
       : super(const ProfileUpvotesState.initial());
 
-  Future<void> fetchUserPosts() async {
-    emit(const ProfileUpvotesState.loading());
+  Future<void> fetchUserPosts({bool? reload= true}) async {
+    if(reload!){
+      emit(const ProfileUpvotesState.loading());
+
+    }
     try {
       final List<TalkamPost> userPosts =
           await _profileRepository.fetchUserUpvote(page: _currentPage);

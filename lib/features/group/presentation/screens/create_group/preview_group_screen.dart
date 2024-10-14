@@ -65,11 +65,9 @@ class _PreviewGroupScreenState extends State<PreviewGroupScreen> {
                         isEdit: widget.payload.isEdit,
                         onSubmitted: () {
                           if (widget.payload.isEdit) {
-                            createGroupBloc.updateGroup(widget.payload.groupId??'1',
-                                injector.get<CreateGroupCubit>().groupPayload);
+                            createGroupBloc.updateGroup(widget.payload.groupId ?? '1', injector.get<CreateGroupCubit>().groupPayload);
                           } else {
-                            createGroupBloc.createGroup(
-                                injector.get<CreateGroupCubit>().groupPayload);
+                            createGroupBloc.createGroup(injector.get<CreateGroupCubit>().groupPayload);
                           }
                         },
                       ),
@@ -91,18 +89,17 @@ class _PreviewGroupScreenState extends State<PreviewGroupScreen> {
               bloc: createGroupBloc,
               listener: (context, state) {
                 state.maybeWhen(
-
                   orElse: () => null,
                   createGroupLoading: () => CustomDialogs.showLoading(context),
                   createGroupSuccess: (response) {
+                    injector.get<GroupsCubit>().refreshGroups();
 
                     injector.get<GroupsCubit>().getGroups();
-                    context.pushNamed(PageUrl.createGroupSuccessScreen,extra: response).then(
+                    context.pushNamed(PageUrl.createGroupSuccessScreen, extra: response).then(
                       (value) {
-                        context.goNamed(PageUrl.groupsInfoScreen,extra: response.id);
-
-                      },);
-
+                        context.goNamed(PageUrl.groupsInfoScreen, extra: response.id);
+                      },
+                    );
                   },
                   createGroupFailure: (error) {
                     context.pop();
@@ -130,8 +127,7 @@ class _PreviewGroupScreenState extends State<PreviewGroupScreen> {
                             tabs: List.generate(
                               tabItems.length,
                               (index) => Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16.0),
+                                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                                 child: Tab(
                                   child: Row(
                                     children: [
@@ -139,9 +135,7 @@ class _PreviewGroupScreenState extends State<PreviewGroupScreen> {
                                         fontSize: 15,
                                         fontWeight: FontWeight.w600,
                                         text: tabItems[index].tittle,
-                                        color: selecteIndex == index
-                                            ? context.colorScheme.onSurface
-                                            : Pallets.grey60,
+                                        color: selecteIndex == index ? context.colorScheme.onSurface : Pallets.grey60,
                                         // fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
                                       ),
                                     ],
@@ -165,8 +159,7 @@ class _PreviewGroupScreenState extends State<PreviewGroupScreen> {
                             // setState(() {});
                           },
                           children: [
-                            PreviewGroupRulesTab(
-                                isPreview: true, data: widget.payload.payload),
+                            PreviewGroupRulesTab(isPreview: true, data: widget.payload.payload),
                             PreviewGroupMembersTab(
                               data: widget.payload.payload.toGroupMembersData(),
                             ),

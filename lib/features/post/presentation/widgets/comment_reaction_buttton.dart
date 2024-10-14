@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/presentation/bloc/comments/comments_bloc.dart';
 import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
@@ -63,45 +64,50 @@ class _CommentReactionButtonState extends State<CommentReactionButton> {
           onTap: () {
             // changeIsActive();
 
-            if (widget.reactionType == ReactionType.like) {
+            GuestUserHelper.handleGuestUserAction(action: () {
+              if (widget.reactionType == ReactionType.like) {
 
-              bloc.add(CommentsEvent.commentReaction(widget.id, "Like"));
-
-              if (widget.reaction?.isLike ?? false) {
-
-                widget.onLikeCountReduced();
-                widget.onReactionRemoved();
-
-              } else {
-                widget.onLikeAdded();
-              }
-            } else {
-
-              bloc.add(CommentsEvent.commentReaction(widget.id, "Dislike"));
-
-              if (widget.reaction?.isDisLike ?? false) {
-
+                bloc.add(CommentsEvent.commentReaction(widget.id, "Like"));
 
                 if (widget.reaction?.isLike ?? false) {
+
                   widget.onLikeCountReduced();
+                  widget.onReactionRemoved();
+
+                } else {
+                  widget.onLikeAdded();
                 }
-                widget.onReactionRemoved();
-
-
               } else {
 
-                if (widget.reaction?.isLike ?? false) {
-                  widget.onLikeCountReduced();
+                bloc.add(CommentsEvent.commentReaction(widget.id, "Dislike"));
+
+                if (widget.reaction?.isDisLike ?? false) {
+
+
+                  if (widget.reaction?.isLike ?? false) {
+                    widget.onLikeCountReduced();
+                  }
+                  widget.onReactionRemoved();
+
+
+                } else {
+
+                  if (widget.reaction?.isLike ?? false) {
+                    widget.onLikeCountReduced();
+                  }
+
+                  widget.onDisliked();
+
+
                 }
-
-                widget.onDisliked();
-
-
               }
-            }
 
-            setState(() {});
+              setState(() {});
+            },);
+
+
           },
+
           child: switch (widget.reactionType) {
             ReactionType.like => ImageWidget(
                 imageUrl: Assets.images.svgs.thumbsUp,

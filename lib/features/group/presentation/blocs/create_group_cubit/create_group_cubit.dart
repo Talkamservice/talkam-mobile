@@ -13,6 +13,7 @@ class CreateGroupCubit extends Cubit<CreateGroupState> {
   final GroupsRepository groupRepository;
   CreateGroupPayload groupPayload = CreateGroupPayload.empty();
 
+
   CreateGroupCubit(this.groupRepository)
       : super(const CreateGroupState.initial());
 

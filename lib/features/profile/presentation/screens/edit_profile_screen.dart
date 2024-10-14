@@ -12,6 +12,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/core/utils/validators.dart';
 import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
 import 'package:talkam/features/profile/data/models/update_profile_payload.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
@@ -100,6 +101,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>  with RefreshPost
                         controller: usernameController,
                         validator: MultiValidator([
                           RequiredValidator(errorText: "Field is required"),
+                          SpaceValidator(errorText: "Username must not contain space")
                         ]).call,
                       ),
                       38.verticalSpace,
@@ -130,13 +132,15 @@ class _EditProfileScreenState extends State<EditProfileScreen>  with RefreshPost
   }
 
   Future<void> selectImage(BuildContext context) async {
-    selectedImage = await CustomDialogs.showBottomSheet(
+    var image = await CustomDialogs.showBottomSheet(
         context,
         SelectAvatarSheet(
           onAvatarSelected: (p0) {},
           onBackgroundSelector: (p0) {},
         ));
-
+    if(image!= null){
+      selectedImage = image;
+    }
     setState(() {});
   }
 

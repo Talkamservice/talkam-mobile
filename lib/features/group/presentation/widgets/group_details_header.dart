@@ -49,9 +49,14 @@ class _GroupDetailsHeaderState extends State<GroupDetailsHeader> {
                     ],
                   )),
               const Spacer(),
+
+              if(widget.group.isAdmin)
               TextButton(
                   style: outlinedButtonStyle(),
                   onPressed: () {
+
+
+
 
                     context.pushNamed(PageUrl.createGroupScreen,
                         extra: widget.group);

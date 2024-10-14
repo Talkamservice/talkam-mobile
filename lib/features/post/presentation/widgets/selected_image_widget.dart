@@ -44,6 +44,9 @@ class _SelectedImageWidgetState extends State<SelectedImageWidget> {
               children: widget.images
                   .map(
                     (e) => ImageWidget(
+                      fit: BoxFit.cover,
+
+
                         imageType: ImageWidgetType.file, imageUrl: e.path),
                   )
                   .toList(),

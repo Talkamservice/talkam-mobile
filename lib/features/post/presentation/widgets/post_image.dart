@@ -20,7 +20,7 @@ class _PostImageState extends State<PostImage> {
     return Stack(
       children: [
         SizedBox(
-          height: 200,
+          height: 250,
           child: PageView.builder(
             controller: _pageController,
             itemCount: widget.images.length,
@@ -31,6 +31,7 @@ class _PostImageState extends State<PostImage> {
             },
             itemBuilder: (context, index) {
               return ImageWidget(
+                borderRadius: BorderRadius.circular(10),
                 canPreview: true,
                 imageUrl: widget.images[index],
                 fit: BoxFit.cover,
@@ -38,17 +39,18 @@ class _PostImageState extends State<PostImage> {
             },
           ),
         ),
-        Positioned(
-          bottom: 20,
-          right: 0,
-          left: 0,
-          child: Center(
-            child: Indicator(
-              seledtedIndex: _selectedIndex,
-              items_count: widget.images.length,
+        if (widget.images.length > 1)
+          Positioned(
+            bottom: 20,
+            right: 0,
+            left: 0,
+            child: Center(
+              child: Indicator(
+                seledtedIndex: _selectedIndex,
+                items_count: widget.images.length,
+              ),
             ),
           ),
-        ),
       ],
     );
   }

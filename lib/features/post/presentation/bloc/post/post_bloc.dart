@@ -20,59 +20,47 @@ part 'post_bloc.freezed.dart';
 
 class PostBloc extends Bloc<PostEvent, PostState> {
   final PostRepository _postRepository;
+
   List<TalkamGuidelineModel> talkamRules = [];
+  List<PostCategory> categories = [];
   List<PostCategory> subcategories = [];
 
   PostBloc(this._postRepository) : super(const PostState.initial()) {
+
+    
     on<PostEvent>((event, emit) async {
       await event.map(
-        getGuidelines: (e) async =>
-            await _mapGetGuideLinesEventToState(emit, e),
-        getCategories: (e) async =>
-            await _mapGetCategoriesEventToState(emit, e),
-        getSubCategories: (e) async =>
-            await _mapGetSubCategoriesEventToState(emit, e),
+        getGuidelines: (e) async => await _mapGetGuideLinesEventToState(emit, e),
+        getCategories: (e) async => await _mapGetCategoriesEventToState(emit, e),
+        getSubCategories: (e) async => await _mapGetSubCategoriesEventToState(emit, e),
         getPosts: (e) async => await _mapGetPostsEventToState(emit),
-        createPost: (e) async =>
-            await _mapCreatePostEventToState(e.postData, emit),
-        getPostDetails: (e) async =>
-            await _mapGetPostDetailsEventToState(e.postId, emit),
-        deletePost: (e) async =>
-            await _mapDeletePostEventToState(e.postId, emit),
-        postReaction: (e) async =>
-            await _mapPostReactionEventToState(e.postId, e.action, emit),
-        reportPost: (e) async =>
-            await _mapReportPostEventToState(e.postId, e.reason, emit),
-        reportComment: (e) async => await _mapReportCommentEventToState(
-            e.postId, e.commentId, e.reason, emit),
+        createPost: (e) async => await _mapCreatePostEventToState(e.postData, emit),
+        getPostDetails: (e) async => await _mapGetPostDetailsEventToState(e.postId, e.refresh, emit),
+        deletePost: (e) async => await _mapDeletePostEventToState(e.postId, emit),
+        postReaction: (e) async => await _mapPostReactionEventToState(e.postId, e.action, emit),
+        reportPost: (e) async => await _mapReportPostEventToState(e.postId, e.reason, emit),
+        reportComment: (e) async => await _mapReportCommentEventToState(e.postId, e.commentId, e.reason, emit),
         getPolls: (e) async => await _mapGetPollsEventToState(emit),
-        getComments: (e) async =>
-            await _mapGetCommentsEventToState(e.postId, emit),
-        getAComment: (e) async =>
-            await _mapGetACommentEventToState(e.commentId, emit),
-        saveAComment: (e) async =>
-            await _mapSaveACommentEventToState(e.payload, emit),
-        deleteComment: (e) async =>
-            await _mapDeleteCommentEventToState(e.commentId, emit),
-        commentReaction: (e) async =>
-            await _mapCommentReactionEventToState(e.commentId, e.action, emit),
+        getComments: (e) async => await _mapGetCommentsEventToState(e.postId, emit),
+        getAComment: (e) async => await _mapGetACommentEventToState(e.commentId, emit),
+        saveAComment: (e) async => await _mapSaveACommentEventToState(e.payload, emit),
+        deleteComment: (e) async => await _mapDeleteCommentEventToState(e.commentId, emit),
+        commentReaction: (e) async => await _mapCommentReactionEventToState(e.commentId, e.action, emit),
       );
     });
   }
 
-  Future<void> _mapGetCategoriesEventToState(
-      Emitter<PostState> emit, _GetCategoriesEvent e) async {
+  Future<void> _mapGetCategoriesEventToState(Emitter<PostState> emit, _GetCategoriesEvent e) async {
+
+    if (e.refresh ?? true) {
+      emit(const PostState.getCategoriesLoading());
+    }
 
 
-    emit(const PostState.getCategoriesLoading());
     try {
+      final response = await _postRepository.getCategories(categoryId: e.categoryId,mergeGroups: e.mergeGroups);
 
-
-
-      final response =
-          await _postRepository.getCategories(categoryId: e.categoryId);
-
-      subcategories = response.data;
+      categories = response.data;
 
       emit(PostState.getCategoriesSuccess(response));
     } catch (error) {
@@ -80,12 +68,10 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     }
   }
 
-  Future<void> _mapGetSubCategoriesEventToState(
-      Emitter<PostState> emit, _GetSubCategoriesEvent e) async {
+  Future<void> _mapGetSubCategoriesEventToState(Emitter<PostState> emit, _GetSubCategoriesEvent e) async {
     emit(const PostState.getCategoriesLoading());
     try {
       final response = await _postRepository.getSubCategories();
-
       emit(PostState.getCategoriesSuccess(response));
     } catch (error) {
       emit(PostState.getCategoriesFailure(error.toString()));
@@ -102,8 +88,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     }
   }
 
-  Future<void> _mapCreatePostEventToState(
-      CreatePostPayload postData, Emitter<PostState> emit) async {
+  Future<void> _mapCreatePostEventToState(CreatePostPayload postData, Emitter<PostState> emit) async {
     emit(const PostState.createPostLoading());
     try {
       final response = await _postRepository.createPost(postData);
@@ -113,9 +98,10 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     }
   }
 
-  Future<void> _mapGetPostDetailsEventToState(
-      String postId, Emitter<PostState> emit) async {
-    emit(const PostState.getPostDetailsLoading());
+  Future<void> _mapGetPostDetailsEventToState(String postId, bool? refresh, Emitter<PostState> emit) async {
+    if (refresh ?? true) {
+      emit(const PostState.getPostDetailsLoading());
+    }
     try {
       final response = await _postRepository.getPostDetails(postId);
 
@@ -127,8 +113,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     }
   }
 
-  Future<void> _mapDeletePostEventToState(
-      String postId, Emitter<PostState> emit) async {
+  Future<void> _mapDeletePostEventToState(String postId, Emitter<PostState> emit) async {
     emit(const PostState.deletePostLoading());
     try {
       await _postRepository.deletePost(postId);
@@ -138,8 +123,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     }
   }
 
-  Future<void> _mapPostReactionEventToState(
-      String postId, String action, Emitter<PostState> emit) async {
+  Future<void> _mapPostReactionEventToState(String postId, String action, Emitter<PostState> emit) async {
     emit(const PostState.postReactionLoading());
     try {
       await _postRepository.postReaction(postId, action);
@@ -149,8 +133,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     }
   }
 
-  Future<void> _mapReportPostEventToState(
-      String postId, String reason, Emitter<PostState> emit) async {
+  Future<void> _mapReportPostEventToState(String postId, String reason, Emitter<PostState> emit) async {
     emit(const PostState.reportPostLoading());
     try {
       await _postRepository.reportPost(postId, reason);
@@ -160,8 +143,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     }
   }
 
-  Future<void> _mapReportCommentEventToState(String postId, String commentId,
-      String reason, Emitter<PostState> emit) async {
+  Future<void> _mapReportCommentEventToState(String postId, String commentId, String reason, Emitter<PostState> emit) async {
     emit(const PostState.reportCommentLoading());
     try {
       await _postRepository.reportComment(postId, commentId, reason);
@@ -181,8 +163,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     }
   }
 
-  Future<void> _mapGetCommentsEventToState(
-      String postId, Emitter<PostState> emit) async {
+  Future<void> _mapGetCommentsEventToState(String postId, Emitter<PostState> emit) async {
     emit(const PostState.getCommentsLoading());
     try {
       final response = await _postRepository.getComments(postId);
@@ -192,8 +173,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     }
   }
 
-  Future<void> _mapGetACommentEventToState(
-      String commentId, Emitter<PostState> emit) async {
+  Future<void> _mapGetACommentEventToState(String commentId, Emitter<PostState> emit) async {
     emit(const PostState.getACommentLoading());
     try {
       final response = await _postRepository.getAComment(commentId);
@@ -203,8 +183,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     }
   }
 
-  Future<void> _mapSaveACommentEventToState(
-      SaveCommentPayload payload, Emitter<PostState> emit) async {
+  Future<void> _mapSaveACommentEventToState(SaveCommentPayload payload, Emitter<PostState> emit) async {
     emit(const PostState.saveACommentLoading());
     try {
       await _postRepository.saveAComment(payload);
@@ -214,8 +193,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     }
   }
 
-  Future<void> _mapDeleteCommentEventToState(
-      String commentId, Emitter<PostState> emit) async {
+  Future<void> _mapDeleteCommentEventToState(String commentId, Emitter<PostState> emit) async {
     emit(const PostState.deleteCommentLoading());
     try {
       await _postRepository.deleteComment(commentId);
@@ -225,8 +203,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     }
   }
 
-  Future<void> _mapCommentReactionEventToState(
-      String commentId, String action, Emitter<PostState> emit) async {
+  Future<void> _mapCommentReactionEventToState(String commentId, String action, Emitter<PostState> emit) async {
     emit(const PostState.commentReactionLoading());
     try {
       await _postRepository.commentReaction(commentId, action);
@@ -236,8 +213,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
     }
   }
 
-  _mapGetGuideLinesEventToState(
-      Emitter<PostState> emit, _GetGuidelines e) async {
+  _mapGetGuideLinesEventToState(Emitter<PostState> emit, _GetGuidelines e) async {
     if (talkamRules.isEmpty) {
       emit(const PostState.getGuidelinesLoading());
     }

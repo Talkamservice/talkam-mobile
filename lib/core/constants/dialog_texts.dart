@@ -40,5 +40,7 @@ const String publicGroupDiscoverText =
     "The group is publicly open to everyone. Members can join without approval";
 const String privateGroupDiscoverText =
     "The group is not publicly open to everyone. Members cannot join without approval";
+const String privateGroupViewText =
+    "This is a private group. Only members can view this group.";
 const String groupPostInfo =
     "Only members who have joined can post to this group.";

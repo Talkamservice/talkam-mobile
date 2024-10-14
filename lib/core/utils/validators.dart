@@ -21,3 +21,23 @@ class ConfirmPasswordValidator extends TextFieldValidator {
     log((comparedPassword.toString() == value.toString()).toString());
     return comparedPassword.toString() == value.toString();
   }}
+
+
+
+class SpaceValidator extends TextFieldValidator {
+  SpaceValidator(
+      {required String errorText,})
+      : super(errorText);
+
+
+
+
+  // @override
+  // bool get ignoreEmptyValues => false;
+
+  @override
+  bool isValid(String? value) {
+
+
+    return !(value?.contains(" ")??false);
+  }}

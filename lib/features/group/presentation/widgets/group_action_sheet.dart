@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:talkam/common/widgets/block_reason_sheet.dart';
+import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
+import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
+import 'package:talkam/features/post/presentation/widgets/confirm_report_dialog.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
@@ -20,6 +27,8 @@ class GroupActionSheet extends StatefulWidget {
 }
 
 class _GroupActionSheetState extends State<GroupActionSheet> {
+  final bloc = GroupsCubit(injector.get());
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,26 +39,61 @@ class _GroupActionSheetState extends State<GroupActionSheet> {
             topLeft: Radius.circular(8.r),
             topRight: Radius.circular(8.r),
           )),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _ActionItem(
-            imagePath: Assets.images.svgs.flag02,
-            tittle: "Report Group",
-            onTap: () {},
-          ),
-        ],
+      child: BlocConsumer<GroupsCubit, GroupsState>(
+        bloc: bloc,
+        listener: (context, state) {
+
+          state.maybeWhen(
+            orElse: () => null,
+            reportGroupFailureState: (error) {
+              context.pop();
+              CustomDialogs.error(error);
+            },
+            reportGroupLoading: () {
+              CustomDialogs.showLoading(context);
+            },
+            reportGroupSuccess: (response) {
+              injector.get<GroupsCubit>().refreshGroups();
+              context.pop();
+              context.pop();
+              context.pop();
+              CustomDialogs.success("Group Reported");
+            },
+          );
+        },
+        builder: (context, state) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if(!(widget.group.isReported??false))
+              _ActionItem(
+                imagePath: Assets.images.svgs.flag02,
+                tittle: "Report Group",
+                onTap: () async {
+                  var reason = await CustomDialogs.showCustomDialog(BlockReasonSheet(), context);
+                  if (reason != null) {
+                    var report = await CustomDialogs.showCustomDialog(
+                        ConfirmReportDialog(
+                          reason: reason!,
+                        ),
+                        context);
+
+                    if (report) {
+                      bloc.reportGroup(groupId: widget.group.id.toString(), reason: reason);
+                    }
+                  }
+                },
+              ),
+            ],
+          );
+        },
       ),
     );
   }
 }
 
 class _ActionItem extends StatelessWidget {
-  const _ActionItem(
-      {super.key,
-      required this.imagePath,
-      required this.tittle,
-      required this.onTap});
+  const _ActionItem({super.key, required this.imagePath, required this.tittle, required this.onTap});
 
   final String imagePath;
   final String tittle;

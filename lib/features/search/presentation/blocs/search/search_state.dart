@@ -26,4 +26,9 @@ class SearchState with _$SearchState {
   const factory SearchState.fetchTrendingSearchesFailure(String error) = _FetchTrendingSearchesFailure;
   const factory SearchState.deleteSearchFailure(String error) = _DeleteSearchFailure;
   const factory SearchState.fetchSearchSuggestionsFailure(String error) = _FetchSearchSuggestionsFailure;
+
+  const factory SearchState.searchUserLoading() = _searchUserLoading;
+  const factory SearchState.searchUserSuccess({required List<SearchedUser> searchResults}) = _searchUserSuccess;
+  const factory SearchState.searchUserError({required String errorMessage}) = _searchUserError;
+
 }

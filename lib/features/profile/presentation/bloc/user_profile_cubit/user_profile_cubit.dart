@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
@@ -9,12 +11,13 @@ part 'user_profile_state.dart';
 part 'user_profile_cubit.freezed.dart';
 
 class UserProfileCubit extends Cubit<UserProfileState> {
-  UserProfileCubit(this._profileRepository)
-      : super(const UserProfileState.initial());
+  UserProfileCubit(this._profileRepository) : super(const UserProfileState.initial());
   final ProfileRepository _profileRepository;
 
-  Future<void> fetchUserProfile(String id) async {
-    emit(const UserProfileState.profileLoading());
+  Future<void> fetchUserProfile(String id, {bool? reload = true}) async {
+    if (reload!) {
+      emit(const UserProfileState.profileLoading());
+    }
 
     try {
       // final Map<String, dynamic> usersData = SessionManager.instance.usersData;
@@ -25,7 +28,7 @@ class UserProfileCubit extends Cubit<UserProfileState> {
       }
     } catch (exception, stackTrace) {
       logger.e(exception, stackTrace: stackTrace);
-      emit(const UserProfileState.getProfileError());
+      emit( UserProfileState.getProfileError(exception.toString()));
     }
   }
 }

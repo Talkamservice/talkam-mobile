@@ -34,7 +34,6 @@ class _SelectSubCategoryTabState extends State<SelectSubCategoryTab> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-
         OutlinedFormField(
           hint: "Search ",
           radius: 100.r,
@@ -67,12 +66,11 @@ class _SelectSubCategoryTabState extends State<SelectSubCategoryTab> {
                     postBloc.add(const PostEvent.getSubCategories());
                   },
                 ),
-                getCategoriesLoading: () =>
-                    CustomDialogs.getLoading(size: 50),
+                getCategoriesLoading: () => CustomDialogs.getLoading(size: 50),
                 getCategoriesSuccess: (response) {
                   if (filteredList.isEmpty) {
                     return const Center(
-                      child: TextView(text: "There are no categories yet"),
+                      child: TextView(text: "There are no sub categories yet"),
                     );
                   }
 
@@ -82,7 +80,8 @@ class _SelectSubCategoryTabState extends State<SelectSubCategoryTab> {
                     // physics: const BouncingScrollPhysics(),
                     itemBuilder: (context, index) => Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: CategoryItem(
+                      child: SubCategoryItem(
+                        showArrow: false,
                         postCategory: filteredList[index],
                       ),
                     ),
@@ -111,8 +110,12 @@ class _SelectSubCategoryTabState extends State<SelectSubCategoryTab> {
   }
 }
 
-class CategoryItem extends StatelessWidget {
-  const CategoryItem({super.key, required this.postCategory});
+class SubCategoryItem extends StatelessWidget {
+
+  const SubCategoryItem(
+      {super.key, required this.postCategory, this.showArrow = true});
+
+  final bool? showArrow;
 
   final PostCategory postCategory;
 
@@ -138,7 +141,9 @@ class CategoryItem extends StatelessWidget {
               ),
             ),
             8.horizontalSpace,
-            ImageWidget(imageUrl: Assets.images.svgs.chevronRight)
+
+            if (showArrow!)
+              ImageWidget(imageUrl: Assets.images.svgs.chevronRight)
           ],
         ),
       ),

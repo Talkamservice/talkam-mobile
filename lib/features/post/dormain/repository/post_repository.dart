@@ -10,7 +10,8 @@ import 'package:talkam/features/post/data/models/post_filter_model.dart';
 import 'package:talkam/features/post/data/models/save_comment_payload.dart';
 
 abstract class PostRepository {
-  Future<GetCategoriesResponse> getCategories({String? categoryId});
+
+  Future<GetCategoriesResponse> getCategories({String? categoryId,bool? mergeGroups});
 
   Future<GetPostsResponse> getPosts(PostFilterModel model);
 

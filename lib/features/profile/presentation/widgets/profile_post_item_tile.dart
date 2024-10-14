@@ -72,40 +72,44 @@ class ProfilePostItemTile extends StatelessWidget {
                 ),
               ),
               12.horizontalSpace,
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TextView(
-                        text: categoryName,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.w500,
-                        color: Pallets.boldBlackV2,
-                        textOverflow: TextOverflow.ellipsis,
-                        maxLines: 2,
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 2, left: 6.w),
-                        child: TextView(
-                          text: formattedPostTime.capitalizeFirst!,
-                          fontSize: 12.sp,
-                          fontWeight: FontWeight.w600,
-                          color: Pallets.primary400,
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: TextView(
+                            text: categoryName,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w500,
+                            color: Pallets.boldBlackV2,
+                            textOverflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  2.verticalSpace,
-                  TextView(
-                    text: "Posted by $username",
-                    fontSize: 12.sp,
-                    color: Pallets.grey500,
-                  ),
-                ],
+                        Padding(
+                          padding: EdgeInsets.only(top: 2, left: 6.w),
+                          child: TextView(
+                            text: formattedPostTime.capitalizeFirst!,
+                            fontSize: 12.sp,
+                            fontWeight: FontWeight.w600,
+                            color: Pallets.primary400,
+                          ),
+                        ),
+                      ],
+                    ),
+                    2.verticalSpace,
+                    TextView(
+                      text: "Posted by $username",
+                      fontSize: 12.sp,
+                      color: Pallets.grey500,
+                    ),
+                  ],
+                ),
               ),
-              const Spacer(),
+
               IconButton(
                 padding: EdgeInsets.zero,
                 icon: const Icon(Icons.more_vert_rounded,

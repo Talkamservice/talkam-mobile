@@ -29,6 +29,7 @@ class PageUrl {
 
   static const profileScreen = 'profileScreen';
   static const userProfileScreen = 'userProfileScreen';
+  static const userScheduledPosts = 'userScheduledPosts';
   static const editProfileScreen = 'editProfileScreen';
   static const settingsScreen = 'settingsScreen';
   static const categoriesScreen = 'categoriesScreen';
@@ -50,6 +51,12 @@ class PageUrl {
   static const createGroupRulesScreen = 'createGroupRulesScreen';
   static const previewGroupScreen = 'previewGroupScreen';
   static const createGroupSuccessScreen = 'createGroupSuccessScreen';
-
+  //Meassages
   static const chatScreen = 'chatScreen';
+  static const new_requestScreen = 'new_requestScreen';
+  static const new_messageScreen = 'new_messageScreen';
+  //Notifications
+  static const notificationScreen = 'notificationScreen';
+
+  static const pendingRequestsScreen = 'pendingRequestsScreen';
 }

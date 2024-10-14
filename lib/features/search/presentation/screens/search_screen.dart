@@ -13,6 +13,7 @@ import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
+import 'package:talkam/features/notifications/presentation/widgets/notification_icon.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/search/data/models/get_search_response.dart';
 import 'package:talkam/features/search/dormain/repository/search_repository_impl.dart';
@@ -36,12 +37,12 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   final TextEditingController controller = TextEditingController();
+  List recentSearches = [];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: context.theme.cardColor,
-
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () async {
@@ -60,15 +61,11 @@ class _SearchScreenState extends State<SearchScreen> {
                     labelText: "Search talKAM",
                     suggestionsCallback: (query) async {
                       logger.w(query);
-                      return (await injector
-                              .get<SearchRepository>()
-                              .fetchSearchSuggestions(query))
-                          .data;
+                      return (await injector.get<SearchRepository>().fetchSearchSuggestions(query)).data;
                     },
                     itemBuilder: (context, suggestion) {
                       return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16.0, vertical: 5),
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 5),
                         child: TextView(text: suggestion.word),
                       );
                     },
@@ -80,15 +77,10 @@ class _SearchScreenState extends State<SearchScreen> {
                     },
                     onSuggestionSelected: (suggestion) {
                       injector.get<SearchCubit>().fetchRecentSearches();
-                      context
-                          .pushNamed(PageUrl.searchResultScreen,
-                              extra: suggestion.word)
-                          .then(
+                      context.pushNamed(PageUrl.searchResultScreen, extra: suggestion.word).then(
                         (value) {
                           FocusScope.of(context).unfocus();
-                          injector
-                              .get<SearchCubit>()
-                              .fetchRecentSearches(reload: false);
+                          injector.get<SearchCubit>().fetchRecentSearches(reload: false);
                         },
                       );
                     },
@@ -126,8 +118,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   width: 1.sw,
                   height: 1.sh,
                   decoration: BoxDecoration(color: context.colorScheme.surface),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -155,9 +146,7 @@ class _SearchScreenState extends State<SearchScreen> {
                             },
                             fetchTrendingSearchesFailure: (error) {
                               return AppErrorWidget(
-                                onTap: () => injector
-                                    .get<SearchCubit>()
-                                    .fetchTrendingSearches(),
+                                onTap: () => injector.get<SearchCubit>().fetchTrendingSearches(),
                               );
                             },
                             fetchTrendingSearchesSuccess: (response) {
@@ -172,34 +161,21 @@ class _SearchScreenState extends State<SearchScreen> {
                                         response.data.length,
                                         (index) => InkWell(
                                           onTap: () {
-                                            context
-                                                .pushNamed(
-                                                    PageUrl.searchResultScreen,
-                                                    extra: response
-                                                        .data[index].word)
-                                                .then(
+                                            context.pushNamed(PageUrl.searchResultScreen, extra: response.data[index].word).then(
                                               (value) {
-                                                injector
-                                                    .get<SearchCubit>()
-                                                    .fetchRecentSearches(
-                                                        reload: false);
+                                                injector.get<SearchCubit>().fetchRecentSearches(reload: false);
                                               },
                                             );
                                           },
                                           child: Container(
-                                            padding: const EdgeInsets.symmetric(
-                                                horizontal: 10, vertical: 5),
+                                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                                             decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(
-                                                        100.r),
+                                                borderRadius: BorderRadius.circular(100.r),
                                                 border: Border.all(
                                                   width: 1,
                                                   color: Pallets.borderGrey,
                                                 )),
-                                            child: TextView(
-                                                text:
-                                                    response.data[index].word),
+                                            child: TextView(text: response.data[index].word),
                                           ),
                                         ),
                                       ),
@@ -208,9 +184,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                     const SizedBox(
                                       height: 200,
                                       child: Center(
-                                        child: TextView(
-                                            text:
-                                                "You have no recent searches"),
+                                        child: TextView(text: "You have no recent searches"),
                                       ),
                                     )
                                 ],
@@ -220,16 +194,40 @@ class _SearchScreenState extends State<SearchScreen> {
                         },
                       ),
                       41.verticalSpace,
-                      const TextView(
-                        text: "Recent searches",
-                        fontSize: 18,
-                        fontWeight: FontWeight.w700,
+                      Row(
+                        children: [
+                          const Expanded(
+                            child: TextView(
+                              text: "Recent searches",
+                              fontSize: 18,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
+                          TextButton(
+                              onPressed: () {
+                                recentSearches.clear();
+                                injector.get<SearchCubit>().clearSearchHistory();
+                                setState(() {});
+                              },
+                              child: const TextView(
+                                text: "Clear all",
+                                fontSize: 16,
+                              ))
+                        ],
                       ),
                       11.verticalSpace,
                       BlocConsumer<SearchCubit, SearchState>(
                         bloc: injector.get(),
                         buildWhen: _buildWhen,
-                        listener: (context, state) {},
+                        listener: (context, state) {
+                          state.maybeWhen(
+                            orElse: () => null,
+                            fetchRecentSearchesSuccess: (response) {
+                              recentSearches = response.data;
+                              setState(() {});
+                            },
+                          );
+                        },
                         builder: (context, state) {
                           return state.maybeWhen(
                             orElse: () => 0.verticalSpace,
@@ -243,37 +241,32 @@ class _SearchScreenState extends State<SearchScreen> {
                             },
                             fetchRecentSearchesFailure: (error) {
                               return AppErrorWidget(
-                                onTap: () => injector
-                                    .get<SearchCubit>()
-                                    .loadSearchScreen(),
+                                onTap: () => injector.get<SearchCubit>().loadSearchScreen(),
                               );
                             },
                             fetchRecentSearchesSuccess: (response) {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  if (response.data.isNotEmpty)
+                                  if (recentSearches.isNotEmpty)
                                     ...List.generate(
                                       response.data.length,
                                       (index) => Padding(
                                         padding: const EdgeInsets.symmetric(vertical: 4.0),
                                         child: _RecentSearchItem(
-                                          response: response.data[index],
+                                          response: recentSearches[index],
                                           onDelete: () {
-                                            response.data
-                                                .remove(response.data[index]);
+                                            recentSearches.remove(response.data[index]);
                                             setState(() {});
                                           },
                                         ),
                                       ),
                                     ),
-                                  if (response.data.isEmpty)
+                                  if (recentSearches.isEmpty)
                                     const SizedBox(
                                       height: 200,
                                       child: Center(
-                                        child: TextView(
-                                            text:
-                                                "You have no recent searches"),
+                                        child: TextView(text: "You have no recent searches"),
                                       ),
                                     )
                                 ],
@@ -282,7 +275,6 @@ class _SearchScreenState extends State<SearchScreen> {
                           );
                         },
                       )
-
                     ],
                   ),
                 )
@@ -330,9 +322,7 @@ class SearchField extends StatelessWidget {
       onSubmitted: (value) {
         if (controller.text.isNotEmpty) {
           injector.get<SearchCubit>().fetchRecentSearches();
-          context
-              .pushNamed(PageUrl.searchResultScreen, extra: controller.text)
-              .then(
+          context.pushNamed(PageUrl.searchResultScreen, extra: controller.text).then(
             (value) {
               injector.get<SearchCubit>().fetchRecentSearches(reload: false);
             },
@@ -392,7 +382,7 @@ class SearchAppBar extends StatelessWidget {
                     onPressed: () {
                       context.read<DrawerCubit>().closeDrawer();
                       context.read<DrawerCubit>().openDrawer();
-            /**/
+                      /**/
                     },
                     icon: Icon(
                       Icons.menu_outlined,
@@ -400,25 +390,11 @@ class SearchAppBar extends StatelessWidget {
                     )),
                 ImageWidget(imageUrl: Assets.images.svgs.logo2),
                 const Spacer(),
-                InkWell(
-                  onTap: () {
-                    // SessionManager.instance.logOut();
-                    // context.goNamed(PageUrl.onboardingIntro);
-
-                    // context.pushNamed(PageUrl.notifications);
-                  },
-                  child: ImageWidget(
-                    imageUrl: Assets.images.svgs.notification,
-                    onTap: () {
-                      // context.pushNamed(PageUrl.notifications);
-                    },
-                  ),
-                ),
+                const NotificationIcon(),
                 20.horizontalSpace,
                 GuestUserHelper.guestUserWidget(
                     widget: ImageWidget(
-                  imageUrl: injector.get<ProfileBloc>().appUser?.avatar ??
-                      Assets.images.svgs.uploadAvatar,
+                  imageUrl: injector.get<ProfileBloc>().appUser?.avatar ?? Assets.images.svgs.uploadAvatar,
                   fit: BoxFit.scaleDown,
                   size: 40,
                   onTap: () {
@@ -427,8 +403,9 @@ class SearchAppBar extends StatelessWidget {
                 )),
               ],
             ),
-
-            const Divider(thickness: 1,)
+            const Divider(
+              thickness: 1,
+            )
           ],
         ),
       ),
@@ -437,8 +414,7 @@ class SearchAppBar extends StatelessWidget {
 }
 
 class _RecentSearchItem extends StatelessWidget {
-  const _RecentSearchItem(
-      {super.key, required this.response, required this.onDelete});
+  const _RecentSearchItem({super.key, required this.response, required this.onDelete});
 
   final SearchResponse response;
   final VoidCallback onDelete;

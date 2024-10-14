@@ -32,7 +32,9 @@ class PostDetailCard extends StatelessWidget {
                 var isReported = await CustomDialogs.showBottomSheet(
                     context,
                     PostActionSheet(
-                      post: post,
+                      post: post, onPostDeleted: () {
+                        context.pop();
+                    },
                     ));
                 if (isReported ?? false) {
                   post.isReported = true;

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
+import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
@@ -16,12 +17,15 @@ import 'package:talkam/features/profile/presentation/screens/tabs/profile_commen
 import 'package:talkam/features/profile/presentation/screens/tabs/profile_posts_tab.dart';
 import 'package:talkam/features/profile/presentation/screens/tabs/profile_upvotes_tab.dart';
 import 'package:talkam/features/components/talkam_tab_bar.dart';
+import 'package:talkam/features/profile/presentation/screens/user_profile_tabs/user_media_tab.dart';
+import 'package:talkam/features/profile/presentation/widgets/my_profile_sheet.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 enum _ProfileTabOptions {
   posts,
   comments,
-  upVotes;
+  upVotes,
+  media;
 
   String get title {
     switch (this) {
@@ -33,6 +37,8 @@ enum _ProfileTabOptions {
 
       case upVotes:
         return "Upvotes";
+      case media:
+        return "Media";
     }
   }
 }
@@ -97,9 +103,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
           body: SafeArea(
             child: state.maybeWhen(
-                loading: () =>
-                    Center(child: CustomDialogs.getLoading(size: 50)),
-                error: () => const SizedBox(),
+                loading: () => Center(child: CustomDialogs.getLoading(size: 50)),
+                error: () => AppErrorWidget(
+                      onTap: () {
+                        injector.get<ProfileScreenCubit>().fetchUserProfile();
+                      },
+                    ),
                 orElse: () {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -108,8 +117,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         bloc: injector.get(),
                         builder: (context, state) {
                           return Padding(
-                            padding: EdgeInsets.only(
-                                top: 20.h, right: 16.w, left: 16.w),
+                            padding: EdgeInsets.only(top: 20.h, right: 16.w, left: 16.w),
                             child: Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
@@ -119,53 +127,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   canPreview: true,
                                   fit: BoxFit.scaleDown,
                                   shape: BoxShape.circle,
-                                  imageUrl: injector
-                                      .get<ProfileBloc>()
-                                      .appUser
-                                      ?.avatar,
+                                  imageUrl: injector.get<ProfileBloc>().appUser?.avatar,
                                 ),
                                 10.horizontalSpace,
                                 Padding(
                                   padding: EdgeInsets.only(top: 12.0.h),
                                   child: TextView(
-                                    text: injector
-                                            .get<ProfileBloc>()
-                                            .appUser
-                                            ?.username ??
-                                        "",
+                                    text: injector.get<ProfileBloc>().appUser?.username ?? "",
                                     fontWeight: FontWeight.w700,
                                     fontSize: 16,
                                     color: Pallets.boldBlackV2,
                                   ),
                                 ),
                                 const Spacer(),
-                                InkWell(
-                                  onTap: () {
-                                    context
-                                        .pushNamed(PageUrl.editProfileScreen);
-                                  },
-                                  child: Container(
-                                    height: 40.h,
-                                    padding:
-                                        EdgeInsets.symmetric(horizontal: 10.w),
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(56),
-                                      border:
-                                          Border.all(color: Pallets.borderGrey),
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        ImageWidget(
-                                            imageUrl: Assets
-                                                .images.svgs.icPersonEdit),
-                                        4.horizontalSpace,
-                                        const TextView(text: "Edit profile")
-                                      ],
-                                    ),
-                                  ),
-                                )
+                                IconButton(
+                                    onPressed: () {
+                                      CustomDialogs.showBottomSheet(context, MyProfileSheet());
+                                    },
+                                    icon: const Icon(Icons.more_vert_rounded))
                               ],
                             ),
                           );
@@ -177,8 +156,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           children: [
                             ..._ProfileTabOptions.values.map((tabOption) {
                               return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                 child: TalkamTabBar(
                                   key: Key(tabOption.title),
                                   useExpandedAsParent: false,
@@ -205,23 +183,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           child: PageView(
                             controller: _pageController,
                             onPageChanged: (int index) {
-
                               _selectedTab = index == 0
                                   ? _ProfileTabOptions.posts
                                   : index == 1
                                       ? _ProfileTabOptions.comments
-                                      : _ProfileTabOptions.upVotes;
+                                      : index == 2
+                                          ? _ProfileTabOptions.upVotes
+                                          : _ProfileTabOptions.media;
                               setState(() {});
                             },
-                            children: const [
-                              ProfilePostTab(
+                            children: [
+                              const ProfilePostTab(
                                 key: PageStorageKey(_ProfileTabOptions.posts),
                               ),
-                              ProfileCommentsTab(
+                              const ProfileCommentsTab(
                                 key: PageStorageKey(_ProfileTabOptions.comments),
                               ),
-                              ProfileUpvotesTab(
+                              const ProfileUpvotesTab(
                                 key: PageStorageKey(_ProfileTabOptions.upVotes),
+                              ),
+                              UserProfileMediaTab(
+                                key: const PageStorageKey(_ProfileTabOptions.media),
+                                userId: _talkamUser.id.toString(),
                               ),
                             ],
                           ),

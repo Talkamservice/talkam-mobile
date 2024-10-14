@@ -46,7 +46,7 @@ class _VideoWidgetState extends State<VideoWidget> {
         thumbnailPath: (await getTemporaryDirectory()).path,
         imageFormat: ImageFormat.PNG,
         maxWidth: 300,
-        maxHeight: 300,
+        maxHeight: 350,
         quality: 100,
       );
     } catch (e) {
@@ -76,11 +76,11 @@ class _VideoWidgetState extends State<VideoWidget> {
                             File(snapshot.data!),
                             fit: BoxFit.cover,
                             width: MediaQuery.of(context).size.width,
-                            height: 250,
+                            height: 350,
                             filterQuality: FilterQuality.high,
                           ),
                           Container(
-                            height: 250,
+                            height: 350,
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
                               color: Pallets.black.withOpacity(0.3),
@@ -105,8 +105,8 @@ class _VideoWidgetState extends State<VideoWidget> {
             child: GestureDetector(
               onTap: () => _openFullScreenDialog(context),
               child: const Icon(
-                Icons.play_arrow,
-                size: 35.0,
+                Icons.play_circle_fill_rounded,
+                size: 70.0,
                 color: Colors.white,
               ),
             ),
@@ -162,11 +162,12 @@ class _FullScreenVideoDialogState extends State<FullScreenVideoDialog> {
 
     _chewieController = ChewieController(
       videoPlayerController: videoPlayerController,
-      aspectRatio: 16 / 9,
+      // aspectRatio: 16 / 14,
       // Adjust aspect ratio as needed
       autoInitialize: true,
       looping: false,
 
+autoPlay: true,
       errorBuilder: (context, errorMessage) {
         return Center(
           child: Text(errorMessage),
@@ -179,10 +180,13 @@ class _FullScreenVideoDialogState extends State<FullScreenVideoDialog> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      // appBar: AppBar(
-      //   title: const Text('Full Screen Video'),
-      //   elevation: 0,
-      // ),
+      appBar: AppBar(
+        // title: const Text('Full Screen Video'),
+        elevation: 0,
+        foregroundColor: Pallets.white,
+        backgroundColor: Pallets.black,
+
+      ),
       body: Center(
         child: Chewie(
           controller: _chewieController,

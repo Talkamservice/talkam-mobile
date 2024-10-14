@@ -21,11 +21,11 @@ class CategoriesList extends StatefulWidget {
 class _CategoriesListState extends State<CategoriesList> {
   @override
   void initState() {
-    postBloc.add(const PostEvent.getCategories());
+    injector.get<PostBloc>().add(const PostEvent.getCategories(refresh: false));
     super.initState();
   }
 
-  final postBloc = PostBloc(injector.get());
+  final postBloc = injector.get<PostBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -88,42 +88,43 @@ class _CategoriesListState extends State<CategoriesList> {
             12.verticalSpace,
             Expanded(
               child: BlocConsumer<PostBloc, PostState>(
-                bloc: postBloc,
+                bloc: injector.get<PostBloc>(),
                 listener: (context, state) {},
                 builder: (context, state) {
                   return state.maybeWhen(
-                    orElse: () => 0.verticalSpace,
-                    getCategoriesFailure: (error) => AppErrorWidget(
-                      onTap: () {
-                        postBloc.add(const PostEvent.getCategories());
-                      },
-                    ),
-                    getCategoriesLoading: () =>
-                        CustomDialogs.getLoading(size: 50),
-                    getCategoriesSuccess: (response) {
-                      if (response.data.isEmpty) {
+                    orElse: () {
+                      var response = injector.get<PostBloc>();
+                      if (response.categories.isEmpty) {
                         return const Center(
                           child: TextView(text: "There are no categories yet"),
                         );
                       }
 
                       return ListView.builder(
-                        itemCount: response.data.length,
+                        itemCount: response.categories.length,
                         shrinkWrap: true,
                         // physics: const BouncingScrollPhysics(),
                         itemBuilder: (context, index) => Padding(
                           padding: const EdgeInsets.symmetric(vertical: 2.0),
                           child: NavCategoryItem(
-                            category: response.data[index],
+                            category: response.categories[index],
                             onTap: () {
                               context.read<DrawerCubit>().switchView(
                                   DrawerView.subCategory,
-                                  subCategory: response.data[index]);
+                                  subCategory: response.categories[index]);
                             },
                           ),
                         ),
                       );
                     },
+                    getCategoriesFailure: (error) => AppErrorWidget(
+                      onTap: () {
+                        injector.get<PostBloc>().add(const PostEvent.getCategories(refresh: false));
+                      },
+                    ),
+                    getCategoriesLoading: () =>
+                        CustomDialogs.getLoading(size: 50),
+
                   );
                 },
               ),

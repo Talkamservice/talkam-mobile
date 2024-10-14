@@ -9,8 +9,10 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/constants/dialog_texts.dart';
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/group/presentation/widgets/about_group_item.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
@@ -50,16 +52,26 @@ class _GroupsAboutTabState extends State<GroupsAboutTab> {
                       children: [
                     TextSpan(
                         text:
-                            "The group was created on the ${TimeUtil.formatDate(widget.data.createdAt.toString())} by "),
+                            "The group was created on ${TimeUtil.formatDate((widget.data.createdAt ?? DateTime.now()).toIso8601String())} by "),
                     TextSpan(
                         text: widget.data.owner?.username,
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
 
-                            context.pushNamed(PageUrl.userProfileScreen,
-                                extra: widget.data.owner?.id.toString());
+
+                          GuestUserHelper.handleGuestUserAction(action: () {
+                            if (SessionManager()
+                                .isMe(widget.data.owner!.id.toString())) {
+                              context.pushNamed(PageUrl.profileScreen);
+                            } else {
+                              context.pushNamed(PageUrl.userProfileScreen,
+                                  extra: widget.data.owner?.id.toString());
+                            }
+                          },);
+
                           },
-                        style: const TextStyle(
+
+                        style:  GoogleFonts.nunito(
                             color: Pallets.primary,
                             fontWeight: FontWeight.w700)),
                   ])),

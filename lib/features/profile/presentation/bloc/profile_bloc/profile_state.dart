@@ -8,6 +8,10 @@ class UserInitial extends ProfileState {
   @override
   List<Object> get props => [];
 }
+class ProfileInitial extends ProfileState {
+  @override
+  List<Object> get props => [];
+}
 
 class UserCachedState extends ProfileState {
   final TalkamUser user;
@@ -94,7 +98,7 @@ class BlockUserLoadingState extends ProfileState {
 }
 
 class BlockUserSuccessState extends ProfileState {
-  final dynamic response;
+  final BlockUserResponse response;
 
   const BlockUserSuccessState({required this.response});
 

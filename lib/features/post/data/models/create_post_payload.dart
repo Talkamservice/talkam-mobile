@@ -53,11 +53,13 @@ class CreatePostPayload {
     List<String>? tags,
     Poll? poll,
   }) =>
+
       CreatePostPayload(
         categoryId: categoryId ?? this.categoryId,
         groupId: groupId ?? this.groupId,
         type: type ?? this.type,
         title: title ?? this.title,
+
         body: body ?? this.body,
         status: status ?? this.status,
         publishAt: publishAt ?? this.publishAt,

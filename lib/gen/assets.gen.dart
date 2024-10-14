@@ -29,8 +29,12 @@ class $AssetsImagesJpegsGen {
   AssetGenImage get football =>
       const AssetGenImage('assets/images/jpegs/football.jpeg');
 
+  /// File path: assets/images/jpegs/manShopping.jpeg
+  AssetGenImage get manShopping =>
+      const AssetGenImage('assets/images/jpegs/manShopping.jpeg');
+
   /// List of all assets
-  List<AssetGenImage> get values => [football];
+  List<AssetGenImage> get values => [football, manShopping];
 }
 
 class $AssetsImagesPngGen {
@@ -46,9 +50,17 @@ class $AssetsImagesPngGen {
   /// File path: assets/images/png/back1.png
   AssetGenImage get back1 => const AssetGenImage('assets/images/png/back1.png');
 
+  /// File path: assets/images/png/birthday_poster.png
+  AssetGenImage get birthdayPoster =>
+      const AssetGenImage('assets/images/png/birthday_poster.png');
+
   /// File path: assets/images/png/dating.png
   AssetGenImage get dating =>
       const AssetGenImage('assets/images/png/dating.png');
+
+  /// File path: assets/images/png/man_shoping.png
+  AssetGenImage get manShoping =>
+      const AssetGenImage('assets/images/png/man_shoping.png');
 
   /// File path: assets/images/png/mancity.png
   AssetGenImage get mancity =>
@@ -61,13 +73,30 @@ class $AssetsImagesPngGen {
   /// File path: assets/images/png/woman.png
   AssetGenImage get woman => const AssetGenImage('assets/images/png/woman.png');
 
+  /// File path: assets/images/png/woman_driving.png
+  AssetGenImage get womanDriving =>
+      const AssetGenImage('assets/images/png/woman_driving.png');
+
   /// List of all assets
-  List<AssetGenImage> get values =>
-      [add, appIcon, back1, dating, mancity, sports, woman];
+  List<AssetGenImage> get values => [
+        add,
+        appIcon,
+        back1,
+        birthdayPoster,
+        dating,
+        manShoping,
+        mancity,
+        sports,
+        woman,
+        womanDriving
+      ];
 }
 
 class $AssetsImagesSvgsGen {
   const $AssetsImagesSvgsGen();
+
+  /// File path: assets/images/svgs/Empty-cuate.svg
+  String get emptyCuate => 'assets/images/svgs/Empty-cuate.svg';
 
   /// File path: assets/images/svgs/Group Add.svg
   String get groupAdd => 'assets/images/svgs/Group Add.svg';
@@ -83,6 +112,9 @@ class $AssetsImagesSvgsGen {
 
   /// File path: assets/images/svgs/add.svg
   String get add => 'assets/images/svgs/add.svg';
+
+  /// File path: assets/images/svgs/announcement.svg
+  String get announcement => 'assets/images/svgs/announcement.svg';
 
   /// File path: assets/images/svgs/anonymous_active.svg
   String get anonymousActive => 'assets/images/svgs/anonymous_active.svg';
@@ -101,6 +133,9 @@ class $AssetsImagesSvgsGen {
 
   /// File path: assets/images/svgs/arrow-up-right.svg
   String get arrowUpRight => 'assets/images/svgs/arrow-up-right.svg';
+
+  /// File path: assets/images/svgs/attatchement.svg
+  String get attatchement => 'assets/images/svgs/attatchement.svg';
 
   /// File path: assets/images/svgs/bell-plus.svg
   String get bellPlus => 'assets/images/svgs/bell-plus.svg';
@@ -146,6 +181,9 @@ class $AssetsImagesSvgsGen {
 
   /// File path: assets/images/svgs/grid-03.svg
   String get grid03 => 'assets/images/svgs/grid-03.svg';
+
+  /// File path: assets/images/svgs/groupRequests.svg
+  String get groupRequests => 'assets/images/svgs/groupRequests.svg';
 
   /// File path: assets/images/svgs/groups.svg
   String get groups => 'assets/images/svgs/groups.svg';
@@ -197,6 +235,19 @@ class $AssetsImagesSvgsGen {
 
   /// File path: assets/images/svgs/message.svg
   String get message => 'assets/images/svgs/message.svg';
+
+  /// File path: assets/images/svgs/message_bubbles.svg
+  String get messageBubbles => 'assets/images/svgs/message_bubbles.svg';
+
+  /// File path: assets/images/svgs/message_read.svg
+  String get messageRead => 'assets/images/svgs/message_read.svg';
+
+  /// File path: assets/images/svgs/message_sent.svg
+  String get messageSent => 'assets/images/svgs/message_sent.svg';
+
+  /// File path: assets/images/svgs/new_message_indicator.svg
+  String get newMessageIndicator =>
+      'assets/images/svgs/new_message_indicator.svg';
 
   /// File path: assets/images/svgs/notification.svg
   String get notification => 'assets/images/svgs/notification.svg';
@@ -269,17 +320,20 @@ class $AssetsImagesSvgsGen {
 
   /// List of all assets
   List<String> get values => [
+        emptyCuate,
         groupAdd,
         icNew,
         icTrending,
         icfeatured,
         add,
+        announcement,
         anonymousActive,
         anonymousInactive,
         apple,
         appleWhite,
         arrowLeft,
         arrowUpRight,
+        attatchement,
         bellPlus,
         blockedUser,
         calender,
@@ -295,6 +349,7 @@ class $AssetsImagesSvgsGen {
         gif,
         googleAuth,
         grid03,
+        groupRequests,
         groups,
         groupsAdd,
         guidlineIndicatior,
@@ -312,6 +367,10 @@ class $AssetsImagesSvgsGen {
         logo2,
         member,
         message,
+        messageBubbles,
+        messageRead,
+        messageSent,
+        newMessageIndicator,
         notification,
         profile,
         radioActive,

@@ -14,6 +14,7 @@ import 'package:talkam/gen/assets.gen.dart';
 import 'package:tiktok_login_flutter/tiktok_login_flutter.dart';
 import 'core/services/firebase/notifiactions.dart';
 import 'core/services/pay/pay_service.dart';
+import 'core/services/pusher/pusher_channel_service.dart';
 import 'firebase_options.dart';
 
 class AppConfig {
@@ -23,14 +24,23 @@ class AppConfig {
   AppConfig(this.appName, this.enviroment);
 
   static Future<void> run(String appName, Environment enviroment) async {
+
     WidgetsFlutterBinding.ensureInitialized();
+
+
     final appConfig = AppConfig(appName, enviroment);
     await appConfig._setup();
+
     runZonedGuarded(() => runApp(const TalkAmApp()), (error, stack) {
       logger.e(error.toString());
       logger.e(stack.toString());
     });
+
+
+
   }
+
+
 
   Future<void> _setup() async {
 
@@ -44,13 +54,17 @@ class AppConfig {
     await TiktokLoginFlutter.initializeTiktokLogin("sbawv08gbmy7ntisfh");
     // await  TikTokSDK.instance.setup(clientKey: "sbawv08gbmy7ntisfh");
     await initFirebaseServices();
+
     await SessionManager().init();
+
     await PayHelper.instance.initialize(
         defaultGooglePayConfiguration: defaultGooglePay,
         defaultApplePayConfiguration: defaultApplePay);
     // StripeService.initialize(),
     await TimezoneService().init();
     await _getLoggedInUser();
+    var pusherService = await PusherChannelService.getInstance;
+    await pusherService.initialize();
 
     SystemChrome.setPreferredOrientations([
       DeviceOrientation.portraitUp,

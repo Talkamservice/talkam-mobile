@@ -3,20 +3,119 @@ import 'dart:ui';
 import 'dart:math';
 import 'package:dart_ipify/dart_ipify.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 
 import 'package:share_plus/share_plus.dart';
+import 'package:talkam/common/widgets/image_previewer.dart';
+import 'package:talkam/common/widgets/image_widget.dart';
+import 'package:talkam/core/constants/package_exports.dart';
+import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:url_launcher/url_launcher.dart' as launch;
 import 'package:url_launcher/url_launcher.dart';
 import 'package:uuid/uuid.dart';
 
 import '../_core.dart';
 import '_utils.dart';
+import 'guest_user_helper.dart';
 
 class Helpers {
+  // Helper method to handle mentions in text
+  static void viewMentionedUserProfile(BuildContext context, String userName) {
+    GuestUserHelper.handleGuestUserAction(
+      action: () {
+        var me = injector.get<ProfileBloc>().appUser;
+        if (me?.username == userName) {
+          context.pushNamed(
+            PageUrl.profileScreen,
+          );
+        } else {
+          context.pushNamed(PageUrl.userProfileScreen, extra: userName.toString());
+        }
+      },
+    );
+  }
 
+  static Widget buildTextWithMentions(String text, BuildContext context, {double? fontSize, FontWeight? fontWeight, Function(String)? mentionCallback}) {
+    List<TextSpan> spans = mentionSpans(text, fontSize: fontSize, fontWeight: fontWeight, mentionCallback: mentionCallback);
+
+    return RichText(
+      text: TextSpan(
+        style: Theme.of(context).textTheme.bodyMedium,
+        children: spans,
+      ),
+    );
+  }
+
+  static List<TextSpan> mentionSpans(String text, {double? fontSize, FontWeight? fontWeight, Function(String)? mentionCallback, TextStyle? textStyle}) {
+    final List<TextSpan> spans = [];
+
+    // Regex to find mentions in the format $@mention$
+    final mentionRegExp = RegExp(r'\$@([\w_]+)\$');
+    int start = 0;
+
+    // Iterate over all matches and build the text with clickable mentions
+    for (final match in mentionRegExp.allMatches(text)) {
+      final mention = match.group(1) ?? '';
+
+      // Add the text before the mention
+      if (match.start > start) {
+        spans.add(TextSpan(
+          text: text.substring(start, match.start),
+          style: textStyle ??
+              TextStyle(
+                fontSize: fontSize?.sp,
+                fontWeight: fontWeight,
+              ),
+        ));
+      }
+
+      // Add the clickable mention
+      spans.add(TextSpan(
+        text: '@$mention',
+        style: textStyle?.copyWith(
+              // fontSize: ((fontSize ?? 14) - 1.5).sp,
+              fontWeight: FontWeight.bold,
+              color: Pallets.primary,
+            ) ??
+            TextStyle(
+              fontSize: ((fontSize ?? 14) - 1.5).sp,
+              fontWeight: FontWeight.bold,
+              color: Colors.blue, // Mention color
+            ),
+        recognizer: TapGestureRecognizer()
+          ..onTap = () {
+            if (mentionCallback != null) {
+              mentionCallback(mention);
+            }
+          },
+      ));
+
+      // Move the start index to the end of the mention
+      start = match.end;
+    }
+
+    // Add remaining text after the last mention
+    if (start < text.length) {
+      spans.add(TextSpan(
+        text: text.substring(start),
+        style: textStyle?.copyWith(
+              fontSize: fontSize,
+              fontWeight: fontWeight,
+            ) ??
+            TextStyle(
+              fontSize: fontSize,
+              fontWeight: fontWeight,
+            ),
+      ));
+    }
+    return spans;
+  }
 
   static String getFileName(File file, {String? prefix}) {
     var name = file.path.split('/').last;
@@ -40,11 +139,7 @@ class Helpers {
     num dLat = degreesToRadians(lat2 - lat1);
     num dLon = degreesToRadians(lon2 - lon1);
 
-    num a = sin(dLat / 2) * sin(dLat / 2) +
-        cos(degreesToRadians(lat1)) *
-            cos(degreesToRadians(lat2)) *
-            sin(dLon / 2) *
-            sin(dLon / 2);
+    num a = sin(dLat / 2) * sin(dLat / 2) + cos(degreesToRadians(lat1)) * cos(degreesToRadians(lat2)) * sin(dLon / 2) * sin(dLon / 2);
     num c = 2 * atan2(sqrt(a), sqrt(1 - a));
 
     return (earthRadius * c).floor();
@@ -81,9 +176,7 @@ class Helpers {
   }
 
   static launchInappWebView(String url) {
-    launch.launchUrl(Uri.parse(url),
-        mode: LaunchMode.inAppWebView,
-        webViewConfiguration: const WebViewConfiguration());
+    launch.launchUrl(Uri.parse(url), mode: LaunchMode.inAppWebView, webViewConfiguration: const WebViewConfiguration());
   }
 
   static void share(String text) {
@@ -97,8 +190,7 @@ class Helpers {
     return uuid.v1();
   }
 
-  static bool hasTextOverflow(String text, TextStyle style,
-      {double minWidth = 0, int maxLines = 3}) {
+  static bool hasTextOverflow(String text, TextStyle style, {double minWidth = 0, int maxLines = 3}) {
     final TextPainter textPainter = TextPainter(
       text: TextSpan(text: text, style: style),
       maxLines: maxLines,
@@ -193,10 +285,78 @@ class Helpers {
   }
 
   static String? encodeQueryParameters(Map<String, String> params) {
-    return params.entries
-        .map((MapEntry<String, String> e) =>
-    '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
-        .join('&');
+    return params.entries.map((MapEntry<String, String> e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}').join('&');
   }
 
+// Function toget the file extension from a URL or path
+  static String getFileExtension(String urlOrPath) {
+    final fileName = urlOrPath.split('/').last;
+    final parts = fileName.split('.');
+    if (parts.length > 1) {
+      return parts.last.toLowerCase();
+    } else {
+      return ''; // No extension found
+    }
+  }
+
+// Function to open the document using the appropriate method
+  static Future<void> openDocument(String urlOrPath, BuildContext context) async {
+    final extension = getFileExtension(urlOrPath);
+
+    // Check if it's an image or GIF
+    if (['jpg', 'jpeg', 'png', 'gif'].contains(extension)) {
+      _showImageDialog(urlOrPath, context);
+    } else {
+      final _launchUrl = urlOrPath;
+      if (await canLaunchUrl(Uri.parse(_launchUrl))) {
+        await launch.launchUrl(
+          Uri.parse(_launchUrl),
+          mode: launch.LaunchMode.externalApplication,
+        );
+      } else {
+        CustomDialogs.error("Cannot open file");
+      }
+    }
+  }
+
+// Helper function to show an image dialog
+  static void _showImageDialog(String urlOrPath, BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (context) => ImagePreviewer(
+        imageUrl: urlOrPath,
+        imageType: urlOrPath.isURL ? ImageType.network : ImageType.file,
+      ),
+    );
+  }
+
+  static String getFileNameFromUrl(String url) {
+    if (url.isEmpty) {
+      return ''; // Return empty string for emptyURLs
+    }
+
+    // Remove any query parameters or fragments
+    final uri = Uri.parse(url);
+    final path = uri.path;
+
+    // Split the path by '/' and get the last part
+    final parts = path.split('/');
+    if (parts.isNotEmpty) {
+      return parts.last;
+    } else {
+      return ''; // Return empty string if no file name is found
+    }
+  }
+
+  static bool pathIsImage(String filePath) {
+    final extension = filePath.split('.').last.toLowerCase();
+    final imageExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp'];
+    return imageExtensions.contains(extension);
+  }
+
+  static bool pathIsDocument(String filePath) {
+    final extension = filePath.split('.').last.toLowerCase();
+    final documentExtensions = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'txt'];
+    return documentExtensions.contains(extension);
+  }
 }

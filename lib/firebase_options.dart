@@ -26,10 +26,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -59,4 +56,16 @@ class DefaultFirebaseOptions {
     projectId: 'talkam-temp',
     storageBucket: 'talkam-temp.appspot.com',
   );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyDNIPDDGTmviX0itRrEStBEpBJnvX2Ul6Y',
+    appId: '1:478885302787:ios:2bfbec65eef022ab807436',
+    messagingSenderId: '478885302787',
+    projectId: 'talkam-temp',
+    storageBucket: 'talkam-temp.appspot.com',
+    androidClientId: '478885302787-32qfubm0damgpkn5tm0tt655s09e3sfq.apps.googleusercontent.com',
+    iosClientId: '478885302787-46tgclrpaf3vqnti7g95ud418uvjla9b.apps.googleusercontent.com',
+    iosBundleId: 'com.talkam.app',
+  );
+
 }

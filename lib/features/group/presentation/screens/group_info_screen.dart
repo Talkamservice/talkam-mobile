@@ -10,16 +10,14 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
-import 'package:talkam/features/group/dormain/model/group_overview_data.dart';
 import 'package:talkam/features/group/presentation/blocs/group_post_cubit/group_post_cubit.dart';
 import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
+import 'package:talkam/features/group/presentation/screens/refresh_group_listener.dart';
 import 'package:talkam/features/group/presentation/tabs/group_media_tab.dart';
 import 'package:talkam/features/group/presentation/tabs/group_posts_tab.dart';
 import 'package:talkam/features/group/presentation/widgets/group_app_bar.dart';
 import 'package:talkam/features/group/presentation/widgets/group_overview_section.dart';
 import 'package:talkam/features/home/presentation/screens/home_screen.dart';
-import 'package:talkam/features/post/data/models/post_test_models.dart';
-import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class GroupInfoScreen extends StatefulWidget {
@@ -31,7 +29,7 @@ class GroupInfoScreen extends StatefulWidget {
   State<GroupInfoScreen> createState() => _GroupInfoScreenState();
 }
 
-class _GroupInfoScreenState extends State<GroupInfoScreen> {
+class _GroupInfoScreenState extends State<GroupInfoScreen> with SingleTickerProviderStateMixin {
   final tabItems = [
     TabItemModel(imagePath: Assets.images.svgs.icfeatured, tittle: "Posts"),
     TabItemModel(imagePath: Assets.images.svgs.icTrending, tittle: "Media"),
@@ -40,28 +38,34 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
   final PageController _pageController = PageController();
   final bloc = GroupsCubit(injector.get());
   final groupPostCubit = GroupPostCubit(injector.get());
+  late TabController _tabController;
 
   @override
   void initState() {
-    bloc.getGroup(widget.groupId);
+    _tabController = TabController(length: 2, vsync: this);
 
+    bloc.getGroup(widget.groupId);
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        foregroundColor: Pallets.white,
-        backgroundColor: Pallets.primary,
-        onPressed: () {
-          context.pushNamed(PageUrl.createGroupScreen);
-        },
-        child: const Icon(Icons.add),
-      ),
-      body: DefaultTabController(
-        length: 2,
-        child: BlocConsumer<GroupsCubit, GroupsState>(
+    return RefreshGroupListener(
+      onRefresh: () {
+        bloc.getGroup(widget.groupId);
+      },
+      child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          foregroundColor: Pallets.white,
+          backgroundColor: Pallets.primary,
+          onPressed: () {
+            context.pushNamed(PageUrl.createPostScreen);
+            //
+            // context.pushNamed(PageUrl.createGroupScreen);
+          },
+          child: const Icon(Icons.add),
+        ),
+        body: BlocConsumer<GroupsCubit, GroupsState>(
           bloc: bloc,
           listener: (context, state) {
             state.maybeWhen(
@@ -75,10 +79,8 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
             return state.maybeWhen(
               orElse: () => 0.verticalSpace,
               getGroupLoading: () {
-
                 return Scaffold(
                   appBar: const CustomAppBar(),
-
                   body: Center(
                     child: CustomDialogs.getLoading(size: 50),
                   ),
@@ -86,10 +88,12 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
               },
               getGroupFailure: (error) {
                 return Scaffold(
-
                   appBar: const CustomAppBar(),
                   body: AppErrorWidget(
-                    onTap: () {},
+                    message: error,
+                    onTap: () {
+                      bloc.getGroup(widget.groupId);
+                    },
                   ),
                 );
               },
@@ -102,17 +106,19 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           GroupInfoAppBar(
-                            data: response.toGroupAppBarData(),
+                            group: response,
+                            onStateChanged: () {
+                              injector.get<GroupsCubit>().getGroups(shouldRefresh: false);
+                              bloc.getGroup(widget.groupId, refresh: false);
+                            },
                           ),
                           10.verticalSpace,
                           Padding(
-                            padding:
-                                const EdgeInsets.symmetric(horizontal: 10.0),
+                            padding: const EdgeInsets.symmetric(horizontal: 10.0),
                             child: GroupOverViewSection(
                               data: response,
                               onAboutCLicked: () {
-                                context.pushNamed(PageUrl.groupDetailsScreen,
-                                    extra: response);
+                                context.pushNamed(PageUrl.groupDetailsScreen, extra: response);
                               },
                             ),
                           ),
@@ -129,6 +135,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
                         child: Center(
                           child: TabBar(
                               padding: EdgeInsets.zero,
+                              controller: _tabController,
                               tabAlignment: TabAlignment.center,
                               indicatorColor: context.colorScheme.primary,
                               indicatorSize: TabBarIndicatorSize.label,
@@ -141,8 +148,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
                               tabs: List.generate(
                                 tabItems.length,
                                 (index) => Padding(
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16.0),
+                                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
                                   child: Tab(
                                     child: Row(
                                       children: [
@@ -150,9 +156,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
                                           fontSize: 15,
                                           fontWeight: FontWeight.w600,
                                           text: tabItems[index].tittle,
-                                          color: selecteIndex == index
-                                              ? context.colorScheme.onSurface
-                                              : Pallets.grey60,
+                                          color: selecteIndex == index ? context.colorScheme.onSurface : Pallets.grey60,
                                           // fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
                                         ),
                                       ],
@@ -173,8 +177,12 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> {
                             padding: const EdgeInsets.only(top: 5),
                             child: PageView(
                               controller: _pageController,
-                              physics: const NeverScrollableScrollPhysics(),
+                              // physics: const NeverScrollableScrollPhysics(),
                               onPageChanged: (int index) {
+                                _tabController.animateTo(index);
+                                selecteIndex = index;
+
+                                setState(() {});
                                 // setState(() {});
                               },
                               children: [

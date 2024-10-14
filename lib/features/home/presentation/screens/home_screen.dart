@@ -1,12 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
-import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/guest_user_helper.dart';
@@ -14,6 +14,9 @@ import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart'
 import 'package:talkam/features/home/presentation/screens/featured_screen.dart';
 import 'package:talkam/features/home/presentation/screens/recent_screen.dart';
 import 'package:talkam/features/home/presentation/screens/trending_screen.dart';
+import 'package:talkam/features/notifications/presentation/bloc/notification_bloc.dart';
+import 'package:talkam/features/notifications/presentation/widgets/announcements_carousel.dart';
+import 'package:talkam/features/notifications/presentation/widgets/notification_icon.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
@@ -24,13 +27,12 @@ class HomeScreen extends StatefulWidget {
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen>
-    with SingleTickerProviderStateMixin {
+class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateMixin {
   final PageController _pageController = PageController();
   final tabItems = [
+    TabItemModel(imagePath: Assets.images.svgs.icNew, tittle: "Just In"),
     TabItemModel(imagePath: Assets.images.svgs.icfeatured, tittle: "Featured"),
     TabItemModel(imagePath: Assets.images.svgs.icTrending, tittle: "Trending"),
-    TabItemModel(imagePath: Assets.images.svgs.icNew, tittle: "Recent"),
   ];
 
   int selecteIndex = 0;
@@ -39,6 +41,8 @@ class _HomeScreenState extends State<HomeScreen>
 
   @override
   void initState() {
+    injector.get<NotificationsBloc>().add(GetNotificationsStatsEvent());
+    injector.get<NotificationsBloc>().add(const GetAnnouncementsEvent());
     _tabController = TabController(length: 3, vsync: this);
     super.initState();
   }
@@ -50,6 +54,7 @@ class _HomeScreenState extends State<HomeScreen>
         child: Column(
           children: [
             const HomeAppBar(),
+            const AnnouncementsCarousel(),
             Container(
               color: Pallets.grey90,
               height: 1,
@@ -60,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen>
               child: Center(
                 child: Padding(
                   padding: const EdgeInsets.only(
-                    top: 16,
+                    // top: 16,
                     bottom: 0,
                   ),
                   child: TabBar(
@@ -68,13 +73,8 @@ class _HomeScreenState extends State<HomeScreen>
                       indicatorColor: context.colorScheme.primary,
                       indicatorSize: TabBarIndicatorSize.label,
                       indicatorWeight: 3,
-
-                      
                       controller: _tabController,
                       onTap: (value) {
-
-
-                       
                         _pageController.jumpToPage(value);
                         setState(() {});
                       },
@@ -85,18 +85,14 @@ class _HomeScreenState extends State<HomeScreen>
                             children: [
                               ImageWidget(
                                 imageUrl: tabItems[index].imagePath,
-                                color: selecteIndex == index
-                                    ? context.colorScheme.primary
-                                    : Pallets.grey,
+                                color: selecteIndex == index ? context.colorScheme.primary : Pallets.grey,
                               ),
                               8.horizontalSpace,
                               TextView(
                                 fontSize: 15,
                                 fontWeight: FontWeight.w600,
                                 text: tabItems[index].tittle,
-                                color: selecteIndex == index
-                                    ? context.colorScheme.onSurface
-                                    : Pallets.grey60,
+                                color: selecteIndex == index ? context.colorScheme.onSurface : Pallets.grey60,
                                 // fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
                               ),
                             ],
@@ -118,16 +114,14 @@ class _HomeScreenState extends State<HomeScreen>
 
                   // physics: const NeverScrollableScrollPhysics(),
                   onPageChanged: (int index) {
-                    
                     _tabController.animateTo(index);
                     selecteIndex = index;
-
                     setState(() {});
                   },
                   children: const [
+                    RecentScreen(),
                     FeaturedScreen(),
                     TrendingScreen(),
-                    RecentScreen(),
                   ],
                 ),
               ),
@@ -144,71 +138,45 @@ class HomeAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: context.colorScheme.surface,
-      child: Padding(
-        padding: const EdgeInsets.only(top: 20, left: 1, right: 18),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            IconButton(
-                onPressed: () {
-                  context.read<DrawerCubit>().closeDrawer();
-                  context.read<DrawerCubit>().openDrawer();
+    return BlocConsumer<ProfileBloc, ProfileState>(
+      bloc: injector.get(),
+      listener: (context, state) {},
+      builder: (context, state) {
+        return Container(
+          color: context.colorScheme.surface,
+          child: Padding(
+            padding: const EdgeInsets.only(top: 20, left: 1, right: 18),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                IconButton(
+                    onPressed: () {
+                      context.read<DrawerCubit>().closeDrawer();
+                      context.read<DrawerCubit>().openDrawer();
 /**/
-                },
-                icon: Icon(
-                  Icons.menu_outlined,
-                  color: context.colorScheme.onSurface,
+                    },
+                    icon: Icon(
+                      Icons.menu_outlined,
+                      color: context.colorScheme.onSurface,
+                    )),
+                ImageWidget(imageUrl: Assets.images.svgs.logo2),
+                const Spacer(),
+                const NotificationIcon(),
+                20.horizontalSpace,
+                GuestUserHelper.guestUserWidget(
+                    widget: ImageWidget(
+                  shape: BoxShape.circle,
+                  imageUrl: injector.get<ProfileBloc>().appUser?.avatar ?? Assets.images.svgs.user,
+                  size: 40,
+                  onTap: () {
+                    context.pushNamed(PageUrl.profileScreen);
+                  },
                 )),
-            ImageWidget(imageUrl: Assets.images.svgs.logo2),
-            const Spacer(),
-            InkWell(
-              onTap: () {
-                SessionManager.instance.logOut();
-                context.goNamed(PageUrl.onboardingIntro);
-
-                // context.pushNamed(PageUrl.notifications);
-              },
-              child: ImageWidget(
-                imageUrl: Assets.images.svgs.notification,
-                onTap: () {
-                  // context.pushNamed(PageUrl.notifications);
-                },
-              ),
+              ],
             ),
-            20.horizontalSpace,
-
-            GuestUserHelper.guestUserWidget(
-                widget: ImageWidget(
-              imageUrl: injector.get<ProfileBloc>().appUser?.avatar ??
-                  Assets.images.svgs.uploadAvatar,
-              size: 40,
-              onTap: () {
-                context.pushNamed(PageUrl.profileScreen);
-              },
-            )),
-
-            // InkWell(
-            //   onTap: () {
-            //     // context.pushNamed(PageUrl.notifications);
-            //   },
-            //   child: SessionManager.instance.isLoggedIn
-            //       ? ImageWidget(
-            //           imageUrl: injector.get<ProfileBloc>().appUser?.avatar ?? Assets.images.svgs.uploadAvatar,
-            //           size: 40,
-            //           onTap: () {
-            //             context.pushNamed(PageUrl.profileScreen);
-            //           },
-            //         )
-            //       : ImageWidget(
-            //           imageUrl: injector.get<ProfileBloc>().appUser?.avatar ?? Assets.images.svgs.profile,
-            //           onTap: () {},
-            //         ),
-            // ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

@@ -21,7 +21,6 @@ class MediaSearchCubit extends Cubit<MediaSearchState> {
       final SearchResult<GetPostsResponse> response =
           await searchRepository.search(query, sort: SearchSort.media);
 
-
       emit(MediaSearchState.mediaSearchLoaded(
         postResults: response.result.data.data,
         paginationData: response.result.data.paginationMeta,

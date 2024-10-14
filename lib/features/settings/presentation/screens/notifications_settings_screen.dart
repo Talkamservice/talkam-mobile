@@ -7,7 +7,6 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/settings/presentation/blocs/settings/settings_bloc.dart';
-import 'package:talkam/features/settings/presentation/blocs/settings/settings_bloc.dart';
 import 'package:talkam/features/settings/presentation/widgets/comments_preference_group.dart';
 import 'package:talkam/features/settings/presentation/widgets/moderation_activities_group.dart';
 import 'package:talkam/features/settings/presentation/widgets/more_activities_group.dart';
@@ -114,7 +113,11 @@ class _NotificationsSettingsScreenState
               },
               fetchNotificationPreferencesFailure: (error) {
                 return AppErrorWidget(
-                  onTap: () {},
+                  onTap: () {
+
+                    bloc.add(const SettingsEvent.fetchNotificationPreferences(
+                       ));
+                  },
                 );
               },
             );

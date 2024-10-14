@@ -19,6 +19,11 @@ extension StringExtension on String {
     }
   }
 
+  bool containsAlphabet() {
+    final regex = RegExp(r'[a-zA-Z]');
+    return regex.hasMatch(this);
+  }
+
   String formatAmount() {
     if ((int.tryParse(this) ?? 0) > 1) {
       String amount = replaceAllMapped(

@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:talkam/common/widgets/custom_dialogs.dart';
+import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
+import 'package:talkam/core/utils/_utils.dart';
 
 class SettingsCategory {
   final String title;
@@ -15,10 +18,12 @@ class SettingsCategory {
 
 class SettingsItem {
   final String title;
+  final Widget? trailingWidget;
   final void Function(BuildContext) onTap;
 
   SettingsItem({
     required this.title,
+     this.trailingWidget,
     required this.onTap,
   });
 }
@@ -52,9 +57,20 @@ SettingsCategory accountSettings = SettingsCategory(
     ),
     SettingsItem(
       title: 'Log out',
+      trailingWidget: 0.verticalSpace,
       onTap: (context) {
-        SessionManager.instance.logOut();
-        context.goNamed(PageUrl.onboardingIntro);
+        CustomDialogs.showConfirmDialog(
+          context,
+          tittle: "Logout",
+          message: "Are you sure you want to logout ?",
+          onYes: () {
+            SessionManager.instance.logOut();
+            context.goNamed(PageUrl.homeScreen);
+          },
+          confirmButtonBgColor: Colors.red
+
+        );
+
       },
     ),
   ],
@@ -66,31 +82,38 @@ SettingsCategory aboutSettings = SettingsCategory(
     SettingsItem(
       title: 'Help center',
       onTap: (context) {
+        Helpers.launchRawUrl("https://web.talkam.prodevs.io/help&info/faqs");
         // Handle onTap for Push Notifications
       },
     ),
     SettingsItem(
       title: 'Send feedback',
       onTap: (context) {
+        Helpers.launchRawUrl("https://web.talkam.prodevs.io/help&info/feedback");
+
         // Handle onTap for Email Notifications
       },
     ),
     SettingsItem(
       title: 'Follow us',
       onTap: (context) {
-        // Handle onTap for Email Notifications
+        Helpers.launchRawUrl("https://web.talkam.prodevs.io/help&info/about");
+
       },
     ),
     SettingsItem(
       title: 'Privacy policy',
       onTap: (context) {
-        // Handle onTap for Email Notifications
+        Helpers.launchRawUrl("https://web.talkam.prodevs.io/help&info/privacy-policy");
+
+
       },
     ),
     SettingsItem(
       title: 'Copyright',
       onTap: (context) {
-        // Handle onTap for Email Notifications
+        Helpers.launchRawUrl("https://web.talkam.prodevs.io/help&info/terms");
+
       },
     ),
   ],

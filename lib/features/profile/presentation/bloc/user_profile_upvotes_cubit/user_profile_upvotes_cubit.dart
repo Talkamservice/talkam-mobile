@@ -13,14 +13,16 @@ class UserProfileUpvotesCubit extends Cubit<UserProfileUpvotesState> {
   int _currentPage = 1;
   bool _hasReachedEndOfList = false;
 
-  UserProfileUpvotesCubit(this._profileRepository)
-      : super(const UserProfileUpvotesState.initial());
+  UserProfileUpvotesCubit(this._profileRepository) : super(const UserProfileUpvotesState.initial());
 
-  Future<void> fetchUserPosts(String userId) async {
-    emit(const UserProfileUpvotesState.loading());
+  Future<void> fetchUserPosts(String userId, {bool? reload = true}) async {
+
+    if (reload!) {
+      emit(const UserProfileUpvotesState.loading());
+    }
+
     try {
-      final List<TalkamPost> userPosts = await _profileRepository
-          .fetchUserUpvoteById(page: _currentPage, userId: userId);
+      final List<TalkamPost> userPosts = await _profileRepository.fetchUserUpvoteById(page: _currentPage, userId: userId);
       emit(UserProfileUpvotesState.loaded(userPosts));
     } catch (exception, stackTrace) {
       logger.e(exception, stackTrace: stackTrace);
@@ -29,13 +31,11 @@ class UserProfileUpvotesCubit extends Cubit<UserProfileUpvotesState> {
   }
 
   Future<void> loadMorePosts(List<TalkamPost> previousPosts) async {
-    if (_hasReachedEndOfList || state is UserProfileUpvotesTabLoadingMoreState)
-      return;
+    if (_hasReachedEndOfList || state is UserProfileUpvotesTabLoadingMoreState) return;
     emit(const UserProfileUpvotesState.loadingMore());
     try {
       _currentPage += 1;
-      final List<TalkamPost> newUserPosts =
-          await _profileRepository.fetchUserUpvote(
+      final List<TalkamPost> newUserPosts = await _profileRepository.fetchUserUpvote(
         page: _currentPage,
       );
       _hasReachedEndOfList = newUserPosts.isEmpty;

@@ -6,8 +6,10 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/post/data/models/post_filter_model.dart';
+import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
 import 'package:talkam/features/post/presentation/bloc/trending_post/trending_post_cubit.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item.dart';
+import 'package:talkam/features/post/presentation/widgets/post_loading_shimmer.dart';
 
 class TrendingScreen extends StatefulWidget {
   const TrendingScreen({super.key});
@@ -17,7 +19,8 @@ class TrendingScreen extends StatefulWidget {
 }
 
 class _TrendingScreenState extends State<TrendingScreen>
-    with AutomaticKeepAliveClientMixin {
+    with AutomaticKeepAliveClientMixin,RefreshPostsMixin {
+
   @override
   void initState() {
     injector
@@ -38,8 +41,9 @@ class _TrendingScreenState extends State<TrendingScreen>
             builder: (context, state) {
               return state.maybeWhen(
                 orElse: () => 0.verticalSpace,
-                getTrendingPostsLoading: () => Center(
-                  child: CustomDialogs.getLoading(size: 50),
+                getTrendingPostsLoading: () => const Center(
+
+                  child: PostLoadingShimmer(),
                 ),
                 getTrendingPostsFailed: (error) => AppErrorWidget(
                   message: error,
@@ -58,18 +62,29 @@ class _TrendingScreenState extends State<TrendingScreen>
 
                   return RefreshIndicator(
                     onRefresh: () async {
-                      injector
-                          .get<TrendingPostCubit>()
-                          .getTrendingPosts(PostFilterModel.trendingPost());
+                      refreshPost(reload: true);
                     },
                     child: ListView.builder(
-                      itemCount: response.data.data.length,
-                      itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.only(bottom: 4.0),
-                        child: PostItem(
-                          post: response.data.data[index],
-                        ),
-                      ),
+                      addAutomaticKeepAlives: true,
+                      itemCount: response.data.paginationMeta.canLoadMore ? response.data.data.length + 1 : response.data.data.length,
+                      itemBuilder: (context, index) {
+
+                        if (index == response.data.data.length) {
+                          injector.get<TrendingPostCubit>().loadMore(response);
+                          return SizedBox(
+                            height: 100,
+                            width: 100,
+                            child: Center(child: CustomDialogs.getLoading(size: 50)),
+                          );
+                        }
+
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: PostItem(
+                            post: response.data.data[index],
+                          ),
+                        );
+                      },
                     ),
                   );
                 },

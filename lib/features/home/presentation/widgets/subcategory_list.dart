@@ -6,6 +6,7 @@ import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/constants/dialog_texts.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
@@ -28,8 +29,7 @@ class _SubcategoryListState extends State<SubcategoryList> {
   @override
   void initState() {
     logger.w(widget.category.id);
-    postBloc.add(
-        PostEvent.getCategories(categoryId: widget.category.id.toString()));
+    postBloc.add(PostEvent.getCategories(categoryId: widget.category.id.toString(), mergeGroups: true));
     super.initState();
   }
 
@@ -43,8 +43,7 @@ class _SubcategoryListState extends State<SubcategoryList> {
           10.verticalSpace,
           InkWell(
             onTap: () {
-              context.read<DrawerCubit>().switchView(DrawerView.category,
-                  subCategory: widget.category);
+              context.read<DrawerCubit>().switchView(DrawerView.category, subCategory: widget.category);
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -84,15 +83,13 @@ class _SubcategoryListState extends State<SubcategoryList> {
                     postBloc.add(const PostEvent.getCategories());
                   },
                 ),
-                getCategoriesLoading: () => SizedBox(
-                    height: 300, child: CustomDialogs.getLoading(size: 50)),
+                getCategoriesLoading: () => SizedBox(height: 300, child: CustomDialogs.getLoading(size: 50)),
                 getCategoriesSuccess: (response) {
                   if (response.data.isEmpty) {
                     return const SizedBox(
                       height: 300,
                       child: Center(
-                        child:
-                            TextView(text: "There are no sub categories here"),
+                        child: TextView(text: "There are no sub categories here"),
                       ),
                     );
                   }
@@ -100,14 +97,28 @@ class _SubcategoryListState extends State<SubcategoryList> {
                   return ListView.builder(
                     itemCount: response.data.length,
                     shrinkWrap: true,
-                    // physics: const BouncingScrollPhysics(),
+                    physics: const NeverScrollableScrollPhysics(),
                     itemBuilder: (context, index) => Padding(
                       padding: const EdgeInsets.symmetric(vertical: 3.0),
                       child: NavCategoryItem(
+                        showArrow: false,
                         category: response.data[index],
                         onTap: () {
-                          context.pushNamed(PageUrl.categoriesScreen,
-                              extra: response.data[index]);
+                          // logger.w(response.data[index].toJson());
+
+                          if (response.data[index].type.toString().toLowerCase() == "category") {
+                            context.pushNamed(PageUrl.categoriesScreen, extra: response.data[index]);
+                          } else {
+                            if (response.data[index].isSuspended ?? false) {
+                              CustomDialogs.error("You have been suspended from this group");
+                            } else if (!response.data[index].isPublic && !(response.data[index].isFollowing ?? false)) {
+                              CustomDialogs.showInfoMessage(context, privateGroupViewText);
+                            } else {
+                              context.pushNamed(PageUrl.groupsInfoScreen, extra: response.data[index].id.toString());
+                            }
+
+                            // context.pushNamed(PageUrl.groupsInfoScreen, extra: response.data[index].id.toString());
+                          }
                         },
                       ),
                     ),

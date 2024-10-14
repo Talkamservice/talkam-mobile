@@ -37,7 +37,7 @@ class GroupOverViewSection extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   TextView(
-                    text: data.category?.name,
+                    text: data.name!,
                     fontSize: 16,
                   ),
                   // 2.verticalSpace,

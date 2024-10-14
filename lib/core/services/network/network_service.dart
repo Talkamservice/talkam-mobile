@@ -47,7 +47,7 @@ class NetworkService {
       baseUrl: baseUrl ?? UrlConfig.coreBaseUrl,
     ));
     authToken ??= SessionManager.instance.authToken;
-    logger.i("authToken is ${SessionManager.instance.usersData}");
+    // logger.i("authToken is ${SessionManager.instance.usersData}");
     dio!.interceptors.add(LogInterceptor(
       requestBody: true,
       responseBody: true,
@@ -59,7 +59,8 @@ class NetworkService {
   /// Factory constructor used mainly for injecting an instance of [Dio] mock
   NetworkService.test(this.dio);
 
-  Future<Response> call(String path, RequestMethod method,
+  Future<Response> call(
+      String path, RequestMethod method,
       {Map<String, dynamic>? queryParams,
       data,
       FormData? formData,
@@ -67,6 +68,7 @@ class NetworkService {
       classTag = '',
       Options? options}) async {
     Response response;
+
     var params = queryParams ?? {};
     if (params.keys.contains("searchTerm")) {
       params["searchTerm"] = Uri.encodeQueryComponent(params["searchTerm"]);
@@ -74,6 +76,7 @@ class NetworkService {
     if (params.keys.contains("page")) {
       params["page"] = Uri.encodeQueryComponent(params["page"]);
     }
+
     try {
       switch (method) {
         case RequestMethod.post:
@@ -183,16 +186,16 @@ class NetworkService {
     }
   }
 
-  _getOptions() {
 
+
+  _getOptions() {
     return Options(contentType: Headers.jsonContentType, headers: {
       HttpHeaders.authorizationHeader:
-      "Bearer ${SessionManager.instance.authToken}",
+          "Bearer ${SessionManager.instance.authToken}",
       'Accept': 'application/json',
       'Content-Type': 'application/json',
       "timezone": TimezoneService().currentTimeZone
     });
-
   }
 }
 

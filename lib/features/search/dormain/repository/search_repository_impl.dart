@@ -4,6 +4,7 @@ import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/features/search/data/models/get_search_response.dart';
+import 'package:talkam/features/search/data/models/search_user_response.dart';
 import 'package:talkam/features/search/data/models/talkam_search_result.dart';
 import 'package:talkam/features/search/data/repository/search_repository.dart';
 
@@ -15,9 +16,7 @@ class SearchRepositoryImpl extends SearchRepository {
   @override
   Future<GetSearchResponse> fetchRecentSearches(int userId) async {
     try {
-      final response = await _networkService.call(
-          UrlConfig.fetchRecentSearches, RequestMethod.get,
-          queryParams: {"user_id": userId.toString()});
+      final response = await _networkService.call(UrlConfig.fetchRecentSearches, RequestMethod.get, queryParams: {"user_id": userId.toString()});
       return GetSearchResponse.fromJson(response.data);
     } catch (e) {
       rethrow;
@@ -25,23 +24,15 @@ class SearchRepositoryImpl extends SearchRepository {
   }
 
   @override
-  Future search(String query,
-      {SearchSort sort = SearchSort.post, int? page}) async {
+  Future search(String query, {SearchSort sort = SearchSort.post, int? page}) async {
     try {
-      final response = await _networkService.call(
-          UrlConfig.search, RequestMethod.get, queryParams: {
-        "sort": sort.name,
-        "search": query,
-        "page": (page ?? 1).toString()
-      });
+      final response =
+          await _networkService.call(UrlConfig.search, RequestMethod.get, queryParams: {"sort": sort.name, "search": query, "page": (page ?? 1).toString()});
 
       return switch (sort) {
-        SearchSort.post => SearchResult<GetPostsResponse>(
-            GetPostsResponse.fromJson(response.data)),
-        SearchSort.group => SearchResult<GetGroupsResponse>(
-            GetGroupsResponse.fromJson(response.data)),
-        SearchSort.media => SearchResult<GetPostsResponse>(
-            GetPostsResponse.fromJson(response.data)),
+        SearchSort.post => SearchResult<GetPostsResponse>(GetPostsResponse.fromJson(response.data)),
+        SearchSort.group => SearchResult<GetGroupsResponse>(GetGroupsResponse.fromJson(response.data)),
+        SearchSort.media => SearchResult<GetPostsResponse>(GetPostsResponse.fromJson(response.data)),
       };
       // return response.data;
     } catch (e) {
@@ -52,8 +43,7 @@ class SearchRepositoryImpl extends SearchRepository {
   @override
   Future<GetSearchResponse> fetchTrendingSearches() async {
     try {
-      final response = await _networkService.call(
-          UrlConfig.fetchTrendingSearches, RequestMethod.get);
+      final response = await _networkService.call(UrlConfig.fetchTrendingSearches, RequestMethod.get);
       return GetSearchResponse.fromJson(response.data);
     } catch (e, stack) {
       logger.e(e.toString(), stackTrace: stack);
@@ -64,8 +54,7 @@ class SearchRepositoryImpl extends SearchRepository {
   @override
   Future<dynamic> deleteSearch(int searchId) async {
     try {
-      final response = await _networkService.call(
-          '${UrlConfig.deleteSearch}/$searchId/delete', RequestMethod.delete);
+      final response = await _networkService.call('${UrlConfig.deleteSearch}/$searchId/delete', RequestMethod.delete);
       return response.data;
     } catch (e) {
       rethrow;
@@ -75,10 +64,24 @@ class SearchRepositoryImpl extends SearchRepository {
   @override
   Future<GetSearchResponse> fetchSearchSuggestions(String search) async {
     try {
-      final response = await _networkService.call(
-          UrlConfig.fetchSearchSuggestions, RequestMethod.get,
-          queryParams: {"search": search});
+      final response = await _networkService.call(UrlConfig.fetchSearchSuggestions, RequestMethod.get, queryParams: {"search": search});
       return GetSearchResponse.fromJson(response.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<SearchedUser>> searUserByName(String name) async {
+    final response = await _networkService.call("/user/search/username?search=${name.isEmpty ? " " : name}", RequestMethod.get, data: {"id": name});
+    return List.from(response.data['data']).map((e) => SearchedUser.fromJson(e)).toList();
+  }
+
+  @override
+  Future clearSearchHistory(int userId) async{
+    try {
+      final response = await _networkService.call('${UrlConfig.deleteSearch}/$userId/delete-all', RequestMethod.delete);
+      return response.data;
     } catch (e) {
       rethrow;
     }

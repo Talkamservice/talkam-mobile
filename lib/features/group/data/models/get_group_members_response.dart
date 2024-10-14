@@ -95,9 +95,11 @@ class Data {
 class GroupMemberDetails {
   int id;
   String role;
+  bool isSuspended;
+  bool isBanned;
   String status;
-  TalkamGroupPreview group;
-  User user;
+  TalkamGroupPreview? group;
+  GroupUser user;
   DateTime createdAt;
   DateTime updatedAt;
 
@@ -105,7 +107,9 @@ class GroupMemberDetails {
     required this.id,
     required this.role,
     required this.status,
-    required this.group,
+    required this.isSuspended,
+    required this.isBanned,
+     this.group,
     required this.user,
     required this.createdAt,
     required this.updatedAt,
@@ -115,8 +119,10 @@ class GroupMemberDetails {
     int? id,
     String? role,
     String? status,
+    bool? isSuspended,
+    bool? isBanned,
     TalkamGroupPreview? group,
-    User? user,
+    GroupUser? user,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) =>
@@ -124,6 +130,8 @@ class GroupMemberDetails {
         id: id ?? this.id,
         role: role ?? this.role,
         status: status ?? this.status,
+        isSuspended: isSuspended ?? this.isSuspended,
+        isBanned: isBanned ?? this.isBanned,
         group: group ?? this.group,
         user: user ?? this.user,
         createdAt: createdAt ?? this.createdAt,
@@ -135,8 +143,10 @@ class GroupMemberDetails {
         id: json["id"],
         role: json["role"],
         status: json["status"],
+        isBanned: json["is_banned"],
+        isSuspended: json["is_suspended"],
         group: TalkamGroupPreview.fromJson(json["group"]),
-        user: User.fromJson(json["user"]),
+        user: GroupUser.fromJson(json["user"]),
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
       );
@@ -145,23 +155,26 @@ class GroupMemberDetails {
         "id": id,
         "role": role,
         "status": status,
-        "group": group.toJson(),
+        "is_suspended": isSuspended,
+        "is_suspended": isSuspended,
+        "is_banned": isBanned,
+        "group": group?.toJson(),
         "user": user.toString(),
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
       };
 
-  TalkamGroupMemberInfo toTalkamGroupMemberInfo() {
-    return TalkamGroupMemberInfo(
-        email: user.email,
-        avatar: user.avatar,
-        createdAt: createdAt,
-        updatedAt: updatedAt,
-        id: user.id,
-        role: role,
-        username: user.username,
-        name: user.name);
-  }
+  // TalkamGroupMemberInfo toTalkamGroupMemberInfo() {
+  //   return TalkamGroupMemberInfo(
+  //       email: user.email,
+  //       avatar: user.avatar,
+  //       createdAt: createdAt,
+  //       updatedAt: updatedAt,
+  //       id: user.id,
+  //       role: role,
+  //       username: user.username,
+  //       name: user.name);
+  // }
 }
 
 class TalkamGroupPreview {
@@ -212,14 +225,14 @@ class TalkamGroupPreview {
       };
 }
 
-class User {
+class GroupUser {
   final int? id;
   final String? avatar;
   final String? name;
   final String? username;
   final String? email;
 
-  User({
+  GroupUser({
     this.id,
     this.avatar,
     this.name,
@@ -227,8 +240,8 @@ class User {
     this.email,
   });
 
-  factory User.fromJson(Map<String, dynamic> json) {
-    return User(
+  factory GroupUser.fromJson(Map<String, dynamic> json) {
+    return GroupUser(
       id: json['id'],
       avatar: json['avatar'],
       name: json['name'],

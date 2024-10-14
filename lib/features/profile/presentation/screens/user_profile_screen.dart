@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
+import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
@@ -10,21 +10,22 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/authentication/data/models/auth_response.dart';
-import 'package:talkam/features/profile/presentation/bloc/profile_screen_cubit/profile_screen_cubit.dart';
+import 'package:talkam/features/messaging/data/models/get_conversations_response.dart';
+import 'package:talkam/features/messaging/presentation/screens/chat_screen.dart';
 import 'package:talkam/features/profile/presentation/bloc/user_profile_cubit/user_profile_cubit.dart';
-import 'package:talkam/features/profile/presentation/screens/tabs/profile_comments_tab.dart';
-import 'package:talkam/features/profile/presentation/screens/tabs/profile_posts_tab.dart';
-import 'package:talkam/features/profile/presentation/screens/tabs/profile_upvotes_tab.dart';
+import 'package:talkam/features/profile/presentation/screens/user_profile_tabs/user_media_tab.dart';
 import 'package:talkam/features/profile/presentation/screens/user_profile_tabs/user_profile_comments_tab.dart';
 import 'package:talkam/features/profile/presentation/screens/user_profile_tabs/user_profile_posts_tab.dart';
 import 'package:talkam/features/profile/presentation/screens/user_profile_tabs/user_profile_upvotes_tab.dart';
 import 'package:talkam/features/components/talkam_tab_bar.dart';
+import 'package:talkam/features/profile/presentation/widgets/user_profile_actions.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 enum _ProfileTabOptions {
   posts,
   comments,
-  upVotes;
+  upVotes,
+  media;
 
   String get title {
     switch (this) {
@@ -36,14 +37,16 @@ enum _ProfileTabOptions {
 
       case upVotes:
         return "Upvotes";
+      case media:
+        return "Media";
     }
   }
 }
 
 class UserProfileScreen extends StatefulWidget {
-  const UserProfileScreen({super.key, required this.userId});
+   UserProfileScreen({super.key, required this.userId});
 
-  final String userId;
+   String userId;
 
   @override
   State<UserProfileScreen> createState() => _UserProfileScreenState();
@@ -76,6 +79,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
           profileLoaded: (TalkamUser talkAmUser) {
             _talkamUser = talkAmUser;
             userName = _talkamUser.username;
+            widget.userId = _talkamUser.id.toString();
             setState(() {});
           },
           orElse: () {},
@@ -88,32 +92,74 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
             tittleText: userName ?? "",
             centerTile: false,
             showDivider: true,
-            actions: const [
-              // Padding(
-              //   padding: EdgeInsets.only(right: 10.w),
-              //   child: GestureDetector(
-              //     onTap: () {
-              //       context.pushNamed(PageUrl.settingsScreen);
-              //     },
-              //     child: SvgPicture.asset(
-              //       Assets.images.svgs.icSetting,
-              //     ),
-              //   ),
-              // )
+            actions: [
+              if(userName!=null)
+              IconButton(
+                  onPressed: () async {
+                    var refresh = await CustomDialogs.showBottomSheet(
+                        context,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+                        ),
+                        UserProfileActions(
+                          user: _talkamUser,
+                        ));
+
+                    if (refresh ?? false) {
+                      injector.get<UserProfileCubit>().fetchUserProfile(widget.userId, reload: false);
+                    }
+                  },
+                  icon: const Icon(Icons.more_vert)),
             ],
           ),
           body: SafeArea(
             child: state.maybeWhen(
-                profileLoading: () =>
-                    Center(child: CustomDialogs.getLoading(size: 50)),
-                getProfileError: () => const SizedBox(),
+                profileLoading: () => Center(child: CustomDialogs.getLoading(size: 50)),
+                getProfileError: (e) =>  AppErrorWidget(message: e,),
                 orElse: () {
+                  if (_talkamUser.isBlocked) {
+                    return Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextView(
+                            text: "@${_talkamUser.username} is Blocked",
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18,
+                          ),
+                          10.verticalSpace,
+                          const TextView(text: "Unblock them to view their activities and posts."),
+                          60.verticalSpace,
+                        ],
+                      ),
+                    );
+                  }
+
+
+                  if (_talkamUser.status.toLowerCase() == "banned") {
+                    return Center(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          TextView(
+                            text: "@${_talkamUser.username} is Banned",
+                            fontWeight: FontWeight.w600,
+                            fontSize: 18,
+                          ),
+                          10.verticalSpace,
+                          const TextView(text: "You can view their profile when their account is re-activated"),
+                          60.verticalSpace,
+                        ],
+                      ),
+                    );
+                  }
+
+
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding:
-                            EdgeInsets.only(top: 20.h, right: 16.w, left: 16.w),
+                        padding: EdgeInsets.only(top: 20.h, right: 16.w, left: 16.w),
                         child: Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -123,8 +169,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                               shape: BoxShape.circle,
                               canPreview: true,
                               fit: BoxFit.cover,
-                              imageUrl:
-                                  _talkamUser.avatar ?? Assets.images.svgs.user,
+                              imageUrl: _talkamUser.avatar ?? Assets.images.svgs.user,
                             ),
                             10.horizontalSpace,
                             Padding(
@@ -135,6 +180,32 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 color: Pallets.boldBlackV2,
                               ),
                             ),
+                            const Spacer(),
+                            InkWell(
+                              onTap: () {
+                                var user = _talkamUser;
+
+                                context.pushNamed(PageUrl.chatScreen,
+                                    extra: ChatScreenParam(
+                                        user: ConversationUser(id: user.id, name: user.name, avatar: user.avatar, email: user.email, username: user.username)));
+                              },
+                              child: Container(
+                                height: 40.h,
+                                padding: EdgeInsets.symmetric(horizontal: 10.w),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(56),
+                                  border: Border.all(color: Pallets.borderGrey),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    ImageWidget(imageUrl: Assets.images.svgs.messageBubbles),
+                                    4.horizontalSpace,
+                                    const TextView(text: "Send a message")
+                                  ],
+                                ),
+                              ),
+                            )
                           ],
                         ),
                       ),
@@ -144,8 +215,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                           children: [
                             ..._ProfileTabOptions.values.map((tabOption) {
                               return Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 8.0),
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
                                 child: TalkamTabBar(
                                   key: Key(tabOption.title),
                                   useExpandedAsParent: false,
@@ -174,24 +244,27 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                                 ? _ProfileTabOptions.posts
                                 : index == 1
                                     ? _ProfileTabOptions.comments
-                                    : _ProfileTabOptions.upVotes;
+                                    : index == 2
+                                        ? _ProfileTabOptions.upVotes
+                                        : _ProfileTabOptions.media;
                             setState(() {});
                           },
                           children: [
                             UserProfilePostTab(
-                              key: const PageStorageKey(
-                                  _ProfileTabOptions.posts),
+                              key: const PageStorageKey(_ProfileTabOptions.posts),
                               userId: widget.userId,
                             ),
                             UserProfileCommentsTab(
-                              key: const PageStorageKey(
-                                  _ProfileTabOptions.comments),
+                              key: const PageStorageKey(_ProfileTabOptions.comments),
                               userID: widget.userId,
                             ),
                             UserProfileUpvotesTab(
-                              key: const PageStorageKey(
-                                  _ProfileTabOptions.upVotes),
+                              key: const PageStorageKey(_ProfileTabOptions.upVotes),
                               userId: widget.userId,
+                            ),
+                            UserProfileMediaTab(
+                              key: const PageStorageKey(_ProfileTabOptions.media),
+                              userId: _talkamUser.id.toString(),
                             ),
                           ],
                         ),

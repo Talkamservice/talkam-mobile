@@ -1,5 +1,6 @@
+import 'dart:convert';
+import 'package:talkam/features/group/data/models/get_group_members_response.dart';
 import 'package:talkam/features/group/dormain/model/group_overview_data.dart';
-import 'package:talkam/features/group/presentation/screens/group_details_screen.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
@@ -19,7 +20,7 @@ class GetGroupsResponse {
   factory GetGroupsResponse.fromJson(Map<String, dynamic> json) {
     var groupList = json['data']["data"] as List?;
     List<TalkamGroup>? groups =
-        groupList?.map((i) => TalkamGroup.fromJson(i)).toList();
+    groupList?.map((i) => TalkamGroup.fromJson(i)).toList();
 
     return GetGroupsResponse(
       paginationMeta: json['data']['pagination_meta'] != null
@@ -115,7 +116,7 @@ class GroupGuideline {
   }
 }
 
-class TalkamGroup {
+class TalkamGroup extends Codec<TalkamGroup, String> {
   final int? id;
   final String? name;
   final String? uuid;
@@ -123,10 +124,14 @@ class TalkamGroup {
   final String? status;
   final String? groupAccess;
   final String? image;
-  final bool? isFollowing;
+  bool? isFollowing;
+  bool? hasRequested;
+  bool? isReported;
+  bool? isSuspended;
+  int? pendingCount;
   final int? totalMembers;
   final PostCategory? category;
-  final List<GroupGuideline>? guidelines;
+  List<GroupGuideline>? guidelines;
   final String? description;
   final GroupOwner? owner;
   final String? about;
@@ -141,6 +146,9 @@ class TalkamGroup {
     this.groupAccess,
     this.image,
     this.isFollowing,
+    this.hasRequested,
+    this.isReported,
+    this.isSuspended,
     this.totalMembers,
     this.category,
     this.guidelines,
@@ -148,6 +156,7 @@ class TalkamGroup {
     this.owner,
     this.about,
     this.userRole,
+    this.pendingCount,
     this.createdAt,
     this.updatedAt,
   });
@@ -155,7 +164,7 @@ class TalkamGroup {
   factory TalkamGroup.fromJson(Map<String, dynamic> json) {
     var guidelinesList = json['guidelines'] as List?;
     List<GroupGuideline>? guidelines =
-        guidelinesList?.map((i) => GroupGuideline.fromJson(i)).toList();
+    guidelinesList?.map((i) => GroupGuideline.fromJson(i)).toList();
 
     return TalkamGroup(
       id: json['id'],
@@ -164,8 +173,12 @@ class TalkamGroup {
       userRole: json['user_role'],
       status: json['status'],
       groupAccess: json['group_access'],
+      pendingCount: json['pending_count'],
       image: json['image'],
       isFollowing: json['is_following'],
+      isSuspended: json['is_suspended'],
+      isReported: json['is_reported'],
+      hasRequested: json['has_requested'],
       totalMembers: json['total_members'],
       category: json['category'] != null
           ? PostCategory.fromJson(json['category'])
@@ -183,18 +196,28 @@ class TalkamGroup {
     );
   }
 
+  // TalkamGroupMemberInfo toTalkamGroupMemberInfo() {
+  //   return TalkamGroupMemberInfo(
+  //       email: owner!.email,
+  //       avatar: owner!.avatar,
+  //       createdAt: createdAt,
+  //       updatedAt: createdAt,
+  //       id: owner!.id,
+  //       role: "Owner",
+  //       username: owner!.username,
+  //       name: owner!.name);
+  // }
 
-
-  GroupDetailsScreenParam toGroupDetailsScreenParam({bool isPreview = false}) {
-    return GroupDetailsScreenParam(
-      isPreview: isPreview,
-      rulesData: toGroupGuidlineTabData(),
-      membersData: toGroupMembersTabData(),
-      // Assuming you have methods to fetch admins and members
-      overview: toGroupOverViewData(),
-      about: toGroupAboutData(),
-    );
-  }
+  // GroupDetailsScreenParam toGroupDetailsScreenParam({bool isPreview = false}) {
+  //   return GroupDetailsScreenParam(
+  //     isPreview: isPreview,
+  //     rulesData: toGroupGuidlineTabData(),
+  //     membersData: toGroupMembersTabData(),
+  //     // Assuming you have methods to fetch admins and members
+  //     overview: toGroupOverViewData(),
+  //     about: toGroupAboutData(),
+  //   );
+  // }
 
   GroupAppBarData toGroupAppBarData() {
     return GroupAppBarData(
@@ -208,38 +231,37 @@ class TalkamGroup {
     );
   }
 
-  GroupAboutData toGroupAboutData() {
-    return GroupAboutData(
-      about: about ?? "",
-      // Use about if available, otherwise an empty string
-      creator: owner ?? GroupOwner(username: "Unknown"),
-      // Use owner if available, otherwise create a dummy member
-      isPublic: groupAccess == "Opened",
-      // Check if group access is public
-      accesibility:
-          groupAccess == "Opened" ? "Anyone can join" : "Approval required",
-      createdAt: createdAt!,
-      updatedAt: updatedAt, // Set accessibility based on groupAccess
-    );
-  }
-
-  GroupMembersTabData toGroupMembersTabData() {
-    // Assuming there's a way to access group admins and members in your app
-    List<TalkamGroupMemberInfo> admins =
-        []; // Replace with actual admin retrieval logic
-    List<TalkamGroupMemberInfo> members =
-        []; // Replace with actual member retrieval logic
-
-    return GroupMembersTabData(
-      admin: admins,
-      members: members,
-      owner: [],
-      groupId: id.toString(),
-      iPreview: false,
-      // Use owner if available, otherwise create a dummy member
-    );
-  }
-
+  // GroupAboutData toGroupAboutData() {
+  //   return GroupAboutData(
+  //     about: about ?? "",
+  //     // Use about if available, otherwise an empty string
+  //     creator: owner ?? GroupOwner(username: "Unknown"),
+  //     // Use owner if available, otherwise create a dummy member
+  //     isPublic: groupAccess == "Opened",
+  //     // Check if group access is public
+  //     accesibility:
+  //         groupAccess == "Opened" ? "Anyone can join" : "Approval required",
+  //     createdAt: createdAt!,
+  //     updatedAt: updatedAt, // Set accessibility based on groupAccess
+  //   );
+  // }
+  //
+  // GroupMembersTabData toGroupMembersTabData() {
+  //   // Assuming there's a way to access group admins and members in your app
+  //   List<TalkamGroupMemberInfo> admins =
+  //       []; // Replace with actual admin retrieval logic
+  //   List<TalkamGroupMemberInfo> members =
+  //       []; // Replace with actual member retrieval logic
+  //
+  //   return GroupMembersTabData(
+  //     admin: admins,
+  //     members: members,
+  //     owner: [],
+  //     groupId: id.toString(),
+  //     iPreview: false,
+  //     // Use owner if available, otherwise create a dummy member
+  //   );
+  // }
 
   GroupGuidlineTabData toGroupGuidlineTabData() {
     String groupDescription = description ?? ""; // Use description if available
@@ -275,15 +297,21 @@ class TalkamGroup {
       about: about ?? "",
       // Use about if available, otherwise an empty string
       totalMembers:
-          totalMembers ?? 0, // Use totalMembers if available, otherwise 0
+      totalMembers ?? 0, // Use totalMembers if available, otherwise 0
     );
   }
 
+  bool get isPublic => groupAccess == null || groupAccess == "Opened";
 
+  bool get isAdmin => (userRole == "Owner" || userRole == "Admin");
 
-  bool get isPublic => groupAccess== null || groupAccess == "Opened";
+  @override
+  // TODO: implement decoder
+  Converter<String, TalkamGroup> get decoder => throw UnimplementedError();
 
-
+  @override
+  // TODO: implement encoder
+  Converter<TalkamGroup, String> get encoder => throw UnimplementedError();
 }
 
 class GroupOwner {
@@ -309,6 +337,16 @@ class GroupOwner {
       username: json['username'],
       email: json['email'],
     );
+  }
+
+  GroupMemberDetails toGroupMemberDetail() {
+    return GroupMemberDetails(id: id!,
+        role: "Owner",
+        status: "Active",
+        isSuspended: false,
+        isBanned: false,
+        createdAt: DateTime.now(),
+        updatedAt: DateTime.now(), user: GroupUser(id: id,username: username,email: email,avatar: avatar,name: name));
   }
 }
 

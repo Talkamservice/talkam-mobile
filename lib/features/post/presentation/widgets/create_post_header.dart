@@ -67,7 +67,7 @@ class _CreatePostHeaderState extends State<CreatePostHeader> {
                       onTap: () => _updatePostType(PostType.text),
                     ),
                     PostTypeButton(
-                      icon: Assets.images.svgs.image03,
+                      icon: Assets.images.svgs.attatchement,
                       postType: PostType.file,
                       isSelected: _postType == PostType.file,
                       onTap: () => _updatePostType(PostType.file),
@@ -78,6 +78,7 @@ class _CreatePostHeaderState extends State<CreatePostHeader> {
                       isSelected: _postType == PostType.poll,
                       onTap: () => _updatePostType(PostType.poll),
                     ),
+
                     const VerticalDivider(
                       thickness: 1,
                     ),
@@ -139,6 +140,7 @@ class PostTypeButton extends StatelessWidget {
               color:
                   isSelected ? context.colorScheme.onSurface : Pallets.grey60,
               imageUrl: icon,
+              size: 20,
             ),
           ),
         ],

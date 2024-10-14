@@ -10,6 +10,7 @@ import 'package:talkam/features/post/presentation/bloc/featured_posts/featured_p
 import 'package:talkam/features/post/presentation/bloc/recent_post/recent_post_cubit.dart';
 import 'package:talkam/features/post/presentation/bloc/trending_post/trending_post_cubit.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item.dart';
+import 'package:talkam/features/post/presentation/widgets/post_loading_shimmer.dart';
 
 class TrendingPostByCategoryScreen extends StatefulWidget {
   const TrendingPostByCategoryScreen({super.key, required this.categoryId});
@@ -46,8 +47,8 @@ class _TrendingPostByCategoryScreenState
             builder: (context, state) {
               return state.maybeWhen(
                 orElse: () => 0.verticalSpace,
-                getTrendingPostsLoading: () => Center(
-                  child: CustomDialogs.getLoading(size: 50),
+                getTrendingPostsLoading: () => const Center(
+                  child: PostLoadingShimmer(),
                 ),
                 getTrendingPostsFailed: (error) => AppErrorWidget(
                   message: error,

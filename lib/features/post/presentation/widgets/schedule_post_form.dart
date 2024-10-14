@@ -1,17 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/core/utils/extensions/time_of_day_extension.dart';
 
 class SchedulePostForm extends StatefulWidget {
-  const SchedulePostForm(
-      {super.key,
-      required this.schedulePost,
-      required this.onChanged,
-      required this.onScheduleDateSelected});
+  const SchedulePostForm({super.key, required this.schedulePost, required this.onChanged, required this.onScheduleDateSelected});
 
   final bool schedulePost;
   final Function(bool) onChanged;
@@ -51,10 +49,7 @@ class _SchedulePostFormState extends State<SchedulePostForm> {
           if (widget.schedulePost)
             TextButton(
                 style: TextButton.styleFrom(
-                    foregroundColor: Pallets.grey,
-                    padding: const EdgeInsets.all(16),
-                    side:
-                        const BorderSide(color: Pallets.borderGrey, width: 1)),
+                    foregroundColor: Pallets.grey, padding: const EdgeInsets.all(16), side: const BorderSide(color: Pallets.borderGrey, width: 1)),
                 onPressed: () {
                   pickDateAndTime(context);
                 },
@@ -62,11 +57,7 @@ class _SchedulePostFormState extends State<SchedulePostForm> {
                   children: [
                     Expanded(
                         child: TextView(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            text: scheduleDate != null
-                                ? TimeUtil.formartToDayTime(scheduleDate!)
-                                : "Date & Time")),
+                            fontSize: 16, fontWeight: FontWeight.w600, text: scheduleDate != null ? TimeUtil.formartToDayTime(scheduleDate!) : "Date & Time")),
                     const Icon(Icons.keyboard_arrow_right)
                   ],
                 ))
@@ -106,6 +97,15 @@ class _SchedulePostFormState extends State<SchedulePostForm> {
       context: context,
       initialTime: now,
     );
+    if (pickedTime != null && pickedTime.isBefore(TimeOfDay.now())) {
+      
+      
+      
+      CustomDialogs.error("Please select a future time.");
+      
+      return null;
+      
+    }
     return pickedTime;
   }
 

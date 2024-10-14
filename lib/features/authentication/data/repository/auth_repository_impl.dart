@@ -3,6 +3,7 @@ import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:talkam/common/models/success_response.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/firebase/notifiactions.dart';
 import 'package:talkam/core/services/network/network_service.dart';
 import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/features/authentication/data/models/oauth_req_dto.dart';
@@ -33,8 +34,7 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future sendOtp(String email, String type) async {
-    final response = await _networkService
-        .call(UrlConfig.sendOtp, RequestMethod.post, data: {
+    final response = await _networkService.call(UrlConfig.sendOtp, RequestMethod.post, data: {
       "email": email,
       "type": type,
     });
@@ -43,13 +43,9 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<SuccessResponse> verifyOtp(
-      {required String email,
-      required String code,
-      required String type}) async {
-    final response = await _networkService.call(
-        UrlConfig.verifyOtp, RequestMethod.post,
-        data: {"email": email, "code": code, "type": type});
+  Future<SuccessResponse> verifyOtp({required String email, required String code, required String type}) async {
+
+    final response = await _networkService.call(UrlConfig.verifyOtp, RequestMethod.post, data: {"email": email, "code": code, "type": type});
 
     return SuccessResponse.fromJson(response.data);
   }
@@ -74,12 +70,8 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<AuthorizationCredentialAppleID?> appleAuth() async {
-
     try {
-      final response = await SignInWithApple.getAppleIDCredential(scopes: [
-        AppleIDAuthorizationScopes.email,
-        AppleIDAuthorizationScopes.fullName
-      ]);
+      final response = await SignInWithApple.getAppleIDCredential(scopes: [AppleIDAuthorizationScopes.email, AppleIDAuthorizationScopes.fullName]);
 
       return response;
     } catch (e) {
@@ -89,11 +81,21 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<AuthSuccessResponse> oauthSignIn(OauthReqDto data) async {
+    var token = await NotificationService().deviceToken;
+    logger.w("FCM TOKEN$token");
+    logger.w("BODY RESPONSE ${data.copyWith(
+          fcmToken: token,
+        ).toJson()}");
+
     try {
       final response = await _networkService(
         UrlConfig.oauthLogin,
         RequestMethod.post,
-        data: data.toJson(),
+        data: data
+            .copyWith(
+              fcmToken: token,
+            )
+            .toJson(),
       );
 
       return AuthSuccessResponse.fromJson(response.data);
@@ -124,11 +126,8 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<AccessToken?> facebookAuth() async {
     try {
-      final LoginResult result = await FacebookAuth.instance.login(
-          permissions: [
-            'email',
-            'public_profile'
-          ]); // by default we request the email and the public profile
+      final LoginResult result =
+          await FacebookAuth.instance.login(permissions: ['email', 'public_profile']); // by default we request the email and the public profile
       if (result.status == LoginStatus.success) {
         final AccessToken accessToken = result.accessToken!;
         logger.i(accessToken);
@@ -145,10 +144,11 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<AuthSuccessResponse> login(String email, String password) async {
-
-    final response = await _networkService.call(
-        UrlConfig.login, RequestMethod.post,
-        data: {"input": email, "password": password});
+    final response = await _networkService.call(UrlConfig.login, RequestMethod.post, data: {
+      "input": email,
+      "password": password,
+      "fcm_token": await NotificationService().deviceToken,
+    });
 
     return AuthSuccessResponse.fromJson(response.data);
   }
@@ -156,10 +156,10 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<AuthSuccessResponse> register(String email, String password) async {
     try {
-      final response = await _networkService
-          .call(UrlConfig.register, RequestMethod.post, data: {
+      final response = await _networkService.call(UrlConfig.register, RequestMethod.post, data: {
         "email": email,
         "password": password,
+        "fcm_token": await NotificationService().deviceToken,
       });
 
       return AuthSuccessResponse.fromJson(response.data);
@@ -173,9 +173,7 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<dynamic> forgotPassword(String email) async {
     try {
-      final response = await _networkService.call(
-          UrlConfig.forgotPassword, RequestMethod.post,
-          data: {"email": email});
+      final response = await _networkService.call(UrlConfig.forgotPassword, RequestMethod.post, data: {"email": email});
 
       return response.data;
     } catch (e) {
@@ -186,9 +184,7 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<dynamic> passwordReset(String code, String password) async {
     try {
-      final response = await _networkService.call(
-          UrlConfig.passwordReset, RequestMethod.post,
-          data: {"code": code, "password": password});
+      final response = await _networkService.call(UrlConfig.passwordReset, RequestMethod.post, data: {"code": code, "password": password});
 
       return response.data;
     } catch (e) {

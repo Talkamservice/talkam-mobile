@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
@@ -29,6 +30,8 @@ class _PreviewGroupHeaderState extends State<PreviewGroupHeader> {
           ImageWidget(
             height: 130,
             width: 1.sw,
+
+            imageType: bannerImageType,
             imageUrl: widget.banner ?? Assets.images.jpegs.football.path,
           ),
           Column(
@@ -80,5 +83,12 @@ class _PreviewGroupHeaderState extends State<PreviewGroupHeader> {
         ],
       ),
     );
+  }
+  ImageWidgetType get bannerImageType {
+    return widget.banner.toString().isURL
+        ? ImageWidgetType.network
+        : widget.banner == null
+        ? ImageWidgetType.asset
+        : ImageWidgetType.file;
   }
 }

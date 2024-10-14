@@ -5,6 +5,7 @@ import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/features/group/presentation/blocs/group_post_cubit/group_post_cubit.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item.dart';
+import 'package:talkam/features/post/presentation/widgets/post_loading_shimmer.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 
 class GroupPostsTab extends StatefulWidget {
@@ -17,12 +18,9 @@ class GroupPostsTab extends StatefulWidget {
 }
 
 class _GroupPostsTabState extends State<GroupPostsTab> {
-
-
   @override
   void initState() {
     context.read<GroupPostCubit>().getGroupPosts(widget.group.id.toString());
-
 
     super.initState();
   }
@@ -36,49 +34,44 @@ class _GroupPostsTabState extends State<GroupPostsTab> {
         return state.maybeWhen(
           orElse: () => AppErrorWidget(
             onTap: () {
-              context
-                  .read<GroupPostCubit>()
-                  .getGroupPosts(widget.group.id.toString());
+              context.read<GroupPostCubit>().getGroupPosts(widget.group.id.toString());
             },
           ),
           postsLoading: () {
-            return CustomDialogs.getLoading(size: 50);
+            return const PostLoadingShimmer();
           },
           postsFailed: (message) => AppErrorWidget(
             onTap: () {
-              context
-                  .read<GroupPostCubit>()
-                  .getGroupPosts(widget.group.id.toString());
+              context.read<GroupPostCubit>().getGroupPosts(widget.group.id.toString());
             },
           ),
-
           postsLoaded: (media, paginationData) {
             return Column(
               children: [
                 if (media.isNotEmpty)
                   Expanded(
                     child: ListView.builder(
-                      itemCount: paginationData.canLoadMore
-                          ? media.length + 1
-                          : media.length,
+                      itemCount: paginationData.canLoadMore ? media.length + 1 : media.length,
                       padding: EdgeInsets.zero,
                       itemBuilder: (context, index) {
                         if (index >= media.length) {
-                          context.read<GroupPostCubit>().fetchNextMediaPage(
-                              groupId: widget.group.id.toString(),
-                              paginationData: paginationData,
-                              previousMedia: media);
-                          return const Center(
-                              child: CircularProgressIndicator());
+                          context
+                              .read<GroupPostCubit>()
+                              .fetchNextMediaPage(groupId: widget.group.id.toString(), paginationData: paginationData, previousMedia: media);
+                          return const Center(child: CircularProgressIndicator());
                         }
 
-                        return PostItem(post: media[index]);
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 8.0),
+                          child: PostItem(
+                            post: media[index],
+                            showGroupAndCategory: false,
+                          ),
+                        );
                       },
                     ),
                   ),
-                if (media.isEmpty)
-                  const Expanded(
-                      child: Center(child: TextView(text: "No posts here")))
+                if (media.isEmpty) const Expanded(child: Center(child: TextView(text: "No posts here")))
               ],
             );
           },

@@ -1,0 +1,59 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:talkam/common/widgets/image_widget.dart';
+import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/_core.dart';
+import 'package:talkam/features/search/data/models/get_group_response.dart';
+import 'package:talkam/gen/assets.gen.dart';
+
+class PreviewGroupMemberItem extends StatelessWidget {
+  const PreviewGroupMemberItem({super.key, required this.member});
+
+  final TalkamGroupMemberInfo member;
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        ImageWidget(imageUrl: Assets.images.svgs.member),
+        10.horizontalSpace,
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextView(
+                text: getDisplayName,
+                fontSize: 16,
+                fontWeight: FontWeight.w500,
+              ),
+              TextView(
+                text:
+                    "Member since ${TimeUtil.formatDate((member.createdAt ?? DateTime.now()).toIso8601String())}",
+                fontSize: 12,
+              ),
+            ],
+          ),
+        ),
+        // IconButton(
+        //     onPressed: () {
+        //       CustomDialogs.showBottomSheet(
+        //           context,
+        //           GroupmemberActionSheet(
+        //             currentUserIsAdmin: false,
+        //             member: member,
+        //           ));
+        //     },
+        //     icon: Icon(
+        //       Icons.more_vert,
+        //       color: context.colorScheme.onSurface,
+        //     ))
+      ],
+    );
+  }
+
+  String get getDisplayName => (member.name ?? "").isNotEmpty
+      ? member.name!
+      : (member.username != null && member.username!.isNotEmpty)
+          ? member.username!
+          : member.email!;
+}

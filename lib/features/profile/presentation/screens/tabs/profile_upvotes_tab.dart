@@ -9,6 +9,7 @@ import 'package:talkam/features/post/presentation/widgets/post_item.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_upvotes_cubit/profile_upvotes_cubit.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_posts_tab_cubit/profile_posts_tab_cubit.dart';
+import 'package:talkam/features/profile/presentation/widgets/refresh_post_listener.dart';
 
 class ProfileUpvotesTab extends StatefulWidget {
   const ProfileUpvotesTab({super.key});
@@ -38,60 +39,67 @@ class _ProfileUpvotesTabState extends State<ProfileUpvotesTab>
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return BlocConsumer<ProfileUpvotesCubit, ProfileUpvotesState>(
-      bloc: _cubit,
-      listener: (context, state) {
-        state.maybeWhen(
-          loaded: (List<TalkamPost> posts) {
-            _posts = posts;
-            setState(() {});
-          },
-          orElse: () {},
-        );
+    return RefreshPostListener(
+      onRefresh: () {
+        _cubit.fetchUserPosts(reload: false);
+
+
       },
-      builder: (context, state) {
-        return state.maybeWhen(
-          loading: () => Center(
-            child: CustomDialogs.getLoading(size: 50),
-          ),
-          error: (e) => AppErrorWidget(
-            message: e.toString(),
-            onTap: () {},
-          ),
-          orElse: () {
-            if (_posts.isEmpty) {
-              return const Center(
-                child: TextView(
-                  text: "No posts yet",
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
+      child: BlocConsumer<ProfileUpvotesCubit, ProfileUpvotesState>(
+        bloc: _cubit,
+        listener: (context, state) {
+          state.maybeWhen(
+            loaded: (List<TalkamPost> posts) {
+              _posts = posts;
+              setState(() {});
+            },
+            orElse: () {},
+          );
+        },
+        builder: (context, state) {
+          return state.maybeWhen(
+            loading: () => Center(
+              child: CustomDialogs.getLoading(size: 50),
+            ),
+            error: (e) => AppErrorWidget(
+              message: e.toString(),
+              onTap: () {},
+            ),
+            orElse: () {
+              if (_posts.isEmpty) {
+                return const Center(
+                  child: TextView(
+                    text: "No posts yet",
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
+                  ),
+                );
+              }
+              return RefreshIndicator(
+                onRefresh: () async {
+                  _cubit.fetchUserPosts();
+                },
+                child: ListView(
+                  controller: _scrollController,
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  // padding: EdgeInsets.only(top: 2),
+                  children: [
+                    for (int i = 0; i < _posts.length; i++) ...[
+                      PostItem(post: _posts[i]),
+                      4.verticalSpace,
+                    ],
+                    if (state is ProfilePostsTabLoadingMoreState)
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 16.h),
+                        child: Center(child: CustomDialogs.getLoading(size: 50)),
+                      )
+                  ],
                 ),
               );
-            }
-            return RefreshIndicator(
-              onRefresh: () async {
-                _cubit.fetchUserPosts();
-              },
-              child: ListView(
-                controller: _scrollController,
-                physics: const AlwaysScrollableScrollPhysics(),
-                // padding: EdgeInsets.only(top: 2),
-                children: [
-                  for (int i = 0; i < _posts.length; i++) ...[
-                    PostItem(post: _posts[i]),
-                    4.verticalSpace,
-                  ],
-                  if (state is ProfilePostsTabLoadingMoreState)
-                    Padding(
-                      padding: EdgeInsets.symmetric(vertical: 16.h),
-                      child: Center(child: CustomDialogs.getLoading(size: 50)),
-                    )
-                ],
-              ),
-            );
-          },
-        );
-      },
+            },
+          );
+        },
+      ),
     );
   }
 

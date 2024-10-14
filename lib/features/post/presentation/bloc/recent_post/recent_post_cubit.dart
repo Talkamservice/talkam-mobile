@@ -25,11 +25,17 @@ class RecentPostCubit extends Cubit<RecentPostState> {
     }
   }
 
-  void loadMore() async {
-    emit(const RecentPostState.loadingMore());
+  void loadMore(GetPostsResponse previousPosts) async {
+    // emit(const RecentPostState.loadingMore());
+
+
     try {
-      final response = await postRepository.getPosts(PostFilterModel());
-      emit(RecentPostState.getRecentPostsSuccess(response));
+      final response = await postRepository.getPosts(PostFilterModel(page: previousPosts.data.paginationMeta.currentPage+1,tab: "latest"));
+
+    var updated =  response.copyWith(data: response.data.copyWith(data: [...previousPosts.data.data, ...response.data.data]));
+
+
+      emit(RecentPostState.getRecentPostsSuccess(updated));
     } catch (error) {
       emit(RecentPostState.getRecentPostsFailed(error.toString()));
     }

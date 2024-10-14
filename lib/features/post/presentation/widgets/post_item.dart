@@ -10,24 +10,23 @@ import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/presentation/widgets/post_action_sheet.dart';
 import 'package:talkam/features/post/presentation/widgets/post_content.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item_components.dart';
+import 'package:talkam/features/post/presentation/widgets/scheduled_post_pill.dart';
 
 class PostItem extends StatelessWidget {
-  const PostItem({super.key, required this.post, this.showGroupAndCategory= true});
+  const PostItem({super.key, required this.post, this.showGroupAndCategory = true, this.showScheduledPost = false});
 
   final bool? showGroupAndCategory;
-
+  final bool? showScheduledPost;
   final TalkamPost post;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        context.pushNamed(PageUrl.postDetailsScreen, extra: post);
+        context.pushNamed(PageUrl.postDetailsScreen, extra: post.id.toString());
       },
       child: Container(
-        decoration: BoxDecoration(
-            color: context.theme.cardColor,
-            borderRadius: BorderRadius.circular(10)),
+        decoration: BoxDecoration(color: context.theme.cardColor, borderRadius: BorderRadius.circular(10)),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
           child: Column(
@@ -38,12 +37,12 @@ class PostItem extends StatelessWidget {
                 userName: userName,
                 post: post,
                 category: post.category,
-
                 onMenuTap: () async {
                   var isReported = await CustomDialogs.showBottomSheet(
                       context,
                       PostActionSheet(
                         post: post,
+                        onPostDeleted: () {},
                       ));
                   if (isReported ?? false) {
                     post.isReported = true;
@@ -54,7 +53,6 @@ class PostItem extends StatelessWidget {
               PostContent(
                 post: post,
               ),
-
               12.verticalSpace,
               const Divider(thickness: 1),
               10.verticalSpace,
@@ -62,10 +60,17 @@ class PostItem extends StatelessWidget {
                 onCommentTap: () {},
                 onLikeTap: () {},
                 onShareTap: () {
-                  Helpers.share("${UrlConfig.webUrl}/comments/${post.id}");
+                  Helpers.share("${UrlConfig.webUrl}comment/${post.id}");
                 },
                 post: post,
               ), // Implement PostActions here
+              if(showScheduledPost!)
+              10.verticalSpace,
+              if(showScheduledPost!)
+              const Divider(thickness: 1),
+              // 3.verticalSpace,
+              ScheduledPostPill(
+                  showScheduledPost: showScheduledPost! && post.isSchedulePost && (post.publishAt as DateTime).isAfter(DateTime.now()), post: post)
             ],
           ),
         ),
@@ -73,6 +78,5 @@ class PostItem extends StatelessWidget {
     );
   }
 
-  String get userName =>
-      post.isAnonymous.toBool ? "Anonymous" : post.user.usersName;
+  String get userName => post.isAnonymous.toBool ? "Anonymous" : post.user.usersName;
 }

@@ -10,6 +10,7 @@ abstract class Pallets {
   static const secondary = Color(0xFFFADE93);
   static const splash = Color(0xFF002C3C);
   static const boldBlack = Color(0xFF1A1A1A);
+  static const blueBubbleColor = Color(0xFF017FC8);
 
   static const anonymousBg = Color(0xFFFDD78D);
   static const pollTrackColor = Color(0xFFBAE4FD);
@@ -51,6 +52,7 @@ abstract class Pallets {
   static const boldRed = Color(0xFFEE1414);
   static const facebookBlue = Color(0xFF1877F2);
   static const black = Colors.black;
+  static const buttonBlack = Color(0xFF272727);
 
   // static const red = Colors.red;
   static const white = Colors.white;

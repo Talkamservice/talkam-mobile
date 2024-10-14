@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talkam/core/navigation/path_params.dart';
 import 'package:talkam/core/navigation/route_url.dart';
@@ -21,11 +22,14 @@ import 'package:talkam/features/group/presentation/screens/group_info_screen.dar
 import 'package:talkam/features/group/presentation/screens/group_members_screen.dart';
 import 'package:talkam/features/group/presentation/screens/groups_screen.dart';
 import 'package:talkam/features/group/presentation/screens/create_group/preview_group_screen.dart';
-import 'package:talkam/features/group/presentation/tabs/group_media_tab.dart';
+import 'package:talkam/features/group/presentation/screens/pending_requests_screen.dart';
 import 'package:talkam/features/home/presentation/screens/base_page.dart';
 import 'package:talkam/features/home/presentation/screens/home_screen.dart';
 import 'package:talkam/features/messaging/presentation/screens/chat_screen.dart';
 import 'package:talkam/features/messaging/presentation/screens/messages_screen.dart';
+import 'package:talkam/features/messaging/presentation/screens/new_message_screen.dart';
+import 'package:talkam/features/messaging/presentation/screens/new_request_screen.dart';
+import 'package:talkam/features/notifications/presentation/screens/notifications_screen.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/presentation/screens/categories_screen.dart';
@@ -33,6 +37,7 @@ import 'package:talkam/features/post/presentation/screens/create_post_screen.dar
 import 'package:talkam/features/post/presentation/screens/post_details_screen.dart';
 import 'package:talkam/features/profile/presentation/screens/edit_profile_screen.dart';
 import 'package:talkam/features/profile/presentation/screens/profile_screen.dart';
+import 'package:talkam/features/profile/presentation/screens/sceduled_posts_screen.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/features/settings/presentation/screens/account_settings_screen.dart';
 import 'package:talkam/features/settings/presentation/screens/blocked_users_screen.dart';
@@ -43,6 +48,8 @@ import 'package:talkam/features/settings/presentation/screens/settings_screen.da
 import 'package:talkam/features/profile/presentation/screens/user_profile_screen.dart';
 import 'package:talkam/features/search/presentation/screens/search_result_screen.dart';
 import 'package:talkam/features/search/presentation/screens/search_screen.dart';
+
+import '../../common/widgets/custom_dialogs.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'rootNavigator');
 final _shellNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'shellA');
@@ -60,6 +67,7 @@ class CustomRoutes {
     navigatorKey: rootNavigatorKey,
     debugLogDiagnostics: true,
     routes: [
+
       GoRoute(
         path: '/splash',
         name: PageUrl.splash,
@@ -107,12 +115,17 @@ class CustomRoutes {
       GoRoute(
         path: '/userNameScreen',
         name: PageUrl.userNameScreen,
-        builder: (context, state) => UsernameScreen(),
+        builder: (context, state) => const UsernameScreen(),
       ),
       GoRoute(
         path: '/editProfileScreen',
         name: PageUrl.editProfileScreen,
-        builder: (context, state) => EditProfileScreen(),
+        builder: (context, state) => const EditProfileScreen(),
+      ),
+      GoRoute(
+        path: '/userScheduledPosts',
+        name: PageUrl.userScheduledPosts,
+        builder: (context, state) => const ScheduledPostsScreen(),
       ),
       GoRoute(
         path: '/passWordResetScreen',
@@ -125,7 +138,7 @@ class CustomRoutes {
         path: '/postDetailsScreen',
         name: PageUrl.postDetailsScreen,
         builder: (context, state) => PostDetailsScreen(
-          post: state.extra as TalkamPost,
+          postId: state.extra as String,
         ),
       ),
       GoRoute(
@@ -192,6 +205,8 @@ class CustomRoutes {
           category: state.extra as PostCategory,
         ),
       ),
+
+
       GoRoute(
         path: '/searchResultScreen',
         name: PageUrl.searchResultScreen,
@@ -199,6 +214,9 @@ class CustomRoutes {
           query: state.extra as String,
         ),
       ),
+
+
+
       GoRoute(
         path: '/groupsInfoScreen',
         name: PageUrl.groupsInfoScreen,
@@ -230,39 +248,72 @@ class CustomRoutes {
       GoRoute(
         path: '/createGroupScreen',
         name: PageUrl.createGroupScreen,
-        builder: (context, state) =>  CreateGroupScreen(
-            group: state.extra as TalkamGroup?,
-            ),
-
+        builder: (context, state) => CreateGroupScreen(
+          group: state.extra as TalkamGroup?,
+          // query: state.extra as String,
+        ),
       ),
-      // GoRoute(
-      //   path: '/createGroupRulesScreen',
-      //   name: PageUrl.createGroupRulesScreen,
-      //   builder: (context, state) => const AddGroupRulesScreen(
-      //       // query: state.extra as String,
-      //       ),
-      // ),
+      GoRoute(
+        path: '/createGroupRulesScreen',
+        name: PageUrl.createGroupRulesScreen,
+        builder: (context, state) => const AddGroupRulesScreen(
+            // query: state.extra as String,
+            ),
+      ),
       GoRoute(
         path: '/previewGroupScreen',
         name: PageUrl.previewGroupScreen,
         builder: (context, state) => PreviewGroupScreen(
           payload: state.extra as PreviewGroupScreenParam,
-          // query: state.extra as String,
         ),
       ),
       GoRoute(
         path: '/createGroupSuccessScreen',
         name: PageUrl.createGroupSuccessScreen,
-        builder: (context, state) =>  CreateGroupSuccessScreen(
+        builder: (context, state) {
+          return CreateGroupSuccessScreen(
             payload: state.extra as TalkamGroup,
-            ),
+          );
+        },
       ),
       GoRoute(
         path: '/chatScreen',
         name: PageUrl.chatScreen,
-        builder: (context, state) =>  ChatScreen(
-
-            ),
+        pageBuilder: (context, state) => NoTransitionPage(
+          child: ChatScreen(
+            param: state.extra as ChatScreenParam,
+          ),
+        ),
+      ),
+      GoRoute(
+        path: '/new_requestScreen',
+        name: PageUrl.new_requestScreen,
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: NewRequestScreen(),
+        ),
+      ),
+      GoRoute(
+        path: '/new_messageScreen',
+        name: PageUrl.new_messageScreen,
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: NewMessageScreen(),
+        ),
+      ),
+      GoRoute(
+        path: '/notificationScreen',
+        name: PageUrl.notificationScreen,
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: NotificationsScreen(),
+        ),
+      ),
+      GoRoute(
+        path: '/pendingRequestsScreen',
+        name: PageUrl.pendingRequestsScreen,
+        pageBuilder: (context, state) => NoTransitionPage(
+          child: PendingRequestsScreen(
+            groupId: state.extra as String,
+          ),
+        ),
       ),
       StatefulShellRoute.indexedStack(
         builder: (context, state, navigationShell) {
@@ -331,8 +382,7 @@ class CustomRoutes {
     return CustomTransitionPage<T>(
       key: state.pageKey,
       child: child,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
-          FadeTransition(opacity: animation, child: child),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(opacity: animation, child: child),
     );
   }
 

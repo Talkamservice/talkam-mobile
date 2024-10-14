@@ -30,6 +30,7 @@ class TalkamTabBar extends StatelessWidget {
             fontWeight: FontWeight.w600,
           ),
           10.verticalSpace,
+
           if (isSelected)
             Container(
               height: 3.0,

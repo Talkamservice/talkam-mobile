@@ -1,6 +1,9 @@
+import 'dart:ffi';
 import 'dart:io';
 
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
@@ -11,12 +14,18 @@ import 'package:talkam/core/services/image_manipulation/image_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/extensions/int_extension.dart';
+import 'package:talkam/features/messaging/presentation/widgets/chat_emoji_widget.dart';
 import 'package:talkam/features/post/data/models/get_comments_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/data/models/save_comment_payload.dart';
 import 'package:talkam/features/post/presentation/screens/post_details_screen.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
+import 'package:talkam/features/search/presentation/blocs/search/search_cubit.dart';
+import 'package:talkam/features/search/presentation/widget/search_user_dialog.dart';
 import 'package:talkam/gen/assets.gen.dart';
+
+import 'package:emoji_picker_flutter/emoji_picker_flutter.dart'; // Import the emoji picker package
+import 'package:flutter/material.dart';
 
 class CommentInputWidget extends StatefulWidget {
   const CommentInputWidget({
@@ -44,49 +53,82 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
   bool _isAnonymous = false;
   final myFocusNode = FocusNode();
   File? stagedFile;
+  bool _showMentionDialog = false;
+  bool _isEmojiVisible = false; // Flag to show/hide emoji picker
   final formKey = GlobalKey<FormState>();
+  late final ScrollController _scrollController;
+
+  var searchBloc = SearchCubit(injector.get());
+
+  @override
+  void initState() {
+
+
+
+    _scrollController = ScrollController();
+    myFocusNode.addListener(() {
+     //  if(myFocusNode.hasFocus){
+     //
+     // setState(() {
+     //   _isEmojiVisible
+     // });
+     //  }
+    },);
+    super.initState();
+  }
 
   void _submitComment() {
-    if (formKey.currentState?.validate() ?? false) {
-      widget.onCommentSubmitted(SaveCommentPayload(
+    // if (formKey.currentState?.validate() ?? false ) {
+
+      if( _commentController.text.isNotEmpty||stagedFile!=null){
+        widget.onCommentSubmitted(SaveCommentPayload(
           postId: widget.postId,
           parentId: widget.parentComment,
           replyComment: widget.replyComment,
           comment: _commentController.text,
           attachment: stagedFile?.path,
-          isAnonymous: _isAnonymous.toInt));
-      myFocusNode.unfocus();
-      _commentController.clear();
-      stagedFile = null;
-      setState(() {});
-    }
-    // Clear the text field after submitting}
+          isAnonymous: _isAnonymous.toInt,
+        ));
+        myFocusNode.unfocus();
+        _commentController.clear();
+        stagedFile = null;
+        _isEmojiVisible = false; // Close emoji picker after comment submission
+        setState(() {});
+      }
+
+
+    // }
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(color: context.theme.cardColor),
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: ImageWidget(
-                    imageUrl: injector.get<ProfileBloc>().appUser?.avatar ??
-                        Assets.images.png.woman.path,
-                    size: 36,
-                    fit: BoxFit.cover,
+      child: BlocProvider.value(
+        value: searchBloc,
+        child: Column(
+          children: [
+            Visibility(
+              visible: _showMentionDialog,
+              child: SearchUserDialog(onUserSelected: _onUserSelected),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    child: ImageWidget(
+                      imageUrl: injector.get<ProfileBloc>().appUser?.avatar ??
+                          Assets.images.png.woman.path,
+                      size: 36,
+                      fit: BoxFit.cover,
+                    ),
                   ),
-                ),
-                8.horizontalSpace,
-                Expanded(
-                  child: Form(
-                    key: formKey,
+                  8.horizontalSpace,
+                  Expanded(
+
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -95,14 +137,34 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
                           controller: _commentController,
                           maxLines: 8,
                           minLines: 1,
-                          validator:
-                              RequiredValidator(errorText: "Field is required")
-                                  .call,
+                          textCapitalization: TextCapitalization.sentences,
+                          validator: RequiredValidator(
+                              errorText: "Field is required")
+                              .call,
+                          onChanged: (text) {
+                            var splitted = text.split(' ');
+                            if (splitted.last.contains('@')) {
+                              setState(() {
+                                _showMentionDialog = true;
+                              });
+                            } else if (splitted.last.endsWith(' ') ||
+                                text.isEmpty) {
+                              setState(() {
+                                _showMentionDialog = false;
+                              });
+                            }
+                            if (_showMentionDialog) {
+                              var search = _commentController.text.substring(
+                                  _commentController.text.lastIndexOf("@") +
+                                      1);
+                              searchBloc.searchForUser(search);
+                            }
+                          },
                           decoration: const InputDecoration(
                             hintText: "Leave a comment ...",
-
                             border: InputBorder.none, // Remove default border
-                            contentPadding: EdgeInsets.symmetric(vertical: 10),
+                            contentPadding:
+                            EdgeInsets.symmetric(vertical: 10),
                           ),
                         ),
                         8.verticalSpace,
@@ -118,9 +180,12 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
                               ),
                             ),
                             16.horizontalSpace,
-                            ImageWidget(
-                              imageUrl: Assets.images.svgs.gif,
-                              size: 24,
+                            InkWell(
+                              onTap: () {
+                                toggleEmojiPicker(); // Show/hide emoji picker
+                              },
+
+                              child:Icon(_isEmojiVisible ? Icons.keyboard : Icons.emoji_emotions_outlined, size: 20, color: Pallets.grey),
                             ),
                             16.horizontalSpace,
                             AnonymousSwitcher(
@@ -136,7 +201,8 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
                               style: ElevatedButton.styleFrom(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16, vertical: 10),
-                                backgroundColor: context.colorScheme.primary,
+                                backgroundColor:
+                                context.colorScheme.primary,
                                 shape: const StadiumBorder(),
                               ),
                               onPressed: _submitComment,
@@ -151,8 +217,10 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
                             children: [
                               ImageWidget(
                                 imageUrl: stagedFile!.path,
-                                height: 70,
+                                height: 170,
                                 width: 1.sw,
+                                borderRadius: BorderRadius.circular(16),
+
                                 imageType: ImageWidgetType.file,
                               ),
                               Positioned(
@@ -178,42 +246,61 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
                       ],
                     ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          AnimatedCrossFade(
-            firstChild: Container(
-              width: 1.sw,
-              padding: const EdgeInsets.all(10),
-              decoration: const BoxDecoration(
-                color: Pallets.anonymousBg,
-              ),
-              child: const TextView(
-                text: anonymousCommentText,
-                fontSize: 12,
-                fontWeight: FontWeight.w600,
+                ],
               ),
             ),
-            secondChild: 0.verticalSpace,
-            crossFadeState: anonymousCrossFadeState,
-            duration: const Duration(milliseconds: 400),
-          )
-        ],
+
+            // Emoji Picker
+            Offstage(
+              offstage: !_isEmojiVisible,
+              child: CustomEmojiPicker(textEditingController: _commentController, scrollController: _scrollController),
+            )
+          ],
+        ),
       ),
     );
   }
 
-  CrossFadeState get anonymousCrossFadeState {
-    return _isAnonymous ? CrossFadeState.showFirst : CrossFadeState.showSecond;
+  void toggleEmojiPicker() {
+    setState(() {
+      _isEmojiVisible = !_isEmojiVisible;
+      // FocusScope.of(context).unfocus(); // Close the keyboard
+
+
+      if (!_isEmojiVisible) {
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          myFocusNode.requestFocus();
+        });
+      } else {
+        myFocusNode.unfocus();
+      }
+    });
   }
 
   void selectImage() async {
     var image = await ImageManager().pickImageFromGallery();
-
     if (image != null) {
       stagedFile = image;
       setState(() {});
     }
   }
+
+  void _onUserSelected(String username) {
+    setState(() {
+      _showMentionDialog = false;
+    });
+
+    final text = _commentController.text;
+    final cursorPos = _commentController.selection.baseOffset;
+    final atIndex = text.lastIndexOf('@', cursorPos);
+
+    if (atIndex != -1) {
+      final newText = text.replaceRange(atIndex, cursorPos, '@$username');
+      _commentController.value = TextEditingValue(
+        text: newText,
+        selection: TextSelection.collapsed(offset: atIndex + username.length + 1),
+      );
+    }
+  }
 }
+
