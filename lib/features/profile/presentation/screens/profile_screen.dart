@@ -127,7 +127,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   canPreview: true,
                                   fit: BoxFit.scaleDown,
                                   shape: BoxShape.circle,
-                                  imageUrl: injector.get<ProfileBloc>().appUser?.avatar,
+                                  imageUrl: injector.get<ProfileBloc>().appUser?.avatar??Assets.images.svgs.user,
                                 ),
                                 10.horizontalSpace,
                                 Padding(
