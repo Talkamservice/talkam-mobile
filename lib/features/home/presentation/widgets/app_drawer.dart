@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
@@ -41,25 +42,29 @@ class AppDrawer extends StatelessWidget {
                   },
                 ),
               ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 16.0, horizontal: 12),
-                child: Row(
-                  children: [
-                    ImageWidget(
-                      imageUrl: Assets.images.png.add.path,
-                      size: 30,
-                      fit: BoxFit.cover,
-                    ),
-                    8.horizontalSpace,
-                    const Expanded(
-                        child: TextView(
-                      text: "Submit a suggestion",
-                      fontSize: 16,
-                    )),
-                    8.horizontalSpace,
-                    ImageWidget(imageUrl: Assets.images.svgs.chevronRight)
-                  ],
+              InkWell(
+                onTap: () {
+                  Helpers.launchRawUrl("https://web.talkam.prodevs.io/help&info/feedback");
+                },
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 12),
+                  child: Row(
+                    children: [
+                      ImageWidget(
+                        imageUrl: Assets.images.png.add.path,
+                        size: 30,
+                        fit: BoxFit.cover,
+                      ),
+                      8.horizontalSpace,
+                      const Expanded(
+                          child: TextView(
+                        text: "Submit a suggestion",
+                        fontSize: 16,
+                      )),
+                      8.horizontalSpace,
+                      ImageWidget(imageUrl: Assets.images.svgs.chevronRight)
+                    ],
+                  ),
                 ),
               )
             ],
@@ -79,11 +84,7 @@ class AppDrawer extends StatelessWidget {
 }
 
 class NavCategoryItem extends StatelessWidget {
-  const NavCategoryItem(
-      {super.key,
-      required this.category,
-      required this.onTap,
-      this.showArrow = true});
+  const NavCategoryItem({super.key, required this.category, required this.onTap, this.showArrow = true});
 
   final PostCategory category;
   final VoidCallback onTap;
@@ -109,8 +110,7 @@ class NavCategoryItem extends StatelessWidget {
               ),
             ),
             8.horizontalSpace,
-            if(showArrow!)
-            ImageWidget(imageUrl: Assets.images.svgs.chevronRight)
+            if (showArrow!) ImageWidget(imageUrl: Assets.images.svgs.chevronRight)
           ],
         ),
       ),

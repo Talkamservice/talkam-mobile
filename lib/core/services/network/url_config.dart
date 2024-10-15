@@ -42,8 +42,9 @@ class UrlConfig {
   static const String getLibraryCategoriesEndpoint = "/wellness-library/categories/list";
   static const String getConversationStarterEndpoint = "/user/conversation-starter/get";
 
-  //SOS
-  static const String getEmergencyContacts = '/emergency-contacts/list';
+  // Locations
+  static const String countries = '/location/countries';
+  static const String states = '/location/states';
 
   // Authentication
   static const String login = '/auth/login';
@@ -51,6 +52,7 @@ class UrlConfig {
   static const String loginPreview = "/auth/login/preview";
 
   static String getUser = '/user/profile/fetch';
+
   static String getUserByUserName(String userName) => '/user/get-by-username/$userName';
   static const String verifyOtp = '/auth/otp/verify';
   static const String register = '/auth/register';
@@ -147,7 +149,7 @@ class UrlConfig {
 
   static const String suspendOrCancelSuspension = '/user/groups/unfollow-group';
 
-  static  String suspendMember(String id) => '/user/groups/members/$id/suspend';
+  static String suspendMember(String id) => '/user/groups/members/$id/suspend';
 
   // Messaging
   static const String getConversations = '/user/messaging/conversations';
@@ -171,5 +173,6 @@ class UrlConfig {
   static const String markAllAsRead = '/user/notifications/mark-all';
   static const String getNotificationsStats = '/user/notifications/get-notification-status';
   static const String getAnnouncements = "/user/announcements";
+
   static String getAnnouncementById(String id) => "/user/announcements/$id/show";
 }

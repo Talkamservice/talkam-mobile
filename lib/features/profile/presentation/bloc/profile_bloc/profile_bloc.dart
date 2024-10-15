@@ -68,7 +68,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       final response = await _profileRepository.updateProfile(event.payload);
       emit(UpdateProfileSuccess(response));
       injector.get<ProfileBloc>().add(SaveUserLocallyEvent(response.data));
-    } catch (error) {
+    } catch (error,stack) {
+      logger.e(error,stackTrace: stack);
       emit(UpdateProfileFailure(error.toString()));
     }
   }
