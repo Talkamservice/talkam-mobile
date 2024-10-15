@@ -1,17 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:talkam/common/models/get_countries_response.dart';
+import 'package:talkam/common/models/get_states_response.dart';
+import 'package:talkam/common/widgets/country_state_picker.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
+import 'package:talkam/common/widgets/dropdown_field_form.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/outlined_form_field.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
-import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/core/utils/time_util.dart';
 import 'package:talkam/core/utils/validators.dart';
 import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
 import 'package:talkam/features/profile/data/models/update_profile_payload.dart';
@@ -28,16 +32,20 @@ class EditProfileScreen extends StatefulWidget {
   State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
-class _EditProfileScreenState extends State<EditProfileScreen>  with RefreshPostsMixin{
+class _EditProfileScreenState extends State<EditProfileScreen> with RefreshPostsMixin {
+  DateTime? dob;
+
+  var gender;
+
   @override
   void initState() {
     selectedImage = injector.get<ProfileBloc>().appUser?.avatar;
-
-    usernameController.text =
-        injector.get<ProfileBloc>().appUser?.username ?? '';
-
+    usernameController.text = injector.get<ProfileBloc>().appUser?.username ?? '';
+    gender = injector.get<ProfileBloc>().appUser?.gender ?? '';
+    dob = injector.get<ProfileBloc>().appUser?.dob;
+    _country = injector.get<ProfileBloc>().appUser?.country;
+    _state = injector.get<ProfileBloc>().appUser?.state;
     setState(() {});
-
     super.initState();
   }
 
@@ -46,6 +54,8 @@ class _EditProfileScreenState extends State<EditProfileScreen>  with RefreshPost
   final formkey = GlobalKey<FormState>();
   final profileBloc = injector.get<ProfileBloc>();
   var selectedImage;
+  TalkamCountry? _country;
+  TalkamState? _state;
 
   @override
   Widget build(BuildContext context) {
@@ -68,41 +78,98 @@ class _EditProfileScreenState extends State<EditProfileScreen>  with RefreshPost
                 key: formkey,
                 child: SingleChildScrollView(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       29.verticalSpace,
-                      ImageWidget(
-                          size: 100,
-                          shape: BoxShape.circle,
-                          imageUrl: selectedImage ?? Assets.images.svgs.user),
+                      Center(child: ImageWidget(size: 100, shape: BoxShape.circle, imageUrl: selectedImage ?? Assets.images.svgs.user)),
                       5.verticalSpace,
-                      TextButton(
-                          style: TextButton.styleFrom(
-                              // padding: EdgeInsets.all(),
-                              foregroundColor: context.colorScheme.onSurface,
-                              shape: const StadiumBorder(
-                                  side: BorderSide(color: Pallets.borderGrey))),
-                          onPressed: () {
-                            selectImage(context);
-                          },
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              ImageWidget(
-                                  imageUrl: Assets.images.svgs.uploadAvatar),
-                              5.horizontalSpace,
-                              const TextView(text: "Set avatar"),
-                            ],
-                          )),
+                      Center(
+                        child: TextButton(
+                            style: TextButton.styleFrom(
+                                // padding: EdgeInsets.all(),
+                                foregroundColor: context.colorScheme.onSurface,
+                                shape: const StadiumBorder(side: BorderSide(color: Pallets.borderGrey))),
+                            onPressed: () {
+                              selectImage(context);
+                            },
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                ImageWidget(imageUrl: Assets.images.svgs.uploadAvatar),
+                                5.horizontalSpace,
+                                const TextView(text: "Set avatar"),
+                              ],
+                            )),
+                      ),
                       25.verticalSpace,
                       OutlinedFormField(
                         placeHolder: "Username",
                         hint: "Use a unique username",
                         controller: usernameController,
-                        validator: MultiValidator([
-                          RequiredValidator(errorText: "Field is required"),
-                          SpaceValidator(errorText: "Username must not contain space")
-                        ]).call,
+                        validator:
+                            MultiValidator([RequiredValidator(errorText: "Field is required"), SpaceValidator(errorText: "Username must not contain space")])
+                                .call,
+                      ),
+                      25.verticalSpace,
+                      TextView(
+                        text: "Date of birth",
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w600,
+                      ),
+                      8.verticalSpace,
+                      TextButton(
+                          style: TextButton.styleFrom(
+                            
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                              foregroundColor: Pallets.grey, padding: const EdgeInsets.all(16), side: const BorderSide(color: Pallets.borderGrey, width: 0.7,)),
+                          onPressed: () async {
+                            dob = await selectDate(context);
+                            setState(() {});
+                            // pickDateAndTime(context);
+                          },
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  child: TextView(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      text: dob != null ? TimeUtil.formatDate(dob!.toIso8601String()) : "Date of birth")),
+                              const Icon(Icons.keyboard_arrow_right)
+                            ],
+                          )),
+                      25.verticalSpace,
+                      CustomDropdownFieldButton<String>(
+                          label: "Gender",
+                          hint: "Male / Female",
+                          value: gender,
+
+                          onChanged: (p0) {
+                            gender = p0!;
+                            setState(() {});
+
+                          },
+                          items: const [
+                            DropdownMenuItem<String>(
+                              value: "Male",
+                              child: TextView(
+                                text: "Male",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "Female",
+                              child: TextView(
+                                text: "Female",
+                              ),
+                            ),
+                          ]),
+                      25.verticalSpace,
+                      TalkamCountryStatePicker(
+                        country: _country,
+                        state: _state,
+                        onChanged: (TalkamCountry? country, TalkamState? state) {
+                          _country = country;
+                          _state = state;
+                        },
                       ),
                       38.verticalSpace,
                       CustomButton(
@@ -113,10 +180,13 @@ class _EditProfileScreenState extends State<EditProfileScreen>  with RefreshPost
                         ),
                         onPressed: () {
                           if (formkey.currentState?.validate() ?? false) {
-                            injector.get<ProfileBloc>().add(UpdateProfileEvent(
-                                UpdateProfilePayload(
-                                    avatar: selectedImage,
-                                    username: usernameController.text.trim())));
+                            injector.get<ProfileBloc>().add(UpdateProfileEvent(UpdateProfilePayload(
+                                avatar: selectedImage,
+                                username: usernameController.text.trim(),
+                                dob: dob,
+                                countryId: _country?.id.toString(),
+                                stateId: _state?.id.toString(),
+                                gender: gender)));
                           }
                         },
                       )
@@ -138,10 +208,25 @@ class _EditProfileScreenState extends State<EditProfileScreen>  with RefreshPost
           onAvatarSelected: (p0) {},
           onBackgroundSelector: (p0) {},
         ));
-    if(image!= null){
+    if (image != null) {
       selectedImage = image;
     }
     setState(() {});
+  }
+
+  Future<DateTime?> selectDate(BuildContext context) async {
+    final now = DateTime.now();
+    final pickedDate = await showDatePicker(
+      context: context,
+      initialDate: now,
+      firstDate: DateTime(now.year - 200),
+      lastDate: DateTime(now.year + 5),
+    );
+    if (pickedDate != null && pickedDate != now) {
+      return pickedDate;
+    } else {
+      return null; // User canceled or did not select
+    }
   }
 
   void _listenToProfileBloc(BuildContext context, ProfileState state) {
@@ -153,8 +238,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>  with RefreshPost
       CustomDialogs.error(state.error);
     }
     if (state is UpdateProfileSuccess) {
-
-      refreshPost(reload:false);
+      refreshPost(reload: false);
       CustomDialogs.success("Profile updated");
       context.pop();
       context.pop();

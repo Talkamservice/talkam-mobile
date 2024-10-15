@@ -8,11 +8,9 @@ import 'package:talkam/features/post/data/models/create_post_payload.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 
-GetPostsResponse getPostsResponseFromJson(String str) =>
-    GetPostsResponse.fromJson(json.decode(str));
+GetPostsResponse getPostsResponseFromJson(String str) => GetPostsResponse.fromJson(json.decode(str));
 
-String getPostsResponseToJson(GetPostsResponse data) =>
-    json.encode(data.toJson());
+String getPostsResponseToJson(GetPostsResponse data) => json.encode(data.toJson());
 
 class GetPostsResponse {
   String message;
@@ -40,8 +38,7 @@ class GetPostsResponse {
         code: code ?? this.code,
       );
 
-  factory GetPostsResponse.fromJson(Map<String, dynamic> json) =>
-      GetPostsResponse(
+  factory GetPostsResponse.fromJson(Map<String, dynamic> json) => GetPostsResponse(
         message: json["message"],
         data: Data.fromJson(json["data"]),
         success: json["success"],
@@ -76,8 +73,7 @@ class Data {
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         paginationMeta: PostsPaginationData.fromJson(json["pagination_meta"]),
-        data: List<TalkamPost>.from(
-            json["data"].map((x) => TalkamPost.fromJson(x))),
+        data: List<TalkamPost>.from(json["data"].map((x) => TalkamPost.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -194,28 +190,19 @@ class TalkamPost {
         uuid: json["uuid"],
         isReported: json["is_reported"],
         category: PostCategory.fromJson(json["category"]),
-        group:
-            json["group"] == null ? null : TalkamGroup.fromJson(json["group"]),
-        user: PostCreator.fromJson(json["user"]),
+        group: json["group"] == null ? null : TalkamGroup.fromJson(json["group"]),
+        user: json["user"] == null ? PostCreator.anonymous() : PostCreator.fromJson(json["user"]),
         canComment: json["can_comment"],
         isAnonymous: json["is_anonymous"],
-        tags: json["tags"] == null
-            ? []
-            : List<String>.from(json["tags"]!.map((x) => x)),
+        tags: json["tags"] == null ? [] : List<String>.from(json["tags"]!.map((x) => x)),
         viewsCount: json["views_count"],
         commentsCount: json["comments_count"],
         likesCount: json["likes_count"],
         status: json["status"],
-        publishAt: json["publish_at"] != null
-            ? DateTime.parse(json["publish_at"])
-            : null,
-        attachments: List<Attachment>.from(
-            json["attachments"].map((x) => Attachment.fromJson(x))),
-        polls: List<TalkamPoll>.from(
-            json["polls"].map((x) => TalkamPoll.fromJson(x))),
-        reaction: json["reaction"] == null
-            ? null
-            : PostReaction.fromJson(json["reaction"]),
+        publishAt: json["publish_at"] != null ? DateTime.parse(json["publish_at"]) : null,
+        attachments: List<Attachment>.from(json["attachments"].map((x) => Attachment.fromJson(x))),
+        polls: List<TalkamPoll>.from(json["polls"].map((x) => TalkamPoll.fromJson(x))),
+        reaction: json["reaction"] == null ? null : PostReaction.fromJson(json["reaction"]),
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
       );
@@ -228,7 +215,7 @@ class TalkamPost {
         "uuid": uuid,
         "is_reported": isReported,
         "category": category.toJson(),
-        "user": user.toJson(),
+        "user": user?.toJson(),
         "can_comment": canComment,
         "is_anonymous": isAnonymous,
         "tags": tags.isEmpty ? [] : List<String>.from(tags.map((x) => x)),
@@ -304,9 +291,7 @@ class TalkamPoll {
         count: json["count"],
         percentage: json["percentage"],
         anonymous: json["anonymous"],
-        expiresAt: json["expires_at"] == null
-            ? DateTime.now()
-            : DateTime.parse(json["expires_at"]),
+        expiresAt: json["expires_at"] == null ? DateTime.now() : DateTime.parse(json["expires_at"]),
         createdAt: DateTime.parse(json["created_at"]),
       );
 
@@ -363,14 +348,11 @@ class PostReaction {
 
   bool get isDisLike => action == 'Dislike' && status;
 
-  factory PostReaction.like() => PostReaction(
-      id: 0, action: "Like", createdAt: DateTime.now(), status: true);
+  factory PostReaction.like() => PostReaction(id: 0, action: "Like", createdAt: DateTime.now(), status: true);
 
-  factory PostReaction.removed() => PostReaction(
-      id: 0, action: "Like", createdAt: DateTime.now(), status: false);
+  factory PostReaction.removed() => PostReaction(id: 0, action: "Like", createdAt: DateTime.now(), status: false);
 
-  factory PostReaction.dislike() => PostReaction(
-      id: 0, action: "Dislike", createdAt: DateTime.now(), status: true);
+  factory PostReaction.dislike() => PostReaction(id: 0, action: "Dislike", createdAt: DateTime.now(), status: true);
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -426,6 +408,8 @@ class PostCreator {
       };
 
   String get usersName => name.isNotEmpty ? name : (username ?? email);
+
+  factory PostCreator.anonymous() => PostCreator(id: 0, avatar: "anonymous", name: "anonymous", username: "anonymous", email: "anonymous");
 }
 
 class PostsPaginationData {
@@ -486,8 +470,7 @@ class PostsPaginationData {
         canLoadMore: canLoadMore ?? this.canLoadMore,
       );
 
-  factory PostsPaginationData.fromJson(Map<String, dynamic> json) =>
-      PostsPaginationData(
+  factory PostsPaginationData.fromJson(Map<String, dynamic> json) => PostsPaginationData(
         currentPage: json["current_page"],
         firstPageUrl: json["first_page_url"],
         from: json["from"],

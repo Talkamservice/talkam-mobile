@@ -67,7 +67,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                             width: 34.w,
                             height: 34.w,
                             shape: BoxShape.circle,
-                            imageUrl: _talkamUser.avatar,
+                            imageUrl: _talkamUser.avatar??Assets.images.svgs.user,
                           ),
                           10.horizontalSpace,
                           TextView(
