@@ -164,13 +164,18 @@ class HomeAppBar extends StatelessWidget {
                 const NotificationIcon(),
                 20.horizontalSpace,
                 GuestUserHelper.guestUserWidget(
-                    widget: ImageWidget(
-                  shape: BoxShape.circle,
-                  imageUrl: injector.get<ProfileBloc>().appUser?.avatar ?? Assets.images.svgs.user,
-                  size: 40,
+                    widget: InkWell(
                   onTap: () {
                     context.pushNamed(PageUrl.profileScreen);
                   },
+                  child: ImageWidget(
+                    shape: BoxShape.circle,
+                    imageUrl: injector.get<ProfileBloc>().appUser?.avatar ?? Assets.images.svgs.user,
+                    size: 40,
+                    onTap: () {
+                      context.pushNamed(PageUrl.profileScreen);
+                    },
+                  ),
                 )),
               ],
             ),

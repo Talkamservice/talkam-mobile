@@ -62,12 +62,15 @@ class _GroupExploreRecentTabState extends State<MyGroupsTab> with AutomaticKeepA
                           },
                         );
                       }, getGroupsLoading: () {
+
                         return SizedBox(
                           height: 200,
                           child: Center(
                             child: CustomDialogs.getLoading(size: 50),
                           ),
                         );
+
+
                       }, getGroupsSuccess: (groups, paginationData) {
                         if (groups.isEmpty) {
                           return const Expanded(

@@ -53,9 +53,10 @@ class PostItem extends StatelessWidget {
               PostContent(
                 post: post,
               ),
-              12.verticalSpace,
+              4.verticalSpace,
               const Divider(thickness: 1),
-              10.verticalSpace,
+              4.verticalSpace,
+
               PostActions(
                 onCommentTap: () {},
                 onLikeTap: () {},
@@ -65,18 +66,20 @@ class PostItem extends StatelessWidget {
                 post: post,
               ), // Implement PostActions here
               if(showScheduledPost!)
-              10.verticalSpace,
-              if(showScheduledPost!)
+              4.verticalSpace,
+              if(shouldShowScheduledPost)
               const Divider(thickness: 1),
               // 3.verticalSpace,
               ScheduledPostPill(
-                  showScheduledPost: showScheduledPost! && post.isSchedulePost && (post.publishAt as DateTime).isAfter(DateTime.now()), post: post)
+                  showScheduledPost: shouldShowScheduledPost, post: post)
             ],
           ),
         ),
       ),
     );
   }
+
+  bool get shouldShowScheduledPost => showScheduledPost! && post.isSchedulePost && (post.publishAt as DateTime).isAfter(DateTime.now());
 
   String get userName => post.isAnonymous.toBool ? "Anonymous" : post.user.usersName;
 }

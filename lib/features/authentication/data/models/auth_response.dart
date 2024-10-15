@@ -4,13 +4,13 @@
 
 import 'dart:convert';
 
+import 'package:talkam/common/models/get_countries_response.dart';
+import 'package:talkam/common/models/get_states_response.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 
-AuthSuccessResponse authSuccessResponseFromJson(String str) =>
-    AuthSuccessResponse.fromJson(json.decode(str));
+AuthSuccessResponse authSuccessResponseFromJson(String str) => AuthSuccessResponse.fromJson(json.decode(str));
 
-String authSuccessResponseToJson(AuthSuccessResponse data) =>
-    json.encode(data.toJson());
+String authSuccessResponseToJson(AuthSuccessResponse data) => json.encode(data.toJson());
 
 class AuthSuccessResponse {
   String message;
@@ -38,8 +38,7 @@ class AuthSuccessResponse {
         code: code ?? this.code,
       );
 
-  factory AuthSuccessResponse.fromJson(Map<String, dynamic> json) =>
-      AuthSuccessResponse(
+  factory AuthSuccessResponse.fromJson(Map<String, dynamic> json) => AuthSuccessResponse(
         message: json["message"],
         data: Data.fromJson(json["data"]),
         success: json["success"],
@@ -90,6 +89,12 @@ class TalkamUser {
   String email;
   dynamic role;
   dynamic age;
+
+  dynamic gender;
+  dynamic dob;
+  dynamic country;
+  dynamic state;
+
   dynamic googleId;
   dynamic facebookId;
   dynamic tiktokId;
@@ -110,6 +115,10 @@ class TalkamUser {
     required this.email,
     required this.role,
     required this.age,
+    required this.dob,
+    required this.gender,
+    required this.state,
+    required this.country,
     required this.username,
     required this.status,
     required this.interests,
@@ -132,6 +141,10 @@ class TalkamUser {
     String? role,
     dynamic googleId,
     dynamic age,
+    dynamic gender,
+    dynamic dob,
+    dynamic country,
+    dynamic state,
     dynamic facebookId,
     dynamic tiktokId,
     dynamic appleId,
@@ -151,6 +164,10 @@ class TalkamUser {
         email: email ?? this.email,
         role: role ?? this.role,
         age: age ?? this.age,
+        dob: dob ?? this.dob,
+        gender: gender ?? this.gender,
+        state: state ?? this.state,
+        country: country ?? this.country,
         username: username ?? this.username,
         status: status ?? this.status,
         interests: interests ?? this.interests,
@@ -172,6 +189,10 @@ class TalkamUser {
         email: json["email"],
         role: json["role"],
         age: json["age"],
+        gender: json["gender"],
+        dob: json["date_of_birth"] == null ? null : DateTime.parse(json["date_of_birth"]),
+        state: json["state"] == null ? null : TalkamState.fromJson(json["state"]),
+        country: json["country"] == null ? null : TalkamCountry.fromJson(json["country"]),
         facebookId: json["facebook_id"],
         googleId: json["google_id"],
         tiktokId: json["tiktok_id"],
@@ -180,12 +201,9 @@ class TalkamUser {
         iamBlocked: json["i_am_blocked"],
         username: json["username"],
         status: json["status"],
-        interests: List<PostCategory>.from(
-            json["interests"].map((x) => PostCategory.fromJson(x))),
+        interests: List<PostCategory>.from(json["interests"].map((x) => PostCategory.fromJson(x))),
         createdAt: DateTime.parse(json["created_at"]),
-        emailVerifiedAt: json["email_verified_at"] == null
-            ? null
-            : DateTime.parse(json["email_verified_at"]),
+        emailVerifiedAt: json["email_verified_at"] == null ? null : DateTime.parse(json["email_verified_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
       );
 
@@ -196,6 +214,10 @@ class TalkamUser {
         "email": email,
         "role": role,
         "age": age,
+        "date_of_birth": dob.toString(),
+        "gender": gender,
+        "country": country != null ? (country as TalkamCountry).toJson() : null,
+        "state": state != null ? (state as TalkamState).toJson() : null,
         "is_blocked": isBlocked,
         "i_am_blocked": iamBlocked,
         "apple_id": appleId,
@@ -213,8 +235,7 @@ class TalkamUser {
   factory TalkamUser.forTest() {
     return TalkamUser(
       id: -1,
-      avatar:
-          "https://talkam.prodevs.io/file/YXBwL21lZGlhL3VzZXIvYXZhdGFycy82NjlmYjVjNGM4ZTBlLnBuZw==",
+      avatar: "https://talkam.prodevs.io/file/YXBwL21lZGlhL3VzZXIvYXZhdGFycy82NjlmYjVjNGM4ZTBlLnBuZw==",
       email: "bardakhaev@shopshiba.site",
       role: "User",
       age: null,
@@ -231,6 +252,10 @@ class TalkamUser {
       appleId: null,
       isBlocked: null,
       iamBlocked: null,
+      dob: DateTime.now(),
+      gender: "Male",
+      state: null,
+      country: null,
     );
   }
 }
