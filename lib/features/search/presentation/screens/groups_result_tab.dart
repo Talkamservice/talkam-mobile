@@ -14,6 +14,8 @@ import 'package:talkam/features/search/presentation/blocs/groups_search/groups_s
 import 'package:talkam/features/search/presentation/blocs/post_search/post_search_cubit.dart';
 import 'package:talkam/features/search/presentation/widget/group_result_item.dart';
 
+import '../../../group/presentation/widgets/group_loading_shimmer.dart';
+
 class GroupsResultTab extends StatefulWidget {
   const GroupsResultTab({super.key, required this.query});
 
@@ -47,9 +49,13 @@ class _GroupsResultTabState extends State<GroupsResultTab> with AutomaticKeepAli
             builder: (context, state) {
               return state.maybeWhen(
                 orElse: () => 0.verticalSpace,
-                getGroupSearchLoading: () => Center(
-                  child: CustomDialogs.getLoading(size: 50),
-                ),
+                getGroupSearchLoading: () {
+                  return const Expanded(
+                    child: Center(
+                      child: GroupLoadingShimmer(),
+                    ),
+                  );
+                },
                 groupSearchLoaded: (posts, paginationMeta) {
                   if (posts.isEmpty) {
                     return const Center(

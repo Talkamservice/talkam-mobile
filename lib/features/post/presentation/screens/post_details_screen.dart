@@ -17,6 +17,7 @@ import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 import 'package:talkam/features/post/presentation/widgets/comment_input_widget.dart';
 import 'package:talkam/features/post/presentation/widgets/comment_item.dart';
 import 'package:talkam/features/post/presentation/widgets/post_detail_card.dart';
+import 'package:talkam/features/post/presentation/widgets/post_loading_shimmer_customized.dart';
 import 'package:talkam/features/post/presentation/widgets/rules_sheet.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
@@ -85,13 +86,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen>
 
              return state.maybeWhen(
                 orElse: () => 0.verticalSpace,
-                getPostDetailsLoading: () => SizedBox(
-
-                  height: 300,
-                    child: Center(child: SizedBox(
-                        height: 100,
-                        width: 100,
-                        child: CustomDialogs.getLoading(size: 50)),)),
+                getPostDetailsLoading: () => const PostLoadingShimmerCustomized(numberOfShimmers: 1),
                 getPostDetailsSuccess: (response) {
                   return NestedScrollView(
                     floatHeaderSlivers: false,

@@ -13,6 +13,7 @@ import 'package:talkam/features/group/data/models/groups_filter_model.dart';
 import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
 import 'package:talkam/features/group/presentation/screens/refresh_group_listener.dart';
 import 'package:talkam/features/group/presentation/widgets/categories_chips.dart';
+import 'package:talkam/features/group/presentation/widgets/group_loading_shimmer.dart';
 import 'package:talkam/features/group/presentation/widgets/suggested_groups.dart';
 import 'package:talkam/features/search/presentation/widget/group_result_item.dart';
 
@@ -62,10 +63,9 @@ class _GroupExploreRecentTabState extends State<MyGroupsTab> with AutomaticKeepA
                           },
                         );
                       }, getGroupsLoading: () {
-                        return SizedBox(
-                          height: 200,
+                        return const Expanded(
                           child: Center(
-                            child: CustomDialogs.getLoading(size: 50),
+                            child: GroupLoadingShimmer(),
                           ),
                         );
                       }, getGroupsSuccess: (groups, paginationData) {

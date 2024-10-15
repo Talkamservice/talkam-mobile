@@ -16,6 +16,8 @@ import 'package:talkam/features/group/presentation/widgets/categories_chips.dart
 import 'package:talkam/features/group/presentation/widgets/suggested_groups.dart';
 import 'package:talkam/features/search/presentation/widget/group_result_item.dart';
 
+import '../widgets/group_loading_shimmer.dart';
+
 class GroupExploreTab extends StatefulWidget {
   const GroupExploreTab({super.key});
 
@@ -80,10 +82,9 @@ class _GroupExploreRecentTabState extends State<GroupExploreTab> with AutomaticK
                           },
                         );
                       }, getGroupsLoading: () {
-                        return SizedBox(
-                          height: 200,
+                        return const Expanded(
                           child: Center(
-                            child: CustomDialogs.getLoading(size: 50),
+                            child: GroupLoadingShimmer(),
                           ),
                         );
                       }, getGroupsSuccess: (groups, paginationData) {
