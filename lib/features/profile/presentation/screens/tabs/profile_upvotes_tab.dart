@@ -6,6 +6,7 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item.dart';
+import 'package:talkam/features/post/presentation/widgets/post_loading_shimmer.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_upvotes_cubit/profile_upvotes_cubit.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_posts_tab_cubit/profile_posts_tab_cubit.dart';
@@ -58,8 +59,8 @@ class _ProfileUpvotesTabState extends State<ProfileUpvotesTab>
         },
         builder: (context, state) {
           return state.maybeWhen(
-            loading: () => Center(
-              child: CustomDialogs.getLoading(size: 50),
+            loading: () => const Center(
+              child: PostLoadingShimmer(),
             ),
             error: (e) => AppErrorWidget(
               message: e.toString(),

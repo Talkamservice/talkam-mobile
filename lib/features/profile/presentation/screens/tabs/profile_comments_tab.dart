@@ -6,6 +6,7 @@ import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/post/data/models/get_comments_response.dart';
 import 'package:talkam/features/post/data/models/talk_am_comment.dart';
+import 'package:talkam/features/post/presentation/widgets/post_loading_shimmer.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_comment_tab_cubit/profile_comment_tab_cubit.dart';
 import 'package:talkam/features/profile/presentation/widgets/profile_comment_tile.dart';
 import 'package:talkam/features/profile/presentation/widgets/refresh_post_listener.dart';
@@ -50,8 +51,8 @@ class _ProfileCommentsTabState extends State<ProfileCommentsTab>
         },
         builder: (context, state) {
           return state.maybeWhen(
-            loading: () => Center(
-              child: CustomDialogs.getLoading(size: 50),
+            loading: () => const Center(
+              child: PostLoadingShimmer(),
             ),
             error: () => const SizedBox.shrink(),
             orElse: () {
