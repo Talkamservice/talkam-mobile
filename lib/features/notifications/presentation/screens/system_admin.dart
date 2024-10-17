@@ -10,6 +10,7 @@ import 'package:talkam/features/messaging/presentation/widgets/new_notification.
 import 'package:talkam/features/notifications/data/models/get_notifications_response.dart';
 import 'package:talkam/features/notifications/presentation/bloc/notification_bloc.dart';
 import 'package:talkam/features/notifications/presentation/widgets/all_notifications_listener.dart';
+import 'package:talkam/features/notifications/presentation/widgets/sytem_admin_shimmer.dart';
 
 class SystemAdminTab extends StatefulWidget {
   const SystemAdminTab({super.key});
@@ -46,8 +47,8 @@ class _SystemAdminTabState extends State<SystemAdminTab> with AutomaticKeepAlive
             child: Builder(
               builder: (context) {
                 if (state is GetNotificationsLoadingState) {
-                  return Center(
-                    child: CustomDialogs.getLoading(size: 35),
+                  return const Center(
+                    child: SystemAdminShimmer(),
                   );
                 } else if (state is GetNotificationsFailureState) {
                   return Center(

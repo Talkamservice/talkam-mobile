@@ -70,10 +70,10 @@ class MessagesLoadingShimmer extends StatelessWidget {
                                 color: Colors.white
                               ),
                             ),
-                            const SizedBox(height: 10,),
+                            const SizedBox(height: 5,),
                             Container(
-                              height: 13,
-                              width: 13,
+                              height: 10,
+                              width: 10,
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(20),
                                 color: Colors.white
@@ -83,7 +83,6 @@ class MessagesLoadingShimmer extends StatelessWidget {
                         )
                       ],
                     ),
-                    const SizedBox(height: 10,)
                   ],
                 ),
               ),
