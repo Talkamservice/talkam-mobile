@@ -4,6 +4,7 @@
 
 import 'dart:convert';
 
+import 'package:intl/intl.dart';
 import 'package:talkam/common/models/get_countries_response.dart';
 import 'package:talkam/common/models/get_states_response.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
@@ -190,6 +191,7 @@ class TalkamUser {
         role: json["role"],
         age: json["age"],
         gender: json["gender"],
+
         dob: json["date_of_birth"] == null ? null : DateTime.parse(json["date_of_birth"]),
         state: json["state"] == null ? null : TalkamState.fromJson(json["state"]),
         country: json["country"] == null ? null : TalkamCountry.fromJson(json["country"]),

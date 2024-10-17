@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talkam/common/models/get_countries_response.dart';
 import 'package:talkam/common/models/get_states_response.dart';
@@ -54,7 +55,9 @@ class _TalkamCountryStatePickerState extends State<TalkamCountryStatePicker> {
         TextButton(
             style: TextButton.styleFrom(
                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                foregroundColor: Pallets.grey, padding: const EdgeInsets.all(16), side: const BorderSide(color: Pallets.borderGrey, width: 0.7)),
+                foregroundColor: Pallets.grey,
+                padding: const EdgeInsets.all(16),
+                side: const BorderSide(color: Pallets.borderGrey, width: 0.7)),
             onPressed: () {
               pickCountry(context);
             },
@@ -90,7 +93,9 @@ class _TalkamCountryStatePickerState extends State<TalkamCountryStatePicker> {
               TextButton(
                   style: TextButton.styleFrom(
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                      foregroundColor: Pallets.grey, padding: const EdgeInsets.all(16), side: const BorderSide(color: Pallets.borderGrey, width: 0.7)),
+                      foregroundColor: Pallets.grey,
+                      padding: const EdgeInsets.all(16),
+                      side: const BorderSide(color: Pallets.borderGrey, width: 0.7)),
                   onPressed: () {
                     pickState(context, country!.id.toString());
                   },
@@ -109,7 +114,13 @@ class _TalkamCountryStatePickerState extends State<TalkamCountryStatePicker> {
   }
 
   void pickCountry(BuildContext context) async {
-    country = await CustomDialogs.showBottomSheet(context, const CountryPickerSheet(), constraints: BoxConstraints(maxHeight: 1.sh * 0.5));
+    country = await CustomDialogs.showBottomSheet(
+      context,
+      Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: const CountryPickerSheet(),
+      ),
+    );
     if (country != null) {
       state = null;
     }
@@ -120,10 +131,13 @@ class _TalkamCountryStatePickerState extends State<TalkamCountryStatePicker> {
   void pickState(BuildContext context, String countryId) async {
     state = await CustomDialogs.showBottomSheet(
         context,
-        StatePickerSheet(
-          countryId: countryId,
+        Padding(
+          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          child: StatePickerSheet(
+            countryId: countryId,
+          ),
         ),
-        constraints: BoxConstraints(maxHeight: 1.sh * 0.5));
+    );
     widget.onChanged(country, state);
 
     setState(() {});

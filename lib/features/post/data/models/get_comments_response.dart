@@ -117,7 +117,7 @@ class PostComment {
 
   factory PostComment.fromJson(Map<String, dynamic> json) => PostComment(
         id: json["id"],
-        user: PostCreator.fromJson(json["user"]),
+        user:json["user"]== null ? PostCreator.anonymous(): PostCreator.fromJson(json["user"]),
         comment: json["comment"],
         isAnonymous: json["is_anonymous"],
         likes: json["likes"],
