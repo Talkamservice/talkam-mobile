@@ -5,6 +5,7 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item.dart';
+import 'package:talkam/features/post/presentation/widgets/post_loading_shimmer.dart';
 import 'package:talkam/features/profile/presentation/widgets/refresh_post_listener.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
@@ -54,8 +55,8 @@ class _ProfilePostTabState extends State<ProfilePostTab> with AutomaticKeepAlive
         },
         builder: (context, state) {
           return state.maybeWhen(
-            loading: () => Center(
-              child: CustomDialogs.getLoading(size: 50),
+            loading: () => const Center(
+              child: PostLoadingShimmer(),
             ),
             error: () => const SizedBox.shrink(),
             orElse: () {

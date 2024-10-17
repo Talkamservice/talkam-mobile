@@ -85,6 +85,8 @@ class _SplashScreenState extends State<SplashScreen>
       if(SessionManager().hasOnboarded){
 
 
+
+
         context.goNamed(PageUrl.homeScreen);
 
       }else{

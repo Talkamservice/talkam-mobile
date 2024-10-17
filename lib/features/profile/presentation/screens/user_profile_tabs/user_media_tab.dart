@@ -8,6 +8,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/post/presentation/widgets/post_video.dart';
 import 'package:talkam/features/profile/data/models/user_media_response.dart';
 import 'package:talkam/features/profile/presentation/bloc/user_profile_media_tab/user_profile_media_tab_cubit.dart';
+import 'package:talkam/features/profile/presentation/widgets/media_loading_shimmer.dart';
 
 class UserProfileMediaTab extends StatefulWidget {
   const UserProfileMediaTab({super.key, required this.userId});
@@ -51,8 +52,8 @@ class _UserProfileMediaTabState extends State<UserProfileMediaTab> with Automati
       },
       builder: (context, state) {
         return state.maybeWhen(
-          loading: () => Center(
-            child: CustomDialogs.getLoading(size: 50),
+          loading: () => const Center(
+            child: MediaLoadingShimmer(),
           ),
           error: () => const SizedBox.shrink(),
           orElse: () {

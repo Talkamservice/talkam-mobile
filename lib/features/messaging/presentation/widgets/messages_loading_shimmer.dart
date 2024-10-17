@@ -1,12 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:talkam/core/theme/pallets.dart';
 
-class GroupLoadingShimmer extends StatelessWidget {
-  const GroupLoadingShimmer({super.key, this.padding});
+class MessagesLoadingShimmer extends StatelessWidget {
+  const MessagesLoadingShimmer({super.key, this.padding});
 
   final EdgeInsetsGeometry? padding;
 
@@ -31,12 +27,12 @@ class GroupLoadingShimmer extends StatelessWidget {
                     Row(
                       children: [
                         Container(
-                          height: 60,
-                          width: 80,
-                             decoration: BoxDecoration(
-                               color: Colors.white,
-                               borderRadius: BorderRadius.circular(8),
-                                ),
+                          height: 50,
+                          width: 50,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
                         ),
                         const SizedBox(width: 10,),
                         Column(
@@ -44,8 +40,8 @@ class GroupLoadingShimmer extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              height: 20,
-                              width: 150,
+                              height: 10,
+                              width: 100,
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10.0),
@@ -54,7 +50,7 @@ class GroupLoadingShimmer extends StatelessWidget {
                             const SizedBox(height: 10,),
                             Container(
                               height: 10,
-                              width: 70,
+                              width: 50,
                               decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(10.0),
@@ -62,14 +58,28 @@ class GroupLoadingShimmer extends StatelessWidget {
                             )
                           ],
                         ),
-                        const SizedBox(width: 35,),
-                        Container(
-                          height: 35,
-                          width: 80,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
+                        const Spacer(),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Container(
+                              height: 10,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(3),
+                                color: Colors.white
+                              ),
+                            ),
+                            const SizedBox(height: 10,),
+                            Container(
+                              height: 13,
+                              width: 13,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                color: Colors.white
+                              ),
+                            ),
+                          ],
                         )
                       ],
                     ),

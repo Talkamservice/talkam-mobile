@@ -41,7 +41,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> with RefreshPosts
   void initState() {
     selectedImage = injector.get<ProfileBloc>().appUser?.avatar;
     usernameController.text = injector.get<ProfileBloc>().appUser?.username ?? '';
-    gender = injector.get<ProfileBloc>().appUser?.gender ?? '';
+    gender = injector.get<ProfileBloc>().appUser?.gender;
     dob = injector.get<ProfileBloc>().appUser?.dob;
     _country = injector.get<ProfileBloc>().appUser?.country;
     _state = injector.get<ProfileBloc>().appUser?.state;
@@ -110,7 +110,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> with RefreshPosts
                             MultiValidator([RequiredValidator(errorText: "Field is required"), SpaceValidator(errorText: "Username must not contain space")])
                                 .call,
                       ),
-                      25.verticalSpace,
+                      16.verticalSpace,
                       TextView(
                         text: "Date of birth",
                         fontSize: 15.sp,
@@ -119,11 +119,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> with RefreshPosts
                       8.verticalSpace,
                       TextButton(
                           style: TextButton.styleFrom(
-                            
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                              foregroundColor: Pallets.grey, padding: const EdgeInsets.all(16), side: const BorderSide(color: Pallets.borderGrey, width: 0.7,)),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+                              foregroundColor: Pallets.grey,
+                              padding: const EdgeInsets.all(16),
+                              side: const BorderSide(
+                                color: Pallets.borderGrey,
+                                width: 0.7,
+                              )),
                           onPressed: () async {
-                            dob = await selectDate(context);
+                            var _dob = await selectDate(context);
+                            if (_dob != null) {
+                              _dob = dob;
+                            }
                             setState(() {});
                             // pickDateAndTime(context);
                           },
@@ -137,16 +144,14 @@ class _EditProfileScreenState extends State<EditProfileScreen> with RefreshPosts
                               const Icon(Icons.keyboard_arrow_right)
                             ],
                           )),
-                      25.verticalSpace,
+                      16.verticalSpace,
                       CustomDropdownFieldButton<String>(
                           label: "Gender",
                           hint: "Male / Female",
                           value: gender,
-
                           onChanged: (p0) {
                             gender = p0!;
                             setState(() {});
-
                           },
                           items: const [
                             DropdownMenuItem<String>(
@@ -162,7 +167,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> with RefreshPosts
                               ),
                             ),
                           ]),
-                      25.verticalSpace,
+                      16.verticalSpace,
                       TalkamCountryStatePicker(
                         country: _country,
                         state: _state,
@@ -220,7 +225,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> with RefreshPosts
       context: context,
       initialDate: now,
       firstDate: DateTime(now.year - 200),
-      lastDate: DateTime(now.year + 5),
+      lastDate: now,
     );
     if (pickedDate != null && pickedDate != now) {
       return pickedDate;

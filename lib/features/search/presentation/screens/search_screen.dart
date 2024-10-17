@@ -18,6 +18,8 @@ import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_b
 import 'package:talkam/features/search/data/models/get_search_response.dart';
 import 'package:talkam/features/search/dormain/repository/search_repository_impl.dart';
 import 'package:talkam/features/search/presentation/blocs/search/search_cubit.dart';
+import 'package:talkam/features/search/presentation/widget/recent_searches_loading_shimmer.dart';
+import 'package:talkam/features/search/presentation/widget/trending_searches_loading_shimmer.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 import '../../data/repository/search_repository.dart';
@@ -137,11 +139,8 @@ class _SearchScreenState extends State<SearchScreen> {
                           return state.maybeWhen(
                             orElse: () => 0.verticalSpace,
                             fetchTrendingSearchesLoading: () {
-                              return SizedBox(
-                                height: 200,
-                                child: Center(
-                                  child: CustomDialogs.getLoading(size: 50),
-                                ),
+                              return const Center(
+                                child: TrendingSearchesLoadingShimmer(),
                               );
                             },
                             fetchTrendingSearchesFailure: (error) {
@@ -232,10 +231,9 @@ class _SearchScreenState extends State<SearchScreen> {
                           return state.maybeWhen(
                             orElse: () => 0.verticalSpace,
                             fetchRecentSearchesLoading: () {
-                              return SizedBox(
-                                height: 200,
+                              return const Expanded(
                                 child: Center(
-                                  child: CustomDialogs.getLoading(size: 50),
+                                  child: RecentSearchesLoadingShimmer(),
                                 ),
                               );
                             },

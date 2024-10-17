@@ -17,6 +17,7 @@ import 'package:talkam/features/messaging/data/models/conversations_filter.dart'
 import 'package:talkam/features/messaging/presentation/blocs/conversations/conversations_cubit.dart';
 import 'package:talkam/features/messaging/presentation/blocs/conversations/conversations_cubit.dart';
 import 'package:talkam/features/messaging/presentation/widgets/messages_list.dart';
+import 'package:talkam/features/messaging/presentation/widgets/messages_loading_shimmer.dart';
 import 'package:talkam/features/notifications/presentation/bloc/notification_bloc.dart';
 import 'package:talkam/features/search/data/models/get_search_response.dart';
 import 'package:talkam/features/search/presentation/blocs/search/search_cubit.dart';
@@ -30,7 +31,6 @@ class MessagesScreen extends StatefulWidget {
 }
 
 class _MessagesScreenState extends State<MessagesScreen> {
-
   final _searchController = TextEditingController();
 
   @override
@@ -59,12 +59,11 @@ class _MessagesScreenState extends State<MessagesScreen> {
 
           GuestUserHelper.guestUserWidget(widget: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: MessageSearchField(
+            child: CustomSearchField(
               controller: _searchController,
               onChanged: (p0) {
                 GuestUserHelper.handleGuestUserAction(
                   action: () {
-
                     Debouncer(milliseconds: 100).run(
                           () {
                         injector
@@ -104,8 +103,9 @@ class _MessagesScreenState extends State<MessagesScreen> {
                       );
                     },
                     getConversationsLoading: () {
-                      return CustomDialogs.getLoading(size: 40);
+                      return const MessagesLoadingShimmer();
                     },
+
                     getConversationsSuccess: (response) {
                       return MessagesList(
                         message: response.data,
@@ -183,9 +183,7 @@ class MessageAppBar extends StatelessWidget {
                             if (stat.totalRequests != 0)
                               Positioned(
                                 top: -10,
-
                                 right: -10,
-
                                 child: CircleAvatar(
                                   radius: 8,
                                   backgroundColor: Colors.red,
@@ -202,8 +200,7 @@ class MessageAppBar extends StatelessWidget {
                     ),
                   ),
                   guestWidget: const SizedBox.shrink(), // Or your desired guest widget
-                )
-                ,
+                ),
               ],
             ),
           ),
@@ -213,13 +210,14 @@ class MessageAppBar extends StatelessWidget {
   }
 }
 
-class MessageSearchField extends StatelessWidget {
-  const MessageSearchField({super.key, required this.controller, this.focusNode, this.onSubmitted, this.onChanged});
+class CustomSearchField extends StatelessWidget {
+  const CustomSearchField({super.key, required this.controller, this.focusNode, this.onSubmitted, this.onChanged, this.hint});
 
   final TextEditingController controller;
   final FocusNode? focusNode;
   final Function(String)? onSubmitted;
   final Function(String)? onChanged;
+  final String? hint;
 
   @override
   Widget build(BuildContext context) {
@@ -240,7 +238,7 @@ class MessageSearchField extends StatelessWidget {
         ),
         filled: true,
         fillColor: Colors.white,
-        hintText: "Search messages",
+        hintText: hint ?? "Search messages",
         hintStyle: const TextStyle(
           color: Color(0xff212121),
         ),
