@@ -17,6 +17,7 @@ import 'package:talkam/features/messaging/data/models/conversations_filter.dart'
 import 'package:talkam/features/messaging/presentation/blocs/conversations/conversations_cubit.dart';
 import 'package:talkam/features/messaging/presentation/blocs/conversations/conversations_cubit.dart';
 import 'package:talkam/features/messaging/presentation/widgets/messages_list.dart';
+import 'package:talkam/features/messaging/presentation/widgets/messages_loading_shimmer.dart';
 import 'package:talkam/features/notifications/presentation/bloc/notification_bloc.dart';
 import 'package:talkam/features/search/data/models/get_search_response.dart';
 import 'package:talkam/features/search/presentation/blocs/search/search_cubit.dart';
@@ -104,7 +105,7 @@ class _MessagesScreenState extends State<MessagesScreen> {
                       );
                     },
                     getConversationsLoading: () {
-                      return CustomDialogs.getLoading(size: 40);
+                      return const MessagesLoadingShimmer();
                     },
                     getConversationsSuccess: (response) {
                       return MessagesList(
