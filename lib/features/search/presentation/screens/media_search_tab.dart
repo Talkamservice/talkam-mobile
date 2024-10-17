@@ -9,6 +9,8 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item.dart';
 import 'package:talkam/features/search/presentation/blocs/media_search/media_serach_cubit.dart';
 
+import '../../../post/presentation/widgets/post_loading_shimmer.dart';
+
 class MediaSearchResultTab extends StatefulWidget {
   const MediaSearchResultTab({super.key, required this.query});
 
@@ -43,8 +45,8 @@ class _MediaSearchResultTabState extends State<MediaSearchResultTab>
             builder: (context, state) {
               return state.maybeWhen(
                 orElse: () => 0.verticalSpace,
-                getMediaSearchLoading: () => Center(
-                  child: CustomDialogs.getLoading(size: 50),
+                getMediaSearchLoading: () => const Center(
+                  child: PostLoadingShimmer(),
                 ),
                 mediaSearchLoaded: (posts, paginationMeta) {
                   if (posts.isEmpty) {

@@ -88,7 +88,7 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
                       },
                       child: _PostAction(
                         imagePath: Assets.images.svgs.slashCircle01,
-                        tittle: "Block ${post.user.usersName}",
+                        tittle: "Block ${post.user?.usersName}",
                         onTap: () {
                           blockUser(context);
                         },
@@ -244,4 +244,5 @@ class _PostAction extends StatelessWidget {
       ),
     );
   }
+
 }

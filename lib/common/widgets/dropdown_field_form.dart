@@ -45,7 +45,7 @@ class CustomDropdownFieldButton<T> extends StatelessWidget {
                 gapPadding: 2,
                 borderSide: const BorderSide(
                   color: Pallets.borderGrey,
-                  width: 0.5,
+                  width: 0.7,
                 ),
                 borderRadius: BorderRadius.circular(10),
               ),
@@ -53,7 +53,7 @@ class CustomDropdownFieldButton<T> extends StatelessWidget {
                 gapPadding: 2,
                 borderSide: BorderSide(
                   color: Theme.of(context).primaryColor,
-                  width: 0.5,
+                  width: 0.7,
                 ),
                 borderRadius: BorderRadius.circular(10),
               ),

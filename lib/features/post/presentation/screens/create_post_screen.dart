@@ -106,7 +106,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> with RefreshPostsMi
                           textCapitalization: TextCapitalization.sentences,
                           radius: 4,
                           filled: true,
-                          maxLength: 280,
+                          maxLength: 80,
                           controller: tittleController,
                           validator: RequiredValidator(errorText: "Field is required").call,
                           onChange: (d) {

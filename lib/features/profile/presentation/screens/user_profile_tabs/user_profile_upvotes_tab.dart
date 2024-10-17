@@ -5,6 +5,7 @@ import 'package:talkam/common/widgets/empty_state.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item.dart';
+import 'package:talkam/features/post/presentation/widgets/post_loading_shimmer.dart';
 import 'package:talkam/features/profile/presentation/bloc/user_profile_upvotes_cubit/user_profile_upvotes_cubit.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/profile/presentation/widgets/refresh_post_listener.dart';
@@ -59,8 +60,8 @@ class _UserProfileUpvotesTabState extends State<UserProfileUpvotesTab>
         },
         builder: (context, state) {
           return state.maybeWhen(
-            loading: () => Center(
-              child: CustomDialogs.getLoading(size: 50),
+            loading: () => const Center(
+              child: PostLoadingShimmer(),
             ),
             error: () => const SizedBox.shrink(),
             orElse: () {

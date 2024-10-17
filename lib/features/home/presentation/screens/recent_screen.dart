@@ -38,9 +38,12 @@ class _RecentScreenState extends State<RecentScreen> with AutomaticKeepAliveClie
             builder: (context, state) {
               return state.maybeWhen(
                 orElse: () => 0.verticalSpace,
+
                 getRecentPostsLoading: () => const Center(
+
                   child: PostLoadingShimmer(),
                 ),
+
                 getRecentPostsFailed: (error) => AppErrorWidget(
                   message: error,
                   onTap: () {
