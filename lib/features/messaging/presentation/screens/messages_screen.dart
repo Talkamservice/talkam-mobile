@@ -64,7 +64,6 @@ class _MessagesScreenState extends State<MessagesScreen> {
               onChanged: (p0) {
                 GuestUserHelper.handleGuestUserAction(
                   action: () {
-
                     Debouncer(milliseconds: 100).run(
                           () {
                         injector

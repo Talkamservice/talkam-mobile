@@ -114,30 +114,37 @@ class _TalkamCountryStatePickerState extends State<TalkamCountryStatePicker> {
   }
 
   void pickCountry(BuildContext context) async {
-    country = await CustomDialogs.showBottomSheet(
+    var _country = await CustomDialogs.showBottomSheet(
       context,
       Padding(
         padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: const CountryPickerSheet(),
       ),
     );
+    if (_country != null) {
+      country = _country;
+    }
     if (country != null) {
       state = null;
     }
+
     widget.onChanged(country, state);
     setState(() {});
   }
 
   void pickState(BuildContext context, String countryId) async {
-    state = await CustomDialogs.showBottomSheet(
-        context,
-        Padding(
-          padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-          child: StatePickerSheet(
-            countryId: countryId,
-          ),
+    var _state = await CustomDialogs.showBottomSheet(
+      context,
+      Padding(
+        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: StatePickerSheet(
+          countryId: countryId,
         ),
+      ),
     );
+    if (_state != null) {
+      state = _state;
+    }
     widget.onChanged(country, state);
 
     setState(() {});

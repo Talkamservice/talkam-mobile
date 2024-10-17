@@ -86,7 +86,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> with RefreshPosts
                       Center(
                         child: TextButton(
                             style: TextButton.styleFrom(
-                              // padding: EdgeInsets.all(),
+                                // padding: EdgeInsets.all(),
                                 foregroundColor: context.colorScheme.onSurface,
                                 shape: const StadiumBorder(side: BorderSide(color: Pallets.borderGrey))),
                             onPressed: () {
@@ -107,11 +107,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> with RefreshPosts
                         hint: "Use a unique username",
                         controller: usernameController,
                         validator:
-                        MultiValidator([RequiredValidator(errorText: "Field is required"), SpaceValidator(errorText: "Username must not contain space")])
-                            .call,
+                            MultiValidator([RequiredValidator(errorText: "Field is required"), SpaceValidator(errorText: "Username must not contain space")])
+                                .call,
                       ),
                       16.verticalSpace,
-
                       TextView(
                         text: "Date of birth",
                         fontSize: 15.sp,
@@ -128,7 +127,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> with RefreshPosts
                                 width: 0.7,
                               )),
                           onPressed: () async {
-                            dob = await selectDate(context);
+                            var _dob = await selectDate(context);
+                            if (_dob != null) {
+                              _dob = dob;
+                            }
                             setState(() {});
                             // pickDateAndTime(context);
                           },
@@ -143,7 +145,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> with RefreshPosts
                             ],
                           )),
                       16.verticalSpace,
-
                       CustomDropdownFieldButton<String>(
                           label: "Gender",
                           hint: "Male / Female",
@@ -224,7 +225,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> with RefreshPosts
       context: context,
       initialDate: now,
       firstDate: DateTime(now.year - 200),
-      lastDate: DateTime(now.year + 5),
+      lastDate: now,
     );
     if (pickedDate != null && pickedDate != now) {
       return pickedDate;

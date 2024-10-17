@@ -174,7 +174,7 @@ class Post {
         uuid: json["uuid"],
         canComment: json["can_comment"],
         isAnonymous: json["is_anonymous"],
-        tags: List<dynamic>.from(jsonDecode(json["tags"]).map((x) => x)),
+        tags:  List<dynamic>.from(json["tags"] is List ?json["tags"]:jsonDecode(json["tags"].toString()).map((x) => x)),
         viewsCount: json["views_count"],
         status: json["status"],
         publishAt: json["publish_at"],
