@@ -47,6 +47,14 @@ class MyProfileSheet extends StatelessWidget with RefreshPostsMixin {
               context.pushNamed(PageUrl.userScheduledPosts);
             },
           ),
+          _PostAction(
+            imagePath: Assets.images.svgs.announcement,
+            tittle: "Ads",
+            onTap: () {
+              context.pop();
+              context.pushNamed(PageUrl.adsPage);
+            },
+          ),
         ],
       ),
     );

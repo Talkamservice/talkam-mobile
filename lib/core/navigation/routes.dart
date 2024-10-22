@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talkam/core/navigation/path_params.dart';
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/features/ads/presentation/screens/ads_page.dart';
 import 'package:talkam/features/authentication/presentation/screens/email_sent_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/interests_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/intro_screen.dart';
@@ -304,6 +305,13 @@ class CustomRoutes {
         name: PageUrl.notificationScreen,
         pageBuilder: (context, state) => const NoTransitionPage(
           child: NotificationsScreen(),
+        ),
+      ),
+      GoRoute(
+        path: '/adsPage',
+        name: PageUrl.adsPage,
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: AdsPage(),
         ),
       ),
       GoRoute(
