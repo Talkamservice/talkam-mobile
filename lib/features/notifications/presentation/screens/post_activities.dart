@@ -6,10 +6,13 @@ import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/empty_state.dart';
 import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/features/group/presentation/widgets/group_loading_shimmer.dart';
 import 'package:talkam/features/messaging/presentation/widgets/new_notification.dart';
 import 'package:talkam/features/notifications/data/models/get_notifications_response.dart';
 import 'package:talkam/features/notifications/presentation/bloc/notification_bloc.dart';
 import 'package:talkam/features/notifications/presentation/widgets/all_notifications_listener.dart';
+import 'package:talkam/features/notifications/presentation/widgets/notification_shimmer.dart';
+import 'package:talkam/features/post/presentation/widgets/post_loading_shimmer.dart';
 
 class PostActivitiesTab extends StatefulWidget {
   const PostActivitiesTab({super.key});
@@ -48,8 +51,8 @@ class _PostActivitiesTabState extends State<PostActivitiesTab> with AutomaticKee
             child: Builder(
               builder: (context) {
                 if (state is GetNotificationsLoadingState) {
-                  return Center(
-                    child: CustomDialogs.getLoading(size: 35),
+                  return const Center(
+                    child: NotificationShimmer(),
                   );
                 } else if (state is GetNotificationsFailureState) {
                   return Center(
