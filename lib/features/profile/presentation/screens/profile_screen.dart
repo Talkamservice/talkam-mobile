@@ -19,6 +19,8 @@ import 'package:talkam/features/profile/presentation/screens/tabs/profile_upvote
 import 'package:talkam/features/components/talkam_tab_bar.dart';
 import 'package:talkam/features/profile/presentation/screens/user_profile_tabs/user_media_tab.dart';
 import 'package:talkam/features/profile/presentation/widgets/my_profile_sheet.dart';
+import 'package:talkam/features/subscription/presentation/widgets/subscription_plan_card.dart';
+import 'package:talkam/features/subscription/utils/subscription_helper.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 enum _ProfileTabOptions {
@@ -127,17 +129,48 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   canPreview: true,
                                   fit: BoxFit.scaleDown,
                                   shape: BoxShape.circle,
-                                  imageUrl: injector.get<ProfileBloc>().appUser?.avatar??Assets.images.svgs.user,
+                                  imageUrl: injector.get<ProfileBloc>().appUser?.avatar ?? Assets.images.svgs.user,
                                 ),
                                 10.horizontalSpace,
-                                Padding(
-                                  padding: EdgeInsets.only(top: 12.0.h),
-                                  child: TextView(
-                                    text: injector.get<ProfileBloc>().appUser?.username ?? "",
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 16,
-                                    color: Pallets.boldBlackV2,
-                                  ),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Padding(
+                                      padding: EdgeInsets.only(top: 12.0.h),
+                                      child: TextView(
+                                        text: injector.get<ProfileBloc>().appUser?.username ?? "",
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 16,
+                                        color: Pallets.boldBlackV2,
+                                      ),
+                                    ),
+                                    8.verticalSpace,
+                                    TalkamSubscriptionWidget(
+                                      subscribedUserWidget: 0.verticalSpace,
+                                      freemiumUserWidget: InkWell(
+                                        onTap:(){
+                                          context.pushNamed(PageUrl.subscriptionScreen);
+
+                                        },
+                                        child: Container(
+
+                                          padding:const EdgeInsets.all(5),
+                                          decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(22), border: Border.all(color: Pallets.lightBlue), gradient: blueWhiteGradient),
+
+                                          child: Row(
+                                            children: [
+                                              ImageWidget(imageUrl: Assets.images.svgs.blueThick,size: 16,),
+                                              3.horizontalSpace,
+                                              const TextView(
+                                                  fontSize: 10,
+                                                  text: "Subscribe to TalkAM plus")
+                                            ],
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  ],
                                 ),
                                 const Spacer(),
                                 IconButton(

@@ -15,6 +15,8 @@ import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/settings/presentation/blocs/settings/settings_bloc.dart';
+import 'package:talkam/features/settings/presentation/widgets/notification_setting_item.dart';
+import 'package:talkam/features/subscription/presentation/widgets/subscription_plan_card.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class AccountSettingsScreen extends StatefulWidget {
@@ -31,7 +33,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
 
   @override
   void initState() {
-    profileBloc.add(GetRemoteUser());
+    profileBloc.add(const GetRemoteUser());
     super.initState();
   }
 
@@ -87,49 +89,69 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
               }
 
               if (state is GetProfileSuccessState) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                return SingleChildScrollView(
                   child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      24.verticalSpace,
-                      const TextView(
-                        text: "Email address",
-                        fontWeight: FontWeight.w700,
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            24.verticalSpace,
+                            const TextView(
+                              text: "Email address",
+                              fontWeight: FontWeight.w700,
+                            ),
+                            7.verticalSpace,
+                            TextView(text: injector.get<ProfileBloc>().appUser?.email ?? "***"),
+                            24.verticalSpace,
+                            Row(
+                              children: [
+                                Expanded(
+                                    child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    const TextView(
+                                      text: "Password",
+                                      fontWeight: FontWeight.w700,
+                                    ),
+                                    7.verticalSpace,
+                                    const TextView(text: "********"),
+                                  ],
+                                )),
+                                TextButton(
+                                    style: TextButton.styleFrom(shape: const StadiumBorder(side: BorderSide(color: Pallets.primary))),
+                                    onPressed: () {
+                                      context.pushNamed(PageUrl.changePasswordScreen);
+                                      // context.read<SettingsBloc>().add(SettingsEvent.blockUser(
+                                      //     blockedUser.blockedUser.id.toString()));
+                                    },
+                                    child: const TextView(text: "Change password"))
+                              ],
+                            ),
+                            30.verticalSpace,
+                          ],
+                        ),
                       ),
-                      7.verticalSpace,
-                      TextView(
-                          text: injector.get<ProfileBloc>().appUser?.email ??
-                              "***"),
-                      24.verticalSpace,
-                      Row(
-                        children: [
-                          Expanded(
-                              child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const TextView(
-                                text: "Password",
-                                fontWeight: FontWeight.w700,
-                              ),
-                              7.verticalSpace,
-                              const TextView(text: "********"),
-                            ],
-                          )),
-                          TextButton(
-                              style: TextButton.styleFrom(
-                                  shape: const StadiumBorder(
-                                      side:
-                                          BorderSide(color: Pallets.primary))),
-                              onPressed: () {
-                                context.pushNamed(PageUrl.changePasswordScreen);
-                                // context.read<SettingsBloc>().add(SettingsEvent.blockUser(
-                                //     blockedUser.blockedUser.id.toString()));
-                              },
-                              child: const TextView(text: "Change password"))
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20.0,
+                        ),
+                        child: NotificationSettingItem(
+                          notificationItemType: NotificationItemType.switchType,
+                          tittle: 'Deactivate ads on your feed',
+                          subtittle: 'You will be unable to see ads on your feeds when this is activated.',
+                          selected: false,
+                          onTap: () async {},
+                        ),
                       ),
-                      46.verticalSpace,
+                      24.verticalSpace,
+                      const Divider(
+                        thickness: 1,
+                      ),
+                      24.verticalSpace,
+                      const SubscriptionPlanCard(isSubscribed: true),
+                      30.verticalSpace,
                       Center(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -142,35 +164,26 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                 foreGroundColor: Pallets.black,
                                 radius: 8.r,
                                 outlinedColr: Pallets.borderGrey,
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 16.h, horizontal: 20.w),
+                                padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 20.w),
                                 onPressed: () {
                                   // _authBloc.add(const FacebookAuthEvent());
 
                                   // context.pushNamed(PageUrl.termsScreen);
 
                                   if (state.user.googleId == null) {
-                                    bloc.add(
-                                        const SettingsEvent.linkSocialAccount(
-                                            'google'));
+                                    bloc.add(const SettingsEvent.linkSocialAccount('google'));
                                   } else {
-                                    bloc.add(
-                                        const SettingsEvent.unlinkSocialAccount(
-                                            'google'));
+                                    bloc.add(const SettingsEvent.unlinkSocialAccount('google'));
                                   }
                                 },
                                 child: Expanded(
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      ImageWidget(
-                                          imageUrl:
-                                              Assets.images.svgs.googleAuth),
+                                      ImageWidget(imageUrl: Assets.images.svgs.googleAuth),
                                       16.horizontalSpace,
                                       TextView(
-                                        text: state.user.googleId == null
-                                            ? 'Connect with Google'
-                                            : "Disconnect with Google",
+                                        text: state.user.googleId == null ? 'Connect with Google' : "Disconnect with Google",
                                         align: TextAlign.center,
                                         fontWeight: FontWeight.w700,
                                       ),
@@ -183,30 +196,21 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                 foregroundColor: Colors.white,
                                 bgColor: Pallets.facebookBlue,
                                 borderRadius: BorderRadius.circular(8.r),
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 16.h, horizontal: 20.w),
+                                padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 20.w),
                                 onPressed: () {
                                   if (state.user.facebookId == null) {
-                                    bloc.add(
-                                        const SettingsEvent.linkSocialAccount(
-                                            'facebook'));
+                                    bloc.add(const SettingsEvent.linkSocialAccount('facebook'));
                                   } else {
-                                    bloc.add(
-                                        const SettingsEvent.unlinkSocialAccount(
-                                            'facebook'));
+                                    bloc.add(const SettingsEvent.unlinkSocialAccount('facebook'));
                                   }
                                 },
                                 child: Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    ImageWidget(
-                                        imageUrl:
-                                            Assets.images.svgs.facebookWhite),
+                                    ImageWidget(imageUrl: Assets.images.svgs.facebookWhite),
                                     12.horizontalSpace,
                                     TextView(
-                                      text: state.user.facebookId == null
-                                          ? 'Connect with Facebook'
-                                          : "Disconnect with Facebook",
+                                      text: state.user.facebookId == null ? 'Connect with Facebook' : "Disconnect with Facebook",
                                       align: TextAlign.center,
                                       fontWeight: FontWeight.w700,
                                     ),
@@ -219,29 +223,21 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                   foregroundColor: Pallets.white,
                                   bgColor: Pallets.black,
                                   borderRadius: BorderRadius.circular(8.r),
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: 16.h, horizontal: 20.w),
+                                  padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 20.w),
                                   onPressed: () {
                                     if (state.user.appleId == null) {
-                                      bloc.add(
-                                          const SettingsEvent.linkSocialAccount(
-                                              'apple'));
+                                      bloc.add(const SettingsEvent.linkSocialAccount('apple'));
                                     } else {
-                                      bloc.add(const SettingsEvent
-                                          .unlinkSocialAccount('apple'));
+                                      bloc.add(const SettingsEvent.unlinkSocialAccount('apple'));
                                     }
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
-                                      ImageWidget(
-                                          imageUrl:
-                                              Assets.images.svgs.appleWhite),
+                                      ImageWidget(imageUrl: Assets.images.svgs.appleWhite),
                                       12.horizontalSpace,
                                       TextView(
-                                        text: state.user.appleId == null
-                                            ? 'Connect with Apple'
-                                            : "Disconnect with Apple",
+                                        text: state.user.appleId == null ? 'Connect with Apple' : "Disconnect with Apple",
                                         align: TextAlign.center,
                                         fontWeight: FontWeight.w700,
                                       ),
@@ -251,8 +247,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                               34.verticalSpace,
                               TextButton(
                                   onPressed: () {
-                                    context
-                                        .pushNamed(PageUrl.deleteAccountScreen);
+                                    context.pushNamed(PageUrl.deleteAccountScreen);
                                   },
                                   child: const TextView(
                                     text: 'Delete Account',

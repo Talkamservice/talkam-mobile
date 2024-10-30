@@ -46,7 +46,8 @@ class _TagsPickerWidgetState extends State<TagsPickerWidget> {
             padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 16),
             decoration: BoxDecoration(
                 color: Pallets.borderGrey.withOpacity(0.1), border: Border.all(color: Pallets.borderGrey, width: 1), borderRadius: BorderRadius.circular(10)),
-            height: 55,
+
+            constraints: const BoxConstraints(minHeight: 55, ),
             width: 1.sw,
             child: Row(
               children: [

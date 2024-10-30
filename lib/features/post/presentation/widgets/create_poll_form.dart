@@ -69,7 +69,6 @@ class _CreatePollFormState extends State<CreatePollForm> {
                 ],
               ),
               6.verticalSpace,
-
               ...List.generate(
                 choiceControllers.length,
                 (index) => Row(

@@ -18,6 +18,7 @@ import 'package:talkam/features/notifications/presentation/bloc/notification_blo
 import 'package:talkam/features/notifications/presentation/widgets/announcements_carousel.dart';
 import 'package:talkam/features/notifications/presentation/widgets/notification_icon.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
+import 'package:talkam/features/subscription/utils/subscription_helper.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -145,38 +146,69 @@ class HomeAppBar extends StatelessWidget {
         return Container(
           color: context.colorScheme.surface,
           child: Padding(
-            padding: const EdgeInsets.only(top: 20, left: 1, right: 18),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
+            padding: const EdgeInsets.only(top: 10, left: 1, right: 18),
+            child: Column(
               children: [
-                IconButton(
-                    onPressed: () {
-                      context.read<DrawerCubit>().closeDrawer();
-                      context.read<DrawerCubit>().openDrawer();
-/**/
-                    },
-                    icon: Icon(
-                      Icons.menu_outlined,
-                      color: context.colorScheme.onSurface,
-                    )),
-                ImageWidget(imageUrl: Assets.images.svgs.logo2),
-                const Spacer(),
-                const NotificationIcon(),
-                20.horizontalSpace,
-                GuestUserHelper.guestUserWidget(
-                    widget: InkWell(
-                  onTap: () {
-                    context.pushNamed(PageUrl.profileScreen);
-                  },
-                  child: ImageWidget(
-                    shape: BoxShape.circle,
-                    imageUrl: injector.get<ProfileBloc>().appUser?.avatar ?? Assets.images.svgs.user,
-                    size: 40,
-                    onTap: () {
-                      context.pushNamed(PageUrl.profileScreen);
-                    },
+              TalkamSubscriptionWidget(   subscribedUserWidget: 0.verticalSpace,
+                freemiumUserWidget: Padding(
+                  padding: const EdgeInsets.only(left: 16.0),
+                  child: Row(
+                    children: [
+                      ImageWidget(imageUrl: Assets.images.svgs.logo2),
+                      const Spacer(),
+                      SizedBox(
+                        height: 25,
+                        child: TextButton(
+                            style: TextButton.styleFrom(
+                                padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                                backgroundColor: Pallets.blueBubbleColor,
+                                foregroundColor: Pallets.white,
+                                shape: const StadiumBorder()),
+                            onPressed: () {
+                              context.pushNamed(PageUrl.subscriptionScreen);
+                            },
+                            child: const TextView(
+                              text: "Upgrade to TalkAM plus",
+                              fontSize: 10,
+                            )),
+                      )
+                    ],
                   ),
-                )),
+                ), ),
+                14.verticalSpace,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          context.read<DrawerCubit>().closeDrawer();
+                          context.read<DrawerCubit>().openDrawer();
+                          /**/
+                        },
+                        icon: Icon(
+                          Icons.menu_outlined,
+                          color: context.colorScheme.onSurface,
+                        )),
+                  TalkamSubscriptionWidget(subscribedUserWidget:   ImageWidget(imageUrl: Assets.images.svgs.logo2),),
+                    const Spacer(),
+                    const NotificationIcon(),
+                    20.horizontalSpace,
+                    GuestUserHelper.guestUserWidget(
+                        widget: InkWell(
+                      onTap: () {
+                        context.pushNamed(PageUrl.profileScreen);
+                      },
+                      child: ImageWidget(
+                        shape: BoxShape.circle,
+                        imageUrl: injector.get<ProfileBloc>().appUser?.avatar ?? Assets.images.svgs.user,
+                        size: 40,
+                        onTap: () {
+                          context.pushNamed(PageUrl.profileScreen);
+                        },
+                      ),
+                    )),
+                  ],
+                ),
               ],
             ),
           ),
