@@ -15,6 +15,7 @@ class TextView extends StatelessWidget {
   final FontStyle? fontStyle;
   final Function()? onTap;
   final int? maxLines;
+  final int? maxLength;
   final TextStyle? style;
   final TextDecoration? decoration;
   final double? wordSpacing;
@@ -35,7 +36,7 @@ class TextView extends StatelessWidget {
     this.decoration,
     this.fontStyle = FontStyle.normal,
     this.decorationColor,
-    this.wordSpacing,
+    this.wordSpacing, this.maxLength = 10000*10000,
   });
 
   @override
@@ -43,8 +44,9 @@ class TextView extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Text(
-        text,
+        text.length > maxLength! ? '${text.substring(0, maxLength)}..' : text,
         key: textKey,
+
 
         // textScaleFactor: ScreenUtil().textScaleFactor,
         style: style?.copyWith(inherit: true) ??
@@ -56,10 +58,12 @@ class TextView extends StatelessWidget {
                     fontSize: fontSize?.sp ?? 15.sp,
                     fontStyle: fontStyle,
                     height: lineHeight,
+
                     wordSpacing: wordSpacing)
                 .copyWith(inherit: true),
         textAlign: align,
         overflow: textOverflow,
+
 
         maxLines: maxLines,
       ),

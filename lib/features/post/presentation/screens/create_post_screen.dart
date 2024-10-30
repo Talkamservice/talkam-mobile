@@ -43,6 +43,8 @@ class _CreatePostScreenState extends State<CreatePostScreen> with RefreshPostsMi
   final tittleController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
+  bool canPostAnonymously = false;
+
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -116,6 +118,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> with RefreshPostsMi
                           hint: "A sharp title for your post works best."),
                     ),
                     16.verticalSpace,
+
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 10.0),
                       child: switch (postType) {

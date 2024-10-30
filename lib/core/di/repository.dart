@@ -19,6 +19,8 @@ import 'package:talkam/features/search/data/repository/search_repository.dart';
 import 'package:talkam/features/search/dormain/repository/search_repository_impl.dart';
 import 'package:talkam/features/settings/data/repository/settings_repository_impl.dart';
 import 'package:talkam/features/settings/dormain/repository/settings_repoitory.dart';
+import 'package:talkam/features/subscription/data/repository/subscriptions_repository_impl.dart';
+import 'package:talkam/features/subscription/dormain/repository/subscriptions_repository.dart';
 
 void setup(GetIt getIt) {
   getIt.registerLazySingleton<AuthRepository>(
@@ -48,5 +50,8 @@ void setup(GetIt getIt) {
   );
   getIt.registerLazySingleton<NotificationsRepository>(
     () => NotificationRepositoryImpl(getIt.get()),
+  );
+  getIt.registerLazySingleton<SubscriptionsRepository>(
+    () => SubscriptionsRepositoryImpl(getIt.get()),
   );
 }

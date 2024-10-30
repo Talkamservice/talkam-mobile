@@ -8,6 +8,7 @@ import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/features/ads/presentation/screens/running_ads_screen.dart';
 
 import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
 
@@ -52,7 +53,15 @@ class MyProfileSheet extends StatelessWidget with RefreshPostsMixin {
             tittle: "Ads",
             onTap: () {
               context.pop();
-              context.pushNamed(PageUrl.adsPage);
+              // context.pushNamed(PageUrl.adsPage);
+
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const RunningAdsScreen(),
+                  ));
+
+
             },
           ),
         ],
@@ -60,8 +69,6 @@ class MyProfileSheet extends StatelessWidget with RefreshPostsMixin {
     );
   }
 }
-
-
 
 class _PostAction extends StatelessWidget {
   const _PostAction({super.key, required this.imagePath, required this.tittle, required this.onTap});

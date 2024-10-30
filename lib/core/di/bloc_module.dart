@@ -22,6 +22,7 @@ import 'package:talkam/features/profile/presentation/bloc/user_profile_media_tab
 import 'package:talkam/features/profile/presentation/bloc/user_profile_posts_cubit/user_profile_posts_cubit.dart';
 import 'package:talkam/features/profile/presentation/bloc/user_profile_upvotes_cubit/user_profile_upvotes_cubit.dart';
 import 'package:talkam/features/search/presentation/blocs/search/search_cubit.dart';
+import 'package:talkam/features/subscription/presentation/blocs/subscriptions_bloc/subscriptions_bloc_cubit.dart';
 import '../../features/profile/presentation/bloc/profile_upvotes_cubit/profile_upvotes_cubit.dart';
 
 void setup(GetIt getIt) {
@@ -47,6 +48,9 @@ void setup(GetIt getIt) {
 
   getIt.registerLazySingleton<TrendingPostCubit>(
     () => TrendingPostCubit(injector.get()),
+  );
+  getIt.registerLazySingleton<SubscriptionsCubit>(
+    () => SubscriptionsCubit(injector.get()),
   );
 
   getIt.registerLazySingleton<PostBloc>(

@@ -8,6 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:talkam/common/models/get_countries_response.dart';
 import 'package:talkam/common/models/get_states_response.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
+import 'package:talkam/features/subscription/data/models/get_plans_response.dart';
 
 AuthSuccessResponse authSuccessResponseFromJson(String str) => AuthSuccessResponse.fromJson(json.decode(str));
 
@@ -102,6 +103,7 @@ class TalkamUser {
   dynamic appleId;
   dynamic isBlocked;
   dynamic iamBlocked;
+  ActiveSubscription? activeSubscription;
   String username;
   String status;
   List<PostCategory> interests;
@@ -132,32 +134,33 @@ class TalkamUser {
     required this.appleId,
     required this.isBlocked,
     required this.iamBlocked,
+    this.activeSubscription,
   });
 
-  TalkamUser copyWith({
-    int? id,
-    dynamic avatar,
-    String? name,
-    String? email,
-    String? role,
-    dynamic googleId,
-    dynamic age,
-    dynamic gender,
-    dynamic dob,
-    dynamic country,
-    dynamic state,
-    dynamic facebookId,
-    dynamic tiktokId,
-    dynamic appleId,
-    dynamic isBlocked,
-    dynamic iamBlocked,
-    String? username,
-    String? status,
-    List<PostCategory>? interests,
-    DateTime? createdAt,
-    DateTime? emailVerifiedAt,
-    DateTime? updatedAt,
-  }) =>
+  TalkamUser copyWith(
+          {int? id,
+          dynamic avatar,
+          String? name,
+          String? email,
+          String? role,
+          dynamic googleId,
+          dynamic age,
+          dynamic gender,
+          dynamic dob,
+          dynamic country,
+          dynamic state,
+          dynamic facebookId,
+          dynamic tiktokId,
+          dynamic appleId,
+          dynamic isBlocked,
+          dynamic iamBlocked,
+          String? username,
+          String? status,
+          List<PostCategory>? interests,
+          DateTime? createdAt,
+          DateTime? emailVerifiedAt,
+          DateTime? updatedAt,
+          ActiveSubscription? activeSubscription}) =>
       TalkamUser(
         id: id ?? this.id,
         avatar: avatar ?? this.avatar,
@@ -181,6 +184,7 @@ class TalkamUser {
         appleId: appleId ?? this.appleId,
         isBlocked: isBlocked ?? this.isBlocked,
         iamBlocked: iamBlocked ?? this.iamBlocked,
+        activeSubscription: activeSubscription ?? this.activeSubscription,
       );
 
   factory TalkamUser.fromJson(Map<String, dynamic> json) => TalkamUser(
@@ -191,7 +195,6 @@ class TalkamUser {
         role: json["role"],
         age: json["age"],
         gender: json["gender"],
-
         dob: json["date_of_birth"] == null ? null : DateTime.parse(json["date_of_birth"]),
         state: json["state"] == null ? null : TalkamState.fromJson(json["state"]),
         country: json["country"] == null ? null : TalkamCountry.fromJson(json["country"]),
@@ -207,6 +210,7 @@ class TalkamUser {
         createdAt: DateTime.parse(json["created_at"]),
         emailVerifiedAt: json["email_verified_at"] == null ? null : DateTime.parse(json["email_verified_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
+        activeSubscription: json["active_subscription"] == null ? null : ActiveSubscription?.fromJson(json["active_subscription"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -232,6 +236,7 @@ class TalkamUser {
         "created_at": createdAt.toIso8601String(),
         "email_verified_at": emailVerifiedAt?.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
+        "active_subscription": activeSubscription?.toJson(),
       };
 
   factory TalkamUser.forTest() {
@@ -260,4 +265,73 @@ class TalkamUser {
       country: null,
     );
   }
+}
+
+ActiveSubscription activeSubscriptionFromJson(String str) => ActiveSubscription.fromJson(json.decode(str));
+
+String activeSubscriptionToJson(ActiveSubscription data) => json.encode(data.toJson());
+
+class ActiveSubscription {
+  int id;
+  TalkamPlan plan;
+  dynamic flutterwaveSubscriptionId;
+  String status;
+  DateTime expiresAt;
+  dynamic renewalCancelledAt;
+  DateTime createdAt;
+  DateTime updatedAt;
+
+  ActiveSubscription({
+    required this.id,
+    required this.plan,
+    required this.flutterwaveSubscriptionId,
+    required this.status,
+    required this.expiresAt,
+    required this.renewalCancelledAt,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  ActiveSubscription copyWith({
+    int? id,
+    TalkamPlan? plan,
+    dynamic flutterwaveSubscriptionId,
+    String? status,
+    DateTime? expiresAt,
+    dynamic renewalCancelledAt,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+  }) =>
+      ActiveSubscription(
+        id: id ?? this.id,
+        plan: plan ?? this.plan,
+        flutterwaveSubscriptionId: flutterwaveSubscriptionId ?? this.flutterwaveSubscriptionId,
+        status: status ?? this.status,
+        expiresAt: expiresAt ?? this.expiresAt,
+        renewalCancelledAt: renewalCancelledAt ?? this.renewalCancelledAt,
+        createdAt: createdAt ?? this.createdAt,
+        updatedAt: updatedAt ?? this.updatedAt,
+      );
+
+  factory ActiveSubscription.fromJson(Map<String, dynamic> json) => ActiveSubscription(
+        id: json["id"],
+        plan: TalkamPlan.fromJson(json["plan"]),
+        flutterwaveSubscriptionId: json["flutterwave_subscription_id"],
+        status: json["status"],
+        expiresAt: DateTime.parse(json["expires_at"]),
+        renewalCancelledAt: json["renewal_cancelled_at"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "plan": plan.toJson(),
+        "flutterwave_subscription_id": flutterwaveSubscriptionId,
+        "status": status,
+        "expires_at": expiresAt.toIso8601String(),
+        "renewal_cancelled_at": renewalCancelledAt,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+      };
 }

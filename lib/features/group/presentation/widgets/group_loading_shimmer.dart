@@ -48,7 +48,7 @@ class GroupLoadingShimmer extends StatelessWidget {
                               width: 150,
                               decoration: BoxDecoration(
                                 color: Colors.white,
-                                borderRadius: BorderRadius.circular(10.0),
+                                borderRadius: BorderRadius.circular(7.0),
                               ),
                             ),
                             const SizedBox(height: 10,),
