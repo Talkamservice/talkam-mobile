@@ -254,6 +254,11 @@ LinearGradient get blueWhiteGradient {
     Color(0xffFDFFFF),
     Color(0xffD1F2F7),
   ]);
+}LinearGradient get whiteBlueGradient {
+  return const LinearGradient(colors: [
+    Color(0xffFDFFFF),
+    Color(0xffD1F2F7),
+  ]);
 }
 
 BoxDecoration get subscriptionCardDecoration {
