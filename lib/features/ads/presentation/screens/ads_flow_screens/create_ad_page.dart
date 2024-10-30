@@ -14,6 +14,15 @@ class _CreateAdPageState extends State<CreateAdPage> {
   //use this to track switch for scheduled post
   bool scheduled = false;
 
+  String? _selectedCategory;
+
+  final List<String> _categories = [
+    "Category 1",
+    "Category 2",
+    "Category 3",
+    "Category 4",
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,27 +33,41 @@ class _CreateAdPageState extends State<CreateAdPage> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(30),
-                    border: Border.all(
-                      color: Colors.grey
-                    )
+                DropdownButton<String>(
+                  value: _selectedCategory,
+                  hint: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(30),
+                      border: Border.all(color: Colors.grey),
+                    ),
+                    child: Row(
+                      children: [
+                        const Icon(Icons.circle, color: Color(0xFF1F96BC)),
+                        5.horizontalSpace,
+                        const Text(
+                          "Select category",
+                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                        10.horizontalSpace,
+                        const Icon(Icons.keyboard_arrow_down_rounded, color: Colors.black),
+                      ],
+                    ),
                   ),
-                  child: Row(
-                    children: [
-                      Icon(Icons.circle, color: Colors.blue[700],),
-                      5.horizontalSpace,
-                      const Text(
-                        "Select category",
-                        style: TextStyle( fontSize: 14),
-                      ),
-                      10.horizontalSpace,
-                      const Icon(Icons.keyboard_arrow_down_rounded,color: Colors.black,)
-                    ],
-                  ),
+                  items: _categories.map((String category) {
+                    return DropdownMenuItem<String>(
+                      value: category,
+                      child: Text(category),
+                    );
+                  }).toList(),
+                  onChanged: (String? newValue) {
+                    setState(() {
+                      _selectedCategory = newValue;
+                    });
+                  },
+                  underline: const SizedBox(),
+                  icon: const SizedBox.shrink(),
                 ),
                 Container(
                   padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 15),
@@ -73,24 +96,29 @@ class _CreateAdPageState extends State<CreateAdPage> {
           const Divider(
             color: Colors.grey,
           ),
-          const Row(
+           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              SizedBox(
-                height: 10,
+              const SizedBox(
+                height: 30,
                 child: VerticalDivider(color: Colors.grey,),
               ),
-              Icon(Icons.text_fields_rounded, size: 32,),
-              SizedBox(
-                height: 10,
+              8.horizontalSpace,
+              const Icon(Icons.text_fields_rounded, size: 32, color: Colors.black,),
+              8.horizontalSpace,
+              const SizedBox(
+                height: 30,
                 child: VerticalDivider(color: Colors.grey,),
               ),
-              Icon(Icons.image, size: 32),
-              SizedBox(
-                height: 10,
+              8.horizontalSpace,
+              const Icon(Icons.image, size: 32, color: Colors.black,),
+              8.horizontalSpace,
+              const SizedBox(
+                height: 30,
                 child: VerticalDivider(color: Colors.grey,),
               ),
-              Icon(Icons.list, size: 32),
+              8.horizontalSpace,
+              const Icon(Icons.list, size: 32, color: Colors.black,),
             ],
           ),
           const Divider(

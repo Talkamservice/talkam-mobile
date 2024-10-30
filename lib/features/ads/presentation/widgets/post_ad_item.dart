@@ -8,12 +8,17 @@ import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/extensions/int_extension.dart';
+import 'package:talkam/features/ads/presentation/widgets/cancel_ad_dialog.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/presentation/widgets/post_action_sheet.dart';
 import 'package:talkam/features/post/presentation/widgets/post_content.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item_components.dart';
 import 'package:talkam/features/post/presentation/widgets/scheduled_post_pill.dart';
 import 'package:talkam/features/subscription/presentation/widgets/subscription_plan_card.dart';
+
+import '../../../../core/di/injector.dart';
+import '../../../subscription/presentation/widgets/cancel_subscription_dialog.dart';
+import '../screens/ads_flow.dart';
 
 class PostAdItem extends StatelessWidget {
   const PostAdItem({super.key, required this.post, this.showGroupAndCategory = true, this.showScheduledPost = false});
@@ -165,9 +170,23 @@ class PostAdItem extends StatelessWidget {
                     child: const TextView(fontSize: 12, text: "Running Ad"),
                   ),
                   TextButton(
-                      style: TextButton.styleFrom(foregroundColor: Pallets.buttonred, textStyle: const TextStyle(color: Pallets.buttonred, fontSize: 12)),
-                      onPressed: () {},
-                      child: const TextView(text: "Close Add",fontSize: 12,)),
+                    style: TextButton.styleFrom(
+                      foregroundColor: Pallets.buttonred,
+                      textStyle: const TextStyle(color: Pallets.buttonred, fontSize: 12),
+                    ),
+                    onPressed: () {
+                      CustomDialogs.showOverlayDialog(context,
+                          child: CancelAdDialog(
+                            onCancel: () {
+                              logger.i("cancel");
+                            },
+                          ));
+                    },
+                    child: const TextView(
+                      text: "Close Ad",
+                      fontSize: 12,
+                    ),
+                  ),
                   SizedBox(
                     height: 30,
 
@@ -178,9 +197,12 @@ class PostAdItem extends StatelessWidget {
                           backgroundColor: Pallets.blueBubbleColor,
                           shape: const StadiumBorder(),
                         ),
-                        onPressed: () {},
+                        onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => const AdsFlowPage(pageIndex: 0)),
+                        ),
                         child: const TextView(
-                          text: "Edit Add",
+                          text: "Edit Ad",
                           fontSize: 12,
                         )),
                   )
