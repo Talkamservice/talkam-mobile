@@ -62,5 +62,11 @@ class PageUrl {
 
   static const pendingRequestsScreen = 'pendingRequestsScreen';
 
+
+
+  //Ads
+  static const adsPage = 'adsPage';
+
   static const subscriptionScreen = 'subscriptionScreen';
+
 }
