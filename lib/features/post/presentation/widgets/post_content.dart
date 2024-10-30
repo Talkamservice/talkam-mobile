@@ -25,8 +25,9 @@ import 'package:talkam/features/post/presentation/widgets/post_video.dart';
 
 class PostContent extends StatelessWidget {
   final TalkamPost post;
+  final double? mediaHeight;
 
-  const PostContent({required this.post});
+  const PostContent({required this.post, this.mediaHeight});
 
   @override
   Widget build(BuildContext context) {
@@ -44,7 +45,7 @@ class PostContent extends StatelessWidget {
           fontSize: 14,
           fontWeight: FontWeight.w400,
         ),
-      PostMedia(post: post),
+      PostMedia(post: post,mediaHeight: mediaHeight,),
       if (post.tags.isNotEmpty ?? false)
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -79,8 +80,8 @@ class PostContent extends StatelessWidget {
 }
 
 class PostMedia extends StatelessWidget {
-  const PostMedia({super.key, required this.post});
-
+  const PostMedia({super.key, required this.post, this.mediaHeight});
+  final double? mediaHeight;
   final TalkamPost post;
 
   @override
@@ -91,6 +92,7 @@ class PostMedia extends StatelessWidget {
           children: [
             10.verticalSpace,
             PostImage(
+              mediaHeight: mediaHeight,
               images: post.attachments.isNotEmpty
                   ? post.attachments
                       .map(
@@ -105,6 +107,7 @@ class PostMedia extends StatelessWidget {
           children: [
             10.verticalSpace,
             PostImage(
+              mediaHeight: mediaHeight,
               images: post.attachments.isNotEmpty
                   ? post.attachments
                       .map(

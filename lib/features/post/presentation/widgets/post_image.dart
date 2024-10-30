@@ -3,9 +3,10 @@ import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/features/post/presentation/widgets/indicator.dart';
 
 class PostImage extends StatefulWidget {
-  const PostImage({Key? key, required this.images}) : super(key: key);
+  const PostImage({Key? key, required this.images, this.mediaHeight}) : super(key: key);
 
   final List<String> images;
+  final double? mediaHeight;
 
   @override
   _PostImageState createState() => _PostImageState();
@@ -20,7 +21,7 @@ class _PostImageState extends State<PostImage> {
     return Stack(
       children: [
         SizedBox(
-          height: 250,
+          height: widget.mediaHeight?? 250,
           child: PageView.builder(
             controller: _pageController,
             itemCount: widget.images.length,

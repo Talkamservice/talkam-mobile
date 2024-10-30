@@ -16,7 +16,7 @@ class TestFactories {
       id: 1,
       title: "Sample Title",
       body: "Sample body content.",
-      type: "text",
+      type: "image",
       isReported: false,
       uuid: "sample-uuid",
       category: createPostCategory(),
@@ -29,7 +29,9 @@ class TestFactories {
       likesCount: 0,
       status: "published",
       publishAt: null,
-      attachments: [],
+      attachments: [
+        Attachment(url: "url", type: "image")
+      ],
       polls: [],
       reaction: createPostReaction(),
       createdAt: DateTime.now(),

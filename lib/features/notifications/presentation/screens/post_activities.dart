@@ -55,7 +55,7 @@ class _PostActivitiesTabState extends State<PostActivitiesTab> with AutomaticKee
                   return Center(
                     child: AppErrorWidget(
                       onTap: () {
-                        bloc.add(GetNotificationsEvent(tab: "post_activity"));
+                        bloc.add(const GetNotificationsEvent(tab: "post_activity"));
                       },
                     ),
                   );

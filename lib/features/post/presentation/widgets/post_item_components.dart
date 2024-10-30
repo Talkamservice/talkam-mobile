@@ -36,6 +36,7 @@ class PostHeader extends StatelessWidget {
   final VoidCallback onMenuTap;
   final TalkamPost post;
   final bool? showGroupAndCategory;
+  final bool? enablePromoteAddPill;
 
   const PostHeader({
     required this.userName,
@@ -43,6 +44,7 @@ class PostHeader extends StatelessWidget {
     required this.onMenuTap,
     required this.post,
     this.showGroupAndCategory = true,
+    this.enablePromoteAddPill = true,
   });
 
   @override
@@ -85,7 +87,9 @@ class PostHeader extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                     color: context.colorScheme.primary,
                   ),
-                  5.horizontalSpace,
+                  if (enablePromoteAddPill!)
+                  12.horizontalSpace,
+                  if (enablePromoteAddPill!)
                   TalkamSubscriptionWidget(
                     subscribedUserWidget: 0.verticalSpace,
                     freemiumUserWidget: InkWell(
@@ -93,10 +97,10 @@ class PostHeader extends StatelessWidget {
                         context.pushNamed(PageUrl.subscriptionScreen);
                       },
                       child: Container(
-                        padding: const EdgeInsets.all(3),
+                        padding: const EdgeInsets.symmetric(horizontal: 7,vertical: 3),
                         decoration:
-                            BoxDecoration(borderRadius: BorderRadius.circular(22), border: Border.all(color: Pallets.lightBlue), gradient: blueWhiteGradient),
-                        child: const TextView(fontSize: 10, text: "Promote post"),
+                            BoxDecoration(borderRadius: BorderRadius.circular(22), border: Border.all(color: Pallets.lightBlue), gradient: whiteBlueGradient),
+                        child: const TextView(fontSize: 8, text: "Promote post"),
                       ),
                     ),
                   )
