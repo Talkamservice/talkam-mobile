@@ -76,11 +76,20 @@ class _CreateAdPageState extends State<CreateAdPage> {
           const Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              VerticalDivider(indent: 10,),
-              Icon(Icons.text_fields_rounded, size: 32),
-              VerticalDivider( color: Colors.grey,),
+              SizedBox(
+                height: 10,
+                child: VerticalDivider(color: Colors.grey,),
+              ),
+              Icon(Icons.text_fields_rounded, size: 32,),
+              SizedBox(
+                height: 10,
+                child: VerticalDivider(color: Colors.grey,),
+              ),
               Icon(Icons.image, size: 32),
-              VerticalDivider( color: Colors.grey,),
+              SizedBox(
+                height: 10,
+                child: VerticalDivider(color: Colors.grey,),
+              ),
               Icon(Icons.list, size: 32),
             ],
           ),
@@ -99,7 +108,7 @@ class _CreateAdPageState extends State<CreateAdPage> {
                 ),
                 Text(
                   "*",
-                  style: TextStyle(color: Colors.red, fontSize: 14),
+                  style: TextStyle(color: Colors.red, fontSize: 14,),
                 ),
               ],
             ),
