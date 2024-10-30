@@ -61,7 +61,8 @@ class ProfileCommentTile extends StatelessWidget {
           ),
           if (talkAmComment.isReplyingToComment) ...[
             ImageWidget(
-              imageUrl: talkAmComment.replyTo!.avatar,
+              imageUrl: talkAmComment.replyTo?.avatar??"",
+
               width: 64.w,
               height: 58.h,
               borderRadius: BorderRadius.circular(8.0),

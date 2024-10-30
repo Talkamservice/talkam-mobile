@@ -143,6 +143,9 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/blocked_user.svg
   String get blockedUser => 'assets/images/svgs/blocked_user.svg';
 
+  /// File path: assets/images/svgs/blue-thick.svg
+  String get blueThick => 'assets/images/svgs/blue-thick.svg';
+
   /// File path: assets/images/svgs/calender.svg
   String get calender => 'assets/images/svgs/calender.svg';
 
@@ -336,6 +339,7 @@ class $AssetsImagesSvgsGen {
         attatchement,
         bellPlus,
         blockedUser,
+        blueThick,
         calender,
         cameraIcon,
         chevronRight,
@@ -433,7 +437,7 @@ class AssetGenImage {
     ImageRepeat repeat = ImageRepeat.noRepeat,
     Rect? centerSlice,
     bool matchTextDirection = false,
-    bool gaplessPlayback = false,
+    bool gaplessPlayback = true,
     bool isAntiAlias = false,
     String? package,
     FilterQuality filterQuality = FilterQuality.low,

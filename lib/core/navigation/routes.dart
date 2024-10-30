@@ -48,6 +48,7 @@ import 'package:talkam/features/settings/presentation/screens/settings_screen.da
 import 'package:talkam/features/profile/presentation/screens/user_profile_screen.dart';
 import 'package:talkam/features/search/presentation/screens/search_result_screen.dart';
 import 'package:talkam/features/search/presentation/screens/search_screen.dart';
+import 'package:talkam/features/subscription/presentation/screens/subscription_screen.dart';
 
 import '../../common/widgets/custom_dialogs.dart';
 
@@ -67,7 +68,6 @@ class CustomRoutes {
     navigatorKey: rootNavigatorKey,
     debugLogDiagnostics: true,
     routes: [
-
       GoRoute(
         path: '/splash',
         name: PageUrl.splash,
@@ -205,8 +205,6 @@ class CustomRoutes {
           category: state.extra as PostCategory,
         ),
       ),
-
-
       GoRoute(
         path: '/searchResultScreen',
         name: PageUrl.searchResultScreen,
@@ -214,9 +212,6 @@ class CustomRoutes {
           query: state.extra as String,
         ),
       ),
-
-
-
       GoRoute(
         path: '/groupsInfoScreen',
         name: PageUrl.groupsInfoScreen,
@@ -313,6 +308,13 @@ class CustomRoutes {
           child: PendingRequestsScreen(
             groupId: state.extra as String,
           ),
+        ),
+      ),
+      GoRoute(
+        path: '/subscriptionScreen',
+        name: PageUrl.subscriptionScreen,
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: SubscriptionScreen(),
         ),
       ),
       StatefulShellRoute.indexedStack(

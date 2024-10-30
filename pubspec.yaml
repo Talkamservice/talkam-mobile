@@ -52,7 +52,7 @@ dependencies:
   fluttertoast: ^8.1.1
   flutter_spinkit: ^5.1.0
   url_launcher: ^6.1.6
-  package_info_plus: ^5.0.1
+  package_info_plus: ^8.1.0
   permission_handler: ^11.0.1
   #  system_settings: ^2.1.0
   flutter_secure_storage: ^9.0.0
@@ -86,7 +86,7 @@ dependencies:
   firebase_database: ^10.4.9
   flutter_cache_manager: ^3.3.1
   firebase_auth: ^4.17.7
-  multi_dropdown: ^2.1.0
+#  multi_dropdown: ^2.1.0
   path_provider: ^2.1.1
   photo_view: ^0.14.0
   equatable: ^2.0.5
@@ -100,7 +100,7 @@ dependencies:
   sign_in_with_apple: ^5.0.0
   chewie: ^1.7.5
   video_thumbnail: ^0.5.3
-  flutter_gen: ^5.4.0
+  flutter_gen: ^5.8.0
   #  flutter_staggered_animations: ^1.1.1
   #  flutter_chat_bubble: ^2.0.2
   audioplayers: ^5.2.1
@@ -146,6 +146,7 @@ dependencies:
   pusher_channels_flutter: ^2.2.1
   emoji_picker_flutter: ^2.1.1
   carousel_slider: ^5.0.0
+  flutterwave_standard_smart: ^1.0.4
   # flutter_background: ^1.2.0
 #  audio_manager: ^0.8.2
 

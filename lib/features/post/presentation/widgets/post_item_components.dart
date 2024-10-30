@@ -14,6 +14,8 @@ import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/presentation/widgets/post_reaction_button.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
+import 'package:talkam/features/subscription/presentation/widgets/subscription_plan_card.dart';
+import 'package:talkam/features/subscription/utils/subscription_helper.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class AvatarImage extends StatelessWidget {
@@ -58,9 +60,7 @@ class PostHeader extends StatelessWidget {
               viewUsersProfile(context);
             },
             child: IgnorePointer(
-              child: AvatarImage(
-                  imageUrl: post.user.avatar ?? Assets.images.svgs.dummyUser,
-                  size: 32),
+              child: AvatarImage(imageUrl: post.user.avatar ?? Assets.images.svgs.dummyUser, size: 32),
             ),
           ),
         10.horizontalSpace,
@@ -68,16 +68,14 @@ class PostHeader extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Row(
+              Wrap(
                 children: [
-                  Expanded(
-                    child: TextView(
-                      text: category.name,
-                      maxLines: 1,
-                      textOverflow: TextOverflow.ellipsis,
-
-                      fontWeight: FontWeight.w500,
-                    ),
+                  TextView(
+                    text: category.name,
+                    maxLines: 1,
+                    maxLength: 14,
+                    textOverflow: TextOverflow.ellipsis,
+                    fontWeight: FontWeight.w500,
                   ),
                   4.horizontalSpace,
                   ImageWidget(imageUrl: Assets.images.svgs.grid03),
@@ -87,6 +85,21 @@ class PostHeader extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                     color: context.colorScheme.primary,
                   ),
+                  5.horizontalSpace,
+                  TalkamSubscriptionWidget(
+                    subscribedUserWidget: 0.verticalSpace,
+                    freemiumUserWidget: InkWell(
+                      onTap: () {
+                        context.pushNamed(PageUrl.subscriptionScreen);
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(3),
+                        decoration:
+                            BoxDecoration(borderRadius: BorderRadius.circular(22), border: Border.all(color: Pallets.lightBlue), gradient: blueWhiteGradient),
+                        child: const TextView(fontSize: 10, text: "Promote post"),
+                      ),
+                    ),
+                  )
                 ],
               ),
               Row(
@@ -113,8 +126,7 @@ class PostHeader extends StatelessWidget {
                           if (post.group != null) {
                             return InkWell(
                               onTap: () {
-                                context.pushNamed(PageUrl.groupsInfoScreen,
-                                    extra: post.group!.id.toString());
+                                context.pushNamed(PageUrl.groupsInfoScreen, extra: post.group!.id.toString());
 
                                 // if (!post.isAnonymous.toBool) {
                                 //   viewUsersProfile(context);
@@ -124,9 +136,12 @@ class PostHeader extends StatelessWidget {
                               },
                               child: Row(
                                 children: [
-                                  const TextView(text: "to", color: Pallets.grey,
+                                  const TextView(
+                                    text: "to",
+                                    color: Pallets.grey,
                                     fontWeight: FontWeight.w600,
-                                    fontSize: 12,),
+                                    fontSize: 12,
+                                  ),
                                   Expanded(
                                     child: TextView(
                                       text: " ${post.group!.name}",
@@ -143,25 +158,22 @@ class PostHeader extends StatelessWidget {
                           }
                           return InkWell(
                             onTap: () {
-                              context.pushNamed(PageUrl.categoriesScreen,
-                                  extra: post.category);
-
+                              context.pushNamed(PageUrl.categoriesScreen, extra: post.category);
 
                               // if (!post.isAnonymous.toBool) {
                               //   viewUsersProfile(context);
                               // } else {
                               //   CustomDialogs.showToast("User is anonymous");
                               // }
-
-
                             },
-
                             child: Row(
                               children: [
-
-                                const TextView(text: "to", color: Pallets.grey,
+                                const TextView(
+                                  text: "to",
+                                  color: Pallets.grey,
                                   fontWeight: FontWeight.w600,
-                                  fontSize: 12,),
+                                  fontSize: 12,
+                                ),
                                 Expanded(
                                   child: TextView(
                                     text: " ${post.category.name}",
@@ -169,7 +181,6 @@ class PostHeader extends StatelessWidget {
                                     fontWeight: FontWeight.w600,
                                     maxLines: 1,
                                     textOverflow: TextOverflow.ellipsis,
-
                                     fontSize: 12,
                                   ),
                                 ),
@@ -185,8 +196,7 @@ class PostHeader extends StatelessWidget {
           ),
         ),
         IconButton(
-          icon: Icon(Icons.more_vert_rounded,
-              color: context.colorScheme.onSurface),
+          icon: Icon(Icons.more_vert_rounded, color: context.colorScheme.onSurface),
           onPressed: onMenuTap,
         )
       ],
@@ -194,19 +204,18 @@ class PostHeader extends StatelessWidget {
   }
 
   void viewUsersProfile(BuildContext context) {
-    GuestUserHelper.handleGuestUserAction(action: () {
-      var me = injector
-          .get<ProfileBloc>()
-          .appUser;
-      if (me?.id == post.user.id) {
-        context.pushNamed(
-          PageUrl.profileScreen,
-        );
-      } else {
-        context.pushNamed(PageUrl.userProfileScreen,
-            extra: post.user.id.toString());
-      }
-    }, message: "Login to view user profile");
+    GuestUserHelper.handleGuestUserAction(
+        action: () {
+          var me = injector.get<ProfileBloc>().appUser;
+          if (me?.id == post.user.id) {
+            context.pushNamed(
+              PageUrl.profileScreen,
+            );
+          } else {
+            context.pushNamed(PageUrl.userProfileScreen, extra: post.user.id.toString());
+          }
+        },
+        message: "Login to view user profile");
   }
 }
 
@@ -307,7 +316,7 @@ class _PostActionsState extends State<PostActions> {
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
             decoration: BoxDecoration(
-              // shape: BoxShape.circle,
+                // shape: BoxShape.circle,
                 borderRadius: BorderRadius.circular(100.r),
                 border: Border.all(
                   width: 1,
@@ -325,7 +334,6 @@ class _PostActionsState extends State<PostActions> {
         elevation: 0,
         foregroundColor: Pallets.grey,
         padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 0),
-        shape:
-        const StadiumBorder(side: BorderSide(color: Pallets.borderGrey)));
+        shape: const StadiumBorder(side: BorderSide(color: Pallets.borderGrey)));
   }
 }

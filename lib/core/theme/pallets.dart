@@ -15,7 +15,6 @@ abstract class Pallets {
   static const anonymousBg = Color(0xFFFDD78D);
   static const pollTrackColor = Color(0xFFBAE4FD);
 
-
   static const borderGrey = Color(0xFFDDDDDD);
 
   // static const buttonBlack = Color(0xFF0666EB);
@@ -48,6 +47,7 @@ abstract class Pallets {
   static const primaryLight = Color(0xFFE2ECE4);
   static const maybeBlack = Color(0xFF101010);
   static const red = Color(0xFFE15B2D);
+  static const buttonred = Color(0xFFAC4242);
   static const black80 = Color(0xFF333333);
   static const boldRed = Color(0xFFEE1414);
   static const facebookBlue = Color(0xFF1877F2);
@@ -72,6 +72,8 @@ abstract class Pallets {
   static const grey500 = Color(0xff858585);
   static const primary400 = Color(0xff2F6CE2);
   static const boldRedV2 = Color(0xffF95555);
+  static const textGrey = Color(0xff858585);
+  static const lightBlue = Color(0xff8AC9EF);
 
   // static const secondary = Color(0xFFCC9933);
   static const avatarBackgrounds = [

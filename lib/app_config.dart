@@ -10,6 +10,7 @@ import 'package:talkam/core/services/time_zone/time_zone_service.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/di/injector.dart' as di;
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
+import 'package:talkam/features/subscription/presentation/blocs/subscriptions_bloc/subscriptions_bloc_cubit.dart';
 import 'package:talkam/gen/assets.gen.dart';
 import 'package:tiktok_login_flutter/tiktok_login_flutter.dart';
 import 'core/services/firebase/notifiactions.dart';
@@ -57,10 +58,6 @@ class AppConfig {
 
     await SessionManager().init();
 
-    await PayHelper.instance.initialize(
-        defaultGooglePayConfiguration: defaultGooglePay,
-        defaultApplePayConfiguration: defaultApplePay);
-    // StripeService.initialize(),
     await TimezoneService().init();
     await _getLoggedInUser();
     var pusherService = await PusherChannelService.getInstance;
@@ -70,6 +67,8 @@ class AppConfig {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
+
+
   }
 
   Future<void> initializeDB() async {
@@ -80,12 +79,9 @@ class AppConfig {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-    // CrashlyticsService.onCrash();
+
     await notificationService.initializeNotification();
-    // FirebaseDatabase.instance.setPersistenceEnabled(true);
-    // await FirebaseMessaging.instance.getInitialMessage();
-    // StripeService.initialize();
-    // signMessageUser();
+
   }
 
   Future _getLoggedInUser() async {
@@ -93,6 +89,8 @@ class AppConfig {
 
     if (SessionManager.instance.isLoggedIn) {
       injector.get<ProfileBloc>().add(GetCachedUserEvent());
+      injector.get<SubscriptionsCubit>().getPlans();
+
     }
   }
 }
