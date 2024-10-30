@@ -22,6 +22,8 @@ import 'package:talkam/features/post/presentation/screens/post_details_screen.da
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/search/presentation/blocs/search/search_cubit.dart';
 import 'package:talkam/features/search/presentation/widget/search_user_dialog.dart';
+import 'package:talkam/features/subscription/presentation/widgets/talkam_subscription_prompt.dart';
+import 'package:talkam/features/subscription/utils/subscription_helper.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 import 'package:emoji_picker_flutter/emoji_picker_flutter.dart'; // Import the emoji picker package
@@ -60,42 +62,42 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
 
   var searchBloc = SearchCubit(injector.get());
 
+  bool canCommentAnonymously = true;
+
   @override
   void initState() {
-
-
-
     _scrollController = ScrollController();
-    myFocusNode.addListener(() {
-     //  if(myFocusNode.hasFocus){
-     //
-     // setState(() {
-     //   _isEmojiVisible
-     // });
-     //  }
-    },);
+    myFocusNode.addListener(
+      () {
+        //  if(myFocusNode.hasFocus){
+        //
+        // setState(() {
+        //   _isEmojiVisible
+        // });
+        //  }
+      },
+    );
     super.initState();
   }
 
   void _submitComment() {
     // if (formKey.currentState?.validate() ?? false ) {
 
-      if( _commentController.text.isNotEmpty||stagedFile!=null){
-        widget.onCommentSubmitted(SaveCommentPayload(
-          postId: widget.postId,
-          parentId: widget.parentComment,
-          replyComment: widget.replyComment,
-          comment: _commentController.text,
-          attachment: stagedFile?.path,
-          isAnonymous: _isAnonymous.toInt,
-        ));
-        myFocusNode.unfocus();
-        _commentController.clear();
-        stagedFile = null;
-        _isEmojiVisible = false; // Close emoji picker after comment submission
-        setState(() {});
-      }
-
+    if (_commentController.text.isNotEmpty || stagedFile != null) {
+      widget.onCommentSubmitted(SaveCommentPayload(
+        postId: widget.postId,
+        parentId: widget.parentComment,
+        replyComment: widget.replyComment,
+        comment: _commentController.text,
+        attachment: stagedFile?.path,
+        isAnonymous: _isAnonymous.toInt,
+      ));
+      myFocusNode.unfocus();
+      _commentController.clear();
+      stagedFile = null;
+      _isEmojiVisible = false; // Close emoji picker after comment submission
+      setState(() {});
+    }
 
     // }
   }
@@ -120,15 +122,13 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: ImageWidget(
-                      imageUrl: injector.get<ProfileBloc>().appUser?.avatar ??
-                          Assets.images.png.woman.path,
+                      imageUrl: injector.get<ProfileBloc>().appUser?.avatar ?? Assets.images.png.woman.path,
                       size: 36,
                       fit: BoxFit.cover,
                     ),
                   ),
                   8.horizontalSpace,
                   Expanded(
-
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -138,33 +138,27 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
                           maxLines: 8,
                           minLines: 1,
                           textCapitalization: TextCapitalization.sentences,
-                          validator: RequiredValidator(
-                              errorText: "Field is required")
-                              .call,
+                          validator: RequiredValidator(errorText: "Field is required").call,
                           onChanged: (text) {
                             var splitted = text.split(' ');
                             if (splitted.last.contains('@')) {
                               setState(() {
                                 _showMentionDialog = true;
                               });
-                            } else if (splitted.last.endsWith(' ') ||
-                                text.isEmpty) {
+                            } else if (splitted.last.endsWith(' ') || text.isEmpty) {
                               setState(() {
                                 _showMentionDialog = false;
                               });
                             }
                             if (_showMentionDialog) {
-                              var search = _commentController.text.substring(
-                                  _commentController.text.lastIndexOf("@") +
-                                      1);
+                              var search = _commentController.text.substring(_commentController.text.lastIndexOf("@") + 1);
                               searchBloc.searchForUser(search);
                             }
                           },
                           decoration: const InputDecoration(
                             hintText: "Leave a comment ...",
                             border: InputBorder.none, // Remove default border
-                            contentPadding:
-                            EdgeInsets.symmetric(vertical: 10),
+                            contentPadding: EdgeInsets.symmetric(vertical: 10),
                           ),
                         ),
                         8.verticalSpace,
@@ -184,25 +178,30 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
                               onTap: () {
                                 toggleEmojiPicker(); // Show/hide emoji picker
                               },
-
-                              child:Icon(_isEmojiVisible ? Icons.keyboard : Icons.emoji_emotions_outlined, size: 20, color: Pallets.grey),
+                              child: Icon(_isEmojiVisible ? Icons.keyboard : Icons.emoji_emotions_outlined, size: 20, color: Pallets.grey),
                             ),
                             16.horizontalSpace,
                             AnonymousSwitcher(
                               value: _isAnonymous,
                               onChanged: (value) {
-                                setState(() {
-                                  _isAnonymous = value;
-                                });
+                                if (SubscriptionHelper.canCommentAnonymously) {
+                                  setState(() {
+                                    _isAnonymous = value;
+                                  });
+
+                                  // widget.onIsAnonymousChanged(_isAnonymous);
+                                } else {
+                                  setState(() {
+                                    canCommentAnonymously = false;
+                                  });
+                                }
                               },
                             ),
                             const Spacer(),
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 16, vertical: 10),
-                                backgroundColor:
-                                context.colorScheme.primary,
+                                padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                                backgroundColor: context.colorScheme.primary,
                                 shape: const StadiumBorder(),
                               ),
                               onPressed: _submitComment,
@@ -220,7 +219,6 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
                                 height: 170,
                                 width: 1.sw,
                                 borderRadius: BorderRadius.circular(16),
-
                                 imageType: ImageWidgetType.file,
                               ),
                               Positioned(
@@ -249,7 +247,10 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
                 ],
               ),
             ),
-
+            if (!canCommentAnonymously)
+              const TalkamSubscriptionPrompt(
+                tittle: "You have used up your 5 free anonymous post, to post anonymously without limit, ",
+              ),
             // Emoji Picker
             Offstage(
               offstage: !_isEmojiVisible,
@@ -265,7 +266,6 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
     setState(() {
       _isEmojiVisible = !_isEmojiVisible;
       // FocusScope.of(context).unfocus(); // Close the keyboard
-
 
       if (!_isEmojiVisible) {
         WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -303,4 +303,3 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
     }
   }
 }
-

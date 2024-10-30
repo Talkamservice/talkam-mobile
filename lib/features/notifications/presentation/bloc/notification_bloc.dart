@@ -160,14 +160,14 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   }
 
   void _listenForMessages() async {
-    logger.w('listening');
+    logger.i('listening');
     var userId = injector.get<ProfileBloc>().appUser?.id.toString();
 
     try {
       var pusherService = await PusherChannelService.getInstance;
       var pusher = await pusherService.getClient;
       if (pusher != null) {
-        logger.w('connecting');
+        logger.i('connecting');
 
         if (!pusher.channels.containsKey("refresh-notification.$userId")) {
           pusher.onAuthorizer = _authorize;

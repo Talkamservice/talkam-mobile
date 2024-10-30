@@ -1,7 +1,7 @@
 enum Environment { development, staging, qa, production }
 
 class UrlConfig {
-  static Environment environment = Environment.production;
+  static Environment environment = Environment.development;
 
   static const String STAGING_URL = String.fromEnvironment('DEV_BASE_URL');
   static const String PRODUCTION_URL = String.fromEnvironment('PROD_BASE_URL');
@@ -19,12 +19,30 @@ class UrlConfig {
   static const String messageUserEmail = String.fromEnvironment('MESSAGE_USER_EMAIL');
   static const String messageUserPassKey = String.fromEnvironment('MESSAGE_USER_PASSKEY');
 
+  static const String flutterWavePublicTestKey =
+  String.fromEnvironment('FLUTTER_WAVE_TEST_KEY');
+  static const String flutterWaveSecretTestKey =
+  String.fromEnvironment('FLUTTER_WAVE_SECRET_TEST_KEY');
+
+  static const String flutterWavePublicLiveKey =
+  String.fromEnvironment('FLUTTER_WAVE_LIVE_KEY');
+  static const String flutterWaveSecretLiveKey =
+  String.fromEnvironment('FLUTTER_WAVE_SECRET_LIVE_KEY');
+
+
   // static const String facePlusProdApiKey =
   //     String.fromEnvironment('FACE_PLUS_PROD_API_KEY');
   // static const String facePlusProdApiSecret =
   //     String.fromEnvironment('FACE_PLUS_PROD_API_SECRET');
   static final coreBaseUrl = environment == Environment.production ? PRODUCTION_URL : STAGING_URL;
   static final webUrl = environment == Environment.production ? WEB_PRODUCTION_URL : WEB_STAGING_URL;
+
+  static final flutterWavePublicKey = environment == Environment.production
+      ? flutterWavePublicLiveKey
+      : flutterWavePublicTestKey;
+  static final flutterWaveSecretKey = environment == Environment.production
+      ? flutterWaveSecretLiveKey
+      : flutterWaveSecretTestKey;
 
   static const String getLibraryCoursesEndpoint = "/wellness-library/courses/list";
 
@@ -175,4 +193,14 @@ class UrlConfig {
   static const String getAnnouncements = "/user/announcements";
 
   static String getAnnouncementById(String id) => "/user/announcements/$id/show";
+
+  // Plan-related endpoints
+  static const String getPlans = '/user/finance/plans';                // Fetch all plans
+  static const String getPlanById = '/user/finance/plans';             // Fetch a specific plan by ID (add /{id}/show)
+
+  // Subscription-related endpoints
+  static const String getSubscriptions = '/user/finance/subscriptions';            // Fetch all subscriptions
+  static const String getSubscriptionById = '/user/finance/subscriptions';         // Fetch a specific subscription by ID (add /{id}/show)
+  static const String initiateSubscription = '/user/finance/subscriptions/initiate'; // Initiate a subscription
+  static const String cancelSubscription = '/user/finance/subscriptions';
 }

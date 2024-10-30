@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/core/constants/package_exports.dart';
-import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
@@ -10,8 +9,9 @@ import 'package:talkam/features/post/presentation/screens/post_details_screen.da
 import 'package:talkam/features/post/presentation/widgets/rules_button.dart';
 import 'package:talkam/features/post/presentation/widgets/select_category_dropdown_button.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
+import 'package:talkam/features/subscription/presentation/widgets/talkam_subscription_prompt.dart';
+import 'package:talkam/features/subscription/utils/subscription_helper.dart';
 import 'package:talkam/gen/assets.gen.dart';
-
 class CreatePostHeader extends StatefulWidget {
   const CreatePostHeader({
     super.key,
@@ -34,11 +34,14 @@ class _CreatePostHeaderState extends State<CreatePostHeader> {
   PostType _postType = PostType.text;
   bool _isAnonymous = false;
 
+  bool canPostAnonymously = true;
+
+
   @override
   Widget build(BuildContext context) {
     return Container(
       color: context.theme.cardColor,
-      padding: const EdgeInsets.all(10),
+
       child: Column(
         children: [
           const Divider(thickness: 1),
@@ -78,7 +81,6 @@ class _CreatePostHeaderState extends State<CreatePostHeader> {
                       isSelected: _postType == PostType.poll,
                       onTap: () => _updatePostType(PostType.poll),
                     ),
-
                     const VerticalDivider(
                       thickness: 1,
                     ),
@@ -88,16 +90,26 @@ class _CreatePostHeaderState extends State<CreatePostHeader> {
               AnonymousSwitcher(
                 value: _isAnonymous,
                 onChanged: (value) {
-                  setState(() {
-                    _isAnonymous = value;
-                  });
+                  if(SubscriptionHelper.isSubscribed){
+                    setState(() {
+                      _isAnonymous = value;
+                    });
 
-                  widget.onIsAnonymousChanged(_isAnonymous);
+                    widget.onIsAnonymousChanged(_isAnonymous);
+                  }else{
+                    setState(() {
+                      canPostAnonymously = false;
+                    });
+                  }
+
                 },
               ),
             ],
           ),
-          const Divider(thickness: 1),
+       Container(width: 1.sw,height: 1,color: Pallets.grey90,),
+          if(!canPostAnonymously)
+            const TalkamSubscriptionPrompt(),
+          8.verticalSpace
         ],
       ),
     );
@@ -137,8 +149,7 @@ class PostTypeButton extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 9.0.h, horizontal: 16.w),
             child: ImageWidget(
-              color:
-                  isSelected ? context.colorScheme.onSurface : Pallets.grey60,
+              color: isSelected ? context.colorScheme.onSurface : Pallets.grey60,
               imageUrl: icon,
               size: 20,
             ),
