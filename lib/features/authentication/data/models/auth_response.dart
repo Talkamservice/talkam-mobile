@@ -91,7 +91,9 @@ class TalkamUser {
   String email;
   dynamic role;
   dynamic age;
-
+  dynamic anonymousPost;
+  dynamic anonymousComment;
+  dynamic publicGroupCount;
   dynamic gender;
   dynamic dob;
   dynamic country;
@@ -135,6 +137,9 @@ class TalkamUser {
     required this.isBlocked,
     required this.iamBlocked,
     this.activeSubscription,
+    this.anonymousPost,
+    this.anonymousComment,
+    this.publicGroupCount,
   });
 
   TalkamUser copyWith(
@@ -154,6 +159,9 @@ class TalkamUser {
           dynamic appleId,
           dynamic isBlocked,
           dynamic iamBlocked,
+          dynamic anonymousPost,
+          dynamic anonymousComment,
+          dynamic publicGroupCount,
           String? username,
           String? status,
           List<PostCategory>? interests,
@@ -184,6 +192,9 @@ class TalkamUser {
         appleId: appleId ?? this.appleId,
         isBlocked: isBlocked ?? this.isBlocked,
         iamBlocked: iamBlocked ?? this.iamBlocked,
+        anonymousComment: anonymousComment ?? this.anonymousComment,
+        publicGroupCount: publicGroupCount ?? this.publicGroupCount,
+        anonymousPost: anonymousPost ?? this.anonymousPost,
         activeSubscription: activeSubscription ?? this.activeSubscription,
       );
 
@@ -195,7 +206,7 @@ class TalkamUser {
         role: json["role"],
         age: json["age"],
         gender: json["gender"],
-        dob: json["date_of_birth"] == null ? null : DateTime.parse(json["date_of_birth"]),
+        dob: json["date_of_birth"] == null ? null : DateTime.tryParse(json["date_of_birth"]),
         state: json["state"] == null ? null : TalkamState.fromJson(json["state"]),
         country: json["country"] == null ? null : TalkamCountry.fromJson(json["country"]),
         facebookId: json["facebook_id"],
@@ -206,6 +217,9 @@ class TalkamUser {
         iamBlocked: json["i_am_blocked"],
         username: json["username"],
         status: json["status"],
+    anonymousPost: json["anonymous_post"],
+    publicGroupCount: json["public_group_count"],
+        anonymousComment: json["anonymous_comment"],
         interests: List<PostCategory>.from(json["interests"].map((x) => PostCategory.fromJson(x))),
         createdAt: DateTime.parse(json["created_at"]),
         emailVerifiedAt: json["email_verified_at"] == null ? null : DateTime.parse(json["email_verified_at"]),
@@ -216,6 +230,7 @@ class TalkamUser {
   Map<String, dynamic> toJson() => {
         "id": id,
         "avatar": avatar,
+
         "name": name,
         "email": email,
         "role": role,
@@ -232,6 +247,9 @@ class TalkamUser {
         "tiktok_id": tiktokId,
         "username": username,
         "status": status,
+        "anonymous_comment": anonymousComment,
+        "anonymous_post": anonymousPost,
+        "public_group_count": publicGroupCount,
         "interests": List<PostCategory>.from(interests.map((x) => x)),
         "created_at": createdAt.toIso8601String(),
         "email_verified_at": emailVerifiedAt?.toIso8601String(),

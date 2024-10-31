@@ -48,7 +48,7 @@ class PlanItem extends StatelessWidget {
                   email: user?.email,
                   fullName: user?.name,
                 ));
-
+            injector.get<ProfileBloc>().add(const GetRemoteUser());
             if (paymentResponse?.success ?? false) {
               CustomDialogs.showOverlayDialog(context,
                   child: SubscriptionSucessDialog(
@@ -114,7 +114,7 @@ class PlanItem extends StatelessWidget {
                   ],
                 ),
               ),
-              if (planIsPaid&& !plan.isActiveSubscription)
+              if (planIsPaid && !plan.isActiveSubscription)
                 Column(
                   children: [
                     const Divider(),

@@ -12,13 +12,17 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/group/presentation/blocs/create_group_cubit/create_group_cubit.dart';
 import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
 import 'package:talkam/features/group/presentation/tabs/group_rules_tab.dart';
 import 'package:talkam/features/group/presentation/widgets/create_group_header.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/presentation/widgets/select_category_sheet.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
+import 'package:talkam/features/subscription/presentation/widgets/talkam_subscription_prompt.dart';
+import 'package:talkam/features/subscription/utils/subscription_helper.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class CreateGroupScreen extends StatefulWidget {
@@ -37,7 +41,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
   final groupInfoController = TextEditingController();
   final discoverabilityController = TextEditingController();
   PostCategory? selectedCategory;
-  var discoverability = "Opened";
+  var discoverability = null;
   var formKey = GlobalKey<FormState>();
 
   // final createGroupBloc = CreateGroupCubit(injector.get());
@@ -45,6 +49,8 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
   String? _bannerImage;
 
   final _createGroupBloc = CreateGroupCubit(injector.get());
+
+  bool canCreate = SubscriptionHelper.canCreatePublicGroup;
 
   @override
   void initState() {
@@ -77,9 +83,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                     child: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: [
-                        TextView(
-                            text:
-                            widget.group != null ? "Save changes" : "Next"),
+                        TextView(text: widget.group != null ? "Save changes" : "Next"),
                         4.horizontalSpace,
                         const Icon(Icons.keyboard_arrow_right_rounded)
                       ],
@@ -139,13 +143,10 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                             maxLine: 1,
                             radius: 8,
                             filled: true,
-
                             textCapitalization: TextCapitalization.sentences,
                             // padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 16),
                             placeHolder: "Name",
-                            validator: RequiredValidator(
-                                errorText: "Field is required")
-                                .call,
+                            validator: RequiredValidator(errorText: "Field is required").call,
                             controller: groupNameController,
                             onChange: (d) {
                               setState(() {});
@@ -163,15 +164,11 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                               enabled: false,
                               filled: true,
                               textCapitalization: TextCapitalization.sentences,
-
                               preffix: Padding(
                                 padding: const EdgeInsets.all(8.0),
-                                child: ImageWidget(
-                                    imageUrl: selectedCategory?.iconImage ??
-                                        Assets.images.png.sports.path),
+                                child: ImageWidget(imageUrl: selectedCategory?.iconImage ?? Assets.images.png.sports.path),
                               ),
-                              suffix:
-                              const Icon(Icons.keyboard_arrow_down_rounded),
+                              suffix: const Icon(Icons.keyboard_arrow_down_rounded),
                               // padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 16),
                               placeHolder: "Category",
                               // validator:
@@ -181,8 +178,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                               onChange: (d) {
                                 setState(() {});
                               },
-                              hintStyle: const TextStyle(
-                                  fontSize: 16, fontWeight: FontWeight.w600),
+                              hintStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                               showRequiredAsterics: false,
                               hint: "Select category"),
                         ),
@@ -200,9 +196,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
 
                             // padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 16),
                             placeHolder: "Group purpose",
-                            validator: RequiredValidator(
-                                errorText: "Field is required")
-                                .call,
+                            validator: RequiredValidator(errorText: "Field is required").call,
                             controller: purposeController,
                             onChange: (d) {
                               setState(() {});
@@ -220,9 +214,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
 
                             // padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 16),
                             placeHolder: "Group information",
-                            validator: RequiredValidator(
-                                errorText: "Field is required")
-                                .call,
+                            validator: RequiredValidator(errorText: "Field is required").call,
                             controller: groupInfoController,
                             onChange: (d) {
                               setState(() {});
@@ -233,44 +225,88 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            CircularBorder(
-                                child: ImageWidget(
-                                    imageUrl: Assets.images.svgs.keylock)),
+                            CircularBorder(child: ImageWidget(imageUrl: Assets.images.svgs.keylock)),
                             8.horizontalSpace,
                             Expanded(
                                 child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    CustomDropdownFieldButton<String>(
-                                        label: "Discoverability",
-                                        hint: "Public / Open to everyone",
-                                        value: discoverability,
-                                        onChanged: (p0) {
-                                          discoverability = p0!;
-                                          setState(() {});
-                                        },
-                                        items: const [
-                                          DropdownMenuItem<String>(
-                                            value: "Opened",
-                                            child: TextView(
-                                              text: "Opened",
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                CustomDropdownFieldButton<String>(
+                                    label: "Discoverability",
+                                    hint: "Public / Open to everyone",
+                                    value: discoverability,
+                                    onChanged: (p0) {
+                                      logger.i(p0);
+
+
+                                        discoverability = p0!;
+                                        canCreate = SubscriptionHelper.canCreatePublicGroup;
+
+
+                                      setState(() {});
+                                    },
+                                    items: [
+                                      DropdownMenuItem<String>(
+                                        value: "Opened",
+                                        enabled: SubscriptionHelper.canCreatePublicGroup,
+                                        child: SubscriptionHelper.isSubscribed
+                                            ? const TextView(
+                                                text: "Opened",
+                                              )
+                                            : IgnorePointer(
+
+                                          ignoring: SubscriptionHelper.canCreatePublicGroup,
+                                              child: GestureDetector(
+                                                                                        onTap: () {
+                                              if (!SubscriptionHelper.canCreatePublicGroup) {
+                                                canCreate = false;
+                                                setState(() {
+
+                                                });
+                                              }
+                                                                                        },
+                                                child: TextView(
+                                                    text: "Opened (${injector.get<ProfileBloc>().appUser?.publicGroupCount}/5)",
+                                                    color: SubscriptionHelper.canCreatePublicGroup ? null : Pallets.borderGrey,
+                                                  ),
+                                              ),
                                             ),
-                                          ),
-                                          DropdownMenuItem<String>(
-                                            value: "Closed",
+                                      ),
+                                      DropdownMenuItem<String>(
+                                        value: "Closed",
+                                        enabled: SubscriptionHelper.isSubscribed,
+                                        child: IgnorePointer(
+                                          ignoring: SubscriptionHelper.isSubscribed,
+                                          child: InkWell(
+                                            onTap: () {
+                                              if (!SubscriptionHelper.isSubscribed) {
+                                                canCreate = false;
+                                                setState(() {});
+                                              }
+                                            },
                                             child: TextView(
                                               text: "Closed",
+                                              color: SubscriptionHelper.isSubscribed ? null : Pallets.borderGrey,
                                             ),
                                           ),
-                                        ]),
-                                    10.verticalSpace,
-                                    TextView(
-                                      text: discoverability == "Opened"
-                                          ? publicGroupInfo
-                                          : privateGroupInfo,
-                                    ),
-                                  ],
-                                ))
+                                        ),
+                                      ),
+                                    ]),
+                                10.verticalSpace,
+                                TextView(
+                                  text: discoverability == "Opened" ? publicGroupInfo : privateGroupInfo,
+                                ),
+                                5.verticalSpace,
+                                if (!canCreate)
+                                  TalkamSubscriptionPrompt(
+                                    tittle: "Open unlimited public and private groups when you ",
+                                    onReturnFromSubscription: () {
+                                      canCreate = SubscriptionHelper.canCreatePublicGroup;
+                                      setState(() {});
+                                    },
+                                  ),
+                              ],
+                            ))
                           ],
                         ),
                         50.verticalSpace
@@ -287,7 +323,6 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
   }
 
   void validateAndSubmit(BuildContext context) {
-
     if (formKey.currentState?.validate() ?? false) {
       if (selectedCategory == null) {
         logger.e("No Category");
@@ -295,7 +330,9 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
         CustomDialogs.error("Select category");
       } else if (_bannerImage == null) {
         CustomDialogs.error("Select banner image");
-      } else {
+      } else if (discoverability == null) {
+        CustomDialogs.error("Select group discoverability");
+      }else {
         updatePayload();
         if (widget.group != null) {
           updateGroup();
@@ -304,11 +341,9 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
         }
       }
     }
-
   }
 
   void updatePayload() {
-
     injector.get<CreateGroupCubit>().updateGroupPayload(
         name: groupNameController.text,
         image: _bannerImage,
@@ -319,12 +354,10 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
         description: groupInfoController.text,
         status: "Active",
         groupAccess: discoverability);
-
   }
 
   Future<void> selectCategory(BuildContext context) async {
-    var categoryorGroup = await CustomDialogs.showBottomSheet(
-        context, const SelectCategorySheet());
+    var categoryorGroup = await CustomDialogs.showBottomSheet(context, const SelectCategorySheet());
 
     if (categoryorGroup is PostCategory) {
       selectedCategory = categoryorGroup;
@@ -342,8 +375,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
     if (widget.group != null) {
       Future.delayed(
         Duration.zero,
-            () {
-
+        () {
           var group = widget.group!;
           logger.w(group.image.toString());
           _bannerImage = group.image;
@@ -353,19 +385,13 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
           selectedCategory = group.category;
           categoryController.text = selectedCategory!.name.toString();
           discoverability = group.groupAccess!;
-          setState(() {
-
-          });
-
+          setState(() {});
         },
       );
     }
   }
 
   void updateGroup() {
-    _createGroupBloc.updateGroup(widget.group!.id.toString(),
-        injector
-            .get<CreateGroupCubit>()
-            .groupPayload);
+    _createGroupBloc.updateGroup(widget.group!.id.toString(), injector.get<CreateGroupCubit>().groupPayload);
   }
 }

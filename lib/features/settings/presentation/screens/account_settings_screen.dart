@@ -150,7 +150,13 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                         thickness: 1,
                       ),
                       24.verticalSpace,
-                      const SubscriptionPlanCard(isSubscribed: true),
+                      SubscriptionPlanCard(
+                        isSubscribed: true,
+                        activeSub: state.user.activeSubscription,
+                        onCancelled: () {
+                          profileBloc.add(const GetRemoteUser());
+                        },
+                      ),
                       30.verticalSpace,
                       Center(
                         child: Padding(

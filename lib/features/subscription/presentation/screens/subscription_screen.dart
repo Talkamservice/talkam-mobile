@@ -30,8 +30,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
 
   @override
   void initState() {
-
-      injector.get<SubscriptionsCubit>().getPlans(reload: subscriptionPlans.isEmpty);
+    injector.get<SubscriptionsCubit>().getPlans(reload: subscriptionPlans.isEmpty);
 
     super.initState();
   }
@@ -116,7 +115,6 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                                 padding: const EdgeInsets.only(left: 15.0),
                                 child: Column(
                                   children: [
-
                                     PlanItem(
                                       plan: e,
                                       planDuration: planDuration,
