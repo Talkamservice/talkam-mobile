@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
-import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
@@ -16,7 +15,6 @@ import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart'
 import 'package:talkam/features/notifications/presentation/widgets/notification_icon.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/search/data/models/get_search_response.dart';
-import 'package:talkam/features/search/dormain/repository/search_repository_impl.dart';
 import 'package:talkam/features/search/presentation/blocs/search/search_cubit.dart';
 import 'package:talkam/features/search/presentation/widget/recent_searches_loading_shimmer.dart';
 import 'package:talkam/features/search/presentation/widget/trending_searches_loading_shimmer.dart';
@@ -392,7 +390,7 @@ class SearchAppBar extends StatelessWidget {
                 20.horizontalSpace,
                 GuestUserHelper.guestUserWidget(
                     widget: ImageWidget(
-                  imageUrl: injector.get<ProfileBloc>().appUser?.avatar ?? Assets.images.svgs.uploadAvatar,
+                  imageUrl: injector.get<ProfileBloc>().appUser?.avatar ?? Assets.images.svgs.user,
                   fit: BoxFit.scaleDown,
                   size: 40,
                   onTap: () {

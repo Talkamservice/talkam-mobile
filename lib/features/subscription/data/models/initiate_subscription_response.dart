@@ -186,11 +186,11 @@ class Metadata {
 }
 
 class User {
-  int id;
-  String avatar;
-  String name;
-  String username;
-  String email;
+  dynamic id;
+  dynamic avatar;
+  dynamic name;
+  dynamic username;
+  dynamic email;
 
   User({
     required this.id,

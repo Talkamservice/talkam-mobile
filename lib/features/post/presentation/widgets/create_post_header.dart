@@ -12,6 +12,7 @@ import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/features/subscription/presentation/widgets/talkam_subscription_prompt.dart';
 import 'package:talkam/features/subscription/utils/subscription_helper.dart';
 import 'package:talkam/gen/assets.gen.dart';
+
 class CreatePostHeader extends StatefulWidget {
   const CreatePostHeader({
     super.key,
@@ -36,12 +37,10 @@ class _CreatePostHeaderState extends State<CreatePostHeader> {
 
   bool canPostAnonymously = true;
 
-
   @override
   Widget build(BuildContext context) {
     return Container(
       color: context.theme.cardColor,
-
       child: Column(
         children: [
           const Divider(thickness: 1),
@@ -90,25 +89,33 @@ class _CreatePostHeaderState extends State<CreatePostHeader> {
               AnonymousSwitcher(
                 value: _isAnonymous,
                 onChanged: (value) {
-                  if(SubscriptionHelper.isSubscribed){
+                  if (SubscriptionHelper.canPostAnonymously) {
                     setState(() {
                       _isAnonymous = value;
                     });
 
                     widget.onIsAnonymousChanged(_isAnonymous);
-                  }else{
+                  } else {
                     setState(() {
                       canPostAnonymously = false;
                     });
                   }
-
                 },
               ),
             ],
           ),
-       Container(width: 1.sw,height: 1,color: Pallets.grey90,),
-          if(!canPostAnonymously)
-            const TalkamSubscriptionPrompt(),
+          Container(
+            width: 1.sw,
+            height: 1,
+            color: Pallets.grey90,
+          ),
+          if (!canPostAnonymously)
+            TalkamSubscriptionPrompt(
+              onReturnFromSubscription: () {
+                canPostAnonymously = SubscriptionHelper.canPostAnonymously;
+                setState(() {});
+              },
+            ),
           8.verticalSpace
         ],
       ),

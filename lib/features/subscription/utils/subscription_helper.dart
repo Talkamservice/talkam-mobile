@@ -2,29 +2,66 @@ import 'package:flutter/material.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/navigation/routes.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 
 class SubscriptionHelper {
   // Check if the user is subscribed
-  static bool get isSubscribed => SessionManager.instance.isLoggedIn && false;
+  static bool get isSubscribed => SessionManager.instance.isLoggedIn && _userIsSubscribed;
 
-  static bool get canPostAnonymously => SessionManager.instance.isLoggedIn && false;
-  static bool get canCommentAnonymously => SessionManager.instance.isLoggedIn && false;
+  static bool get canPostAnonymously {
+    if (SessionManager.instance.isLoggedIn) {
+      if (_userIsSubscribed) {
+        return true;
+      } else {
+
+        return injector.get<ProfileBloc>().appUser?.anonymousPost < 5;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  static bool get canCreatePublicGroup {
+    if (SessionManager.instance.isLoggedIn) {
+      if (_userIsSubscribed) {
+        return true;
+      } else {
+        return injector.get<ProfileBloc>().appUser?.publicGroupCount < 5;
+      }
+    } else {
+      return false;
+    }
+  }
+
+  static bool get _userIsSubscribed => injector.get<ProfileBloc>().appUser?.activeSubscription?.plan.isPaid ?? false;
+
+  static bool get canCommentAnonymously {
+    if (SessionManager.instance.isLoggedIn) {
+      if (_userIsSubscribed) {
+        return true;
+      } else {
+        logger.w(injector.get<ProfileBloc>().appUser?.anonymousComment);
+        return injector.get<ProfileBloc>().appUser?.anonymousComment < 5;
+      }
+    } else {
+      return false;
+    }
+  }
 
   static void handleSubscriptionAction({
     required VoidCallback action,
-    VoidCallback? guestAction,
+    VoidCallback? unsubscribedUserAction,
     String? message,
   }) {
     if (isSubscribed) {
       action();
     } else {
-      guestAction?.call();
-      if (guestAction == null) {
-        // Show a toast here
-        // CustomDialogs.showToast(message ?? "Please subscribe to access this feature");
+      unsubscribedUserAction?.call();
+      if (unsubscribedUserAction == null) {
         CustomRoutes.goRouter.pushNamed(PageUrl.login);
       }
     }
@@ -44,7 +81,9 @@ class TalkamSubscriptionWidget extends StatelessWidget {
   final Widget subscribedUserWidget;
   final Widget? freemiumUserWidget;
 
-  static bool get isSubscribed => SessionManager.instance.isLoggedIn && false;
+  static bool get userIsSubscribed => injector.get<ProfileBloc>().appUser?.activeSubscription?.plan.isPaid ?? false;
+
+  static bool get isSubscribed => SessionManager.instance.isLoggedIn && userIsSubscribed;
 
   @override
   Widget build(BuildContext context) {
