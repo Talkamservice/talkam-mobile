@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/post/data/models/get_comments_response.dart';
 import 'package:talkam/features/post/data/models/save_comment_payload.dart';
 import 'package:talkam/features/post/dormain/repository/post_repository.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 
 part 'comments_event.dart';
 
@@ -56,6 +58,7 @@ class CommentsBloc extends Bloc<CommentsEvent, CommentsState> {
     emit(const CommentsState.getACommentLoading());
     try {
       final response = await _postRepository.getAComment(commentId);
+      injector.get<ProfileBloc>().add(const GetRemoteUser());
       emit(CommentsState.getACommentSuccess(response));
     } catch (error) {
       emit(CommentsState.getACommentFailure(error.toString()));

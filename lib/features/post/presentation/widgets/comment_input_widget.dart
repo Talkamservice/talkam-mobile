@@ -248,8 +248,12 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
               ),
             ),
             if (!canCommentAnonymously)
-              const TalkamSubscriptionPrompt(
+              TalkamSubscriptionPrompt(
                 tittle: "You have used up your 5 free anonymous post, to post anonymously without limit, ",
+                onReturnFromSubscription: () {
+                  canCommentAnonymously = SubscriptionHelper.canCommentAnonymously;
+                  setState(() {});
+                },
               ),
             // Emoji Picker
             Offstage(

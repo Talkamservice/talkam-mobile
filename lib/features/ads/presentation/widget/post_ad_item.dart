@@ -136,7 +136,9 @@ class PostAdItem extends StatelessWidget {
                 color: Pallets.buttonGrey,
               ),
               TextButton(
-                  onPressed: () {},
+                  onPressed: () {
+
+                  },
                   child: const Row(
                     children: [
                       Expanded(
@@ -178,7 +180,9 @@ class PostAdItem extends StatelessWidget {
                           backgroundColor: Pallets.blueBubbleColor,
                           shape: const StadiumBorder(),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+
+                        },
                         child: const TextView(
                           text: "Edit Add",
                           fontSize: 12,

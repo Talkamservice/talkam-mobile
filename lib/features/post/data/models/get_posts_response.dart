@@ -4,8 +4,10 @@
 
 import 'dart:convert';
 
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/post/data/models/create_post_payload.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 
 GetPostsResponse getPostsResponseFromJson(String str) => GetPostsResponse.fromJson(json.decode(str));
@@ -107,6 +109,11 @@ class TalkamPost {
   DateTime updatedAt;
 
   bool get isSchedulePost => publishAt != null;
+  bool get postIsFromLoggedInUser =>
+      user.id == injector
+          .get<ProfileBloc>()
+          .appUser
+          ?.id;
 
   TalkamPost({
     required this.id,

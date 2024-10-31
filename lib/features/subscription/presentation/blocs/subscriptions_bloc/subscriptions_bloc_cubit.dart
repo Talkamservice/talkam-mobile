@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/subscription/data/models/get_plans_response.dart';
 import 'package:talkam/features/subscription/data/models/get_subcriptions_response.dart';
 import 'package:talkam/features/subscription/data/models/initiate_subscription_response.dart';
@@ -23,7 +24,9 @@ class SubscriptionsCubit extends Cubit<SubscriptionsState> {
       final response = await subscriptionsRepository.getPlans();
       subscriptionPlans = response.data;
       emit(SubscriptionsState.getPlansSuccess(response));
-    } catch (e) {
+    } catch (e,stack) {
+      logger.e(e);
+      logger.e(stack);
       emit(SubscriptionsState.getPlansFailure(e.toString()));
     }
   }
@@ -63,7 +66,9 @@ class SubscriptionsCubit extends Cubit<SubscriptionsState> {
     try {
       final response = await subscriptionsRepository.initiateSubscription(planDurationId);
       emit(SubscriptionsState.initiateSubscriptionSuccess(response));
-    } catch (e) {
+    }catch (e,stack) {
+      logger.e(e);
+      logger.e(stack);
       emit(SubscriptionsState.initiateSubscriptionFailure(e.toString()));
     }
   }
