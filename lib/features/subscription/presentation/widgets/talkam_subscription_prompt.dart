@@ -30,7 +30,7 @@ class TalkamSubscriptionPrompt extends StatelessWidget {
             textAlign: TextAlign.center,
             text: TextSpan(children: [
               TextSpan(
-                  text: tittle ?? "You have used up your 5 free anonymous post, to post anonymously without limit, ",
+                  text: tittle ?? "You have used up your free anonymous post, to post anonymously without limit, ",
                   style: GoogleFonts.nunito(color: Pallets.black, fontSize: 12)),
               TextSpan(
                   text: "upgrade to TalkAM plus today",
