@@ -18,7 +18,7 @@ class SubscriptionHelper {
         return true;
       } else {
 
-        return injector.get<ProfileBloc>().appUser?.anonymousPost < 5;
+        return injector.get<ProfileBloc>().appUser?.anonymousPost + injector.get<ProfileBloc>().appUser?.anonymousComment< 5;
       }
     } else {
       return false;
@@ -30,7 +30,7 @@ class SubscriptionHelper {
       if (_userIsSubscribed) {
         return true;
       } else {
-        return injector.get<ProfileBloc>().appUser?.publicGroupCount < 5;
+        return injector.get<ProfileBloc>().appUser?.anonymousPost + injector.get<ProfileBloc>().appUser?.anonymousComment< 5;
       }
     } else {
       return false;
