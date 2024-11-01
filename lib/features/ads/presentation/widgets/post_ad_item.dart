@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/text_view.dart';
-import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/navigation/route_url.dart';
-import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/extensions/int_extension.dart';
@@ -15,10 +13,9 @@ import 'package:talkam/features/post/presentation/widgets/post_content.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item_components.dart';
 import 'package:talkam/features/post/presentation/widgets/scheduled_post_pill.dart';
 import 'package:talkam/features/subscription/presentation/widgets/subscription_plan_card.dart';
-
 import '../../../../core/di/injector.dart';
-import '../../../subscription/presentation/widgets/cancel_subscription_dialog.dart';
 import '../screens/ads_flow.dart';
+import '../screens/ads_review_screens/view_analytics_page.dart';
 
 class PostAdItem extends StatelessWidget {
   const PostAdItem({super.key, required this.post, this.showGroupAndCategory = true, this.showScheduledPost = false});
@@ -141,7 +138,14 @@ class PostAdItem extends StatelessWidget {
                 color: Pallets.buttonGrey,
               ),
               TextButton(
-                  onPressed: () {},
+                  onPressed: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context)=> ViewAnalyticsPage(post: post,)
+                        )
+                    );
+                  },
                   child: const Row(
                     children: [
                       Expanded(

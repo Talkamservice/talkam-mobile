@@ -19,6 +19,7 @@ import 'package:talkam/features/subscription/presentation/widgets/subscription_p
 import '../../../../core/di/injector.dart';
 import '../../../subscription/presentation/widgets/cancel_subscription_dialog.dart';
 import '../screens/ads_flow.dart';
+import '../screens/ads_review_screens/view_analytics_page.dart';
 import 'delete_ad_dialogue.dart';
 
 class ClosedAdsPostItem extends StatelessWidget {
@@ -142,7 +143,14 @@ class ClosedAdsPostItem extends StatelessWidget {
                 color: Pallets.buttonGrey,
               ),
               TextButton(
-                  onPressed: () {},
+                  onPressed: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context)=> ViewAnalyticsPage(post: post,)
+                        )
+                    );
+                  },
                   child: const Row(
                     children: [
                       Expanded(
