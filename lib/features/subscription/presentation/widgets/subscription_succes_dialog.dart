@@ -52,6 +52,9 @@ class SubscriptionSucessDialog extends StatelessWidget {
               elevation: 0,
               onPressed: () {
                 injector.get<ProfileBloc>().add(const GetRemoteUser());
+                // context.pop();
+                // context.pop();
+
                 context.goNamed(PageUrl.homeScreen);
               },
               padding: const EdgeInsets.all(13),
