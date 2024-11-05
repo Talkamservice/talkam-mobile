@@ -7,12 +7,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/error_widget.dart';
+import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/subscription/data/models/get_plans_response.dart';
 import 'package:talkam/features/subscription/presentation/blocs/subscriptions_bloc/subscriptions_bloc_cubit.dart';
 import 'package:talkam/features/subscription/presentation/widgets/plan_item.dart';
+import 'package:talkam/gen/assets.gen.dart';
 
 enum PlanDurations { Annually, Monthly }
 
@@ -81,7 +83,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                             fontSize: 16,
                             fontWeight: FontWeight.w400,
                           ),
-                          39.verticalSpace,
+                          20.verticalSpace,
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 16.0),
                             child: PlanTab(

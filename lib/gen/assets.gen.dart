@@ -29,12 +29,16 @@ class $AssetsImagesJpegsGen {
   AssetGenImage get football =>
       const AssetGenImage('assets/images/jpegs/football.jpeg');
 
+  /// File path: assets/images/jpegs/logos_mastercard.jpg
+  AssetGenImage get logosMastercard =>
+      const AssetGenImage('assets/images/jpegs/logos_mastercard.jpg');
+
   /// File path: assets/images/jpegs/manShopping.jpeg
   AssetGenImage get manShopping =>
       const AssetGenImage('assets/images/jpegs/manShopping.jpeg');
 
   /// List of all assets
-  List<AssetGenImage> get values => [football, manShopping];
+  List<AssetGenImage> get values => [football, logosMastercard, manShopping];
 }
 
 class $AssetsImagesPngGen {
@@ -203,6 +207,9 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/ic_delete.svg
   String get icDelete => 'assets/images/svgs/ic_delete.svg';
 
+  /// File path: assets/images/svgs/ic_grey_info.svg
+  String get icGreyInfo => 'assets/images/svgs/ic_grey_info.svg';
+
   /// File path: assets/images/svgs/ic_person_edit.svg
   String get icPersonEdit => 'assets/images/svgs/ic_person_edit.svg';
 
@@ -359,6 +366,7 @@ class $AssetsImagesSvgsGen {
         guidlineIndicatior,
         home,
         icDelete,
+        icGreyInfo,
         icPersonEdit,
         icSetting,
         image03,

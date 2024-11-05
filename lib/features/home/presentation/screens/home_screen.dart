@@ -160,10 +160,10 @@ class HomeAppBar extends StatelessWidget {
                           ImageWidget(imageUrl: Assets.images.svgs.logo2),
                           const Spacer(),
                           SizedBox(
-                            height: 25,
+                            height: 30,
                             child: TextButton(
                                 style: TextButton.styleFrom(
-                                    padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                                    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
                                     backgroundColor: Pallets.blueBubbleColor,
                                     foregroundColor: Pallets.white,
                                     shape: const StadiumBorder()),
@@ -172,7 +172,7 @@ class HomeAppBar extends StatelessWidget {
                                 },
                                 child: const TextView(
                                   text: "Upgrade to TalkAM plus",
-                                  fontSize: 10,
+                                  fontSize: 12,
                                 )),
                           )
                         ],
