@@ -1,3 +1,4 @@
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/network/network_service.dart';
 import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/features/subscription/data/models/cancel_subscription_response.dart';
@@ -87,7 +88,8 @@ class SubscriptionsRepositoryImpl extends SubscriptionsRepository {
         RequestMethod.post,
       );
       return CancelSubscriptionResponse.fromJson(response.data);
-    } catch (e) {
+    } catch (e,stack) {
+      logger.e(e,stackTrace: stack);
       rethrow;
     }
   }

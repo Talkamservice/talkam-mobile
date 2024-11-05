@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
@@ -17,8 +18,7 @@ class SubscriptionHelper {
       if (_userIsSubscribed) {
         return true;
       } else {
-
-        return injector.get<ProfileBloc>().appUser?.anonymousPost + injector.get<ProfileBloc>().appUser?.anonymousComment< 5;
+        return injector.get<ProfileBloc>().appUser?.anonymousPost + injector.get<ProfileBloc>().appUser?.anonymousComment < 5;
       }
     } else {
       return false;
@@ -30,7 +30,7 @@ class SubscriptionHelper {
       if (_userIsSubscribed) {
         return true;
       } else {
-        return injector.get<ProfileBloc>().appUser?.anonymousPost + injector.get<ProfileBloc>().appUser?.anonymousComment< 5;
+        return injector.get<ProfileBloc>().appUser?.anonymousPost + injector.get<ProfileBloc>().appUser?.anonymousComment < 5;
       }
     } else {
       return false;
@@ -83,11 +83,17 @@ class TalkamSubscriptionWidget extends StatelessWidget {
 
   static bool get userIsSubscribed => injector.get<ProfileBloc>().appUser?.activeSubscription?.plan.isPaid ?? false;
 
-  static bool get isSubscribed => SessionManager.instance.isLoggedIn && userIsSubscribed;
+  static bool  isSubscribed() => SessionManager.instance.isLoggedIn && userIsSubscribed;
 
   @override
   Widget build(BuildContext context) {
-    return isSubscribed ? subscribedUserWidget : freemiumUserWidget ?? 0.verticalSpace;
+    return BlocBuilder<ProfileBloc, ProfileState>(
+      bloc: injector.get(),
+      builder: (context, state) {
+
+        return isSubscribed() ? subscribedUserWidget : freemiumUserWidget ?? 0.verticalSpace;
+      },
+    );
   }
 }
 

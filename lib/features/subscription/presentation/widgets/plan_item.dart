@@ -51,6 +51,7 @@ class PlanItem extends StatelessWidget {
             injector.get<ProfileBloc>().add(const GetRemoteUser());
             if (paymentResponse?.success ?? false) {
               CustomDialogs.showOverlayDialog(context,
+                  dissmisable: false,
                   child: SubscriptionSucessDialog(
                     duration: planDuration!,
                   ));
@@ -72,7 +73,7 @@ class PlanItem extends StatelessWidget {
           child: Column(
             children: [
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 20),
+                padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 14),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
