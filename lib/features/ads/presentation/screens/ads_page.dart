@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:talkam/app.dart';
+import 'package:talkam/core/mixins/returning_user_mixin.dart';
+import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/ads/presentation/screens/ads_flow.dart';
 
@@ -30,7 +33,6 @@ class AdsPage extends StatelessWidget {
                 "You currently don't have any post promoted",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontWeight: FontWeight.bold,
                   fontSize: 23
                 ),
             ),
@@ -45,17 +47,14 @@ class AdsPage extends StatelessWidget {
             ),
             30.verticalSpace,
             GestureDetector(
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context)=> const AdsFlowPage(pageIndex: 0,)
-                )
-              ),
+              onTap: () {
+             context.pushNamed(PageUrl.createAdsScreen);
+              },
               child: Container(padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
                 width: 230,
                 decoration: BoxDecoration(
                   color: Pallets.tabBarBlue,
-                  borderRadius: BorderRadius.circular(30),
+                  borderRadius: BorderRadius.circular(100),
                 ),
                 child: const Center(
                   child: Text(

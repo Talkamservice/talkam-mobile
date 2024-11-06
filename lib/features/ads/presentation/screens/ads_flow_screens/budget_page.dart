@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:talkam/common/widgets/custom_thumb_shape.dart';
 import 'package:talkam/core/theme/pallets.dart';
 
 class BudgetPage extends StatefulWidget {
@@ -35,6 +36,7 @@ class _BudgetPageState extends State<BudgetPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Pallets.white,
       body: ListView(
         children: [
           Padding(
@@ -99,20 +101,29 @@ class _BudgetPageState extends State<BudgetPage> {
             padding: EdgeInsets.only(left: 16, right: 16),
             child: Text("Select age range", style: TextStyle(fontSize: 10)),
           ),
-          RangeSlider(
-            values: _currentRangeValues,
-            min: 18,
-            max: 60,
-            divisions: 200,
-            labels: RangeLabels(
-              _currentRangeValues.start.round().toString(),
-              _currentRangeValues.end.round().toString(),
+          SliderTheme(
+
+            data: SliderTheme.of(context).copyWith(
+              thumbShape: CustomThumbShape(), // Use the custom thumb shape
             ),
-            onChanged: (RangeValues values) {
-              setState(() {
-                _currentRangeValues = values;
-              });
-            },
+            child: RangeSlider(
+              values: _currentRangeValues,
+              min: 18,
+              max: 60,
+              divisions: 200,
+
+
+              labels: RangeLabels(
+                _currentRangeValues.start.round().toString(),
+                _currentRangeValues.end.round().toString(),
+              ),
+              onChanged: (RangeValues values) {
+                setState(() {
+                  _currentRangeValues = values;
+                });
+              },
+
+            ),
           ),
           7.verticalSpace,
           const Divider(color: Colors.grey),
@@ -245,17 +256,18 @@ class _BudgetPageState extends State<BudgetPage> {
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 20),
             child: Container(
-              height: 100,
+
               width: 200,
               decoration: BoxDecoration(
-                color: Colors.blue.withOpacity(0.1),
+                color:  const Color(0xffF1FAFF),
+                border: Border.all(color: const Color(0xffE5F6FF)),
                 borderRadius: BorderRadius.circular(12)
               ),
               child: Padding(
-                padding: const EdgeInsets.all(8.0),
+                padding: const EdgeInsets.all(10.0),
                 child: Column(
                   children: [
-                    10.verticalSpace,
+
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [

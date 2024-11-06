@@ -138,13 +138,13 @@ class PostAdItem extends StatelessWidget {
                 color: Pallets.buttonGrey,
               ),
               TextButton(
-                  onPressed: (){
+                  onPressed: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context)=> ViewAnalyticsPage(post: post,)
-                        )
-                    );
+                            builder: (context) => ViewAnalyticsPage(
+                                  post: post,
+                                )));
                   },
                   child: const Row(
                     children: [
@@ -179,12 +179,11 @@ class PostAdItem extends StatelessWidget {
                       textStyle: const TextStyle(color: Pallets.buttonred, fontSize: 12),
                     ),
                     onPressed: () {
-                      CustomDialogs.showOverlayDialog(context,
-                          child: CancelAdDialog(
-                            onCancel: () {
-                              logger.i("cancel");
-                            },
-                          ));
+                      CustomDialogs.showOverlayDialog(context, child: CancelAdDialog(
+                        onCancel: () {
+                          logger.i("cancel");
+                        },
+                      ));
                     },
                     child: const TextView(
                       text: "Close Ad",
@@ -193,7 +192,6 @@ class PostAdItem extends StatelessWidget {
                   ),
                   SizedBox(
                     height: 30,
-
                     child: TextButton(
                         style: TextButton.styleFrom(
                           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
@@ -201,10 +199,9 @@ class PostAdItem extends StatelessWidget {
                           backgroundColor: Pallets.blueBubbleColor,
                           shape: const StadiumBorder(),
                         ),
-                        onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const AdsFlowPage(pageIndex: 0)),
-                        ),
+                        onPressed: () {
+                          context.pushNamed(PageUrl.createAdsScreen);
+                        },
                         child: const TextView(
                           text: "Edit Ad",
                           fontSize: 12,

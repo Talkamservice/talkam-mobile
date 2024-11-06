@@ -304,6 +304,9 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/text.svg
   String get text => 'assets/images/svgs/text.svg';
 
+  /// File path: assets/images/svgs/thumb.svg
+  String get thumb => 'assets/images/svgs/thumb.svg';
+
   /// File path: assets/images/svgs/thumbs-down.svg
   String get thumbsDownSvg => 'assets/images/svgs/thumbs-down.svg';
 
@@ -404,6 +407,7 @@ class $AssetsImagesSvgsGen {
         sorry,
         suspend,
         text,
+        thumb,
         thumbsDownSvg,
         thumbsDownSvg_,
         thumbsUp,

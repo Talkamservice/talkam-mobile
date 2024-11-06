@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talkam/core/navigation/path_params.dart';
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/features/ads/presentation/screens/ads_flow.dart';
 import 'package:talkam/features/ads/presentation/screens/ads_page.dart';
 import 'package:talkam/features/authentication/presentation/screens/email_sent_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/interests_screen.dart';
@@ -323,6 +324,13 @@ class CustomRoutes {
         name: PageUrl.subscriptionScreen,
         pageBuilder: (context, state) => const NoTransitionPage(
           child: SubscriptionScreen(),
+        ),
+      ),
+      GoRoute(
+        path: '/subscriptionScreen',
+        name: PageUrl.createAdsScreen,
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: AdsFlowPage(),
         ),
       ),
       StatefulShellRoute.indexedStack(

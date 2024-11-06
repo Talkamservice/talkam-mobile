@@ -95,7 +95,10 @@ class PostHeader extends StatelessWidget {
                           unsubscribedUserAction: () {
                             context.pushNamed(PageUrl.subscriptionScreen);
                           },
-                          action: () {},
+                          action: () {
+                            context.pushNamed(PageUrl.adsPage);
+
+                          },
 
                         );
                       },

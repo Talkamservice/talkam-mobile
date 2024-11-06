@@ -8,21 +8,21 @@ import 'package:talkam/features/ads/presentation/screens/ads_review_screen.dart'
 import '../../../../core/theme/pallets.dart';
 
 class AdsFlowPage extends StatefulWidget {
-  const AdsFlowPage ({super.key, required this.pageIndex});
+  const AdsFlowPage ({super.key, });
 
-  final int pageIndex;
+
 
   @override
   State<AdsFlowPage> createState() => _AdsFlowPageState();
 }
 
 class _AdsFlowPageState extends State<AdsFlowPage> {
- late int _selectedIndex;
+ late int _selectedIndex = 0;
 
  @override
  void initState() {
    super.initState();
-   _selectedIndex = widget.pageIndex;
+;
  }
 
   // Navigating to the page before
@@ -72,6 +72,7 @@ class _AdsFlowPageState extends State<AdsFlowPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Pallets.white,
       appBar: const CustomAppBar(
         padding: EdgeInsets.only(right: 10.0),
         tittleText: "Ads",

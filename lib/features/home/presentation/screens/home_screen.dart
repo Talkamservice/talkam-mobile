@@ -17,6 +17,7 @@ import 'package:talkam/features/home/presentation/screens/trending_screen.dart';
 import 'package:talkam/features/notifications/presentation/bloc/notification_bloc.dart';
 import 'package:talkam/features/notifications/presentation/widgets/announcements_carousel.dart';
 import 'package:talkam/features/notifications/presentation/widgets/notification_icon.dart';
+import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/subscription/utils/subscription_helper.dart';
 import 'package:talkam/gen/assets.gen.dart';
@@ -44,6 +45,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   void initState() {
     injector.get<NotificationsBloc>().add(GetNotificationsStatsEvent());
     injector.get<NotificationsBloc>().add(const GetAnnouncementsEvent());
+    injector.get<PostBloc>().add(const PostEvent.getCategories(refresh: true));
+
     _tabController = TabController(length: 3, vsync: this);
     super.initState();
   }

@@ -41,7 +41,7 @@ class CommentNotificationExtra {
 class Comment {
   int id;
   Post post;
-  User user;
+  dynamic user;
   dynamic comment;
   int isAnonymous;
   dynamic replyTo;
@@ -51,6 +51,7 @@ class Comment {
 
   Comment({
     required this.id,
+
     required this.post,
     required this.user,
     required this.comment,
@@ -87,7 +88,7 @@ class Comment {
   factory Comment.fromJson(Map<String, dynamic> json) => Comment(
         id: json["id"],
         post: Post.fromJson(json["post"]),
-        user: User.fromJson(json["user"]),
+        user:json["user"]== null?null: User.fromJson(json["user"]),
         comment: json["comment"],
         isAnonymous: json["is_anonymous"],
         replyTo: json["reply_to"],

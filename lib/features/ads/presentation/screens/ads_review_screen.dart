@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:talkam/app.dart';
+import 'package:talkam/core/mixins/returning_user_mixin.dart';
+import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/features/ads/presentation/screens/ads_flow.dart';
 import 'package:talkam/features/ads/presentation/screens/ads_flow_screens/create_ad_page.dart';
 import 'package:talkam/features/ads/presentation/screens/ads_review_screens/closed_ads_screen.dart';
@@ -54,23 +57,16 @@ class _AdsReviewScreenState extends State<AdsReviewScreen> {
                   child: Column(
                     children: [
                       if (_selectedIndex == 0)
-                      const Text(
-                        "Running ads",
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold
+                        const Text(
+                          "Running ads",
+                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                        )
+                      else
+                        const Text(
+                          "Running ads",
+                          style: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
-                      )
-                      else const Text(
-                        "Running ads",
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey
-                        ),
-                      ),
-
                       5.verticalSpace,
-
                       if (_selectedIndex == 0)
                         Container(
                           margin: const EdgeInsets.only(top: 4),
@@ -91,22 +87,16 @@ class _AdsReviewScreenState extends State<AdsReviewScreen> {
                   child: Column(
                     children: [
                       if (_selectedIndex == 1)
-                      const Text(
-                        "Closed ads",
-                        style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.bold
+                        const Text(
+                          "Closed ads",
+                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                        )
+                      else
+                        const Text(
+                          "Closed ads",
+                          style: TextStyle(fontSize: 14, color: Colors.grey),
                         ),
-                      )
-                      else const Text(
-                        "Closed ads",
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey
-                        ),
-                      ),
                       5.verticalSpace,
-
                       if (_selectedIndex == 1)
                         Container(
                           margin: const EdgeInsets.only(top: 4),
@@ -125,10 +115,9 @@ class _AdsReviewScreenState extends State<AdsReviewScreen> {
                     backgroundColor: Pallets.blueBubbleColor,
                     shape: const StadiumBorder(),
                   ),
-                  onPressed: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const AdsFlowPage(pageIndex: 0)),
-                  ),
+                  onPressed: () {
+                    context.pushNamed(PageUrl.createAdsScreen);
+                  },
                   child: const TextView(
                     text: "Create new Ad",
                     fontSize: 12,
@@ -144,7 +133,3 @@ class _AdsReviewScreenState extends State<AdsReviewScreen> {
     );
   }
 }
-
-
-
-

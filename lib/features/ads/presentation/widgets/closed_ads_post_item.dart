@@ -206,10 +206,10 @@ class ClosedAdsPostItem extends StatelessWidget {
                           backgroundColor: Pallets.blueBubbleColor,
                           shape: const StadiumBorder(),
                         ),
-                        onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => const AdsFlowPage(pageIndex: 0)),
-                        ),
+                        onPressed: () {
+                          context.pushNamed(PageUrl.createAdsScreen);
+
+                        },
                         child: const TextView(
                           text: "Restart Ad",
                           fontSize: 12,
