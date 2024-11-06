@@ -8,6 +8,7 @@ import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/extensions/int_extension.dart';
+import 'package:talkam/features/ads/presentation/widgets/cancel_ad_dialog.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/presentation/widgets/post_action_sheet.dart';
 import 'package:talkam/features/post/presentation/widgets/post_content.dart';
@@ -15,8 +16,14 @@ import 'package:talkam/features/post/presentation/widgets/post_item_components.d
 import 'package:talkam/features/post/presentation/widgets/scheduled_post_pill.dart';
 import 'package:talkam/features/subscription/presentation/widgets/subscription_plan_card.dart';
 
-class PostAdItem extends StatelessWidget {
-  const PostAdItem({super.key, required this.post, this.showGroupAndCategory = true, this.showScheduledPost = false});
+import '../../../../core/di/injector.dart';
+import '../../../subscription/presentation/widgets/cancel_subscription_dialog.dart';
+import '../screens/ads_flow.dart';
+import '../screens/ads_review_screens/view_analytics_page.dart';
+import 'delete_ad_dialogue.dart';
+
+class ClosedAdsPostItem extends StatelessWidget {
+  const ClosedAdsPostItem({super.key, required this.post, this.showGroupAndCategory = true, this.showScheduledPost = false});
 
   final bool? showGroupAndCategory;
   final bool? showScheduledPost;
@@ -136,14 +143,21 @@ class PostAdItem extends StatelessWidget {
                 color: Pallets.buttonGrey,
               ),
               TextButton(
-                  onPressed: () {},
+                  onPressed: (){
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context)=> ViewAnalyticsPage(post: post,)
+                        )
+                    );
+                  },
                   child: const Row(
                     children: [
                       Expanded(
                           child: TextView(
-                        text: "View all analytics",
-                        fontSize: 12,
-                      )),
+                            text: "View all analytics",
+                            fontSize: 12,
+                          )),
                       Icon(
                         Icons.arrow_forward_ios_rounded,
                         size: 18,
@@ -161,13 +175,27 @@ class PostAdItem extends StatelessWidget {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
                     decoration:
-                        BoxDecoration(borderRadius: BorderRadius.circular(22), border: Border.all(color: Pallets.lightBlue), gradient: whiteBlueGradient),
-                    child: const TextView(fontSize: 12, text: "Running Ad"),
+                    BoxDecoration(borderRadius: BorderRadius.circular(22), border: Border.all(color: const Color(0xFFF4D4D4)), color: const Color(0xFFFADDDD)),
+                    child: const TextView(fontSize: 12, text: "Closed Ad"),
                   ),
                   TextButton(
-                      style: TextButton.styleFrom(foregroundColor: Pallets.buttonred, textStyle: const TextStyle(color: Pallets.buttonred, fontSize: 12)),
-                      onPressed: () {},
-                      child: const TextView(text: "Close Add",fontSize: 12,)),
+                    style: TextButton.styleFrom(
+                      foregroundColor: Pallets.buttonred,
+                      textStyle: const TextStyle(color: Pallets.buttonred, fontSize: 12),
+                    ),
+                    onPressed: () {
+                      CustomDialogs.showOverlayDialog(context,
+                          child: DeleteAdDialog(
+                            onCancel: () {
+                              logger.i("cancel");
+                            },
+                          ));
+                    },
+                    child: const TextView(
+                      text: "Delete Ad",
+                      fontSize: 12,
+                    ),
+                  ),
                   SizedBox(
                     height: 30,
 
@@ -178,9 +206,12 @@ class PostAdItem extends StatelessWidget {
                           backgroundColor: Pallets.blueBubbleColor,
                           shape: const StadiumBorder(),
                         ),
-                        onPressed: () {},
+                        onPressed: () {
+                          context.pushNamed(PageUrl.createAdsScreen);
+
+                        },
                         child: const TextView(
-                          text: "Edit Add",
+                          text: "Restart Ad",
                           fontSize: 12,
                         )),
                   )

@@ -87,23 +87,29 @@ class PostHeader extends StatelessWidget {
                     fontWeight: FontWeight.w700,
                     color: context.colorScheme.primary,
                   ),
-                  if (enablePromoteAddPill!)
-                  12.horizontalSpace,
-                  if (enablePromoteAddPill!)
-                  TalkamSubscriptionWidget(
-                    subscribedUserWidget: 0.verticalSpace,
-                    freemiumUserWidget: InkWell(
+                  if (enablePromoteAddPill!) 12.horizontalSpace,
+                  if (enablePromoteAddPill! && post.postIsFromLoggedInUser)
+                    InkWell(
                       onTap: () {
-                        context.pushNamed(PageUrl.subscriptionScreen);
+                        SubscriptionHelper.handleSubscriptionAction(
+                          unsubscribedUserAction: () {
+                            context.pushNamed(PageUrl.subscriptionScreen);
+                          },
+                          action: () {
+
+                            context.pushNamed(PageUrl.createAdsScreen);
+
+                          },
+
+                        );
                       },
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 7,vertical: 3),
+                        padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
                         decoration:
                             BoxDecoration(borderRadius: BorderRadius.circular(22), border: Border.all(color: Pallets.lightBlue), gradient: whiteBlueGradient),
                         child: const TextView(fontSize: 8, text: "Promote post"),
                       ),
-                    ),
-                  )
+                    )
                 ],
               ),
               Row(

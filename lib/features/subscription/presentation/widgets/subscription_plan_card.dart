@@ -6,20 +6,24 @@ import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
-import 'package:talkam/core/mixins/returning_user_mixin.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
-import 'package:talkam/features/subscription/presentation/blocs/subscriptions_bloc/subscriptions_bloc_cubit.dart';
+import 'package:talkam/core/utils/time_util.dart';
+import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/subscription/presentation/blocs/subscriptions_bloc/subscriptions_bloc_cubit.dart';
 import 'package:talkam/features/subscription/presentation/widgets/cancel_subscription_dialog.dart';
 
 class SubscriptionPlanCard extends StatelessWidget {
-  const SubscriptionPlanCard({super.key, required this.isSubscribed});
+  const SubscriptionPlanCard({super.key, required this.isSubscribed, this.activeSub, required this.onCancelled});
 
+  final ActiveSubscription? activeSub;
   final bool isSubscribed;
+  final VoidCallback onCancelled;
 
   @override
   Widget build(BuildContext context) {
+    logger.i(activeSub?.plan.isPaid);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -32,14 +36,22 @@ class SubscriptionPlanCard extends StatelessWidget {
           ),
         ),
         15.verticalSpace,
-        isSubscribed ? _Subscribed() : const _UnSubscribed(),
+        (activeSub?.plan.isPaid ?? false)
+            ? _Subscribed(
+                activeSubscription: activeSub!,
+                onCancelled: onCancelled,
+              )
+            : const _UnSubscribed(),
       ],
     );
   }
 }
 
 class _Subscribed extends StatelessWidget {
-  _Subscribed({super.key});
+  _Subscribed({super.key, required this.activeSubscription, required this.onCancelled});
+
+  final ActiveSubscription activeSubscription;
+  final VoidCallback onCancelled;
 
   final bloc = SubscriptionsCubit(injector.get());
 
@@ -47,7 +59,23 @@ class _Subscribed extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<SubscriptionsCubit, SubscriptionsState>(
       bloc: bloc,
-      listener: (context, state) {},
+      listener: (context, state) {
+        state.maybeWhen(
+          orElse: () => null,
+          cancelSubscriptionLoading: () {
+            CustomDialogs.showLoading(context);
+          },
+          cancelSubscriptionFailure: (error) {
+            context.pop();
+            CustomDialogs.error(error);
+          },
+          cancelSubscriptionSuccess: () {
+            context.pop();
+            CustomDialogs.success("Subscription cancelled");
+            onCancelled();
+          },
+        );
+      },
       builder: (context, state) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,8 +108,8 @@ class _Subscribed extends StatelessWidget {
                               Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                                 decoration: BoxDecoration(borderRadius: BorderRadius.circular(22), gradient: blueWhiteGradient),
-                                child: const TextView(
-                                  text: "TalkAm Plus",
+                                child: TextView(
+                                  text: activeSubscription.plan.name,
                                   fontSize: 10,
                                 ),
                               ),
@@ -100,9 +128,9 @@ class _Subscribed extends StatelessWidget {
                       child: Column(
                         children: [
                           16.verticalSpace,
-                          const Row(
+                          Row(
                             children: [
-                              Expanded(
+                              const Expanded(
                                 child: TextView(
                                   text: "Plan",
                                   color: Pallets.lightBlue,
@@ -110,16 +138,16 @@ class _Subscribed extends StatelessWidget {
                                 ),
                               ),
                               TextView(
-                                text: "Annual plan",
+                                text: "${activeSubscription.plan.frequency} plan",
                                 fontSize: 12,
                                 color: Pallets.white,
                               )
                             ],
                           ),
                           16.verticalSpace,
-                          const Row(
+                          Row(
                             children: [
-                              Expanded(
+                              const Expanded(
                                 child: TextView(
                                   text: "Renewal",
                                   color: Pallets.lightBlue,
@@ -127,7 +155,7 @@ class _Subscribed extends StatelessWidget {
                                 ),
                               ),
                               TextView(
-                                text: "October 20, 2025",
+                                text: TimeUtil.formatDate(activeSubscription.expiresAt.add(const Duration(days: 1)).toString()),
                                 fontSize: 12,
                                 color: Pallets.white,
                               )
@@ -140,46 +168,52 @@ class _Subscribed extends StatelessWidget {
                 ),
               ),
             ),
-            29.verticalSpace,
-            const Divider(
-              thickness: 1,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 12.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  10.verticalSpace,
-                  TextButton(
-                      onPressed: () {
-                        CustomDialogs.showOverlayDialog(context,
-                            child: CancelSubscriptionDialog(
-                              onCancel: () {
-                                logger.i("cancel");
-                              },
-                            ));
-                      },
-                      style: TextButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0)),
-                      child: const TextView(
-                        text: "Cancel Subscription",
-                        decoration: TextDecoration.underline,
-                      )),
-                  const TextView(
-                    text: "By clicking on cancel subscription, you agree that you have ready TalkAM’s",
-                    fontSize: 11,
-                  ),
-                  const TextView(
-                    text: "Cancelation Policy.",
-                    color: Pallets.blueBubbleColor,
-                    fontSize: 11,
-                  ),
-                ],
+
+            if(activeSubscription.renewalCancelledAt== null)
+            Column(children: [
+              29.verticalSpace,
+              const Divider(
+                thickness: 1,
               ),
-            ),
-            15.verticalSpace,
-            const Divider(
-              thickness: 1,
-            ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    10.verticalSpace,
+                    TextButton(
+                        onPressed: () {
+                          CustomDialogs.showOverlayDialog(context, child: CancelSubscriptionDialog(
+                            onCancel: () {
+                              bloc.cancelSubscription(activeSubscription.id);
+                            },
+                          ));
+                        },
+
+                        style: TextButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0)),
+                        child: const TextView(
+                          text: "Cancel Auto-Renewal",
+                          decoration: TextDecoration.underline,
+                        )),
+                    const TextView(
+                      text: "By clicking on cancel auto-renewal, you agree that you have ready TalkAM’s",
+                      fontSize: 11,
+                    ),
+                    const TextView(
+                      text: "Cancellation Policy.",
+                      color: Pallets.blueBubbleColor,
+                      fontSize: 11,
+                    ),
+                  ],
+                ),
+              ),
+              15.verticalSpace,
+              const Divider(
+                thickness: 1,
+              ),
+            ],),
+
+
           ],
         );
       },
@@ -254,7 +288,9 @@ LinearGradient get blueWhiteGradient {
     Color(0xffFDFFFF),
     Color(0xffD1F2F7),
   ]);
-}LinearGradient get whiteBlueGradient {
+}
+
+LinearGradient get whiteBlueGradient {
   return const LinearGradient(colors: [
     Color(0xffFDFFFF),
     Color(0xffD1F2F7),

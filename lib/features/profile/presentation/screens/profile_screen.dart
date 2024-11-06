@@ -137,11 +137,28 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   children: [
                                     Padding(
                                       padding: EdgeInsets.only(top: 12.0.h),
-                                      child: TextView(
-                                        text: injector.get<ProfileBloc>().appUser?.username ?? "",
-                                        fontWeight: FontWeight.w700,
-                                        fontSize: 16,
-                                        color: Pallets.boldBlackV2,
+
+                                      child: Row(
+
+                                        crossAxisAlignment: CrossAxisAlignment.center,
+
+                                        children: [
+                                          TextView(
+                                            text: injector.get<ProfileBloc>().appUser?.username ?? "",
+                                            fontWeight: FontWeight.w700,
+                                            fontSize: 16,
+                                            color: Pallets.boldBlackV2,
+                                          ),
+
+                                          5.horizontalSpace,
+                                          TalkamSubscriptionWidget(subscribedUserWidget:   ImageWidget(
+                                          size: 20,
+                                            canPreview: false,
+
+
+                                            imageUrl:  Assets.images.svgs.blueThick,
+                                          ), )
+                                        ],
                                       ),
                                     ),
                                     8.verticalSpace,

@@ -8,7 +8,8 @@ import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 
 import 'package:talkam/core/utils/extensions/context_extension.dart';
-import 'package:talkam/features/ads/presentation/screens/running_ads_screen.dart';
+import 'package:talkam/features/ads/presentation/screens/ads_page.dart';
+import 'package:talkam/features/ads/presentation/screens/ads_review_screen.dart';
 
 import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
 
@@ -58,7 +59,7 @@ class MyProfileSheet extends StatelessWidget with RefreshPostsMixin {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const RunningAdsScreen(),
+                    builder: (context) => const AdsPage(),
                   ));
 
 

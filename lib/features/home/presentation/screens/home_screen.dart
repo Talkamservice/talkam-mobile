@@ -17,6 +17,7 @@ import 'package:talkam/features/home/presentation/screens/trending_screen.dart';
 import 'package:talkam/features/notifications/presentation/bloc/notification_bloc.dart';
 import 'package:talkam/features/notifications/presentation/widgets/announcements_carousel.dart';
 import 'package:talkam/features/notifications/presentation/widgets/notification_icon.dart';
+import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/subscription/utils/subscription_helper.dart';
 import 'package:talkam/gen/assets.gen.dart';
@@ -44,6 +45,8 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
   void initState() {
     injector.get<NotificationsBloc>().add(GetNotificationsStatsEvent());
     injector.get<NotificationsBloc>().add(const GetAnnouncementsEvent());
+    injector.get<PostBloc>().add(const PostEvent.getCategories(refresh: true));
+
     _tabController = TabController(length: 3, vsync: this);
     super.initState();
   }
@@ -149,32 +152,37 @@ class HomeAppBar extends StatelessWidget {
             padding: const EdgeInsets.only(top: 10, left: 1, right: 18),
             child: Column(
               children: [
-              TalkamSubscriptionWidget(   subscribedUserWidget: 0.verticalSpace,
-                freemiumUserWidget: Padding(
-                  padding: const EdgeInsets.only(left: 16.0),
-                  child: Row(
-                    children: [
-                      ImageWidget(imageUrl: Assets.images.svgs.logo2),
-                      const Spacer(),
-                      SizedBox(
-                        height: 25,
-                        child: TextButton(
-                            style: TextButton.styleFrom(
-                                padding: const EdgeInsets.symmetric(vertical: 0, horizontal: 10),
-                                backgroundColor: Pallets.blueBubbleColor,
-                                foregroundColor: Pallets.white,
-                                shape: const StadiumBorder()),
-                            onPressed: () {
-                              context.pushNamed(PageUrl.subscriptionScreen);
-                            },
-                            child: const TextView(
-                              text: "Upgrade to TalkAM plus",
-                              fontSize: 10,
-                            )),
-                      )
-                    ],
+                GuestUserHelper.guestUserWidget(
+                  guestWidget: 0.verticalSpace,
+                  widget: TalkamSubscriptionWidget(
+                    subscribedUserWidget: 0.verticalSpace,
+                    freemiumUserWidget: Padding(
+                      padding: const EdgeInsets.only(left: 16.0),
+                      child: Row(
+                        children: [
+                          ImageWidget(imageUrl: Assets.images.svgs.logo2),
+                          const Spacer(),
+                          SizedBox(
+                            height: 30,
+                            child: TextButton(
+                                style: TextButton.styleFrom(
+                                    padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+                                    backgroundColor: Pallets.blueBubbleColor,
+                                    foregroundColor: Pallets.white,
+                                    shape: const StadiumBorder()),
+                                onPressed: () {
+                                  context.pushNamed(PageUrl.subscriptionScreen);
+                                },
+                                child: const TextView(
+                                  text: "Upgrade to TalkAM plus",
+                                  fontSize: 12,
+                                )),
+                          )
+                        ],
+                      ),
+                    ),
                   ),
-                ), ),
+                ),
                 14.verticalSpace,
                 Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -189,7 +197,13 @@ class HomeAppBar extends StatelessWidget {
                           Icons.menu_outlined,
                           color: context.colorScheme.onSurface,
                         )),
-                  TalkamSubscriptionWidget(subscribedUserWidget:   ImageWidget(imageUrl: Assets.images.svgs.logo2),),
+
+                    GuestUserHelper.guestUserWidget(
+                      guestWidget: ImageWidget(imageUrl: Assets.images.svgs.logo2),
+                      widget: TalkamSubscriptionWidget(
+                        subscribedUserWidget: ImageWidget(imageUrl: Assets.images.svgs.logo2),
+                      ),
+                    ),
                     const Spacer(),
                     const NotificationIcon(),
                     20.horizontalSpace,

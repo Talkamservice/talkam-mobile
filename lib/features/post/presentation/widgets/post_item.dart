@@ -64,14 +64,11 @@ class PostItem extends StatelessWidget {
                   Helpers.share("${UrlConfig.webUrl}comment/${post.id}");
                 },
                 post: post,
-              ), // Implement PostActions here
-              if(showScheduledPost!)
-              4.verticalSpace,
-              if(shouldShowScheduledPost)
-              const Divider(thickness: 1),
+              ), //// Implement PostActions here
+              if (showScheduledPost!) 4.verticalSpace,
+              if (shouldShowScheduledPost) const Divider(thickness: 1),
               // 3.verticalSpace,
-              ScheduledPostPill(
-                  showScheduledPost: shouldShowScheduledPost, post: post)
+              ScheduledPostPill(showScheduledPost: shouldShowScheduledPost, post: post)
             ],
           ),
         ),

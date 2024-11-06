@@ -4,8 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/_core.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/mixins/returning_user_mixin.dart';
+import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/subscription/data/models/get_plans_response.dart';
 
 class SubscriptionSucessDialog extends StatelessWidget {
@@ -48,7 +51,11 @@ class SubscriptionSucessDialog extends StatelessWidget {
               borderRadius: BorderRadius.circular(50),
               elevation: 0,
               onPressed: () {
-                context.pop();
+                injector.get<ProfileBloc>().add(const GetRemoteUser());
+                // context.pop();
+                // context.pop();
+
+                context.goNamed(PageUrl.homeScreen);
               },
               padding: const EdgeInsets.all(13),
               text: "Continue",

@@ -42,6 +42,10 @@ class _EditProfileScreenState extends State<EditProfileScreen> with RefreshPosts
     selectedImage = injector.get<ProfileBloc>().appUser?.avatar;
     usernameController.text = injector.get<ProfileBloc>().appUser?.username ?? '';
     gender = injector.get<ProfileBloc>().appUser?.gender;
+   if(gender.toString().isEmpty){
+     gender = null;
+   }
+
     dob = injector.get<ProfileBloc>().appUser?.dob;
     _country = injector.get<ProfileBloc>().appUser?.country;
     _state = injector.get<ProfileBloc>().appUser?.state;

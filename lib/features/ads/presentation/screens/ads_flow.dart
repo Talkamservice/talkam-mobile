@@ -1,18 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
-import 'package:talkam/features/ads/presentation/screens/ads_page_screens/budget_page.dart';
-import 'package:talkam/features/ads/presentation/screens/ads_page_screens/create_ad_page.dart';
-import 'package:talkam/features/ads/presentation/screens/ads_page_screens/preview_promotion_page.dart';
+import 'package:talkam/features/ads/presentation/screens/ads_flow_screens/budget_page.dart';
+import 'package:talkam/features/ads/presentation/screens/ads_flow_screens/create_ad_page.dart';
+import 'package:talkam/features/ads/presentation/screens/ads_flow_screens/preview_promotion_page.dart';
+import 'package:talkam/features/ads/presentation/screens/ads_review_screen.dart';
+
+import '../../../../core/theme/pallets.dart';
 
 class AdsFlowPage extends StatefulWidget {
-  const AdsFlowPage ({super.key});
+  const AdsFlowPage ({super.key, });
+
+
 
   @override
   State<AdsFlowPage> createState() => _AdsFlowPageState();
 }
 
 class _AdsFlowPageState extends State<AdsFlowPage> {
-  int _selectedIndex = 0;
+ late int _selectedIndex = 0;
+
+ @override
+ void initState() {
+   super.initState();
+;
+ }
 
   // Navigating to the page before
   void previousPage() {
@@ -28,6 +39,14 @@ class _AdsFlowPageState extends State<AdsFlowPage> {
     setState(() {
       if (_selectedIndex < _pages.length - 1) {
         _selectedIndex++;
+      }
+      else {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+            builder: (context)=> const AdsReviewScreen()
+          )
+        );
       }
     });
   }
@@ -53,6 +72,7 @@ class _AdsFlowPageState extends State<AdsFlowPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Pallets.white,
       appBar: const CustomAppBar(
         padding: EdgeInsets.only(right: 10.0),
         tittleText: "Ads",
@@ -92,7 +112,7 @@ class _AdsFlowPageState extends State<AdsFlowPage> {
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 35),
                     decoration: BoxDecoration(
-                      color: Colors.blue,
+                      color: Pallets.tabBarBlue,
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: Text(

@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:talkam/app.dart';
+import 'package:talkam/core/mixins/returning_user_mixin.dart';
+import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/ads/presentation/screens/ads_flow.dart';
 
 import '../../../../common/widgets/custom_appbar.dart';
@@ -21,7 +25,7 @@ class AdsPage extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 8.0, right: 8),
+        padding: const EdgeInsets.only(left: 16, right: 17),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -29,32 +33,28 @@ class AdsPage extends StatelessWidget {
                 "You currently don't have any post promoted",
                 textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25
+                  fontSize: 23
                 ),
             ),
-            25.verticalSpace,
+            6.verticalSpace,
             const Text(
                 "You haven't promoted any post yet. Click on the button below to begin",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: Colors.grey,
-                  fontSize: 15
+                  fontSize: 16
               ),
             ),
-            35.verticalSpace,
+            30.verticalSpace,
             GestureDetector(
-              onTap: () => Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context)=> const AdsFlowPage()
-                )
-              ),
+              onTap: () {
+             context.pushNamed(PageUrl.createAdsScreen);
+              },
               child: Container(padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
                 width: 230,
                 decoration: BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.circular(30),
+                  color: Pallets.tabBarBlue,
+                  borderRadius: BorderRadius.circular(100),
                 ),
                 child: const Center(
                   child: Text(

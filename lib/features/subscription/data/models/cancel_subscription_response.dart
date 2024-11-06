@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'package:talkam/features/subscription/data/models/get_plans_response.dart';
+
 CancelSubscriptionResponse cancelSubscriptionResponseFromJson(String str) => CancelSubscriptionResponse.fromJson(json.decode(str));
 
 String cancelSubscriptionResponseToJson(CancelSubscriptionResponse data) => json.encode(data.toJson());
@@ -52,11 +54,11 @@ class CancelSubscriptionResponse {
 class Data {
   int id;
   User user;
-  Plan plan;
+  TalkamPlan plan;
   dynamic flutterwaveSubscriptionId;
-  DateTime expiresAt;
-  DateTime renewalCancelledAt;
-  String status;
+  dynamic expiresAt;
+  dynamic renewalCancelledAt;
+  dynamic status;
   DateTime createdAt;
   DateTime updatedAt;
 
@@ -75,7 +77,7 @@ class Data {
   Data copyWith({
     int? id,
     User? user,
-    Plan? plan,
+    TalkamPlan? plan,
     dynamic flutterwaveSubscriptionId,
     DateTime? expiresAt,
     DateTime? renewalCancelledAt,
@@ -98,7 +100,7 @@ class Data {
   factory Data.fromJson(Map<String, dynamic> json) => Data(
     id: json["id"],
     user: User.fromJson(json["user"]),
-    plan: Plan.fromJson(json["plan"]),
+    plan: TalkamPlan.fromJson(json["plan"]),
     flutterwaveSubscriptionId: json["flutterwave_subscription_id"],
     expiresAt: DateTime.parse(json["expires_at"]),
     renewalCancelledAt: DateTime.parse(json["renewal_cancelled_at"]),
@@ -120,83 +122,14 @@ class Data {
   };
 }
 
-class Plan {
-  int id;
-  String name;
-  dynamic description;
-  String frequency;
-  int price;
-  dynamic discount;
-  String status;
-  DateTime createdAt;
-  DateTime updatedAt;
 
-  Plan({
-    required this.id,
-    required this.name,
-    required this.description,
-    required this.frequency,
-    required this.price,
-    required this.discount,
-    required this.status,
-    required this.createdAt,
-    required this.updatedAt,
-  });
-
-  Plan copyWith({
-    int? id,
-    String? name,
-    dynamic description,
-    String? frequency,
-    int? price,
-    dynamic discount,
-    String? status,
-    DateTime? createdAt,
-    DateTime? updatedAt,
-  }) =>
-      Plan(
-        id: id ?? this.id,
-        name: name ?? this.name,
-        description: description ?? this.description,
-        frequency: frequency ?? this.frequency,
-        price: price ?? this.price,
-        discount: discount ?? this.discount,
-        status: status ?? this.status,
-        createdAt: createdAt ?? this.createdAt,
-        updatedAt: updatedAt ?? this.updatedAt,
-      );
-
-  factory Plan.fromJson(Map<String, dynamic> json) => Plan(
-    id: json["id"],
-    name: json["name"],
-    description: json["description"],
-    frequency: json["frequency"],
-    price: json["price"],
-    discount: json["discount"],
-    status: json["status"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "description": description,
-    "frequency": frequency,
-    "price": price,
-    "discount": discount,
-    "status": status,
-    "created_at": createdAt.toIso8601String(),
-    "updated_at": updatedAt.toIso8601String(),
-  };
-}
 
 class User {
   int id;
-  String avatar;
-  String name;
-  String username;
-  String email;
+  dynamic avatar;
+  dynamic name;
+  dynamic username;
+  dynamic email;
 
   User({
     required this.id,

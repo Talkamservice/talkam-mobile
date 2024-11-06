@@ -29,12 +29,16 @@ class $AssetsImagesJpegsGen {
   AssetGenImage get football =>
       const AssetGenImage('assets/images/jpegs/football.jpeg');
 
+  /// File path: assets/images/jpegs/logos_mastercard.jpg
+  AssetGenImage get logosMastercard =>
+      const AssetGenImage('assets/images/jpegs/logos_mastercard.jpg');
+
   /// File path: assets/images/jpegs/manShopping.jpeg
   AssetGenImage get manShopping =>
       const AssetGenImage('assets/images/jpegs/manShopping.jpeg');
 
   /// List of all assets
-  List<AssetGenImage> get values => [football, manShopping];
+  List<AssetGenImage> get values => [football, logosMastercard, manShopping];
 }
 
 class $AssetsImagesPngGen {
@@ -110,6 +114,9 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/Icfeatured.svg
   String get icfeatured => 'assets/images/svgs/Icfeatured.svg';
 
+  /// File path: assets/images/svgs/ad_share.svg
+  String get adShare => 'assets/images/svgs/ad_share.svg';
+
   /// File path: assets/images/svgs/add.svg
   String get add => 'assets/images/svgs/add.svg';
 
@@ -161,6 +168,9 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/copy-07.svg
   String get copy07 => 'assets/images/svgs/copy-07.svg';
 
+  /// File path: assets/images/svgs/curved_info_circle.svg
+  String get curvedInfoCircle => 'assets/images/svgs/curved_info_circle.svg';
+
   /// File path: assets/images/svgs/dummyUser.svg
   String get dummyUser => 'assets/images/svgs/dummyUser.svg';
 
@@ -202,6 +212,9 @@ class $AssetsImagesSvgsGen {
 
   /// File path: assets/images/svgs/ic_delete.svg
   String get icDelete => 'assets/images/svgs/ic_delete.svg';
+
+  /// File path: assets/images/svgs/ic_grey_info.svg
+  String get icGreyInfo => 'assets/images/svgs/ic_grey_info.svg';
 
   /// File path: assets/images/svgs/ic_person_edit.svg
   String get icPersonEdit => 'assets/images/svgs/ic_person_edit.svg';
@@ -291,6 +304,9 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/text.svg
   String get text => 'assets/images/svgs/text.svg';
 
+  /// File path: assets/images/svgs/thumb.svg
+  String get thumb => 'assets/images/svgs/thumb.svg';
+
   /// File path: assets/images/svgs/thumbs-down.svg
   String get thumbsDownSvg => 'assets/images/svgs/thumbs-down.svg';
 
@@ -328,6 +344,7 @@ class $AssetsImagesSvgsGen {
         icNew,
         icTrending,
         icfeatured,
+        adShare,
         add,
         announcement,
         anonymousActive,
@@ -345,6 +362,7 @@ class $AssetsImagesSvgsGen {
         chevronRight,
         comment,
         copy07,
+        curvedInfoCircle,
         dummyUser,
         emailsent,
         facebook,
@@ -359,6 +377,7 @@ class $AssetsImagesSvgsGen {
         guidlineIndicatior,
         home,
         icDelete,
+        icGreyInfo,
         icPersonEdit,
         icSetting,
         image03,
@@ -388,6 +407,7 @@ class $AssetsImagesSvgsGen {
         sorry,
         suspend,
         text,
+        thumb,
         thumbsDownSvg,
         thumbsDownSvg_,
         thumbsUp,

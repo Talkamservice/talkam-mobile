@@ -145,13 +145,19 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                           onTap: () async {},
                         ),
                       ),
-                      24.verticalSpace,
+                      16.verticalSpace,
                       const Divider(
                         thickness: 1,
                       ),
-                      24.verticalSpace,
-                      const SubscriptionPlanCard(isSubscribed: true),
-                      30.verticalSpace,
+                      10.verticalSpace,
+                      SubscriptionPlanCard(
+                        isSubscribed: true,
+                        activeSub: state.user.activeSubscription,
+                        onCancelled: () {
+                          profileBloc.add(const GetRemoteUser());
+                        },
+                      ),
+                      20.verticalSpace,
                       Center(
                         child: Padding(
                           padding: const EdgeInsets.symmetric(horizontal: 20.0),
@@ -244,7 +250,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                     ],
                                   ),
                                 ),
-                              34.verticalSpace,
+                              12.verticalSpace,
                               TextButton(
                                   onPressed: () {
                                     context.pushNamed(PageUrl.deleteAccountScreen);
@@ -254,7 +260,8 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                     color: Colors.red,
                                     fontWeight: FontWeight.w700,
                                     decoration: TextDecoration.underline,
-                                  ))
+                                  )),
+                              50.verticalSpace
                             ],
                           ),
                         ),

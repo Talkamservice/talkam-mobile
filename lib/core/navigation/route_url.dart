@@ -68,5 +68,6 @@ class PageUrl {
   static const adsPage = 'adsPage';
 
   static const subscriptionScreen = 'subscriptionScreen';
+  static const createAdsScreen = 'createAdsScreen';
 
 }

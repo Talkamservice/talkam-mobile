@@ -3,6 +3,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/group/data/models/create_group_payload.dart';
 import 'package:talkam/features/group/dormain/repository/group_repository.dart';
+import 'package:talkam/features/home/dormain/mixins/refresh_app_mixin.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 
 part 'create_group_state.dart';
@@ -22,6 +24,7 @@ class CreateGroupCubit extends Cubit<CreateGroupState> {
 
     try {
       final response = await groupRepository.createGroup(payload);
+      injector.get<ProfileBloc>().add(const GetRemoteUser());
       emit(CreateGroupState.createGroupSuccess(response));
     } catch (e, stack) {
       logger.e(e.toString(), stackTrace: stack);

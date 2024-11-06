@@ -5,6 +5,7 @@ import 'package:talkam/core/utils/no_equality.dart';
 import 'package:talkam/features/post/data/models/create_post_payload.dart';
 import 'package:talkam/features/post/data/models/create_post_response.dart';
 import 'package:talkam/features/post/dormain/repository/post_repository.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 
 part 'create_post_state.dart';
 
@@ -22,7 +23,9 @@ class CreatePostCubit extends Cubit<CreatePostState> {
     emit(const CreatePostState.createPostLoading());
     try {
       final response = await _postRepository.createPost(createPostPayload);
+      injector.get<ProfileBloc>().add(const GetRemoteUser());
       emit(CreatePostState.createPostSuccess(response));
+
     } catch (error, stack) {
       logger.e(error.toString());
       logger.e(stack.toString());

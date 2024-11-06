@@ -43,7 +43,7 @@ class NotificationShimmer extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Container(
-                              height: 25,
+                              height: 20,
                               width: 170,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(8),
@@ -54,7 +54,7 @@ class NotificationShimmer extends StatelessWidget {
                               height: 20,
                               width: 250,
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
+                                  borderRadius: BorderRadius.circular(8),
                                   color: Colors.white
                               ),),
                             5.verticalSpace,
@@ -62,7 +62,7 @@ class NotificationShimmer extends StatelessWidget {
                               height: 20,
                               width: 200,
                               decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(6),
+                                  borderRadius: BorderRadius.circular(8),
                                   color: Colors.white
                               ),),
                           ],

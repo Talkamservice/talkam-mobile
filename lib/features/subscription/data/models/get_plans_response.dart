@@ -51,14 +51,14 @@ class GetPlansResponse {
 
 class TalkamPlan {
   int id;
-  String name;
-  String? description;
-  String? frequency;
-  int? price;
+  dynamic name;
+  dynamic? description;
+  dynamic? frequency;
+  dynamic? price;
   dynamic discount;
-  String status;
-  bool isActiveSubscription;
-  String currency;
+  dynamic status;
+  dynamic isActiveSubscription;
+  dynamic currency;
   List<TalkamPlanDuration> durations;
   List<Benefit> benefits;
   DateTime createdAt;
@@ -121,8 +121,8 @@ class TalkamPlan {
     status: json["status"],
     isActiveSubscription: json["is_active_subscription"],
     currency: json["currency"],
-    durations: List<TalkamPlanDuration>.from(json["durations"].map((x) => TalkamPlanDuration.fromJson(x))),
-    benefits: List<Benefit>.from(json["benefits"].map((x) => Benefit.fromJson(x))),
+    durations: json["durations"] == null ? []: List<TalkamPlanDuration>.from(json["durations"].map((x) => TalkamPlanDuration.fromJson(x))),
+    benefits: json["benefits"] == null ?[]: List<Benefit>.from(json["benefits"].map((x) => Benefit.fromJson(x))),
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),
   );
@@ -142,6 +142,7 @@ class TalkamPlan {
     "created_at": createdAt.toIso8601String(),
     "updated_at": updatedAt.toIso8601String(),
   };
+  bool get isPaid => (price??0)>0;
 }
 
 class Benefit {
@@ -193,11 +194,11 @@ class Benefit {
 
 class TalkamPlanDuration {
   int id;
-  String frequency;
-  String duration;
-  int price;
-  int? discount;
-  String flutterwavePlanId;
+  dynamic frequency;
+  dynamic duration;
+  dynamic price;
+  dynamic? discount;
+  dynamic flutterwavePlanId;
   DateTime createdAt;
   DateTime updatedAt;
 
