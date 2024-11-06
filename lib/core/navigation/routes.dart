@@ -327,7 +327,7 @@ class CustomRoutes {
         ),
       ),
       GoRoute(
-        path: '/subscriptionScreen',
+        path: '/createAdsScreen',
         name: PageUrl.createAdsScreen,
         pageBuilder: (context, state) => const NoTransitionPage(
           child: AdsFlowPage(),

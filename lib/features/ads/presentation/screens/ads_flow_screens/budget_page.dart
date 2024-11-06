@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talkam/common/widgets/custom_thumb_shape.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/features/post/presentation/widgets/country_picker_sheet.dart';
 
 class BudgetPage extends StatefulWidget {
   const BudgetPage({super.key});
@@ -91,6 +92,8 @@ class _BudgetPageState extends State<BudgetPage> {
                   itemHeight: 70,
                   isExpanded: true,
                 ),
+
+                CountryPickerSheet()
               ],
             ),
           ),

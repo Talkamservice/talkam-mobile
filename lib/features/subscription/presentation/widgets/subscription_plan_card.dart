@@ -192,15 +192,15 @@ class _Subscribed extends StatelessWidget {
 
                         style: TextButton.styleFrom(padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0)),
                         child: const TextView(
-                          text: "Cancel Subscription",
+                          text: "Cancel Auto-Renewal",
                           decoration: TextDecoration.underline,
                         )),
                     const TextView(
-                      text: "By clicking on cancel subscription, you agree that you have ready TalkAM’s",
+                      text: "By clicking on cancel auto-renewal, you agree that you have ready TalkAM’s",
                       fontSize: 11,
                     ),
                     const TextView(
-                      text: "Cancelation Policy.",
+                      text: "Cancellation Policy.",
                       color: Pallets.blueBubbleColor,
                       fontSize: 11,
                     ),

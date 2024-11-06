@@ -96,7 +96,8 @@ class PostHeader extends StatelessWidget {
                             context.pushNamed(PageUrl.subscriptionScreen);
                           },
                           action: () {
-                            context.pushNamed(PageUrl.adsPage);
+
+                            context.pushNamed(PageUrl.createAdsScreen);
 
                           },
 
