@@ -44,15 +44,18 @@ class _CreatePostHeaderState extends State<CreatePostHeader> {
       child: Column(
         children: [
           const Divider(thickness: 1),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              SelectCategoryDropDownButton(
-                onCategorySelected: widget.onCategorySelected,
-                onGroupSelected: widget.onGroupSelected,
-              ),
-              const RulesButton(),
-            ],
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                SelectCategoryDropDownButton(
+                  onCategorySelected: widget.onCategorySelected,
+                  onGroupSelected: widget.onGroupSelected,
+                ),
+                const RulesButton(),
+              ],
+            ),
           ),
           const Divider(thickness: 1),
           Row(
@@ -86,22 +89,26 @@ class _CreatePostHeaderState extends State<CreatePostHeader> {
                   ],
                 ),
               ),
-              AnonymousSwitcher(
-                value: _isAnonymous,
-                onChanged: (value) {
-                  if (SubscriptionHelper.canPostAnonymously) {
-                    setState(() {
-                      _isAnonymous = value;
-                    });
+              Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: AnonymousSwitcher(
+                  value: _isAnonymous,
+                  onChanged: (value) {
+                    if (SubscriptionHelper.canPostAnonymously) {
+                      setState(() {
+                        _isAnonymous = value;
+                      });
 
-                    widget.onIsAnonymousChanged(_isAnonymous);
-                  } else {
-                    setState(() {
-                      canPostAnonymously = false;
-                    });
-                  }
-                },
+                      widget.onIsAnonymousChanged(_isAnonymous);
+                    } else {
+                      setState(() {
+                        canPostAnonymously = false;
+                      });
+                    }
+                  },
+                ),
               ),
+
             ],
           ),
           Container(

@@ -95,6 +95,7 @@ class UrlConfig {
 
 //   POST
   static const String getCategories = '/user/post-categories';
+  static const String getTrends = '/user/trendings/fetch';
   static const String getCategoriesWithGroup = '/user/post-categories/merged-categories';
   static const String getSubCategories = '/user/post-categories/sub-categories';
   static const String getPosts = '/user/posts';
@@ -203,4 +204,12 @@ class UrlConfig {
   static const String getSubscriptionById = '/user/finance/subscriptions';         // Fetch a specific subscription by ID (add /{id}/show)
   static const String initiateSubscription = '/user/finance/subscriptions/initiate'; // Initiate a subscription
   static const String cancelSubscription = '/user/finance/subscriptions';
+
+  // Ads
+  static const String getPromotions = '/user/promotions';
+  static const String getPromotionById = '/user/promotions';
+  static const String initiatePromotion = '/user/promotions/initiate';
+  static const String deletePromotion = '/user/promotions';
+
+  static const String paymentCallback = '/user/finance/payments/callback';
 }

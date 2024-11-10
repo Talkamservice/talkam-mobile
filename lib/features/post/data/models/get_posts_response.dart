@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/post/data/models/create_post_payload.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
+import 'package:talkam/features/post/data/models/post_test_models.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 
@@ -97,9 +98,9 @@ class TalkamPost {
   int canComment;
   int isAnonymous;
   List<String> tags;
-  int viewsCount;
-  int commentsCount;
-  int likesCount;
+  dynamic viewsCount;
+  dynamic commentsCount;
+  dynamic likesCount;
   String status;
   dynamic publishAt;
   List<Attachment?> attachments;
@@ -109,11 +110,8 @@ class TalkamPost {
   DateTime updatedAt;
 
   bool get isSchedulePost => publishAt != null;
-  bool get postIsFromLoggedInUser =>
-      user.id == injector
-          .get<ProfileBloc>()
-          .appUser
-          ?.id;
+
+  bool get postIsFromLoggedInUser => user.id == injector.get<ProfileBloc>().appUser?.id;
 
   TalkamPost({
     required this.id,
@@ -196,22 +194,26 @@ class TalkamPost {
         type: json["type"],
         uuid: json["uuid"],
         isReported: json["is_reported"],
-        category: PostCategory.fromJson(json["category"]),
+        category: json["category"] == null ? TestFactories.createPostCategory() : PostCategory.fromJson(json["category"]),
         group: json["group"] == null ? null : TalkamGroup.fromJson(json["group"]),
         user: json["user"] == null ? PostCreator.anonymous() : PostCreator.fromJson(json["user"]),
         canComment: json["can_comment"],
         isAnonymous: json["is_anonymous"],
-        tags: json["tags"] == null ? [] : List<String>.from(json["tags"]!.map((x) => x)),
+        tags: json["tags"] is String
+            ? List<String>.from(jsonDecode(json["tags"])!.map((x) => x))
+            : json["tags"] == null
+                ? []
+                : List<String>.from(json["tags"]!.map((x) => x)),
         viewsCount: json["views_count"],
         commentsCount: json["comments_count"],
         likesCount: json["likes_count"],
         status: json["status"],
         publishAt: json["publish_at"] != null ? DateTime.parse(json["publish_at"]) : null,
-        attachments: List<Attachment>.from(json["attachments"].map((x) => Attachment.fromJson(x))),
-        polls: List<TalkamPoll>.from(json["polls"].map((x) => TalkamPoll.fromJson(x))),
+        attachments: json["attachments"] == null ? [] : List<Attachment>.from(json["attachments"].map((x) => Attachment.fromJson(x))),
+        polls: json["polls"] == null ? [] : List<TalkamPoll>.from(json["polls"].map((x) => TalkamPoll.fromJson(x))),
         reaction: json["reaction"] == null ? null : PostReaction.fromJson(json["reaction"]),
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"] == null ? DateTime.now() : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null ? DateTime.now() : DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {

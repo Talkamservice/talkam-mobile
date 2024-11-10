@@ -71,6 +71,12 @@ class PostState with _$PostState {
   const factory PostState.reportCommentLoading() = ReportCommentLoadingState;
   const factory PostState.reportCommentSuccess() = ReportCommentSuccessState;
   const factory PostState.reportCommentFailure(String error) = ReportCommentFailureState;
+
+
+  const factory PostState.getTrendsLoading() = _GetTrendsLoading;
+  const factory PostState.getTrendsSuccess() = _GetTrendsSuccess;
+  const factory PostState.getTrendsFailure(String error) = _GetTrendsFailure;
+
 }
 
 

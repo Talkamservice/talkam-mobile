@@ -1,29 +1,44 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:talkam/app.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
+import 'package:talkam/common/widgets/custom_dialogs.dart';
+import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/core/navigation/routes.dart';
+import 'package:talkam/core/services/flutterwave/flutterwave_payment_helper.dart';
+import 'package:talkam/features/ads/data/models/initiate_payment_response.dart';
+import 'package:talkam/features/ads/presentation/blocs/ads/ads_cubit.dart';
 import 'package:talkam/features/ads/presentation/screens/ads_flow_screens/budget_page.dart';
 import 'package:talkam/features/ads/presentation/screens/ads_flow_screens/create_ad_page.dart';
 import 'package:talkam/features/ads/presentation/screens/ads_flow_screens/preview_promotion_page.dart';
 import 'package:talkam/features/ads/presentation/screens/ads_review_screen.dart';
+import 'package:talkam/features/post/data/models/create_post_payload.dart';
+import 'package:talkam/features/post/presentation/bloc/create_post/create_post_cubit.dart';
+import 'package:talkam/features/post/presentation/screens/create_post_form.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
+import 'package:talkam/features/subscription/presentation/blocs/subscriptions_bloc/subscriptions_bloc_cubit.dart';
 
 import '../../../../core/theme/pallets.dart';
 
 class AdsFlowPage extends StatefulWidget {
-  const AdsFlowPage ({super.key, });
-
-
+  const AdsFlowPage({
+    super.key,
+  });
 
   @override
   State<AdsFlowPage> createState() => _AdsFlowPageState();
 }
 
 class _AdsFlowPageState extends State<AdsFlowPage> {
- late int _selectedIndex = 0;
+  late int _selectedIndex = 0;
+  CreatePostPayload? createPostPayload;
 
- @override
- void initState() {
-   super.initState();
-;
- }
+  @override
+  void initState() {
+    super.initState();
+  }
 
   // Navigating to the page before
   void previousPage() {
@@ -35,34 +50,37 @@ class _AdsFlowPageState extends State<AdsFlowPage> {
   }
 
   // to navigate to the next page
-  void nextPage() {
+  void nextPage(BuildContext context) {
     setState(() {
-      if (_selectedIndex < _pages.length - 1) {
-        _selectedIndex++;
+      if (_selectedIndex == 0) {
+        bloc.validateForms();
       }
-      else {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-            builder: (context)=> const AdsReviewScreen()
-          )
-        );
+
+      if (_selectedIndex == 1) {
+        adsBloc.validateForms();
+        return;
+      }
+
+      if (_selectedIndex == 2) {
+        pay(context);
+        return;
       }
     });
   }
 
-  // List of pages
-  final List<Widget> _pages = [
-    const CreateAdPage(),
-    const BudgetPage(),
-    const PreviewPromotionPage(),
-  ];
+  void pay(BuildContext context) async {
+    adsBloc.payForPromotion(paymentInfo!);
+  }
 
+  var bloc = CreatePostCubit(injector.get());
+  var adsBloc = AdsCubit(injector.get());
 
+  InitiatePaymentResponse? paymentInfo;
+  // 5531886652142950
   String getRightButtonText() {
-    if (_selectedIndex == _pages.length - 2) {
+    if (_selectedIndex == 1) {
       return "Review";
-    } else if (_selectedIndex == _pages.length - 1 ) {
+    } else if (_selectedIndex == 2) {
       return "Create Promotion";
     } else {
       return "Next";
@@ -71,62 +89,145 @@ class _AdsFlowPageState extends State<AdsFlowPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Pallets.white,
-      appBar: const CustomAppBar(
-        padding: EdgeInsets.only(right: 10.0),
-        tittleText: "Ads",
-        centerTile: false,
-        showDivider: true,
-        actions: [
-          Icon(Icons.more_vert)
-        ],
-      ),
-      bottomNavigationBar: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          const Divider(color: Colors.grey,),
-          Padding(
-            padding: const EdgeInsets.only( right: 15,bottom: 15, top: 5),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                // Back Button
-                GestureDetector(
-                  onTap: previousPage,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-                    decoration: BoxDecoration(
-                      color: Colors.transparent,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: const Text(
-                      "Back",
-                      style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-
-                GestureDetector(
-                  onTap: nextPage,
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 35),
-                    decoration: BoxDecoration(
-                      color: Pallets.tabBarBlue,
-                      borderRadius: BorderRadius.circular(30),
-                    ),
-                    child: Text(
-                      getRightButtonText(),
-                      style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-              ],
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<CreatePostCubit>(
+          create: (context) => bloc,
+        ),
+      ],
+      child: Scaffold(
+        backgroundColor: Pallets.white,
+        appBar: const CustomAppBar(
+          padding: EdgeInsets.only(right: 10.0),
+          tittleText: "Ads",
+          centerTile: false,
+          showDivider: true,
+          actions: [Icon(Icons.more_vert)],
+        ),
+        bottomNavigationBar: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            const Divider(
+              color: Colors.grey,
             ),
+            Padding(
+              padding: const EdgeInsets.only(right: 15, bottom: 15, top: 5),
+              child: Row(
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Back Button
+                  if (_selectedIndex != 0)
+                    GestureDetector(
+                      onTap: previousPage,
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+                        decoration: BoxDecoration(
+                          color: Colors.transparent,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: const Text(
+                          "Back",
+                          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ),
+                  Spacer(),
+                  GestureDetector(
+                    onTap: () {
+                      nextPage(context);
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 35),
+                      decoration: BoxDecoration(
+                        color: Pallets.tabBarBlue,
+                        borderRadius: BorderRadius.circular(30),
+                      ),
+                      child: Text(
+                        getRightButtonText(),
+                        style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        body: BlocProvider(
+          create: (context) => adsBloc,
+          child: BlocConsumer<AdsCubit, AdsState>(
+            listener: (context, state) {
+              state.maybeWhen(
+                orElse: () {},
+                promotionCreated: (result) {
+                  context.pop();
+                  setState(() {
+                    _selectedIndex++;
+                  });
+                  paymentInfo = result;
+                  setState(() {});
+                  // CustomDialogs.success("")
+                },
+                creatingPromotion: () {
+                  CustomDialogs.showLoading(context);
+                },
+                paymentSuccess: (result) {
+
+                  adsBloc.verifyPayment(result.txRef!);
+
+                },
+                paymentFailed: (message) {
+                  CustomDialogs.error(message);
+                },
+                verifyPaymentLoading: () {
+                  CustomDialogs.showLoading(context);
+
+                },
+                verifyPaymentSuccess: (result) {
+                  context.pop();
+                  CustomDialogs.success("Promotion created");
+                  CustomRoutes.goRouter.pushNamed(PageUrl.adsPage);
+
+                },
+                verifyPaymentFailed: (message) {
+                  // context.pop();
+                  // CustomDialogs.error(message);
+                  context.pop();
+                  CustomDialogs.success("Promotion created");
+                  CustomRoutes.goRouter.pushNamed(PageUrl.adsPage);
+                },
+              );
+            },
+            builder: (context, state) {
+              return IndexedStack(
+                index: _selectedIndex,
+                children: [
+                  CreatePostForm(
+                    onValidated: (payload) {
+                      createPostPayload = payload;
+
+                      context.read<AdsCubit>().updatePayloadField(data: {"type": "Post", ...createPostPayload!.toJson()});
+
+                      setState(() {
+                        _selectedIndex++;
+                      });
+                    },
+                  ),
+                  BudgetPage(
+                    onValidated: () {
+                      adsBloc.createPromotion(adsBloc.payload!);
+                    },
+                  ),
+                  if (paymentInfo != null)
+                    PreviewPromotionPage(
+                      paymentInfo: paymentInfo!,
+                    ),
+                ],
+              );
+            },
           ),
-        ],
+        ),
       ),
-      body: _pages[_selectedIndex],
     );
   }
 }

@@ -84,6 +84,9 @@ class _$DrawerStateCopyWithImpl<$Res, $Val extends DrawerState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of DrawerState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -100,6 +103,9 @@ class __$$CategoryViewStateImplCopyWithImpl<$Res>
   __$$CategoryViewStateImplCopyWithImpl(_$CategoryViewStateImpl _value,
       $Res Function(_$CategoryViewStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of DrawerState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -217,6 +223,8 @@ class __$$SubCategoryViewStateImplCopyWithImpl<$Res>
       $Res Function(_$SubCategoryViewStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of DrawerState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -256,7 +264,9 @@ class _$SubCategoryViewStateImpl implements SubCategoryViewState {
   @override
   int get hashCode => Object.hash(runtimeType, subCategory);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of DrawerState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SubCategoryViewStateImplCopyWith<_$SubCategoryViewStateImpl>
@@ -344,7 +354,10 @@ abstract class SubCategoryViewState implements DrawerState {
       {required final PostCategory subCategory}) = _$SubCategoryViewStateImpl;
 
   PostCategory get subCategory;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of DrawerState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SubCategoryViewStateImplCopyWith<_$SubCategoryViewStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -363,6 +376,9 @@ class __$$OpenDrawerStateImplCopyWithImpl<$Res>
   __$$OpenDrawerStateImplCopyWithImpl(
       _$OpenDrawerStateImpl _value, $Res Function(_$OpenDrawerStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of DrawerState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -477,6 +493,9 @@ class __$$CloseDrawerStateImplCopyWithImpl<$Res>
   __$$CloseDrawerStateImplCopyWithImpl(_$CloseDrawerStateImpl _value,
       $Res Function(_$CloseDrawerStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of DrawerState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc

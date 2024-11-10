@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/group/data/models/get_group_members_response.dart';
 import 'package:talkam/features/group/dormain/model/group_overview_data.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class GetGroupsResponse {
@@ -304,6 +306,7 @@ class TalkamGroup extends Codec<TalkamGroup, String> {
   bool get isPublic => groupAccess == null || groupAccess == "Opened";
 
   bool get isAdmin => (userRole == "Owner" || userRole == "Admin");
+  bool get isOwner => (owner?.email == injector.get<ProfileBloc>().appUser?.email);
 
   @override
   // TODO: implement decoder

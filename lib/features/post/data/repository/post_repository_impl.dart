@@ -13,6 +13,7 @@ import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/data/models/post_details_response.dart';
 import 'package:talkam/features/post/data/models/post_filter_model.dart';
 import 'package:talkam/features/post/data/models/save_comment_payload.dart';
+import 'package:talkam/features/post/data/models/trends_response.dart';
 import 'package:talkam/features/post/dormain/repository/post_repository.dart';
 
 class PostRepositoryImpl extends PostRepository {
@@ -286,5 +287,21 @@ class PostRepositoryImpl extends PostRepository {
     });
 
     return updatedString;
+  }
+
+  @override
+  Future<TrendsResponse> getTrends() async {
+    try {
+      final response = await _networkService.call(
+        UrlConfig.getTrends,
+        RequestMethod.get,
+      );
+
+      return TrendsResponse.fromJson(response.data);
+    } catch (e, stack) {
+      logger.e(e);
+      logger.e(stack);
+      rethrow;
+    }
   }
 }

@@ -120,7 +120,7 @@ class TalkAmComment {
 
 class Post {
   int id;
-  String title;
+  dynamic title;
   String type;
   String uuid;
   int canComment;

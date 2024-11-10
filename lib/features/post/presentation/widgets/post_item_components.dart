@@ -10,6 +10,7 @@ import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/extensions/int_extension.dart';
 import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/core/utils/time_util.dart';
+import 'package:talkam/features/ads/presentation/widgets/promotion_sheet.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/presentation/widgets/post_reaction_button.dart';
@@ -96,11 +97,17 @@ class PostHeader extends StatelessWidget {
                             context.pushNamed(PageUrl.subscriptionScreen);
                           },
                           action: () {
+                            CustomDialogs.showBottomSheet(
+                                context,
+                                PromotePostSheet(
+                                  type: 'Post',
+                                  id: post.id,
+                                  onPromoted: () {
 
-                            context.pushNamed(PageUrl.createAdsScreen);
-
+                                  },
+                                ),
+                                constraints: BoxConstraints(maxHeight: 0.7.sh));
                           },
-
                         );
                       },
                       child: Container(

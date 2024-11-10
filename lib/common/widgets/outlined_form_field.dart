@@ -5,33 +5,34 @@ import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/theme/pallets.dart';
 
 class OutlinedFormField extends StatefulWidget {
-  const OutlinedFormField(
-      {super.key,
-      required this.hint,
-      this.suffix,
-      this.validator,
-      this.preffix,
-      this.textCapitalization = TextCapitalization.none,
-      this.maxLine,
-      this.inputType,
-      this.obscure,
-      this.controller,
-      this.onChange,
-      this.onFieldSubmitted,
-      this.enabled,
-      this.inputFormatters,
-      this.placeHolder,
-      this.showRequiredAsterics = false,
-      this.maxLength,
-      this.radius,
-      this.fillColor,
-      this.filled,
-      this.padding,
-      this.hintStyle,
-      this.minLine});
+  const OutlinedFormField({
+    super.key,
+    required this.hint,
+    this.suffix,
+    this.validator,
+    this.preffix,
+    this.textCapitalization = TextCapitalization.none,
+    this.maxLine,
+    this.inputType,
+    this.obscure,
+    this.controller,
+    this.onChange,
+    this.onFieldSubmitted,
+    this.enabled,
+    this.inputFormatters,
+    this.placeHolder,
+    this.showRequiredAsterics = false,
+    this.maxLength,
+    this.radius,
+    this.fillColor,
+    this.filled,
+    this.padding,
+    this.hintStyle,
+    this.minLine,
+  });
 
   final String hint;
- final TextCapitalization textCapitalization;
+  final TextCapitalization textCapitalization;
   final String? placeHolder;
   final bool? showRequiredAsterics;
   final bool? obscure;
@@ -88,10 +89,7 @@ class _OutlinedFormFieldState extends State<OutlinedFormField> {
                       )
                     : 0.verticalSpace,
               ),
-              if (widget.maxLength != null)
-                TextView(
-                    text:
-                        "${widget.controller?.text.length ?? 0}/${widget.maxLength}")
+              if (widget.maxLength != null) TextView(text: "${widget.controller?.text.length ?? 0}/${widget.maxLength}")
             ],
           ),
           8.verticalSpace,
@@ -107,9 +105,7 @@ class _OutlinedFormFieldState extends State<OutlinedFormField> {
             inputFormatters: widget.inputFormatters,
             maxLength: widget.maxLength ?? 200000,
             obscureText: widget.obscure == null ? false : widget.obscure!,
-            style: TextStyle(
-                color: Theme.of(context).colorScheme.onBackground,
-                fontSize: 14.sp),
+            style: TextStyle(color: Theme.of(context).colorScheme.onBackground, fontSize: 14.sp),
             decoration: InputDecoration(
                 filled: widget.filled ?? false,
                 counter: 0.verticalSpace,
@@ -121,10 +117,7 @@ class _OutlinedFormFieldState extends State<OutlinedFormField> {
                     ),
                     borderRadius: BorderRadius.circular(widget.radius ?? 10)),
                 border: OutlineInputBorder(
-                    gapPadding: 2,
-                    borderSide:
-                        const BorderSide(color: Pallets.borderGrey, width: 1),
-                    borderRadius: BorderRadius.circular(10)),
+                    gapPadding: 2, borderSide: const BorderSide(color: Pallets.borderGrey, width: 1), borderRadius: BorderRadius.circular(10)),
                 fillColor: widget.fillColor ?? Theme.of(context).cardColor,
                 hintText: widget.hint,
                 suffixIcon: widget.suffix,
@@ -133,18 +126,10 @@ class _OutlinedFormFieldState extends State<OutlinedFormField> {
                 enabled: widget.enabled ?? true,
                 prefixIconColor: Colors.grey,
                 enabledBorder: OutlineInputBorder(
-                    gapPadding: 2,
-                    borderSide:
-                        const BorderSide(color: Pallets.borderGrey, width: 1),
-                    borderRadius: BorderRadius.circular(widget.radius ?? 10)),
-                contentPadding: widget.padding ??
-                    const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+                    gapPadding: 2, borderSide: const BorderSide(color: Pallets.borderGrey, width: 1), borderRadius: BorderRadius.circular(widget.radius ?? 10)),
+                contentPadding: widget.padding ?? const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                 suffixIconColor: Pallets.grey75,
-                hintStyle: widget.hintStyle ??
-                    TextStyle(
-                        color: Pallets.grey75,
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w500)),
+                hintStyle: widget.hintStyle ?? TextStyle(color: Pallets.grey75, fontSize: 15.sp, fontWeight: FontWeight.w500)),
           ),
         ],
       ),

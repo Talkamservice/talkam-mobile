@@ -74,6 +74,9 @@ class $AssetsImagesPngGen {
   AssetGenImage get sports =>
       const AssetGenImage('assets/images/png/sports.png');
 
+  /// File path: assets/images/png/thumb.png
+  AssetGenImage get thumb => const AssetGenImage('assets/images/png/thumb.png');
+
   /// File path: assets/images/png/woman.png
   AssetGenImage get woman => const AssetGenImage('assets/images/png/woman.png');
 
@@ -91,6 +94,7 @@ class $AssetsImagesPngGen {
         manShoping,
         mancity,
         sports,
+        thumb,
         woman,
         womanDriving
       ];

@@ -87,7 +87,8 @@ class PostMedia extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // logger.w(post.type.toString().toLowerCase());
-    return switch (post.type.toString().toLowerCase()) {
+    return post.attachments.isNotEmpty
+        ? switch (post.type.toString().toLowerCase()) {
       "file" => Column(
           children: [
             10.verticalSpace,
@@ -150,7 +151,7 @@ class PostMedia extends StatelessWidget {
 
       // TODO: Handle this case.
       String() => 0.verticalSpace,
-    };
+    }:0.verticalSpace;
   }
 
   String get totalVotesCount {

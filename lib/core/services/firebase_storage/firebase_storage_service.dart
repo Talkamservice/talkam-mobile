@@ -28,15 +28,17 @@ class FirebaseStorageService {
 
   Future<String> uploadFile(String path, File imageFile) async {
     try {
+      logger.i(imageFile.path);
       final reference = _storage.ref().child(path);
       final uploadTask = reference.putFile(imageFile);
 
       final snapshot = await uploadTask.whenComplete(() => null);
       final url = await snapshot.ref.getDownloadURL();
       return url;
-    } on FirebaseException catch (e) {
+    }  catch (e,stack) {
       // Handle errors (e.g., network issues, permission denied)
-      logger.e('Error uploading image: ${e.message}');
+      logger.e('Error uploading image: ${e.toString()}');
+      logger.e(stack);
       rethrow;
     }
   }

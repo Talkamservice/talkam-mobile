@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:talkam/app.dart';
 import 'package:talkam/core/mixins/returning_user_mixin.dart';
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/features/ads/data/models/create_promotion_payload.dart';
 import 'package:talkam/features/ads/presentation/screens/ads_flow.dart';
 import 'package:talkam/features/ads/presentation/screens/ads_flow_screens/create_ad_page.dart';
 import 'package:talkam/features/ads/presentation/screens/ads_review_screens/closed_ads_screen.dart';
@@ -15,7 +16,8 @@ import '../../../../common/widgets/text_view.dart';
 import '../../../../core/theme/pallets.dart';
 
 class AdsReviewScreen extends StatefulWidget {
-  const AdsReviewScreen({super.key});
+  const AdsReviewScreen({super.key,});
+
 
   @override
   State<AdsReviewScreen> createState() => _AdsReviewScreenState();
@@ -25,8 +27,8 @@ class _AdsReviewScreenState extends State<AdsReviewScreen> {
   int _selectedIndex = 0;
 
   final List<Widget> _pages = [
-    const RunningAdsScreen(),
-    const ClosedAdsScreen(),
+    RunningAdsScreen(),
+    ClosedAdsScreen(),
   ];
 
   @override
@@ -45,7 +47,7 @@ class _AdsReviewScreenState extends State<AdsReviewScreen> {
       body: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.only(left: 16, right: 17),
+            padding: const EdgeInsets.only(left: 16, right: 17,bottom: 0),
             child: Row(
               children: [
                 GestureDetector(
@@ -57,14 +59,20 @@ class _AdsReviewScreenState extends State<AdsReviewScreen> {
                   child: Column(
                     children: [
                       if (_selectedIndex == 0)
-                        const Text(
-                          "Running ads",
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16),
+                          child: const Text(
+                            "Running ads",
+                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                          ),
                         )
                       else
-                        const Text(
-                          "Running ads",
-                          style: TextStyle(fontSize: 14, color: Colors.grey),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16),
+                          child: const Text(
+                            "Running ads",
+                            style: TextStyle(fontSize: 14, color: Colors.grey),
+                          ),
                         ),
                       5.verticalSpace,
                       if (_selectedIndex == 0)
@@ -87,14 +95,21 @@ class _AdsReviewScreenState extends State<AdsReviewScreen> {
                   child: Column(
                     children: [
                       if (_selectedIndex == 1)
-                        const Text(
-                          "Closed ads",
-                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16.0),
+
+                          child: const Text(
+                            "Closed ads",
+                            style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+                          ),
                         )
                       else
-                        const Text(
-                          "Closed ads",
-                          style: TextStyle(fontSize: 14, color: Colors.grey),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16.0),
+                          child: const Text(
+                            "Closed ads",
+                            style: TextStyle(fontSize: 14, color: Colors.grey),
+                          ),
                         ),
                       5.verticalSpace,
                       if (_selectedIndex == 1)
@@ -107,6 +122,7 @@ class _AdsReviewScreenState extends State<AdsReviewScreen> {
                     ],
                   ),
                 ),
+
                 const Spacer(),
                 TextButton(
                   style: TextButton.styleFrom(
@@ -126,7 +142,9 @@ class _AdsReviewScreenState extends State<AdsReviewScreen> {
               ],
             ),
           ),
-          Divider(color: Colors.grey.withOpacity(0.7)),
+
+          Container(height: 1,color: Colors.grey.withOpacity(0.7),),
+
           Expanded(child: _pages[_selectedIndex]),
         ],
       ),

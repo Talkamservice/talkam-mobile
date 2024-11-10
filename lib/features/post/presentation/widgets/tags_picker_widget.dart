@@ -6,6 +6,8 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/post/presentation/widgets/add_tags_sheet.dart';
 
+import 'add_tags_sheet_2.dart';
+
 class TagsPickerWidget extends StatefulWidget {
   const TagsPickerWidget({super.key, required this.onTagSelected});
 
@@ -84,8 +86,8 @@ class _TagsPickerWidgetState extends State<TagsPickerWidget> {
   void selectTags(BuildContext context) async {
     List<String>? tags = await CustomDialogs.showBottomSheet(
         context,
-        AddTagsSheet(
-          initialTAgs: selectedTags,
+        AddTagsSheet2(
+          initialTags: selectedTags,
         ));
     if (tags != null && tags.isNotEmpty) {
       selectedTags = tags;

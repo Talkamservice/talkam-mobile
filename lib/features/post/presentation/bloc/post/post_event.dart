@@ -20,5 +20,6 @@ class PostEvent with _$PostEvent {
   const factory PostEvent.deleteComment(String commentId) = _DeleteCommentEvent;
   const factory PostEvent.commentReaction(String commentId, String action) = _CommentReactionEvent;
   const factory PostEvent.getGuidelines() = _GetGuidelines;
+  const factory PostEvent.getTrends() = _GetTrends;
 
 }
