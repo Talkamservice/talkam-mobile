@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/features/ads/data/models/promotion_data.dart';
 import 'package:talkam/features/group/data/models/get_group_members_response.dart';
 import 'package:talkam/features/group/dormain/model/group_overview_data.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
@@ -133,6 +134,7 @@ class TalkamGroup extends Codec<TalkamGroup, String> {
   int? pendingCount;
   final int? totalMembers;
   final PostCategory? category;
+  final bool? promotion;
   List<GroupGuideline>? guidelines;
   final String? description;
   final GroupOwner? owner;
@@ -153,6 +155,7 @@ class TalkamGroup extends Codec<TalkamGroup, String> {
     this.isSuspended,
     this.totalMembers,
     this.category,
+    this.promotion,
     this.guidelines,
     this.description,
     this.owner,
@@ -185,6 +188,7 @@ class TalkamGroup extends Codec<TalkamGroup, String> {
       category: json['category'] != null
           ? PostCategory.fromJson(json['category'])
           : null,
+      promotion: json['promotion'],
       guidelines: guidelines,
       description: json['description'],
       owner: json['owner'] != null ? GroupOwner.fromJson(json['owner']) : null,
@@ -197,6 +201,9 @@ class TalkamGroup extends Codec<TalkamGroup, String> {
           : null,
     );
   }
+
+  bool get isPromoted => promotion??false;
+
 
   // TalkamGroupMemberInfo toTalkamGroupMemberInfo() {
   //   return TalkamGroupMemberInfo(

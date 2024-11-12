@@ -9,7 +9,7 @@ import 'package:talkam/features/ads/presentation/screens/ads_flow.dart';
 import 'package:talkam/features/ads/presentation/screens/ads_flow_screens/create_ad_page.dart';
 import 'package:talkam/features/ads/presentation/screens/ads_review_screens/closed_ads_screen.dart';
 import 'package:talkam/features/ads/presentation/screens/ads_review_screens/running_ads_screen.dart';
-import 'package:talkam/features/ads/presentation/widgets/post_ad_item.dart';
+import 'package:talkam/features/ads/presentation/widgets/promotion_item.dart';
 import 'package:talkam/features/post/data/models/post_test_models.dart';
 import '../../../../common/widgets/custom_appbar.dart';
 import '../../../../common/widgets/text_view.dart';

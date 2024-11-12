@@ -9,7 +9,7 @@ import 'package:talkam/features/ads/data/models/promotion_data.dart';
 import 'package:talkam/features/ads/presentation/blocs/ads/ads_cubit.dart';
 import 'package:talkam/features/ads/presentation/blocs/ads/ads_cubit.dart';
 import 'package:talkam/features/ads/presentation/screens/empty_ad_page.dart';
-import 'package:talkam/features/ads/presentation/widgets/post_ad_item.dart';
+import 'package:talkam/features/ads/presentation/widgets/promotion_item.dart';
 import 'package:talkam/features/post/data/models/post_test_models.dart';
 
 class RunningAdsScreen extends StatefulWidget {
@@ -22,9 +22,10 @@ class RunningAdsScreen extends StatefulWidget {
 class _RunningAdsScreenState extends State<RunningAdsScreen> {
   @override
   void initState() {
-    bloc.fetchPromotions(status: "Active");
+    refresh();
     super.initState();
   }
+
 
   final bloc = AdsCubit(injector.get());
 
@@ -52,17 +53,26 @@ class _RunningAdsScreenState extends State<RunningAdsScreen> {
               }
 
               return ListView.builder(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                ),
+                itemCount: (promotion).data.data.length,
                 itemBuilder: (context, index) {
-                  if ((promotion).data.data[index].post != null) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 16),
-                      child: PostAdItem(
-                        promotion: (promotion).data.data[index],
-                        onAdCancelled: () {},
-                      ),
-                    );
-                  }
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 16, top: 16),
+                    child: PromotionItem(
+                      promotion: (promotion).data.data[index],
+                      onAdCancelled: () {
+                        refresh();
+                      },
+                      onAdDeleted: () {
+                        refresh();
+                      },
+                      onAdRestarted: () {
+                        refresh();
+                      },
+                    ),
+                  );
 
                   return 0.verticalSpace;
                 },
@@ -70,12 +80,16 @@ class _RunningAdsScreenState extends State<RunningAdsScreen> {
             },
             promotionsLoadFailed: (message) => AppErrorWidget(
               onTap: () {
-                bloc.fetchPromotions(status: "Active");
+                refresh();
               },
             ),
           );
         },
       ),
     );
+  }
+
+  void refresh() {
+    bloc.fetchPromotions(status: "Active");
   }
 }

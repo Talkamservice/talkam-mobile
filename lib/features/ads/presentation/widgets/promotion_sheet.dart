@@ -9,8 +9,6 @@ import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/custom_outlined_button.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
-import 'package:talkam/core/navigation/route_url.dart';
-import 'package:talkam/core/navigation/routes.dart';
 import 'package:talkam/features/ads/data/models/initiate_payment_response.dart';
 import 'package:talkam/features/ads/presentation/blocs/ads/ads_cubit.dart';
 import 'package:talkam/features/ads/presentation/screens/ads_flow_screens/preview_promotion_page.dart';
@@ -56,7 +54,12 @@ class _PromotePostSheetState extends State<PromotePostSheet> with RefreshAppMixi
     super.initState();
     _scrollController = ScrollController();
     _selectedIndex = 0;
-
+    Future.delayed(
+      Duration(milliseconds: 300),
+      () {
+        setState(() {});
+      },
+    );
   }
 
   @override
@@ -161,6 +164,7 @@ class _PromotePostSheetState extends State<PromotePostSheet> with RefreshAppMixi
                       index: _selectedIndex,
                       children: [
                         PromotionTargetWidget(
+
                             onValidated: ({required country, required gender, required maxAge, required minAge, required state}) {
                               _country = country;
                               _selectedGender = gender;
@@ -171,6 +175,7 @@ class _PromotePostSheetState extends State<PromotePostSheet> with RefreshAppMixi
                                 _selectedIndex++;
                               });
                             },
+                            tittle: "",
                             controller: targetsController),
                         BudgetWidget(
                             onValidated: ({required dailyBudge, required duration}) {
@@ -212,8 +217,13 @@ class _PromotePostSheetState extends State<PromotePostSheet> with RefreshAppMixi
         CustomDialogs.showLoading(context);
       },
       paymentSuccess: (result) {
-        adsBloc.verifyPayment(result.txRef!);
+        // context.pop();
+        context.pop();
+        CustomDialogs.success("Promotion created");
+        refreshApp(reload: true);
+        // adsBloc.verifyPayment(result.txRef!);
       },
+
       paymentFailed: (message) {
         CustomDialogs.error(message);
       },
@@ -221,14 +231,11 @@ class _PromotePostSheetState extends State<PromotePostSheet> with RefreshAppMixi
         CustomDialogs.showLoading(context);
       },
       verifyPaymentSuccess: (result) {
-        context.pop();
-        context.pop();
-        CustomDialogs.success("Promotion created");
-        refreshApp(reload: true);
+
       },
       verifyPaymentFailed: (message) {
-        context.pop();
-        CustomDialogs.error(message);
+        // context.pop();
+        // CustomDialogs.error(message);
       },
     );
   }
@@ -239,6 +246,8 @@ class _PromotePostSheetState extends State<PromotePostSheet> with RefreshAppMixi
     } else if (_state == null) {
       CustomDialogs.error("Please select state");
     } else {
+
+      logger.i(widget.id);
       context.read<AdsCubit>().updatePayloadField(
           countryId: _country,
           postId: widget.type.toLowerCase() == "post" ? widget.id : null,
@@ -266,7 +275,6 @@ class _PromotePostSheetState extends State<PromotePostSheet> with RefreshAppMixi
       }
     });
   }
-
 
   // to navigate to the next page
   void nextPage(BuildContext context) {

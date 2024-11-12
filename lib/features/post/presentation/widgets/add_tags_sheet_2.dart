@@ -71,7 +71,9 @@ class _AddTagsSheet2State extends State<AddTagsSheet2> {
             bloc: injector.get(),
             builder: (context, state) {
               return state.maybeWhen(
-                getTrendsLoading: () => SizedBox(height: 200, child: Center(child: CustomDialogs.getLoading())),
+                getTrendsLoading: () => SizedBox(
+                    width: 1.sw,
+                    height: 200, child: Center(child: CustomDialogs.getLoading(size: 30))),
                 getTrendsSuccess: () {
                   allTrends = injector
                       .get<PostBloc>()
@@ -191,7 +193,7 @@ class _AddTagsSheet2State extends State<AddTagsSheet2> {
 
   void _filterTrends() {
     Future.delayed(
-      Duration(milliseconds: 100),
+      Duration(milliseconds: 200),
       () {
         setState(() {
           final query = searchController.text.toLowerCase();

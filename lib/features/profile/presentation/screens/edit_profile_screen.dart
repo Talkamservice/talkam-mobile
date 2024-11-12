@@ -42,9 +42,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> with RefreshPosts
     selectedImage = injector.get<ProfileBloc>().appUser?.avatar;
     usernameController.text = injector.get<ProfileBloc>().appUser?.username ?? '';
     gender = injector.get<ProfileBloc>().appUser?.gender;
-   if(gender.toString().isEmpty){
-     gender = null;
-   }
+    if (gender.toString().isEmpty) {
+      gender = null;
+    }
 
     dob = injector.get<ProfileBloc>().appUser?.dob;
     _country = injector.get<ProfileBloc>().appUser?.country;
@@ -168,6 +168,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> with RefreshPosts
                               value: "Female",
                               child: TextView(
                                 text: "Female",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "Others",
+                              child: TextView(
+                                text: "Others",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "Choose not to specify",
+                              child: TextView(
+                                text: "Choose not to specify",
                               ),
                             ),
                           ]),

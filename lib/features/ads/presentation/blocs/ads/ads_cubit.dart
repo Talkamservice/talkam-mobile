@@ -6,6 +6,7 @@ import 'package:talkam/common/models/get_states_response.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/routes.dart';
 import 'package:talkam/core/services/flutterwave/flutterwave_payment_helper.dart';
+import 'package:talkam/features/ads/data/models/ad_analytics_response.dart';
 import 'package:talkam/features/ads/data/models/create_promotion_payload.dart';
 import 'package:talkam/features/ads/data/models/initiate_payment_response.dart';
 import 'package:talkam/features/ads/dormain/repository/ads_repository.dart';
@@ -71,6 +72,17 @@ class AdsCubit extends Cubit<AdsState> {
     }
   }
 
+  // Create Promotion
+  Future<void> reinitiatePromotion(String promotionId) async {
+    try {
+      emit(const AdsState.creatingPromotion());
+      final result = await adsRepository.reinitiatePromotion(promotionId);
+      emit(AdsState.promotionCreated(result));
+    } catch (e) {
+      emit(AdsState.promotionCreateFailed(e.toString()));
+    }
+  }
+
   void validateForms() {
     // Triggers form validation for create post forms
     emit(const AdsState.validateFormsState());
@@ -95,11 +107,41 @@ class AdsCubit extends Cubit<AdsState> {
     }
   }
 
+  // Update Promotion
+
+  Future<void> updatePromotion(String promotionId, String status) async {
+    try {
+      emit(const AdsState.updateAdLoading());
+      final result = await adsRepository.updateAd(promotionId, status);
+      emit(AdsState.updateAdSuccess(result));
+    } catch (e) {
+      emit(AdsState.updateAdFailed(e.toString()));
+    }
+  }
+
+  // Update Promotion
+
+  Future<void> getAnalytics(
+    String promotionId,
+  ) async {
+    try {
+      emit(const AdsState.getAnalyticsLoading());
+      final result = await adsRepository.getAnalytics(
+        promotionId,
+      );
+      emit(AdsState.getAnalyticsSuccess(result));
+    } catch (e) {
+      emit(AdsState.getAnalyticsFailed(e.toString()));
+    }
+  }
+
   Future<void> payForPromotion(InitiatePaymentResponse paymentInfo) async {
     try {
       emit(const AdsState.paymentLoading());
 
       var user = injector.get<ProfileBloc>().appUser;
+
+      logger.i(paymentInfo.data.metadata);
 
       var paymentResponse = await PaymentHelper().makePayment(
           rootNavigatorKey.currentContext!,
@@ -107,7 +149,7 @@ class AdsCubit extends Cubit<AdsState> {
             amount: paymentInfo.data.amount,
             referenceNumber: paymentInfo.data.reference,
             currency: paymentInfo.data.currency,
-            meta: paymentInfo.data.metadata.toJson(),
+            meta: paymentInfo.data.metadata,
             email: user?.email,
             fullName: user?.name,
           ));
@@ -115,7 +157,12 @@ class AdsCubit extends Cubit<AdsState> {
       injector.get<ProfileBloc>().add(const GetRemoteUser());
 
       if (paymentResponse != null && (paymentResponse.success ?? false)) {
-        emit(AdsState.paymentSuccess(paymentResponse));
+        Future.delayed(
+          Duration(seconds: 3),
+          () {
+            emit(AdsState.paymentSuccess(paymentResponse));
+          },
+        );
       } else {
         emit(AdsState.paymentFailed("Payment failed"));
       }
@@ -141,17 +188,16 @@ class AdsCubit extends Cubit<AdsState> {
   }) {
     if (payload == null) {
       payload = CreatePromotionPayload(
-        postId: postId,
-        country: countryId,
-        state: stateId,
-        minAge: minAge,
-        maxAge: maxAge,
-        gender: gender,
-        dailyBudget: dailyBudget,
-        duration: duration,
-        data: data,
-        groupId: groupId
-      );
+          postId: postId,
+          country: countryId,
+          state: stateId,
+          minAge: minAge,
+          maxAge: maxAge,
+          gender: gender,
+          dailyBudget: dailyBudget,
+          duration: duration,
+          data: data,
+          groupId: groupId);
     } else {
       payload = payload?.copyWith(
         postId: postId ?? payload?.postId,
@@ -167,6 +213,4 @@ class AdsCubit extends Cubit<AdsState> {
       );
     }
   }
-
-
 }

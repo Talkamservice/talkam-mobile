@@ -30,6 +30,7 @@ class CreatePromotionPayload {
   Map<String, dynamic> toMap() {
     return {
       'post_id': postId,
+      'group_id': groupId,
       'country_id': country?.id,
       'state_id': state?.id,
       'min_age': minAge,

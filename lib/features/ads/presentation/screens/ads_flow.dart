@@ -38,6 +38,12 @@ class _AdsFlowPageState extends State<AdsFlowPage> {
   @override
   void initState() {
     super.initState();
+    Future.delayed(
+      Duration(milliseconds: 300),
+      () {
+        setState(() {});
+      },
+    );
   }
 
   // Navigating to the page before
@@ -76,7 +82,8 @@ class _AdsFlowPageState extends State<AdsFlowPage> {
   var adsBloc = AdsCubit(injector.get());
 
   InitiatePaymentResponse? paymentInfo;
-  // 5531886652142950
+
+
   String getRightButtonText() {
     if (_selectedIndex == 1) {
       return "Review";
@@ -172,22 +179,21 @@ class _AdsFlowPageState extends State<AdsFlowPage> {
                   CustomDialogs.showLoading(context);
                 },
                 paymentSuccess: (result) {
-
-                  adsBloc.verifyPayment(result.txRef!);
-
+                  context.pop();
+                  context.pop();
+                  CustomDialogs.success("Promotion created");
+                  CustomRoutes.goRouter.pushNamed(PageUrl.adsPage);
                 },
                 paymentFailed: (message) {
                   CustomDialogs.error(message);
                 },
                 verifyPaymentLoading: () {
                   CustomDialogs.showLoading(context);
-
                 },
                 verifyPaymentSuccess: (result) {
                   context.pop();
                   CustomDialogs.success("Promotion created");
                   CustomRoutes.goRouter.pushNamed(PageUrl.adsPage);
-
                 },
                 verifyPaymentFailed: (message) {
                   // context.pop();
@@ -206,8 +212,10 @@ class _AdsFlowPageState extends State<AdsFlowPage> {
                     onValidated: (payload) {
                       createPostPayload = payload;
 
-                      context.read<AdsCubit>().updatePayloadField(data: {"type": "Post", ...createPostPayload!.toJson()});
+                      context.read<AdsCubit>().updatePayloadField(data: {"type": "Post", "data": createPostPayload!.toJson()});
 
+
+                      // logger.i(context.read<AdsCubit>().payload?.toMap());
                       setState(() {
                         _selectedIndex++;
                       });

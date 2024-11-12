@@ -27,6 +27,18 @@ class _BudgetWidgetState extends State<BudgetWidget> {
   // for duration initial value
   double _duration = 15;
 
+
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(
+      Duration(milliseconds: 300),
+          () {
+        setState(() {});
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocListener<AdsCubit, AdsState>(

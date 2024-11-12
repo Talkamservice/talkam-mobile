@@ -1,64 +1,103 @@
 import 'package:flutter/material.dart';
 
-import 'dart:ui' as ui;
 
-import 'package:talkam/gen/assets.gen.dart';
 
 class CustomThumbShape extends SliderComponentShape {
   final double thumbSize;
+  ImageStream? _imageStream;
+  ImageStreamListener? _imageStreamListener;
+  ImageInfo? _currentImageInfo;
 
-  CustomThumbShape({this.thumbSize = 20.0}); // Adjust thumbSize if needed
+  CustomThumbShape({this.thumbSize = 20.0});
 
   @override
   Size getPreferredSize(bool isEnabled, bool isDiscrete) {
     return Size(thumbSize, thumbSize);
   }
 
+  void _resolveImage() {
+    const ImageProvider imageProvider = AssetImage('assets/images/png/thumb.png');
+    final ImageStream newStream = imageProvider.resolve(const ImageConfiguration());
+
+    if (_imageStream?.key != newStream.key) {
+      // Remove old listener if it exists
+      _imageStream?.removeListener(_imageStreamListener!);
+
+      // Set up new stream and listener
+      _imageStream = newStream;
+      _imageStreamListener = ImageStreamListener((ImageInfo imageInfo, bool synchronousCall) {
+        _currentImageInfo = imageInfo;
+      });
+
+      _imageStream!.addListener(_imageStreamListener!);
+    }
+  }
+
   @override
   void paint(
-    PaintingContext context,
-    Offset center, {
-    required Animation<double> activationAnimation,
-    required Animation<double> enableAnimation,
-    required bool isDiscrete,
-    required TextPainter labelPainter,
-    required RenderBox parentBox,
-    required SliderThemeData sliderTheme,
-    required TextDirection textDirection,
-    required double value,
-    required double textScaleFactor,
-    required Size sizeWithOverflow,
-  }) {
-    const ImageProvider imageProvider = AssetImage('assets/images/png/thumb.png');
-    final paint = Paint();
+      PaintingContext context,
+      Offset center, {
+        required Animation<double> activationAnimation,
+        required Animation<double> enableAnimation,
+        required bool isDiscrete,
+        required TextPainter labelPainter,
+        required RenderBox parentBox,
+        required SliderThemeData sliderTheme,
+        required TextDirection textDirection,
+        required double value,
+        required double textScaleFactor,
+        required Size sizeWithOverflow,
+      }) {
+    final canvas = context.canvas;
+    _resolveImage();
 
-    imageProvider.resolve(ImageConfiguration()).addListener(
-      ImageStreamListener((ImageInfo imageInfo, bool synchronousCall) {
-        final Rect imageRect = Rect.fromCenter(
-          center: center,
-          width: 30,
-          height: 20,
-        );
+    if (_currentImageInfo != null) {
+      final Rect imageRect = Rect.fromCenter(
+        center: center,
+        width: 30,
+        height: 20,
+      );
 
-        context.canvas.drawImageRect(
-          imageInfo.image,
-          Rect.fromLTWH(0, 0, imageInfo.image.width.toDouble(), imageInfo.image.height.toDouble()),
-          imageRect,
-          paint,
-        );
-      }),
-    );
+      canvas.drawImageRect(
+        _currentImageInfo!.image,
+        Rect.fromLTWH(0, 0, _currentImageInfo!.image.width.toDouble(), _currentImageInfo!.image.height.toDouble()),
+        imageRect,
+        Paint(),
+      );
+    }
+  }
+
+  void dispose() {
+    // Clean up listeners to avoid memory leaks
+    _imageStream?.removeListener(_imageStreamListener!);
   }
 }
 
+
 class CustomRangeSliderThumbImage extends RangeSliderThumbShape {
   final ImageProvider image;
+  ImageStream? _imageStream;
+  ImageStreamListener? _imageStreamListener;
+  ImageInfo? _currentImageInfo;
 
   CustomRangeSliderThumbImage({required this.image});
 
   @override
   Size getPreferredSize(bool isEnabled, bool isDiscrete) {
-    return Size(30.0, 30.0); // Customize the thumb size
+    return const Size(30.0, 30.0); // Customize the thumb size
+  }
+
+  void _resolveImage() {
+    final ImageStream newStream = image.resolve(const ImageConfiguration());
+
+    if (_imageStream?.key != newStream.key) {
+      _imageStream?.removeListener(_imageStreamListener!);
+      _imageStream = newStream;
+      _imageStreamListener = ImageStreamListener((ImageInfo imageInfo, bool synchronousCall) {
+        _currentImageInfo = imageInfo;
+      });
+      _imageStream!.addListener(_imageStreamListener!);
+    }
   }
 
   @override
@@ -76,17 +115,18 @@ class CustomRangeSliderThumbImage extends RangeSliderThumbShape {
         bool? isPressed,
       }) {
     final canvas = context.canvas;
-    final thumbImage = image.resolve(ImageConfiguration());
+    _resolveImage();
 
-    thumbImage.addListener(
-      ImageStreamListener((ImageInfo imageInfo, bool synchronousCall) {
-        paintImage(
-          canvas: canvas,
-          rect: Rect.fromCenter(center: center, width: 30.0, height: 30.0),
-          image: imageInfo.image,
-          fit: BoxFit.contain,
-        );
-      }),
-    );
+    if (_currentImageInfo != null) {
+      paintImage(
+        canvas: canvas,
+        rect: Rect.fromCenter(center: center, width: 30.0, height: 30.0),
+        image: _currentImageInfo!.image,
+        fit: BoxFit.contain,
+      );
+    }
   }
+
+
 }
+

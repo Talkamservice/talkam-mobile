@@ -13,10 +13,11 @@ import 'package:talkam/features/ads/presentation/widgets/budget_widget.dart';
 import 'package:talkam/features/post/presentation/widgets/country_picker_sheet.dart';
 
 class PromotionTargetWidget extends StatefulWidget {
-  const PromotionTargetWidget({super.key, required this.onValidated, required this.controller});
+  const PromotionTargetWidget({super.key, required this.onValidated, required this.controller, this.tittle});
 
   final Function({required TalkamCountry country, required TalkamState state, required int maxAge, required int minAge, required String gender}) onValidated;
   final AdsCubit controller;
+  final String? tittle;
 
   @override
   State<PromotionTargetWidget> createState() => _PromotionTargetWidgetState();
@@ -29,10 +30,18 @@ class _PromotionTargetWidgetState extends State<PromotionTargetWidget> {
   // initial gender selected
   String _selectedGender = 'All gender';
 
-
   TalkamCountry? _country;
   TalkamState? _state;
-
+  @override
+  void initState() {
+    super.initState();
+    Future.delayed(
+      Duration(milliseconds: 300),
+          () {
+        setState(() {});
+      },
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return BlocListener<AdsCubit, AdsState>(
@@ -54,7 +63,6 @@ class _PromotionTargetWidgetState extends State<PromotionTargetWidget> {
         );
       },
       child: SingleChildScrollView(
-
         child: Column(
           // mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -66,13 +74,16 @@ class _PromotionTargetWidgetState extends State<PromotionTargetWidget> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   20.verticalSpace,
-                  const Padding(
+                   if(widget.tittle?.isNotEmpty??false)
+                   Padding(
                     padding: EdgeInsets.only(left: 4, right: 4),
                     child: Text(
-                      "Customize who you want to reach",
+                    widget.tittle??  "Customize who you want to reach",
                       style: TextStyle(fontSize: 12),
                     ),
                   ),
+                  if(widget.tittle?.isNotEmpty??false)
+
                   18.verticalSpace,
                   TalkamCountryStatePicker(
                     onChanged: (country, state) {
@@ -202,7 +213,7 @@ class _PromotionTargetWidgetState extends State<PromotionTargetWidget> {
       //     duration: _duration.round(),
       //     gender: _selectedGender);
 
-     widget.controller.validateFormsSuccess();
+      widget.controller.validateFormsSuccess();
     }
   }
 }

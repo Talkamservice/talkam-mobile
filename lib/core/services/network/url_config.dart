@@ -209,7 +209,8 @@ class UrlConfig {
   static const String getPromotions = '/user/promotions';
   static const String getPromotionById = '/user/promotions';
   static const String initiatePromotion = '/user/promotions/initiate';
-  static const String deletePromotion = '/user/promotions';
+  static const String promotions = '/user/promotions';
+  static const String analytics = '/user/posts/stats/fetch';
 
   static const String paymentCallback = '/user/finance/payments/callback';
 }

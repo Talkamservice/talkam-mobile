@@ -137,6 +137,7 @@ class PromotionData {
   final dynamic dailyBudget;
   final dynamic? frequency;
   final dynamic duration;
+  final dynamic status;
   final String? estimatedReach;
   final String? totalReach;
   final dynamic createdAt;
@@ -155,6 +156,7 @@ class PromotionData {
     required this.dailyBudget,
     this.frequency,
     required this.duration,
+    required this.status,
     this.estimatedReach,
     this.totalReach,
     required this.createdAt,
@@ -175,6 +177,8 @@ class PromotionData {
       dailyBudget: json['daily_budget'],
       frequency: json['frequency'],
       duration: json['duration'],
+      status
+          : json['status'],
       estimatedReach: json['estimated_reach'],
       totalReach: json['total_reach'],
       createdAt: json['created_at'],
@@ -196,12 +200,16 @@ class PromotionData {
       'daily_budget': dailyBudget,
       'frequency': frequency,
       'duration': duration,
+      'status': status,
       'estimated_reach': estimatedReach,
       'total_reach': totalReach,
       'created_at': createdAt,
       'updated_at': updatedAt,
     };
   }
+
+  bool get isActive => status.toString().toLowerCase() == "active";
+  bool get isPost => post!=null;
 }
 
 class User {

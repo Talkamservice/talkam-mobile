@@ -89,7 +89,7 @@ class PostHeader extends StatelessWidget {
                     color: context.colorScheme.primary,
                   ),
                   if (enablePromoteAddPill!) 12.horizontalSpace,
-                  if (enablePromoteAddPill! && post.postIsFromLoggedInUser)
+                  if (enablePromoteAddPill! && post.postIsFromLoggedInUser&& !post.isPromoted)
                     InkWell(
                       onTap: () {
                         SubscriptionHelper.handleSubscriptionAction(

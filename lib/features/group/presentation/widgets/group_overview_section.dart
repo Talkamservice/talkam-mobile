@@ -45,32 +45,32 @@ class GroupOverViewSection extends StatelessWidget {
                         fontSize: 16,
                       ),
                       8.horizontalSpace,
-                      if(data.isOwner)
-                      InkWell(
-                        onTap: () {
-                          SubscriptionHelper.handleSubscriptionAction(
-                            unsubscribedUserAction: () {
-                              context.pushNamed(PageUrl.subscriptionScreen);
-                            },
-                            action: () {
-                              CustomDialogs.showBottomSheet(
-                                  context,
-                                  PromotePostSheet(
-                                    type: 'Group',
-                                    id: data.id ?? 0,
-                                    onPromoted: () {},
-                                  ),
-                                  constraints: BoxConstraints(maxHeight: 0.7.sh));
-                            },
-                          );
-                        },
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
-                          decoration:
-                              BoxDecoration(borderRadius: BorderRadius.circular(22), border: Border.all(color: Pallets.lightBlue), gradient: whiteBlueGradient),
-                          child: const TextView(fontSize: 8, text: "Promote group"),
-                        ),
-                      )
+                      if (data.isOwner && !data.isPromoted)
+                        InkWell(
+                          onTap: () {
+                            SubscriptionHelper.handleSubscriptionAction(
+                              unsubscribedUserAction: () {
+                                context.pushNamed(PageUrl.subscriptionScreen);
+                              },
+                              action: () {
+                                CustomDialogs.showBottomSheet(
+                                    context,
+                                    PromotePostSheet(
+                                      type: 'Group',
+                                      id: data.id ?? 0,
+                                      onPromoted: () {},
+                                    ),
+                                    constraints: BoxConstraints(maxHeight: 0.7.sh));
+                              },
+                            );
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(22), border: Border.all(color: Pallets.lightBlue), gradient: whiteBlueGradient),
+                            child: const TextView(fontSize: 8, text: "Promote group"),
+                          ),
+                        )
                     ],
                   ),
                   // 2.verticalSpace,

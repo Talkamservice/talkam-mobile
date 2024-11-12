@@ -1,6 +1,7 @@
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/network/network_service.dart';
 import 'package:talkam/core/services/network/url_config.dart';
+import 'package:talkam/features/ads/data/models/ad_analytics_response.dart';
 import 'package:talkam/features/ads/data/models/create_promotion_payload.dart';
 import 'package:talkam/features/ads/data/models/initiate_payment_response.dart';
 import 'package:talkam/features/ads/data/models/promotion_data.dart';
@@ -53,7 +54,7 @@ class AdsRepositoryImpl extends AdsRepository {
   Future<dynamic> deletePromotion(String promotionId) async {
     try {
       final response = await _networkService.call(
-        '${UrlConfig.deletePromotion}/$promotionId/delete',
+        '${UrlConfig.promotions}/$promotionId/delete',
         RequestMethod.delete,
       );
       return response.data;
@@ -67,6 +68,39 @@ class AdsRepositoryImpl extends AdsRepository {
     try {
       final response = await _networkService.call(UrlConfig.paymentCallback, RequestMethod.post, data: {"reference": reference});
       return response.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future updateAd(String promotionId, String status) async {
+    try {
+      final response = await _networkService.call('${UrlConfig.promotions}/$promotionId/update', RequestMethod.post, data: {"status": status});
+      return response.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<InitiatePaymentResponse> reinitiatePromotion(String promotionId) async {
+    try {
+      final response = await _networkService.call(
+        '${UrlConfig.promotions}/$promotionId/reinitiate',
+        RequestMethod.post,
+      );
+      return InitiatePaymentResponse.fromJson(response.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<AdAnalyticsResponse> getAnalytics(String promotionId) async {
+    try {
+      final response = await _networkService.call(UrlConfig.analytics, RequestMethod.get, queryParams: {"post_id": promotionId});
+      return AdAnalyticsResponse.fromJson(response.data);
     } catch (e) {
       rethrow;
     }

@@ -9,11 +9,12 @@ import 'package:talkam/features/ads/data/models/promotion_data.dart';
 import 'package:talkam/features/ads/presentation/blocs/ads/ads_cubit.dart';
 import 'package:talkam/features/ads/presentation/blocs/ads/ads_cubit.dart';
 import 'package:talkam/features/ads/presentation/screens/empty_ad_page.dart';
-import 'package:talkam/features/ads/presentation/widgets/post_ad_item.dart';
+import 'package:talkam/features/ads/presentation/widgets/promotion_item.dart';
 import 'package:talkam/features/post/data/models/post_test_models.dart';
 
 class ClosedAdsScreen extends StatefulWidget {
   ClosedAdsScreen({super.key});
+
 
   @override
   State<ClosedAdsScreen> createState() => _ClosedAdsScreenState();
@@ -22,7 +23,7 @@ class ClosedAdsScreen extends StatefulWidget {
 class _ClosedAdsScreenState extends State<ClosedAdsScreen> {
   @override
   void initState() {
-    bloc.fetchPromotions(status: "Pending");
+    bloc.fetchPromotions(status: "Inactive");
     super.initState();
   }
 
@@ -55,25 +56,26 @@ class _ClosedAdsScreenState extends State<ClosedAdsScreen> {
                 itemCount: (promotion).data.data.length,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 itemBuilder: (context, index) {
-                  if ((promotion).data.data[index].post != null) {
-                    return Padding(
-                      padding: const EdgeInsets.only(bottom: 16, top: 16),
-                      child: PostAdItem(
-                        promotion: (promotion).data.data[index],
-                        onAdCancelled: () {
-                          bloc.fetchPromotions(status: "Pending");
-                        },
-                      ),
-                    );
-                  }
+                  return Padding(
+                    padding: const EdgeInsets.only(bottom: 16, top: 16),
+                    child: PromotionItem(
+                      promotion: (promotion).data.data[index],
+                      onAdCancelled: () {
+                        bloc.fetchPromotions(status: "Inactive");
+                      },
+                      onAdDeleted: () {
+                      }, onAdRestarted: () {
+                      bloc.fetchPromotions(status: "Inactive");
 
-                  return 0.verticalSpace;
+                    },
+                    ),
+                  );
                 },
               );
             },
             promotionsLoadFailed: (message) => AppErrorWidget(
               onTap: () {
-                bloc.fetchPromotions(status: "Pending");
+                bloc.fetchPromotions(status: "Inactive");
               },
             ),
           );
