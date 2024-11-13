@@ -171,7 +171,11 @@ class AdInfoWidget extends StatelessWidget {
                 onCancel: () {
                   bloc.updatePromotion(promotion.id.toString(), "Inactive");
                 },
-                onEdit: () {},
+                onEdit: () {
+                  bloc.reinitiatePromotion(
+                    promotion.id.toString(),
+                  );
+                },
               ),
             if (!promotion.isActive)
               InActiveAdBar(
@@ -239,11 +243,19 @@ class ActiveAdBar extends StatelessWidget {
                 shape: const StadiumBorder(),
               ),
               onPressed: () {
-                onEdit();
+                CustomDialogs.showOverlayDialog(context,
+                    child: CancelAdDialog(
+                      tittle: "Restart Ad ?",
+                      message: "You are about to restart a closed ad, you will have to make payment for this ad, Do you wish to proceed ? ",
+                      onCancel: () {
+                        onEdit();
+                      },
+                    ));
+
                 // context.pushNamed(PageUrl.createAdsScreen);
               },
               child: const TextView(
-                text: "Edit Ad",
+                text: "Restart Ad",
                 fontSize: 12,
               )),
         )

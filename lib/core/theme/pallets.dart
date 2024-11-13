@@ -16,6 +16,7 @@ abstract class Pallets {
   static const pollTrackColor = Color(0xFFBAE4FD);
 
   static const borderGrey = Color(0xFFDDDDDD);
+  static const adIndicator = Color(0xFFECA110);
 
 
   // static const buttonBlack = Color(0xFF0666EB);

@@ -14,20 +14,20 @@ class ImpressionsInfoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-         Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             ImpressionsInfoItem(
               header: "Impressions",
-              number: analyticsInfo.impressions,
+              number: analyticsInfo.impressions.toString(),
             ),
             ImpressionsInfoItem(
               header: "Engagements",
-              number: analyticsInfo.engagements,
+              number: analyticsInfo.engagements.toString(),
             ),
             ImpressionsInfoItem(
               header: "New followers",
-              number: analyticsInfo.followers,
+              number: analyticsInfo.followers.toString(),
             ),
           ],
         ),
@@ -38,12 +38,12 @@ class ImpressionsInfoWidget extends StatelessWidget {
         ),
         15.verticalSpace,
         Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-             ImpressionsInfoItem(header: "Profile visit", number: analyticsInfo.profileVisits),
-             ImpressionsInfoItem(header: "Clicks", number: analyticsInfo.clicks),
+            ImpressionsInfoItem(header: "Profile visit", number: analyticsInfo.profileVisits.toString()),
+            ImpressionsInfoItem(header: "Clicks", number: analyticsInfo.clicks.toString()),
             // 5.horizontalSpace,
-             // ImpressionsInfoItem(header: "Profile visit", number: analyticsInfo.impressions),
+            // ImpressionsInfoItem(header: "Profile visit", number: analyticsInfo.impressions),
             // 1.horizontalSpace
           ],
         ),
@@ -53,7 +53,7 @@ class ImpressionsInfoWidget extends StatelessWidget {
           color: Pallets.buttonGrey,
         ),
         15.verticalSpace,
-         Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             ImpressionsInfoItem(header: "Max time spent on post", number: "${analyticsInfo.maxTimeSpent} sec"),

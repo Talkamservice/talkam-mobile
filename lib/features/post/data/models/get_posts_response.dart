@@ -6,6 +6,7 @@ import 'dart:convert';
 
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/ads/data/models/promotion_data.dart';
+import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/post/data/models/create_post_payload.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/data/models/post_test_models.dart';
@@ -42,16 +43,14 @@ class GetPostsResponse {
         code: code ?? this.code,
       );
 
-  factory GetPostsResponse.fromJson(Map<String, dynamic> json) =>
-      GetPostsResponse(
+  factory GetPostsResponse.fromJson(Map<String, dynamic> json) => GetPostsResponse(
         message: json["message"],
         data: Data.fromJson(json["data"]),
         success: json["success"],
         code: json["code"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "message": message,
         "data": data.toJson(),
         "success": success,
@@ -77,14 +76,12 @@ class Data {
         data: data ?? this.data,
       );
 
-  factory Data.fromJson(Map<String, dynamic> json) =>
-      Data(
+  factory Data.fromJson(Map<String, dynamic> json) => Data(
         paginationMeta: PostsPaginationData.fromJson(json["pagination_meta"]),
         data: List<TalkamPost>.from(json["data"].map((x) => TalkamPost.fromJson(x))),
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "pagination_meta": paginationMeta.toJson(),
         "data": List<dynamic>.from(data.map((x) => x.toJson())),
       };
@@ -117,11 +114,7 @@ class TalkamPost {
 
   bool get isSchedulePost => publishAt != null;
 
-  bool get postIsFromLoggedInUser =>
-      user.id == injector
-          .get<ProfileBloc>()
-          .appUser
-          ?.id;
+  bool get postIsFromLoggedInUser => user.id == injector.get<ProfileBloc>().appUser?.id;
 
   TalkamPost({
     required this.id,
@@ -200,8 +193,7 @@ class TalkamPost {
         group: group ?? this.group,
       );
 
-  factory TalkamPost.fromJson(Map<String, dynamic> json) =>
-      TalkamPost(
+  factory TalkamPost.fromJson(Map<String, dynamic> json) => TalkamPost(
         id: json["id"],
         title: json["title"],
         body: json["body"],
@@ -216,8 +208,8 @@ class TalkamPost {
         tags: json["tags"] is String
             ? List<String>.from(jsonDecode(json["tags"])!.map((x) => x))
             : json["tags"] == null
-            ? []
-            : List<String>.from(json["tags"]!.map((x) => x)),
+                ? []
+                : List<String>.from(json["tags"]!.map((x) => x)),
         viewsCount: json["views_count"],
         commentsCount: json["comments_count"],
         likesCount: json["likes_count"],
@@ -231,8 +223,7 @@ class TalkamPost {
         updatedAt: json["updated_at"] == null ? DateTime.now() : DateTime.parse(json["updated_at"]),
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "title": title,
         "body": body,
@@ -257,7 +248,7 @@ class TalkamPost {
         "updated_at": updatedAt.toIso8601String(),
       };
 
-  bool get isPromoted => promotion??false;
+  bool get isPromoted => promotion ?? false;
 }
 
 class TalkamPoll {
@@ -310,8 +301,7 @@ class TalkamPoll {
         createdAt: createdAt ?? this.createdAt,
       );
 
-  factory TalkamPoll.fromJson(Map<String, dynamic> json) =>
-      TalkamPoll(
+  factory TalkamPoll.fromJson(Map<String, dynamic> json) => TalkamPoll(
         id: json["id"],
         option: json["option"],
         type: json["type"],
@@ -324,8 +314,7 @@ class TalkamPoll {
         createdAt: DateTime.parse(json["created_at"]),
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "option": option,
         "type": type,
@@ -338,11 +327,7 @@ class TalkamPoll {
         "created_at": createdAt.toIso8601String(),
       };
 
-  bool get isActive =>
-      DateTime
-          .now()
-          .difference(expiresAt)
-          .inMinutes > 1;
+  bool get isActive => DateTime.now().difference(expiresAt).inMinutes > 1;
 }
 
 class PostReaction {
@@ -371,8 +356,7 @@ class PostReaction {
         createdAt: createdAt ?? this.createdAt,
       );
 
-  factory PostReaction.fromJson(Map<String, dynamic> json) =>
-      PostReaction(
+  factory PostReaction.fromJson(Map<String, dynamic> json) => PostReaction(
         id: json["id"],
         action: json["action"],
         status: json["status"],
@@ -389,8 +373,7 @@ class PostReaction {
 
   factory PostReaction.dislike() => PostReaction(id: 0, action: "Dislike", createdAt: DateTime.now(), status: true);
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "action": action,
         "created_at": createdAt.toIso8601String(),
@@ -403,6 +386,7 @@ class PostCreator {
   String name;
   String? username;
   String email;
+  ActiveSubscription? activeSubscription;
 
   PostCreator({
     required this.id,
@@ -410,6 +394,8 @@ class PostCreator {
     required this.name,
     required this.username,
     required this.email,
+    this.activeSubscription,
+
   });
 
   PostCreator copyWith({
@@ -418,6 +404,7 @@ class PostCreator {
     String? name,
     String? username,
     String? email,
+    ActiveSubscription? activeSubscription
   }) =>
       PostCreator(
         id: id ?? this.id,
@@ -425,33 +412,35 @@ class PostCreator {
         name: name ?? this.name,
         username: username ?? this.username,
         email: email ?? this.email,
+        activeSubscription: activeSubscription ?? this.activeSubscription,
+
       );
 
-  factory PostCreator.fromJson(Map<String, dynamic> json) =>
-      PostCreator(
+  factory PostCreator.fromJson(Map<String, dynamic> json) => PostCreator(
         id: json["id"],
         avatar: json["avatar"],
         name: json["name"],
         username: json["username"],
         email: json["email"],
+    activeSubscription: json["active_subscription"] == null ? null : ActiveSubscription?.fromJson(json["active_subscription"]),
+
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "id": id,
         "avatar": avatar,
         "name": name,
         "username": username,
         "email": email,
+    "active_subscription": activeSubscription?.toJson(),
+
       };
+
+  bool get isSubscribed =>activeSubscription!=null;
 
   String get usersName => name.isNotEmpty ? name : (username ?? email);
 
-  factory PostCreator.anonymous() => PostCreator(id: 0,
-      avatar: "anonymous",
-      name: "anonymous",
-      username: "anonymous",
-      email: "anonymous");
+  factory PostCreator.anonymous() => PostCreator(id: 0, avatar: "anonymous", name: "anonymous", username: "anonymous", email: "anonymous");
 }
 
 class PostsPaginationData {
@@ -512,8 +501,7 @@ class PostsPaginationData {
         canLoadMore: canLoadMore ?? this.canLoadMore,
       );
 
-  factory PostsPaginationData.fromJson(Map<String, dynamic> json) =>
-      PostsPaginationData(
+  factory PostsPaginationData.fromJson(Map<String, dynamic> json) => PostsPaginationData(
         currentPage: json["current_page"],
         firstPageUrl: json["first_page_url"],
         from: json["from"],
@@ -528,8 +516,7 @@ class PostsPaginationData {
         canLoadMore: json["can_load_more"],
       );
 
-  Map<String, dynamic> toJson() =>
-      {
+  Map<String, dynamic> toJson() => {
         "current_page": currentPage,
         "first_page_url": firstPageUrl,
         "from": from,

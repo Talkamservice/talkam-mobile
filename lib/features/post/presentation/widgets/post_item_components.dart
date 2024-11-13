@@ -136,6 +136,10 @@ class PostHeader extends StatelessWidget {
                       fontSize: 12,
                     ),
                   ),
+                  if(posterIsSubscribed)
+                    ImageWidget(imageUrl: Assets.images.svgs.blueThick,size: 10,),
+                  if(posterIsSubscribed)
+                  4.horizontalSpace,
                   if (showGroupAndCategory!)
                     Expanded(
                       child: Builder(
@@ -219,6 +223,8 @@ class PostHeader extends StatelessWidget {
       ],
     );
   }
+
+  bool get posterIsSubscribed => post.user.isSubscribed;
 
   void viewUsersProfile(BuildContext context) {
     GuestUserHelper.handleGuestUserAction(

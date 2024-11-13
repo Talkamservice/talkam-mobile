@@ -217,14 +217,19 @@ class _PromotePostSheetState extends State<PromotePostSheet> with RefreshAppMixi
         CustomDialogs.showLoading(context);
       },
       paymentSuccess: (result) {
-        // context.pop();
+        context.pop();
         context.pop();
         CustomDialogs.success("Promotion created");
         refreshApp(reload: true);
         // adsBloc.verifyPayment(result.txRef!);
       },
 
+      paymentLoading: () {
+        CustomDialogs.showLoading(context);
+
+      },
       paymentFailed: (message) {
+        context.pop();
         CustomDialogs.error(message);
       },
       verifyPaymentLoading: () {

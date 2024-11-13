@@ -10,20 +10,20 @@ import 'package:talkam/features/ads/presentation/blocs/ads/ads_cubit.dart';
 import 'package:talkam/features/ads/presentation/blocs/ads/ads_cubit.dart';
 import 'package:talkam/features/ads/presentation/screens/empty_ad_page.dart';
 import 'package:talkam/features/ads/presentation/widgets/promotion_item.dart';
+import 'package:talkam/features/home/dormain/mixins/refresh_app_mixin.dart';
 import 'package:talkam/features/post/data/models/post_test_models.dart';
 
 class ClosedAdsScreen extends StatefulWidget {
   ClosedAdsScreen({super.key});
 
-
   @override
   State<ClosedAdsScreen> createState() => _ClosedAdsScreenState();
 }
 
-class _ClosedAdsScreenState extends State<ClosedAdsScreen> {
+class _ClosedAdsScreenState extends State<ClosedAdsScreen> with RefreshAppMixin {
   @override
   void initState() {
-    bloc.fetchPromotions(status: "Inactive");
+    refresh();
     super.initState();
   }
 
@@ -61,13 +61,14 @@ class _ClosedAdsScreenState extends State<ClosedAdsScreen> {
                     child: PromotionItem(
                       promotion: (promotion).data.data[index],
                       onAdCancelled: () {
-                        bloc.fetchPromotions(status: "Inactive");
+                        refresh();
                       },
                       onAdDeleted: () {
-                      }, onAdRestarted: () {
-                      bloc.fetchPromotions(status: "Inactive");
-
-                    },
+                        refresh();
+                      },
+                      onAdRestarted: () {
+                        refresh();
+                      },
                     ),
                   );
                 },
@@ -75,12 +76,17 @@ class _ClosedAdsScreenState extends State<ClosedAdsScreen> {
             },
             promotionsLoadFailed: (message) => AppErrorWidget(
               onTap: () {
-                bloc.fetchPromotions(status: "Inactive");
+                refresh();
               },
             ),
           );
         },
       ),
     );
+  }
+
+  void refresh() {
+    refreshApp(reload: false);
+    bloc.fetchPromotions(status: "Inactive");
   }
 }

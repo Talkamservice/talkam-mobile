@@ -70,6 +70,23 @@ class GroupOverViewSection extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(22), border: Border.all(color: Pallets.lightBlue), gradient: whiteBlueGradient),
                             child: const TextView(fontSize: 8, text: "Promote group"),
                           ),
+                        ),
+                      if (data.isPromoted)
+                        SizedBox(
+                          width: 40,
+                          height: 25,
+
+                          child: TextButton(
+
+                              style: TextButton.styleFrom(
+                                  padding: EdgeInsets.zero,
+                                  shape: StadiumBorder(), backgroundColor: Pallets.adIndicator, foregroundColor: Pallets.black),
+                              onPressed: () {},
+                              child: TextView(
+                                text: "Ad",
+                                fontWeight: FontWeight.w700,
+                                fontSize: 12,
+                              )),
                         )
                     ],
                   ),
