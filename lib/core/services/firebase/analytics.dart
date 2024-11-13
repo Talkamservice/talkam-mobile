@@ -32,10 +32,10 @@ class FirebaseAnalyticsService {
   Future logPurchase(AnalyticsEventItem item, List<String> items) async {
     await _analytics.logEvent(name: 'successful_purchase', parameters: {
       "items": items,
-      "item_id": item.itemId,
-      "item_category": item.itemCategory,
+      "item_id": item.itemId??"",
+      "item_category": item.itemCategory??"",
       "currency": 'NGN',
-      "price": item.price,
+      "price": item.price??"",
     });
   }
 
@@ -50,11 +50,11 @@ class FirebaseAnalyticsService {
     //   value: value,
     // );
     await _analytics.logEvent(name: 'Add_to_cart', parameters: {
-      "item_name": item.itemName,
-      "item_id": item.itemId,
-      "item_category": item.itemCategory,
+      "item_name": item.itemName??"",
+      "item_id": item.itemId??"",
+      "item_category": item.itemCategory??"",
       "currency": 'NGN',
-      "price": value,
+      "price": value??"",
     });
   }
 

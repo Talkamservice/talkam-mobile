@@ -206,6 +206,9 @@ class _$SearchStateCopyWithImpl<$Res, $Val extends SearchState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -222,6 +225,9 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -460,6 +466,9 @@ class __$$FetchRecentSearchesLoadingImplCopyWithImpl<$Res>
       _$FetchRecentSearchesLoadingImpl _value,
       $Res Function(_$FetchRecentSearchesLoadingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -698,6 +707,9 @@ class __$$SearchLoadingImplCopyWithImpl<$Res>
   __$$SearchLoadingImplCopyWithImpl(
       _$SearchLoadingImpl _value, $Res Function(_$SearchLoadingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -936,6 +948,9 @@ class __$$FetchTrendingSearchesLoadingImplCopyWithImpl<$Res>
       _$FetchTrendingSearchesLoadingImpl _value,
       $Res Function(_$FetchTrendingSearchesLoadingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -1175,6 +1190,9 @@ class __$$DeleteSearchLoadingImplCopyWithImpl<$Res>
   __$$DeleteSearchLoadingImplCopyWithImpl(_$DeleteSearchLoadingImpl _value,
       $Res Function(_$DeleteSearchLoadingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -1414,6 +1432,9 @@ class __$$FetchSearchSuggestionsLoadingImplCopyWithImpl<$Res>
       _$FetchSearchSuggestionsLoadingImpl _value,
       $Res Function(_$FetchSearchSuggestionsLoadingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -1658,6 +1679,8 @@ class __$$FetchRecentSearchesSuccessImplCopyWithImpl<$Res>
       $Res Function(_$FetchRecentSearchesSuccessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1697,7 +1720,9 @@ class _$FetchRecentSearchesSuccessImpl implements _FetchRecentSearchesSuccess {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FetchRecentSearchesSuccessImplCopyWith<_$FetchRecentSearchesSuccessImpl>
@@ -1906,7 +1931,10 @@ abstract class _FetchRecentSearchesSuccess implements SearchState {
       _$FetchRecentSearchesSuccessImpl;
 
   GetSearchResponse get response;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FetchRecentSearchesSuccessImplCopyWith<_$FetchRecentSearchesSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -1928,6 +1956,8 @@ class __$$SearchSuccessImplCopyWithImpl<$Res>
       _$SearchSuccessImpl _value, $Res Function(_$SearchSuccessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1967,7 +1997,9 @@ class _$SearchSuccessImpl implements _SearchSuccess {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SearchSuccessImplCopyWith<_$SearchSuccessImpl> get copyWith =>
@@ -2175,7 +2207,10 @@ abstract class _SearchSuccess implements SearchState {
       _$SearchSuccessImpl;
 
   GetSearchResponse get response;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SearchSuccessImplCopyWith<_$SearchSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2199,6 +2234,8 @@ class __$$FetchTrendingSearchesSuccessImplCopyWithImpl<$Res>
       $Res Function(_$FetchTrendingSearchesSuccessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2239,7 +2276,9 @@ class _$FetchTrendingSearchesSuccessImpl
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FetchTrendingSearchesSuccessImplCopyWith<
@@ -2449,7 +2488,10 @@ abstract class _FetchTrendingSearchesSuccess implements SearchState {
       final GetSearchResponse response) = _$FetchTrendingSearchesSuccessImpl;
 
   GetSearchResponse get response;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FetchTrendingSearchesSuccessImplCopyWith<
           _$FetchTrendingSearchesSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -2472,6 +2514,8 @@ class __$$DeleteSearchSuccessImplCopyWithImpl<$Res>
       $Res Function(_$DeleteSearchSuccessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2511,7 +2555,9 @@ class _$DeleteSearchSuccessImpl implements _DeleteSearchSuccess {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DeleteSearchSuccessImplCopyWith<_$DeleteSearchSuccessImpl> get copyWith =>
@@ -2720,7 +2766,10 @@ abstract class _DeleteSearchSuccess implements SearchState {
       _$DeleteSearchSuccessImpl;
 
   dynamic get response;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DeleteSearchSuccessImplCopyWith<_$DeleteSearchSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2744,6 +2793,8 @@ class __$$FetchSearchSuggestionsSuccessImplCopyWithImpl<$Res>
       $Res Function(_$FetchSearchSuggestionsSuccessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2784,7 +2835,9 @@ class _$FetchSearchSuggestionsSuccessImpl
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FetchSearchSuggestionsSuccessImplCopyWith<
@@ -2994,7 +3047,10 @@ abstract class _FetchSearchSuggestionsSuccess implements SearchState {
       final GetSearchResponse response) = _$FetchSearchSuggestionsSuccessImpl;
 
   GetSearchResponse get response;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FetchSearchSuggestionsSuccessImplCopyWith<
           _$FetchSearchSuggestionsSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -3019,6 +3075,8 @@ class __$$FetchRecentSearchesFailureImplCopyWithImpl<$Res>
       $Res Function(_$FetchRecentSearchesFailureImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3057,7 +3115,9 @@ class _$FetchRecentSearchesFailureImpl implements _FetchRecentSearchesFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FetchRecentSearchesFailureImplCopyWith<_$FetchRecentSearchesFailureImpl>
@@ -3266,7 +3326,10 @@ abstract class _FetchRecentSearchesFailure implements SearchState {
       _$FetchRecentSearchesFailureImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FetchRecentSearchesFailureImplCopyWith<_$FetchRecentSearchesFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -3288,6 +3351,8 @@ class __$$SearchFailureImplCopyWithImpl<$Res>
       _$SearchFailureImpl _value, $Res Function(_$SearchFailureImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3326,7 +3391,9 @@ class _$SearchFailureImpl implements _SearchFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SearchFailureImplCopyWith<_$SearchFailureImpl> get copyWith =>
@@ -3533,7 +3600,10 @@ abstract class _SearchFailure implements SearchState {
   const factory _SearchFailure(final String error) = _$SearchFailureImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SearchFailureImplCopyWith<_$SearchFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3557,6 +3627,8 @@ class __$$FetchTrendingSearchesFailureImplCopyWithImpl<$Res>
       $Res Function(_$FetchTrendingSearchesFailureImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3596,7 +3668,9 @@ class _$FetchTrendingSearchesFailureImpl
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FetchTrendingSearchesFailureImplCopyWith<
@@ -3806,7 +3880,10 @@ abstract class _FetchTrendingSearchesFailure implements SearchState {
       _$FetchTrendingSearchesFailureImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FetchTrendingSearchesFailureImplCopyWith<
           _$FetchTrendingSearchesFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -3829,6 +3906,8 @@ class __$$DeleteSearchFailureImplCopyWithImpl<$Res>
       $Res Function(_$DeleteSearchFailureImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3867,7 +3946,9 @@ class _$DeleteSearchFailureImpl implements _DeleteSearchFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DeleteSearchFailureImplCopyWith<_$DeleteSearchFailureImpl> get copyWith =>
@@ -4076,7 +4157,10 @@ abstract class _DeleteSearchFailure implements SearchState {
       _$DeleteSearchFailureImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DeleteSearchFailureImplCopyWith<_$DeleteSearchFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -4100,6 +4184,8 @@ class __$$FetchSearchSuggestionsFailureImplCopyWithImpl<$Res>
       $Res Function(_$FetchSearchSuggestionsFailureImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4139,7 +4225,9 @@ class _$FetchSearchSuggestionsFailureImpl
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FetchSearchSuggestionsFailureImplCopyWith<
@@ -4349,7 +4437,10 @@ abstract class _FetchSearchSuggestionsFailure implements SearchState {
       _$FetchSearchSuggestionsFailureImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FetchSearchSuggestionsFailureImplCopyWith<
           _$FetchSearchSuggestionsFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -4369,6 +4460,9 @@ class __$$searchUserLoadingImplCopyWithImpl<$Res>
   __$$searchUserLoadingImplCopyWithImpl(_$searchUserLoadingImpl _value,
       $Res Function(_$searchUserLoadingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -4608,6 +4702,8 @@ class __$$searchUserSuccessImplCopyWithImpl<$Res>
       $Res Function(_$searchUserSuccessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4655,7 +4751,9 @@ class _$searchUserSuccessImpl implements _searchUserSuccess {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_searchResults));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$searchUserSuccessImplCopyWith<_$searchUserSuccessImpl> get copyWith =>
@@ -4865,7 +4963,10 @@ abstract class _searchUserSuccess implements SearchState {
       _$searchUserSuccessImpl;
 
   List<SearchedUser> get searchResults;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$searchUserSuccessImplCopyWith<_$searchUserSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -4887,6 +4988,8 @@ class __$$searchUserErrorImplCopyWithImpl<$Res>
       _$searchUserErrorImpl _value, $Res Function(_$searchUserErrorImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4926,7 +5029,9 @@ class _$searchUserErrorImpl implements _searchUserError {
   @override
   int get hashCode => Object.hash(runtimeType, errorMessage);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$searchUserErrorImplCopyWith<_$searchUserErrorImpl> get copyWith =>
@@ -5135,7 +5240,10 @@ abstract class _searchUserError implements SearchState {
       _$searchUserErrorImpl;
 
   String get errorMessage;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$searchUserErrorImplCopyWith<_$searchUserErrorImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

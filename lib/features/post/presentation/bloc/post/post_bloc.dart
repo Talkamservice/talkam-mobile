@@ -10,6 +10,7 @@ import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/data/models/post_details_response.dart';
 import 'package:talkam/features/post/data/models/post_filter_model.dart';
 import 'package:talkam/features/post/data/models/save_comment_payload.dart';
+import 'package:talkam/features/post/data/models/trends_response.dart';
 import 'package:talkam/features/post/dormain/repository/post_repository.dart';
 
 part 'post_event.dart';
@@ -24,6 +25,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
   List<TalkamGuidelineModel> talkamRules = [];
   List<PostCategory> categories = [];
   List<PostCategory> subcategories = [];
+  List<Trend> trends = [];
 
   PostBloc(this._postRepository) : super(const PostState.initial()) {
 
@@ -46,6 +48,7 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         saveAComment: (e) async => await _mapSaveACommentEventToState(e.payload, emit),
         deleteComment: (e) async => await _mapDeleteCommentEventToState(e.commentId, emit),
         commentReaction: (e) async => await _mapCommentReactionEventToState(e.commentId, e.action, emit),
+        getTrends: (e) async=>await _mapGetTrendsEventToState(emit, e),
       );
     });
   }
@@ -223,6 +226,19 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       emit(PostState.getGuideLinesSuccess(response));
     } catch (error) {
       emit(PostState.getGuideLinesFailed(error.toString()));
+    }
+  }
+
+  _mapGetTrendsEventToState(Emitter<PostState> emit, _GetTrends e) async {
+    if (trends.isEmpty) {
+      emit(const PostState.getTrendsLoading());
+    }
+    try {
+      var response = await _postRepository.getTrends();
+      trends = response.data;
+      emit(PostState.getTrendsSuccess());
+    } catch (error) {
+      emit(PostState.getTrendsFailure(error.toString()));
     }
   }
 }

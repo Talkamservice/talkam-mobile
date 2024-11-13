@@ -5,8 +5,11 @@
 import 'dart:convert';
 
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/features/ads/data/models/promotion_data.dart';
+import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/post/data/models/create_post_payload.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
+import 'package:talkam/features/post/data/models/post_test_models.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 
@@ -97,23 +100,21 @@ class TalkamPost {
   int canComment;
   int isAnonymous;
   List<String> tags;
-  int viewsCount;
-  int commentsCount;
-  int likesCount;
+  dynamic viewsCount;
+  dynamic commentsCount;
+  dynamic likesCount;
   String status;
   dynamic publishAt;
   List<Attachment?> attachments;
   List<TalkamPoll> polls;
   PostReaction? reaction;
+  bool? promotion;
   DateTime createdAt;
   DateTime updatedAt;
 
   bool get isSchedulePost => publishAt != null;
-  bool get postIsFromLoggedInUser =>
-      user.id == injector
-          .get<ProfileBloc>()
-          .appUser
-          ?.id;
+
+  bool get postIsFromLoggedInUser => user.id == injector.get<ProfileBloc>().appUser?.id;
 
   TalkamPost({
     required this.id,
@@ -136,6 +137,7 @@ class TalkamPost {
     required this.polls,
     required this.group,
     required this.reaction,
+    required this.promotion,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -161,6 +163,7 @@ class TalkamPost {
     List<Attachment?>? attachments,
     List<TalkamPoll>? polls,
     PostReaction? reaction,
+    bool? promotion,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) =>
@@ -184,6 +187,7 @@ class TalkamPost {
         attachments: attachments ?? this.attachments,
         polls: polls ?? this.polls,
         reaction: reaction ?? this.reaction,
+        promotion: promotion ?? this.promotion,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
         group: group ?? this.group,
@@ -196,22 +200,27 @@ class TalkamPost {
         type: json["type"],
         uuid: json["uuid"],
         isReported: json["is_reported"],
-        category: PostCategory.fromJson(json["category"]),
+        category: json["category"] == null ? TestFactories.createPostCategory() : PostCategory.fromJson(json["category"]),
         group: json["group"] == null ? null : TalkamGroup.fromJson(json["group"]),
         user: json["user"] == null ? PostCreator.anonymous() : PostCreator.fromJson(json["user"]),
         canComment: json["can_comment"],
         isAnonymous: json["is_anonymous"],
-        tags: json["tags"] == null ? [] : List<String>.from(json["tags"]!.map((x) => x)),
+        tags: json["tags"] is String
+            ? List<String>.from(jsonDecode(json["tags"])!.map((x) => x))
+            : json["tags"] == null
+                ? []
+                : List<String>.from(json["tags"]!.map((x) => x)),
         viewsCount: json["views_count"],
         commentsCount: json["comments_count"],
         likesCount: json["likes_count"],
         status: json["status"],
         publishAt: json["publish_at"] != null ? DateTime.parse(json["publish_at"]) : null,
-        attachments: List<Attachment>.from(json["attachments"].map((x) => Attachment.fromJson(x))),
-        polls: List<TalkamPoll>.from(json["polls"].map((x) => TalkamPoll.fromJson(x))),
+        attachments: json["attachments"] == null ? [] : List<Attachment>.from(json["attachments"].map((x) => Attachment.fromJson(x))),
+        polls: json["polls"] == null ? [] : List<TalkamPoll>.from(json["polls"].map((x) => TalkamPoll.fromJson(x))),
         reaction: json["reaction"] == null ? null : PostReaction.fromJson(json["reaction"]),
-        createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        promotion: json["promotion"] == null ? null : json["promotion"],
+        createdAt: json["created_at"] == null ? DateTime.now() : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null ? DateTime.now() : DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -234,9 +243,12 @@ class TalkamPost {
         "attachments": List<dynamic>.from(attachments.map((x) => x)),
         "polls": List<dynamic>.from(polls.map((x) => x.toJson())),
         "reaction": reaction?.toJson(),
+        "promotion": promotion,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
       };
+
+  bool get isPromoted => promotion ?? false;
 }
 
 class TalkamPoll {
@@ -374,6 +386,7 @@ class PostCreator {
   String name;
   String? username;
   String email;
+  ActiveSubscription? activeSubscription;
 
   PostCreator({
     required this.id,
@@ -381,6 +394,8 @@ class PostCreator {
     required this.name,
     required this.username,
     required this.email,
+    this.activeSubscription,
+
   });
 
   PostCreator copyWith({
@@ -389,6 +404,7 @@ class PostCreator {
     String? name,
     String? username,
     String? email,
+    ActiveSubscription? activeSubscription
   }) =>
       PostCreator(
         id: id ?? this.id,
@@ -396,6 +412,8 @@ class PostCreator {
         name: name ?? this.name,
         username: username ?? this.username,
         email: email ?? this.email,
+        activeSubscription: activeSubscription ?? this.activeSubscription,
+
       );
 
   factory PostCreator.fromJson(Map<String, dynamic> json) => PostCreator(
@@ -404,6 +422,8 @@ class PostCreator {
         name: json["name"],
         username: json["username"],
         email: json["email"],
+    activeSubscription: json["active_subscription"] == null ? null : ActiveSubscription?.fromJson(json["active_subscription"]),
+
       );
 
   Map<String, dynamic> toJson() => {
@@ -412,7 +432,11 @@ class PostCreator {
         "name": name,
         "username": username,
         "email": email,
+    "active_subscription": activeSubscription?.toJson(),
+
       };
+
+  bool get isSubscribed =>activeSubscription!=null;
 
   String get usersName => name.isNotEmpty ? name : (username ?? email);
 

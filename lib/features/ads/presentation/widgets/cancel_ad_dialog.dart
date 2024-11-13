@@ -8,7 +8,10 @@ import 'package:talkam/core/mixins/returning_user_mixin.dart';
 import 'package:talkam/core/theme/pallets.dart';
 
 class CancelAdDialog extends StatelessWidget {
-  const CancelAdDialog({super.key, required this.onCancel});
+  const CancelAdDialog({super.key, required this.onCancel, this.tittle, this.message});
+
+  final String? tittle;
+  final String? message;
 
   final VoidCallback onCancel;
 
@@ -22,15 +25,17 @@ class CancelAdDialog extends StatelessWidget {
         decoration: BoxDecoration(color: Pallets.white, borderRadius: BorderRadius.circular(8)),
         child: Column(
           children: [
-            const TextView(
-              text: "Close a running Ad",
+            TextView(
+              text: tittle ?? "Close a running Ad",
               fontWeight: FontWeight.w700,
               fontSize: 20,
               align: TextAlign.center,
             ),
             6.verticalSpace,
-            const TextView(
-              text: "You are about to close a running ad, and all information related to the ad will be permanently lost. Please note that this action is irreversible, and no refunds will be provided. Are you sure you want to proceed?",
+            TextView(
+              text:
+              message ?? "You are about to close a running ad, and all information related to the ad will be permanently lost. Please note that this action "
+                  "is irreversible, and no refunds will be provided. Are you sure you want to proceed?",
               fontSize: 12,
               color: Pallets.grey,
               align: TextAlign.center,
@@ -42,6 +47,7 @@ class CancelAdDialog extends StatelessWidget {
                   flex: 2,
                   child: CustomOutlinedButton(
                     radius: 30,
+                    padding: EdgeInsets.all(12),
                     child: const TextView(text: "Cancel"),
                     onPressed: () {
                       context.pop();
@@ -53,6 +59,7 @@ class CancelAdDialog extends StatelessWidget {
                   flex: 2,
                   child: CustomButton(
                     bgColor: Pallets.tabBarBlue,
+                    padding: EdgeInsets.all(12),
 
                     // padding: const EdgeInsets.symmetric(vertical: 5),
                     borderRadius: BorderRadius.circular(30),

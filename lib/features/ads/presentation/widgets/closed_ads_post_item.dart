@@ -144,12 +144,12 @@ class ClosedAdsPostItem extends StatelessWidget {
               ),
               TextButton(
                   onPressed: (){
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context)=> ViewAnalyticsPage(post: post,)
-                        )
-                    );
+                    // Navigator.push(
+                    //     context,
+                    //     MaterialPageRoute(
+                    //         builder: (context)=> ViewAnalyticsPage(promotion: post,)
+                    //     )
+                    // );
                   },
                   child: const Row(
                     children: [

@@ -8,10 +8,10 @@ import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/data/models/post_details_response.dart';
 import 'package:talkam/features/post/data/models/post_filter_model.dart';
 import 'package:talkam/features/post/data/models/save_comment_payload.dart';
+import 'package:talkam/features/post/data/models/trends_response.dart';
 
 abstract class PostRepository {
-
-  Future<GetCategoriesResponse> getCategories({String? categoryId,bool? mergeGroups});
+  Future<GetCategoriesResponse> getCategories({String? categoryId, bool? mergeGroups});
 
   Future<GetPostsResponse> getPosts(PostFilterModel model);
 
@@ -34,6 +34,8 @@ abstract class PostRepository {
   Future<GetCommentsResponse> getComments(String postId);
 
   Future<dynamic> getAComment(String commentId);
+
+  Future<TrendsResponse> getTrends();
 
   Future<GetCategoriesResponse> getSubCategories();
 

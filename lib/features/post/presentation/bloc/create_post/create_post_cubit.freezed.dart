@@ -99,6 +99,9 @@ class _$CreatePostStateCopyWithImpl<$Res, $Val extends CreatePostState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of CreatePostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -115,6 +118,9 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of CreatePostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -235,6 +241,9 @@ class __$$ValidateFormsStateImplCopyWithImpl<$Res>
   __$$ValidateFormsStateImplCopyWithImpl(_$ValidateFormsStateImpl _value,
       $Res Function(_$ValidateFormsStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of CreatePostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -357,6 +366,9 @@ class __$$ValidateFormsSuccessStateImplCopyWithImpl<$Res>
       _$ValidateFormsSuccessStateImpl _value,
       $Res Function(_$ValidateFormsSuccessStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of CreatePostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -479,6 +491,9 @@ class __$$CreatePostLoadingStateImplCopyWithImpl<$Res>
       _$CreatePostLoadingStateImpl _value,
       $Res Function(_$CreatePostLoadingStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of CreatePostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -604,6 +619,8 @@ class __$$CreatePostSuccessStateImplCopyWithImpl<$Res>
       $Res Function(_$CreatePostSuccessStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CreatePostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -631,7 +648,9 @@ class _$CreatePostSuccessStateImpl implements CreatePostSuccessState {
     return 'CreatePostState.createPostSuccess(response: $response)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CreatePostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CreatePostSuccessStateImplCopyWith<_$CreatePostSuccessStateImpl>
@@ -733,7 +752,10 @@ abstract class CreatePostSuccessState implements CreatePostState {
       _$CreatePostSuccessStateImpl;
 
   CreatePostResponse get response;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CreatePostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CreatePostSuccessStateImplCopyWith<_$CreatePostSuccessStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -757,6 +779,8 @@ class __$$CreatePostFailureStateImplCopyWithImpl<$Res>
       $Res Function(_$CreatePostFailureStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CreatePostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -784,7 +808,9 @@ class _$CreatePostFailureStateImpl implements CreatePostFailureState {
     return 'CreatePostState.createPostFailure(error: $error)';
   }
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CreatePostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CreatePostFailureStateImplCopyWith<_$CreatePostFailureStateImpl>
@@ -886,7 +912,10 @@ abstract class CreatePostFailureState implements CreatePostState {
       _$CreatePostFailureStateImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CreatePostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CreatePostFailureStateImplCopyWith<_$CreatePostFailureStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

@@ -44,7 +44,7 @@ class CustomEmojiPicker extends StatelessWidget {
         emojiViewConfig: EmojiViewConfig(
           backgroundColor: backgroundColor ?? Colors.white,
         ),
-        swapCategoryAndBottomBar: swapCategoryAndBottomBar ?? true,
+        // swapCategoryAndBottomBar: swapCategoryAndBottomBar ?? true,
         skinToneConfig: const SkinToneConfig(),
         categoryViewConfig: CategoryViewConfig(
           backgroundColor: backgroundColor ?? Colors.white,

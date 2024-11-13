@@ -36,7 +36,7 @@ class TestFactories {
       reaction: createPostReaction(),
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
-      group: null,
+      group: null, promotion: null,
     );
   }
 

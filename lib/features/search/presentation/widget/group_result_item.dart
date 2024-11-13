@@ -80,6 +80,7 @@ class GroupResultItem extends StatelessWidget {
             child: Container(height: 1, color: Pallets.borderGrey),
           ),
         ],
+
       ),
     );
   }

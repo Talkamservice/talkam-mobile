@@ -6,9 +6,10 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/core/theme/pallets.dart';
 
 import 'package:talkam/core/utils/extensions/context_extension.dart';
-import 'package:talkam/features/ads/presentation/screens/ads_page.dart';
+import 'package:talkam/features/ads/presentation/screens/empty_ad_page.dart';
 import 'package:talkam/features/ads/presentation/screens/ads_review_screen.dart';
 
 import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
@@ -50,17 +51,15 @@ class MyProfileSheet extends StatelessWidget with RefreshPostsMixin {
             },
           ),
           _PostAction(
-            imagePath: Assets.images.svgs.announcement,
+            imagePath: Assets.images.svgs.infoCircle,
+
+            iconColor: Pallets.black,
             tittle: "Ads",
             onTap: () {
               context.pop();
-              // context.pushNamed(PageUrl.adsPage);
+              context.pushNamed(PageUrl.adsPage);
 
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const AdsPage(),
-                  ));
+
 
 
             },
@@ -72,11 +71,12 @@ class MyProfileSheet extends StatelessWidget with RefreshPostsMixin {
 }
 
 class _PostAction extends StatelessWidget {
-  const _PostAction({super.key, required this.imagePath, required this.tittle, required this.onTap});
+  const _PostAction({super.key, required this.imagePath, required this.tittle, required this.onTap, this.iconColor});
 
   final String imagePath;
   final String tittle;
   final VoidCallback onTap;
+  final Color? iconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +88,7 @@ class _PostAction extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 10),
             child: Row(
               children: [
-                ImageWidget(imageUrl: imagePath),
+                ImageWidget(imageUrl: imagePath,color: iconColor,),
                 18.horizontalSpace,
                 TextView(
                   text: tittle,

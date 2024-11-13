@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:talkam/core/_core.dart';
+import 'package:talkam/features/ads/data/models/create_promotion_payload.dart';
+import 'package:talkam/features/ads/data/models/initiate_payment_response.dart';
 import 'package:talkam/features/ads/presentation/widgets/payment_method_item.dart';
 import 'package:talkam/features/ads/presentation/widgets/preview_promotion_item.dart';
 
 class PreviewPromotionWidget extends StatelessWidget {
-  const PreviewPromotionWidget({super.key});
+  const PreviewPromotionWidget({super.key, required this.payload, required this.paymentInfo});
+
+  final CreatePromotionPayload payload;
+  final InitiatePaymentResponse paymentInfo;
+
 
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Padding(
+         Padding(
           padding: EdgeInsets.only(left: 16, right: 10),
-          child: PreviewPromotionItem(title: "Total", content: "\$250"),
+          child: PreviewPromotionItem(title: "Total", content: "\$${paymentInfo.data.amount}"),
         ),
         15.verticalSpace,
         const Divider(color: Colors.grey),
@@ -23,14 +30,17 @@ class PreviewPromotionWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text("Your reach", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),),
+              const Text(
+                "Your reach",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+              ),
               8.verticalSpace,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const PreviewPromotionItem(title: "Location", content: "Nigeria"),
-                  const PreviewPromotionItem(title: "Age range", content: "20-60yrs"),
-                  const PreviewPromotionItem(title: "Gender", content: "All gender"),
+                   PreviewPromotionItem(title: "Location", content: payload.country!.name),
+                   PreviewPromotionItem(title: "Age range", content: "${payload.minAge}-${payload.maxAge}yrs"),
+                   PreviewPromotionItem(title: "Gender", content: "${payload.gender}"),
                   10.horizontalSpace
                 ],
               ),
@@ -45,14 +55,17 @@ class PreviewPromotionWidget extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              const Text("Budget & Duration", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),),
+              const Text(
+                "Budget & Duration",
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 12),
+              ),
               8.verticalSpace,
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const PreviewPromotionItem(title: "Daily budget", content: "\$16"),
+                   PreviewPromotionItem(title: "Daily budget", content: "\$${payload.dailyBudget}"),
                   100.horizontalSpace,
-                  const PreviewPromotionItem(title: "Duration", content: "15 days"),
+                   PreviewPromotionItem(title: "Duration", content: "${payload.duration} days"),
                   1.horizontalSpace,
                 ],
               ),

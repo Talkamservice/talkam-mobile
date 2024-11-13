@@ -92,6 +92,9 @@ class _$RecentPostStateCopyWithImpl<$Res, $Val extends RecentPostState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of RecentPostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -108,6 +111,9 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of RecentPostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -231,6 +237,9 @@ class __$$GetRecentPostsLoadingImplCopyWithImpl<$Res>
   __$$GetRecentPostsLoadingImplCopyWithImpl(_$GetRecentPostsLoadingImpl _value,
       $Res Function(_$GetRecentPostsLoadingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of RecentPostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -358,6 +367,8 @@ class __$$GetRecentPostsSuccessImplCopyWithImpl<$Res>
       $Res Function(_$GetRecentPostsSuccessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of RecentPostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -397,7 +408,9 @@ class _$GetRecentPostsSuccessImpl implements _GetRecentPostsSuccess {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of RecentPostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetRecentPostsSuccessImplCopyWith<_$GetRecentPostsSuccessImpl>
@@ -492,7 +505,10 @@ abstract class _GetRecentPostsSuccess implements RecentPostState {
       _$GetRecentPostsSuccessImpl;
 
   GetPostsResponse get response;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of RecentPostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetRecentPostsSuccessImplCopyWith<_$GetRecentPostsSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -514,6 +530,8 @@ class __$$GetRecentPostsFailedImplCopyWithImpl<$Res>
       $Res Function(_$GetRecentPostsFailedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of RecentPostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -552,7 +570,9 @@ class _$GetRecentPostsFailedImpl implements _GetRecentPostsFailed {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of RecentPostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetRecentPostsFailedImplCopyWith<_$GetRecentPostsFailedImpl>
@@ -648,7 +668,10 @@ abstract class _GetRecentPostsFailed implements RecentPostState {
       _$GetRecentPostsFailedImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of RecentPostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetRecentPostsFailedImplCopyWith<_$GetRecentPostsFailedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -667,6 +690,9 @@ class __$$LoadingMoreImplCopyWithImpl<$Res>
   __$$LoadingMoreImplCopyWithImpl(
       _$LoadingMoreImpl _value, $Res Function(_$LoadingMoreImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of RecentPostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc

@@ -6,7 +6,9 @@ import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/core/utils/extensions/date_extensions.dart';
 import 'package:talkam/core/utils/extensions/time_of_day_extension.dart';
+import 'package:talkam/features/profile/data/models/update_profile_payload.dart';
 
 class SchedulePostForm extends StatefulWidget {
   const SchedulePostForm({super.key, required this.schedulePost, required this.onChanged, required this.onScheduleDateSelected});
@@ -79,7 +81,7 @@ class _SchedulePostFormState extends State<SchedulePostForm> {
     final selectedDate = await selectDate(context);
     if (selectedDate == null) return null;
 
-    final selectedTime = await selectTime(context);
+    final selectedTime = await selectTime(context, selectedDate);
     if (selectedTime == null) return null;
 
     return DateTime(
@@ -91,20 +93,17 @@ class _SchedulePostFormState extends State<SchedulePostForm> {
     );
   }
 
-  Future<TimeOfDay?> selectTime(BuildContext context) async {
+  Future<TimeOfDay?> selectTime(BuildContext context, DateTime selectedDate) async {
     final now = TimeOfDay.now();
     final pickedTime = await showTimePicker(
       context: context,
       initialTime: now,
     );
-    if (pickedTime != null && pickedTime.isBefore(TimeOfDay.now())) {
-      
-      
-      
+
+    if (pickedTime != null && selectedDate.isToday && pickedTime.isBefore(TimeOfDay.now())) {
       CustomDialogs.error("Please select a future time.");
-      
+
       return null;
-      
     }
     return pickedTime;
   }

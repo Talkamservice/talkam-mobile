@@ -199,7 +199,7 @@ class MyAppState extends State<MyApp> {
                           emojiViewConfig: const EmojiViewConfig(
                             backgroundColor: Colors.white,
                           ),
-                          swapCategoryAndBottomBar: true,
+                          // swapCategoryAndBottomBar: true,
                           skinToneConfig: const SkinToneConfig(),
                           categoryViewConfig: CategoryViewConfig(
                             backgroundColor: Colors.white,

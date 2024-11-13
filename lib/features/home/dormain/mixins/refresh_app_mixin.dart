@@ -5,6 +5,8 @@ import 'package:talkam/features/post/presentation/bloc/featured_posts/featured_p
 import 'package:talkam/features/post/presentation/bloc/recent_post/recent_post_cubit.dart';
 import 'package:talkam/features/post/presentation/bloc/trending_post/trending_post_cubit.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_posts_tab_cubit/profile_posts_tab_cubit.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_screen_cubit/profile_screen_cubit.dart';
 
 mixin RefreshAppMixin {
   void refreshApp({bool? reload}) {
@@ -13,5 +15,7 @@ mixin RefreshAppMixin {
     injector.get<TrendingPostCubit>().getTrendingPosts(PostFilterModel.trendingPost(), reload: reload);
     injector.get<ProfileBloc>().add(const GetRemoteUser());
     injector.get<NotificationsBloc>().add(const GetAnnouncementsEvent());
+    injector.get<ProfileScreenCubit>().fetchUserProfile();
+    injector.get<ProfilePostsTabCubit>().fetchUserPosts(reload: reload);
   }
 }

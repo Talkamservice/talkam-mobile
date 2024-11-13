@@ -88,13 +88,14 @@ class ImageManager {
   Future<CroppedFile?> _cropImage(File imageFile) async {
     return await ImageCropper().cropImage(
       sourcePath: imageFile.path,
-      aspectRatioPresets: [
-        CropAspectRatioPreset.square,
-        CropAspectRatioPreset.ratio3x2,
-        CropAspectRatioPreset.original,
-        CropAspectRatioPreset.ratio4x3,
-        CropAspectRatioPreset.ratio16x9
-      ],
+      // aspectRatio: CropAspectRatio(ratioX: ratioX, ratioY: ratioY),,
+      // aspectRatioPresets: [
+      //   CropAspectRatioPreset.square,
+      //   CropAspectRatioPreset.ratio3x2,
+      //   CropAspectRatioPreset.original,
+      //   CropAspectRatioPreset.ratio4x3,
+      //   CropAspectRatioPreset.ratio16x9
+      // ],
       uiSettings: [
         AndroidUiSettings(
           toolbarTitle: 'Triberly',

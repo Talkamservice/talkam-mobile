@@ -17,7 +17,6 @@ import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 import 'package:talkam/features/post/presentation/widgets/confirm_report_dialog.dart';
 import 'package:talkam/features/post/presentation/widgets/report_sucess_dialog.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
-import 'package:talkam/features/profile/presentation/bloc/profile_posts_tab_cubit/profile_posts_tab_cubit.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 

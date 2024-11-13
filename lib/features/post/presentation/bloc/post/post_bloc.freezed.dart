@@ -37,6 +37,7 @@ mixin _$PostEvent {
     required TResult Function(String commentId) deleteComment,
     required TResult Function(String commentId, String action) commentReaction,
     required TResult Function() getGuidelines,
+    required TResult Function() getTrends,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -59,6 +60,7 @@ mixin _$PostEvent {
     TResult? Function(String commentId)? deleteComment,
     TResult? Function(String commentId, String action)? commentReaction,
     TResult? Function()? getGuidelines,
+    TResult? Function()? getTrends,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -81,6 +83,7 @@ mixin _$PostEvent {
     TResult Function(String commentId)? deleteComment,
     TResult Function(String commentId, String action)? commentReaction,
     TResult Function()? getGuidelines,
+    TResult Function()? getTrends,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -102,6 +105,7 @@ mixin _$PostEvent {
     required TResult Function(_DeleteCommentEvent value) deleteComment,
     required TResult Function(_CommentReactionEvent value) commentReaction,
     required TResult Function(_GetGuidelines value) getGuidelines,
+    required TResult Function(_GetTrends value) getTrends,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -122,6 +126,7 @@ mixin _$PostEvent {
     TResult? Function(_DeleteCommentEvent value)? deleteComment,
     TResult? Function(_CommentReactionEvent value)? commentReaction,
     TResult? Function(_GetGuidelines value)? getGuidelines,
+    TResult? Function(_GetTrends value)? getTrends,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -142,6 +147,7 @@ mixin _$PostEvent {
     TResult Function(_DeleteCommentEvent value)? deleteComment,
     TResult Function(_CommentReactionEvent value)? commentReaction,
     TResult Function(_GetGuidelines value)? getGuidelines,
+    TResult Function(_GetTrends value)? getTrends,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -162,6 +168,9 @@ class _$PostEventCopyWithImpl<$Res, $Val extends PostEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -181,6 +190,8 @@ class __$$GetCategoriesEventImplCopyWithImpl<$Res>
       $Res Function(_$GetCategoriesEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -239,7 +250,9 @@ class _$GetCategoriesEventImpl implements _GetCategoriesEvent {
   int get hashCode =>
       Object.hash(runtimeType, categoryId, refresh, mergeGroups);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetCategoriesEventImplCopyWith<_$GetCategoriesEventImpl> get copyWith =>
@@ -268,6 +281,7 @@ class _$GetCategoriesEventImpl implements _GetCategoriesEvent {
     required TResult Function(String commentId) deleteComment,
     required TResult Function(String commentId, String action) commentReaction,
     required TResult Function() getGuidelines,
+    required TResult Function() getTrends,
   }) {
     return getCategories(categoryId, refresh, mergeGroups);
   }
@@ -293,6 +307,7 @@ class _$GetCategoriesEventImpl implements _GetCategoriesEvent {
     TResult? Function(String commentId)? deleteComment,
     TResult? Function(String commentId, String action)? commentReaction,
     TResult? Function()? getGuidelines,
+    TResult? Function()? getTrends,
   }) {
     return getCategories?.call(categoryId, refresh, mergeGroups);
   }
@@ -318,6 +333,7 @@ class _$GetCategoriesEventImpl implements _GetCategoriesEvent {
     TResult Function(String commentId)? deleteComment,
     TResult Function(String commentId, String action)? commentReaction,
     TResult Function()? getGuidelines,
+    TResult Function()? getTrends,
     required TResult orElse(),
   }) {
     if (getCategories != null) {
@@ -345,6 +361,7 @@ class _$GetCategoriesEventImpl implements _GetCategoriesEvent {
     required TResult Function(_DeleteCommentEvent value) deleteComment,
     required TResult Function(_CommentReactionEvent value) commentReaction,
     required TResult Function(_GetGuidelines value) getGuidelines,
+    required TResult Function(_GetTrends value) getTrends,
   }) {
     return getCategories(this);
   }
@@ -368,6 +385,7 @@ class _$GetCategoriesEventImpl implements _GetCategoriesEvent {
     TResult? Function(_DeleteCommentEvent value)? deleteComment,
     TResult? Function(_CommentReactionEvent value)? commentReaction,
     TResult? Function(_GetGuidelines value)? getGuidelines,
+    TResult? Function(_GetTrends value)? getTrends,
   }) {
     return getCategories?.call(this);
   }
@@ -391,6 +409,7 @@ class _$GetCategoriesEventImpl implements _GetCategoriesEvent {
     TResult Function(_DeleteCommentEvent value)? deleteComment,
     TResult Function(_CommentReactionEvent value)? commentReaction,
     TResult Function(_GetGuidelines value)? getGuidelines,
+    TResult Function(_GetTrends value)? getTrends,
     required TResult orElse(),
   }) {
     if (getCategories != null) {
@@ -409,7 +428,10 @@ abstract class _GetCategoriesEvent implements PostEvent {
   String? get categoryId;
   bool? get refresh;
   bool? get mergeGroups;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetCategoriesEventImplCopyWith<_$GetCategoriesEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -429,6 +451,9 @@ class __$$GetSubCategoriesEventImplCopyWithImpl<$Res>
   __$$GetSubCategoriesEventImplCopyWithImpl(_$GetSubCategoriesEventImpl _value,
       $Res Function(_$GetSubCategoriesEventImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -473,6 +498,7 @@ class _$GetSubCategoriesEventImpl implements _GetSubCategoriesEvent {
     required TResult Function(String commentId) deleteComment,
     required TResult Function(String commentId, String action) commentReaction,
     required TResult Function() getGuidelines,
+    required TResult Function() getTrends,
   }) {
     return getSubCategories();
   }
@@ -498,6 +524,7 @@ class _$GetSubCategoriesEventImpl implements _GetSubCategoriesEvent {
     TResult? Function(String commentId)? deleteComment,
     TResult? Function(String commentId, String action)? commentReaction,
     TResult? Function()? getGuidelines,
+    TResult? Function()? getTrends,
   }) {
     return getSubCategories?.call();
   }
@@ -523,6 +550,7 @@ class _$GetSubCategoriesEventImpl implements _GetSubCategoriesEvent {
     TResult Function(String commentId)? deleteComment,
     TResult Function(String commentId, String action)? commentReaction,
     TResult Function()? getGuidelines,
+    TResult Function()? getTrends,
     required TResult orElse(),
   }) {
     if (getSubCategories != null) {
@@ -550,6 +578,7 @@ class _$GetSubCategoriesEventImpl implements _GetSubCategoriesEvent {
     required TResult Function(_DeleteCommentEvent value) deleteComment,
     required TResult Function(_CommentReactionEvent value) commentReaction,
     required TResult Function(_GetGuidelines value) getGuidelines,
+    required TResult Function(_GetTrends value) getTrends,
   }) {
     return getSubCategories(this);
   }
@@ -573,6 +602,7 @@ class _$GetSubCategoriesEventImpl implements _GetSubCategoriesEvent {
     TResult? Function(_DeleteCommentEvent value)? deleteComment,
     TResult? Function(_CommentReactionEvent value)? commentReaction,
     TResult? Function(_GetGuidelines value)? getGuidelines,
+    TResult? Function(_GetTrends value)? getTrends,
   }) {
     return getSubCategories?.call(this);
   }
@@ -596,6 +626,7 @@ class _$GetSubCategoriesEventImpl implements _GetSubCategoriesEvent {
     TResult Function(_DeleteCommentEvent value)? deleteComment,
     TResult Function(_CommentReactionEvent value)? commentReaction,
     TResult Function(_GetGuidelines value)? getGuidelines,
+    TResult Function(_GetTrends value)? getTrends,
     required TResult orElse(),
   }) {
     if (getSubCategories != null) {
@@ -623,6 +654,9 @@ class __$$GetPostsEventImplCopyWithImpl<$Res>
   __$$GetPostsEventImplCopyWithImpl(
       _$GetPostsEventImpl _value, $Res Function(_$GetPostsEventImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -666,6 +700,7 @@ class _$GetPostsEventImpl implements _GetPostsEvent {
     required TResult Function(String commentId) deleteComment,
     required TResult Function(String commentId, String action) commentReaction,
     required TResult Function() getGuidelines,
+    required TResult Function() getTrends,
   }) {
     return getPosts();
   }
@@ -691,6 +726,7 @@ class _$GetPostsEventImpl implements _GetPostsEvent {
     TResult? Function(String commentId)? deleteComment,
     TResult? Function(String commentId, String action)? commentReaction,
     TResult? Function()? getGuidelines,
+    TResult? Function()? getTrends,
   }) {
     return getPosts?.call();
   }
@@ -716,6 +752,7 @@ class _$GetPostsEventImpl implements _GetPostsEvent {
     TResult Function(String commentId)? deleteComment,
     TResult Function(String commentId, String action)? commentReaction,
     TResult Function()? getGuidelines,
+    TResult Function()? getTrends,
     required TResult orElse(),
   }) {
     if (getPosts != null) {
@@ -743,6 +780,7 @@ class _$GetPostsEventImpl implements _GetPostsEvent {
     required TResult Function(_DeleteCommentEvent value) deleteComment,
     required TResult Function(_CommentReactionEvent value) commentReaction,
     required TResult Function(_GetGuidelines value) getGuidelines,
+    required TResult Function(_GetTrends value) getTrends,
   }) {
     return getPosts(this);
   }
@@ -766,6 +804,7 @@ class _$GetPostsEventImpl implements _GetPostsEvent {
     TResult? Function(_DeleteCommentEvent value)? deleteComment,
     TResult? Function(_CommentReactionEvent value)? commentReaction,
     TResult? Function(_GetGuidelines value)? getGuidelines,
+    TResult? Function(_GetTrends value)? getTrends,
   }) {
     return getPosts?.call(this);
   }
@@ -789,6 +828,7 @@ class _$GetPostsEventImpl implements _GetPostsEvent {
     TResult Function(_DeleteCommentEvent value)? deleteComment,
     TResult Function(_CommentReactionEvent value)? commentReaction,
     TResult Function(_GetGuidelines value)? getGuidelines,
+    TResult Function(_GetTrends value)? getTrends,
     required TResult orElse(),
   }) {
     if (getPosts != null) {
@@ -819,6 +859,8 @@ class __$$CreatePostEventImplCopyWithImpl<$Res>
       _$CreatePostEventImpl _value, $Res Function(_$CreatePostEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -858,7 +900,9 @@ class _$CreatePostEventImpl implements _CreatePostEvent {
   @override
   int get hashCode => Object.hash(runtimeType, postData);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CreatePostEventImplCopyWith<_$CreatePostEventImpl> get copyWith =>
@@ -887,6 +931,7 @@ class _$CreatePostEventImpl implements _CreatePostEvent {
     required TResult Function(String commentId) deleteComment,
     required TResult Function(String commentId, String action) commentReaction,
     required TResult Function() getGuidelines,
+    required TResult Function() getTrends,
   }) {
     return createPost(postData);
   }
@@ -912,6 +957,7 @@ class _$CreatePostEventImpl implements _CreatePostEvent {
     TResult? Function(String commentId)? deleteComment,
     TResult? Function(String commentId, String action)? commentReaction,
     TResult? Function()? getGuidelines,
+    TResult? Function()? getTrends,
   }) {
     return createPost?.call(postData);
   }
@@ -937,6 +983,7 @@ class _$CreatePostEventImpl implements _CreatePostEvent {
     TResult Function(String commentId)? deleteComment,
     TResult Function(String commentId, String action)? commentReaction,
     TResult Function()? getGuidelines,
+    TResult Function()? getTrends,
     required TResult orElse(),
   }) {
     if (createPost != null) {
@@ -964,6 +1011,7 @@ class _$CreatePostEventImpl implements _CreatePostEvent {
     required TResult Function(_DeleteCommentEvent value) deleteComment,
     required TResult Function(_CommentReactionEvent value) commentReaction,
     required TResult Function(_GetGuidelines value) getGuidelines,
+    required TResult Function(_GetTrends value) getTrends,
   }) {
     return createPost(this);
   }
@@ -987,6 +1035,7 @@ class _$CreatePostEventImpl implements _CreatePostEvent {
     TResult? Function(_DeleteCommentEvent value)? deleteComment,
     TResult? Function(_CommentReactionEvent value)? commentReaction,
     TResult? Function(_GetGuidelines value)? getGuidelines,
+    TResult? Function(_GetTrends value)? getTrends,
   }) {
     return createPost?.call(this);
   }
@@ -1010,6 +1059,7 @@ class _$CreatePostEventImpl implements _CreatePostEvent {
     TResult Function(_DeleteCommentEvent value)? deleteComment,
     TResult Function(_CommentReactionEvent value)? commentReaction,
     TResult Function(_GetGuidelines value)? getGuidelines,
+    TResult Function(_GetTrends value)? getTrends,
     required TResult orElse(),
   }) {
     if (createPost != null) {
@@ -1024,7 +1074,10 @@ abstract class _CreatePostEvent implements PostEvent {
       _$CreatePostEventImpl;
 
   CreatePostPayload get postData;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CreatePostEventImplCopyWith<_$CreatePostEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1046,6 +1099,8 @@ class __$$GetPostDetailsEventImplCopyWithImpl<$Res>
       $Res Function(_$GetPostDetailsEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1092,7 +1147,9 @@ class _$GetPostDetailsEventImpl implements _GetPostDetailsEvent {
   @override
   int get hashCode => Object.hash(runtimeType, postId, refresh);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetPostDetailsEventImplCopyWith<_$GetPostDetailsEventImpl> get copyWith =>
@@ -1121,6 +1178,7 @@ class _$GetPostDetailsEventImpl implements _GetPostDetailsEvent {
     required TResult Function(String commentId) deleteComment,
     required TResult Function(String commentId, String action) commentReaction,
     required TResult Function() getGuidelines,
+    required TResult Function() getTrends,
   }) {
     return getPostDetails(postId, refresh);
   }
@@ -1146,6 +1204,7 @@ class _$GetPostDetailsEventImpl implements _GetPostDetailsEvent {
     TResult? Function(String commentId)? deleteComment,
     TResult? Function(String commentId, String action)? commentReaction,
     TResult? Function()? getGuidelines,
+    TResult? Function()? getTrends,
   }) {
     return getPostDetails?.call(postId, refresh);
   }
@@ -1171,6 +1230,7 @@ class _$GetPostDetailsEventImpl implements _GetPostDetailsEvent {
     TResult Function(String commentId)? deleteComment,
     TResult Function(String commentId, String action)? commentReaction,
     TResult Function()? getGuidelines,
+    TResult Function()? getTrends,
     required TResult orElse(),
   }) {
     if (getPostDetails != null) {
@@ -1198,6 +1258,7 @@ class _$GetPostDetailsEventImpl implements _GetPostDetailsEvent {
     required TResult Function(_DeleteCommentEvent value) deleteComment,
     required TResult Function(_CommentReactionEvent value) commentReaction,
     required TResult Function(_GetGuidelines value) getGuidelines,
+    required TResult Function(_GetTrends value) getTrends,
   }) {
     return getPostDetails(this);
   }
@@ -1221,6 +1282,7 @@ class _$GetPostDetailsEventImpl implements _GetPostDetailsEvent {
     TResult? Function(_DeleteCommentEvent value)? deleteComment,
     TResult? Function(_CommentReactionEvent value)? commentReaction,
     TResult? Function(_GetGuidelines value)? getGuidelines,
+    TResult? Function(_GetTrends value)? getTrends,
   }) {
     return getPostDetails?.call(this);
   }
@@ -1244,6 +1306,7 @@ class _$GetPostDetailsEventImpl implements _GetPostDetailsEvent {
     TResult Function(_DeleteCommentEvent value)? deleteComment,
     TResult Function(_CommentReactionEvent value)? commentReaction,
     TResult Function(_GetGuidelines value)? getGuidelines,
+    TResult Function(_GetTrends value)? getTrends,
     required TResult orElse(),
   }) {
     if (getPostDetails != null) {
@@ -1259,7 +1322,10 @@ abstract class _GetPostDetailsEvent implements PostEvent {
 
   String get postId;
   bool? get refresh;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetPostDetailsEventImplCopyWith<_$GetPostDetailsEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1281,6 +1347,8 @@ class __$$DeletePostEventImplCopyWithImpl<$Res>
       _$DeletePostEventImpl _value, $Res Function(_$DeletePostEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1319,7 +1387,9 @@ class _$DeletePostEventImpl implements _DeletePostEvent {
   @override
   int get hashCode => Object.hash(runtimeType, postId);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DeletePostEventImplCopyWith<_$DeletePostEventImpl> get copyWith =>
@@ -1348,6 +1418,7 @@ class _$DeletePostEventImpl implements _DeletePostEvent {
     required TResult Function(String commentId) deleteComment,
     required TResult Function(String commentId, String action) commentReaction,
     required TResult Function() getGuidelines,
+    required TResult Function() getTrends,
   }) {
     return deletePost(postId);
   }
@@ -1373,6 +1444,7 @@ class _$DeletePostEventImpl implements _DeletePostEvent {
     TResult? Function(String commentId)? deleteComment,
     TResult? Function(String commentId, String action)? commentReaction,
     TResult? Function()? getGuidelines,
+    TResult? Function()? getTrends,
   }) {
     return deletePost?.call(postId);
   }
@@ -1398,6 +1470,7 @@ class _$DeletePostEventImpl implements _DeletePostEvent {
     TResult Function(String commentId)? deleteComment,
     TResult Function(String commentId, String action)? commentReaction,
     TResult Function()? getGuidelines,
+    TResult Function()? getTrends,
     required TResult orElse(),
   }) {
     if (deletePost != null) {
@@ -1425,6 +1498,7 @@ class _$DeletePostEventImpl implements _DeletePostEvent {
     required TResult Function(_DeleteCommentEvent value) deleteComment,
     required TResult Function(_CommentReactionEvent value) commentReaction,
     required TResult Function(_GetGuidelines value) getGuidelines,
+    required TResult Function(_GetTrends value) getTrends,
   }) {
     return deletePost(this);
   }
@@ -1448,6 +1522,7 @@ class _$DeletePostEventImpl implements _DeletePostEvent {
     TResult? Function(_DeleteCommentEvent value)? deleteComment,
     TResult? Function(_CommentReactionEvent value)? commentReaction,
     TResult? Function(_GetGuidelines value)? getGuidelines,
+    TResult? Function(_GetTrends value)? getTrends,
   }) {
     return deletePost?.call(this);
   }
@@ -1471,6 +1546,7 @@ class _$DeletePostEventImpl implements _DeletePostEvent {
     TResult Function(_DeleteCommentEvent value)? deleteComment,
     TResult Function(_CommentReactionEvent value)? commentReaction,
     TResult Function(_GetGuidelines value)? getGuidelines,
+    TResult Function(_GetTrends value)? getTrends,
     required TResult orElse(),
   }) {
     if (deletePost != null) {
@@ -1484,7 +1560,10 @@ abstract class _DeletePostEvent implements PostEvent {
   const factory _DeletePostEvent(final String postId) = _$DeletePostEventImpl;
 
   String get postId;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DeletePostEventImplCopyWith<_$DeletePostEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1506,6 +1585,8 @@ class __$$PostReactionEventImplCopyWithImpl<$Res>
       $Res Function(_$PostReactionEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1552,7 +1633,9 @@ class _$PostReactionEventImpl implements _PostReactionEvent {
   @override
   int get hashCode => Object.hash(runtimeType, postId, action);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PostReactionEventImplCopyWith<_$PostReactionEventImpl> get copyWith =>
@@ -1581,6 +1664,7 @@ class _$PostReactionEventImpl implements _PostReactionEvent {
     required TResult Function(String commentId) deleteComment,
     required TResult Function(String commentId, String action) commentReaction,
     required TResult Function() getGuidelines,
+    required TResult Function() getTrends,
   }) {
     return postReaction(postId, action);
   }
@@ -1606,6 +1690,7 @@ class _$PostReactionEventImpl implements _PostReactionEvent {
     TResult? Function(String commentId)? deleteComment,
     TResult? Function(String commentId, String action)? commentReaction,
     TResult? Function()? getGuidelines,
+    TResult? Function()? getTrends,
   }) {
     return postReaction?.call(postId, action);
   }
@@ -1631,6 +1716,7 @@ class _$PostReactionEventImpl implements _PostReactionEvent {
     TResult Function(String commentId)? deleteComment,
     TResult Function(String commentId, String action)? commentReaction,
     TResult Function()? getGuidelines,
+    TResult Function()? getTrends,
     required TResult orElse(),
   }) {
     if (postReaction != null) {
@@ -1658,6 +1744,7 @@ class _$PostReactionEventImpl implements _PostReactionEvent {
     required TResult Function(_DeleteCommentEvent value) deleteComment,
     required TResult Function(_CommentReactionEvent value) commentReaction,
     required TResult Function(_GetGuidelines value) getGuidelines,
+    required TResult Function(_GetTrends value) getTrends,
   }) {
     return postReaction(this);
   }
@@ -1681,6 +1768,7 @@ class _$PostReactionEventImpl implements _PostReactionEvent {
     TResult? Function(_DeleteCommentEvent value)? deleteComment,
     TResult? Function(_CommentReactionEvent value)? commentReaction,
     TResult? Function(_GetGuidelines value)? getGuidelines,
+    TResult? Function(_GetTrends value)? getTrends,
   }) {
     return postReaction?.call(this);
   }
@@ -1704,6 +1792,7 @@ class _$PostReactionEventImpl implements _PostReactionEvent {
     TResult Function(_DeleteCommentEvent value)? deleteComment,
     TResult Function(_CommentReactionEvent value)? commentReaction,
     TResult Function(_GetGuidelines value)? getGuidelines,
+    TResult Function(_GetTrends value)? getTrends,
     required TResult orElse(),
   }) {
     if (postReaction != null) {
@@ -1719,7 +1808,10 @@ abstract class _PostReactionEvent implements PostEvent {
 
   String get postId;
   String get action;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PostReactionEventImplCopyWith<_$PostReactionEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1741,6 +1833,8 @@ class __$$ReportPostEventImplCopyWithImpl<$Res>
       _$ReportPostEventImpl _value, $Res Function(_$ReportPostEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1787,7 +1881,9 @@ class _$ReportPostEventImpl implements ReportPostEvent {
   @override
   int get hashCode => Object.hash(runtimeType, postId, reason);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ReportPostEventImplCopyWith<_$ReportPostEventImpl> get copyWith =>
@@ -1816,6 +1912,7 @@ class _$ReportPostEventImpl implements ReportPostEvent {
     required TResult Function(String commentId) deleteComment,
     required TResult Function(String commentId, String action) commentReaction,
     required TResult Function() getGuidelines,
+    required TResult Function() getTrends,
   }) {
     return reportPost(postId, reason);
   }
@@ -1841,6 +1938,7 @@ class _$ReportPostEventImpl implements ReportPostEvent {
     TResult? Function(String commentId)? deleteComment,
     TResult? Function(String commentId, String action)? commentReaction,
     TResult? Function()? getGuidelines,
+    TResult? Function()? getTrends,
   }) {
     return reportPost?.call(postId, reason);
   }
@@ -1866,6 +1964,7 @@ class _$ReportPostEventImpl implements ReportPostEvent {
     TResult Function(String commentId)? deleteComment,
     TResult Function(String commentId, String action)? commentReaction,
     TResult Function()? getGuidelines,
+    TResult Function()? getTrends,
     required TResult orElse(),
   }) {
     if (reportPost != null) {
@@ -1893,6 +1992,7 @@ class _$ReportPostEventImpl implements ReportPostEvent {
     required TResult Function(_DeleteCommentEvent value) deleteComment,
     required TResult Function(_CommentReactionEvent value) commentReaction,
     required TResult Function(_GetGuidelines value) getGuidelines,
+    required TResult Function(_GetTrends value) getTrends,
   }) {
     return reportPost(this);
   }
@@ -1916,6 +2016,7 @@ class _$ReportPostEventImpl implements ReportPostEvent {
     TResult? Function(_DeleteCommentEvent value)? deleteComment,
     TResult? Function(_CommentReactionEvent value)? commentReaction,
     TResult? Function(_GetGuidelines value)? getGuidelines,
+    TResult? Function(_GetTrends value)? getTrends,
   }) {
     return reportPost?.call(this);
   }
@@ -1939,6 +2040,7 @@ class _$ReportPostEventImpl implements ReportPostEvent {
     TResult Function(_DeleteCommentEvent value)? deleteComment,
     TResult Function(_CommentReactionEvent value)? commentReaction,
     TResult Function(_GetGuidelines value)? getGuidelines,
+    TResult Function(_GetTrends value)? getTrends,
     required TResult orElse(),
   }) {
     if (reportPost != null) {
@@ -1954,7 +2056,10 @@ abstract class ReportPostEvent implements PostEvent {
 
   String get postId;
   String get reason;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ReportPostEventImplCopyWith<_$ReportPostEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1976,6 +2081,8 @@ class __$$ReportCommentEventImplCopyWithImpl<$Res>
       $Res Function(_$ReportCommentEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2031,7 +2138,9 @@ class _$ReportCommentEventImpl implements ReportCommentEvent {
   @override
   int get hashCode => Object.hash(runtimeType, postId, commentId, reason);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ReportCommentEventImplCopyWith<_$ReportCommentEventImpl> get copyWith =>
@@ -2060,6 +2169,7 @@ class _$ReportCommentEventImpl implements ReportCommentEvent {
     required TResult Function(String commentId) deleteComment,
     required TResult Function(String commentId, String action) commentReaction,
     required TResult Function() getGuidelines,
+    required TResult Function() getTrends,
   }) {
     return reportComment(postId, commentId, reason);
   }
@@ -2085,6 +2195,7 @@ class _$ReportCommentEventImpl implements ReportCommentEvent {
     TResult? Function(String commentId)? deleteComment,
     TResult? Function(String commentId, String action)? commentReaction,
     TResult? Function()? getGuidelines,
+    TResult? Function()? getTrends,
   }) {
     return reportComment?.call(postId, commentId, reason);
   }
@@ -2110,6 +2221,7 @@ class _$ReportCommentEventImpl implements ReportCommentEvent {
     TResult Function(String commentId)? deleteComment,
     TResult Function(String commentId, String action)? commentReaction,
     TResult Function()? getGuidelines,
+    TResult Function()? getTrends,
     required TResult orElse(),
   }) {
     if (reportComment != null) {
@@ -2137,6 +2249,7 @@ class _$ReportCommentEventImpl implements ReportCommentEvent {
     required TResult Function(_DeleteCommentEvent value) deleteComment,
     required TResult Function(_CommentReactionEvent value) commentReaction,
     required TResult Function(_GetGuidelines value) getGuidelines,
+    required TResult Function(_GetTrends value) getTrends,
   }) {
     return reportComment(this);
   }
@@ -2160,6 +2273,7 @@ class _$ReportCommentEventImpl implements ReportCommentEvent {
     TResult? Function(_DeleteCommentEvent value)? deleteComment,
     TResult? Function(_CommentReactionEvent value)? commentReaction,
     TResult? Function(_GetGuidelines value)? getGuidelines,
+    TResult? Function(_GetTrends value)? getTrends,
   }) {
     return reportComment?.call(this);
   }
@@ -2183,6 +2297,7 @@ class _$ReportCommentEventImpl implements ReportCommentEvent {
     TResult Function(_DeleteCommentEvent value)? deleteComment,
     TResult Function(_CommentReactionEvent value)? commentReaction,
     TResult Function(_GetGuidelines value)? getGuidelines,
+    TResult Function(_GetTrends value)? getTrends,
     required TResult orElse(),
   }) {
     if (reportComment != null) {
@@ -2200,7 +2315,10 @@ abstract class ReportCommentEvent implements PostEvent {
   String get postId;
   String get commentId;
   String get reason;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ReportCommentEventImplCopyWith<_$ReportCommentEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2219,6 +2337,9 @@ class __$$GetPollsEventImplCopyWithImpl<$Res>
   __$$GetPollsEventImplCopyWithImpl(
       _$GetPollsEventImpl _value, $Res Function(_$GetPollsEventImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -2262,6 +2383,7 @@ class _$GetPollsEventImpl implements _GetPollsEvent {
     required TResult Function(String commentId) deleteComment,
     required TResult Function(String commentId, String action) commentReaction,
     required TResult Function() getGuidelines,
+    required TResult Function() getTrends,
   }) {
     return getPolls();
   }
@@ -2287,6 +2409,7 @@ class _$GetPollsEventImpl implements _GetPollsEvent {
     TResult? Function(String commentId)? deleteComment,
     TResult? Function(String commentId, String action)? commentReaction,
     TResult? Function()? getGuidelines,
+    TResult? Function()? getTrends,
   }) {
     return getPolls?.call();
   }
@@ -2312,6 +2435,7 @@ class _$GetPollsEventImpl implements _GetPollsEvent {
     TResult Function(String commentId)? deleteComment,
     TResult Function(String commentId, String action)? commentReaction,
     TResult Function()? getGuidelines,
+    TResult Function()? getTrends,
     required TResult orElse(),
   }) {
     if (getPolls != null) {
@@ -2339,6 +2463,7 @@ class _$GetPollsEventImpl implements _GetPollsEvent {
     required TResult Function(_DeleteCommentEvent value) deleteComment,
     required TResult Function(_CommentReactionEvent value) commentReaction,
     required TResult Function(_GetGuidelines value) getGuidelines,
+    required TResult Function(_GetTrends value) getTrends,
   }) {
     return getPolls(this);
   }
@@ -2362,6 +2487,7 @@ class _$GetPollsEventImpl implements _GetPollsEvent {
     TResult? Function(_DeleteCommentEvent value)? deleteComment,
     TResult? Function(_CommentReactionEvent value)? commentReaction,
     TResult? Function(_GetGuidelines value)? getGuidelines,
+    TResult? Function(_GetTrends value)? getTrends,
   }) {
     return getPolls?.call(this);
   }
@@ -2385,6 +2511,7 @@ class _$GetPollsEventImpl implements _GetPollsEvent {
     TResult Function(_DeleteCommentEvent value)? deleteComment,
     TResult Function(_CommentReactionEvent value)? commentReaction,
     TResult Function(_GetGuidelines value)? getGuidelines,
+    TResult Function(_GetTrends value)? getTrends,
     required TResult orElse(),
   }) {
     if (getPolls != null) {
@@ -2415,6 +2542,8 @@ class __$$GetCommentsEventImplCopyWithImpl<$Res>
       $Res Function(_$GetCommentsEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2453,7 +2582,9 @@ class _$GetCommentsEventImpl implements _GetCommentsEvent {
   @override
   int get hashCode => Object.hash(runtimeType, postId);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetCommentsEventImplCopyWith<_$GetCommentsEventImpl> get copyWith =>
@@ -2482,6 +2613,7 @@ class _$GetCommentsEventImpl implements _GetCommentsEvent {
     required TResult Function(String commentId) deleteComment,
     required TResult Function(String commentId, String action) commentReaction,
     required TResult Function() getGuidelines,
+    required TResult Function() getTrends,
   }) {
     return getComments(postId);
   }
@@ -2507,6 +2639,7 @@ class _$GetCommentsEventImpl implements _GetCommentsEvent {
     TResult? Function(String commentId)? deleteComment,
     TResult? Function(String commentId, String action)? commentReaction,
     TResult? Function()? getGuidelines,
+    TResult? Function()? getTrends,
   }) {
     return getComments?.call(postId);
   }
@@ -2532,6 +2665,7 @@ class _$GetCommentsEventImpl implements _GetCommentsEvent {
     TResult Function(String commentId)? deleteComment,
     TResult Function(String commentId, String action)? commentReaction,
     TResult Function()? getGuidelines,
+    TResult Function()? getTrends,
     required TResult orElse(),
   }) {
     if (getComments != null) {
@@ -2559,6 +2693,7 @@ class _$GetCommentsEventImpl implements _GetCommentsEvent {
     required TResult Function(_DeleteCommentEvent value) deleteComment,
     required TResult Function(_CommentReactionEvent value) commentReaction,
     required TResult Function(_GetGuidelines value) getGuidelines,
+    required TResult Function(_GetTrends value) getTrends,
   }) {
     return getComments(this);
   }
@@ -2582,6 +2717,7 @@ class _$GetCommentsEventImpl implements _GetCommentsEvent {
     TResult? Function(_DeleteCommentEvent value)? deleteComment,
     TResult? Function(_CommentReactionEvent value)? commentReaction,
     TResult? Function(_GetGuidelines value)? getGuidelines,
+    TResult? Function(_GetTrends value)? getTrends,
   }) {
     return getComments?.call(this);
   }
@@ -2605,6 +2741,7 @@ class _$GetCommentsEventImpl implements _GetCommentsEvent {
     TResult Function(_DeleteCommentEvent value)? deleteComment,
     TResult Function(_CommentReactionEvent value)? commentReaction,
     TResult Function(_GetGuidelines value)? getGuidelines,
+    TResult Function(_GetTrends value)? getTrends,
     required TResult orElse(),
   }) {
     if (getComments != null) {
@@ -2618,7 +2755,10 @@ abstract class _GetCommentsEvent implements PostEvent {
   const factory _GetCommentsEvent(final String postId) = _$GetCommentsEventImpl;
 
   String get postId;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetCommentsEventImplCopyWith<_$GetCommentsEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2640,6 +2780,8 @@ class __$$GetACommentEventImplCopyWithImpl<$Res>
       $Res Function(_$GetACommentEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2679,7 +2821,9 @@ class _$GetACommentEventImpl implements _GetACommentEvent {
   @override
   int get hashCode => Object.hash(runtimeType, commentId);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetACommentEventImplCopyWith<_$GetACommentEventImpl> get copyWith =>
@@ -2708,6 +2852,7 @@ class _$GetACommentEventImpl implements _GetACommentEvent {
     required TResult Function(String commentId) deleteComment,
     required TResult Function(String commentId, String action) commentReaction,
     required TResult Function() getGuidelines,
+    required TResult Function() getTrends,
   }) {
     return getAComment(commentId);
   }
@@ -2733,6 +2878,7 @@ class _$GetACommentEventImpl implements _GetACommentEvent {
     TResult? Function(String commentId)? deleteComment,
     TResult? Function(String commentId, String action)? commentReaction,
     TResult? Function()? getGuidelines,
+    TResult? Function()? getTrends,
   }) {
     return getAComment?.call(commentId);
   }
@@ -2758,6 +2904,7 @@ class _$GetACommentEventImpl implements _GetACommentEvent {
     TResult Function(String commentId)? deleteComment,
     TResult Function(String commentId, String action)? commentReaction,
     TResult Function()? getGuidelines,
+    TResult Function()? getTrends,
     required TResult orElse(),
   }) {
     if (getAComment != null) {
@@ -2785,6 +2932,7 @@ class _$GetACommentEventImpl implements _GetACommentEvent {
     required TResult Function(_DeleteCommentEvent value) deleteComment,
     required TResult Function(_CommentReactionEvent value) commentReaction,
     required TResult Function(_GetGuidelines value) getGuidelines,
+    required TResult Function(_GetTrends value) getTrends,
   }) {
     return getAComment(this);
   }
@@ -2808,6 +2956,7 @@ class _$GetACommentEventImpl implements _GetACommentEvent {
     TResult? Function(_DeleteCommentEvent value)? deleteComment,
     TResult? Function(_CommentReactionEvent value)? commentReaction,
     TResult? Function(_GetGuidelines value)? getGuidelines,
+    TResult? Function(_GetTrends value)? getTrends,
   }) {
     return getAComment?.call(this);
   }
@@ -2831,6 +2980,7 @@ class _$GetACommentEventImpl implements _GetACommentEvent {
     TResult Function(_DeleteCommentEvent value)? deleteComment,
     TResult Function(_CommentReactionEvent value)? commentReaction,
     TResult Function(_GetGuidelines value)? getGuidelines,
+    TResult Function(_GetTrends value)? getTrends,
     required TResult orElse(),
   }) {
     if (getAComment != null) {
@@ -2845,7 +2995,10 @@ abstract class _GetACommentEvent implements PostEvent {
       _$GetACommentEventImpl;
 
   String get commentId;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetACommentEventImplCopyWith<_$GetACommentEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2867,6 +3020,8 @@ class __$$SaveACommentEventImplCopyWithImpl<$Res>
       $Res Function(_$SaveACommentEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2905,7 +3060,9 @@ class _$SaveACommentEventImpl implements _SaveACommentEvent {
   @override
   int get hashCode => Object.hash(runtimeType, payload);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SaveACommentEventImplCopyWith<_$SaveACommentEventImpl> get copyWith =>
@@ -2934,6 +3091,7 @@ class _$SaveACommentEventImpl implements _SaveACommentEvent {
     required TResult Function(String commentId) deleteComment,
     required TResult Function(String commentId, String action) commentReaction,
     required TResult Function() getGuidelines,
+    required TResult Function() getTrends,
   }) {
     return saveAComment(payload);
   }
@@ -2959,6 +3117,7 @@ class _$SaveACommentEventImpl implements _SaveACommentEvent {
     TResult? Function(String commentId)? deleteComment,
     TResult? Function(String commentId, String action)? commentReaction,
     TResult? Function()? getGuidelines,
+    TResult? Function()? getTrends,
   }) {
     return saveAComment?.call(payload);
   }
@@ -2984,6 +3143,7 @@ class _$SaveACommentEventImpl implements _SaveACommentEvent {
     TResult Function(String commentId)? deleteComment,
     TResult Function(String commentId, String action)? commentReaction,
     TResult Function()? getGuidelines,
+    TResult Function()? getTrends,
     required TResult orElse(),
   }) {
     if (saveAComment != null) {
@@ -3011,6 +3171,7 @@ class _$SaveACommentEventImpl implements _SaveACommentEvent {
     required TResult Function(_DeleteCommentEvent value) deleteComment,
     required TResult Function(_CommentReactionEvent value) commentReaction,
     required TResult Function(_GetGuidelines value) getGuidelines,
+    required TResult Function(_GetTrends value) getTrends,
   }) {
     return saveAComment(this);
   }
@@ -3034,6 +3195,7 @@ class _$SaveACommentEventImpl implements _SaveACommentEvent {
     TResult? Function(_DeleteCommentEvent value)? deleteComment,
     TResult? Function(_CommentReactionEvent value)? commentReaction,
     TResult? Function(_GetGuidelines value)? getGuidelines,
+    TResult? Function(_GetTrends value)? getTrends,
   }) {
     return saveAComment?.call(this);
   }
@@ -3057,6 +3219,7 @@ class _$SaveACommentEventImpl implements _SaveACommentEvent {
     TResult Function(_DeleteCommentEvent value)? deleteComment,
     TResult Function(_CommentReactionEvent value)? commentReaction,
     TResult Function(_GetGuidelines value)? getGuidelines,
+    TResult Function(_GetTrends value)? getTrends,
     required TResult orElse(),
   }) {
     if (saveAComment != null) {
@@ -3071,7 +3234,10 @@ abstract class _SaveACommentEvent implements PostEvent {
       _$SaveACommentEventImpl;
 
   SaveCommentPayload get payload;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SaveACommentEventImplCopyWith<_$SaveACommentEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3093,6 +3259,8 @@ class __$$DeleteCommentEventImplCopyWithImpl<$Res>
       $Res Function(_$DeleteCommentEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3132,7 +3300,9 @@ class _$DeleteCommentEventImpl implements _DeleteCommentEvent {
   @override
   int get hashCode => Object.hash(runtimeType, commentId);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DeleteCommentEventImplCopyWith<_$DeleteCommentEventImpl> get copyWith =>
@@ -3161,6 +3331,7 @@ class _$DeleteCommentEventImpl implements _DeleteCommentEvent {
     required TResult Function(String commentId) deleteComment,
     required TResult Function(String commentId, String action) commentReaction,
     required TResult Function() getGuidelines,
+    required TResult Function() getTrends,
   }) {
     return deleteComment(commentId);
   }
@@ -3186,6 +3357,7 @@ class _$DeleteCommentEventImpl implements _DeleteCommentEvent {
     TResult? Function(String commentId)? deleteComment,
     TResult? Function(String commentId, String action)? commentReaction,
     TResult? Function()? getGuidelines,
+    TResult? Function()? getTrends,
   }) {
     return deleteComment?.call(commentId);
   }
@@ -3211,6 +3383,7 @@ class _$DeleteCommentEventImpl implements _DeleteCommentEvent {
     TResult Function(String commentId)? deleteComment,
     TResult Function(String commentId, String action)? commentReaction,
     TResult Function()? getGuidelines,
+    TResult Function()? getTrends,
     required TResult orElse(),
   }) {
     if (deleteComment != null) {
@@ -3238,6 +3411,7 @@ class _$DeleteCommentEventImpl implements _DeleteCommentEvent {
     required TResult Function(_DeleteCommentEvent value) deleteComment,
     required TResult Function(_CommentReactionEvent value) commentReaction,
     required TResult Function(_GetGuidelines value) getGuidelines,
+    required TResult Function(_GetTrends value) getTrends,
   }) {
     return deleteComment(this);
   }
@@ -3261,6 +3435,7 @@ class _$DeleteCommentEventImpl implements _DeleteCommentEvent {
     TResult? Function(_DeleteCommentEvent value)? deleteComment,
     TResult? Function(_CommentReactionEvent value)? commentReaction,
     TResult? Function(_GetGuidelines value)? getGuidelines,
+    TResult? Function(_GetTrends value)? getTrends,
   }) {
     return deleteComment?.call(this);
   }
@@ -3284,6 +3459,7 @@ class _$DeleteCommentEventImpl implements _DeleteCommentEvent {
     TResult Function(_DeleteCommentEvent value)? deleteComment,
     TResult Function(_CommentReactionEvent value)? commentReaction,
     TResult Function(_GetGuidelines value)? getGuidelines,
+    TResult Function(_GetTrends value)? getTrends,
     required TResult orElse(),
   }) {
     if (deleteComment != null) {
@@ -3298,7 +3474,10 @@ abstract class _DeleteCommentEvent implements PostEvent {
       _$DeleteCommentEventImpl;
 
   String get commentId;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DeleteCommentEventImplCopyWith<_$DeleteCommentEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3320,6 +3499,8 @@ class __$$CommentReactionEventImplCopyWithImpl<$Res>
       $Res Function(_$CommentReactionEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3367,7 +3548,9 @@ class _$CommentReactionEventImpl implements _CommentReactionEvent {
   @override
   int get hashCode => Object.hash(runtimeType, commentId, action);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CommentReactionEventImplCopyWith<_$CommentReactionEventImpl>
@@ -3397,6 +3580,7 @@ class _$CommentReactionEventImpl implements _CommentReactionEvent {
     required TResult Function(String commentId) deleteComment,
     required TResult Function(String commentId, String action) commentReaction,
     required TResult Function() getGuidelines,
+    required TResult Function() getTrends,
   }) {
     return commentReaction(commentId, action);
   }
@@ -3422,6 +3606,7 @@ class _$CommentReactionEventImpl implements _CommentReactionEvent {
     TResult? Function(String commentId)? deleteComment,
     TResult? Function(String commentId, String action)? commentReaction,
     TResult? Function()? getGuidelines,
+    TResult? Function()? getTrends,
   }) {
     return commentReaction?.call(commentId, action);
   }
@@ -3447,6 +3632,7 @@ class _$CommentReactionEventImpl implements _CommentReactionEvent {
     TResult Function(String commentId)? deleteComment,
     TResult Function(String commentId, String action)? commentReaction,
     TResult Function()? getGuidelines,
+    TResult Function()? getTrends,
     required TResult orElse(),
   }) {
     if (commentReaction != null) {
@@ -3474,6 +3660,7 @@ class _$CommentReactionEventImpl implements _CommentReactionEvent {
     required TResult Function(_DeleteCommentEvent value) deleteComment,
     required TResult Function(_CommentReactionEvent value) commentReaction,
     required TResult Function(_GetGuidelines value) getGuidelines,
+    required TResult Function(_GetTrends value) getTrends,
   }) {
     return commentReaction(this);
   }
@@ -3497,6 +3684,7 @@ class _$CommentReactionEventImpl implements _CommentReactionEvent {
     TResult? Function(_DeleteCommentEvent value)? deleteComment,
     TResult? Function(_CommentReactionEvent value)? commentReaction,
     TResult? Function(_GetGuidelines value)? getGuidelines,
+    TResult? Function(_GetTrends value)? getTrends,
   }) {
     return commentReaction?.call(this);
   }
@@ -3520,6 +3708,7 @@ class _$CommentReactionEventImpl implements _CommentReactionEvent {
     TResult Function(_DeleteCommentEvent value)? deleteComment,
     TResult Function(_CommentReactionEvent value)? commentReaction,
     TResult Function(_GetGuidelines value)? getGuidelines,
+    TResult Function(_GetTrends value)? getTrends,
     required TResult orElse(),
   }) {
     if (commentReaction != null) {
@@ -3535,7 +3724,10 @@ abstract class _CommentReactionEvent implements PostEvent {
 
   String get commentId;
   String get action;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CommentReactionEventImplCopyWith<_$CommentReactionEventImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -3554,6 +3746,9 @@ class __$$GetGuidelinesImplCopyWithImpl<$Res>
   __$$GetGuidelinesImplCopyWithImpl(
       _$GetGuidelinesImpl _value, $Res Function(_$GetGuidelinesImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -3597,6 +3792,7 @@ class _$GetGuidelinesImpl implements _GetGuidelines {
     required TResult Function(String commentId) deleteComment,
     required TResult Function(String commentId, String action) commentReaction,
     required TResult Function() getGuidelines,
+    required TResult Function() getTrends,
   }) {
     return getGuidelines();
   }
@@ -3622,6 +3818,7 @@ class _$GetGuidelinesImpl implements _GetGuidelines {
     TResult? Function(String commentId)? deleteComment,
     TResult? Function(String commentId, String action)? commentReaction,
     TResult? Function()? getGuidelines,
+    TResult? Function()? getTrends,
   }) {
     return getGuidelines?.call();
   }
@@ -3647,6 +3844,7 @@ class _$GetGuidelinesImpl implements _GetGuidelines {
     TResult Function(String commentId)? deleteComment,
     TResult Function(String commentId, String action)? commentReaction,
     TResult Function()? getGuidelines,
+    TResult Function()? getTrends,
     required TResult orElse(),
   }) {
     if (getGuidelines != null) {
@@ -3674,6 +3872,7 @@ class _$GetGuidelinesImpl implements _GetGuidelines {
     required TResult Function(_DeleteCommentEvent value) deleteComment,
     required TResult Function(_CommentReactionEvent value) commentReaction,
     required TResult Function(_GetGuidelines value) getGuidelines,
+    required TResult Function(_GetTrends value) getTrends,
   }) {
     return getGuidelines(this);
   }
@@ -3697,6 +3896,7 @@ class _$GetGuidelinesImpl implements _GetGuidelines {
     TResult? Function(_DeleteCommentEvent value)? deleteComment,
     TResult? Function(_CommentReactionEvent value)? commentReaction,
     TResult? Function(_GetGuidelines value)? getGuidelines,
+    TResult? Function(_GetTrends value)? getTrends,
   }) {
     return getGuidelines?.call(this);
   }
@@ -3720,6 +3920,7 @@ class _$GetGuidelinesImpl implements _GetGuidelines {
     TResult Function(_DeleteCommentEvent value)? deleteComment,
     TResult Function(_CommentReactionEvent value)? commentReaction,
     TResult Function(_GetGuidelines value)? getGuidelines,
+    TResult Function(_GetTrends value)? getTrends,
     required TResult orElse(),
   }) {
     if (getGuidelines != null) {
@@ -3731,6 +3932,208 @@ class _$GetGuidelinesImpl implements _GetGuidelines {
 
 abstract class _GetGuidelines implements PostEvent {
   const factory _GetGuidelines() = _$GetGuidelinesImpl;
+}
+
+/// @nodoc
+abstract class _$$GetTrendsImplCopyWith<$Res> {
+  factory _$$GetTrendsImplCopyWith(
+          _$GetTrendsImpl value, $Res Function(_$GetTrendsImpl) then) =
+      __$$GetTrendsImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetTrendsImplCopyWithImpl<$Res>
+    extends _$PostEventCopyWithImpl<$Res, _$GetTrendsImpl>
+    implements _$$GetTrendsImplCopyWith<$Res> {
+  __$$GetTrendsImplCopyWithImpl(
+      _$GetTrendsImpl _value, $Res Function(_$GetTrendsImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$GetTrendsImpl implements _GetTrends {
+  const _$GetTrendsImpl();
+
+  @override
+  String toString() {
+    return 'PostEvent.getTrends()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$GetTrendsImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(
+            String? categoryId, bool? refresh, bool? mergeGroups)
+        getCategories,
+    required TResult Function() getSubCategories,
+    required TResult Function() getPosts,
+    required TResult Function(CreatePostPayload postData) createPost,
+    required TResult Function(String postId, bool? refresh) getPostDetails,
+    required TResult Function(String postId) deletePost,
+    required TResult Function(String postId, String action) postReaction,
+    required TResult Function(String postId, String reason) reportPost,
+    required TResult Function(String postId, String commentId, String reason)
+        reportComment,
+    required TResult Function() getPolls,
+    required TResult Function(String postId) getComments,
+    required TResult Function(String commentId) getAComment,
+    required TResult Function(SaveCommentPayload payload) saveAComment,
+    required TResult Function(String commentId) deleteComment,
+    required TResult Function(String commentId, String action) commentReaction,
+    required TResult Function() getGuidelines,
+    required TResult Function() getTrends,
+  }) {
+    return getTrends();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? categoryId, bool? refresh, bool? mergeGroups)?
+        getCategories,
+    TResult? Function()? getSubCategories,
+    TResult? Function()? getPosts,
+    TResult? Function(CreatePostPayload postData)? createPost,
+    TResult? Function(String postId, bool? refresh)? getPostDetails,
+    TResult? Function(String postId)? deletePost,
+    TResult? Function(String postId, String action)? postReaction,
+    TResult? Function(String postId, String reason)? reportPost,
+    TResult? Function(String postId, String commentId, String reason)?
+        reportComment,
+    TResult? Function()? getPolls,
+    TResult? Function(String postId)? getComments,
+    TResult? Function(String commentId)? getAComment,
+    TResult? Function(SaveCommentPayload payload)? saveAComment,
+    TResult? Function(String commentId)? deleteComment,
+    TResult? Function(String commentId, String action)? commentReaction,
+    TResult? Function()? getGuidelines,
+    TResult? Function()? getTrends,
+  }) {
+    return getTrends?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? categoryId, bool? refresh, bool? mergeGroups)?
+        getCategories,
+    TResult Function()? getSubCategories,
+    TResult Function()? getPosts,
+    TResult Function(CreatePostPayload postData)? createPost,
+    TResult Function(String postId, bool? refresh)? getPostDetails,
+    TResult Function(String postId)? deletePost,
+    TResult Function(String postId, String action)? postReaction,
+    TResult Function(String postId, String reason)? reportPost,
+    TResult Function(String postId, String commentId, String reason)?
+        reportComment,
+    TResult Function()? getPolls,
+    TResult Function(String postId)? getComments,
+    TResult Function(String commentId)? getAComment,
+    TResult Function(SaveCommentPayload payload)? saveAComment,
+    TResult Function(String commentId)? deleteComment,
+    TResult Function(String commentId, String action)? commentReaction,
+    TResult Function()? getGuidelines,
+    TResult Function()? getTrends,
+    required TResult orElse(),
+  }) {
+    if (getTrends != null) {
+      return getTrends();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetCategoriesEvent value) getCategories,
+    required TResult Function(_GetSubCategoriesEvent value) getSubCategories,
+    required TResult Function(_GetPostsEvent value) getPosts,
+    required TResult Function(_CreatePostEvent value) createPost,
+    required TResult Function(_GetPostDetailsEvent value) getPostDetails,
+    required TResult Function(_DeletePostEvent value) deletePost,
+    required TResult Function(_PostReactionEvent value) postReaction,
+    required TResult Function(ReportPostEvent value) reportPost,
+    required TResult Function(ReportCommentEvent value) reportComment,
+    required TResult Function(_GetPollsEvent value) getPolls,
+    required TResult Function(_GetCommentsEvent value) getComments,
+    required TResult Function(_GetACommentEvent value) getAComment,
+    required TResult Function(_SaveACommentEvent value) saveAComment,
+    required TResult Function(_DeleteCommentEvent value) deleteComment,
+    required TResult Function(_CommentReactionEvent value) commentReaction,
+    required TResult Function(_GetGuidelines value) getGuidelines,
+    required TResult Function(_GetTrends value) getTrends,
+  }) {
+    return getTrends(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCategoriesEvent value)? getCategories,
+    TResult? Function(_GetSubCategoriesEvent value)? getSubCategories,
+    TResult? Function(_GetPostsEvent value)? getPosts,
+    TResult? Function(_CreatePostEvent value)? createPost,
+    TResult? Function(_GetPostDetailsEvent value)? getPostDetails,
+    TResult? Function(_DeletePostEvent value)? deletePost,
+    TResult? Function(_PostReactionEvent value)? postReaction,
+    TResult? Function(ReportPostEvent value)? reportPost,
+    TResult? Function(ReportCommentEvent value)? reportComment,
+    TResult? Function(_GetPollsEvent value)? getPolls,
+    TResult? Function(_GetCommentsEvent value)? getComments,
+    TResult? Function(_GetACommentEvent value)? getAComment,
+    TResult? Function(_SaveACommentEvent value)? saveAComment,
+    TResult? Function(_DeleteCommentEvent value)? deleteComment,
+    TResult? Function(_CommentReactionEvent value)? commentReaction,
+    TResult? Function(_GetGuidelines value)? getGuidelines,
+    TResult? Function(_GetTrends value)? getTrends,
+  }) {
+    return getTrends?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCategoriesEvent value)? getCategories,
+    TResult Function(_GetSubCategoriesEvent value)? getSubCategories,
+    TResult Function(_GetPostsEvent value)? getPosts,
+    TResult Function(_CreatePostEvent value)? createPost,
+    TResult Function(_GetPostDetailsEvent value)? getPostDetails,
+    TResult Function(_DeletePostEvent value)? deletePost,
+    TResult Function(_PostReactionEvent value)? postReaction,
+    TResult Function(ReportPostEvent value)? reportPost,
+    TResult Function(ReportCommentEvent value)? reportComment,
+    TResult Function(_GetPollsEvent value)? getPolls,
+    TResult Function(_GetCommentsEvent value)? getComments,
+    TResult Function(_GetACommentEvent value)? getAComment,
+    TResult Function(_SaveACommentEvent value)? saveAComment,
+    TResult Function(_DeleteCommentEvent value)? deleteComment,
+    TResult Function(_CommentReactionEvent value)? commentReaction,
+    TResult Function(_GetGuidelines value)? getGuidelines,
+    TResult Function(_GetTrends value)? getTrends,
+    required TResult orElse(),
+  }) {
+    if (getTrends != null) {
+      return getTrends(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetTrends implements PostEvent {
+  const factory _GetTrends() = _$GetTrendsImpl;
 }
 
 /// @nodoc
@@ -3786,6 +4189,9 @@ mixin _$PostState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -3836,6 +4242,9 @@ mixin _$PostState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -3886,6 +4295,9 @@ mixin _$PostState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -3958,6 +4370,9 @@ mixin _$PostState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -4011,6 +4426,9 @@ mixin _$PostState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -4061,6 +4479,9 @@ mixin _$PostState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -4081,6 +4502,9 @@ class _$PostStateCopyWithImpl<$Res, $Val extends PostState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -4097,6 +4521,9 @@ class __$$PostInitialImplCopyWithImpl<$Res>
   __$$PostInitialImplCopyWithImpl(
       _$PostInitialImpl _value, $Res Function(_$PostInitialImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -4170,6 +4597,9 @@ class _$PostInitialImpl implements PostInitial {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return initial();
   }
@@ -4223,6 +4653,9 @@ class _$PostInitialImpl implements PostInitial {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return initial?.call();
   }
@@ -4276,6 +4709,9 @@ class _$PostInitialImpl implements PostInitial {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -4354,6 +4790,9 @@ class _$PostInitialImpl implements PostInitial {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return initial(this);
   }
@@ -4410,6 +4849,9 @@ class _$PostInitialImpl implements PostInitial {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return initial?.call(this);
   }
@@ -4463,6 +4905,9 @@ class _$PostInitialImpl implements PostInitial {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -4492,6 +4937,9 @@ class __$$GetCategoriesLoadingStateImplCopyWithImpl<$Res>
       _$GetCategoriesLoadingStateImpl _value,
       $Res Function(_$GetCategoriesLoadingStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -4566,6 +5014,9 @@ class _$GetCategoriesLoadingStateImpl implements GetCategoriesLoadingState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return getCategoriesLoading();
   }
@@ -4619,6 +5070,9 @@ class _$GetCategoriesLoadingStateImpl implements GetCategoriesLoadingState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return getCategoriesLoading?.call();
   }
@@ -4672,6 +5126,9 @@ class _$GetCategoriesLoadingStateImpl implements GetCategoriesLoadingState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getCategoriesLoading != null) {
@@ -4750,6 +5207,9 @@ class _$GetCategoriesLoadingStateImpl implements GetCategoriesLoadingState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return getCategoriesLoading(this);
   }
@@ -4806,6 +5266,9 @@ class _$GetCategoriesLoadingStateImpl implements GetCategoriesLoadingState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return getCategoriesLoading?.call(this);
   }
@@ -4859,6 +5322,9 @@ class _$GetCategoriesLoadingStateImpl implements GetCategoriesLoadingState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getCategoriesLoading != null) {
@@ -4891,6 +5357,8 @@ class __$$GetCategoriesSuccessStateImplCopyWithImpl<$Res>
       $Res Function(_$GetCategoriesSuccessStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4930,7 +5398,9 @@ class _$GetCategoriesSuccessStateImpl implements GetCategoriesSuccessState {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetCategoriesSuccessStateImplCopyWith<_$GetCategoriesSuccessStateImpl>
@@ -4989,6 +5459,9 @@ class _$GetCategoriesSuccessStateImpl implements GetCategoriesSuccessState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return getCategoriesSuccess(response);
   }
@@ -5042,6 +5515,9 @@ class _$GetCategoriesSuccessStateImpl implements GetCategoriesSuccessState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return getCategoriesSuccess?.call(response);
   }
@@ -5095,6 +5571,9 @@ class _$GetCategoriesSuccessStateImpl implements GetCategoriesSuccessState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getCategoriesSuccess != null) {
@@ -5173,6 +5652,9 @@ class _$GetCategoriesSuccessStateImpl implements GetCategoriesSuccessState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return getCategoriesSuccess(this);
   }
@@ -5229,6 +5711,9 @@ class _$GetCategoriesSuccessStateImpl implements GetCategoriesSuccessState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return getCategoriesSuccess?.call(this);
   }
@@ -5282,6 +5767,9 @@ class _$GetCategoriesSuccessStateImpl implements GetCategoriesSuccessState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getCategoriesSuccess != null) {
@@ -5296,7 +5784,10 @@ abstract class GetCategoriesSuccessState implements PostState {
       final GetCategoriesResponse response) = _$GetCategoriesSuccessStateImpl;
 
   GetCategoriesResponse get response;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetCategoriesSuccessStateImplCopyWith<_$GetCategoriesSuccessStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -5320,6 +5811,8 @@ class __$$GetCategoriesFailureStateImplCopyWithImpl<$Res>
       $Res Function(_$GetCategoriesFailureStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -5358,7 +5851,9 @@ class _$GetCategoriesFailureStateImpl implements GetCategoriesFailureState {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetCategoriesFailureStateImplCopyWith<_$GetCategoriesFailureStateImpl>
@@ -5417,6 +5912,9 @@ class _$GetCategoriesFailureStateImpl implements GetCategoriesFailureState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return getCategoriesFailure(error);
   }
@@ -5470,6 +5968,9 @@ class _$GetCategoriesFailureStateImpl implements GetCategoriesFailureState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return getCategoriesFailure?.call(error);
   }
@@ -5523,6 +6024,9 @@ class _$GetCategoriesFailureStateImpl implements GetCategoriesFailureState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getCategoriesFailure != null) {
@@ -5601,6 +6105,9 @@ class _$GetCategoriesFailureStateImpl implements GetCategoriesFailureState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return getCategoriesFailure(this);
   }
@@ -5657,6 +6164,9 @@ class _$GetCategoriesFailureStateImpl implements GetCategoriesFailureState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return getCategoriesFailure?.call(this);
   }
@@ -5710,6 +6220,9 @@ class _$GetCategoriesFailureStateImpl implements GetCategoriesFailureState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getCategoriesFailure != null) {
@@ -5724,7 +6237,10 @@ abstract class GetCategoriesFailureState implements PostState {
       _$GetCategoriesFailureStateImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetCategoriesFailureStateImplCopyWith<_$GetCategoriesFailureStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -5743,6 +6259,9 @@ class __$$GetPostsLoadingStateImplCopyWithImpl<$Res>
   __$$GetPostsLoadingStateImplCopyWithImpl(_$GetPostsLoadingStateImpl _value,
       $Res Function(_$GetPostsLoadingStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -5817,6 +6336,9 @@ class _$GetPostsLoadingStateImpl implements GetPostsLoadingState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return getPostsLoading();
   }
@@ -5870,6 +6392,9 @@ class _$GetPostsLoadingStateImpl implements GetPostsLoadingState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return getPostsLoading?.call();
   }
@@ -5923,6 +6448,9 @@ class _$GetPostsLoadingStateImpl implements GetPostsLoadingState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getPostsLoading != null) {
@@ -6001,6 +6529,9 @@ class _$GetPostsLoadingStateImpl implements GetPostsLoadingState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return getPostsLoading(this);
   }
@@ -6057,6 +6588,9 @@ class _$GetPostsLoadingStateImpl implements GetPostsLoadingState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return getPostsLoading?.call(this);
   }
@@ -6110,6 +6644,9 @@ class _$GetPostsLoadingStateImpl implements GetPostsLoadingState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getPostsLoading != null) {
@@ -6140,6 +6677,8 @@ class __$$GetPostsSuccessStateImplCopyWithImpl<$Res>
       $Res Function(_$GetPostsSuccessStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -6179,7 +6718,9 @@ class _$GetPostsSuccessStateImpl implements GetPostsSuccessState {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetPostsSuccessStateImplCopyWith<_$GetPostsSuccessStateImpl>
@@ -6239,6 +6780,9 @@ class _$GetPostsSuccessStateImpl implements GetPostsSuccessState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return getPostsSuccess(response);
   }
@@ -6292,6 +6836,9 @@ class _$GetPostsSuccessStateImpl implements GetPostsSuccessState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return getPostsSuccess?.call(response);
   }
@@ -6345,6 +6892,9 @@ class _$GetPostsSuccessStateImpl implements GetPostsSuccessState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getPostsSuccess != null) {
@@ -6423,6 +6973,9 @@ class _$GetPostsSuccessStateImpl implements GetPostsSuccessState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return getPostsSuccess(this);
   }
@@ -6479,6 +7032,9 @@ class _$GetPostsSuccessStateImpl implements GetPostsSuccessState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return getPostsSuccess?.call(this);
   }
@@ -6532,6 +7088,9 @@ class _$GetPostsSuccessStateImpl implements GetPostsSuccessState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getPostsSuccess != null) {
@@ -6546,7 +7105,10 @@ abstract class GetPostsSuccessState implements PostState {
       _$GetPostsSuccessStateImpl;
 
   GetPostsResponse get response;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetPostsSuccessStateImplCopyWith<_$GetPostsSuccessStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -6568,6 +7130,8 @@ class __$$GetPostsFailureStateImplCopyWithImpl<$Res>
       $Res Function(_$GetPostsFailureStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -6606,7 +7170,9 @@ class _$GetPostsFailureStateImpl implements GetPostsFailureState {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetPostsFailureStateImplCopyWith<_$GetPostsFailureStateImpl>
@@ -6666,6 +7232,9 @@ class _$GetPostsFailureStateImpl implements GetPostsFailureState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return getPostsFailure(error);
   }
@@ -6719,6 +7288,9 @@ class _$GetPostsFailureStateImpl implements GetPostsFailureState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return getPostsFailure?.call(error);
   }
@@ -6772,6 +7344,9 @@ class _$GetPostsFailureStateImpl implements GetPostsFailureState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getPostsFailure != null) {
@@ -6850,6 +7425,9 @@ class _$GetPostsFailureStateImpl implements GetPostsFailureState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return getPostsFailure(this);
   }
@@ -6906,6 +7484,9 @@ class _$GetPostsFailureStateImpl implements GetPostsFailureState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return getPostsFailure?.call(this);
   }
@@ -6959,6 +7540,9 @@ class _$GetPostsFailureStateImpl implements GetPostsFailureState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getPostsFailure != null) {
@@ -6973,7 +7557,10 @@ abstract class GetPostsFailureState implements PostState {
       _$GetPostsFailureStateImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetPostsFailureStateImplCopyWith<_$GetPostsFailureStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -6994,6 +7581,9 @@ class __$$CreatePostLoadingStateImplCopyWithImpl<$Res>
       _$CreatePostLoadingStateImpl _value,
       $Res Function(_$CreatePostLoadingStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -7068,6 +7658,9 @@ class _$CreatePostLoadingStateImpl implements CreatePostLoadingState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return createPostLoading();
   }
@@ -7121,6 +7714,9 @@ class _$CreatePostLoadingStateImpl implements CreatePostLoadingState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return createPostLoading?.call();
   }
@@ -7174,6 +7770,9 @@ class _$CreatePostLoadingStateImpl implements CreatePostLoadingState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (createPostLoading != null) {
@@ -7252,6 +7851,9 @@ class _$CreatePostLoadingStateImpl implements CreatePostLoadingState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return createPostLoading(this);
   }
@@ -7308,6 +7910,9 @@ class _$CreatePostLoadingStateImpl implements CreatePostLoadingState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return createPostLoading?.call(this);
   }
@@ -7361,6 +7966,9 @@ class _$CreatePostLoadingStateImpl implements CreatePostLoadingState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (createPostLoading != null) {
@@ -7393,6 +8001,8 @@ class __$$CreatePostSuccessStateImplCopyWithImpl<$Res>
       $Res Function(_$CreatePostSuccessStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -7432,7 +8042,9 @@ class _$CreatePostSuccessStateImpl implements CreatePostSuccessState {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CreatePostSuccessStateImplCopyWith<_$CreatePostSuccessStateImpl>
@@ -7491,6 +8103,9 @@ class _$CreatePostSuccessStateImpl implements CreatePostSuccessState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return createPostSuccess(response);
   }
@@ -7544,6 +8159,9 @@ class _$CreatePostSuccessStateImpl implements CreatePostSuccessState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return createPostSuccess?.call(response);
   }
@@ -7597,6 +8215,9 @@ class _$CreatePostSuccessStateImpl implements CreatePostSuccessState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (createPostSuccess != null) {
@@ -7675,6 +8296,9 @@ class _$CreatePostSuccessStateImpl implements CreatePostSuccessState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return createPostSuccess(this);
   }
@@ -7731,6 +8355,9 @@ class _$CreatePostSuccessStateImpl implements CreatePostSuccessState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return createPostSuccess?.call(this);
   }
@@ -7784,6 +8411,9 @@ class _$CreatePostSuccessStateImpl implements CreatePostSuccessState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (createPostSuccess != null) {
@@ -7798,7 +8428,10 @@ abstract class CreatePostSuccessState implements PostState {
       _$CreatePostSuccessStateImpl;
 
   CreatePostResponse get response;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CreatePostSuccessStateImplCopyWith<_$CreatePostSuccessStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -7822,6 +8455,8 @@ class __$$CreatePostFailureStateImplCopyWithImpl<$Res>
       $Res Function(_$CreatePostFailureStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -7860,7 +8495,9 @@ class _$CreatePostFailureStateImpl implements CreatePostFailureState {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CreatePostFailureStateImplCopyWith<_$CreatePostFailureStateImpl>
@@ -7919,6 +8556,9 @@ class _$CreatePostFailureStateImpl implements CreatePostFailureState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return createPostFailure(error);
   }
@@ -7972,6 +8612,9 @@ class _$CreatePostFailureStateImpl implements CreatePostFailureState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return createPostFailure?.call(error);
   }
@@ -8025,6 +8668,9 @@ class _$CreatePostFailureStateImpl implements CreatePostFailureState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (createPostFailure != null) {
@@ -8103,6 +8749,9 @@ class _$CreatePostFailureStateImpl implements CreatePostFailureState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return createPostFailure(this);
   }
@@ -8159,6 +8808,9 @@ class _$CreatePostFailureStateImpl implements CreatePostFailureState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return createPostFailure?.call(this);
   }
@@ -8212,6 +8864,9 @@ class _$CreatePostFailureStateImpl implements CreatePostFailureState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (createPostFailure != null) {
@@ -8226,7 +8881,10 @@ abstract class CreatePostFailureState implements PostState {
       _$CreatePostFailureStateImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CreatePostFailureStateImplCopyWith<_$CreatePostFailureStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -8247,6 +8905,9 @@ class __$$GetPostDetailsLoadingStateImplCopyWithImpl<$Res>
       _$GetPostDetailsLoadingStateImpl _value,
       $Res Function(_$GetPostDetailsLoadingStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -8321,6 +8982,9 @@ class _$GetPostDetailsLoadingStateImpl implements GetPostDetailsLoadingState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return getPostDetailsLoading();
   }
@@ -8374,6 +9038,9 @@ class _$GetPostDetailsLoadingStateImpl implements GetPostDetailsLoadingState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return getPostDetailsLoading?.call();
   }
@@ -8427,6 +9094,9 @@ class _$GetPostDetailsLoadingStateImpl implements GetPostDetailsLoadingState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getPostDetailsLoading != null) {
@@ -8505,6 +9175,9 @@ class _$GetPostDetailsLoadingStateImpl implements GetPostDetailsLoadingState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return getPostDetailsLoading(this);
   }
@@ -8561,6 +9234,9 @@ class _$GetPostDetailsLoadingStateImpl implements GetPostDetailsLoadingState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return getPostDetailsLoading?.call(this);
   }
@@ -8614,6 +9290,9 @@ class _$GetPostDetailsLoadingStateImpl implements GetPostDetailsLoadingState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getPostDetailsLoading != null) {
@@ -8646,6 +9325,8 @@ class __$$GetPostDetailsSuccessStateImplCopyWithImpl<$Res>
       $Res Function(_$GetPostDetailsSuccessStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -8685,7 +9366,9 @@ class _$GetPostDetailsSuccessStateImpl implements GetPostDetailsSuccessState {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetPostDetailsSuccessStateImplCopyWith<_$GetPostDetailsSuccessStateImpl>
@@ -8744,6 +9427,9 @@ class _$GetPostDetailsSuccessStateImpl implements GetPostDetailsSuccessState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return getPostDetailsSuccess(response);
   }
@@ -8797,6 +9483,9 @@ class _$GetPostDetailsSuccessStateImpl implements GetPostDetailsSuccessState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return getPostDetailsSuccess?.call(response);
   }
@@ -8850,6 +9539,9 @@ class _$GetPostDetailsSuccessStateImpl implements GetPostDetailsSuccessState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getPostDetailsSuccess != null) {
@@ -8928,6 +9620,9 @@ class _$GetPostDetailsSuccessStateImpl implements GetPostDetailsSuccessState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return getPostDetailsSuccess(this);
   }
@@ -8984,6 +9679,9 @@ class _$GetPostDetailsSuccessStateImpl implements GetPostDetailsSuccessState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return getPostDetailsSuccess?.call(this);
   }
@@ -9037,6 +9735,9 @@ class _$GetPostDetailsSuccessStateImpl implements GetPostDetailsSuccessState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getPostDetailsSuccess != null) {
@@ -9051,7 +9752,10 @@ abstract class GetPostDetailsSuccessState implements PostState {
       _$GetPostDetailsSuccessStateImpl;
 
   PostDetailsResponse get response;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetPostDetailsSuccessStateImplCopyWith<_$GetPostDetailsSuccessStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -9075,6 +9779,8 @@ class __$$GetPostDetailsFailureStateImplCopyWithImpl<$Res>
       $Res Function(_$GetPostDetailsFailureStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -9113,7 +9819,9 @@ class _$GetPostDetailsFailureStateImpl implements GetPostDetailsFailureState {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetPostDetailsFailureStateImplCopyWith<_$GetPostDetailsFailureStateImpl>
@@ -9172,6 +9880,9 @@ class _$GetPostDetailsFailureStateImpl implements GetPostDetailsFailureState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return getPostDetailsFailure(error);
   }
@@ -9225,6 +9936,9 @@ class _$GetPostDetailsFailureStateImpl implements GetPostDetailsFailureState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return getPostDetailsFailure?.call(error);
   }
@@ -9278,6 +9992,9 @@ class _$GetPostDetailsFailureStateImpl implements GetPostDetailsFailureState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getPostDetailsFailure != null) {
@@ -9356,6 +10073,9 @@ class _$GetPostDetailsFailureStateImpl implements GetPostDetailsFailureState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return getPostDetailsFailure(this);
   }
@@ -9412,6 +10132,9 @@ class _$GetPostDetailsFailureStateImpl implements GetPostDetailsFailureState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return getPostDetailsFailure?.call(this);
   }
@@ -9465,6 +10188,9 @@ class _$GetPostDetailsFailureStateImpl implements GetPostDetailsFailureState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getPostDetailsFailure != null) {
@@ -9479,7 +10205,10 @@ abstract class GetPostDetailsFailureState implements PostState {
       _$GetPostDetailsFailureStateImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetPostDetailsFailureStateImplCopyWith<_$GetPostDetailsFailureStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -9500,6 +10229,9 @@ class __$$DeletePostLoadingStateImplCopyWithImpl<$Res>
       _$DeletePostLoadingStateImpl _value,
       $Res Function(_$DeletePostLoadingStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -9574,6 +10306,9 @@ class _$DeletePostLoadingStateImpl implements DeletePostLoadingState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return deletePostLoading();
   }
@@ -9627,6 +10362,9 @@ class _$DeletePostLoadingStateImpl implements DeletePostLoadingState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return deletePostLoading?.call();
   }
@@ -9680,6 +10418,9 @@ class _$DeletePostLoadingStateImpl implements DeletePostLoadingState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (deletePostLoading != null) {
@@ -9758,6 +10499,9 @@ class _$DeletePostLoadingStateImpl implements DeletePostLoadingState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return deletePostLoading(this);
   }
@@ -9814,6 +10558,9 @@ class _$DeletePostLoadingStateImpl implements DeletePostLoadingState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return deletePostLoading?.call(this);
   }
@@ -9867,6 +10614,9 @@ class _$DeletePostLoadingStateImpl implements DeletePostLoadingState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (deletePostLoading != null) {
@@ -9896,6 +10646,9 @@ class __$$DeletePostSuccessStateImplCopyWithImpl<$Res>
       _$DeletePostSuccessStateImpl _value,
       $Res Function(_$DeletePostSuccessStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -9970,6 +10723,9 @@ class _$DeletePostSuccessStateImpl implements DeletePostSuccessState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return deletePostSuccess();
   }
@@ -10023,6 +10779,9 @@ class _$DeletePostSuccessStateImpl implements DeletePostSuccessState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return deletePostSuccess?.call();
   }
@@ -10076,6 +10835,9 @@ class _$DeletePostSuccessStateImpl implements DeletePostSuccessState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (deletePostSuccess != null) {
@@ -10154,6 +10916,9 @@ class _$DeletePostSuccessStateImpl implements DeletePostSuccessState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return deletePostSuccess(this);
   }
@@ -10210,6 +10975,9 @@ class _$DeletePostSuccessStateImpl implements DeletePostSuccessState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return deletePostSuccess?.call(this);
   }
@@ -10263,6 +11031,9 @@ class _$DeletePostSuccessStateImpl implements DeletePostSuccessState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (deletePostSuccess != null) {
@@ -10295,6 +11066,8 @@ class __$$DeletePostFailureStateImplCopyWithImpl<$Res>
       $Res Function(_$DeletePostFailureStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -10333,7 +11106,9 @@ class _$DeletePostFailureStateImpl implements DeletePostFailureState {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DeletePostFailureStateImplCopyWith<_$DeletePostFailureStateImpl>
@@ -10392,6 +11167,9 @@ class _$DeletePostFailureStateImpl implements DeletePostFailureState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return deletePostFailure(error);
   }
@@ -10445,6 +11223,9 @@ class _$DeletePostFailureStateImpl implements DeletePostFailureState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return deletePostFailure?.call(error);
   }
@@ -10498,6 +11279,9 @@ class _$DeletePostFailureStateImpl implements DeletePostFailureState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (deletePostFailure != null) {
@@ -10576,6 +11360,9 @@ class _$DeletePostFailureStateImpl implements DeletePostFailureState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return deletePostFailure(this);
   }
@@ -10632,6 +11419,9 @@ class _$DeletePostFailureStateImpl implements DeletePostFailureState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return deletePostFailure?.call(this);
   }
@@ -10685,6 +11475,9 @@ class _$DeletePostFailureStateImpl implements DeletePostFailureState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (deletePostFailure != null) {
@@ -10699,7 +11492,10 @@ abstract class DeletePostFailureState implements PostState {
       _$DeletePostFailureStateImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DeletePostFailureStateImplCopyWith<_$DeletePostFailureStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -10720,6 +11516,9 @@ class __$$PostReactionLoadingStateImplCopyWithImpl<$Res>
       _$PostReactionLoadingStateImpl _value,
       $Res Function(_$PostReactionLoadingStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -10794,6 +11593,9 @@ class _$PostReactionLoadingStateImpl implements PostReactionLoadingState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return postReactionLoading();
   }
@@ -10847,6 +11649,9 @@ class _$PostReactionLoadingStateImpl implements PostReactionLoadingState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return postReactionLoading?.call();
   }
@@ -10900,6 +11705,9 @@ class _$PostReactionLoadingStateImpl implements PostReactionLoadingState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (postReactionLoading != null) {
@@ -10978,6 +11786,9 @@ class _$PostReactionLoadingStateImpl implements PostReactionLoadingState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return postReactionLoading(this);
   }
@@ -11034,6 +11845,9 @@ class _$PostReactionLoadingStateImpl implements PostReactionLoadingState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return postReactionLoading?.call(this);
   }
@@ -11087,6 +11901,9 @@ class _$PostReactionLoadingStateImpl implements PostReactionLoadingState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (postReactionLoading != null) {
@@ -11116,6 +11933,9 @@ class __$$PostReactionSuccessStateImplCopyWithImpl<$Res>
       _$PostReactionSuccessStateImpl _value,
       $Res Function(_$PostReactionSuccessStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -11190,6 +12010,9 @@ class _$PostReactionSuccessStateImpl implements PostReactionSuccessState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return postReactionSuccess();
   }
@@ -11243,6 +12066,9 @@ class _$PostReactionSuccessStateImpl implements PostReactionSuccessState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return postReactionSuccess?.call();
   }
@@ -11296,6 +12122,9 @@ class _$PostReactionSuccessStateImpl implements PostReactionSuccessState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (postReactionSuccess != null) {
@@ -11374,6 +12203,9 @@ class _$PostReactionSuccessStateImpl implements PostReactionSuccessState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return postReactionSuccess(this);
   }
@@ -11430,6 +12262,9 @@ class _$PostReactionSuccessStateImpl implements PostReactionSuccessState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return postReactionSuccess?.call(this);
   }
@@ -11483,6 +12318,9 @@ class _$PostReactionSuccessStateImpl implements PostReactionSuccessState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (postReactionSuccess != null) {
@@ -11515,6 +12353,8 @@ class __$$PostReactionFailureStateImplCopyWithImpl<$Res>
       $Res Function(_$PostReactionFailureStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -11553,7 +12393,9 @@ class _$PostReactionFailureStateImpl implements PostReactionFailureState {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$PostReactionFailureStateImplCopyWith<_$PostReactionFailureStateImpl>
@@ -11612,6 +12454,9 @@ class _$PostReactionFailureStateImpl implements PostReactionFailureState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return postReactionFailure(error);
   }
@@ -11665,6 +12510,9 @@ class _$PostReactionFailureStateImpl implements PostReactionFailureState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return postReactionFailure?.call(error);
   }
@@ -11718,6 +12566,9 @@ class _$PostReactionFailureStateImpl implements PostReactionFailureState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (postReactionFailure != null) {
@@ -11796,6 +12647,9 @@ class _$PostReactionFailureStateImpl implements PostReactionFailureState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return postReactionFailure(this);
   }
@@ -11852,6 +12706,9 @@ class _$PostReactionFailureStateImpl implements PostReactionFailureState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return postReactionFailure?.call(this);
   }
@@ -11905,6 +12762,9 @@ class _$PostReactionFailureStateImpl implements PostReactionFailureState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (postReactionFailure != null) {
@@ -11919,7 +12779,10 @@ abstract class PostReactionFailureState implements PostState {
       _$PostReactionFailureStateImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$PostReactionFailureStateImplCopyWith<_$PostReactionFailureStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -11940,6 +12803,9 @@ class __$$ReportPostLoadingStateImplCopyWithImpl<$Res>
       _$ReportPostLoadingStateImpl _value,
       $Res Function(_$ReportPostLoadingStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -12014,6 +12880,9 @@ class _$ReportPostLoadingStateImpl implements ReportPostLoadingState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return reportPostLoading();
   }
@@ -12067,6 +12936,9 @@ class _$ReportPostLoadingStateImpl implements ReportPostLoadingState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return reportPostLoading?.call();
   }
@@ -12120,6 +12992,9 @@ class _$ReportPostLoadingStateImpl implements ReportPostLoadingState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (reportPostLoading != null) {
@@ -12198,6 +13073,9 @@ class _$ReportPostLoadingStateImpl implements ReportPostLoadingState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return reportPostLoading(this);
   }
@@ -12254,6 +13132,9 @@ class _$ReportPostLoadingStateImpl implements ReportPostLoadingState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return reportPostLoading?.call(this);
   }
@@ -12307,6 +13188,9 @@ class _$ReportPostLoadingStateImpl implements ReportPostLoadingState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (reportPostLoading != null) {
@@ -12336,6 +13220,9 @@ class __$$ReportPostSuccessStateImplCopyWithImpl<$Res>
       _$ReportPostSuccessStateImpl _value,
       $Res Function(_$ReportPostSuccessStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -12410,6 +13297,9 @@ class _$ReportPostSuccessStateImpl implements ReportPostSuccessState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return reportPostSuccess();
   }
@@ -12463,6 +13353,9 @@ class _$ReportPostSuccessStateImpl implements ReportPostSuccessState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return reportPostSuccess?.call();
   }
@@ -12516,6 +13409,9 @@ class _$ReportPostSuccessStateImpl implements ReportPostSuccessState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (reportPostSuccess != null) {
@@ -12594,6 +13490,9 @@ class _$ReportPostSuccessStateImpl implements ReportPostSuccessState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return reportPostSuccess(this);
   }
@@ -12650,6 +13549,9 @@ class _$ReportPostSuccessStateImpl implements ReportPostSuccessState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return reportPostSuccess?.call(this);
   }
@@ -12703,6 +13605,9 @@ class _$ReportPostSuccessStateImpl implements ReportPostSuccessState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (reportPostSuccess != null) {
@@ -12735,6 +13640,8 @@ class __$$ReportPostFailureStateImplCopyWithImpl<$Res>
       $Res Function(_$ReportPostFailureStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -12773,7 +13680,9 @@ class _$ReportPostFailureStateImpl implements ReportPostFailureState {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ReportPostFailureStateImplCopyWith<_$ReportPostFailureStateImpl>
@@ -12832,6 +13741,9 @@ class _$ReportPostFailureStateImpl implements ReportPostFailureState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return reportPostFailure(error);
   }
@@ -12885,6 +13797,9 @@ class _$ReportPostFailureStateImpl implements ReportPostFailureState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return reportPostFailure?.call(error);
   }
@@ -12938,6 +13853,9 @@ class _$ReportPostFailureStateImpl implements ReportPostFailureState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (reportPostFailure != null) {
@@ -13016,6 +13934,9 @@ class _$ReportPostFailureStateImpl implements ReportPostFailureState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return reportPostFailure(this);
   }
@@ -13072,6 +13993,9 @@ class _$ReportPostFailureStateImpl implements ReportPostFailureState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return reportPostFailure?.call(this);
   }
@@ -13125,6 +14049,9 @@ class _$ReportPostFailureStateImpl implements ReportPostFailureState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (reportPostFailure != null) {
@@ -13139,7 +14066,10 @@ abstract class ReportPostFailureState implements PostState {
       _$ReportPostFailureStateImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ReportPostFailureStateImplCopyWith<_$ReportPostFailureStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -13158,6 +14088,9 @@ class __$$GetPollsLoadingStateImplCopyWithImpl<$Res>
   __$$GetPollsLoadingStateImplCopyWithImpl(_$GetPollsLoadingStateImpl _value,
       $Res Function(_$GetPollsLoadingStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -13232,6 +14165,9 @@ class _$GetPollsLoadingStateImpl implements GetPollsLoadingState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return getPollsLoading();
   }
@@ -13285,6 +14221,9 @@ class _$GetPollsLoadingStateImpl implements GetPollsLoadingState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return getPollsLoading?.call();
   }
@@ -13338,6 +14277,9 @@ class _$GetPollsLoadingStateImpl implements GetPollsLoadingState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getPollsLoading != null) {
@@ -13416,6 +14358,9 @@ class _$GetPollsLoadingStateImpl implements GetPollsLoadingState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return getPollsLoading(this);
   }
@@ -13472,6 +14417,9 @@ class _$GetPollsLoadingStateImpl implements GetPollsLoadingState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return getPollsLoading?.call(this);
   }
@@ -13525,6 +14473,9 @@ class _$GetPollsLoadingStateImpl implements GetPollsLoadingState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getPollsLoading != null) {
@@ -13555,6 +14506,8 @@ class __$$GetPollsSuccessStateImplCopyWithImpl<$Res>
       $Res Function(_$GetPollsSuccessStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -13594,7 +14547,9 @@ class _$GetPollsSuccessStateImpl implements GetPollsSuccessState {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetPollsSuccessStateImplCopyWith<_$GetPollsSuccessStateImpl>
@@ -13654,6 +14609,9 @@ class _$GetPollsSuccessStateImpl implements GetPollsSuccessState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return getPollsSuccess(response);
   }
@@ -13707,6 +14665,9 @@ class _$GetPollsSuccessStateImpl implements GetPollsSuccessState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return getPollsSuccess?.call(response);
   }
@@ -13760,6 +14721,9 @@ class _$GetPollsSuccessStateImpl implements GetPollsSuccessState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getPollsSuccess != null) {
@@ -13838,6 +14802,9 @@ class _$GetPollsSuccessStateImpl implements GetPollsSuccessState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return getPollsSuccess(this);
   }
@@ -13894,6 +14861,9 @@ class _$GetPollsSuccessStateImpl implements GetPollsSuccessState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return getPollsSuccess?.call(this);
   }
@@ -13947,6 +14917,9 @@ class _$GetPollsSuccessStateImpl implements GetPollsSuccessState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getPollsSuccess != null) {
@@ -13961,7 +14934,10 @@ abstract class GetPollsSuccessState implements PostState {
       _$GetPollsSuccessStateImpl;
 
   GetPollsResponse get response;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetPollsSuccessStateImplCopyWith<_$GetPollsSuccessStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -13983,6 +14959,8 @@ class __$$GetPollsFailureStateImplCopyWithImpl<$Res>
       $Res Function(_$GetPollsFailureStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -14021,7 +14999,9 @@ class _$GetPollsFailureStateImpl implements GetPollsFailureState {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetPollsFailureStateImplCopyWith<_$GetPollsFailureStateImpl>
@@ -14081,6 +15061,9 @@ class _$GetPollsFailureStateImpl implements GetPollsFailureState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return getPollsFailure(error);
   }
@@ -14134,6 +15117,9 @@ class _$GetPollsFailureStateImpl implements GetPollsFailureState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return getPollsFailure?.call(error);
   }
@@ -14187,6 +15173,9 @@ class _$GetPollsFailureStateImpl implements GetPollsFailureState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getPollsFailure != null) {
@@ -14265,6 +15254,9 @@ class _$GetPollsFailureStateImpl implements GetPollsFailureState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return getPollsFailure(this);
   }
@@ -14321,6 +15313,9 @@ class _$GetPollsFailureStateImpl implements GetPollsFailureState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return getPollsFailure?.call(this);
   }
@@ -14374,6 +15369,9 @@ class _$GetPollsFailureStateImpl implements GetPollsFailureState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getPollsFailure != null) {
@@ -14388,7 +15386,10 @@ abstract class GetPollsFailureState implements PostState {
       _$GetPollsFailureStateImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetPollsFailureStateImplCopyWith<_$GetPollsFailureStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -14409,6 +15410,9 @@ class __$$GetCommentsLoadingStateImplCopyWithImpl<$Res>
       _$GetCommentsLoadingStateImpl _value,
       $Res Function(_$GetCommentsLoadingStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -14483,6 +15487,9 @@ class _$GetCommentsLoadingStateImpl implements GetCommentsLoadingState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return getCommentsLoading();
   }
@@ -14536,6 +15543,9 @@ class _$GetCommentsLoadingStateImpl implements GetCommentsLoadingState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return getCommentsLoading?.call();
   }
@@ -14589,6 +15599,9 @@ class _$GetCommentsLoadingStateImpl implements GetCommentsLoadingState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getCommentsLoading != null) {
@@ -14667,6 +15680,9 @@ class _$GetCommentsLoadingStateImpl implements GetCommentsLoadingState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return getCommentsLoading(this);
   }
@@ -14723,6 +15739,9 @@ class _$GetCommentsLoadingStateImpl implements GetCommentsLoadingState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return getCommentsLoading?.call(this);
   }
@@ -14776,6 +15795,9 @@ class _$GetCommentsLoadingStateImpl implements GetCommentsLoadingState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getCommentsLoading != null) {
@@ -14808,6 +15830,8 @@ class __$$GetCommentsSuccessStateImplCopyWithImpl<$Res>
       $Res Function(_$GetCommentsSuccessStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -14847,7 +15871,9 @@ class _$GetCommentsSuccessStateImpl implements GetCommentsSuccessState {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetCommentsSuccessStateImplCopyWith<_$GetCommentsSuccessStateImpl>
@@ -14906,6 +15932,9 @@ class _$GetCommentsSuccessStateImpl implements GetCommentsSuccessState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return getCommentsSuccess(response);
   }
@@ -14959,6 +15988,9 @@ class _$GetCommentsSuccessStateImpl implements GetCommentsSuccessState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return getCommentsSuccess?.call(response);
   }
@@ -15012,6 +16044,9 @@ class _$GetCommentsSuccessStateImpl implements GetCommentsSuccessState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getCommentsSuccess != null) {
@@ -15090,6 +16125,9 @@ class _$GetCommentsSuccessStateImpl implements GetCommentsSuccessState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return getCommentsSuccess(this);
   }
@@ -15146,6 +16184,9 @@ class _$GetCommentsSuccessStateImpl implements GetCommentsSuccessState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return getCommentsSuccess?.call(this);
   }
@@ -15199,6 +16240,9 @@ class _$GetCommentsSuccessStateImpl implements GetCommentsSuccessState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getCommentsSuccess != null) {
@@ -15213,7 +16257,10 @@ abstract class GetCommentsSuccessState implements PostState {
       _$GetCommentsSuccessStateImpl;
 
   dynamic get response;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetCommentsSuccessStateImplCopyWith<_$GetCommentsSuccessStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -15237,6 +16284,8 @@ class __$$GetCommentsFailureStateImplCopyWithImpl<$Res>
       $Res Function(_$GetCommentsFailureStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -15275,7 +16324,9 @@ class _$GetCommentsFailureStateImpl implements GetCommentsFailureState {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetCommentsFailureStateImplCopyWith<_$GetCommentsFailureStateImpl>
@@ -15334,6 +16385,9 @@ class _$GetCommentsFailureStateImpl implements GetCommentsFailureState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return getCommentsFailure(error);
   }
@@ -15387,6 +16441,9 @@ class _$GetCommentsFailureStateImpl implements GetCommentsFailureState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return getCommentsFailure?.call(error);
   }
@@ -15440,6 +16497,9 @@ class _$GetCommentsFailureStateImpl implements GetCommentsFailureState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getCommentsFailure != null) {
@@ -15518,6 +16578,9 @@ class _$GetCommentsFailureStateImpl implements GetCommentsFailureState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return getCommentsFailure(this);
   }
@@ -15574,6 +16637,9 @@ class _$GetCommentsFailureStateImpl implements GetCommentsFailureState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return getCommentsFailure?.call(this);
   }
@@ -15627,6 +16693,9 @@ class _$GetCommentsFailureStateImpl implements GetCommentsFailureState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getCommentsFailure != null) {
@@ -15641,7 +16710,10 @@ abstract class GetCommentsFailureState implements PostState {
       _$GetCommentsFailureStateImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetCommentsFailureStateImplCopyWith<_$GetCommentsFailureStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -15662,6 +16734,9 @@ class __$$GetACommentLoadingStateImplCopyWithImpl<$Res>
       _$GetACommentLoadingStateImpl _value,
       $Res Function(_$GetACommentLoadingStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -15736,6 +16811,9 @@ class _$GetACommentLoadingStateImpl implements GetACommentLoadingState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return getACommentLoading();
   }
@@ -15789,6 +16867,9 @@ class _$GetACommentLoadingStateImpl implements GetACommentLoadingState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return getACommentLoading?.call();
   }
@@ -15842,6 +16923,9 @@ class _$GetACommentLoadingStateImpl implements GetACommentLoadingState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getACommentLoading != null) {
@@ -15920,6 +17004,9 @@ class _$GetACommentLoadingStateImpl implements GetACommentLoadingState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return getACommentLoading(this);
   }
@@ -15976,6 +17063,9 @@ class _$GetACommentLoadingStateImpl implements GetACommentLoadingState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return getACommentLoading?.call(this);
   }
@@ -16029,6 +17119,9 @@ class _$GetACommentLoadingStateImpl implements GetACommentLoadingState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getACommentLoading != null) {
@@ -16061,6 +17154,8 @@ class __$$GetACommentSuccessStateImplCopyWithImpl<$Res>
       $Res Function(_$GetACommentSuccessStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -16100,7 +17195,9 @@ class _$GetACommentSuccessStateImpl implements GetACommentSuccessState {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetACommentSuccessStateImplCopyWith<_$GetACommentSuccessStateImpl>
@@ -16159,6 +17256,9 @@ class _$GetACommentSuccessStateImpl implements GetACommentSuccessState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return getACommentSuccess(response);
   }
@@ -16212,6 +17312,9 @@ class _$GetACommentSuccessStateImpl implements GetACommentSuccessState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return getACommentSuccess?.call(response);
   }
@@ -16265,6 +17368,9 @@ class _$GetACommentSuccessStateImpl implements GetACommentSuccessState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getACommentSuccess != null) {
@@ -16343,6 +17449,9 @@ class _$GetACommentSuccessStateImpl implements GetACommentSuccessState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return getACommentSuccess(this);
   }
@@ -16399,6 +17508,9 @@ class _$GetACommentSuccessStateImpl implements GetACommentSuccessState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return getACommentSuccess?.call(this);
   }
@@ -16452,6 +17564,9 @@ class _$GetACommentSuccessStateImpl implements GetACommentSuccessState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getACommentSuccess != null) {
@@ -16466,7 +17581,10 @@ abstract class GetACommentSuccessState implements PostState {
       _$GetACommentSuccessStateImpl;
 
   dynamic get response;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetACommentSuccessStateImplCopyWith<_$GetACommentSuccessStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -16490,6 +17608,8 @@ class __$$GetACommentFailureStateImplCopyWithImpl<$Res>
       $Res Function(_$GetACommentFailureStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -16528,7 +17648,9 @@ class _$GetACommentFailureStateImpl implements GetACommentFailureState {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetACommentFailureStateImplCopyWith<_$GetACommentFailureStateImpl>
@@ -16587,6 +17709,9 @@ class _$GetACommentFailureStateImpl implements GetACommentFailureState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return getACommentFailure(error);
   }
@@ -16640,6 +17765,9 @@ class _$GetACommentFailureStateImpl implements GetACommentFailureState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return getACommentFailure?.call(error);
   }
@@ -16693,6 +17821,9 @@ class _$GetACommentFailureStateImpl implements GetACommentFailureState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getACommentFailure != null) {
@@ -16771,6 +17902,9 @@ class _$GetACommentFailureStateImpl implements GetACommentFailureState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return getACommentFailure(this);
   }
@@ -16827,6 +17961,9 @@ class _$GetACommentFailureStateImpl implements GetACommentFailureState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return getACommentFailure?.call(this);
   }
@@ -16880,6 +18017,9 @@ class _$GetACommentFailureStateImpl implements GetACommentFailureState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getACommentFailure != null) {
@@ -16894,7 +18034,10 @@ abstract class GetACommentFailureState implements PostState {
       _$GetACommentFailureStateImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetACommentFailureStateImplCopyWith<_$GetACommentFailureStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -16915,6 +18058,9 @@ class __$$SaveACommentLoadingStateImplCopyWithImpl<$Res>
       _$SaveACommentLoadingStateImpl _value,
       $Res Function(_$SaveACommentLoadingStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -16989,6 +18135,9 @@ class _$SaveACommentLoadingStateImpl implements SaveACommentLoadingState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return saveACommentLoading();
   }
@@ -17042,6 +18191,9 @@ class _$SaveACommentLoadingStateImpl implements SaveACommentLoadingState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return saveACommentLoading?.call();
   }
@@ -17095,6 +18247,9 @@ class _$SaveACommentLoadingStateImpl implements SaveACommentLoadingState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (saveACommentLoading != null) {
@@ -17173,6 +18328,9 @@ class _$SaveACommentLoadingStateImpl implements SaveACommentLoadingState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return saveACommentLoading(this);
   }
@@ -17229,6 +18387,9 @@ class _$SaveACommentLoadingStateImpl implements SaveACommentLoadingState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return saveACommentLoading?.call(this);
   }
@@ -17282,6 +18443,9 @@ class _$SaveACommentLoadingStateImpl implements SaveACommentLoadingState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (saveACommentLoading != null) {
@@ -17311,6 +18475,9 @@ class __$$SaveACommentSuccessStateImplCopyWithImpl<$Res>
       _$SaveACommentSuccessStateImpl _value,
       $Res Function(_$SaveACommentSuccessStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -17385,6 +18552,9 @@ class _$SaveACommentSuccessStateImpl implements SaveACommentSuccessState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return saveACommentSuccess();
   }
@@ -17438,6 +18608,9 @@ class _$SaveACommentSuccessStateImpl implements SaveACommentSuccessState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return saveACommentSuccess?.call();
   }
@@ -17491,6 +18664,9 @@ class _$SaveACommentSuccessStateImpl implements SaveACommentSuccessState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (saveACommentSuccess != null) {
@@ -17569,6 +18745,9 @@ class _$SaveACommentSuccessStateImpl implements SaveACommentSuccessState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return saveACommentSuccess(this);
   }
@@ -17625,6 +18804,9 @@ class _$SaveACommentSuccessStateImpl implements SaveACommentSuccessState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return saveACommentSuccess?.call(this);
   }
@@ -17678,6 +18860,9 @@ class _$SaveACommentSuccessStateImpl implements SaveACommentSuccessState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (saveACommentSuccess != null) {
@@ -17710,6 +18895,8 @@ class __$$SaveACommentFailureStateImplCopyWithImpl<$Res>
       $Res Function(_$SaveACommentFailureStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -17748,7 +18935,9 @@ class _$SaveACommentFailureStateImpl implements SaveACommentFailureState {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SaveACommentFailureStateImplCopyWith<_$SaveACommentFailureStateImpl>
@@ -17807,6 +18996,9 @@ class _$SaveACommentFailureStateImpl implements SaveACommentFailureState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return saveACommentFailure(error);
   }
@@ -17860,6 +19052,9 @@ class _$SaveACommentFailureStateImpl implements SaveACommentFailureState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return saveACommentFailure?.call(error);
   }
@@ -17913,6 +19108,9 @@ class _$SaveACommentFailureStateImpl implements SaveACommentFailureState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (saveACommentFailure != null) {
@@ -17991,6 +19189,9 @@ class _$SaveACommentFailureStateImpl implements SaveACommentFailureState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return saveACommentFailure(this);
   }
@@ -18047,6 +19248,9 @@ class _$SaveACommentFailureStateImpl implements SaveACommentFailureState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return saveACommentFailure?.call(this);
   }
@@ -18100,6 +19304,9 @@ class _$SaveACommentFailureStateImpl implements SaveACommentFailureState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (saveACommentFailure != null) {
@@ -18114,7 +19321,10 @@ abstract class SaveACommentFailureState implements PostState {
       _$SaveACommentFailureStateImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SaveACommentFailureStateImplCopyWith<_$SaveACommentFailureStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -18135,6 +19345,9 @@ class __$$DeleteCommentLoadingStateImplCopyWithImpl<$Res>
       _$DeleteCommentLoadingStateImpl _value,
       $Res Function(_$DeleteCommentLoadingStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -18209,6 +19422,9 @@ class _$DeleteCommentLoadingStateImpl implements DeleteCommentLoadingState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return deleteCommentLoading();
   }
@@ -18262,6 +19478,9 @@ class _$DeleteCommentLoadingStateImpl implements DeleteCommentLoadingState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return deleteCommentLoading?.call();
   }
@@ -18315,6 +19534,9 @@ class _$DeleteCommentLoadingStateImpl implements DeleteCommentLoadingState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (deleteCommentLoading != null) {
@@ -18393,6 +19615,9 @@ class _$DeleteCommentLoadingStateImpl implements DeleteCommentLoadingState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return deleteCommentLoading(this);
   }
@@ -18449,6 +19674,9 @@ class _$DeleteCommentLoadingStateImpl implements DeleteCommentLoadingState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return deleteCommentLoading?.call(this);
   }
@@ -18502,6 +19730,9 @@ class _$DeleteCommentLoadingStateImpl implements DeleteCommentLoadingState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (deleteCommentLoading != null) {
@@ -18531,6 +19762,9 @@ class __$$DeleteCommentSuccessStateImplCopyWithImpl<$Res>
       _$DeleteCommentSuccessStateImpl _value,
       $Res Function(_$DeleteCommentSuccessStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -18605,6 +19839,9 @@ class _$DeleteCommentSuccessStateImpl implements DeleteCommentSuccessState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return deleteCommentSuccess();
   }
@@ -18658,6 +19895,9 @@ class _$DeleteCommentSuccessStateImpl implements DeleteCommentSuccessState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return deleteCommentSuccess?.call();
   }
@@ -18711,6 +19951,9 @@ class _$DeleteCommentSuccessStateImpl implements DeleteCommentSuccessState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (deleteCommentSuccess != null) {
@@ -18789,6 +20032,9 @@ class _$DeleteCommentSuccessStateImpl implements DeleteCommentSuccessState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return deleteCommentSuccess(this);
   }
@@ -18845,6 +20091,9 @@ class _$DeleteCommentSuccessStateImpl implements DeleteCommentSuccessState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return deleteCommentSuccess?.call(this);
   }
@@ -18898,6 +20147,9 @@ class _$DeleteCommentSuccessStateImpl implements DeleteCommentSuccessState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (deleteCommentSuccess != null) {
@@ -18930,6 +20182,8 @@ class __$$DeleteCommentFailureStateImplCopyWithImpl<$Res>
       $Res Function(_$DeleteCommentFailureStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -18968,7 +20222,9 @@ class _$DeleteCommentFailureStateImpl implements DeleteCommentFailureState {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DeleteCommentFailureStateImplCopyWith<_$DeleteCommentFailureStateImpl>
@@ -19027,6 +20283,9 @@ class _$DeleteCommentFailureStateImpl implements DeleteCommentFailureState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return deleteCommentFailure(error);
   }
@@ -19080,6 +20339,9 @@ class _$DeleteCommentFailureStateImpl implements DeleteCommentFailureState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return deleteCommentFailure?.call(error);
   }
@@ -19133,6 +20395,9 @@ class _$DeleteCommentFailureStateImpl implements DeleteCommentFailureState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (deleteCommentFailure != null) {
@@ -19211,6 +20476,9 @@ class _$DeleteCommentFailureStateImpl implements DeleteCommentFailureState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return deleteCommentFailure(this);
   }
@@ -19267,6 +20535,9 @@ class _$DeleteCommentFailureStateImpl implements DeleteCommentFailureState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return deleteCommentFailure?.call(this);
   }
@@ -19320,6 +20591,9 @@ class _$DeleteCommentFailureStateImpl implements DeleteCommentFailureState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (deleteCommentFailure != null) {
@@ -19334,7 +20608,10 @@ abstract class DeleteCommentFailureState implements PostState {
       _$DeleteCommentFailureStateImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DeleteCommentFailureStateImplCopyWith<_$DeleteCommentFailureStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -19355,6 +20632,9 @@ class __$$CommentReactionLoadingStateImplCopyWithImpl<$Res>
       _$CommentReactionLoadingStateImpl _value,
       $Res Function(_$CommentReactionLoadingStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -19429,6 +20709,9 @@ class _$CommentReactionLoadingStateImpl implements CommentReactionLoadingState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return commentReactionLoading();
   }
@@ -19482,6 +20765,9 @@ class _$CommentReactionLoadingStateImpl implements CommentReactionLoadingState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return commentReactionLoading?.call();
   }
@@ -19535,6 +20821,9 @@ class _$CommentReactionLoadingStateImpl implements CommentReactionLoadingState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (commentReactionLoading != null) {
@@ -19613,6 +20902,9 @@ class _$CommentReactionLoadingStateImpl implements CommentReactionLoadingState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return commentReactionLoading(this);
   }
@@ -19669,6 +20961,9 @@ class _$CommentReactionLoadingStateImpl implements CommentReactionLoadingState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return commentReactionLoading?.call(this);
   }
@@ -19722,6 +21017,9 @@ class _$CommentReactionLoadingStateImpl implements CommentReactionLoadingState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (commentReactionLoading != null) {
@@ -19752,6 +21050,9 @@ class __$$CommentReactionSuccessStateImplCopyWithImpl<$Res>
       _$CommentReactionSuccessStateImpl _value,
       $Res Function(_$CommentReactionSuccessStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -19826,6 +21127,9 @@ class _$CommentReactionSuccessStateImpl implements CommentReactionSuccessState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return commentReactionSuccess();
   }
@@ -19879,6 +21183,9 @@ class _$CommentReactionSuccessStateImpl implements CommentReactionSuccessState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return commentReactionSuccess?.call();
   }
@@ -19932,6 +21239,9 @@ class _$CommentReactionSuccessStateImpl implements CommentReactionSuccessState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (commentReactionSuccess != null) {
@@ -20010,6 +21320,9 @@ class _$CommentReactionSuccessStateImpl implements CommentReactionSuccessState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return commentReactionSuccess(this);
   }
@@ -20066,6 +21379,9 @@ class _$CommentReactionSuccessStateImpl implements CommentReactionSuccessState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return commentReactionSuccess?.call(this);
   }
@@ -20119,6 +21435,9 @@ class _$CommentReactionSuccessStateImpl implements CommentReactionSuccessState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (commentReactionSuccess != null) {
@@ -20152,6 +21471,8 @@ class __$$CommentReactionFailureStateImplCopyWithImpl<$Res>
       $Res Function(_$CommentReactionFailureStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -20190,7 +21511,9 @@ class _$CommentReactionFailureStateImpl implements CommentReactionFailureState {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CommentReactionFailureStateImplCopyWith<_$CommentReactionFailureStateImpl>
@@ -20249,6 +21572,9 @@ class _$CommentReactionFailureStateImpl implements CommentReactionFailureState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return commentReactionFailure(error);
   }
@@ -20302,6 +21628,9 @@ class _$CommentReactionFailureStateImpl implements CommentReactionFailureState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return commentReactionFailure?.call(error);
   }
@@ -20355,6 +21684,9 @@ class _$CommentReactionFailureStateImpl implements CommentReactionFailureState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (commentReactionFailure != null) {
@@ -20433,6 +21765,9 @@ class _$CommentReactionFailureStateImpl implements CommentReactionFailureState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return commentReactionFailure(this);
   }
@@ -20489,6 +21824,9 @@ class _$CommentReactionFailureStateImpl implements CommentReactionFailureState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return commentReactionFailure?.call(this);
   }
@@ -20542,6 +21880,9 @@ class _$CommentReactionFailureStateImpl implements CommentReactionFailureState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (commentReactionFailure != null) {
@@ -20556,7 +21897,10 @@ abstract class CommentReactionFailureState implements PostState {
       _$CommentReactionFailureStateImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CommentReactionFailureStateImplCopyWith<_$CommentReactionFailureStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -20575,6 +21919,9 @@ class __$$GetGuidelinesLoadingImplCopyWithImpl<$Res>
   __$$GetGuidelinesLoadingImplCopyWithImpl(_$GetGuidelinesLoadingImpl _value,
       $Res Function(_$GetGuidelinesLoadingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -20649,6 +21996,9 @@ class _$GetGuidelinesLoadingImpl implements GetGuidelinesLoading {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return getGuidelinesLoading();
   }
@@ -20702,6 +22052,9 @@ class _$GetGuidelinesLoadingImpl implements GetGuidelinesLoading {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return getGuidelinesLoading?.call();
   }
@@ -20755,6 +22108,9 @@ class _$GetGuidelinesLoadingImpl implements GetGuidelinesLoading {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getGuidelinesLoading != null) {
@@ -20833,6 +22189,9 @@ class _$GetGuidelinesLoadingImpl implements GetGuidelinesLoading {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return getGuidelinesLoading(this);
   }
@@ -20889,6 +22248,9 @@ class _$GetGuidelinesLoadingImpl implements GetGuidelinesLoading {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return getGuidelinesLoading?.call(this);
   }
@@ -20942,6 +22304,9 @@ class _$GetGuidelinesLoadingImpl implements GetGuidelinesLoading {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getGuidelinesLoading != null) {
@@ -20972,6 +22337,8 @@ class __$$GetGuidelinesSuccessImplCopyWithImpl<$Res>
       $Res Function(_$GetGuidelinesSuccessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -21011,7 +22378,9 @@ class _$GetGuidelinesSuccessImpl implements GetGuidelinesSuccess {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetGuidelinesSuccessImplCopyWith<_$GetGuidelinesSuccessImpl>
@@ -21071,6 +22440,9 @@ class _$GetGuidelinesSuccessImpl implements GetGuidelinesSuccess {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return getGuideLinesSuccess(response);
   }
@@ -21124,6 +22496,9 @@ class _$GetGuidelinesSuccessImpl implements GetGuidelinesSuccess {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return getGuideLinesSuccess?.call(response);
   }
@@ -21177,6 +22552,9 @@ class _$GetGuidelinesSuccessImpl implements GetGuidelinesSuccess {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getGuideLinesSuccess != null) {
@@ -21255,6 +22633,9 @@ class _$GetGuidelinesSuccessImpl implements GetGuidelinesSuccess {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return getGuideLinesSuccess(this);
   }
@@ -21311,6 +22692,9 @@ class _$GetGuidelinesSuccessImpl implements GetGuidelinesSuccess {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return getGuideLinesSuccess?.call(this);
   }
@@ -21364,6 +22748,9 @@ class _$GetGuidelinesSuccessImpl implements GetGuidelinesSuccess {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getGuideLinesSuccess != null) {
@@ -21378,7 +22765,10 @@ abstract class GetGuidelinesSuccess implements PostState {
       _$GetGuidelinesSuccessImpl;
 
   GetGuidlinesResponse get response;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetGuidelinesSuccessImplCopyWith<_$GetGuidelinesSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -21400,6 +22790,8 @@ class __$$GetGuidelinesFailedImplCopyWithImpl<$Res>
       $Res Function(_$GetGuidelinesFailedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -21438,7 +22830,9 @@ class _$GetGuidelinesFailedImpl implements GetGuidelinesFailed {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetGuidelinesFailedImplCopyWith<_$GetGuidelinesFailedImpl> get copyWith =>
@@ -21497,6 +22891,9 @@ class _$GetGuidelinesFailedImpl implements GetGuidelinesFailed {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return getGuideLinesFailed(error);
   }
@@ -21550,6 +22947,9 @@ class _$GetGuidelinesFailedImpl implements GetGuidelinesFailed {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return getGuideLinesFailed?.call(error);
   }
@@ -21603,6 +23003,9 @@ class _$GetGuidelinesFailedImpl implements GetGuidelinesFailed {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getGuideLinesFailed != null) {
@@ -21681,6 +23084,9 @@ class _$GetGuidelinesFailedImpl implements GetGuidelinesFailed {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return getGuideLinesFailed(this);
   }
@@ -21737,6 +23143,9 @@ class _$GetGuidelinesFailedImpl implements GetGuidelinesFailed {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return getGuideLinesFailed?.call(this);
   }
@@ -21790,6 +23199,9 @@ class _$GetGuidelinesFailedImpl implements GetGuidelinesFailed {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (getGuideLinesFailed != null) {
@@ -21804,7 +23216,10 @@ abstract class GetGuidelinesFailed implements PostState {
       _$GetGuidelinesFailedImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetGuidelinesFailedImplCopyWith<_$GetGuidelinesFailedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -21825,6 +23240,9 @@ class __$$ReportCommentLoadingStateImplCopyWithImpl<$Res>
       _$ReportCommentLoadingStateImpl _value,
       $Res Function(_$ReportCommentLoadingStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -21899,6 +23317,9 @@ class _$ReportCommentLoadingStateImpl implements ReportCommentLoadingState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return reportCommentLoading();
   }
@@ -21952,6 +23373,9 @@ class _$ReportCommentLoadingStateImpl implements ReportCommentLoadingState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return reportCommentLoading?.call();
   }
@@ -22005,6 +23429,9 @@ class _$ReportCommentLoadingStateImpl implements ReportCommentLoadingState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (reportCommentLoading != null) {
@@ -22083,6 +23510,9 @@ class _$ReportCommentLoadingStateImpl implements ReportCommentLoadingState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return reportCommentLoading(this);
   }
@@ -22139,6 +23569,9 @@ class _$ReportCommentLoadingStateImpl implements ReportCommentLoadingState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return reportCommentLoading?.call(this);
   }
@@ -22192,6 +23625,9 @@ class _$ReportCommentLoadingStateImpl implements ReportCommentLoadingState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (reportCommentLoading != null) {
@@ -22221,6 +23657,9 @@ class __$$ReportCommentSuccessStateImplCopyWithImpl<$Res>
       _$ReportCommentSuccessStateImpl _value,
       $Res Function(_$ReportCommentSuccessStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -22295,6 +23734,9 @@ class _$ReportCommentSuccessStateImpl implements ReportCommentSuccessState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return reportCommentSuccess();
   }
@@ -22348,6 +23790,9 @@ class _$ReportCommentSuccessStateImpl implements ReportCommentSuccessState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return reportCommentSuccess?.call();
   }
@@ -22401,6 +23846,9 @@ class _$ReportCommentSuccessStateImpl implements ReportCommentSuccessState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (reportCommentSuccess != null) {
@@ -22479,6 +23927,9 @@ class _$ReportCommentSuccessStateImpl implements ReportCommentSuccessState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return reportCommentSuccess(this);
   }
@@ -22535,6 +23986,9 @@ class _$ReportCommentSuccessStateImpl implements ReportCommentSuccessState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return reportCommentSuccess?.call(this);
   }
@@ -22588,6 +24042,9 @@ class _$ReportCommentSuccessStateImpl implements ReportCommentSuccessState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (reportCommentSuccess != null) {
@@ -22620,6 +24077,8 @@ class __$$ReportCommentFailureStateImplCopyWithImpl<$Res>
       $Res Function(_$ReportCommentFailureStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -22658,7 +24117,9 @@ class _$ReportCommentFailureStateImpl implements ReportCommentFailureState {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$ReportCommentFailureStateImplCopyWith<_$ReportCommentFailureStateImpl>
@@ -22717,6 +24178,9 @@ class _$ReportCommentFailureStateImpl implements ReportCommentFailureState {
     required TResult Function() reportCommentLoading,
     required TResult Function() reportCommentSuccess,
     required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
   }) {
     return reportCommentFailure(error);
   }
@@ -22770,6 +24234,9 @@ class _$ReportCommentFailureStateImpl implements ReportCommentFailureState {
     TResult? Function()? reportCommentLoading,
     TResult? Function()? reportCommentSuccess,
     TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
   }) {
     return reportCommentFailure?.call(error);
   }
@@ -22823,6 +24290,9 @@ class _$ReportCommentFailureStateImpl implements ReportCommentFailureState {
     TResult Function()? reportCommentLoading,
     TResult Function()? reportCommentSuccess,
     TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (reportCommentFailure != null) {
@@ -22901,6 +24371,9 @@ class _$ReportCommentFailureStateImpl implements ReportCommentFailureState {
         reportCommentSuccess,
     required TResult Function(ReportCommentFailureState value)
         reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
   }) {
     return reportCommentFailure(this);
   }
@@ -22957,6 +24430,9 @@ class _$ReportCommentFailureStateImpl implements ReportCommentFailureState {
     TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
   }) {
     return reportCommentFailure?.call(this);
   }
@@ -23010,6 +24486,9 @@ class _$ReportCommentFailureStateImpl implements ReportCommentFailureState {
     TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
     TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
     TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
     required TResult orElse(),
   }) {
     if (reportCommentFailure != null) {
@@ -23024,7 +24503,1288 @@ abstract class ReportCommentFailureState implements PostState {
       _$ReportCommentFailureStateImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$ReportCommentFailureStateImplCopyWith<_$ReportCommentFailureStateImpl>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GetTrendsLoadingImplCopyWith<$Res> {
+  factory _$$GetTrendsLoadingImplCopyWith(_$GetTrendsLoadingImpl value,
+          $Res Function(_$GetTrendsLoadingImpl) then) =
+      __$$GetTrendsLoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetTrendsLoadingImplCopyWithImpl<$Res>
+    extends _$PostStateCopyWithImpl<$Res, _$GetTrendsLoadingImpl>
+    implements _$$GetTrendsLoadingImplCopyWith<$Res> {
+  __$$GetTrendsLoadingImplCopyWithImpl(_$GetTrendsLoadingImpl _value,
+      $Res Function(_$GetTrendsLoadingImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$GetTrendsLoadingImpl implements _GetTrendsLoading {
+  const _$GetTrendsLoadingImpl();
+
+  @override
+  String toString() {
+    return 'PostState.getTrendsLoading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$GetTrendsLoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() getCategoriesLoading,
+    required TResult Function(GetCategoriesResponse response)
+        getCategoriesSuccess,
+    required TResult Function(String error) getCategoriesFailure,
+    required TResult Function() getPostsLoading,
+    required TResult Function(GetPostsResponse response) getPostsSuccess,
+    required TResult Function(String error) getPostsFailure,
+    required TResult Function() createPostLoading,
+    required TResult Function(CreatePostResponse response) createPostSuccess,
+    required TResult Function(String error) createPostFailure,
+    required TResult Function() getPostDetailsLoading,
+    required TResult Function(PostDetailsResponse response)
+        getPostDetailsSuccess,
+    required TResult Function(String error) getPostDetailsFailure,
+    required TResult Function() deletePostLoading,
+    required TResult Function() deletePostSuccess,
+    required TResult Function(String error) deletePostFailure,
+    required TResult Function() postReactionLoading,
+    required TResult Function() postReactionSuccess,
+    required TResult Function(String error) postReactionFailure,
+    required TResult Function() reportPostLoading,
+    required TResult Function() reportPostSuccess,
+    required TResult Function(String error) reportPostFailure,
+    required TResult Function() getPollsLoading,
+    required TResult Function(GetPollsResponse response) getPollsSuccess,
+    required TResult Function(String error) getPollsFailure,
+    required TResult Function() getCommentsLoading,
+    required TResult Function(dynamic response) getCommentsSuccess,
+    required TResult Function(String error) getCommentsFailure,
+    required TResult Function() getACommentLoading,
+    required TResult Function(dynamic response) getACommentSuccess,
+    required TResult Function(String error) getACommentFailure,
+    required TResult Function() saveACommentLoading,
+    required TResult Function() saveACommentSuccess,
+    required TResult Function(String error) saveACommentFailure,
+    required TResult Function() deleteCommentLoading,
+    required TResult Function() deleteCommentSuccess,
+    required TResult Function(String error) deleteCommentFailure,
+    required TResult Function() commentReactionLoading,
+    required TResult Function() commentReactionSuccess,
+    required TResult Function(String error) commentReactionFailure,
+    required TResult Function() getGuidelinesLoading,
+    required TResult Function(GetGuidlinesResponse response)
+        getGuideLinesSuccess,
+    required TResult Function(String error) getGuideLinesFailed,
+    required TResult Function() reportCommentLoading,
+    required TResult Function() reportCommentSuccess,
+    required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
+  }) {
+    return getTrendsLoading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? getCategoriesLoading,
+    TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
+    TResult? Function(String error)? getCategoriesFailure,
+    TResult? Function()? getPostsLoading,
+    TResult? Function(GetPostsResponse response)? getPostsSuccess,
+    TResult? Function(String error)? getPostsFailure,
+    TResult? Function()? createPostLoading,
+    TResult? Function(CreatePostResponse response)? createPostSuccess,
+    TResult? Function(String error)? createPostFailure,
+    TResult? Function()? getPostDetailsLoading,
+    TResult? Function(PostDetailsResponse response)? getPostDetailsSuccess,
+    TResult? Function(String error)? getPostDetailsFailure,
+    TResult? Function()? deletePostLoading,
+    TResult? Function()? deletePostSuccess,
+    TResult? Function(String error)? deletePostFailure,
+    TResult? Function()? postReactionLoading,
+    TResult? Function()? postReactionSuccess,
+    TResult? Function(String error)? postReactionFailure,
+    TResult? Function()? reportPostLoading,
+    TResult? Function()? reportPostSuccess,
+    TResult? Function(String error)? reportPostFailure,
+    TResult? Function()? getPollsLoading,
+    TResult? Function(GetPollsResponse response)? getPollsSuccess,
+    TResult? Function(String error)? getPollsFailure,
+    TResult? Function()? getCommentsLoading,
+    TResult? Function(dynamic response)? getCommentsSuccess,
+    TResult? Function(String error)? getCommentsFailure,
+    TResult? Function()? getACommentLoading,
+    TResult? Function(dynamic response)? getACommentSuccess,
+    TResult? Function(String error)? getACommentFailure,
+    TResult? Function()? saveACommentLoading,
+    TResult? Function()? saveACommentSuccess,
+    TResult? Function(String error)? saveACommentFailure,
+    TResult? Function()? deleteCommentLoading,
+    TResult? Function()? deleteCommentSuccess,
+    TResult? Function(String error)? deleteCommentFailure,
+    TResult? Function()? commentReactionLoading,
+    TResult? Function()? commentReactionSuccess,
+    TResult? Function(String error)? commentReactionFailure,
+    TResult? Function()? getGuidelinesLoading,
+    TResult? Function(GetGuidlinesResponse response)? getGuideLinesSuccess,
+    TResult? Function(String error)? getGuideLinesFailed,
+    TResult? Function()? reportCommentLoading,
+    TResult? Function()? reportCommentSuccess,
+    TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
+  }) {
+    return getTrendsLoading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? getCategoriesLoading,
+    TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
+    TResult Function(String error)? getCategoriesFailure,
+    TResult Function()? getPostsLoading,
+    TResult Function(GetPostsResponse response)? getPostsSuccess,
+    TResult Function(String error)? getPostsFailure,
+    TResult Function()? createPostLoading,
+    TResult Function(CreatePostResponse response)? createPostSuccess,
+    TResult Function(String error)? createPostFailure,
+    TResult Function()? getPostDetailsLoading,
+    TResult Function(PostDetailsResponse response)? getPostDetailsSuccess,
+    TResult Function(String error)? getPostDetailsFailure,
+    TResult Function()? deletePostLoading,
+    TResult Function()? deletePostSuccess,
+    TResult Function(String error)? deletePostFailure,
+    TResult Function()? postReactionLoading,
+    TResult Function()? postReactionSuccess,
+    TResult Function(String error)? postReactionFailure,
+    TResult Function()? reportPostLoading,
+    TResult Function()? reportPostSuccess,
+    TResult Function(String error)? reportPostFailure,
+    TResult Function()? getPollsLoading,
+    TResult Function(GetPollsResponse response)? getPollsSuccess,
+    TResult Function(String error)? getPollsFailure,
+    TResult Function()? getCommentsLoading,
+    TResult Function(dynamic response)? getCommentsSuccess,
+    TResult Function(String error)? getCommentsFailure,
+    TResult Function()? getACommentLoading,
+    TResult Function(dynamic response)? getACommentSuccess,
+    TResult Function(String error)? getACommentFailure,
+    TResult Function()? saveACommentLoading,
+    TResult Function()? saveACommentSuccess,
+    TResult Function(String error)? saveACommentFailure,
+    TResult Function()? deleteCommentLoading,
+    TResult Function()? deleteCommentSuccess,
+    TResult Function(String error)? deleteCommentFailure,
+    TResult Function()? commentReactionLoading,
+    TResult Function()? commentReactionSuccess,
+    TResult Function(String error)? commentReactionFailure,
+    TResult Function()? getGuidelinesLoading,
+    TResult Function(GetGuidlinesResponse response)? getGuideLinesSuccess,
+    TResult Function(String error)? getGuideLinesFailed,
+    TResult Function()? reportCommentLoading,
+    TResult Function()? reportCommentSuccess,
+    TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
+    required TResult orElse(),
+  }) {
+    if (getTrendsLoading != null) {
+      return getTrendsLoading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoriesLoadingState value)
+        getCategoriesLoading,
+    required TResult Function(GetCategoriesSuccessState value)
+        getCategoriesSuccess,
+    required TResult Function(GetCategoriesFailureState value)
+        getCategoriesFailure,
+    required TResult Function(GetPostsLoadingState value) getPostsLoading,
+    required TResult Function(GetPostsSuccessState value) getPostsSuccess,
+    required TResult Function(GetPostsFailureState value) getPostsFailure,
+    required TResult Function(CreatePostLoadingState value) createPostLoading,
+    required TResult Function(CreatePostSuccessState value) createPostSuccess,
+    required TResult Function(CreatePostFailureState value) createPostFailure,
+    required TResult Function(GetPostDetailsLoadingState value)
+        getPostDetailsLoading,
+    required TResult Function(GetPostDetailsSuccessState value)
+        getPostDetailsSuccess,
+    required TResult Function(GetPostDetailsFailureState value)
+        getPostDetailsFailure,
+    required TResult Function(DeletePostLoadingState value) deletePostLoading,
+    required TResult Function(DeletePostSuccessState value) deletePostSuccess,
+    required TResult Function(DeletePostFailureState value) deletePostFailure,
+    required TResult Function(PostReactionLoadingState value)
+        postReactionLoading,
+    required TResult Function(PostReactionSuccessState value)
+        postReactionSuccess,
+    required TResult Function(PostReactionFailureState value)
+        postReactionFailure,
+    required TResult Function(ReportPostLoadingState value) reportPostLoading,
+    required TResult Function(ReportPostSuccessState value) reportPostSuccess,
+    required TResult Function(ReportPostFailureState value) reportPostFailure,
+    required TResult Function(GetPollsLoadingState value) getPollsLoading,
+    required TResult Function(GetPollsSuccessState value) getPollsSuccess,
+    required TResult Function(GetPollsFailureState value) getPollsFailure,
+    required TResult Function(GetCommentsLoadingState value) getCommentsLoading,
+    required TResult Function(GetCommentsSuccessState value) getCommentsSuccess,
+    required TResult Function(GetCommentsFailureState value) getCommentsFailure,
+    required TResult Function(GetACommentLoadingState value) getACommentLoading,
+    required TResult Function(GetACommentSuccessState value) getACommentSuccess,
+    required TResult Function(GetACommentFailureState value) getACommentFailure,
+    required TResult Function(SaveACommentLoadingState value)
+        saveACommentLoading,
+    required TResult Function(SaveACommentSuccessState value)
+        saveACommentSuccess,
+    required TResult Function(SaveACommentFailureState value)
+        saveACommentFailure,
+    required TResult Function(DeleteCommentLoadingState value)
+        deleteCommentLoading,
+    required TResult Function(DeleteCommentSuccessState value)
+        deleteCommentSuccess,
+    required TResult Function(DeleteCommentFailureState value)
+        deleteCommentFailure,
+    required TResult Function(CommentReactionLoadingState value)
+        commentReactionLoading,
+    required TResult Function(CommentReactionSuccessState value)
+        commentReactionSuccess,
+    required TResult Function(CommentReactionFailureState value)
+        commentReactionFailure,
+    required TResult Function(GetGuidelinesLoading value) getGuidelinesLoading,
+    required TResult Function(GetGuidelinesSuccess value) getGuideLinesSuccess,
+    required TResult Function(GetGuidelinesFailed value) getGuideLinesFailed,
+    required TResult Function(ReportCommentLoadingState value)
+        reportCommentLoading,
+    required TResult Function(ReportCommentSuccessState value)
+        reportCommentSuccess,
+    required TResult Function(ReportCommentFailureState value)
+        reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
+  }) {
+    return getTrendsLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
+    TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
+    TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
+    TResult? Function(GetPostsLoadingState value)? getPostsLoading,
+    TResult? Function(GetPostsSuccessState value)? getPostsSuccess,
+    TResult? Function(GetPostsFailureState value)? getPostsFailure,
+    TResult? Function(CreatePostLoadingState value)? createPostLoading,
+    TResult? Function(CreatePostSuccessState value)? createPostSuccess,
+    TResult? Function(CreatePostFailureState value)? createPostFailure,
+    TResult? Function(GetPostDetailsLoadingState value)? getPostDetailsLoading,
+    TResult? Function(GetPostDetailsSuccessState value)? getPostDetailsSuccess,
+    TResult? Function(GetPostDetailsFailureState value)? getPostDetailsFailure,
+    TResult? Function(DeletePostLoadingState value)? deletePostLoading,
+    TResult? Function(DeletePostSuccessState value)? deletePostSuccess,
+    TResult? Function(DeletePostFailureState value)? deletePostFailure,
+    TResult? Function(PostReactionLoadingState value)? postReactionLoading,
+    TResult? Function(PostReactionSuccessState value)? postReactionSuccess,
+    TResult? Function(PostReactionFailureState value)? postReactionFailure,
+    TResult? Function(ReportPostLoadingState value)? reportPostLoading,
+    TResult? Function(ReportPostSuccessState value)? reportPostSuccess,
+    TResult? Function(ReportPostFailureState value)? reportPostFailure,
+    TResult? Function(GetPollsLoadingState value)? getPollsLoading,
+    TResult? Function(GetPollsSuccessState value)? getPollsSuccess,
+    TResult? Function(GetPollsFailureState value)? getPollsFailure,
+    TResult? Function(GetCommentsLoadingState value)? getCommentsLoading,
+    TResult? Function(GetCommentsSuccessState value)? getCommentsSuccess,
+    TResult? Function(GetCommentsFailureState value)? getCommentsFailure,
+    TResult? Function(GetACommentLoadingState value)? getACommentLoading,
+    TResult? Function(GetACommentSuccessState value)? getACommentSuccess,
+    TResult? Function(GetACommentFailureState value)? getACommentFailure,
+    TResult? Function(SaveACommentLoadingState value)? saveACommentLoading,
+    TResult? Function(SaveACommentSuccessState value)? saveACommentSuccess,
+    TResult? Function(SaveACommentFailureState value)? saveACommentFailure,
+    TResult? Function(DeleteCommentLoadingState value)? deleteCommentLoading,
+    TResult? Function(DeleteCommentSuccessState value)? deleteCommentSuccess,
+    TResult? Function(DeleteCommentFailureState value)? deleteCommentFailure,
+    TResult? Function(CommentReactionLoadingState value)?
+        commentReactionLoading,
+    TResult? Function(CommentReactionSuccessState value)?
+        commentReactionSuccess,
+    TResult? Function(CommentReactionFailureState value)?
+        commentReactionFailure,
+    TResult? Function(GetGuidelinesLoading value)? getGuidelinesLoading,
+    TResult? Function(GetGuidelinesSuccess value)? getGuideLinesSuccess,
+    TResult? Function(GetGuidelinesFailed value)? getGuideLinesFailed,
+    TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
+    TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
+    TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
+  }) {
+    return getTrendsLoading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
+    TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
+    TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
+    TResult Function(GetPostsLoadingState value)? getPostsLoading,
+    TResult Function(GetPostsSuccessState value)? getPostsSuccess,
+    TResult Function(GetPostsFailureState value)? getPostsFailure,
+    TResult Function(CreatePostLoadingState value)? createPostLoading,
+    TResult Function(CreatePostSuccessState value)? createPostSuccess,
+    TResult Function(CreatePostFailureState value)? createPostFailure,
+    TResult Function(GetPostDetailsLoadingState value)? getPostDetailsLoading,
+    TResult Function(GetPostDetailsSuccessState value)? getPostDetailsSuccess,
+    TResult Function(GetPostDetailsFailureState value)? getPostDetailsFailure,
+    TResult Function(DeletePostLoadingState value)? deletePostLoading,
+    TResult Function(DeletePostSuccessState value)? deletePostSuccess,
+    TResult Function(DeletePostFailureState value)? deletePostFailure,
+    TResult Function(PostReactionLoadingState value)? postReactionLoading,
+    TResult Function(PostReactionSuccessState value)? postReactionSuccess,
+    TResult Function(PostReactionFailureState value)? postReactionFailure,
+    TResult Function(ReportPostLoadingState value)? reportPostLoading,
+    TResult Function(ReportPostSuccessState value)? reportPostSuccess,
+    TResult Function(ReportPostFailureState value)? reportPostFailure,
+    TResult Function(GetPollsLoadingState value)? getPollsLoading,
+    TResult Function(GetPollsSuccessState value)? getPollsSuccess,
+    TResult Function(GetPollsFailureState value)? getPollsFailure,
+    TResult Function(GetCommentsLoadingState value)? getCommentsLoading,
+    TResult Function(GetCommentsSuccessState value)? getCommentsSuccess,
+    TResult Function(GetCommentsFailureState value)? getCommentsFailure,
+    TResult Function(GetACommentLoadingState value)? getACommentLoading,
+    TResult Function(GetACommentSuccessState value)? getACommentSuccess,
+    TResult Function(GetACommentFailureState value)? getACommentFailure,
+    TResult Function(SaveACommentLoadingState value)? saveACommentLoading,
+    TResult Function(SaveACommentSuccessState value)? saveACommentSuccess,
+    TResult Function(SaveACommentFailureState value)? saveACommentFailure,
+    TResult Function(DeleteCommentLoadingState value)? deleteCommentLoading,
+    TResult Function(DeleteCommentSuccessState value)? deleteCommentSuccess,
+    TResult Function(DeleteCommentFailureState value)? deleteCommentFailure,
+    TResult Function(CommentReactionLoadingState value)? commentReactionLoading,
+    TResult Function(CommentReactionSuccessState value)? commentReactionSuccess,
+    TResult Function(CommentReactionFailureState value)? commentReactionFailure,
+    TResult Function(GetGuidelinesLoading value)? getGuidelinesLoading,
+    TResult Function(GetGuidelinesSuccess value)? getGuideLinesSuccess,
+    TResult Function(GetGuidelinesFailed value)? getGuideLinesFailed,
+    TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
+    TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
+    TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
+    required TResult orElse(),
+  }) {
+    if (getTrendsLoading != null) {
+      return getTrendsLoading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetTrendsLoading implements PostState {
+  const factory _GetTrendsLoading() = _$GetTrendsLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$GetTrendsSuccessImplCopyWith<$Res> {
+  factory _$$GetTrendsSuccessImplCopyWith(_$GetTrendsSuccessImpl value,
+          $Res Function(_$GetTrendsSuccessImpl) then) =
+      __$$GetTrendsSuccessImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetTrendsSuccessImplCopyWithImpl<$Res>
+    extends _$PostStateCopyWithImpl<$Res, _$GetTrendsSuccessImpl>
+    implements _$$GetTrendsSuccessImplCopyWith<$Res> {
+  __$$GetTrendsSuccessImplCopyWithImpl(_$GetTrendsSuccessImpl _value,
+      $Res Function(_$GetTrendsSuccessImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$GetTrendsSuccessImpl implements _GetTrendsSuccess {
+  const _$GetTrendsSuccessImpl();
+
+  @override
+  String toString() {
+    return 'PostState.getTrendsSuccess()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$GetTrendsSuccessImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() getCategoriesLoading,
+    required TResult Function(GetCategoriesResponse response)
+        getCategoriesSuccess,
+    required TResult Function(String error) getCategoriesFailure,
+    required TResult Function() getPostsLoading,
+    required TResult Function(GetPostsResponse response) getPostsSuccess,
+    required TResult Function(String error) getPostsFailure,
+    required TResult Function() createPostLoading,
+    required TResult Function(CreatePostResponse response) createPostSuccess,
+    required TResult Function(String error) createPostFailure,
+    required TResult Function() getPostDetailsLoading,
+    required TResult Function(PostDetailsResponse response)
+        getPostDetailsSuccess,
+    required TResult Function(String error) getPostDetailsFailure,
+    required TResult Function() deletePostLoading,
+    required TResult Function() deletePostSuccess,
+    required TResult Function(String error) deletePostFailure,
+    required TResult Function() postReactionLoading,
+    required TResult Function() postReactionSuccess,
+    required TResult Function(String error) postReactionFailure,
+    required TResult Function() reportPostLoading,
+    required TResult Function() reportPostSuccess,
+    required TResult Function(String error) reportPostFailure,
+    required TResult Function() getPollsLoading,
+    required TResult Function(GetPollsResponse response) getPollsSuccess,
+    required TResult Function(String error) getPollsFailure,
+    required TResult Function() getCommentsLoading,
+    required TResult Function(dynamic response) getCommentsSuccess,
+    required TResult Function(String error) getCommentsFailure,
+    required TResult Function() getACommentLoading,
+    required TResult Function(dynamic response) getACommentSuccess,
+    required TResult Function(String error) getACommentFailure,
+    required TResult Function() saveACommentLoading,
+    required TResult Function() saveACommentSuccess,
+    required TResult Function(String error) saveACommentFailure,
+    required TResult Function() deleteCommentLoading,
+    required TResult Function() deleteCommentSuccess,
+    required TResult Function(String error) deleteCommentFailure,
+    required TResult Function() commentReactionLoading,
+    required TResult Function() commentReactionSuccess,
+    required TResult Function(String error) commentReactionFailure,
+    required TResult Function() getGuidelinesLoading,
+    required TResult Function(GetGuidlinesResponse response)
+        getGuideLinesSuccess,
+    required TResult Function(String error) getGuideLinesFailed,
+    required TResult Function() reportCommentLoading,
+    required TResult Function() reportCommentSuccess,
+    required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
+  }) {
+    return getTrendsSuccess();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? getCategoriesLoading,
+    TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
+    TResult? Function(String error)? getCategoriesFailure,
+    TResult? Function()? getPostsLoading,
+    TResult? Function(GetPostsResponse response)? getPostsSuccess,
+    TResult? Function(String error)? getPostsFailure,
+    TResult? Function()? createPostLoading,
+    TResult? Function(CreatePostResponse response)? createPostSuccess,
+    TResult? Function(String error)? createPostFailure,
+    TResult? Function()? getPostDetailsLoading,
+    TResult? Function(PostDetailsResponse response)? getPostDetailsSuccess,
+    TResult? Function(String error)? getPostDetailsFailure,
+    TResult? Function()? deletePostLoading,
+    TResult? Function()? deletePostSuccess,
+    TResult? Function(String error)? deletePostFailure,
+    TResult? Function()? postReactionLoading,
+    TResult? Function()? postReactionSuccess,
+    TResult? Function(String error)? postReactionFailure,
+    TResult? Function()? reportPostLoading,
+    TResult? Function()? reportPostSuccess,
+    TResult? Function(String error)? reportPostFailure,
+    TResult? Function()? getPollsLoading,
+    TResult? Function(GetPollsResponse response)? getPollsSuccess,
+    TResult? Function(String error)? getPollsFailure,
+    TResult? Function()? getCommentsLoading,
+    TResult? Function(dynamic response)? getCommentsSuccess,
+    TResult? Function(String error)? getCommentsFailure,
+    TResult? Function()? getACommentLoading,
+    TResult? Function(dynamic response)? getACommentSuccess,
+    TResult? Function(String error)? getACommentFailure,
+    TResult? Function()? saveACommentLoading,
+    TResult? Function()? saveACommentSuccess,
+    TResult? Function(String error)? saveACommentFailure,
+    TResult? Function()? deleteCommentLoading,
+    TResult? Function()? deleteCommentSuccess,
+    TResult? Function(String error)? deleteCommentFailure,
+    TResult? Function()? commentReactionLoading,
+    TResult? Function()? commentReactionSuccess,
+    TResult? Function(String error)? commentReactionFailure,
+    TResult? Function()? getGuidelinesLoading,
+    TResult? Function(GetGuidlinesResponse response)? getGuideLinesSuccess,
+    TResult? Function(String error)? getGuideLinesFailed,
+    TResult? Function()? reportCommentLoading,
+    TResult? Function()? reportCommentSuccess,
+    TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
+  }) {
+    return getTrendsSuccess?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? getCategoriesLoading,
+    TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
+    TResult Function(String error)? getCategoriesFailure,
+    TResult Function()? getPostsLoading,
+    TResult Function(GetPostsResponse response)? getPostsSuccess,
+    TResult Function(String error)? getPostsFailure,
+    TResult Function()? createPostLoading,
+    TResult Function(CreatePostResponse response)? createPostSuccess,
+    TResult Function(String error)? createPostFailure,
+    TResult Function()? getPostDetailsLoading,
+    TResult Function(PostDetailsResponse response)? getPostDetailsSuccess,
+    TResult Function(String error)? getPostDetailsFailure,
+    TResult Function()? deletePostLoading,
+    TResult Function()? deletePostSuccess,
+    TResult Function(String error)? deletePostFailure,
+    TResult Function()? postReactionLoading,
+    TResult Function()? postReactionSuccess,
+    TResult Function(String error)? postReactionFailure,
+    TResult Function()? reportPostLoading,
+    TResult Function()? reportPostSuccess,
+    TResult Function(String error)? reportPostFailure,
+    TResult Function()? getPollsLoading,
+    TResult Function(GetPollsResponse response)? getPollsSuccess,
+    TResult Function(String error)? getPollsFailure,
+    TResult Function()? getCommentsLoading,
+    TResult Function(dynamic response)? getCommentsSuccess,
+    TResult Function(String error)? getCommentsFailure,
+    TResult Function()? getACommentLoading,
+    TResult Function(dynamic response)? getACommentSuccess,
+    TResult Function(String error)? getACommentFailure,
+    TResult Function()? saveACommentLoading,
+    TResult Function()? saveACommentSuccess,
+    TResult Function(String error)? saveACommentFailure,
+    TResult Function()? deleteCommentLoading,
+    TResult Function()? deleteCommentSuccess,
+    TResult Function(String error)? deleteCommentFailure,
+    TResult Function()? commentReactionLoading,
+    TResult Function()? commentReactionSuccess,
+    TResult Function(String error)? commentReactionFailure,
+    TResult Function()? getGuidelinesLoading,
+    TResult Function(GetGuidlinesResponse response)? getGuideLinesSuccess,
+    TResult Function(String error)? getGuideLinesFailed,
+    TResult Function()? reportCommentLoading,
+    TResult Function()? reportCommentSuccess,
+    TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
+    required TResult orElse(),
+  }) {
+    if (getTrendsSuccess != null) {
+      return getTrendsSuccess();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoriesLoadingState value)
+        getCategoriesLoading,
+    required TResult Function(GetCategoriesSuccessState value)
+        getCategoriesSuccess,
+    required TResult Function(GetCategoriesFailureState value)
+        getCategoriesFailure,
+    required TResult Function(GetPostsLoadingState value) getPostsLoading,
+    required TResult Function(GetPostsSuccessState value) getPostsSuccess,
+    required TResult Function(GetPostsFailureState value) getPostsFailure,
+    required TResult Function(CreatePostLoadingState value) createPostLoading,
+    required TResult Function(CreatePostSuccessState value) createPostSuccess,
+    required TResult Function(CreatePostFailureState value) createPostFailure,
+    required TResult Function(GetPostDetailsLoadingState value)
+        getPostDetailsLoading,
+    required TResult Function(GetPostDetailsSuccessState value)
+        getPostDetailsSuccess,
+    required TResult Function(GetPostDetailsFailureState value)
+        getPostDetailsFailure,
+    required TResult Function(DeletePostLoadingState value) deletePostLoading,
+    required TResult Function(DeletePostSuccessState value) deletePostSuccess,
+    required TResult Function(DeletePostFailureState value) deletePostFailure,
+    required TResult Function(PostReactionLoadingState value)
+        postReactionLoading,
+    required TResult Function(PostReactionSuccessState value)
+        postReactionSuccess,
+    required TResult Function(PostReactionFailureState value)
+        postReactionFailure,
+    required TResult Function(ReportPostLoadingState value) reportPostLoading,
+    required TResult Function(ReportPostSuccessState value) reportPostSuccess,
+    required TResult Function(ReportPostFailureState value) reportPostFailure,
+    required TResult Function(GetPollsLoadingState value) getPollsLoading,
+    required TResult Function(GetPollsSuccessState value) getPollsSuccess,
+    required TResult Function(GetPollsFailureState value) getPollsFailure,
+    required TResult Function(GetCommentsLoadingState value) getCommentsLoading,
+    required TResult Function(GetCommentsSuccessState value) getCommentsSuccess,
+    required TResult Function(GetCommentsFailureState value) getCommentsFailure,
+    required TResult Function(GetACommentLoadingState value) getACommentLoading,
+    required TResult Function(GetACommentSuccessState value) getACommentSuccess,
+    required TResult Function(GetACommentFailureState value) getACommentFailure,
+    required TResult Function(SaveACommentLoadingState value)
+        saveACommentLoading,
+    required TResult Function(SaveACommentSuccessState value)
+        saveACommentSuccess,
+    required TResult Function(SaveACommentFailureState value)
+        saveACommentFailure,
+    required TResult Function(DeleteCommentLoadingState value)
+        deleteCommentLoading,
+    required TResult Function(DeleteCommentSuccessState value)
+        deleteCommentSuccess,
+    required TResult Function(DeleteCommentFailureState value)
+        deleteCommentFailure,
+    required TResult Function(CommentReactionLoadingState value)
+        commentReactionLoading,
+    required TResult Function(CommentReactionSuccessState value)
+        commentReactionSuccess,
+    required TResult Function(CommentReactionFailureState value)
+        commentReactionFailure,
+    required TResult Function(GetGuidelinesLoading value) getGuidelinesLoading,
+    required TResult Function(GetGuidelinesSuccess value) getGuideLinesSuccess,
+    required TResult Function(GetGuidelinesFailed value) getGuideLinesFailed,
+    required TResult Function(ReportCommentLoadingState value)
+        reportCommentLoading,
+    required TResult Function(ReportCommentSuccessState value)
+        reportCommentSuccess,
+    required TResult Function(ReportCommentFailureState value)
+        reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
+  }) {
+    return getTrendsSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
+    TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
+    TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
+    TResult? Function(GetPostsLoadingState value)? getPostsLoading,
+    TResult? Function(GetPostsSuccessState value)? getPostsSuccess,
+    TResult? Function(GetPostsFailureState value)? getPostsFailure,
+    TResult? Function(CreatePostLoadingState value)? createPostLoading,
+    TResult? Function(CreatePostSuccessState value)? createPostSuccess,
+    TResult? Function(CreatePostFailureState value)? createPostFailure,
+    TResult? Function(GetPostDetailsLoadingState value)? getPostDetailsLoading,
+    TResult? Function(GetPostDetailsSuccessState value)? getPostDetailsSuccess,
+    TResult? Function(GetPostDetailsFailureState value)? getPostDetailsFailure,
+    TResult? Function(DeletePostLoadingState value)? deletePostLoading,
+    TResult? Function(DeletePostSuccessState value)? deletePostSuccess,
+    TResult? Function(DeletePostFailureState value)? deletePostFailure,
+    TResult? Function(PostReactionLoadingState value)? postReactionLoading,
+    TResult? Function(PostReactionSuccessState value)? postReactionSuccess,
+    TResult? Function(PostReactionFailureState value)? postReactionFailure,
+    TResult? Function(ReportPostLoadingState value)? reportPostLoading,
+    TResult? Function(ReportPostSuccessState value)? reportPostSuccess,
+    TResult? Function(ReportPostFailureState value)? reportPostFailure,
+    TResult? Function(GetPollsLoadingState value)? getPollsLoading,
+    TResult? Function(GetPollsSuccessState value)? getPollsSuccess,
+    TResult? Function(GetPollsFailureState value)? getPollsFailure,
+    TResult? Function(GetCommentsLoadingState value)? getCommentsLoading,
+    TResult? Function(GetCommentsSuccessState value)? getCommentsSuccess,
+    TResult? Function(GetCommentsFailureState value)? getCommentsFailure,
+    TResult? Function(GetACommentLoadingState value)? getACommentLoading,
+    TResult? Function(GetACommentSuccessState value)? getACommentSuccess,
+    TResult? Function(GetACommentFailureState value)? getACommentFailure,
+    TResult? Function(SaveACommentLoadingState value)? saveACommentLoading,
+    TResult? Function(SaveACommentSuccessState value)? saveACommentSuccess,
+    TResult? Function(SaveACommentFailureState value)? saveACommentFailure,
+    TResult? Function(DeleteCommentLoadingState value)? deleteCommentLoading,
+    TResult? Function(DeleteCommentSuccessState value)? deleteCommentSuccess,
+    TResult? Function(DeleteCommentFailureState value)? deleteCommentFailure,
+    TResult? Function(CommentReactionLoadingState value)?
+        commentReactionLoading,
+    TResult? Function(CommentReactionSuccessState value)?
+        commentReactionSuccess,
+    TResult? Function(CommentReactionFailureState value)?
+        commentReactionFailure,
+    TResult? Function(GetGuidelinesLoading value)? getGuidelinesLoading,
+    TResult? Function(GetGuidelinesSuccess value)? getGuideLinesSuccess,
+    TResult? Function(GetGuidelinesFailed value)? getGuideLinesFailed,
+    TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
+    TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
+    TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
+  }) {
+    return getTrendsSuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
+    TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
+    TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
+    TResult Function(GetPostsLoadingState value)? getPostsLoading,
+    TResult Function(GetPostsSuccessState value)? getPostsSuccess,
+    TResult Function(GetPostsFailureState value)? getPostsFailure,
+    TResult Function(CreatePostLoadingState value)? createPostLoading,
+    TResult Function(CreatePostSuccessState value)? createPostSuccess,
+    TResult Function(CreatePostFailureState value)? createPostFailure,
+    TResult Function(GetPostDetailsLoadingState value)? getPostDetailsLoading,
+    TResult Function(GetPostDetailsSuccessState value)? getPostDetailsSuccess,
+    TResult Function(GetPostDetailsFailureState value)? getPostDetailsFailure,
+    TResult Function(DeletePostLoadingState value)? deletePostLoading,
+    TResult Function(DeletePostSuccessState value)? deletePostSuccess,
+    TResult Function(DeletePostFailureState value)? deletePostFailure,
+    TResult Function(PostReactionLoadingState value)? postReactionLoading,
+    TResult Function(PostReactionSuccessState value)? postReactionSuccess,
+    TResult Function(PostReactionFailureState value)? postReactionFailure,
+    TResult Function(ReportPostLoadingState value)? reportPostLoading,
+    TResult Function(ReportPostSuccessState value)? reportPostSuccess,
+    TResult Function(ReportPostFailureState value)? reportPostFailure,
+    TResult Function(GetPollsLoadingState value)? getPollsLoading,
+    TResult Function(GetPollsSuccessState value)? getPollsSuccess,
+    TResult Function(GetPollsFailureState value)? getPollsFailure,
+    TResult Function(GetCommentsLoadingState value)? getCommentsLoading,
+    TResult Function(GetCommentsSuccessState value)? getCommentsSuccess,
+    TResult Function(GetCommentsFailureState value)? getCommentsFailure,
+    TResult Function(GetACommentLoadingState value)? getACommentLoading,
+    TResult Function(GetACommentSuccessState value)? getACommentSuccess,
+    TResult Function(GetACommentFailureState value)? getACommentFailure,
+    TResult Function(SaveACommentLoadingState value)? saveACommentLoading,
+    TResult Function(SaveACommentSuccessState value)? saveACommentSuccess,
+    TResult Function(SaveACommentFailureState value)? saveACommentFailure,
+    TResult Function(DeleteCommentLoadingState value)? deleteCommentLoading,
+    TResult Function(DeleteCommentSuccessState value)? deleteCommentSuccess,
+    TResult Function(DeleteCommentFailureState value)? deleteCommentFailure,
+    TResult Function(CommentReactionLoadingState value)? commentReactionLoading,
+    TResult Function(CommentReactionSuccessState value)? commentReactionSuccess,
+    TResult Function(CommentReactionFailureState value)? commentReactionFailure,
+    TResult Function(GetGuidelinesLoading value)? getGuidelinesLoading,
+    TResult Function(GetGuidelinesSuccess value)? getGuideLinesSuccess,
+    TResult Function(GetGuidelinesFailed value)? getGuideLinesFailed,
+    TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
+    TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
+    TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
+    required TResult orElse(),
+  }) {
+    if (getTrendsSuccess != null) {
+      return getTrendsSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetTrendsSuccess implements PostState {
+  const factory _GetTrendsSuccess() = _$GetTrendsSuccessImpl;
+}
+
+/// @nodoc
+abstract class _$$GetTrendsFailureImplCopyWith<$Res> {
+  factory _$$GetTrendsFailureImplCopyWith(_$GetTrendsFailureImpl value,
+          $Res Function(_$GetTrendsFailureImpl) then) =
+      __$$GetTrendsFailureImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class __$$GetTrendsFailureImplCopyWithImpl<$Res>
+    extends _$PostStateCopyWithImpl<$Res, _$GetTrendsFailureImpl>
+    implements _$$GetTrendsFailureImplCopyWith<$Res> {
+  __$$GetTrendsFailureImplCopyWithImpl(_$GetTrendsFailureImpl _value,
+      $Res Function(_$GetTrendsFailureImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$GetTrendsFailureImpl(
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetTrendsFailureImpl implements _GetTrendsFailure {
+  const _$GetTrendsFailureImpl(this.error);
+
+  @override
+  final String error;
+
+  @override
+  String toString() {
+    return 'PostState.getTrendsFailure(error: $error)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetTrendsFailureImpl &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetTrendsFailureImplCopyWith<_$GetTrendsFailureImpl> get copyWith =>
+      __$$GetTrendsFailureImplCopyWithImpl<_$GetTrendsFailureImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() getCategoriesLoading,
+    required TResult Function(GetCategoriesResponse response)
+        getCategoriesSuccess,
+    required TResult Function(String error) getCategoriesFailure,
+    required TResult Function() getPostsLoading,
+    required TResult Function(GetPostsResponse response) getPostsSuccess,
+    required TResult Function(String error) getPostsFailure,
+    required TResult Function() createPostLoading,
+    required TResult Function(CreatePostResponse response) createPostSuccess,
+    required TResult Function(String error) createPostFailure,
+    required TResult Function() getPostDetailsLoading,
+    required TResult Function(PostDetailsResponse response)
+        getPostDetailsSuccess,
+    required TResult Function(String error) getPostDetailsFailure,
+    required TResult Function() deletePostLoading,
+    required TResult Function() deletePostSuccess,
+    required TResult Function(String error) deletePostFailure,
+    required TResult Function() postReactionLoading,
+    required TResult Function() postReactionSuccess,
+    required TResult Function(String error) postReactionFailure,
+    required TResult Function() reportPostLoading,
+    required TResult Function() reportPostSuccess,
+    required TResult Function(String error) reportPostFailure,
+    required TResult Function() getPollsLoading,
+    required TResult Function(GetPollsResponse response) getPollsSuccess,
+    required TResult Function(String error) getPollsFailure,
+    required TResult Function() getCommentsLoading,
+    required TResult Function(dynamic response) getCommentsSuccess,
+    required TResult Function(String error) getCommentsFailure,
+    required TResult Function() getACommentLoading,
+    required TResult Function(dynamic response) getACommentSuccess,
+    required TResult Function(String error) getACommentFailure,
+    required TResult Function() saveACommentLoading,
+    required TResult Function() saveACommentSuccess,
+    required TResult Function(String error) saveACommentFailure,
+    required TResult Function() deleteCommentLoading,
+    required TResult Function() deleteCommentSuccess,
+    required TResult Function(String error) deleteCommentFailure,
+    required TResult Function() commentReactionLoading,
+    required TResult Function() commentReactionSuccess,
+    required TResult Function(String error) commentReactionFailure,
+    required TResult Function() getGuidelinesLoading,
+    required TResult Function(GetGuidlinesResponse response)
+        getGuideLinesSuccess,
+    required TResult Function(String error) getGuideLinesFailed,
+    required TResult Function() reportCommentLoading,
+    required TResult Function() reportCommentSuccess,
+    required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
+  }) {
+    return getTrendsFailure(error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? getCategoriesLoading,
+    TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
+    TResult? Function(String error)? getCategoriesFailure,
+    TResult? Function()? getPostsLoading,
+    TResult? Function(GetPostsResponse response)? getPostsSuccess,
+    TResult? Function(String error)? getPostsFailure,
+    TResult? Function()? createPostLoading,
+    TResult? Function(CreatePostResponse response)? createPostSuccess,
+    TResult? Function(String error)? createPostFailure,
+    TResult? Function()? getPostDetailsLoading,
+    TResult? Function(PostDetailsResponse response)? getPostDetailsSuccess,
+    TResult? Function(String error)? getPostDetailsFailure,
+    TResult? Function()? deletePostLoading,
+    TResult? Function()? deletePostSuccess,
+    TResult? Function(String error)? deletePostFailure,
+    TResult? Function()? postReactionLoading,
+    TResult? Function()? postReactionSuccess,
+    TResult? Function(String error)? postReactionFailure,
+    TResult? Function()? reportPostLoading,
+    TResult? Function()? reportPostSuccess,
+    TResult? Function(String error)? reportPostFailure,
+    TResult? Function()? getPollsLoading,
+    TResult? Function(GetPollsResponse response)? getPollsSuccess,
+    TResult? Function(String error)? getPollsFailure,
+    TResult? Function()? getCommentsLoading,
+    TResult? Function(dynamic response)? getCommentsSuccess,
+    TResult? Function(String error)? getCommentsFailure,
+    TResult? Function()? getACommentLoading,
+    TResult? Function(dynamic response)? getACommentSuccess,
+    TResult? Function(String error)? getACommentFailure,
+    TResult? Function()? saveACommentLoading,
+    TResult? Function()? saveACommentSuccess,
+    TResult? Function(String error)? saveACommentFailure,
+    TResult? Function()? deleteCommentLoading,
+    TResult? Function()? deleteCommentSuccess,
+    TResult? Function(String error)? deleteCommentFailure,
+    TResult? Function()? commentReactionLoading,
+    TResult? Function()? commentReactionSuccess,
+    TResult? Function(String error)? commentReactionFailure,
+    TResult? Function()? getGuidelinesLoading,
+    TResult? Function(GetGuidlinesResponse response)? getGuideLinesSuccess,
+    TResult? Function(String error)? getGuideLinesFailed,
+    TResult? Function()? reportCommentLoading,
+    TResult? Function()? reportCommentSuccess,
+    TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
+  }) {
+    return getTrendsFailure?.call(error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? getCategoriesLoading,
+    TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
+    TResult Function(String error)? getCategoriesFailure,
+    TResult Function()? getPostsLoading,
+    TResult Function(GetPostsResponse response)? getPostsSuccess,
+    TResult Function(String error)? getPostsFailure,
+    TResult Function()? createPostLoading,
+    TResult Function(CreatePostResponse response)? createPostSuccess,
+    TResult Function(String error)? createPostFailure,
+    TResult Function()? getPostDetailsLoading,
+    TResult Function(PostDetailsResponse response)? getPostDetailsSuccess,
+    TResult Function(String error)? getPostDetailsFailure,
+    TResult Function()? deletePostLoading,
+    TResult Function()? deletePostSuccess,
+    TResult Function(String error)? deletePostFailure,
+    TResult Function()? postReactionLoading,
+    TResult Function()? postReactionSuccess,
+    TResult Function(String error)? postReactionFailure,
+    TResult Function()? reportPostLoading,
+    TResult Function()? reportPostSuccess,
+    TResult Function(String error)? reportPostFailure,
+    TResult Function()? getPollsLoading,
+    TResult Function(GetPollsResponse response)? getPollsSuccess,
+    TResult Function(String error)? getPollsFailure,
+    TResult Function()? getCommentsLoading,
+    TResult Function(dynamic response)? getCommentsSuccess,
+    TResult Function(String error)? getCommentsFailure,
+    TResult Function()? getACommentLoading,
+    TResult Function(dynamic response)? getACommentSuccess,
+    TResult Function(String error)? getACommentFailure,
+    TResult Function()? saveACommentLoading,
+    TResult Function()? saveACommentSuccess,
+    TResult Function(String error)? saveACommentFailure,
+    TResult Function()? deleteCommentLoading,
+    TResult Function()? deleteCommentSuccess,
+    TResult Function(String error)? deleteCommentFailure,
+    TResult Function()? commentReactionLoading,
+    TResult Function()? commentReactionSuccess,
+    TResult Function(String error)? commentReactionFailure,
+    TResult Function()? getGuidelinesLoading,
+    TResult Function(GetGuidlinesResponse response)? getGuideLinesSuccess,
+    TResult Function(String error)? getGuideLinesFailed,
+    TResult Function()? reportCommentLoading,
+    TResult Function()? reportCommentSuccess,
+    TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
+    required TResult orElse(),
+  }) {
+    if (getTrendsFailure != null) {
+      return getTrendsFailure(error);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoriesLoadingState value)
+        getCategoriesLoading,
+    required TResult Function(GetCategoriesSuccessState value)
+        getCategoriesSuccess,
+    required TResult Function(GetCategoriesFailureState value)
+        getCategoriesFailure,
+    required TResult Function(GetPostsLoadingState value) getPostsLoading,
+    required TResult Function(GetPostsSuccessState value) getPostsSuccess,
+    required TResult Function(GetPostsFailureState value) getPostsFailure,
+    required TResult Function(CreatePostLoadingState value) createPostLoading,
+    required TResult Function(CreatePostSuccessState value) createPostSuccess,
+    required TResult Function(CreatePostFailureState value) createPostFailure,
+    required TResult Function(GetPostDetailsLoadingState value)
+        getPostDetailsLoading,
+    required TResult Function(GetPostDetailsSuccessState value)
+        getPostDetailsSuccess,
+    required TResult Function(GetPostDetailsFailureState value)
+        getPostDetailsFailure,
+    required TResult Function(DeletePostLoadingState value) deletePostLoading,
+    required TResult Function(DeletePostSuccessState value) deletePostSuccess,
+    required TResult Function(DeletePostFailureState value) deletePostFailure,
+    required TResult Function(PostReactionLoadingState value)
+        postReactionLoading,
+    required TResult Function(PostReactionSuccessState value)
+        postReactionSuccess,
+    required TResult Function(PostReactionFailureState value)
+        postReactionFailure,
+    required TResult Function(ReportPostLoadingState value) reportPostLoading,
+    required TResult Function(ReportPostSuccessState value) reportPostSuccess,
+    required TResult Function(ReportPostFailureState value) reportPostFailure,
+    required TResult Function(GetPollsLoadingState value) getPollsLoading,
+    required TResult Function(GetPollsSuccessState value) getPollsSuccess,
+    required TResult Function(GetPollsFailureState value) getPollsFailure,
+    required TResult Function(GetCommentsLoadingState value) getCommentsLoading,
+    required TResult Function(GetCommentsSuccessState value) getCommentsSuccess,
+    required TResult Function(GetCommentsFailureState value) getCommentsFailure,
+    required TResult Function(GetACommentLoadingState value) getACommentLoading,
+    required TResult Function(GetACommentSuccessState value) getACommentSuccess,
+    required TResult Function(GetACommentFailureState value) getACommentFailure,
+    required TResult Function(SaveACommentLoadingState value)
+        saveACommentLoading,
+    required TResult Function(SaveACommentSuccessState value)
+        saveACommentSuccess,
+    required TResult Function(SaveACommentFailureState value)
+        saveACommentFailure,
+    required TResult Function(DeleteCommentLoadingState value)
+        deleteCommentLoading,
+    required TResult Function(DeleteCommentSuccessState value)
+        deleteCommentSuccess,
+    required TResult Function(DeleteCommentFailureState value)
+        deleteCommentFailure,
+    required TResult Function(CommentReactionLoadingState value)
+        commentReactionLoading,
+    required TResult Function(CommentReactionSuccessState value)
+        commentReactionSuccess,
+    required TResult Function(CommentReactionFailureState value)
+        commentReactionFailure,
+    required TResult Function(GetGuidelinesLoading value) getGuidelinesLoading,
+    required TResult Function(GetGuidelinesSuccess value) getGuideLinesSuccess,
+    required TResult Function(GetGuidelinesFailed value) getGuideLinesFailed,
+    required TResult Function(ReportCommentLoadingState value)
+        reportCommentLoading,
+    required TResult Function(ReportCommentSuccessState value)
+        reportCommentSuccess,
+    required TResult Function(ReportCommentFailureState value)
+        reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
+  }) {
+    return getTrendsFailure(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
+    TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
+    TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
+    TResult? Function(GetPostsLoadingState value)? getPostsLoading,
+    TResult? Function(GetPostsSuccessState value)? getPostsSuccess,
+    TResult? Function(GetPostsFailureState value)? getPostsFailure,
+    TResult? Function(CreatePostLoadingState value)? createPostLoading,
+    TResult? Function(CreatePostSuccessState value)? createPostSuccess,
+    TResult? Function(CreatePostFailureState value)? createPostFailure,
+    TResult? Function(GetPostDetailsLoadingState value)? getPostDetailsLoading,
+    TResult? Function(GetPostDetailsSuccessState value)? getPostDetailsSuccess,
+    TResult? Function(GetPostDetailsFailureState value)? getPostDetailsFailure,
+    TResult? Function(DeletePostLoadingState value)? deletePostLoading,
+    TResult? Function(DeletePostSuccessState value)? deletePostSuccess,
+    TResult? Function(DeletePostFailureState value)? deletePostFailure,
+    TResult? Function(PostReactionLoadingState value)? postReactionLoading,
+    TResult? Function(PostReactionSuccessState value)? postReactionSuccess,
+    TResult? Function(PostReactionFailureState value)? postReactionFailure,
+    TResult? Function(ReportPostLoadingState value)? reportPostLoading,
+    TResult? Function(ReportPostSuccessState value)? reportPostSuccess,
+    TResult? Function(ReportPostFailureState value)? reportPostFailure,
+    TResult? Function(GetPollsLoadingState value)? getPollsLoading,
+    TResult? Function(GetPollsSuccessState value)? getPollsSuccess,
+    TResult? Function(GetPollsFailureState value)? getPollsFailure,
+    TResult? Function(GetCommentsLoadingState value)? getCommentsLoading,
+    TResult? Function(GetCommentsSuccessState value)? getCommentsSuccess,
+    TResult? Function(GetCommentsFailureState value)? getCommentsFailure,
+    TResult? Function(GetACommentLoadingState value)? getACommentLoading,
+    TResult? Function(GetACommentSuccessState value)? getACommentSuccess,
+    TResult? Function(GetACommentFailureState value)? getACommentFailure,
+    TResult? Function(SaveACommentLoadingState value)? saveACommentLoading,
+    TResult? Function(SaveACommentSuccessState value)? saveACommentSuccess,
+    TResult? Function(SaveACommentFailureState value)? saveACommentFailure,
+    TResult? Function(DeleteCommentLoadingState value)? deleteCommentLoading,
+    TResult? Function(DeleteCommentSuccessState value)? deleteCommentSuccess,
+    TResult? Function(DeleteCommentFailureState value)? deleteCommentFailure,
+    TResult? Function(CommentReactionLoadingState value)?
+        commentReactionLoading,
+    TResult? Function(CommentReactionSuccessState value)?
+        commentReactionSuccess,
+    TResult? Function(CommentReactionFailureState value)?
+        commentReactionFailure,
+    TResult? Function(GetGuidelinesLoading value)? getGuidelinesLoading,
+    TResult? Function(GetGuidelinesSuccess value)? getGuideLinesSuccess,
+    TResult? Function(GetGuidelinesFailed value)? getGuideLinesFailed,
+    TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
+    TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
+    TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
+  }) {
+    return getTrendsFailure?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
+    TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
+    TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
+    TResult Function(GetPostsLoadingState value)? getPostsLoading,
+    TResult Function(GetPostsSuccessState value)? getPostsSuccess,
+    TResult Function(GetPostsFailureState value)? getPostsFailure,
+    TResult Function(CreatePostLoadingState value)? createPostLoading,
+    TResult Function(CreatePostSuccessState value)? createPostSuccess,
+    TResult Function(CreatePostFailureState value)? createPostFailure,
+    TResult Function(GetPostDetailsLoadingState value)? getPostDetailsLoading,
+    TResult Function(GetPostDetailsSuccessState value)? getPostDetailsSuccess,
+    TResult Function(GetPostDetailsFailureState value)? getPostDetailsFailure,
+    TResult Function(DeletePostLoadingState value)? deletePostLoading,
+    TResult Function(DeletePostSuccessState value)? deletePostSuccess,
+    TResult Function(DeletePostFailureState value)? deletePostFailure,
+    TResult Function(PostReactionLoadingState value)? postReactionLoading,
+    TResult Function(PostReactionSuccessState value)? postReactionSuccess,
+    TResult Function(PostReactionFailureState value)? postReactionFailure,
+    TResult Function(ReportPostLoadingState value)? reportPostLoading,
+    TResult Function(ReportPostSuccessState value)? reportPostSuccess,
+    TResult Function(ReportPostFailureState value)? reportPostFailure,
+    TResult Function(GetPollsLoadingState value)? getPollsLoading,
+    TResult Function(GetPollsSuccessState value)? getPollsSuccess,
+    TResult Function(GetPollsFailureState value)? getPollsFailure,
+    TResult Function(GetCommentsLoadingState value)? getCommentsLoading,
+    TResult Function(GetCommentsSuccessState value)? getCommentsSuccess,
+    TResult Function(GetCommentsFailureState value)? getCommentsFailure,
+    TResult Function(GetACommentLoadingState value)? getACommentLoading,
+    TResult Function(GetACommentSuccessState value)? getACommentSuccess,
+    TResult Function(GetACommentFailureState value)? getACommentFailure,
+    TResult Function(SaveACommentLoadingState value)? saveACommentLoading,
+    TResult Function(SaveACommentSuccessState value)? saveACommentSuccess,
+    TResult Function(SaveACommentFailureState value)? saveACommentFailure,
+    TResult Function(DeleteCommentLoadingState value)? deleteCommentLoading,
+    TResult Function(DeleteCommentSuccessState value)? deleteCommentSuccess,
+    TResult Function(DeleteCommentFailureState value)? deleteCommentFailure,
+    TResult Function(CommentReactionLoadingState value)? commentReactionLoading,
+    TResult Function(CommentReactionSuccessState value)? commentReactionSuccess,
+    TResult Function(CommentReactionFailureState value)? commentReactionFailure,
+    TResult Function(GetGuidelinesLoading value)? getGuidelinesLoading,
+    TResult Function(GetGuidelinesSuccess value)? getGuideLinesSuccess,
+    TResult Function(GetGuidelinesFailed value)? getGuideLinesFailed,
+    TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
+    TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
+    TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
+    required TResult orElse(),
+  }) {
+    if (getTrendsFailure != null) {
+      return getTrendsFailure(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetTrendsFailure implements PostState {
+  const factory _GetTrendsFailure(final String error) = _$GetTrendsFailureImpl;
+
+  String get error;
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$GetTrendsFailureImplCopyWith<_$GetTrendsFailureImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }

@@ -35,18 +35,18 @@ class InitiateSubscriptionResponse {
       );
 
   factory InitiateSubscriptionResponse.fromJson(Map<String, dynamic> json) => InitiateSubscriptionResponse(
-    message: json["message"],
-    data: Data.fromJson(json["data"]),
-    success: json["success"],
-    code: json["code"],
-  );
+        message: json["message"],
+        data: Data.fromJson(json["data"]),
+        success: json["success"],
+        code: json["code"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "message": message,
-    "data": data.toJson(),
-    "success": success,
-    "code": code,
-  };
+        "message": message,
+        "data": data.toJson(),
+        "success": success,
+        "code": code,
+      };
 }
 
 class Data {
@@ -108,34 +108,34 @@ class Data {
       );
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
-    id: json["id"],
-    user: User.fromJson(json["user"]),
-    currency: json["currency"],
-    amount: json["amount"],
-    fees: json["fees"],
-    reference: json["reference"],
-    activity: json["activity"],
-    description: json["description"],
-    metadata: Metadata.fromJson(json["metadata"]),
-    status: json["status"],
-    createdAt: DateTime.parse(json["created_at"]),
-    updatedAt: DateTime.parse(json["updated_at"]),
-  );
+        id: json["id"],
+        user: User.fromJson(json["user"]),
+        currency: json["currency"],
+        amount: json["amount"],
+        fees: json["fees"],
+        reference: json["reference"],
+        activity: json["activity"],
+        description: json["description"],
+        metadata: Metadata.fromJson(json["metadata"]),
+        status: json["status"],
+        createdAt: DateTime.parse(json["created_at"]),
+        updatedAt: DateTime.parse(json["updated_at"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "user": user.toJson(),
-    "currency": currency,
-    "amount": amount,
-    "fees": fees,
-    "reference": reference,
-    "activity": activity,
-    "description": description,
-    "metadata": metadata.toJson(),
-    "status": status,
-    "created_at": createdAt.toIso8601String(),
-    "updated_at": updatedAt.toIso8601String(),
-  };
+        "id": id,
+        "user": user.toJson(),
+        "currency": currency,
+        "amount": amount,
+        "fees": fees,
+        "reference": reference,
+        "activity": activity,
+        "description": description,
+        "metadata": metadata.toJson(),
+        "status": status,
+        "created_at": createdAt.toIso8601String(),
+        "updated_at": updatedAt.toIso8601String(),
+      };
 }
 
 class Metadata {
@@ -169,20 +169,20 @@ class Metadata {
       );
 
   factory Metadata.fromJson(Map<String, dynamic> json) => Metadata(
-    amount: json["amount"],
-    planDurationId: json["plan_duration_id"],
-    flutterwavePlanId: json["flutterwave_plan_id"],
-    email: json["email"],
-    activity: json["activity"],
-  );
+        amount: json["amount"],
+        planDurationId: json["plan_duration_id"],
+        flutterwavePlanId: json["flutterwave_plan_id"],
+        email: json["email"],
+        activity: json["activity"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "amount": amount,
-    "plan_duration_id": planDurationId,
-    "flutterwave_plan_id": flutterwavePlanId,
-    "email": email,
-    "activity": activity,
-  };
+        "amount": amount,
+        "plan_duration_id": planDurationId,
+        "flutterwave_plan_id": flutterwavePlanId,
+        "email": email,
+        "activity": activity,
+      };
 }
 
 class User {
@@ -216,18 +216,18 @@ class User {
       );
 
   factory User.fromJson(Map<String, dynamic> json) => User(
-    id: json["id"],
-    avatar: json["avatar"],
-    name: json["name"],
-    username: json["username"],
-    email: json["email"],
-  );
+        id: json["id"],
+        avatar: json["avatar"],
+        name: json["name"],
+        username: json["username"],
+        email: json["email"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "avatar": avatar,
-    "name": name,
-    "username": username,
-    "email": email,
-  };
+        "id": id,
+        "avatar": avatar,
+        "name": name,
+        "username": username,
+        "email": email,
+      };
 }

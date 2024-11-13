@@ -1,22 +1,34 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:talkam/features/ads/data/models/ad_analytics_response.dart';
 
 import '../../../../core/theme/pallets.dart';
 import 'impressions_info_item.dart';
 
 class ImpressionsInfoWidget extends StatelessWidget {
-  const ImpressionsInfoWidget({super.key});
+  const ImpressionsInfoWidget({super.key, required this.analyticsInfo});
+
+  final AnalyticsInfo analyticsInfo;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ImpressionsInfoItem(header: "Impressions", number: "1000",),
-            ImpressionsInfoItem(header: "Engagements", number: "40",),
-            ImpressionsInfoItem(header: "New followers", number: "20",),
+            ImpressionsInfoItem(
+              header: "Impressions",
+              number: analyticsInfo.impressions.toString(),
+            ),
+            ImpressionsInfoItem(
+              header: "Engagements",
+              number: analyticsInfo.engagements.toString(),
+            ),
+            ImpressionsInfoItem(
+              header: "New followers",
+              number: analyticsInfo.followers.toString(),
+            ),
           ],
         ),
         15.verticalSpace,
@@ -28,11 +40,11 @@ class ImpressionsInfoWidget extends StatelessWidget {
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const ImpressionsInfoItem(header: "Profile visit", number: "600"),
-            const ImpressionsInfoItem(header: "Clicks", number: "200"),
-            5.horizontalSpace,
-            const ImpressionsInfoItem(header: "Profile visit", number: "600"),
-            1.horizontalSpace
+            ImpressionsInfoItem(header: "Profile visit", number: analyticsInfo.profileVisits.toString()),
+            ImpressionsInfoItem(header: "Clicks", number: analyticsInfo.clicks.toString()),
+            // 5.horizontalSpace,
+            // ImpressionsInfoItem(header: "Profile visit", number: analyticsInfo.impressions),
+            // 1.horizontalSpace
           ],
         ),
         15.verticalSpace,
@@ -41,11 +53,11 @@ class ImpressionsInfoWidget extends StatelessWidget {
           color: Pallets.buttonGrey,
         ),
         15.verticalSpace,
-        const Row(
+        Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ImpressionsInfoItem(header: "Min time spent on post", number: "0.2 sec"),
-            ImpressionsInfoItem(header: "Min time spent on post", number: "0.2 sec"),
+            ImpressionsInfoItem(header: "Max time spent on post", number: "${analyticsInfo.maxTimeSpent} sec"),
+            ImpressionsInfoItem(header: "Min time spent on post", number: "${analyticsInfo.minTimeSpent} sec"),
           ],
         ),
       ],

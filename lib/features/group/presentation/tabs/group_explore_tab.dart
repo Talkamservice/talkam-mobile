@@ -125,7 +125,7 @@ class _GroupExploreRecentTabState extends State<GroupExploreTab> with AutomaticK
                                         },
                                       ),
                                     ),
-                                    Container(height: 1.0, color: Pallets.borderGrey),
+                                    // Container(height: 1.0, color: Pallets.borderGrey),
                                   ],
                                 );
                               },

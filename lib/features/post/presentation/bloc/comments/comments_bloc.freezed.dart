@@ -102,6 +102,9 @@ class _$CommentsEventCopyWithImpl<$Res, $Val extends CommentsEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of CommentsEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -118,6 +121,9 @@ class __$$StartedImplCopyWithImpl<$Res>
   __$$StartedImplCopyWithImpl(
       _$StartedImpl _value, $Res Function(_$StartedImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of CommentsEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -253,6 +259,8 @@ class __$$SelectCommentEventImplCopyWithImpl<$Res>
       $Res Function(_$SelectCommentEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CommentsEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -291,7 +299,9 @@ class _$SelectCommentEventImpl implements _SelectCommentEvent {
   @override
   int get hashCode => Object.hash(runtimeType, comment);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CommentsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SelectCommentEventImplCopyWith<_$SelectCommentEventImpl> get copyWith =>
@@ -396,7 +406,10 @@ abstract class _SelectCommentEvent implements CommentsEvent {
       _$SelectCommentEventImpl;
 
   PostComment? get comment;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CommentsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SelectCommentEventImplCopyWith<_$SelectCommentEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -418,6 +431,8 @@ class __$$GetCommentsEventImplCopyWithImpl<$Res>
       $Res Function(_$GetCommentsEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CommentsEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -464,7 +479,9 @@ class _$GetCommentsEventImpl implements _GetCommentsEvent {
   @override
   int get hashCode => Object.hash(runtimeType, postId, reload);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CommentsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetCommentsEventImplCopyWith<_$GetCommentsEventImpl> get copyWith =>
@@ -570,7 +587,10 @@ abstract class _GetCommentsEvent implements CommentsEvent {
 
   String get postId;
   bool? get reload;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CommentsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetCommentsEventImplCopyWith<_$GetCommentsEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -592,6 +612,8 @@ class __$$GetACommentEventImplCopyWithImpl<$Res>
       $Res Function(_$GetACommentEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CommentsEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -631,7 +653,9 @@ class _$GetACommentEventImpl implements _GetACommentEvent {
   @override
   int get hashCode => Object.hash(runtimeType, commentId);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CommentsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetACommentEventImplCopyWith<_$GetACommentEventImpl> get copyWith =>
@@ -736,7 +760,10 @@ abstract class _GetACommentEvent implements CommentsEvent {
       _$GetACommentEventImpl;
 
   String get commentId;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CommentsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetACommentEventImplCopyWith<_$GetACommentEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -758,6 +785,8 @@ class __$$SaveACommentEventImplCopyWithImpl<$Res>
       $Res Function(_$SaveACommentEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CommentsEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -796,7 +825,9 @@ class _$SaveACommentEventImpl implements _SaveACommentEvent {
   @override
   int get hashCode => Object.hash(runtimeType, payload);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CommentsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SaveACommentEventImplCopyWith<_$SaveACommentEventImpl> get copyWith =>
@@ -901,7 +932,10 @@ abstract class _SaveACommentEvent implements CommentsEvent {
       _$SaveACommentEventImpl;
 
   SaveCommentPayload get payload;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CommentsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SaveACommentEventImplCopyWith<_$SaveACommentEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -923,6 +957,8 @@ class __$$DeleteCommentEventImplCopyWithImpl<$Res>
       $Res Function(_$DeleteCommentEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CommentsEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -962,7 +998,9 @@ class _$DeleteCommentEventImpl implements _DeleteCommentEvent {
   @override
   int get hashCode => Object.hash(runtimeType, commentId);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CommentsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DeleteCommentEventImplCopyWith<_$DeleteCommentEventImpl> get copyWith =>
@@ -1067,7 +1105,10 @@ abstract class _DeleteCommentEvent implements CommentsEvent {
       _$DeleteCommentEventImpl;
 
   String get commentId;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CommentsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DeleteCommentEventImplCopyWith<_$DeleteCommentEventImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1089,6 +1130,8 @@ class __$$CommentReactionEventImplCopyWithImpl<$Res>
       $Res Function(_$CommentReactionEventImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CommentsEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1136,7 +1179,9 @@ class _$CommentReactionEventImpl implements _CommentReactionEvent {
   @override
   int get hashCode => Object.hash(runtimeType, commentId, action);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CommentsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CommentReactionEventImplCopyWith<_$CommentReactionEventImpl>
@@ -1243,7 +1288,10 @@ abstract class _CommentReactionEvent implements CommentsEvent {
 
   String get commentId;
   String get action;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CommentsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CommentReactionEventImplCopyWith<_$CommentReactionEventImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -1414,6 +1462,9 @@ class _$CommentsStateCopyWithImpl<$Res, $Val extends CommentsState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -1430,6 +1481,9 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -1642,6 +1696,9 @@ class __$$GetCommentsLoadingStateImplCopyWithImpl<$Res>
       _$GetCommentsLoadingStateImpl _value,
       $Res Function(_$GetCommentsLoadingStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -1858,6 +1915,8 @@ class __$$GetCommentsSuccessStateImplCopyWithImpl<$Res>
       $Res Function(_$GetCommentsSuccessStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1897,7 +1956,9 @@ class _$GetCommentsSuccessStateImpl implements GetCommentsSuccessState {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetCommentsSuccessStateImplCopyWith<_$GetCommentsSuccessStateImpl>
@@ -2080,7 +2141,10 @@ abstract class GetCommentsSuccessState implements CommentsState {
       _$GetCommentsSuccessStateImpl;
 
   GetCommentsResponse get response;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetCommentsSuccessStateImplCopyWith<_$GetCommentsSuccessStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -2104,6 +2168,8 @@ class __$$GetCommentsFailureStateImplCopyWithImpl<$Res>
       $Res Function(_$GetCommentsFailureStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2142,7 +2208,9 @@ class _$GetCommentsFailureStateImpl implements GetCommentsFailureState {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetCommentsFailureStateImplCopyWith<_$GetCommentsFailureStateImpl>
@@ -2325,7 +2393,10 @@ abstract class GetCommentsFailureState implements CommentsState {
       _$GetCommentsFailureStateImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetCommentsFailureStateImplCopyWith<_$GetCommentsFailureStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -2346,6 +2417,9 @@ class __$$GetACommentLoadingStateImplCopyWithImpl<$Res>
       _$GetACommentLoadingStateImpl _value,
       $Res Function(_$GetACommentLoadingStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -2562,6 +2636,8 @@ class __$$GetACommentSuccessStateImplCopyWithImpl<$Res>
       $Res Function(_$GetACommentSuccessStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2601,7 +2677,9 @@ class _$GetACommentSuccessStateImpl implements GetACommentSuccessState {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetACommentSuccessStateImplCopyWith<_$GetACommentSuccessStateImpl>
@@ -2784,7 +2862,10 @@ abstract class GetACommentSuccessState implements CommentsState {
       _$GetACommentSuccessStateImpl;
 
   dynamic get response;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetACommentSuccessStateImplCopyWith<_$GetACommentSuccessStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -2808,6 +2889,8 @@ class __$$GetACommentFailureStateImplCopyWithImpl<$Res>
       $Res Function(_$GetACommentFailureStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2846,7 +2929,9 @@ class _$GetACommentFailureStateImpl implements GetACommentFailureState {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$GetACommentFailureStateImplCopyWith<_$GetACommentFailureStateImpl>
@@ -3029,7 +3114,10 @@ abstract class GetACommentFailureState implements CommentsState {
       _$GetACommentFailureStateImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetACommentFailureStateImplCopyWith<_$GetACommentFailureStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -3050,6 +3138,9 @@ class __$$SaveACommentLoadingStateImplCopyWithImpl<$Res>
       _$SaveACommentLoadingStateImpl _value,
       $Res Function(_$SaveACommentLoadingStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -3263,6 +3354,9 @@ class __$$SaveACommentSuccessStateImplCopyWithImpl<$Res>
       _$SaveACommentSuccessStateImpl _value,
       $Res Function(_$SaveACommentSuccessStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -3479,6 +3573,8 @@ class __$$SaveACommentFailureStateImplCopyWithImpl<$Res>
       $Res Function(_$SaveACommentFailureStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3517,7 +3613,9 @@ class _$SaveACommentFailureStateImpl implements SaveACommentFailureState {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SaveACommentFailureStateImplCopyWith<_$SaveACommentFailureStateImpl>
@@ -3700,7 +3798,10 @@ abstract class SaveACommentFailureState implements CommentsState {
       _$SaveACommentFailureStateImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SaveACommentFailureStateImplCopyWith<_$SaveACommentFailureStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -3721,6 +3822,9 @@ class __$$DeleteCommentLoadingStateImplCopyWithImpl<$Res>
       _$DeleteCommentLoadingStateImpl _value,
       $Res Function(_$DeleteCommentLoadingStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -3934,6 +4038,9 @@ class __$$DeleteCommentSuccessStateImplCopyWithImpl<$Res>
       _$DeleteCommentSuccessStateImpl _value,
       $Res Function(_$DeleteCommentSuccessStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -4150,6 +4257,8 @@ class __$$DeleteCommentFailureStateImplCopyWithImpl<$Res>
       $Res Function(_$DeleteCommentFailureStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4188,7 +4297,9 @@ class _$DeleteCommentFailureStateImpl implements DeleteCommentFailureState {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DeleteCommentFailureStateImplCopyWith<_$DeleteCommentFailureStateImpl>
@@ -4371,7 +4482,10 @@ abstract class DeleteCommentFailureState implements CommentsState {
       _$DeleteCommentFailureStateImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DeleteCommentFailureStateImplCopyWith<_$DeleteCommentFailureStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -4392,6 +4506,9 @@ class __$$CommentReactionLoadingStateImplCopyWithImpl<$Res>
       _$CommentReactionLoadingStateImpl _value,
       $Res Function(_$CommentReactionLoadingStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -4606,6 +4723,9 @@ class __$$CommentReactionSuccessStateImplCopyWithImpl<$Res>
       _$CommentReactionSuccessStateImpl _value,
       $Res Function(_$CommentReactionSuccessStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -4823,6 +4943,8 @@ class __$$CommentReactionFailureStateImplCopyWithImpl<$Res>
       $Res Function(_$CommentReactionFailureStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4861,7 +4983,9 @@ class _$CommentReactionFailureStateImpl implements CommentReactionFailureState {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CommentReactionFailureStateImplCopyWith<_$CommentReactionFailureStateImpl>
@@ -5044,7 +5168,10 @@ abstract class CommentReactionFailureState implements CommentsState {
       _$CommentReactionFailureStateImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CommentReactionFailureStateImplCopyWith<_$CommentReactionFailureStateImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -5066,6 +5193,8 @@ class __$$CommentStaggedStateImplCopyWithImpl<$Res>
       $Res Function(_$CommentStaggedStateImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -5104,7 +5233,9 @@ class _$CommentStaggedStateImpl implements CommentStaggedState {
   @override
   int get hashCode => Object.hash(runtimeType, comment);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$CommentStaggedStateImplCopyWith<_$CommentStaggedStateImpl> get copyWith =>
@@ -5287,7 +5418,10 @@ abstract class CommentStaggedState implements CommentsState {
       _$CommentStaggedStateImpl;
 
   PostComment? get comment;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$CommentStaggedStateImplCopyWith<_$CommentStaggedStateImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -5307,6 +5441,9 @@ class __$$StaggedCommentRemovedImplCopyWithImpl<$Res>
   __$$StaggedCommentRemovedImplCopyWithImpl(_$StaggedCommentRemovedImpl _value,
       $Res Function(_$StaggedCommentRemovedImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of CommentsState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc

@@ -1,4 +1,6 @@
 import 'package:get_it/get_it.dart';
+import 'package:talkam/features/ads/data/repository/ads_repository_impl.dart';
+import 'package:talkam/features/ads/dormain/repository/ads_repository.dart';
 import 'package:talkam/features/authentication/data/repository/auth_repository_impl.dart';
 import 'package:talkam/features/authentication/dormain/repository/auth_repository.dart';
 import 'package:talkam/features/group/data/repository/group_members_access_repository_impl.dart';
@@ -53,5 +55,8 @@ void setup(GetIt getIt) {
   );
   getIt.registerLazySingleton<SubscriptionsRepository>(
     () => SubscriptionsRepositoryImpl(getIt.get()),
+  );
+  getIt.registerLazySingleton<AdsRepository>(
+    () => AdsRepositoryImpl(getIt.get()),
   );
 }

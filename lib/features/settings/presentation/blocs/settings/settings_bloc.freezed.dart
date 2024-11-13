@@ -117,6 +117,9 @@ class _$SettingsEventCopyWithImpl<$Res, $Val extends SettingsEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of SettingsEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -133,6 +136,9 @@ class __$$StartedImplCopyWithImpl<$Res>
   __$$StartedImplCopyWithImpl(
       _$StartedImpl _value, $Res Function(_$StartedImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of SettingsEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -286,6 +292,8 @@ class __$$FetchNotificationPreferencesImplCopyWithImpl<$Res>
       $Res Function(_$FetchNotificationPreferencesImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SettingsEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -325,7 +333,9 @@ class _$FetchNotificationPreferencesImpl
   @override
   int get hashCode => Object.hash(runtimeType, refresh);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SettingsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FetchNotificationPreferencesImplCopyWith<
@@ -446,7 +456,10 @@ abstract class _FetchNotificationPreferences implements SettingsEvent {
       _$FetchNotificationPreferencesImpl;
 
   bool? get refresh;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SettingsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FetchNotificationPreferencesImplCopyWith<
           _$FetchNotificationPreferencesImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -471,6 +484,8 @@ class __$$SaveNotificationPreferencesImplCopyWithImpl<$Res>
       $Res Function(_$SaveNotificationPreferencesImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SettingsEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -511,7 +526,9 @@ class _$SaveNotificationPreferencesImpl
   @override
   int get hashCode => Object.hash(runtimeType, preferences);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SettingsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SaveNotificationPreferencesImplCopyWith<_$SaveNotificationPreferencesImpl>
@@ -632,7 +649,10 @@ abstract class _SaveNotificationPreferences implements SettingsEvent {
       _$SaveNotificationPreferencesImpl;
 
   UpdateSettingsPayload get preferences;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SettingsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SaveNotificationPreferencesImplCopyWith<_$SaveNotificationPreferencesImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -651,6 +671,9 @@ class __$$FetchBlockedUsersImplCopyWithImpl<$Res>
   __$$FetchBlockedUsersImplCopyWithImpl(_$FetchBlockedUsersImpl _value,
       $Res Function(_$FetchBlockedUsersImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of SettingsEvent
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -801,6 +824,8 @@ class __$$LinkSocialAccountImplCopyWithImpl<$Res>
       $Res Function(_$LinkSocialAccountImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SettingsEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -840,7 +865,9 @@ class _$LinkSocialAccountImpl implements _LinkSocialAccount {
   @override
   int get hashCode => Object.hash(runtimeType, provider);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SettingsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LinkSocialAccountImplCopyWith<_$LinkSocialAccountImpl> get copyWith =>
@@ -960,7 +987,10 @@ abstract class _LinkSocialAccount implements SettingsEvent {
       _$LinkSocialAccountImpl;
 
   String get provider;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SettingsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LinkSocialAccountImplCopyWith<_$LinkSocialAccountImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -982,6 +1012,8 @@ class __$$UnlinkSocialAccountImplCopyWithImpl<$Res>
       $Res Function(_$UnlinkSocialAccountImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SettingsEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1021,7 +1053,9 @@ class _$UnlinkSocialAccountImpl implements _UnlinkSocialAccount {
   @override
   int get hashCode => Object.hash(runtimeType, accountId);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SettingsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UnlinkSocialAccountImplCopyWith<_$UnlinkSocialAccountImpl> get copyWith =>
@@ -1141,7 +1175,10 @@ abstract class _UnlinkSocialAccount implements SettingsEvent {
       _$UnlinkSocialAccountImpl;
 
   String get accountId;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SettingsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UnlinkSocialAccountImplCopyWith<_$UnlinkSocialAccountImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1163,6 +1200,8 @@ class __$$DeleteAccountImplCopyWithImpl<$Res>
       _$DeleteAccountImpl _value, $Res Function(_$DeleteAccountImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SettingsEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1201,7 +1240,9 @@ class _$DeleteAccountImpl implements _DeleteAccount {
   @override
   int get hashCode => Object.hash(runtimeType, reason);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SettingsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DeleteAccountImplCopyWith<_$DeleteAccountImpl> get copyWith =>
@@ -1319,7 +1360,10 @@ abstract class _DeleteAccount implements SettingsEvent {
   const factory _DeleteAccount({final String? reason}) = _$DeleteAccountImpl;
 
   String? get reason;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SettingsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DeleteAccountImplCopyWith<_$DeleteAccountImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1341,6 +1385,8 @@ class __$$BlockUserImplCopyWithImpl<$Res>
       _$BlockUserImpl _value, $Res Function(_$BlockUserImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SettingsEvent
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1379,7 +1425,9 @@ class _$BlockUserImpl implements _BlockUser {
   @override
   int get hashCode => Object.hash(runtimeType, userId);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SettingsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$BlockUserImplCopyWith<_$BlockUserImpl> get copyWith =>
@@ -1497,7 +1545,10 @@ abstract class _BlockUser implements SettingsEvent {
   const factory _BlockUser(final String userId) = _$BlockUserImpl;
 
   String get userId;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SettingsEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$BlockUserImplCopyWith<_$BlockUserImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1724,6 +1775,9 @@ class _$SettingsStateCopyWithImpl<$Res, $Val extends SettingsState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -1740,6 +1794,9 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -2009,6 +2066,9 @@ class __$$FetchNotificationPreferencesLoadingImplCopyWithImpl<$Res>
       _$FetchNotificationPreferencesLoadingImpl _value,
       $Res Function(_$FetchNotificationPreferencesLoadingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -2284,6 +2344,8 @@ class __$$FetchNotificationPreferencesSuccessImplCopyWithImpl<$Res>
       $Res Function(_$FetchNotificationPreferencesSuccessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2324,7 +2386,9 @@ class _$FetchNotificationPreferencesSuccessImpl
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FetchNotificationPreferencesSuccessImplCopyWith<
@@ -2565,7 +2629,10 @@ abstract class _FetchNotificationPreferencesSuccess implements SettingsState {
       _$FetchNotificationPreferencesSuccessImpl;
 
   NotificationsPreferenceResponse get response;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FetchNotificationPreferencesSuccessImplCopyWith<
           _$FetchNotificationPreferencesSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -2591,6 +2658,8 @@ class __$$FetchNotificationPreferencesFailureImplCopyWithImpl<$Res>
       $Res Function(_$FetchNotificationPreferencesFailureImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2630,7 +2699,9 @@ class _$FetchNotificationPreferencesFailureImpl
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FetchNotificationPreferencesFailureImplCopyWith<
@@ -2870,7 +2941,10 @@ abstract class _FetchNotificationPreferencesFailure implements SettingsState {
       _$FetchNotificationPreferencesFailureImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FetchNotificationPreferencesFailureImplCopyWith<
           _$FetchNotificationPreferencesFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -2893,6 +2967,9 @@ class __$$SaveNotificationPreferencesLoadingImplCopyWithImpl<$Res>
       _$SaveNotificationPreferencesLoadingImpl _value,
       $Res Function(_$SaveNotificationPreferencesLoadingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -3168,6 +3245,8 @@ class __$$SaveNotificationPreferencesSuccessImplCopyWithImpl<$Res>
       $Res Function(_$SaveNotificationPreferencesSuccessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3208,7 +3287,9 @@ class _$SaveNotificationPreferencesSuccessImpl
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SaveNotificationPreferencesSuccessImplCopyWith<
@@ -3448,7 +3529,10 @@ abstract class _SaveNotificationPreferencesSuccess implements SettingsState {
       _$SaveNotificationPreferencesSuccessImpl;
 
   dynamic get response;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SaveNotificationPreferencesSuccessImplCopyWith<
           _$SaveNotificationPreferencesSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -3474,6 +3558,8 @@ class __$$SaveNotificationPreferencesFailureImplCopyWithImpl<$Res>
       $Res Function(_$SaveNotificationPreferencesFailureImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3513,7 +3599,9 @@ class _$SaveNotificationPreferencesFailureImpl
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$SaveNotificationPreferencesFailureImplCopyWith<
@@ -3753,7 +3841,10 @@ abstract class _SaveNotificationPreferencesFailure implements SettingsState {
       _$SaveNotificationPreferencesFailureImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$SaveNotificationPreferencesFailureImplCopyWith<
           _$SaveNotificationPreferencesFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -3775,6 +3866,9 @@ class __$$FetchBlockedUsersLoadingImplCopyWithImpl<$Res>
       _$FetchBlockedUsersLoadingImpl _value,
       $Res Function(_$FetchBlockedUsersLoadingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -4047,6 +4141,8 @@ class __$$FetchBlockedUsersSuccessImplCopyWithImpl<$Res>
       $Res Function(_$FetchBlockedUsersSuccessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4086,7 +4182,9 @@ class _$FetchBlockedUsersSuccessImpl implements _FetchBlockedUsersSuccess {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FetchBlockedUsersSuccessImplCopyWith<_$FetchBlockedUsersSuccessImpl>
@@ -4325,7 +4423,10 @@ abstract class _FetchBlockedUsersSuccess implements SettingsState {
       _$FetchBlockedUsersSuccessImpl;
 
   BlockedUsersResponse get response;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FetchBlockedUsersSuccessImplCopyWith<_$FetchBlockedUsersSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -4349,6 +4450,8 @@ class __$$FetchBlockedUsersFailureImplCopyWithImpl<$Res>
       $Res Function(_$FetchBlockedUsersFailureImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4387,7 +4490,9 @@ class _$FetchBlockedUsersFailureImpl implements _FetchBlockedUsersFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$FetchBlockedUsersFailureImplCopyWith<_$FetchBlockedUsersFailureImpl>
@@ -4626,7 +4731,10 @@ abstract class _FetchBlockedUsersFailure implements SettingsState {
       _$FetchBlockedUsersFailureImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$FetchBlockedUsersFailureImplCopyWith<_$FetchBlockedUsersFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -4647,6 +4755,9 @@ class __$$LinkSocialAccountLoadingImplCopyWithImpl<$Res>
       _$LinkSocialAccountLoadingImpl _value,
       $Res Function(_$LinkSocialAccountLoadingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -4919,6 +5030,8 @@ class __$$LinkSocialAccountSuccessImplCopyWithImpl<$Res>
       $Res Function(_$LinkSocialAccountSuccessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4958,7 +5071,9 @@ class _$LinkSocialAccountSuccessImpl implements _LinkSocialAccountSuccess {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LinkSocialAccountSuccessImplCopyWith<_$LinkSocialAccountSuccessImpl>
@@ -5197,7 +5312,10 @@ abstract class _LinkSocialAccountSuccess implements SettingsState {
       _$LinkSocialAccountSuccessImpl;
 
   dynamic get response;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LinkSocialAccountSuccessImplCopyWith<_$LinkSocialAccountSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -5221,6 +5339,8 @@ class __$$LinkSocialAccountFailureImplCopyWithImpl<$Res>
       $Res Function(_$LinkSocialAccountFailureImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -5259,7 +5379,9 @@ class _$LinkSocialAccountFailureImpl implements _LinkSocialAccountFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$LinkSocialAccountFailureImplCopyWith<_$LinkSocialAccountFailureImpl>
@@ -5498,7 +5620,10 @@ abstract class _LinkSocialAccountFailure implements SettingsState {
       _$LinkSocialAccountFailureImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$LinkSocialAccountFailureImplCopyWith<_$LinkSocialAccountFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -5519,6 +5644,9 @@ class __$$UnlinkSocialAccountLoadingImplCopyWithImpl<$Res>
       _$UnlinkSocialAccountLoadingImpl _value,
       $Res Function(_$UnlinkSocialAccountLoadingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -5792,6 +5920,8 @@ class __$$UnlinkSocialAccountSuccessImplCopyWithImpl<$Res>
       $Res Function(_$UnlinkSocialAccountSuccessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -5831,7 +5961,9 @@ class _$UnlinkSocialAccountSuccessImpl implements _UnlinkSocialAccountSuccess {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UnlinkSocialAccountSuccessImplCopyWith<_$UnlinkSocialAccountSuccessImpl>
@@ -6070,7 +6202,10 @@ abstract class _UnlinkSocialAccountSuccess implements SettingsState {
       _$UnlinkSocialAccountSuccessImpl;
 
   dynamic get response;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UnlinkSocialAccountSuccessImplCopyWith<_$UnlinkSocialAccountSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -6094,6 +6229,8 @@ class __$$UnlinkSocialAccountFailureImplCopyWithImpl<$Res>
       $Res Function(_$UnlinkSocialAccountFailureImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -6132,7 +6269,9 @@ class _$UnlinkSocialAccountFailureImpl implements _UnlinkSocialAccountFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$UnlinkSocialAccountFailureImplCopyWith<_$UnlinkSocialAccountFailureImpl>
@@ -6371,7 +6510,10 @@ abstract class _UnlinkSocialAccountFailure implements SettingsState {
       _$UnlinkSocialAccountFailureImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UnlinkSocialAccountFailureImplCopyWith<_$UnlinkSocialAccountFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -6390,6 +6532,9 @@ class __$$DeleteAccountLoadingImplCopyWithImpl<$Res>
   __$$DeleteAccountLoadingImplCopyWithImpl(_$DeleteAccountLoadingImpl _value,
       $Res Function(_$DeleteAccountLoadingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -6660,6 +6805,8 @@ class __$$DeleteAccountSuccessImplCopyWithImpl<$Res>
       $Res Function(_$DeleteAccountSuccessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -6699,7 +6846,9 @@ class _$DeleteAccountSuccessImpl implements _DeleteAccountSuccess {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DeleteAccountSuccessImplCopyWith<_$DeleteAccountSuccessImpl>
@@ -6939,7 +7088,10 @@ abstract class _DeleteAccountSuccess implements SettingsState {
       _$DeleteAccountSuccessImpl;
 
   dynamic get response;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DeleteAccountSuccessImplCopyWith<_$DeleteAccountSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -6961,6 +7113,8 @@ class __$$DeleteAccountFailureImplCopyWithImpl<$Res>
       $Res Function(_$DeleteAccountFailureImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -6999,7 +7153,9 @@ class _$DeleteAccountFailureImpl implements _DeleteAccountFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$DeleteAccountFailureImplCopyWith<_$DeleteAccountFailureImpl>
@@ -7239,7 +7395,10 @@ abstract class _DeleteAccountFailure implements SettingsState {
       _$DeleteAccountFailureImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$DeleteAccountFailureImplCopyWith<_$DeleteAccountFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -7258,6 +7417,9 @@ class __$$BlockUserLoadingImplCopyWithImpl<$Res>
   __$$BlockUserLoadingImplCopyWithImpl(_$BlockUserLoadingImpl _value,
       $Res Function(_$BlockUserLoadingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -7527,6 +7689,8 @@ class __$$BlockUserSuccessImplCopyWithImpl<$Res>
       $Res Function(_$BlockUserSuccessImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -7566,7 +7730,9 @@ class _$BlockUserSuccessImpl implements _BlockUserSuccess {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$BlockUserSuccessImplCopyWith<_$BlockUserSuccessImpl> get copyWith =>
@@ -7805,7 +7971,10 @@ abstract class _BlockUserSuccess implements SettingsState {
       _$BlockUserSuccessImpl;
 
   dynamic get response;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$BlockUserSuccessImplCopyWith<_$BlockUserSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -7827,6 +7996,8 @@ class __$$BlockUserFailureImplCopyWithImpl<$Res>
       $Res Function(_$BlockUserFailureImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -7865,7 +8036,9 @@ class _$BlockUserFailureImpl implements _BlockUserFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$BlockUserFailureImplCopyWith<_$BlockUserFailureImpl> get copyWith =>
@@ -8103,7 +8276,10 @@ abstract class _BlockUserFailure implements SettingsState {
   const factory _BlockUserFailure(final String error) = _$BlockUserFailureImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of SettingsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$BlockUserFailureImplCopyWith<_$BlockUserFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

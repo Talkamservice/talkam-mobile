@@ -90,6 +90,9 @@ class _$MediaSearchStateCopyWithImpl<$Res, $Val extends MediaSearchState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
+
+  /// Create a copy of MediaSearchState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -109,6 +112,8 @@ class __$$MediaSearcLoadedImplCopyWithImpl<$Res>
       $Res Function(_$MediaSearcLoadedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of MediaSearchState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -167,7 +172,9 @@ class _$MediaSearcLoadedImpl implements _MediaSearcLoaded {
   int get hashCode => Object.hash(runtimeType,
       const DeepCollectionEquality().hash(_postResults), paginationData);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MediaSearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MediaSearcLoadedImplCopyWith<_$MediaSearcLoadedImpl> get copyWith =>
@@ -263,7 +270,10 @@ abstract class _MediaSearcLoaded implements MediaSearchState {
 
   List<TalkamPost> get postResults;
   PostsPaginationData get paginationData;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of MediaSearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MediaSearcLoadedImplCopyWith<_$MediaSearcLoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -282,6 +292,9 @@ class __$$MediaInitialStateImplCopyWithImpl<$Res>
   __$$MediaInitialStateImplCopyWithImpl(_$MediaInitialStateImpl _value,
       $Res Function(_$MediaInitialStateImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of MediaSearchState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -402,6 +415,9 @@ class __$$MediaSearchLoadingImplCopyWithImpl<$Res>
   __$$MediaSearchLoadingImplCopyWithImpl(_$MediaSearchLoadingImpl _value,
       $Res Function(_$MediaSearchLoadingImpl) _then)
       : super(_value, _then);
+
+  /// Create a copy of MediaSearchState
+  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -525,6 +541,8 @@ class __$$MediaSearchFailedImplCopyWithImpl<$Res>
       $Res Function(_$MediaSearchFailedImpl) _then)
       : super(_value, _then);
 
+  /// Create a copy of MediaSearchState
+  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -563,7 +581,9 @@ class _$MediaSearchFailedImpl implements _MediaSearchFailed {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  @JsonKey(ignore: true)
+  /// Create a copy of MediaSearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   @override
   @pragma('vm:prefer-inline')
   _$$MediaSearchFailedImplCopyWith<_$MediaSearchFailedImpl> get copyWith =>
@@ -656,7 +676,10 @@ abstract class _MediaSearchFailed implements MediaSearchState {
       _$MediaSearchFailedImpl;
 
   String get error;
-  @JsonKey(ignore: true)
+
+  /// Create a copy of MediaSearchState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
   _$$MediaSearchFailedImplCopyWith<_$MediaSearchFailedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
