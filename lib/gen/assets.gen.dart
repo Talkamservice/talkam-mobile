@@ -124,6 +124,9 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/add.svg
   String get add => 'assets/images/svgs/add.svg';
 
+  /// File path: assets/images/svgs/analytics.svg
+  String get analytics => 'assets/images/svgs/analytics.svg';
+
   /// File path: assets/images/svgs/announcement.svg
   String get announcement => 'assets/images/svgs/announcement.svg';
 
@@ -350,6 +353,7 @@ class $AssetsImagesSvgsGen {
         icfeatured,
         adShare,
         add,
+        analytics,
         announcement,
         anonymousActive,
         anonymousInactive,

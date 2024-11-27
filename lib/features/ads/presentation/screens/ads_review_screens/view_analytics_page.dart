@@ -38,7 +38,7 @@ class _ViewAnalyticsPageState extends State<ViewAnalyticsPage> {
 
   @override
   void initState() {
-    bloc.fetchPromotionById(widget.promotionId);
+    bloc.getAnalytics(true,widget.promotionId);
     super.initState();
   }
 

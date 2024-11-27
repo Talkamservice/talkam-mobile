@@ -9,7 +9,7 @@ abstract class AdsRepository {
 
   Future<PromotionData> getPromotionById(String promotionId);
 
-  Future<AdAnalyticsResponse> getAnalytics(bool isPost, String promotionId);
+  Future<AdAnalyticsResponse> getAnalytics(bool isPost, String id);
 
   Future<InitiatePaymentResponse> initiatePromotion(CreatePromotionPayload promotionData);
 

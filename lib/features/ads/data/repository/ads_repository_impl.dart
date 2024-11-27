@@ -102,10 +102,10 @@ class AdsRepositoryImpl extends AdsRepository {
   }
 
   @override
-  Future<AdAnalyticsResponse> getAnalytics(bool isPost, String promotionId) async {
+  Future<AdAnalyticsResponse> getAnalytics(bool isPost, String id) async {
     try {
       final response = await _networkService
-          .call(UrlConfig.analytics, RequestMethod.get, queryParams: {if (isPost) "post_id": promotionId, if (!isPost) "group_id": promotionId});
+          .call(UrlConfig.analytics, RequestMethod.get, queryParams: {if (isPost) "post_id": id, if (!isPost) "group_id": id});
       return AdAnalyticsResponse.fromJson(response.data);
     } catch (e) {
       rethrow;

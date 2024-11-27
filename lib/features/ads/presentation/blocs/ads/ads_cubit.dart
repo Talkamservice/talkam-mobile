@@ -138,13 +138,13 @@ class AdsCubit extends Cubit<AdsState> {
 
   Future<void> getAnalytics(
     bool isPost,
-    String promotionId,
+    String id,
   ) async {
     try {
       emit(const AdsState.getAnalyticsLoading());
       final result = await adsRepository.getAnalytics(
         isPost,
-        promotionId,
+        id,
       );
       emit(AdsState.getAnalyticsSuccess(result));
     } catch (e) {
