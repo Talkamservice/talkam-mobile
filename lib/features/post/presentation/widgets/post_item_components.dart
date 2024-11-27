@@ -89,7 +89,7 @@ class PostHeader extends StatelessWidget {
                     color: context.colorScheme.primary,
                   ),
                   if (enablePromoteAddPill!) 12.horizontalSpace,
-                  if (enablePromoteAddPill! && post.postIsFromLoggedInUser&& !post.isPromoted)
+                  if (enablePromoteAddPill! && post.postIsFromLoggedInUser && !post.isPromoted && _userCanPromote())
                     InkWell(
                       onTap: () {
                         SubscriptionHelper.handleSubscriptionAction(
@@ -102,9 +102,7 @@ class PostHeader extends StatelessWidget {
                                 PromotePostSheet(
                                   type: 'Post',
                                   id: post.id,
-                                  onPromoted: () {
-
-                                  },
+                                  onPromoted: () {},
                                 ),
                                 constraints: BoxConstraints(maxHeight: 0.7.sh));
                           },
@@ -136,10 +134,12 @@ class PostHeader extends StatelessWidget {
                       fontSize: 12,
                     ),
                   ),
-                  if(posterIsSubscribed)
-                    ImageWidget(imageUrl: Assets.images.svgs.blueThick,size: 10,),
-                  if(posterIsSubscribed)
-                  4.horizontalSpace,
+                  if (posterIsSubscribed)
+                    ImageWidget(
+                      imageUrl: Assets.images.svgs.blueThick,
+                      size: 10,
+                    ),
+                  if (posterIsSubscribed) 4.horizontalSpace,
                   if (showGroupAndCategory!)
                     Expanded(
                       child: Builder(
@@ -239,6 +239,19 @@ class PostHeader extends StatelessWidget {
           }
         },
         message: "Login to view user profile");
+
+  }
+
+  bool _userCanPromote() {
+    if (post.group != null) {
+      if (!post.group!.isPublic && !(post.group!.isOwner || post.group!.isAdmin)) {
+        return false;
+      } else {
+        return true;
+      }
+    } else {
+      return true;
+    }
   }
 }
 

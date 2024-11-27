@@ -117,6 +117,9 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> with SingleTickerProv
                             padding: const EdgeInsets.symmetric(horizontal: 10.0),
                             child: GroupOverViewSection(
                               data: response,
+                              onPromoted: () {
+                                bloc.getGroup(widget.groupId);
+                              },
                               onAboutCLicked: () {
                                 context.pushNamed(PageUrl.groupDetailsScreen, extra: response);
                               },

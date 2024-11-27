@@ -4,7 +4,7 @@ import 'package:talkam/common/models/get_states_response.dart';
 class CreatePromotionPayload {
   final int? postId;
   final int? groupId;
-  final TalkamCountry? country;
+  final List<TalkamCountry>? country;
   final TalkamState? state;
   final int? minAge;
   final int? maxAge;
@@ -31,11 +31,11 @@ class CreatePromotionPayload {
     return {
       'post_id': postId,
       'group_id': groupId,
-      'country_id': country?.id,
+      'country_id': country?.map((e) => e.id).toList() ?? [],
       'state_id': state?.id,
       'min_age': minAge,
       'max_age': maxAge,
-      'gender': gender == "All gender" ? "" : gender,
+      'gender': gender == "All gender" ? null : gender, // Or use a specific string like "all"
       'daily_budget': dailyBudget,
       'duration': duration,
       'payload': data,
@@ -62,7 +62,7 @@ class CreatePromotionPayload {
   CreatePromotionPayload copyWith({
     int? postId,
     int? groupId,
-    TalkamCountry? country,
+    List<TalkamCountry>? country,
     TalkamState? state,
     int? minAge,
     int? maxAge,

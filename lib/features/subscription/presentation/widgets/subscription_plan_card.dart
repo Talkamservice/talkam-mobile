@@ -212,6 +212,13 @@ class _Subscribed extends StatelessWidget {
                 thickness: 1,
               ),
             ],),
+            if(activeSubscription.renewalCancelledAt!= null)
+
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+
+                child: TextView(text: "Auto renewal has been cancelled for this subscription",fontSize: 13,),
+              )
 
 
           ],

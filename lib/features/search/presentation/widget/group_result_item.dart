@@ -4,6 +4,7 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/features/ads/presentation/widgets/ad_indicator.dart';
 import 'package:talkam/features/group/presentation/widgets/join_group_button.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
@@ -18,70 +19,85 @@ class GroupResultItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-      child: Column(
-        children: [
-          Row(
+    return Stack(
+      children: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+          child: Column(
             children: [
-              ImageWidget(width: 78, height: 54, fit: BoxFit.cover, borderRadius: BorderRadius.circular(2), imageUrl: group.image.toString()),
-              12.horizontalSpace,
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-
-
-
+              Row(
+                children: [
+                  ImageWidget(width: 78, height: 54, fit: BoxFit.cover, borderRadius: BorderRadius.circular(2), imageUrl: group.image.toString()),
+                  12.horizontalSpace,
+                  Expanded(
+                    child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
-
-
-
                       children: [
-                        Container(
-                          constraints:  const BoxConstraints(maxWidth:140),
+                        Row(
 
-                          child: TextView(
-                            maxLines: 1,
-                            text: group.name.toString(),
-                            fontWeight: FontWeight.w700,
-                            textOverflow: TextOverflow.ellipsis,
-                          ),
+
+
+                          crossAxisAlignment: CrossAxisAlignment.start,
+
+
+
+                          children: [
+                            Container(
+                              constraints:  const BoxConstraints(maxWidth:140),
+
+                              child: TextView(
+                                maxLines: 1,
+                                text: group.name.toString(),
+                                fontWeight: FontWeight.w700,
+                                textOverflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            2.horizontalSpace,
+
+                            if (!group.isPublic)
+                              ImageWidget(
+                                imageUrl: Assets.images.svgs.keylock,
+                                color: Pallets.grey400,
+                                size: 16,
+                              )
+                          ],
                         ),
-                        2.horizontalSpace,
-
-                        if (!group.isPublic)
-                          ImageWidget(
-                            imageUrl: Assets.images.svgs.keylock,
-                            color: Pallets.grey400,
-                            size: 16,
-                          )
+                        TextView(
+                          text: formatMemberCount(group.totalMembers ?? 0),
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ],
                     ),
-                    TextView(
-                      text: formatMemberCount(group.totalMembers ?? 0),
-                      fontSize: 12,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ],
-                ),
+                  ),
+                  10.horizontalSpace,
+                  JoinGroupButton(
+                    group: group,
+                    onStateChanged: onJoinStateChanged,
+                  )
+                ],
               ),
-              10.horizontalSpace,
-              JoinGroupButton(
-                group: group,
-                onStateChanged: onJoinStateChanged,
-              )
-            ],
-          ),
-          12.verticalSpace,
-          Padding(
-            padding: EdgeInsets.only(top: 6.0.h),
-            child: Container(height: 1, color: Pallets.borderGrey),
-          ),
-        ],
+              12.verticalSpace,
+              if ( group.isPromoted) 16.verticalSpace,
+              Padding(
+                padding: EdgeInsets.only(top: 6.0.h),
+                child: Container(height: 1, color: Pallets.borderGrey),
+              ),
 
-      ),
+
+            ],
+
+          ),
+        ),
+        if (group.isPromoted)
+          Positioned(
+              left: 0,
+              bottom: 6,
+              child: AdIndicator(
+                promoter: "",
+                padding: 4,
+              )),
+      ],
     );
   }
 }

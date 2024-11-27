@@ -95,6 +95,8 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
       myFocusNode.unfocus();
       _commentController.clear();
       stagedFile = null;
+      _isAnonymous= false;
+      canCommentAnonymously = true;
       _isEmojiVisible = false; // Close emoji picker after comment submission
       setState(() {});
     }
@@ -184,17 +186,7 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
                             AnonymousSwitcher(
                               value: _isAnonymous,
                               onChanged: (value) {
-                                if (SubscriptionHelper.canCommentAnonymously) {
-                                  setState(() {
-                                    _isAnonymous = value;
-                                  });
-
-                                  // widget.onIsAnonymousChanged(_isAnonymous);
-                                } else {
-                                  setState(() {
-                                    canCommentAnonymously = false;
-                                  });
-                                }
+                                onChanged(value);
                               },
                             ),
                             const Spacer(),
@@ -249,7 +241,7 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
             ),
             if (!canCommentAnonymously)
               TalkamSubscriptionPrompt(
-                tittle: "You have used up your free anonymous comments, to comment anonymously without limit, ",
+                // tittle: "You have used up your free anonymous comments, to comment anonymously without limit, ",
                 onReturnFromSubscription: () {
                   canCommentAnonymously = SubscriptionHelper.canCommentAnonymously;
                   setState(() {});
@@ -264,6 +256,26 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
         ),
       ),
     );
+  }
+
+  void onChanged(bool value) {
+    if (SubscriptionHelper.canPostAnonymously) {
+      setState(() {
+        _isAnonymous = value;
+      });
+
+      // widget.onIsAnonymousChanged(_isAnonymous);
+    }
+
+    if (!SubscriptionHelper.isSubscribed) {
+      canCommentAnonymously = false;
+    }
+
+
+    // if (!value) {
+    //   canCommentAnonymously = true;
+    // }
+    setState(() {});
   }
 
   void toggleEmojiPicker() {

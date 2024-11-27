@@ -12,10 +12,12 @@ import 'package:talkam/features/ads/presentation/blocs/ads/ads_cubit.dart';
 import 'package:talkam/features/ads/presentation/widgets/budget_widget.dart';
 import 'package:talkam/features/post/presentation/widgets/country_picker_sheet.dart';
 
+import 'ad_country_picker.dart';
+
 class PromotionTargetWidget extends StatefulWidget {
   const PromotionTargetWidget({super.key, required this.onValidated, required this.controller, this.tittle});
 
-  final Function({required TalkamCountry country, required TalkamState state, required int maxAge, required int minAge, required String gender}) onValidated;
+  final Function({required List<TalkamCountry> country,  required int maxAge, required int minAge, required String gender}) onValidated;
   final AdsCubit controller;
   final String? tittle;
 
@@ -30,7 +32,7 @@ class _PromotionTargetWidgetState extends State<PromotionTargetWidget> {
   // initial gender selected
   String _selectedGender = 'All gender';
 
-  TalkamCountry? _country;
+  List<TalkamCountry>? _country;
   TalkamState? _state;
   @override
   void initState() {
@@ -58,7 +60,7 @@ class _PromotionTargetWidgetState extends State<PromotionTargetWidget> {
                 minAge: _currentRangeValues.start.round(),
                 maxAge: _currentRangeValues.end.round(),
                 country: _country!,
-                state: _state!);
+               );
           },
         );
       },
@@ -85,10 +87,10 @@ class _PromotionTargetWidgetState extends State<PromotionTargetWidget> {
                   if(widget.tittle?.isNotEmpty??false)
 
                   18.verticalSpace,
-                  TalkamCountryStatePicker(
-                    onChanged: (country, state) {
+                  AdCountryPicker(
+                    onChanged: (country,) {
                       _country = country;
-                      _state = state;
+
                     },
                   )
                 ],
@@ -134,10 +136,12 @@ class _PromotionTargetWidgetState extends State<PromotionTargetWidget> {
             ),
             Padding(
               padding: const EdgeInsets.only(right: 16),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Wrap(
+
+                // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Radio<String>(
                         value: 'Male',
@@ -155,6 +159,8 @@ class _PromotionTargetWidgetState extends State<PromotionTargetWidget> {
                     ],
                   ),
                   Row(
+                    mainAxisSize: MainAxisSize.min,
+
                     children: [
                       Radio<String>(
                         value: 'Female',
@@ -172,6 +178,27 @@ class _PromotionTargetWidgetState extends State<PromotionTargetWidget> {
                     ],
                   ),
                   Row(
+                    mainAxisSize: MainAxisSize.min,
+
+                    children: [
+                      Radio<String>(
+                        value: 'Choose not to specify',
+                        groupValue: _selectedGender,
+                        onChanged: (String? value) {
+                          if (value != null) {
+                            setState(() {
+                              _selectedGender = value;
+                            });
+                          }
+                        },
+                        activeColor: const Color(0xFFFDAC0E),
+                      ),
+                      const Text("Choose not to specify")
+                    ],
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+
                     children: [
                       Radio<String>(
                         value: 'All gender',
@@ -188,6 +215,7 @@ class _PromotionTargetWidgetState extends State<PromotionTargetWidget> {
                       const Text("All gender")
                     ],
                   ),
+
                 ],
               ),
             ),
@@ -198,12 +226,12 @@ class _PromotionTargetWidgetState extends State<PromotionTargetWidget> {
     );
   }
 
+
+
   void validate(BuildContext context) {
     if (_country == null) {
       CustomDialogs.error("Please select country");
-    } else if (_state == null) {
-      CustomDialogs.error("Please select state");
-    } else {
+    }  else {
       // context.read<AdsCubit>().updatePayloadField(
       //     countryId: _country,
       //     stateId: _state,

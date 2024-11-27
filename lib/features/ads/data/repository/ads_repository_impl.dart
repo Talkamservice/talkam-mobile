@@ -5,6 +5,7 @@ import 'package:talkam/features/ads/data/models/ad_analytics_response.dart';
 import 'package:talkam/features/ads/data/models/create_promotion_payload.dart';
 import 'package:talkam/features/ads/data/models/initiate_payment_response.dart';
 import 'package:talkam/features/ads/data/models/promotion_data.dart';
+import 'package:talkam/features/ads/data/models/update_stat_payload.dart';
 import 'package:talkam/features/ads/dormain/repository/ads_repository.dart';
 
 class AdsRepositoryImpl extends AdsRepository {
@@ -29,8 +30,12 @@ class AdsRepositoryImpl extends AdsRepository {
         '${UrlConfig.getPromotionById}/$promotionId/show',
         RequestMethod.get,
       );
-      return PromotionData.fromJson(response.data);
+
+      var promotion = PromotionData.fromJson(response.data["data"]);
+
+      return promotion;
     } catch (e) {
+      logger.e(e);
       rethrow;
     }
   }
@@ -97,11 +102,27 @@ class AdsRepositoryImpl extends AdsRepository {
   }
 
   @override
-  Future<AdAnalyticsResponse> getAnalytics(String promotionId) async {
+  Future<AdAnalyticsResponse> getAnalytics(bool isPost, String promotionId) async {
     try {
-      final response = await _networkService.call(UrlConfig.analytics, RequestMethod.get, queryParams: {"post_id": promotionId});
+      final response = await _networkService
+          .call(UrlConfig.analytics, RequestMethod.get, queryParams: {if (isPost) "post_id": promotionId, if (!isPost) "group_id": promotionId});
       return AdAnalyticsResponse.fromJson(response.data);
     } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> updateStatPayload(UpdateStatPayLoad payload) async {
+    try {
+      final response = await _networkService.call(
+        UrlConfig.updateStat,
+        RequestMethod.post,
+        data: payload.toJson(),
+      );
+      return response.data;
+    } catch (e, stack) {
+      logger.e(e, stackTrace: stack);
       rethrow;
     }
   }

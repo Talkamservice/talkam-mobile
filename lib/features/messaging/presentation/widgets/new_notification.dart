@@ -8,6 +8,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/features/ads/presentation/screens/ads_review_screens/view_analytics_page.dart';
 import 'package:talkam/features/messaging/data/models/get_conversations_response.dart';
 import 'package:talkam/features/messaging/presentation/screens/chat_screen.dart';
 import 'package:talkam/features/notifications/data/models/get_notifications_response.dart';
@@ -34,7 +35,6 @@ class TalkamNotificationItem extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           NotificationImage(notification: notification),
-
           Expanded(
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -88,7 +88,7 @@ class TalkamNotificationItem extends StatelessWidget {
                             height: 60,
                             width: 60,
                             borderRadius: BorderRadius.circular(10),
-                            imageUrl: CommentNotificationExtra.fromJson(notification.extra).postAttachements.firstOrNull?.url??"");
+                            imageUrl: CommentNotificationExtra.fromJson(notification.extra).postAttachements.firstOrNull?.url ?? "");
                       }
                       return 0.verticalSpace;
                     })
@@ -128,13 +128,20 @@ class TalkamNotificationItem extends StatelessWidget {
 
       case "group":
         context.pushNamed(PageUrl.groupsInfoScreen, extra: notification.dataId.toString());
-        case "group_request":
+      case "promotion":
+      Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => ViewAnalyticsPage(
+                promotionId: notification.dataId.toString(),
+              )));
+      case "group_request":
         context.pushNamed(PageUrl.pendingRequestsScreen, extra: notification.dataId.toString());
-        case "request":
+      case "request":
         context.pushNamed(PageUrl.pendingRequestsScreen, extra: notification.dataId.toString());
       case "mention":
         context.pushNamed(PageUrl.postDetailsScreen, extra: notification.dataId.toString());
-      case "notification"||"user":
+      case "notification" || "user":
         showDialog(
           context: context,
           builder: (context) {
@@ -159,7 +166,7 @@ class NotificationImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        if ((notification.type == "post" ) && notification.extra is! List&& notification.extra["user"]!= null) {
+        if ((notification.type == "post") && notification.extra is! List && notification.extra["user"] != null) {
           return Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: InkWell(
@@ -196,7 +203,6 @@ class NotificationImage extends StatelessWidget {
         if (notification.type == "conversation") {
           return Padding(
             padding: const EdgeInsets.only(right: 8.0),
-
             child: InkWell(
               onTap: () {
                 viewProfile(context, ExtraClass.fromJson(notification.extra).sender!.id.toString());

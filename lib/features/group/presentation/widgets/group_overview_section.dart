@@ -13,9 +13,10 @@ import 'package:talkam/features/subscription/utils/subscription_helper.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class GroupOverViewSection extends StatelessWidget {
-  const GroupOverViewSection({super.key, this.showAbout = true, required this.data, this.onAboutCLicked});
+  const GroupOverViewSection({super.key, this.showAbout = true, required this.data, this.onAboutCLicked, this.onPromoted});
 
   final VoidCallback? onAboutCLicked;
+  final VoidCallback? onPromoted;
 
   final TalkamGroup data;
 
@@ -45,7 +46,7 @@ class GroupOverViewSection extends StatelessWidget {
                         fontSize: 16,
                       ),
                       8.horizontalSpace,
-                      if (data.isOwner && !data.isPromoted)
+                      if ((data.isOwner || data.isAdmin) && !data.isPromoted)
                         InkWell(
                           onTap: () {
                             SubscriptionHelper.handleSubscriptionAction(
@@ -58,7 +59,11 @@ class GroupOverViewSection extends StatelessWidget {
                                     PromotePostSheet(
                                       type: 'Group',
                                       id: data.id ?? 0,
-                                      onPromoted: () {},
+                                      onPromoted: () {
+                                        if (onPromoted != null) {
+                                          onPromoted!();
+                                        }
+                                      },
                                     ),
                                     constraints: BoxConstraints(maxHeight: 0.7.sh));
                               },
@@ -75,12 +80,9 @@ class GroupOverViewSection extends StatelessWidget {
                         SizedBox(
                           width: 40,
                           height: 25,
-
                           child: TextButton(
-
                               style: TextButton.styleFrom(
-                                  padding: EdgeInsets.zero,
-                                  shape: StadiumBorder(), backgroundColor: Pallets.adIndicator, foregroundColor: Pallets.black),
+                                  padding: EdgeInsets.zero, shape: StadiumBorder(), backgroundColor: Pallets.adIndicator, foregroundColor: Pallets.black),
                               onPressed: () {},
                               child: TextView(
                                 text: "Ad",

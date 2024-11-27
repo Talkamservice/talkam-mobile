@@ -171,6 +171,7 @@ class _GroupDetailsScreenState extends State<GroupDetailsScreen> with SingleTick
                             ),
                           ),
                         ),
+
                       ).toList()),
                 ),
               ),
