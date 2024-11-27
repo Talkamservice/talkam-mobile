@@ -35,7 +35,7 @@ class _BudgetPageState extends State<BudgetPage> {
   // for duration initial value
   int? _duration;
 
-  TalkamCountry? _country;
+  List<TalkamCountry>? _country;
   TalkamState? _state;
   bool _budgetValidated = false;
   final AdsCubit targetsController = AdsCubit(injector.get());
@@ -66,12 +66,12 @@ class _BudgetPageState extends State<BudgetPage> {
           child: Column(
             children: [
               PromotionTargetWidget(
-                  onValidated: ({required country, required gender, required maxAge, required minAge, required state}) {
+                  onValidated: ({required country, required gender, required maxAge, required minAge, }) {
                     _country = country;
                     _selectedGender = gender;
                     _maxAge = maxAge;
                     _minAge = minAge;
-                    _state = state;
+
                     if (_budgetValidated) {
                       validate(context);
                     }
@@ -86,6 +86,7 @@ class _BudgetPageState extends State<BudgetPage> {
                     _budgetValidated = true;
                   },
                   controller: budgetController)
+
             ],
           ),
         ),
@@ -96,11 +97,9 @@ class _BudgetPageState extends State<BudgetPage> {
   void validate(BuildContext context) {
     if (_country == null) {
       CustomDialogs.error("Please select country");
-    } else if (_state == null) {
-      CustomDialogs.error("Please select state");
     } else {
       context.read<AdsCubit>().updatePayloadField(
-          countryId: _country,
+          countryId: _country!,
           stateId: _state,
           maxAge: _maxAge,
           minAge: _minAge,

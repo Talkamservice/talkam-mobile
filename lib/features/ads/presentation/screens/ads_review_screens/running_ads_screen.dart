@@ -41,13 +41,16 @@ class _RunningAdsScreenState extends State<RunningAdsScreen> {
             orElse: () {
               return 0.verticalSpace;
             },
+
             fetchingPromotions: () => SizedBox(
               height: 1.sh,
               child: Center(
                 child: CustomDialogs.getLoading(size: 40),
               ),
             ),
+
             promotionsLoaded: (promotion) {
+
               if ((promotion as Promotion).data.data.isEmpty) {
                 return EmptyAdPage();
               }
@@ -74,7 +77,7 @@ class _RunningAdsScreenState extends State<RunningAdsScreen> {
                     ),
                   );
 
-                  return 0.verticalSpace;
+
                 },
               );
             },

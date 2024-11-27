@@ -35,19 +35,23 @@ class AdAnalyticsResponse {
       );
 
   factory AdAnalyticsResponse.fromJson(Map<String, dynamic> json) => AdAnalyticsResponse(
-    message: json["message"],
-    data: AnalyticsInfo.fromJson(json["data"]),
-    success: json["success"],
-    code: json["code"],
-  );
+        message: json["message"],
+        data: AnalyticsInfo.fromJson(json["data"]),
+        success: json["success"],
+        code: json["code"],
+      );
 
   Map<String, dynamic> toJson() => {
-    "message": message,
-    "data": data.toJson(),
-    "success": success,
-    "code": code,
-  };
+        "message": message,
+        "data": data.toJson(),
+        "success": success,
+        "code": code,
+      };
 }
+
+AnalyticsInfo analyticsInfoFromJson(String str) => AnalyticsInfo.fromJson(json.decode(str));
+
+String analyticsInfoToJson(AnalyticsInfo data) => json.encode(data.toJson());
 
 class AnalyticsInfo {
   dynamic id;
@@ -62,6 +66,7 @@ class AnalyticsInfo {
   dynamic clicks;
   dynamic minTimeSpent;
   dynamic maxTimeSpent;
+  List<CountryStat>? countries;
   dynamic createdAt;
 
   AnalyticsInfo({
@@ -77,6 +82,7 @@ class AnalyticsInfo {
     required this.clicks,
     required this.minTimeSpent,
     required this.maxTimeSpent,
+    required this.countries,
     required this.createdAt,
   });
 
@@ -93,6 +99,7 @@ class AnalyticsInfo {
     int? clicks,
     int? minTimeSpent,
     int? maxTimeSpent,
+    List<CountryStat>? countries,
     DateTime? createdAt,
   }) =>
       AnalyticsInfo(
@@ -108,38 +115,76 @@ class AnalyticsInfo {
         clicks: clicks ?? this.clicks,
         minTimeSpent: minTimeSpent ?? this.minTimeSpent,
         maxTimeSpent: maxTimeSpent ?? this.maxTimeSpent,
+        countries: countries ?? this.countries,
         createdAt: createdAt ?? this.createdAt,
       );
 
   factory AnalyticsInfo.fromJson(Map<String, dynamic> json) => AnalyticsInfo(
-    id: json["id"],
-    comments: json["comments"],
-    likes: json["likes"],
-    dislikes: json["dislikes"],
-    shares: json["shares"],
-    impressions: json["impressions"],
-    engagements: json["engagements"],
-    followers: json["followers"],
-    profileVisits: json["profile_visits"],
-    clicks: json["clicks"],
-    minTimeSpent: json["min_time_spent"],
-    maxTimeSpent: json["max_time_spent"],
-    createdAt: DateTime.parse(json["created_at"]),
-  );
+        id: json["id"],
+        comments: json["comments"],
+        likes: json["likes"],
+        dislikes: json["dislikes"],
+        shares: json["shares"],
+        impressions: json["impressions"],
+        engagements: json["engagements"],
+        followers: json["followers"],
+        profileVisits: json["profile_visits"],
+        clicks: json["clicks"],
+        minTimeSpent: json["min_time_spent"],
+        maxTimeSpent: json["max_time_spent"],
+        countries: List<CountryStat>.from(json["countries"].map((x) => CountryStat.fromJson(x))),
+        createdAt: DateTime.parse(json["created_at"]),
+      );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "comments": comments,
-    "likes": likes,
-    "dislikes": dislikes,
-    "shares": shares,
-    "impressions": impressions,
-    "engagements": engagements,
-    "followers": followers,
-    "profile_visits": profileVisits,
-    "clicks": clicks,
-    "min_time_spent": minTimeSpent,
-    "max_time_spent": maxTimeSpent,
-    "created_at": createdAt.toIso8601String(),
-  };
+        "id": id,
+        "comments": comments,
+        "likes": likes,
+        "dislikes": dislikes,
+        "shares": shares,
+        "impressions": impressions,
+        "engagements": engagements,
+        "followers": followers,
+        "profile_visits": profileVisits,
+        "clicks": clicks,
+        "min_time_spent": minTimeSpent,
+        "max_time_spent": maxTimeSpent,
+        "countries": countries != null ? List<dynamic>.from(countries!.map((x) => x.toJson())) : [],
+        "created_at": createdAt.toIso8601String(),
+      };
+}
+
+class CountryStat {
+  int id;
+  String name;
+  int percentage;
+
+  CountryStat({
+    required this.id,
+    required this.name,
+    required this.percentage,
+  });
+
+  CountryStat copyWith({
+    int? id,
+    String? name,
+    int? percentage,
+  }) =>
+      CountryStat(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        percentage: percentage ?? this.percentage,
+      );
+
+  factory CountryStat.fromJson(Map<String, dynamic> json) => CountryStat(
+        id: json["id"],
+        name: json["name"],
+        percentage: json["percentage"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "percentage": percentage,
+      };
 }

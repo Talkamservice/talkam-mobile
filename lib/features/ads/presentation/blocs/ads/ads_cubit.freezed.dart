@@ -23,7 +23,7 @@ mixin _$AdsState {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -45,6 +45,9 @@ mixin _$AdsState {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -54,7 +57,7 @@ mixin _$AdsState {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -76,6 +79,9 @@ mixin _$AdsState {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -85,7 +91,7 @@ mixin _$AdsState {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -107,6 +113,9 @@ mixin _$AdsState {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -143,6 +152,9 @@ mixin _$AdsState {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -174,6 +186,9 @@ mixin _$AdsState {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -205,6 +220,9 @@ mixin _$AdsState {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -276,7 +294,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -298,6 +316,9 @@ class _$InitialImpl implements _Initial {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return initial();
   }
@@ -310,7 +331,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -332,6 +353,9 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return initial?.call();
   }
@@ -344,7 +368,7 @@ class _$InitialImpl implements _Initial {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -366,6 +390,9 @@ class _$InitialImpl implements _Initial {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -408,6 +435,9 @@ class _$InitialImpl implements _Initial {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return initial(this);
   }
@@ -442,6 +472,9 @@ class _$InitialImpl implements _Initial {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return initial?.call(this);
   }
@@ -476,6 +509,9 @@ class _$InitialImpl implements _Initial {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -535,7 +571,7 @@ class _$FetchingPromotionsImpl implements _FetchingPromotions {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -557,6 +593,9 @@ class _$FetchingPromotionsImpl implements _FetchingPromotions {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return fetchingPromotions();
   }
@@ -569,7 +608,7 @@ class _$FetchingPromotionsImpl implements _FetchingPromotions {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -591,6 +630,9 @@ class _$FetchingPromotionsImpl implements _FetchingPromotions {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return fetchingPromotions?.call();
   }
@@ -603,7 +645,7 @@ class _$FetchingPromotionsImpl implements _FetchingPromotions {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -625,6 +667,9 @@ class _$FetchingPromotionsImpl implements _FetchingPromotions {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (fetchingPromotions != null) {
@@ -667,6 +712,9 @@ class _$FetchingPromotionsImpl implements _FetchingPromotions {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return fetchingPromotions(this);
   }
@@ -701,6 +749,9 @@ class _$FetchingPromotionsImpl implements _FetchingPromotions {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return fetchingPromotions?.call(this);
   }
@@ -735,6 +786,9 @@ class _$FetchingPromotionsImpl implements _FetchingPromotions {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (fetchingPromotions != null) {
@@ -824,7 +878,7 @@ class _$PromotionsLoadedImpl implements _PromotionsLoaded {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -846,6 +900,9 @@ class _$PromotionsLoadedImpl implements _PromotionsLoaded {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return promotionsLoaded(promotions);
   }
@@ -858,7 +915,7 @@ class _$PromotionsLoadedImpl implements _PromotionsLoaded {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -880,6 +937,9 @@ class _$PromotionsLoadedImpl implements _PromotionsLoaded {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return promotionsLoaded?.call(promotions);
   }
@@ -892,7 +952,7 @@ class _$PromotionsLoadedImpl implements _PromotionsLoaded {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -914,6 +974,9 @@ class _$PromotionsLoadedImpl implements _PromotionsLoaded {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (promotionsLoaded != null) {
@@ -956,6 +1019,9 @@ class _$PromotionsLoadedImpl implements _PromotionsLoaded {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return promotionsLoaded(this);
   }
@@ -990,6 +1056,9 @@ class _$PromotionsLoadedImpl implements _PromotionsLoaded {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return promotionsLoaded?.call(this);
   }
@@ -1024,6 +1093,9 @@ class _$PromotionsLoadedImpl implements _PromotionsLoaded {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (promotionsLoaded != null) {
@@ -1121,7 +1193,7 @@ class _$PromotionsLoadFailedImpl implements _PromotionsLoadFailed {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -1143,6 +1215,9 @@ class _$PromotionsLoadFailedImpl implements _PromotionsLoadFailed {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return promotionsLoadFailed(message);
   }
@@ -1155,7 +1230,7 @@ class _$PromotionsLoadFailedImpl implements _PromotionsLoadFailed {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -1177,6 +1252,9 @@ class _$PromotionsLoadFailedImpl implements _PromotionsLoadFailed {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return promotionsLoadFailed?.call(message);
   }
@@ -1189,7 +1267,7 @@ class _$PromotionsLoadFailedImpl implements _PromotionsLoadFailed {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -1211,6 +1289,9 @@ class _$PromotionsLoadFailedImpl implements _PromotionsLoadFailed {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (promotionsLoadFailed != null) {
@@ -1253,6 +1334,9 @@ class _$PromotionsLoadFailedImpl implements _PromotionsLoadFailed {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return promotionsLoadFailed(this);
   }
@@ -1287,6 +1371,9 @@ class _$PromotionsLoadFailedImpl implements _PromotionsLoadFailed {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return promotionsLoadFailed?.call(this);
   }
@@ -1321,6 +1408,9 @@ class _$PromotionsLoadFailedImpl implements _PromotionsLoadFailed {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (promotionsLoadFailed != null) {
@@ -1391,7 +1481,7 @@ class _$FetchingPromotionByIdImpl implements _FetchingPromotionById {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -1413,6 +1503,9 @@ class _$FetchingPromotionByIdImpl implements _FetchingPromotionById {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return fetchingPromotionById();
   }
@@ -1425,7 +1518,7 @@ class _$FetchingPromotionByIdImpl implements _FetchingPromotionById {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -1447,6 +1540,9 @@ class _$FetchingPromotionByIdImpl implements _FetchingPromotionById {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return fetchingPromotionById?.call();
   }
@@ -1459,7 +1555,7 @@ class _$FetchingPromotionByIdImpl implements _FetchingPromotionById {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -1481,6 +1577,9 @@ class _$FetchingPromotionByIdImpl implements _FetchingPromotionById {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (fetchingPromotionById != null) {
@@ -1523,6 +1622,9 @@ class _$FetchingPromotionByIdImpl implements _FetchingPromotionById {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return fetchingPromotionById(this);
   }
@@ -1557,6 +1659,9 @@ class _$FetchingPromotionByIdImpl implements _FetchingPromotionById {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return fetchingPromotionById?.call(this);
   }
@@ -1591,6 +1696,9 @@ class _$FetchingPromotionByIdImpl implements _FetchingPromotionById {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (fetchingPromotionById != null) {
@@ -1610,7 +1718,7 @@ abstract class _$$PromotionByIdLoadedImplCopyWith<$Res> {
           $Res Function(_$PromotionByIdLoadedImpl) then) =
       __$$PromotionByIdLoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({dynamic promotion});
+  $Res call({PromotionData promotion});
 }
 
 /// @nodoc
@@ -1626,13 +1734,13 @@ class __$$PromotionByIdLoadedImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? promotion = freezed,
+    Object? promotion = null,
   }) {
     return _then(_$PromotionByIdLoadedImpl(
-      freezed == promotion
+      null == promotion
           ? _value.promotion
           : promotion // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+              as PromotionData,
     ));
   }
 }
@@ -1643,7 +1751,7 @@ class _$PromotionByIdLoadedImpl implements _PromotionByIdLoaded {
   const _$PromotionByIdLoadedImpl(this.promotion);
 
   @override
-  final dynamic promotion;
+  final PromotionData promotion;
 
   @override
   String toString() {
@@ -1655,12 +1763,12 @@ class _$PromotionByIdLoadedImpl implements _PromotionByIdLoaded {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$PromotionByIdLoadedImpl &&
-            const DeepCollectionEquality().equals(other.promotion, promotion));
+            (identical(other.promotion, promotion) ||
+                other.promotion == promotion));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(promotion));
+  int get hashCode => Object.hash(runtimeType, promotion);
 
   /// Create a copy of AdsState
   /// with the given fields replaced by the non-null parameter values.
@@ -1679,7 +1787,7 @@ class _$PromotionByIdLoadedImpl implements _PromotionByIdLoaded {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -1701,6 +1809,9 @@ class _$PromotionByIdLoadedImpl implements _PromotionByIdLoaded {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return promotionByIdLoaded(promotion);
   }
@@ -1713,7 +1824,7 @@ class _$PromotionByIdLoadedImpl implements _PromotionByIdLoaded {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -1735,6 +1846,9 @@ class _$PromotionByIdLoadedImpl implements _PromotionByIdLoaded {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return promotionByIdLoaded?.call(promotion);
   }
@@ -1747,7 +1861,7 @@ class _$PromotionByIdLoadedImpl implements _PromotionByIdLoaded {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -1769,6 +1883,9 @@ class _$PromotionByIdLoadedImpl implements _PromotionByIdLoaded {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (promotionByIdLoaded != null) {
@@ -1811,6 +1928,9 @@ class _$PromotionByIdLoadedImpl implements _PromotionByIdLoaded {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return promotionByIdLoaded(this);
   }
@@ -1845,6 +1965,9 @@ class _$PromotionByIdLoadedImpl implements _PromotionByIdLoaded {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return promotionByIdLoaded?.call(this);
   }
@@ -1879,6 +2002,9 @@ class _$PromotionByIdLoadedImpl implements _PromotionByIdLoaded {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (promotionByIdLoaded != null) {
@@ -1889,10 +2015,10 @@ class _$PromotionByIdLoadedImpl implements _PromotionByIdLoaded {
 }
 
 abstract class _PromotionByIdLoaded implements AdsState {
-  const factory _PromotionByIdLoaded(final dynamic promotion) =
+  const factory _PromotionByIdLoaded(final PromotionData promotion) =
       _$PromotionByIdLoadedImpl;
 
-  dynamic get promotion;
+  PromotionData get promotion;
 
   /// Create a copy of AdsState
   /// with the given fields replaced by the non-null parameter values.
@@ -1977,7 +2103,7 @@ class _$PromotionByIdLoadFailedImpl implements _PromotionByIdLoadFailed {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -1999,6 +2125,9 @@ class _$PromotionByIdLoadFailedImpl implements _PromotionByIdLoadFailed {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return promotionByIdLoadFailed(message);
   }
@@ -2011,7 +2140,7 @@ class _$PromotionByIdLoadFailedImpl implements _PromotionByIdLoadFailed {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -2033,6 +2162,9 @@ class _$PromotionByIdLoadFailedImpl implements _PromotionByIdLoadFailed {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return promotionByIdLoadFailed?.call(message);
   }
@@ -2045,7 +2177,7 @@ class _$PromotionByIdLoadFailedImpl implements _PromotionByIdLoadFailed {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -2067,6 +2199,9 @@ class _$PromotionByIdLoadFailedImpl implements _PromotionByIdLoadFailed {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (promotionByIdLoadFailed != null) {
@@ -2109,6 +2244,9 @@ class _$PromotionByIdLoadFailedImpl implements _PromotionByIdLoadFailed {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return promotionByIdLoadFailed(this);
   }
@@ -2143,6 +2281,9 @@ class _$PromotionByIdLoadFailedImpl implements _PromotionByIdLoadFailed {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return promotionByIdLoadFailed?.call(this);
   }
@@ -2177,6 +2318,9 @@ class _$PromotionByIdLoadFailedImpl implements _PromotionByIdLoadFailed {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (promotionByIdLoadFailed != null) {
@@ -2245,7 +2389,7 @@ class _$CreatingPromotionImpl implements _CreatingPromotion {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -2267,6 +2411,9 @@ class _$CreatingPromotionImpl implements _CreatingPromotion {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return creatingPromotion();
   }
@@ -2279,7 +2426,7 @@ class _$CreatingPromotionImpl implements _CreatingPromotion {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -2301,6 +2448,9 @@ class _$CreatingPromotionImpl implements _CreatingPromotion {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return creatingPromotion?.call();
   }
@@ -2313,7 +2463,7 @@ class _$CreatingPromotionImpl implements _CreatingPromotion {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -2335,6 +2485,9 @@ class _$CreatingPromotionImpl implements _CreatingPromotion {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (creatingPromotion != null) {
@@ -2377,6 +2530,9 @@ class _$CreatingPromotionImpl implements _CreatingPromotion {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return creatingPromotion(this);
   }
@@ -2411,6 +2567,9 @@ class _$CreatingPromotionImpl implements _CreatingPromotion {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return creatingPromotion?.call(this);
   }
@@ -2445,6 +2604,9 @@ class _$CreatingPromotionImpl implements _CreatingPromotion {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (creatingPromotion != null) {
@@ -2533,7 +2695,7 @@ class _$PromotionCreatedImpl implements _PromotionCreated {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -2555,6 +2717,9 @@ class _$PromotionCreatedImpl implements _PromotionCreated {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return promotionCreated(result);
   }
@@ -2567,7 +2732,7 @@ class _$PromotionCreatedImpl implements _PromotionCreated {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -2589,6 +2754,9 @@ class _$PromotionCreatedImpl implements _PromotionCreated {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return promotionCreated?.call(result);
   }
@@ -2601,7 +2769,7 @@ class _$PromotionCreatedImpl implements _PromotionCreated {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -2623,6 +2791,9 @@ class _$PromotionCreatedImpl implements _PromotionCreated {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (promotionCreated != null) {
@@ -2665,6 +2836,9 @@ class _$PromotionCreatedImpl implements _PromotionCreated {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return promotionCreated(this);
   }
@@ -2699,6 +2873,9 @@ class _$PromotionCreatedImpl implements _PromotionCreated {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return promotionCreated?.call(this);
   }
@@ -2733,6 +2910,9 @@ class _$PromotionCreatedImpl implements _PromotionCreated {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (promotionCreated != null) {
@@ -2830,7 +3010,7 @@ class _$PromotionCreateFailedImpl implements _PromotionCreateFailed {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -2852,6 +3032,9 @@ class _$PromotionCreateFailedImpl implements _PromotionCreateFailed {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return promotionCreateFailed(message);
   }
@@ -2864,7 +3047,7 @@ class _$PromotionCreateFailedImpl implements _PromotionCreateFailed {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -2886,6 +3069,9 @@ class _$PromotionCreateFailedImpl implements _PromotionCreateFailed {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return promotionCreateFailed?.call(message);
   }
@@ -2898,7 +3084,7 @@ class _$PromotionCreateFailedImpl implements _PromotionCreateFailed {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -2920,6 +3106,9 @@ class _$PromotionCreateFailedImpl implements _PromotionCreateFailed {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (promotionCreateFailed != null) {
@@ -2962,6 +3151,9 @@ class _$PromotionCreateFailedImpl implements _PromotionCreateFailed {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return promotionCreateFailed(this);
   }
@@ -2996,6 +3188,9 @@ class _$PromotionCreateFailedImpl implements _PromotionCreateFailed {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return promotionCreateFailed?.call(this);
   }
@@ -3030,6 +3225,9 @@ class _$PromotionCreateFailedImpl implements _PromotionCreateFailed {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (promotionCreateFailed != null) {
@@ -3098,7 +3296,7 @@ class _$RemovingPromotionImpl implements _RemovingPromotion {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -3120,6 +3318,9 @@ class _$RemovingPromotionImpl implements _RemovingPromotion {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return removingPromotion();
   }
@@ -3132,7 +3333,7 @@ class _$RemovingPromotionImpl implements _RemovingPromotion {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -3154,6 +3355,9 @@ class _$RemovingPromotionImpl implements _RemovingPromotion {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return removingPromotion?.call();
   }
@@ -3166,7 +3370,7 @@ class _$RemovingPromotionImpl implements _RemovingPromotion {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -3188,6 +3392,9 @@ class _$RemovingPromotionImpl implements _RemovingPromotion {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (removingPromotion != null) {
@@ -3230,6 +3437,9 @@ class _$RemovingPromotionImpl implements _RemovingPromotion {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return removingPromotion(this);
   }
@@ -3264,6 +3474,9 @@ class _$RemovingPromotionImpl implements _RemovingPromotion {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return removingPromotion?.call(this);
   }
@@ -3298,6 +3511,9 @@ class _$RemovingPromotionImpl implements _RemovingPromotion {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (removingPromotion != null) {
@@ -3386,7 +3602,7 @@ class _$PromotionRemovedImpl implements _PromotionRemoved {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -3408,6 +3624,9 @@ class _$PromotionRemovedImpl implements _PromotionRemoved {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return promotionRemoved(result);
   }
@@ -3420,7 +3639,7 @@ class _$PromotionRemovedImpl implements _PromotionRemoved {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -3442,6 +3661,9 @@ class _$PromotionRemovedImpl implements _PromotionRemoved {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return promotionRemoved?.call(result);
   }
@@ -3454,7 +3676,7 @@ class _$PromotionRemovedImpl implements _PromotionRemoved {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -3476,6 +3698,9 @@ class _$PromotionRemovedImpl implements _PromotionRemoved {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (promotionRemoved != null) {
@@ -3518,6 +3743,9 @@ class _$PromotionRemovedImpl implements _PromotionRemoved {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return promotionRemoved(this);
   }
@@ -3552,6 +3780,9 @@ class _$PromotionRemovedImpl implements _PromotionRemoved {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return promotionRemoved?.call(this);
   }
@@ -3586,6 +3817,9 @@ class _$PromotionRemovedImpl implements _PromotionRemoved {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (promotionRemoved != null) {
@@ -3683,7 +3917,7 @@ class _$PromotionRemoveFailedImpl implements _PromotionRemoveFailed {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -3705,6 +3939,9 @@ class _$PromotionRemoveFailedImpl implements _PromotionRemoveFailed {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return promotionRemoveFailed(message);
   }
@@ -3717,7 +3954,7 @@ class _$PromotionRemoveFailedImpl implements _PromotionRemoveFailed {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -3739,6 +3976,9 @@ class _$PromotionRemoveFailedImpl implements _PromotionRemoveFailed {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return promotionRemoveFailed?.call(message);
   }
@@ -3751,7 +3991,7 @@ class _$PromotionRemoveFailedImpl implements _PromotionRemoveFailed {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -3773,6 +4013,9 @@ class _$PromotionRemoveFailedImpl implements _PromotionRemoveFailed {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (promotionRemoveFailed != null) {
@@ -3815,6 +4058,9 @@ class _$PromotionRemoveFailedImpl implements _PromotionRemoveFailed {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return promotionRemoveFailed(this);
   }
@@ -3849,6 +4095,9 @@ class _$PromotionRemoveFailedImpl implements _PromotionRemoveFailed {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return promotionRemoveFailed?.call(this);
   }
@@ -3883,6 +4132,9 @@ class _$PromotionRemoveFailedImpl implements _PromotionRemoveFailed {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (promotionRemoveFailed != null) {
@@ -3951,7 +4203,7 @@ class _$ValidateStateImpl implements _ValidateState {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -3973,6 +4225,9 @@ class _$ValidateStateImpl implements _ValidateState {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return validateFormsState();
   }
@@ -3985,7 +4240,7 @@ class _$ValidateStateImpl implements _ValidateState {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -4007,6 +4262,9 @@ class _$ValidateStateImpl implements _ValidateState {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return validateFormsState?.call();
   }
@@ -4019,7 +4277,7 @@ class _$ValidateStateImpl implements _ValidateState {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -4041,6 +4299,9 @@ class _$ValidateStateImpl implements _ValidateState {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (validateFormsState != null) {
@@ -4083,6 +4344,9 @@ class _$ValidateStateImpl implements _ValidateState {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return validateFormsState(this);
   }
@@ -4117,6 +4381,9 @@ class _$ValidateStateImpl implements _ValidateState {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return validateFormsState?.call(this);
   }
@@ -4151,6 +4418,9 @@ class _$ValidateStateImpl implements _ValidateState {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (validateFormsState != null) {
@@ -4210,7 +4480,7 @@ class _$ValidateSuccessImpl implements _ValidateSuccess {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -4232,6 +4502,9 @@ class _$ValidateSuccessImpl implements _ValidateSuccess {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return validateFormsSuccessState();
   }
@@ -4244,7 +4517,7 @@ class _$ValidateSuccessImpl implements _ValidateSuccess {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -4266,6 +4539,9 @@ class _$ValidateSuccessImpl implements _ValidateSuccess {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return validateFormsSuccessState?.call();
   }
@@ -4278,7 +4554,7 @@ class _$ValidateSuccessImpl implements _ValidateSuccess {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -4300,6 +4576,9 @@ class _$ValidateSuccessImpl implements _ValidateSuccess {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (validateFormsSuccessState != null) {
@@ -4342,6 +4621,9 @@ class _$ValidateSuccessImpl implements _ValidateSuccess {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return validateFormsSuccessState(this);
   }
@@ -4376,6 +4658,9 @@ class _$ValidateSuccessImpl implements _ValidateSuccess {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return validateFormsSuccessState?.call(this);
   }
@@ -4410,6 +4695,9 @@ class _$ValidateSuccessImpl implements _ValidateSuccess {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (validateFormsSuccessState != null) {
@@ -4469,7 +4757,7 @@ class _$PaymentLoadingImpl implements _PaymentLoading {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -4491,6 +4779,9 @@ class _$PaymentLoadingImpl implements _PaymentLoading {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return paymentLoading();
   }
@@ -4503,7 +4794,7 @@ class _$PaymentLoadingImpl implements _PaymentLoading {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -4525,6 +4816,9 @@ class _$PaymentLoadingImpl implements _PaymentLoading {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return paymentLoading?.call();
   }
@@ -4537,7 +4831,7 @@ class _$PaymentLoadingImpl implements _PaymentLoading {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -4559,6 +4853,9 @@ class _$PaymentLoadingImpl implements _PaymentLoading {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (paymentLoading != null) {
@@ -4601,6 +4898,9 @@ class _$PaymentLoadingImpl implements _PaymentLoading {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return paymentLoading(this);
   }
@@ -4635,6 +4935,9 @@ class _$PaymentLoadingImpl implements _PaymentLoading {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return paymentLoading?.call(this);
   }
@@ -4669,6 +4972,9 @@ class _$PaymentLoadingImpl implements _PaymentLoading {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (paymentLoading != null) {
@@ -4756,7 +5062,7 @@ class _$PaymentSuccessImpl implements _PaymentSuccess {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -4778,6 +5084,9 @@ class _$PaymentSuccessImpl implements _PaymentSuccess {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return paymentSuccess(result);
   }
@@ -4790,7 +5099,7 @@ class _$PaymentSuccessImpl implements _PaymentSuccess {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -4812,6 +5121,9 @@ class _$PaymentSuccessImpl implements _PaymentSuccess {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return paymentSuccess?.call(result);
   }
@@ -4824,7 +5136,7 @@ class _$PaymentSuccessImpl implements _PaymentSuccess {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -4846,6 +5158,9 @@ class _$PaymentSuccessImpl implements _PaymentSuccess {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (paymentSuccess != null) {
@@ -4888,6 +5203,9 @@ class _$PaymentSuccessImpl implements _PaymentSuccess {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return paymentSuccess(this);
   }
@@ -4922,6 +5240,9 @@ class _$PaymentSuccessImpl implements _PaymentSuccess {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return paymentSuccess?.call(this);
   }
@@ -4956,6 +5277,9 @@ class _$PaymentSuccessImpl implements _PaymentSuccess {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (paymentSuccess != null) {
@@ -5051,7 +5375,7 @@ class _$PaymentFailedImpl implements _PaymentFailed {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -5073,6 +5397,9 @@ class _$PaymentFailedImpl implements _PaymentFailed {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return paymentFailed(message);
   }
@@ -5085,7 +5412,7 @@ class _$PaymentFailedImpl implements _PaymentFailed {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -5107,6 +5434,9 @@ class _$PaymentFailedImpl implements _PaymentFailed {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return paymentFailed?.call(message);
   }
@@ -5119,7 +5449,7 @@ class _$PaymentFailedImpl implements _PaymentFailed {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -5141,6 +5471,9 @@ class _$PaymentFailedImpl implements _PaymentFailed {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (paymentFailed != null) {
@@ -5183,6 +5516,9 @@ class _$PaymentFailedImpl implements _PaymentFailed {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return paymentFailed(this);
   }
@@ -5217,6 +5553,9 @@ class _$PaymentFailedImpl implements _PaymentFailed {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return paymentFailed?.call(this);
   }
@@ -5251,6 +5590,9 @@ class _$PaymentFailedImpl implements _PaymentFailed {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (paymentFailed != null) {
@@ -5319,7 +5661,7 @@ class _$VerifyPaymentLoadingImpl implements _VerifyPaymentLoading {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -5341,6 +5683,9 @@ class _$VerifyPaymentLoadingImpl implements _VerifyPaymentLoading {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return verifyPaymentLoading();
   }
@@ -5353,7 +5698,7 @@ class _$VerifyPaymentLoadingImpl implements _VerifyPaymentLoading {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -5375,6 +5720,9 @@ class _$VerifyPaymentLoadingImpl implements _VerifyPaymentLoading {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return verifyPaymentLoading?.call();
   }
@@ -5387,7 +5735,7 @@ class _$VerifyPaymentLoadingImpl implements _VerifyPaymentLoading {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -5409,6 +5757,9 @@ class _$VerifyPaymentLoadingImpl implements _VerifyPaymentLoading {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (verifyPaymentLoading != null) {
@@ -5451,6 +5802,9 @@ class _$VerifyPaymentLoadingImpl implements _VerifyPaymentLoading {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return verifyPaymentLoading(this);
   }
@@ -5485,6 +5839,9 @@ class _$VerifyPaymentLoadingImpl implements _VerifyPaymentLoading {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return verifyPaymentLoading?.call(this);
   }
@@ -5519,6 +5876,9 @@ class _$VerifyPaymentLoadingImpl implements _VerifyPaymentLoading {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (verifyPaymentLoading != null) {
@@ -5608,7 +5968,7 @@ class _$VerifyPaymentSuccessImpl implements _VerifyPaymentSuccess {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -5630,6 +5990,9 @@ class _$VerifyPaymentSuccessImpl implements _VerifyPaymentSuccess {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return verifyPaymentSuccess(result);
   }
@@ -5642,7 +6005,7 @@ class _$VerifyPaymentSuccessImpl implements _VerifyPaymentSuccess {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -5664,6 +6027,9 @@ class _$VerifyPaymentSuccessImpl implements _VerifyPaymentSuccess {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return verifyPaymentSuccess?.call(result);
   }
@@ -5676,7 +6042,7 @@ class _$VerifyPaymentSuccessImpl implements _VerifyPaymentSuccess {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -5698,6 +6064,9 @@ class _$VerifyPaymentSuccessImpl implements _VerifyPaymentSuccess {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (verifyPaymentSuccess != null) {
@@ -5740,6 +6109,9 @@ class _$VerifyPaymentSuccessImpl implements _VerifyPaymentSuccess {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return verifyPaymentSuccess(this);
   }
@@ -5774,6 +6146,9 @@ class _$VerifyPaymentSuccessImpl implements _VerifyPaymentSuccess {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return verifyPaymentSuccess?.call(this);
   }
@@ -5808,6 +6183,9 @@ class _$VerifyPaymentSuccessImpl implements _VerifyPaymentSuccess {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (verifyPaymentSuccess != null) {
@@ -5904,7 +6282,7 @@ class _$VarifyPaymentFailedImpl implements _VarifyPaymentFailed {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -5926,6 +6304,9 @@ class _$VarifyPaymentFailedImpl implements _VarifyPaymentFailed {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return verifyPaymentFailed(message);
   }
@@ -5938,7 +6319,7 @@ class _$VarifyPaymentFailedImpl implements _VarifyPaymentFailed {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -5960,6 +6341,9 @@ class _$VarifyPaymentFailedImpl implements _VarifyPaymentFailed {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return verifyPaymentFailed?.call(message);
   }
@@ -5972,7 +6356,7 @@ class _$VarifyPaymentFailedImpl implements _VarifyPaymentFailed {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -5994,6 +6378,9 @@ class _$VarifyPaymentFailedImpl implements _VarifyPaymentFailed {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (verifyPaymentFailed != null) {
@@ -6036,6 +6423,9 @@ class _$VarifyPaymentFailedImpl implements _VarifyPaymentFailed {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return verifyPaymentFailed(this);
   }
@@ -6070,6 +6460,9 @@ class _$VarifyPaymentFailedImpl implements _VarifyPaymentFailed {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return verifyPaymentFailed?.call(this);
   }
@@ -6104,6 +6497,9 @@ class _$VarifyPaymentFailedImpl implements _VarifyPaymentFailed {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (verifyPaymentFailed != null) {
@@ -6172,7 +6568,7 @@ class _$UpdateAdLoadingImpl implements _UpdateAdLoading {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -6194,6 +6590,9 @@ class _$UpdateAdLoadingImpl implements _UpdateAdLoading {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return updateAdLoading();
   }
@@ -6206,7 +6605,7 @@ class _$UpdateAdLoadingImpl implements _UpdateAdLoading {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -6228,6 +6627,9 @@ class _$UpdateAdLoadingImpl implements _UpdateAdLoading {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return updateAdLoading?.call();
   }
@@ -6240,7 +6642,7 @@ class _$UpdateAdLoadingImpl implements _UpdateAdLoading {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -6262,6 +6664,9 @@ class _$UpdateAdLoadingImpl implements _UpdateAdLoading {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (updateAdLoading != null) {
@@ -6304,6 +6709,9 @@ class _$UpdateAdLoadingImpl implements _UpdateAdLoading {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return updateAdLoading(this);
   }
@@ -6338,6 +6746,9 @@ class _$UpdateAdLoadingImpl implements _UpdateAdLoading {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return updateAdLoading?.call(this);
   }
@@ -6372,6 +6783,9 @@ class _$UpdateAdLoadingImpl implements _UpdateAdLoading {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (updateAdLoading != null) {
@@ -6460,7 +6874,7 @@ class _$UpdateAdSuccessImpl implements _UpdateAdSuccess {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -6482,6 +6896,9 @@ class _$UpdateAdSuccessImpl implements _UpdateAdSuccess {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return updateAdSuccess(result);
   }
@@ -6494,7 +6911,7 @@ class _$UpdateAdSuccessImpl implements _UpdateAdSuccess {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -6516,6 +6933,9 @@ class _$UpdateAdSuccessImpl implements _UpdateAdSuccess {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return updateAdSuccess?.call(result);
   }
@@ -6528,7 +6948,7 @@ class _$UpdateAdSuccessImpl implements _UpdateAdSuccess {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -6550,6 +6970,9 @@ class _$UpdateAdSuccessImpl implements _UpdateAdSuccess {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (updateAdSuccess != null) {
@@ -6592,6 +7015,9 @@ class _$UpdateAdSuccessImpl implements _UpdateAdSuccess {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return updateAdSuccess(this);
   }
@@ -6626,6 +7052,9 @@ class _$UpdateAdSuccessImpl implements _UpdateAdSuccess {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return updateAdSuccess?.call(this);
   }
@@ -6660,6 +7089,9 @@ class _$UpdateAdSuccessImpl implements _UpdateAdSuccess {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (updateAdSuccess != null) {
@@ -6755,7 +7187,7 @@ class _$UpdateAdFailureImpl implements _UpdateAdFailure {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -6777,6 +7209,9 @@ class _$UpdateAdFailureImpl implements _UpdateAdFailure {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return updateAdFailed(message);
   }
@@ -6789,7 +7224,7 @@ class _$UpdateAdFailureImpl implements _UpdateAdFailure {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -6811,6 +7246,9 @@ class _$UpdateAdFailureImpl implements _UpdateAdFailure {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return updateAdFailed?.call(message);
   }
@@ -6823,7 +7261,7 @@ class _$UpdateAdFailureImpl implements _UpdateAdFailure {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -6845,6 +7283,9 @@ class _$UpdateAdFailureImpl implements _UpdateAdFailure {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (updateAdFailed != null) {
@@ -6887,6 +7328,9 @@ class _$UpdateAdFailureImpl implements _UpdateAdFailure {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return updateAdFailed(this);
   }
@@ -6921,6 +7365,9 @@ class _$UpdateAdFailureImpl implements _UpdateAdFailure {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return updateAdFailed?.call(this);
   }
@@ -6955,6 +7402,9 @@ class _$UpdateAdFailureImpl implements _UpdateAdFailure {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (updateAdFailed != null) {
@@ -7023,7 +7473,7 @@ class _$GetAnalyticsLoadingImpl implements _GetAnalyticsLoading {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -7045,6 +7495,9 @@ class _$GetAnalyticsLoadingImpl implements _GetAnalyticsLoading {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return getAnalyticsLoading();
   }
@@ -7057,7 +7510,7 @@ class _$GetAnalyticsLoadingImpl implements _GetAnalyticsLoading {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -7079,6 +7532,9 @@ class _$GetAnalyticsLoadingImpl implements _GetAnalyticsLoading {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return getAnalyticsLoading?.call();
   }
@@ -7091,7 +7547,7 @@ class _$GetAnalyticsLoadingImpl implements _GetAnalyticsLoading {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -7113,6 +7569,9 @@ class _$GetAnalyticsLoadingImpl implements _GetAnalyticsLoading {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (getAnalyticsLoading != null) {
@@ -7155,6 +7614,9 @@ class _$GetAnalyticsLoadingImpl implements _GetAnalyticsLoading {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return getAnalyticsLoading(this);
   }
@@ -7189,6 +7651,9 @@ class _$GetAnalyticsLoadingImpl implements _GetAnalyticsLoading {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return getAnalyticsLoading?.call(this);
   }
@@ -7223,6 +7688,9 @@ class _$GetAnalyticsLoadingImpl implements _GetAnalyticsLoading {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (getAnalyticsLoading != null) {
@@ -7310,7 +7778,7 @@ class _$GetAnalyticsSuccessImpl implements _GetAnalyticsSuccess {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -7332,6 +7800,9 @@ class _$GetAnalyticsSuccessImpl implements _GetAnalyticsSuccess {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return getAnalyticsSuccess(result);
   }
@@ -7344,7 +7815,7 @@ class _$GetAnalyticsSuccessImpl implements _GetAnalyticsSuccess {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -7366,6 +7837,9 @@ class _$GetAnalyticsSuccessImpl implements _GetAnalyticsSuccess {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return getAnalyticsSuccess?.call(result);
   }
@@ -7378,7 +7852,7 @@ class _$GetAnalyticsSuccessImpl implements _GetAnalyticsSuccess {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -7400,6 +7874,9 @@ class _$GetAnalyticsSuccessImpl implements _GetAnalyticsSuccess {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (getAnalyticsSuccess != null) {
@@ -7442,6 +7919,9 @@ class _$GetAnalyticsSuccessImpl implements _GetAnalyticsSuccess {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return getAnalyticsSuccess(this);
   }
@@ -7476,6 +7956,9 @@ class _$GetAnalyticsSuccessImpl implements _GetAnalyticsSuccess {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return getAnalyticsSuccess?.call(this);
   }
@@ -7510,6 +7993,9 @@ class _$GetAnalyticsSuccessImpl implements _GetAnalyticsSuccess {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (getAnalyticsSuccess != null) {
@@ -7606,7 +8092,7 @@ class _$GetAnalyticsFailedImpl implements _GetAnalyticsFailed {
     required TResult Function(dynamic promotions) promotionsLoaded,
     required TResult Function(String message) promotionsLoadFailed,
     required TResult Function() fetchingPromotionById,
-    required TResult Function(dynamic promotion) promotionByIdLoaded,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
     required TResult Function(String message) promotionByIdLoadFailed,
     required TResult Function() creatingPromotion,
     required TResult Function(dynamic result) promotionCreated,
@@ -7628,6 +8114,9 @@ class _$GetAnalyticsFailedImpl implements _GetAnalyticsFailed {
     required TResult Function() getAnalyticsLoading,
     required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
     required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
   }) {
     return getAnalyticsFailed(message);
   }
@@ -7640,7 +8129,7 @@ class _$GetAnalyticsFailedImpl implements _GetAnalyticsFailed {
     TResult? Function(dynamic promotions)? promotionsLoaded,
     TResult? Function(String message)? promotionsLoadFailed,
     TResult? Function()? fetchingPromotionById,
-    TResult? Function(dynamic promotion)? promotionByIdLoaded,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
     TResult? Function(String message)? promotionByIdLoadFailed,
     TResult? Function()? creatingPromotion,
     TResult? Function(dynamic result)? promotionCreated,
@@ -7662,6 +8151,9 @@ class _$GetAnalyticsFailedImpl implements _GetAnalyticsFailed {
     TResult? Function()? getAnalyticsLoading,
     TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
   }) {
     return getAnalyticsFailed?.call(message);
   }
@@ -7674,7 +8166,7 @@ class _$GetAnalyticsFailedImpl implements _GetAnalyticsFailed {
     TResult Function(dynamic promotions)? promotionsLoaded,
     TResult Function(String message)? promotionsLoadFailed,
     TResult Function()? fetchingPromotionById,
-    TResult Function(dynamic promotion)? promotionByIdLoaded,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
     TResult Function(String message)? promotionByIdLoadFailed,
     TResult Function()? creatingPromotion,
     TResult Function(dynamic result)? promotionCreated,
@@ -7696,6 +8188,9 @@ class _$GetAnalyticsFailedImpl implements _GetAnalyticsFailed {
     TResult Function()? getAnalyticsLoading,
     TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
     TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (getAnalyticsFailed != null) {
@@ -7738,6 +8233,9 @@ class _$GetAnalyticsFailedImpl implements _GetAnalyticsFailed {
     required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
     required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
     required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
   }) {
     return getAnalyticsFailed(this);
   }
@@ -7772,6 +8270,9 @@ class _$GetAnalyticsFailedImpl implements _GetAnalyticsFailed {
     TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
   }) {
     return getAnalyticsFailed?.call(this);
   }
@@ -7806,6 +8307,9 @@ class _$GetAnalyticsFailedImpl implements _GetAnalyticsFailed {
     TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
     TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
     TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
     required TResult orElse(),
   }) {
     if (getAnalyticsFailed != null) {
@@ -7825,5 +8329,911 @@ abstract class _GetAnalyticsFailed implements AdsState {
   /// with the given fields replaced by the non-null parameter values.
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$GetAnalyticsFailedImplCopyWith<_$GetAnalyticsFailedImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UpdateStatLoadingImplCopyWith<$Res> {
+  factory _$$UpdateStatLoadingImplCopyWith(_$UpdateStatLoadingImpl value,
+          $Res Function(_$UpdateStatLoadingImpl) then) =
+      __$$UpdateStatLoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$UpdateStatLoadingImplCopyWithImpl<$Res>
+    extends _$AdsStateCopyWithImpl<$Res, _$UpdateStatLoadingImpl>
+    implements _$$UpdateStatLoadingImplCopyWith<$Res> {
+  __$$UpdateStatLoadingImplCopyWithImpl(_$UpdateStatLoadingImpl _value,
+      $Res Function(_$UpdateStatLoadingImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AdsState
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$UpdateStatLoadingImpl implements _UpdateStatLoading {
+  const _$UpdateStatLoadingImpl();
+
+  @override
+  String toString() {
+    return 'AdsState.updateStatsLoading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$UpdateStatLoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() fetchingPromotions,
+    required TResult Function(dynamic promotions) promotionsLoaded,
+    required TResult Function(String message) promotionsLoadFailed,
+    required TResult Function() fetchingPromotionById,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
+    required TResult Function(String message) promotionByIdLoadFailed,
+    required TResult Function() creatingPromotion,
+    required TResult Function(dynamic result) promotionCreated,
+    required TResult Function(String message) promotionCreateFailed,
+    required TResult Function() removingPromotion,
+    required TResult Function(dynamic result) promotionRemoved,
+    required TResult Function(String message) promotionRemoveFailed,
+    required TResult Function() validateFormsState,
+    required TResult Function() validateFormsSuccessState,
+    required TResult Function() paymentLoading,
+    required TResult Function(ChargeResponse result) paymentSuccess,
+    required TResult Function(String message) paymentFailed,
+    required TResult Function() verifyPaymentLoading,
+    required TResult Function(dynamic result) verifyPaymentSuccess,
+    required TResult Function(String message) verifyPaymentFailed,
+    required TResult Function() updateAdLoading,
+    required TResult Function(dynamic result) updateAdSuccess,
+    required TResult Function(String message) updateAdFailed,
+    required TResult Function() getAnalyticsLoading,
+    required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
+    required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
+  }) {
+    return updateStatsLoading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? fetchingPromotions,
+    TResult? Function(dynamic promotions)? promotionsLoaded,
+    TResult? Function(String message)? promotionsLoadFailed,
+    TResult? Function()? fetchingPromotionById,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
+    TResult? Function(String message)? promotionByIdLoadFailed,
+    TResult? Function()? creatingPromotion,
+    TResult? Function(dynamic result)? promotionCreated,
+    TResult? Function(String message)? promotionCreateFailed,
+    TResult? Function()? removingPromotion,
+    TResult? Function(dynamic result)? promotionRemoved,
+    TResult? Function(String message)? promotionRemoveFailed,
+    TResult? Function()? validateFormsState,
+    TResult? Function()? validateFormsSuccessState,
+    TResult? Function()? paymentLoading,
+    TResult? Function(ChargeResponse result)? paymentSuccess,
+    TResult? Function(String message)? paymentFailed,
+    TResult? Function()? verifyPaymentLoading,
+    TResult? Function(dynamic result)? verifyPaymentSuccess,
+    TResult? Function(String message)? verifyPaymentFailed,
+    TResult? Function()? updateAdLoading,
+    TResult? Function(dynamic result)? updateAdSuccess,
+    TResult? Function(String message)? updateAdFailed,
+    TResult? Function()? getAnalyticsLoading,
+    TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
+    TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
+  }) {
+    return updateStatsLoading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? fetchingPromotions,
+    TResult Function(dynamic promotions)? promotionsLoaded,
+    TResult Function(String message)? promotionsLoadFailed,
+    TResult Function()? fetchingPromotionById,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
+    TResult Function(String message)? promotionByIdLoadFailed,
+    TResult Function()? creatingPromotion,
+    TResult Function(dynamic result)? promotionCreated,
+    TResult Function(String message)? promotionCreateFailed,
+    TResult Function()? removingPromotion,
+    TResult Function(dynamic result)? promotionRemoved,
+    TResult Function(String message)? promotionRemoveFailed,
+    TResult Function()? validateFormsState,
+    TResult Function()? validateFormsSuccessState,
+    TResult Function()? paymentLoading,
+    TResult Function(ChargeResponse result)? paymentSuccess,
+    TResult Function(String message)? paymentFailed,
+    TResult Function()? verifyPaymentLoading,
+    TResult Function(dynamic result)? verifyPaymentSuccess,
+    TResult Function(String message)? verifyPaymentFailed,
+    TResult Function()? updateAdLoading,
+    TResult Function(dynamic result)? updateAdSuccess,
+    TResult Function(String message)? updateAdFailed,
+    TResult Function()? getAnalyticsLoading,
+    TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
+    TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
+    required TResult orElse(),
+  }) {
+    if (updateStatsLoading != null) {
+      return updateStatsLoading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_FetchingPromotions value) fetchingPromotions,
+    required TResult Function(_PromotionsLoaded value) promotionsLoaded,
+    required TResult Function(_PromotionsLoadFailed value) promotionsLoadFailed,
+    required TResult Function(_FetchingPromotionById value)
+        fetchingPromotionById,
+    required TResult Function(_PromotionByIdLoaded value) promotionByIdLoaded,
+    required TResult Function(_PromotionByIdLoadFailed value)
+        promotionByIdLoadFailed,
+    required TResult Function(_CreatingPromotion value) creatingPromotion,
+    required TResult Function(_PromotionCreated value) promotionCreated,
+    required TResult Function(_PromotionCreateFailed value)
+        promotionCreateFailed,
+    required TResult Function(_RemovingPromotion value) removingPromotion,
+    required TResult Function(_PromotionRemoved value) promotionRemoved,
+    required TResult Function(_PromotionRemoveFailed value)
+        promotionRemoveFailed,
+    required TResult Function(_ValidateState value) validateFormsState,
+    required TResult Function(_ValidateSuccess value) validateFormsSuccessState,
+    required TResult Function(_PaymentLoading value) paymentLoading,
+    required TResult Function(_PaymentSuccess value) paymentSuccess,
+    required TResult Function(_PaymentFailed value) paymentFailed,
+    required TResult Function(_VerifyPaymentLoading value) verifyPaymentLoading,
+    required TResult Function(_VerifyPaymentSuccess value) verifyPaymentSuccess,
+    required TResult Function(_VarifyPaymentFailed value) verifyPaymentFailed,
+    required TResult Function(_UpdateAdLoading value) updateAdLoading,
+    required TResult Function(_UpdateAdSuccess value) updateAdSuccess,
+    required TResult Function(_UpdateAdFailure value) updateAdFailed,
+    required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
+    required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
+    required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+  }) {
+    return updateStatsLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_FetchingPromotions value)? fetchingPromotions,
+    TResult? Function(_PromotionsLoaded value)? promotionsLoaded,
+    TResult? Function(_PromotionsLoadFailed value)? promotionsLoadFailed,
+    TResult? Function(_FetchingPromotionById value)? fetchingPromotionById,
+    TResult? Function(_PromotionByIdLoaded value)? promotionByIdLoaded,
+    TResult? Function(_PromotionByIdLoadFailed value)? promotionByIdLoadFailed,
+    TResult? Function(_CreatingPromotion value)? creatingPromotion,
+    TResult? Function(_PromotionCreated value)? promotionCreated,
+    TResult? Function(_PromotionCreateFailed value)? promotionCreateFailed,
+    TResult? Function(_RemovingPromotion value)? removingPromotion,
+    TResult? Function(_PromotionRemoved value)? promotionRemoved,
+    TResult? Function(_PromotionRemoveFailed value)? promotionRemoveFailed,
+    TResult? Function(_ValidateState value)? validateFormsState,
+    TResult? Function(_ValidateSuccess value)? validateFormsSuccessState,
+    TResult? Function(_PaymentLoading value)? paymentLoading,
+    TResult? Function(_PaymentSuccess value)? paymentSuccess,
+    TResult? Function(_PaymentFailed value)? paymentFailed,
+    TResult? Function(_VerifyPaymentLoading value)? verifyPaymentLoading,
+    TResult? Function(_VerifyPaymentSuccess value)? verifyPaymentSuccess,
+    TResult? Function(_VarifyPaymentFailed value)? verifyPaymentFailed,
+    TResult? Function(_UpdateAdLoading value)? updateAdLoading,
+    TResult? Function(_UpdateAdSuccess value)? updateAdSuccess,
+    TResult? Function(_UpdateAdFailure value)? updateAdFailed,
+    TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
+    TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
+    TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+  }) {
+    return updateStatsLoading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_FetchingPromotions value)? fetchingPromotions,
+    TResult Function(_PromotionsLoaded value)? promotionsLoaded,
+    TResult Function(_PromotionsLoadFailed value)? promotionsLoadFailed,
+    TResult Function(_FetchingPromotionById value)? fetchingPromotionById,
+    TResult Function(_PromotionByIdLoaded value)? promotionByIdLoaded,
+    TResult Function(_PromotionByIdLoadFailed value)? promotionByIdLoadFailed,
+    TResult Function(_CreatingPromotion value)? creatingPromotion,
+    TResult Function(_PromotionCreated value)? promotionCreated,
+    TResult Function(_PromotionCreateFailed value)? promotionCreateFailed,
+    TResult Function(_RemovingPromotion value)? removingPromotion,
+    TResult Function(_PromotionRemoved value)? promotionRemoved,
+    TResult Function(_PromotionRemoveFailed value)? promotionRemoveFailed,
+    TResult Function(_ValidateState value)? validateFormsState,
+    TResult Function(_ValidateSuccess value)? validateFormsSuccessState,
+    TResult Function(_PaymentLoading value)? paymentLoading,
+    TResult Function(_PaymentSuccess value)? paymentSuccess,
+    TResult Function(_PaymentFailed value)? paymentFailed,
+    TResult Function(_VerifyPaymentLoading value)? verifyPaymentLoading,
+    TResult Function(_VerifyPaymentSuccess value)? verifyPaymentSuccess,
+    TResult Function(_VarifyPaymentFailed value)? verifyPaymentFailed,
+    TResult Function(_UpdateAdLoading value)? updateAdLoading,
+    TResult Function(_UpdateAdSuccess value)? updateAdSuccess,
+    TResult Function(_UpdateAdFailure value)? updateAdFailed,
+    TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
+    TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
+    TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    required TResult orElse(),
+  }) {
+    if (updateStatsLoading != null) {
+      return updateStatsLoading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UpdateStatLoading implements AdsState {
+  const factory _UpdateStatLoading() = _$UpdateStatLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$UpdateStatsSuccessImplCopyWith<$Res> {
+  factory _$$UpdateStatsSuccessImplCopyWith(_$UpdateStatsSuccessImpl value,
+          $Res Function(_$UpdateStatsSuccessImpl) then) =
+      __$$UpdateStatsSuccessImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({dynamic result});
+}
+
+/// @nodoc
+class __$$UpdateStatsSuccessImplCopyWithImpl<$Res>
+    extends _$AdsStateCopyWithImpl<$Res, _$UpdateStatsSuccessImpl>
+    implements _$$UpdateStatsSuccessImplCopyWith<$Res> {
+  __$$UpdateStatsSuccessImplCopyWithImpl(_$UpdateStatsSuccessImpl _value,
+      $Res Function(_$UpdateStatsSuccessImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AdsState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? result = freezed,
+  }) {
+    return _then(_$UpdateStatsSuccessImpl(
+      freezed == result
+          ? _value.result
+          : result // ignore: cast_nullable_to_non_nullable
+              as dynamic,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$UpdateStatsSuccessImpl implements _UpdateStatsSuccess {
+  const _$UpdateStatsSuccessImpl(this.result);
+
+  @override
+  final dynamic result;
+
+  @override
+  String toString() {
+    return 'AdsState.updateStatsSuccess(result: $result)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdateStatsSuccessImpl &&
+            const DeepCollectionEquality().equals(other.result, result));
+  }
+
+  @override
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(result));
+
+  /// Create a copy of AdsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdateStatsSuccessImplCopyWith<_$UpdateStatsSuccessImpl> get copyWith =>
+      __$$UpdateStatsSuccessImplCopyWithImpl<_$UpdateStatsSuccessImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() fetchingPromotions,
+    required TResult Function(dynamic promotions) promotionsLoaded,
+    required TResult Function(String message) promotionsLoadFailed,
+    required TResult Function() fetchingPromotionById,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
+    required TResult Function(String message) promotionByIdLoadFailed,
+    required TResult Function() creatingPromotion,
+    required TResult Function(dynamic result) promotionCreated,
+    required TResult Function(String message) promotionCreateFailed,
+    required TResult Function() removingPromotion,
+    required TResult Function(dynamic result) promotionRemoved,
+    required TResult Function(String message) promotionRemoveFailed,
+    required TResult Function() validateFormsState,
+    required TResult Function() validateFormsSuccessState,
+    required TResult Function() paymentLoading,
+    required TResult Function(ChargeResponse result) paymentSuccess,
+    required TResult Function(String message) paymentFailed,
+    required TResult Function() verifyPaymentLoading,
+    required TResult Function(dynamic result) verifyPaymentSuccess,
+    required TResult Function(String message) verifyPaymentFailed,
+    required TResult Function() updateAdLoading,
+    required TResult Function(dynamic result) updateAdSuccess,
+    required TResult Function(String message) updateAdFailed,
+    required TResult Function() getAnalyticsLoading,
+    required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
+    required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
+  }) {
+    return updateStatsSuccess(result);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? fetchingPromotions,
+    TResult? Function(dynamic promotions)? promotionsLoaded,
+    TResult? Function(String message)? promotionsLoadFailed,
+    TResult? Function()? fetchingPromotionById,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
+    TResult? Function(String message)? promotionByIdLoadFailed,
+    TResult? Function()? creatingPromotion,
+    TResult? Function(dynamic result)? promotionCreated,
+    TResult? Function(String message)? promotionCreateFailed,
+    TResult? Function()? removingPromotion,
+    TResult? Function(dynamic result)? promotionRemoved,
+    TResult? Function(String message)? promotionRemoveFailed,
+    TResult? Function()? validateFormsState,
+    TResult? Function()? validateFormsSuccessState,
+    TResult? Function()? paymentLoading,
+    TResult? Function(ChargeResponse result)? paymentSuccess,
+    TResult? Function(String message)? paymentFailed,
+    TResult? Function()? verifyPaymentLoading,
+    TResult? Function(dynamic result)? verifyPaymentSuccess,
+    TResult? Function(String message)? verifyPaymentFailed,
+    TResult? Function()? updateAdLoading,
+    TResult? Function(dynamic result)? updateAdSuccess,
+    TResult? Function(String message)? updateAdFailed,
+    TResult? Function()? getAnalyticsLoading,
+    TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
+    TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
+  }) {
+    return updateStatsSuccess?.call(result);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? fetchingPromotions,
+    TResult Function(dynamic promotions)? promotionsLoaded,
+    TResult Function(String message)? promotionsLoadFailed,
+    TResult Function()? fetchingPromotionById,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
+    TResult Function(String message)? promotionByIdLoadFailed,
+    TResult Function()? creatingPromotion,
+    TResult Function(dynamic result)? promotionCreated,
+    TResult Function(String message)? promotionCreateFailed,
+    TResult Function()? removingPromotion,
+    TResult Function(dynamic result)? promotionRemoved,
+    TResult Function(String message)? promotionRemoveFailed,
+    TResult Function()? validateFormsState,
+    TResult Function()? validateFormsSuccessState,
+    TResult Function()? paymentLoading,
+    TResult Function(ChargeResponse result)? paymentSuccess,
+    TResult Function(String message)? paymentFailed,
+    TResult Function()? verifyPaymentLoading,
+    TResult Function(dynamic result)? verifyPaymentSuccess,
+    TResult Function(String message)? verifyPaymentFailed,
+    TResult Function()? updateAdLoading,
+    TResult Function(dynamic result)? updateAdSuccess,
+    TResult Function(String message)? updateAdFailed,
+    TResult Function()? getAnalyticsLoading,
+    TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
+    TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
+    required TResult orElse(),
+  }) {
+    if (updateStatsSuccess != null) {
+      return updateStatsSuccess(result);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_FetchingPromotions value) fetchingPromotions,
+    required TResult Function(_PromotionsLoaded value) promotionsLoaded,
+    required TResult Function(_PromotionsLoadFailed value) promotionsLoadFailed,
+    required TResult Function(_FetchingPromotionById value)
+        fetchingPromotionById,
+    required TResult Function(_PromotionByIdLoaded value) promotionByIdLoaded,
+    required TResult Function(_PromotionByIdLoadFailed value)
+        promotionByIdLoadFailed,
+    required TResult Function(_CreatingPromotion value) creatingPromotion,
+    required TResult Function(_PromotionCreated value) promotionCreated,
+    required TResult Function(_PromotionCreateFailed value)
+        promotionCreateFailed,
+    required TResult Function(_RemovingPromotion value) removingPromotion,
+    required TResult Function(_PromotionRemoved value) promotionRemoved,
+    required TResult Function(_PromotionRemoveFailed value)
+        promotionRemoveFailed,
+    required TResult Function(_ValidateState value) validateFormsState,
+    required TResult Function(_ValidateSuccess value) validateFormsSuccessState,
+    required TResult Function(_PaymentLoading value) paymentLoading,
+    required TResult Function(_PaymentSuccess value) paymentSuccess,
+    required TResult Function(_PaymentFailed value) paymentFailed,
+    required TResult Function(_VerifyPaymentLoading value) verifyPaymentLoading,
+    required TResult Function(_VerifyPaymentSuccess value) verifyPaymentSuccess,
+    required TResult Function(_VarifyPaymentFailed value) verifyPaymentFailed,
+    required TResult Function(_UpdateAdLoading value) updateAdLoading,
+    required TResult Function(_UpdateAdSuccess value) updateAdSuccess,
+    required TResult Function(_UpdateAdFailure value) updateAdFailed,
+    required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
+    required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
+    required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+  }) {
+    return updateStatsSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_FetchingPromotions value)? fetchingPromotions,
+    TResult? Function(_PromotionsLoaded value)? promotionsLoaded,
+    TResult? Function(_PromotionsLoadFailed value)? promotionsLoadFailed,
+    TResult? Function(_FetchingPromotionById value)? fetchingPromotionById,
+    TResult? Function(_PromotionByIdLoaded value)? promotionByIdLoaded,
+    TResult? Function(_PromotionByIdLoadFailed value)? promotionByIdLoadFailed,
+    TResult? Function(_CreatingPromotion value)? creatingPromotion,
+    TResult? Function(_PromotionCreated value)? promotionCreated,
+    TResult? Function(_PromotionCreateFailed value)? promotionCreateFailed,
+    TResult? Function(_RemovingPromotion value)? removingPromotion,
+    TResult? Function(_PromotionRemoved value)? promotionRemoved,
+    TResult? Function(_PromotionRemoveFailed value)? promotionRemoveFailed,
+    TResult? Function(_ValidateState value)? validateFormsState,
+    TResult? Function(_ValidateSuccess value)? validateFormsSuccessState,
+    TResult? Function(_PaymentLoading value)? paymentLoading,
+    TResult? Function(_PaymentSuccess value)? paymentSuccess,
+    TResult? Function(_PaymentFailed value)? paymentFailed,
+    TResult? Function(_VerifyPaymentLoading value)? verifyPaymentLoading,
+    TResult? Function(_VerifyPaymentSuccess value)? verifyPaymentSuccess,
+    TResult? Function(_VarifyPaymentFailed value)? verifyPaymentFailed,
+    TResult? Function(_UpdateAdLoading value)? updateAdLoading,
+    TResult? Function(_UpdateAdSuccess value)? updateAdSuccess,
+    TResult? Function(_UpdateAdFailure value)? updateAdFailed,
+    TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
+    TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
+    TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+  }) {
+    return updateStatsSuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_FetchingPromotions value)? fetchingPromotions,
+    TResult Function(_PromotionsLoaded value)? promotionsLoaded,
+    TResult Function(_PromotionsLoadFailed value)? promotionsLoadFailed,
+    TResult Function(_FetchingPromotionById value)? fetchingPromotionById,
+    TResult Function(_PromotionByIdLoaded value)? promotionByIdLoaded,
+    TResult Function(_PromotionByIdLoadFailed value)? promotionByIdLoadFailed,
+    TResult Function(_CreatingPromotion value)? creatingPromotion,
+    TResult Function(_PromotionCreated value)? promotionCreated,
+    TResult Function(_PromotionCreateFailed value)? promotionCreateFailed,
+    TResult Function(_RemovingPromotion value)? removingPromotion,
+    TResult Function(_PromotionRemoved value)? promotionRemoved,
+    TResult Function(_PromotionRemoveFailed value)? promotionRemoveFailed,
+    TResult Function(_ValidateState value)? validateFormsState,
+    TResult Function(_ValidateSuccess value)? validateFormsSuccessState,
+    TResult Function(_PaymentLoading value)? paymentLoading,
+    TResult Function(_PaymentSuccess value)? paymentSuccess,
+    TResult Function(_PaymentFailed value)? paymentFailed,
+    TResult Function(_VerifyPaymentLoading value)? verifyPaymentLoading,
+    TResult Function(_VerifyPaymentSuccess value)? verifyPaymentSuccess,
+    TResult Function(_VarifyPaymentFailed value)? verifyPaymentFailed,
+    TResult Function(_UpdateAdLoading value)? updateAdLoading,
+    TResult Function(_UpdateAdSuccess value)? updateAdSuccess,
+    TResult Function(_UpdateAdFailure value)? updateAdFailed,
+    TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
+    TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
+    TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    required TResult orElse(),
+  }) {
+    if (updateStatsSuccess != null) {
+      return updateStatsSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UpdateStatsSuccess implements AdsState {
+  const factory _UpdateStatsSuccess(final dynamic result) =
+      _$UpdateStatsSuccessImpl;
+
+  dynamic get result;
+
+  /// Create a copy of AdsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UpdateStatsSuccessImplCopyWith<_$UpdateStatsSuccessImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$UpdateStatsFailureImplCopyWith<$Res> {
+  factory _$$UpdateStatsFailureImplCopyWith(_$UpdateStatsFailureImpl value,
+          $Res Function(_$UpdateStatsFailureImpl) then) =
+      __$$UpdateStatsFailureImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
+}
+
+/// @nodoc
+class __$$UpdateStatsFailureImplCopyWithImpl<$Res>
+    extends _$AdsStateCopyWithImpl<$Res, _$UpdateStatsFailureImpl>
+    implements _$$UpdateStatsFailureImplCopyWith<$Res> {
+  __$$UpdateStatsFailureImplCopyWithImpl(_$UpdateStatsFailureImpl _value,
+      $Res Function(_$UpdateStatsFailureImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AdsState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$UpdateStatsFailureImpl(
+      null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$UpdateStatsFailureImpl implements _UpdateStatsFailure {
+  const _$UpdateStatsFailureImpl(this.message);
+
+  @override
+  final String message;
+
+  @override
+  String toString() {
+    return 'AdsState.updateStatsFailed(message: $message)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$UpdateStatsFailureImpl &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of AdsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$UpdateStatsFailureImplCopyWith<_$UpdateStatsFailureImpl> get copyWith =>
+      __$$UpdateStatsFailureImplCopyWithImpl<_$UpdateStatsFailureImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() fetchingPromotions,
+    required TResult Function(dynamic promotions) promotionsLoaded,
+    required TResult Function(String message) promotionsLoadFailed,
+    required TResult Function() fetchingPromotionById,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
+    required TResult Function(String message) promotionByIdLoadFailed,
+    required TResult Function() creatingPromotion,
+    required TResult Function(dynamic result) promotionCreated,
+    required TResult Function(String message) promotionCreateFailed,
+    required TResult Function() removingPromotion,
+    required TResult Function(dynamic result) promotionRemoved,
+    required TResult Function(String message) promotionRemoveFailed,
+    required TResult Function() validateFormsState,
+    required TResult Function() validateFormsSuccessState,
+    required TResult Function() paymentLoading,
+    required TResult Function(ChargeResponse result) paymentSuccess,
+    required TResult Function(String message) paymentFailed,
+    required TResult Function() verifyPaymentLoading,
+    required TResult Function(dynamic result) verifyPaymentSuccess,
+    required TResult Function(String message) verifyPaymentFailed,
+    required TResult Function() updateAdLoading,
+    required TResult Function(dynamic result) updateAdSuccess,
+    required TResult Function(String message) updateAdFailed,
+    required TResult Function() getAnalyticsLoading,
+    required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
+    required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
+  }) {
+    return updateStatsFailed(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? fetchingPromotions,
+    TResult? Function(dynamic promotions)? promotionsLoaded,
+    TResult? Function(String message)? promotionsLoadFailed,
+    TResult? Function()? fetchingPromotionById,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
+    TResult? Function(String message)? promotionByIdLoadFailed,
+    TResult? Function()? creatingPromotion,
+    TResult? Function(dynamic result)? promotionCreated,
+    TResult? Function(String message)? promotionCreateFailed,
+    TResult? Function()? removingPromotion,
+    TResult? Function(dynamic result)? promotionRemoved,
+    TResult? Function(String message)? promotionRemoveFailed,
+    TResult? Function()? validateFormsState,
+    TResult? Function()? validateFormsSuccessState,
+    TResult? Function()? paymentLoading,
+    TResult? Function(ChargeResponse result)? paymentSuccess,
+    TResult? Function(String message)? paymentFailed,
+    TResult? Function()? verifyPaymentLoading,
+    TResult? Function(dynamic result)? verifyPaymentSuccess,
+    TResult? Function(String message)? verifyPaymentFailed,
+    TResult? Function()? updateAdLoading,
+    TResult? Function(dynamic result)? updateAdSuccess,
+    TResult? Function(String message)? updateAdFailed,
+    TResult? Function()? getAnalyticsLoading,
+    TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
+    TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
+  }) {
+    return updateStatsFailed?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? fetchingPromotions,
+    TResult Function(dynamic promotions)? promotionsLoaded,
+    TResult Function(String message)? promotionsLoadFailed,
+    TResult Function()? fetchingPromotionById,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
+    TResult Function(String message)? promotionByIdLoadFailed,
+    TResult Function()? creatingPromotion,
+    TResult Function(dynamic result)? promotionCreated,
+    TResult Function(String message)? promotionCreateFailed,
+    TResult Function()? removingPromotion,
+    TResult Function(dynamic result)? promotionRemoved,
+    TResult Function(String message)? promotionRemoveFailed,
+    TResult Function()? validateFormsState,
+    TResult Function()? validateFormsSuccessState,
+    TResult Function()? paymentLoading,
+    TResult Function(ChargeResponse result)? paymentSuccess,
+    TResult Function(String message)? paymentFailed,
+    TResult Function()? verifyPaymentLoading,
+    TResult Function(dynamic result)? verifyPaymentSuccess,
+    TResult Function(String message)? verifyPaymentFailed,
+    TResult Function()? updateAdLoading,
+    TResult Function(dynamic result)? updateAdSuccess,
+    TResult Function(String message)? updateAdFailed,
+    TResult Function()? getAnalyticsLoading,
+    TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
+    TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
+    required TResult orElse(),
+  }) {
+    if (updateStatsFailed != null) {
+      return updateStatsFailed(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_FetchingPromotions value) fetchingPromotions,
+    required TResult Function(_PromotionsLoaded value) promotionsLoaded,
+    required TResult Function(_PromotionsLoadFailed value) promotionsLoadFailed,
+    required TResult Function(_FetchingPromotionById value)
+        fetchingPromotionById,
+    required TResult Function(_PromotionByIdLoaded value) promotionByIdLoaded,
+    required TResult Function(_PromotionByIdLoadFailed value)
+        promotionByIdLoadFailed,
+    required TResult Function(_CreatingPromotion value) creatingPromotion,
+    required TResult Function(_PromotionCreated value) promotionCreated,
+    required TResult Function(_PromotionCreateFailed value)
+        promotionCreateFailed,
+    required TResult Function(_RemovingPromotion value) removingPromotion,
+    required TResult Function(_PromotionRemoved value) promotionRemoved,
+    required TResult Function(_PromotionRemoveFailed value)
+        promotionRemoveFailed,
+    required TResult Function(_ValidateState value) validateFormsState,
+    required TResult Function(_ValidateSuccess value) validateFormsSuccessState,
+    required TResult Function(_PaymentLoading value) paymentLoading,
+    required TResult Function(_PaymentSuccess value) paymentSuccess,
+    required TResult Function(_PaymentFailed value) paymentFailed,
+    required TResult Function(_VerifyPaymentLoading value) verifyPaymentLoading,
+    required TResult Function(_VerifyPaymentSuccess value) verifyPaymentSuccess,
+    required TResult Function(_VarifyPaymentFailed value) verifyPaymentFailed,
+    required TResult Function(_UpdateAdLoading value) updateAdLoading,
+    required TResult Function(_UpdateAdSuccess value) updateAdSuccess,
+    required TResult Function(_UpdateAdFailure value) updateAdFailed,
+    required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
+    required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
+    required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+  }) {
+    return updateStatsFailed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_FetchingPromotions value)? fetchingPromotions,
+    TResult? Function(_PromotionsLoaded value)? promotionsLoaded,
+    TResult? Function(_PromotionsLoadFailed value)? promotionsLoadFailed,
+    TResult? Function(_FetchingPromotionById value)? fetchingPromotionById,
+    TResult? Function(_PromotionByIdLoaded value)? promotionByIdLoaded,
+    TResult? Function(_PromotionByIdLoadFailed value)? promotionByIdLoadFailed,
+    TResult? Function(_CreatingPromotion value)? creatingPromotion,
+    TResult? Function(_PromotionCreated value)? promotionCreated,
+    TResult? Function(_PromotionCreateFailed value)? promotionCreateFailed,
+    TResult? Function(_RemovingPromotion value)? removingPromotion,
+    TResult? Function(_PromotionRemoved value)? promotionRemoved,
+    TResult? Function(_PromotionRemoveFailed value)? promotionRemoveFailed,
+    TResult? Function(_ValidateState value)? validateFormsState,
+    TResult? Function(_ValidateSuccess value)? validateFormsSuccessState,
+    TResult? Function(_PaymentLoading value)? paymentLoading,
+    TResult? Function(_PaymentSuccess value)? paymentSuccess,
+    TResult? Function(_PaymentFailed value)? paymentFailed,
+    TResult? Function(_VerifyPaymentLoading value)? verifyPaymentLoading,
+    TResult? Function(_VerifyPaymentSuccess value)? verifyPaymentSuccess,
+    TResult? Function(_VarifyPaymentFailed value)? verifyPaymentFailed,
+    TResult? Function(_UpdateAdLoading value)? updateAdLoading,
+    TResult? Function(_UpdateAdSuccess value)? updateAdSuccess,
+    TResult? Function(_UpdateAdFailure value)? updateAdFailed,
+    TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
+    TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
+    TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+  }) {
+    return updateStatsFailed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_FetchingPromotions value)? fetchingPromotions,
+    TResult Function(_PromotionsLoaded value)? promotionsLoaded,
+    TResult Function(_PromotionsLoadFailed value)? promotionsLoadFailed,
+    TResult Function(_FetchingPromotionById value)? fetchingPromotionById,
+    TResult Function(_PromotionByIdLoaded value)? promotionByIdLoaded,
+    TResult Function(_PromotionByIdLoadFailed value)? promotionByIdLoadFailed,
+    TResult Function(_CreatingPromotion value)? creatingPromotion,
+    TResult Function(_PromotionCreated value)? promotionCreated,
+    TResult Function(_PromotionCreateFailed value)? promotionCreateFailed,
+    TResult Function(_RemovingPromotion value)? removingPromotion,
+    TResult Function(_PromotionRemoved value)? promotionRemoved,
+    TResult Function(_PromotionRemoveFailed value)? promotionRemoveFailed,
+    TResult Function(_ValidateState value)? validateFormsState,
+    TResult Function(_ValidateSuccess value)? validateFormsSuccessState,
+    TResult Function(_PaymentLoading value)? paymentLoading,
+    TResult Function(_PaymentSuccess value)? paymentSuccess,
+    TResult Function(_PaymentFailed value)? paymentFailed,
+    TResult Function(_VerifyPaymentLoading value)? verifyPaymentLoading,
+    TResult Function(_VerifyPaymentSuccess value)? verifyPaymentSuccess,
+    TResult Function(_VarifyPaymentFailed value)? verifyPaymentFailed,
+    TResult Function(_UpdateAdLoading value)? updateAdLoading,
+    TResult Function(_UpdateAdSuccess value)? updateAdSuccess,
+    TResult Function(_UpdateAdFailure value)? updateAdFailed,
+    TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
+    TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
+    TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    required TResult orElse(),
+  }) {
+    if (updateStatsFailed != null) {
+      return updateStatsFailed(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _UpdateStatsFailure implements AdsState {
+  const factory _UpdateStatsFailure(final String message) =
+      _$UpdateStatsFailureImpl;
+
+  String get message;
+
+  /// Create a copy of AdsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$UpdateStatsFailureImplCopyWith<_$UpdateStatsFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

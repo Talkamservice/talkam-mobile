@@ -22,6 +22,7 @@ class UpdateProfilePayload {
   String? gender;
   String? countryId;
   String? stateId;
+  int? shouldDisplayAd;
 
   UpdateProfilePayload({
     this.name,
@@ -35,6 +36,7 @@ class UpdateProfilePayload {
     this.gender,
     this.countryId,
     this.stateId,
+    this.shouldDisplayAd,
   });
 
   UpdateProfilePayload copyWith(
@@ -48,6 +50,7 @@ class UpdateProfilePayload {
           String? countryId,
           String? stateId,
           DateTime? dob,
+          int? shouldDisplayAd,
           String? paswordConfirmation}) =>
       UpdateProfilePayload(
         name: name ?? this.name,
@@ -60,6 +63,7 @@ class UpdateProfilePayload {
         password: password ?? this.password,
         countryId: countryId ?? this.countryId,
         stateId: stateId ?? this.stateId,
+        shouldDisplayAd: shouldDisplayAd ?? this.shouldDisplayAd,
         paswordConfirmation: paswordConfirmation ?? this.paswordConfirmation,
       );
 
@@ -74,7 +78,7 @@ class UpdateProfilePayload {
         stateId: json["tate_id"],
         dob: json["date_of_birth"],
         gender: json["gender"],
-
+        shouldDisplayAd: json["should_display_ads"],
         paswordConfirmation: json["password_confirmation"],
       );
 
@@ -89,6 +93,7 @@ class UpdateProfilePayload {
         if (gender != null) "gender": gender,
         if (countryId != null) "country_id": countryId,
         if (stateId != null) "state_id": stateId,
+        if (shouldDisplayAd != null) "should_display_ads": shouldDisplayAd,
         if (paswordConfirmation != null) "password_confirmation": paswordConfirmation,
       };
 }

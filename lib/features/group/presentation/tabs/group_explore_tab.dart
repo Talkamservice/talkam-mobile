@@ -43,7 +43,6 @@ class _GroupExploreRecentTabState extends State<GroupExploreTab> with AutomaticK
     return RefreshGroupListener(
       onRefresh: () {
         injector.get<GroupsCubit>().getGroups();
-
       },
       child: Column(
         children: [
@@ -59,10 +58,11 @@ class _GroupExploreRecentTabState extends State<GroupExploreTab> with AutomaticK
                             injector.get<GroupsCubit>().getGroups(filter: GroupsFilterModel(category: p0?.id.toString()));
                           },
                         ),
-                        BlocProvider<GroupsCubit>.value(
-                          value: injector.get<GroupsCubit>(),
-                          child: const SuggestedGroups(),
-                        ),
+
+                        // BlocProvider<GroupsCubit>.value(
+                        //   value: injector.get<GroupsCubit>(),
+                        //   child: const SuggestedGroups(),
+                        // ),
                         16.verticalSpace,
                       ],
                     ),

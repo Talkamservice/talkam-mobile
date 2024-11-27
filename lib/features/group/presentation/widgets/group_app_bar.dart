@@ -3,19 +3,23 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/helper_utils.dart';
+import 'package:talkam/features/ads/data/models/update_stat_payload.dart';
+import 'package:talkam/features/ads/presentation/blocs/ads/ads_cubit.dart';
 import 'package:talkam/features/group/presentation/widgets/join_group_button.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class GroupInfoAppBar extends StatelessWidget {
-  const GroupInfoAppBar(
-      {super.key, required this.group, required this.onStateChanged});
+  GroupInfoAppBar({super.key, required this.group, required this.onStateChanged});
 
   final TalkamGroup group;
   final VoidCallback onStateChanged;
+
+  final AdsCubit adsCubit = AdsCubit(injector.get());
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +42,7 @@ class GroupInfoAppBar extends StatelessWidget {
                       onTap: () {
                         context.pop();
                       },
-                      child:
-                          ImageWidget(imageUrl: Assets.images.svgs.arrowLeft)),
+                      child: ImageWidget(imageUrl: Assets.images.svgs.arrowLeft)),
                   const Spacer(),
                   JoinGroupButton(
                     group: group,
@@ -48,6 +51,7 @@ class GroupInfoAppBar extends StatelessWidget {
                   24.horizontalSpace,
                   InkWell(
                     onTap: () {
+                      adsCubit.updateStats(UpdateStatPayLoad(postId: group.id, shares: true));
                       Helpers.share("${UrlConfig.webUrl}group/${group.id}");
                     },
                     child: ImageWidget(
@@ -88,10 +92,7 @@ class _JoinGroupButtonState extends State<_JoinGroupButton> {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-        style: TextButton.styleFrom(
-            backgroundColor: Pallets.primary,
-            foregroundColor: Pallets.white,
-            shape: const StadiumBorder()),
+        style: TextButton.styleFrom(backgroundColor: Pallets.primary, foregroundColor: Pallets.white, shape: const StadiumBorder()),
         onPressed: () {},
         child: Builder(builder: (context) {
           return Row(

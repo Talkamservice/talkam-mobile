@@ -20,13 +20,13 @@ class EmptyAdPage extends StatelessWidget {
             const Text(
               "You currently don't have any post promoted",
               textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 23),
+              style: TextStyle(fontSize: 18),
             ),
             6.verticalSpace,
             const Text(
               "You haven't promoted any post yet. Click on the button below to begin",
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.grey, fontSize: 16),
+              style: TextStyle(color: Colors.grey, fontSize: 14),
             ),
             30.verticalSpace,
             GestureDetector(

@@ -9,6 +9,8 @@ import 'package:talkam/core/services/flutterwave/flutterwave_payment_helper.dart
 import 'package:talkam/features/ads/data/models/ad_analytics_response.dart';
 import 'package:talkam/features/ads/data/models/create_promotion_payload.dart';
 import 'package:talkam/features/ads/data/models/initiate_payment_response.dart';
+import 'package:talkam/features/ads/data/models/promotion_data.dart';
+import 'package:talkam/features/ads/data/models/update_stat_payload.dart';
 import 'package:talkam/features/ads/dormain/repository/ads_repository.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/subscription/presentation/blocs/subscriptions_bloc/subscriptions_bloc_cubit.dart';
@@ -56,6 +58,8 @@ class AdsCubit extends Cubit<AdsState> {
       emit(const AdsState.fetchingPromotionById());
       final promotion = await adsRepository.getPromotionById(promotionId);
       emit(AdsState.promotionByIdLoaded(promotion));
+
+
     } catch (e) {
       emit(AdsState.promotionByIdLoadFailed(e.toString()));
     }
@@ -119,15 +123,28 @@ class AdsCubit extends Cubit<AdsState> {
     }
   }
 
-  // Update Promotion
+  // Update Stats
+  Future<void> updateStats(UpdateStatPayLoad payload) async {
+    try {
+      emit(const AdsState.updateStatsLoading());
+      final result = await adsRepository.updateStatPayload(payload);
+      emit(AdsState.updateStatsSuccess(true));
+    } catch (e) {
+      emit(AdsState.updateStatsFailed(e.toString()));
+    }
+  }
+
+  // Get Analytics/Stats
 
   Future<void> getAnalytics(
-    String promotionId,
+    bool isPost,
+    String id,
   ) async {
     try {
       emit(const AdsState.getAnalyticsLoading());
       final result = await adsRepository.getAnalytics(
-        promotionId,
+        isPost,
+        id,
       );
       emit(AdsState.getAnalyticsSuccess(result));
     } catch (e) {
@@ -176,7 +193,7 @@ class AdsCubit extends Cubit<AdsState> {
   void updatePayloadField({
     int? postId,
     int? groupId,
-    TalkamCountry? countryId,
+    List<TalkamCountry>? countryId,
     TalkamState? stateId,
     int? minAge,
     int? maxAge,

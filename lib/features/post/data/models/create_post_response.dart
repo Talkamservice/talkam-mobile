@@ -4,11 +4,9 @@
 
 import 'dart:convert';
 
-CreatePostResponse createPostResponseFromJson(String str) =>
-    CreatePostResponse.fromJson(json.decode(str));
+CreatePostResponse createPostResponseFromJson(String str) => CreatePostResponse.fromJson(json.decode(str));
 
-String createPostResponseToJson(CreatePostResponse data) =>
-    json.encode(data.toJson());
+String createPostResponseToJson(CreatePostResponse data) => json.encode(data.toJson());
 
 class CreatePostResponse {
   String message;
@@ -36,8 +34,7 @@ class CreatePostResponse {
         code: code ?? this.code,
       );
 
-  factory CreatePostResponse.fromJson(Map<String, dynamic> json) =>
-      CreatePostResponse(
+  factory CreatePostResponse.fromJson(Map<String, dynamic> json) => CreatePostResponse(
         message: json["message"],
         data: Data.fromJson(json["data"]),
         success: json["success"],
@@ -58,7 +55,7 @@ class Data {
   dynamic body;
   String type;
   String uuid;
-  PostCreator user;
+  PostCreator? user;
   int canComment;
   int isAnonymous;
   dynamic viewsCount;
@@ -124,7 +121,7 @@ class Data {
         body: json["body"],
         type: json["type"],
         uuid: json["uuid"],
-        user: PostCreator.fromJson(json["user"]),
+        user: json["user"] == null ? null : PostCreator.fromJson(json["user"]),
         canComment: json["can_comment"],
         isAnonymous: json["is_anonymous"],
         viewsCount: json["views_count"],
@@ -141,7 +138,7 @@ class Data {
         "body": body,
         "type": type,
         "uuid": uuid,
-        "user": user.toJson(),
+        "user": user?.toJson(),
         "can_comment": canComment,
         "is_anonymous": isAnonymous,
         "views_count": viewsCount,
@@ -207,12 +204,8 @@ class PostCreator {
         role: json["role"],
         username: json["username"],
         status: json["status"],
-        createdAt: json["created_at"] == null
-            ? null
-            : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null
-            ? null
-            : DateTime.parse(json["updated_at"]),
+        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {

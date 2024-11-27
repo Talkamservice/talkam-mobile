@@ -80,6 +80,9 @@ class _GroupDetailsHeaderState extends State<GroupDetailsHeader> {
           GroupOverViewSection(
             showAbout: false,
             data: widget.group,
+            onPromoted: () {
+
+            },
           )
         ],
       ),

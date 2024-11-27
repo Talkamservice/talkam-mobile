@@ -40,7 +40,7 @@ class _PromotePostSheetState extends State<PromotePostSheet> with RefreshAppMixi
   CreatePostPayload? createPostPayload;
   int? _maxAge, _minAge, _dailyBudget, _duration;
   String? _selectedGender;
-  TalkamCountry? _country;
+  List<TalkamCountry>? _country;
   TalkamState? _state;
   final AdsCubit targetsController = AdsCubit(injector.get());
   final AdsCubit budgetController = AdsCubit(injector.get());
@@ -164,13 +164,17 @@ class _PromotePostSheetState extends State<PromotePostSheet> with RefreshAppMixi
                       index: _selectedIndex,
                       children: [
                         PromotionTargetWidget(
-
-                            onValidated: ({required country, required gender, required maxAge, required minAge, required state}) {
+                            onValidated: ({
+                              required country,
+                              required gender,
+                              required maxAge,
+                              required minAge,
+                            }) {
                               _country = country;
                               _selectedGender = gender;
                               _maxAge = maxAge;
                               _minAge = minAge;
-                              _state = state;
+                              // _state = state;
                               setState(() {
                                 _selectedIndex++;
                               });
@@ -217,16 +221,16 @@ class _PromotePostSheetState extends State<PromotePostSheet> with RefreshAppMixi
         CustomDialogs.showLoading(context);
       },
       paymentSuccess: (result) {
+        widget.onPromoted();
         context.pop();
         context.pop();
         CustomDialogs.success("Promotion created");
         refreshApp(reload: true);
+        widget.onPromoted();
         // adsBloc.verifyPayment(result.txRef!);
       },
-
       paymentLoading: () {
         CustomDialogs.showLoading(context);
-
       },
       paymentFailed: (message) {
         context.pop();
@@ -235,8 +239,10 @@ class _PromotePostSheetState extends State<PromotePostSheet> with RefreshAppMixi
       verifyPaymentLoading: () {
         CustomDialogs.showLoading(context);
       },
-      verifyPaymentSuccess: (result) {
-
+      verifyPaymentSuccess: (result) {},
+      promotionCreateFailed: (message) {
+        context.pop();
+        CustomDialogs.error(message);
       },
       verifyPaymentFailed: (message) {
         // context.pop();
@@ -248,13 +254,10 @@ class _PromotePostSheetState extends State<PromotePostSheet> with RefreshAppMixi
   void validate(BuildContext context) {
     if (_country == null) {
       CustomDialogs.error("Please select country");
-    } else if (_state == null) {
-      CustomDialogs.error("Please select state");
     } else {
-
       logger.i(widget.id);
       context.read<AdsCubit>().updatePayloadField(
-          countryId: _country,
+          countryId: _country!,
           postId: widget.type.toLowerCase() == "post" ? widget.id : null,
           groupId: widget.type.toLowerCase() == "group" ? widget.id : null,
           stateId: _state,

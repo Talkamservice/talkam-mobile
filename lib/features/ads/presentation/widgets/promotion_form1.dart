@@ -8,6 +8,7 @@ import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/custom_thumb_shape.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/ads/presentation/blocs/ads/ads_cubit.dart';
+import 'package:talkam/features/ads/presentation/widgets/ad_country_picker.dart';
 import 'package:talkam/features/post/presentation/widgets/country_picker_sheet.dart';
 
 class BudgetPage extends StatefulWidget {
@@ -32,7 +33,7 @@ class _BudgetPageState extends State<BudgetPage> {
   // for duration initial value
   double _duration = 15;
 
-  TalkamCountry? _country;
+  List<TalkamCountry>? _country;
   TalkamState? _state;
 
   @override
@@ -67,10 +68,10 @@ class _BudgetPageState extends State<BudgetPage> {
                     ),
                   ),
                   18.verticalSpace,
-                  TalkamCountryStatePicker(
-                    onChanged: (country, state) {
+                  AdCountryPicker(
+                    onChanged: (country,) {
                       _country = country;
-                      _state = state;
+
                     },
                   )
                 ],

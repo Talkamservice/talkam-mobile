@@ -12,13 +12,12 @@ class PreviewPromotionWidget extends StatelessWidget {
   final CreatePromotionPayload payload;
   final InitiatePaymentResponse paymentInfo;
 
-
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         Padding(
+        Padding(
           padding: EdgeInsets.only(left: 16, right: 10),
           child: PreviewPromotionItem(title: "Total", content: "\$${paymentInfo.data.amount}"),
         ),
@@ -38,10 +37,11 @@ class PreviewPromotionWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                   PreviewPromotionItem(title: "Location", content: payload.country!.name),
-                   PreviewPromotionItem(title: "Age range", content: "${payload.minAge}-${payload.maxAge}yrs"),
-                   PreviewPromotionItem(title: "Gender", content: "${payload.gender}"),
-                  10.horizontalSpace
+                  PreviewPromotionItem(title: "Location", content: payload.country?.first!.name ?? ""),
+                  5.horizontalSpace,
+                  PreviewPromotionItem(title: "Age range", content: "${payload.minAge}-${payload.maxAge}yrs"),
+                  5.horizontalSpace,
+                  PreviewPromotionItem(title: "Gender", content: "${payload.gender}"),
                 ],
               ),
             ],
@@ -63,9 +63,9 @@ class PreviewPromotionWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                   PreviewPromotionItem(title: "Daily budget", content: "\$${payload.dailyBudget}"),
+                  PreviewPromotionItem(title: "Daily budget", content: "\$${payload.dailyBudget}"),
                   100.horizontalSpace,
-                   PreviewPromotionItem(title: "Duration", content: "${payload.duration} days"),
+                  PreviewPromotionItem(title: "Duration", content: "${payload.duration} days"),
                   1.horizontalSpace,
                 ],
               ),

@@ -94,17 +94,7 @@ class _CreatePostHeaderState extends State<CreatePostHeader> {
                 child: AnonymousSwitcher(
                   value: _isAnonymous,
                   onChanged: (value) {
-                    if (SubscriptionHelper.canPostAnonymously) {
-                      setState(() {
-                        _isAnonymous = value;
-                      });
-
-                      widget.onIsAnonymousChanged(_isAnonymous);
-                    } else {
-                      setState(() {
-                        canPostAnonymously = false;
-                      });
-                    }
+                    onChanged(value);
                   },
                 ),
               ),
@@ -127,6 +117,26 @@ class _CreatePostHeaderState extends State<CreatePostHeader> {
         ],
       ),
     );
+  }
+
+  void onChanged(bool value) {
+       if (SubscriptionHelper.canPostAnonymously) {
+      setState(() {
+        _isAnonymous = value;
+      });
+
+
+      widget.onIsAnonymousChanged(_isAnonymous);
+    }
+
+
+    if(!SubscriptionHelper.isSubscribed) {
+
+      canPostAnonymously = false;
+
+    }
+
+    setState(() {});
   }
 
   void _updatePostType(PostType postType) {

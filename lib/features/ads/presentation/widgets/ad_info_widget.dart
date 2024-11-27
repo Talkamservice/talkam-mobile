@@ -94,8 +94,8 @@ class AdInfoWidget extends StatelessWidget {
                       color: Pallets.textGrey,
                     ),
                     8.verticalSpace,
-                    const TextView(
-                      text: "1,000",
+                    TextView(
+                      text: promotion.stats?.impressions.toString() ?? "0",
                       fontSize: 16,
                     ),
                   ],
@@ -104,14 +104,14 @@ class AdInfoWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const TextView(
-                      text: "Engagements",
+                      text: "Engagements Rate",
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                       color: Pallets.textGrey,
                     ),
                     8.verticalSpace,
-                    const TextView(
-                      text: "40",
+                    TextView(
+                      text: "%${promotion.stats?.engagements.round().toString() ?? "0"}",
                       fontSize: 16,
                     ),
                   ],
@@ -126,8 +126,8 @@ class AdInfoWidget extends StatelessWidget {
                       color: Pallets.textGrey,
                     ),
                     8.verticalSpace,
-                    const TextView(
-                      text: "20",
+                    TextView(
+                      text: promotion.stats?.followers.toString() ?? "0",
                       fontSize: 16,
                     ),
                   ],
@@ -145,9 +145,10 @@ class AdInfoWidget extends StatelessWidget {
                       context,
                       MaterialPageRoute(
                           builder: (context) => ViewAnalyticsPage(
-                                promotion: promotion,
+                                promotionId: promotion.id.toString(),
                               )));
                 },
+
                 child: const Row(
                   children: [
                     Expanded(

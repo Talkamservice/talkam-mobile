@@ -12,13 +12,15 @@ import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_b
 class SubscriptionHelper {
   // Check if the user is subscribed
   static bool get isSubscribed => SessionManager.instance.isLoggedIn && _userIsSubscribed;
+  static int get usedAnonymousCount => injector.get<ProfileBloc>().appUser?.anonymousPost;
+
 
   static bool get canPostAnonymously {
     if (SessionManager.instance.isLoggedIn) {
       if (_userIsSubscribed) {
         return true;
       } else {
-        return injector.get<ProfileBloc>().appUser?.anonymousPost + injector.get<ProfileBloc>().appUser?.anonymousComment < 5;
+        return injector.get<ProfileBloc>().appUser?.anonymousPost  < 5;
       }
     } else {
       return false;

@@ -98,12 +98,12 @@ class TalkamUser {
   dynamic dob;
   dynamic country;
   dynamic state;
-
   dynamic googleId;
   dynamic facebookId;
   dynamic tiktokId;
   dynamic appleId;
   dynamic isBlocked;
+  dynamic shouldDisplayAd;
   dynamic iamBlocked;
   ActiveSubscription? activeSubscription;
   String username;
@@ -128,6 +128,7 @@ class TalkamUser {
     required this.status,
     required this.interests,
     required this.createdAt,
+    required this.shouldDisplayAd,
     required this.emailVerifiedAt,
     required this.updatedAt,
     required this.googleId,
@@ -153,6 +154,7 @@ class TalkamUser {
           dynamic gender,
           dynamic dob,
           dynamic country,
+          dynamic shouldDisplayAd,
           dynamic state,
           dynamic facebookId,
           dynamic tiktokId,
@@ -177,6 +179,7 @@ class TalkamUser {
         role: role ?? this.role,
         age: age ?? this.age,
         dob: dob ?? this.dob,
+        shouldDisplayAd: shouldDisplayAd ?? this.shouldDisplayAd,
         gender: gender ?? this.gender,
         state: state ?? this.state,
         country: country ?? this.country,
@@ -205,6 +208,7 @@ class TalkamUser {
         email: json["email"],
         role: json["role"],
         age: json["age"],
+        shouldDisplayAd: json["should_display_ads"],
         gender: json["gender"],
         dob: json["date_of_birth"] == null ? null : DateTime.tryParse(json["date_of_birth"]),
         state: json["state"] == null ? null : TalkamState.fromJson(json["state"]),
@@ -217,8 +221,8 @@ class TalkamUser {
         iamBlocked: json["i_am_blocked"],
         username: json["username"],
         status: json["status"],
-    anonymousPost: json["anonymous_post"],
-    publicGroupCount: json["public_group_count"],
+        anonymousPost: json["anonymous_post"],
+        publicGroupCount: json["public_group_count"],
         anonymousComment: json["anonymous_comment"],
         interests: List<PostCategory>.from(json["interests"].map((x) => PostCategory.fromJson(x))),
         createdAt: DateTime.parse(json["created_at"]),
@@ -230,7 +234,6 @@ class TalkamUser {
   Map<String, dynamic> toJson() => {
         "id": id,
         "avatar": avatar,
-
         "name": name,
         "email": email,
         "role": role,
@@ -277,6 +280,7 @@ class TalkamUser {
       appleId: null,
       isBlocked: null,
       iamBlocked: null,
+      shouldDisplayAd: 1,
       dob: DateTime.now(),
       gender: "Male",
       state: null,

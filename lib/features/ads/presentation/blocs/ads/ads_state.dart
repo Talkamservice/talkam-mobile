@@ -15,7 +15,7 @@ class AdsState with _$AdsState {
   // Fetch Promotion by ID states
   const factory AdsState.fetchingPromotionById() = _FetchingPromotionById;
 
-  const factory AdsState.promotionByIdLoaded(dynamic promotion) = _PromotionByIdLoaded;
+  const factory AdsState.promotionByIdLoaded(PromotionData promotion) = _PromotionByIdLoaded;
 
   const factory AdsState.promotionByIdLoadFailed(String message) = _PromotionByIdLoadFailed;
 
@@ -65,4 +65,13 @@ class AdsState with _$AdsState {
   const factory AdsState.getAnalyticsSuccess(AdAnalyticsResponse result) = _GetAnalyticsSuccess;
 
   const factory AdsState.getAnalyticsFailed(String message) = _GetAnalyticsFailed;
+
+
+  // Update stats states
+  const factory AdsState.updateStatsLoading() = _UpdateStatLoading;
+
+  const factory AdsState.updateStatsSuccess(dynamic result) = _UpdateStatsSuccess;
+
+  const factory AdsState.updateStatsFailed(String message) = _UpdateStatsFailure;
+
 }

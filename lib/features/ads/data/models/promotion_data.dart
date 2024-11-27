@@ -1,6 +1,9 @@
+import 'package:talkam/common/models/get_countries_response.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
+
+import 'ad_analytics_response.dart';
 
 class Promotion {
   final String message;
@@ -122,15 +125,13 @@ class PaginationMeta {
   }
 }
 
-
-
 class PromotionData {
   final dynamic id;
   final dynamic user;
   final TalkamPost? post;
   final TalkamGroup? group;
   final String? state;
-  final String? country;
+  final List<TalkamCountry>? country;
   final dynamic minAge;
   final dynamic maxAge;
   final dynamic gender;
@@ -142,6 +143,7 @@ class PromotionData {
   final String? totalReach;
   final dynamic createdAt;
   final dynamic updatedAt;
+final  AnalyticsInfo? stats;
 
   PromotionData({
     required this.id,
@@ -149,6 +151,7 @@ class PromotionData {
     this.post,
     this.group,
     this.state,
+    this.stats,
     this.country,
     required this.minAge,
     required this.maxAge,
@@ -166,19 +169,22 @@ class PromotionData {
   factory PromotionData.fromJson(Map<String, dynamic> json) {
     return PromotionData(
       id: json['id'],
-      user:json['user']==null?null: User.fromJson(json['user']),
+      user: json['user'] == null ? null : User.fromJson(json['user']),
+      stats: json['stats'] == null ? null : AnalyticsInfo.fromJson(json['stats']),
       post: json['post'] != null ? TalkamPost.fromJson(json['post']) : null,
       group: json['group'] != null ? TalkamGroup.fromJson(json['group']) : null,
       state: json['state'],
-      country: json['country'],
+      country: json['country'] != null
+          ? List<TalkamCountry>.from(
+          json['country'].map((item) => TalkamCountry.fromJson(item)))
+          : [],
       minAge: json['min_age'],
       maxAge: json['max_age'],
       gender: json['gender'],
       dailyBudget: json['daily_budget'],
       frequency: json['frequency'],
       duration: json['duration'],
-      status
-          : json['status'],
+      status: json['status'],
       estimatedReach: json['estimated_reach'],
       totalReach: json['total_reach'],
       createdAt: json['created_at'],
@@ -189,11 +195,13 @@ class PromotionData {
   Map<String, dynamic> toJson() {
     return {
       'id': id,
-      'user': user.toJson(),
+      'user': user?.toJson(),
       'post': post?.toJson(),
       'group': group?.toString(),
+      'stats': stats?.toString(),
       'state': state,
       'country': country,
+
       'min_age': minAge,
       'max_age': maxAge,
       'gender': gender,
@@ -209,7 +217,10 @@ class PromotionData {
   }
 
   bool get isActive => status.toString().toLowerCase() == "active";
-  bool get isPost => post!=null;
+
+  bool get isPost => post != null;
+
+  String get analyticsId => (post != null ? post!.id : group!.id!).toString();
 }
 
 class User {
@@ -246,9 +257,4 @@ class User {
       'email': email,
     };
   }
-
-
 }
-
-
-

@@ -9,6 +9,8 @@ import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/guest_user_helper.dart';
+import 'package:talkam/features/ads/data/models/update_stat_payload.dart';
+import 'package:talkam/features/ads/presentation/blocs/ads/ads_cubit.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/data/models/save_comment_payload.dart';
 import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
@@ -30,12 +32,31 @@ class PostDetailsScreen extends StatefulWidget {
   State<PostDetailsScreen> createState() => _PostDetailsScreenState();
 }
 
-class _PostDetailsScreenState extends State<PostDetailsScreen>
-    with RefreshPostsMixin {
+class _PostDetailsScreenState extends State<PostDetailsScreen> with RefreshPostsMixin {
   TalkamPost? _post;
+
+  late DateTime _startTime;
+  Duration _timeSpent = Duration.zero;
+
+  final adBloc = AdsCubit(injector.get());
+
+  @override
+  void dispose() {
+    // Calculate the time spent in the widget
+    DateTime _endTime = DateTime.now();
+    _timeSpent = _endTime.difference(_startTime);
+    print('Time spent in the widget: ${_timeSpent.inSeconds} seconds');
+
+    if (_post != null) {
+
+      adBloc.updateStats(UpdateStatPayLoad(postId: _post!.id, timeSpent: _timeSpent.inSeconds));
+    }
+    super.dispose();
+  }
 
   @override
   void initState() {
+    _startTime = DateTime.now();
     // _post = widget.post;
     commentBloc.add(CommentsEvent.getComments(widget.postId.toString() ?? '0'));
     postBloc.add(PostEvent.getPostDetails(widget.postId.toString()));
@@ -66,33 +87,30 @@ class _PostDetailsScreenState extends State<PostDetailsScreen>
             },
           );
         },
-      builder: (context, state) {
-        return Scaffold(
-          appBar: AppBar(
-            backgroundColor: context.theme.scaffoldBackgroundColor,
-            foregroundColor: context.colorScheme.onSurface,
-            iconTheme: IconThemeData(
-              color: context.colorScheme.onSurface,
+        builder: (context, state) {
+          return Scaffold(
+            appBar: AppBar(
+              backgroundColor: context.theme.scaffoldBackgroundColor,
+              foregroundColor: context.colorScheme.onSurface,
+              iconTheme: IconThemeData(
+                color: context.colorScheme.onSurface,
+              ),
+              elevation: 0,
+              title: const TextView(
+                text: "Post",
+                fontWeight: FontWeight.w600,
+                fontSize: 15,
+              ),
             ),
-            elevation: 0,
-            title: const TextView(
-              text: "Post",
-              fontWeight: FontWeight.w600,
-              fontSize: 15,
-            ),
-          ),
-          body: Builder(
-            builder: (context) {
-
-             return state.maybeWhen(
+            body: Builder(builder: (context) {
+              return state.maybeWhen(
                 orElse: () => 0.verticalSpace,
                 getPostDetailsLoading: () => const PostLoadingShimmerCustomized(numberOfShimmers: 1),
                 getPostDetailsSuccess: (response) {
                   return NestedScrollView(
                     floatHeaderSlivers: false,
                     clipBehavior: Clip.none,
-                    headerSliverBuilder:
-                        (BuildContext context, bool innerBoxIsScrolled) {
+                    headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
                       return [
                         SliverToBoxAdapter(
                           child: Column(
@@ -103,19 +121,14 @@ class _PostDetailsScreenState extends State<PostDetailsScreen>
                               3.verticalSpace,
                               InkWell(
                                 onTap: () {
-                                  CustomDialogs.showBottomSheet(
-                                      context, const RulesSheet());
+                                  CustomDialogs.showBottomSheet(context, const RulesSheet());
                                 },
                                 child: Container(
-                                  decoration:
-                                  BoxDecoration(color: context.theme.cardColor),
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 12, vertical: 16),
+                                  decoration: BoxDecoration(color: context.theme.cardColor),
+                                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                                   child: Row(
                                     children: [
-                                      const TextView(
-                                          fontSize: 13,
-                                          text: "Please be respectful and follow the"),
+                                      const TextView(fontSize: 13, text: "Please be respectful and follow the"),
                                       TextView(
                                         text: "  Community Guidelines",
                                         fontSize: 13,
@@ -127,14 +140,14 @@ class _PostDetailsScreenState extends State<PostDetailsScreen>
                                 ),
                               ),
                               3.verticalSpace,
-
-                              GuestUserHelper.guestUserWidget(widget: CommentInputWidget(
-                                onCommentSubmitted: (comment) {
-                                  commentToPost(comment);
-                                },
-                                postId: _post!.id,
-                              ),   guestWidget: 0.verticalSpace ),
-
+                              GuestUserHelper.guestUserWidget(
+                                  widget: CommentInputWidget(
+                                    onCommentSubmitted: (comment) {
+                                      commentToPost(comment);
+                                    },
+                                    postId: _post!.id,
+                                  ),
+                                  guestWidget: 0.verticalSpace),
                               3.verticalSpace,
                             ],
                           ),
@@ -159,13 +172,10 @@ class _PostDetailsScreenState extends State<PostDetailsScreen>
                                   context.pop();
                                   // postBloc.comments.insert(0, )''
 
-
-                                  postBloc.add(
-                                      PostEvent.getPostDetails(_post!.id.toString(),refresh: false));
+                                  postBloc.add(PostEvent.getPostDetails(_post!.id.toString(), refresh: false));
 
                                   commentBloc.add(
-                                    CommentsEvent.getComments(_post!.id.toString(),
-                                        reload: false),
+                                    CommentsEvent.getComments(_post!.id.toString(), reload: false),
                                   );
 
                                   // CustomDialogs.success("");
@@ -178,12 +188,10 @@ class _PostDetailsScreenState extends State<PostDetailsScreen>
                                 orElse: () => 0.verticalSpace,
                                 getCommentsFailure: (error) => AppErrorWidget(
                                   onTap: () {
-                                    commentBloc.add(CommentsEvent.getComments(
-                                        _post!.id.toString()));
+                                    commentBloc.add(CommentsEvent.getComments(_post!.id.toString()));
                                   },
                                 ),
-                                getCommentsLoading: () =>
-                                    CustomDialogs.getLoading(size: 50),
+                                getCommentsLoading: () => CustomDialogs.getLoading(size: 50),
                                 getCommentsSuccess: (response) {
                                   if (response.data.isEmpty) {
                                     return const Center(
@@ -196,8 +204,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen>
                                     shrinkWrap: true,
                                     // physics: const BouncingScrollPhysics(),
                                     itemBuilder: (context, index) => Padding(
-                                      padding:
-                                      const EdgeInsets.symmetric(vertical: 1.0),
+                                      padding: const EdgeInsets.symmetric(vertical: 1.0),
                                       child: CommentItem(
                                         isReply: false,
                                         comment: commentBloc.comments[index],
@@ -225,20 +232,16 @@ class _PostDetailsScreenState extends State<PostDetailsScreen>
                 },
                 getPostDetailsFailure: (error) {
                   return AppErrorWidget(
-
                     onTap: () {
                       postBloc.add(PostEvent.getPostDetails(widget.postId.toString()));
-
                     },
                     message: error,
                   );
                 },
               );
-
-            }
-          ),
-        );
-      },
+            }),
+          );
+        },
       ),
     );
   }
@@ -246,8 +249,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen>
   void refresh() {
     postBloc.add(PostEvent.getPostDetails(widget.postId.toString()));
     refreshPost(reload: false);
-    commentBloc.add(
-        CommentsEvent.getComments(widget.postId.toString(), reload: false));
+    commentBloc.add(CommentsEvent.getComments(widget.postId.toString(), reload: false));
   }
 
   void commentToPost(SaveCommentPayload payload) {
@@ -302,10 +304,8 @@ class _AnonymousSwitcherState extends State<AnonymousSwitcher> {
           fit: BoxFit.cover,
           imageUrl: Assets.images.svgs.anonymousActive,
         ),
-        crossFadeState:
-            widget.value ? CrossFadeState.showSecond : CrossFadeState.showFirst,
-        duration: const Duration(
-            milliseconds: 400), // Adjust animation duration as needed
+        crossFadeState: widget.value ? CrossFadeState.showSecond : CrossFadeState.showFirst,
+        duration: const Duration(milliseconds: 400), // Adjust animation duration as needed
         // onChanged: (state) =>,
       ),
     );

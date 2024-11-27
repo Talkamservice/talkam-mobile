@@ -1,27 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:talkam/features/ads/data/models/ad_analytics_response.dart';
 
 import 'country_engagements_item.dart';
 
 class CountryEngagementsWidget extends StatelessWidget {
-  const CountryEngagementsWidget({super.key, required this.country1, required this.country2, required this.country3, required this.countryPer1, required this.countryPer2, required this.countryPer3});
+  const CountryEngagementsWidget({
+    super.key,
+    required this.countryStats,
+  });
 
-  final String country1;
-  final String country2;
-  final String country3;
-
-  final String countryPer1;
-  final String countryPer2;
-  final String countryPer3;
+  final List<CountryStat> countryStats;
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        CountryEngagementsItem(country: country1, percentage: countryPer1),
-        CountryEngagementsItem(country: country2, percentage: countryPer2),
-        CountryEngagementsItem(country: country3, percentage: countryPer3),
-      ],
+      children: countryStats
+          .map(
+            (e) => CountryEngagementsItem(country: e.name, percentage: "${e.percentage}"),
+          )
+          .toList(),
     );
   }
 }

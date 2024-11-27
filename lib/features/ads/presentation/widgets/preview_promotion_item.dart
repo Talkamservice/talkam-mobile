@@ -12,9 +12,20 @@ class PreviewPromotionItem extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-         Text(title , style: const TextStyle(color: Colors.grey, fontSize: 12),),
+        Text(
+          title,
+          style: const TextStyle(color: Colors.grey, fontSize: 12),
+        ),
         8.verticalSpace,
-         Text(content, style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 20),),
+        Text(
+          content,
+
+          style: const TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 18,
+            overflow: TextOverflow.ellipsis
+          ),
+        ),
       ],
     );
   }

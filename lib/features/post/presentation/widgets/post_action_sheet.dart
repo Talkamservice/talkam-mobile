@@ -19,7 +19,6 @@ import 'package:talkam/features/post/presentation/widgets/report_sucess_dialog.d
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
-
 class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
   PostActionSheet({super.key, required this.post, required this.onPostDeleted});
 
@@ -66,6 +65,14 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
                     tittle: "Get notifications for this post",
                     onTap: () {},
                   ),
+                  // if (postIsFromLoggedInUser && post.isPromoted)
+                  _PostAction(
+                    imagePath: Assets.images.svgs.analytics,
+                    tittle: "View analytics",
+                    onTap: () {
+                      //  TODO: Display Post Analytics Info BottomSheet
+                    },
+                  ),
                   if (!post.isAnonymous.toBool && !postIsFromLoggedInUser)
                     BlocListener<ProfileBloc, ProfileState>(
                       bloc: profileBloc,
@@ -107,8 +114,7 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
 
                             // postBloc.add(
                             //     PostEvent.getPostDetails(post.id.toString()));
-                            await CustomDialogs.showCustomDialog(
-                                const ReportSuccessDialog(), context);
+                            await CustomDialogs.showCustomDialog(const ReportSuccessDialog(), context);
                             context.pop();
                             context.pop(true);
                           },
@@ -125,8 +131,7 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
                         imagePath: Assets.images.svgs.slashCircle01,
                         tittle: "Report this post",
                         onTap: () async {
-                          var reason = await CustomDialogs.showCustomDialog(
-                              BlockReasonSheet(), context);
+                          var reason = await CustomDialogs.showCustomDialog(BlockReasonSheet(), context);
                           if (reason != null) {
                             var report = await CustomDialogs.showCustomDialog(
                                 ConfirmReportDialog(
@@ -135,8 +140,7 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
                                 context);
 
                             if (report) {
-                              postBloc.add(PostEvent.reportPost(
-                                  post.id.toString(), reason));
+                              postBloc.add(PostEvent.reportPost(post.id.toString(), reason));
                             }
                           }
 
@@ -144,21 +148,19 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
                         },
                       ),
                     ),
-
-                  if(postIsFromLoggedInUser)
+                  if (postIsFromLoggedInUser)
                     BlocListener<PostBloc, PostState>(
                       bloc: postBloc,
                       listener: (context, state) {
                         state.maybeWhen(
                           orElse: () => null,
-                          deletePostLoading: () =>
-                              CustomDialogs.showLoading(context),
+                          deletePostLoading: () => CustomDialogs.showLoading(context),
                           deletePostSuccess: () {
                             // injector.get<ProfilePostsTabCubit>().fetchUserPosts();
                             context.pop();
                             context.pop();
                             onPostDeleted();
-                        refreshPost(reload: false);
+                            refreshPost(reload: false);
                             CustomDialogs.success("Post Deleted");
                           },
                         );
@@ -167,19 +169,15 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
                         imagePath: Assets.images.svgs.icDelete,
                         tittle: "Delete post",
                         onTap: () async {
-
                           CustomDialogs.showConfirmDialog(
                             context,
                             message: "Are you sure you want to delete this post ?",
                             tittle: "Delete post",
                             onYes: () {
-
                               context.pop();
                               postBloc.add(PostEvent.deletePost(post.id.toString()));
                             },
                           );
-
-
                         },
                       ),
                     ),
@@ -192,25 +190,17 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
   }
 
   void blockUser(BuildContext context) async {
-    var reason =
-    await CustomDialogs.showCustomDialog(BlockReasonSheet(), context);
+    var reason = await CustomDialogs.showCustomDialog(BlockReasonSheet(), context);
     if (reason != null) {
       profileBloc.add(BlockUerEvent(post.user.id.toString()));
     }
   }
 
-  bool get postIsFromLoggedInUser =>
-      post.user.id == injector
-          .get<ProfileBloc>()
-          .appUser
-          ?.id;
+  bool get postIsFromLoggedInUser => post.user.id == injector.get<ProfileBloc>().appUser?.id;
 }
 
 class _PostAction extends StatelessWidget {
-  const _PostAction({super.key,
-    required this.imagePath,
-    required this.tittle,
-    required this.onTap});
+  const _PostAction({super.key, required this.imagePath, required this.tittle, required this.onTap});
 
   final String imagePath;
   final String tittle;
@@ -237,11 +227,10 @@ class _PostAction extends StatelessWidget {
             ),
           ),
           const Divider(
-            // thickness: 1,
-          )
+              // thickness: 1,
+              )
         ],
       ),
     );
   }
-
 }

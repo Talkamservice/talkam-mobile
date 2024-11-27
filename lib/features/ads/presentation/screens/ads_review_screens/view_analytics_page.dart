@@ -25,9 +25,9 @@ import '../../../../../common/widgets/image_widget.dart';
 import '../../../../../gen/assets.gen.dart';
 
 class ViewAnalyticsPage extends StatefulWidget {
-  ViewAnalyticsPage({super.key, required this.promotion});
+  ViewAnalyticsPage({super.key, required this.promotionId});
 
-  final PromotionData promotion;
+  final String promotionId;
 
   @override
   State<ViewAnalyticsPage> createState() => _ViewAnalyticsPageState();
@@ -38,7 +38,7 @@ class _ViewAnalyticsPageState extends State<ViewAnalyticsPage> {
 
   @override
   void initState() {
-    bloc.getAnalytics(widget.promotion.post?.id.toString() ?? "0");
+    bloc.getAnalytics(true,widget.promotionId);
     super.initState();
   }
 
@@ -61,18 +61,21 @@ class _ViewAnalyticsPageState extends State<ViewAnalyticsPage> {
             return state.maybeWhen(
               orElse: () => AppErrorWidget(
                 onTap: () {
-                  bloc.getAnalytics(widget.promotion.post!.id.toString());
+                  bloc.fetchPromotionById(widget.promotionId);
                 },
               ),
-              getAnalyticsLoading: () => Center(
+              fetchingPromotionById: () => Center(
                 child: CustomDialogs.getLoading(size: 30),
               ),
-              getAnalyticsFailed: (message) => AppErrorWidget(
+              promotionByIdLoadFailed: (message) => AppErrorWidget(
                 onTap: () {
-                  bloc.getAnalytics(widget.promotion.post!.id.toString());
+                  bloc.fetchPromotionById(widget.promotionId);
                 },
               ),
-              getAnalyticsSuccess: (result) {
+              promotionByIdLoaded: (result) {
+
+                var promotion = result;
+
                 return Padding(
                   padding: const EdgeInsets.only(
                     left: 16,
@@ -81,15 +84,15 @@ class _ViewAnalyticsPageState extends State<ViewAnalyticsPage> {
                   ),
                   child: ListView(
                     children: [
-                      widget.promotion.isPost
-                          ? AdPostItem(promotion: widget.promotion)
+                      promotion.isPost
+                          ? AdPostItem(promotion: promotion)
                           : Container(
                               decoration: BoxDecoration(
                                   color: context.theme.cardColor, borderRadius: BorderRadius.circular(10), border: Border.all(color: Pallets.borderGrey)),
                               padding: EdgeInsets.all(10),
                               child: AdGroupResultItem(
                                 imageRadius: BorderRadius.circular(5),
-                                group: widget.promotion.group!,
+                                group: promotion.group!,
                                 onJoinStateChanged: () {},
                               ),
                             ),
@@ -100,36 +103,46 @@ class _ViewAnalyticsPageState extends State<ViewAnalyticsPage> {
                             color: context.theme.cardColor, borderRadius: BorderRadius.circular(10), border: Border.all(color: Pallets.borderGrey)),
                         child: Column(
                           children: [
-                            if (widget.promotion.isPost)
+                            if (promotion.isPost && promotion.stats != null)
                               AnalyticsReactionsBar(
-                                  comments: result.data.comments, likes: result.data.likes, dislikes: result.data.dislikes, shares: result.data.shares),
-                            if (widget.promotion.isPost) 10.verticalSpace,
+                                  comments: promotion.stats!.comments,
+                                  likes: promotion.stats!.likes,
+                                  dislikes: promotion.stats!.dislikes,
+                                  shares: promotion.stats!.shares),
+                            if (promotion.isPost && promotion.stats != null) 10.verticalSpace,
                             ImpressionsInfoWidget(
-                              analyticsInfo: result.data,
+                              analyticsInfo: promotion.stats!,
                             ),
                             15.verticalSpace,
-                            const Divider(
-                              thickness: 1,
-                              color: Pallets.buttonGrey,
-                            ),
-                            12.verticalSpace,
-                            const Row(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "Country engagements",
-                                  style: TextStyle(fontSize: 12),
-                                ),
-                              ],
-                            ),
-                            12.verticalSpace,
-                            const Divider(
-                              thickness: 1,
-                              color: Pallets.buttonGrey,
-                            ),
-                            20.verticalSpace,
-                            const CountryEngagementsWidget(
-                                country1: "Nigeria", country2: "Ghana", country3: "Benin", countryPer1: "98", countryPer2: "1", countryPer3: "1")
+                            if (promotion.stats != null && (promotion.stats!.countries?.isNotEmpty ?? false))
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Divider(
+                                    thickness: 1,
+                                    color: Pallets.buttonGrey,
+                                  ),
+                                  12.verticalSpace,
+                                  const Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "Country engagements",
+                                        style: TextStyle(fontSize: 12),
+                                      ),
+                                    ],
+                                  ),
+                                  12.verticalSpace,
+                                  const Divider(
+                                    thickness: 1,
+                                    color: Pallets.buttonGrey,
+                                  ),
+                                  20.verticalSpace,
+                                  CountryEngagementsWidget(
+                                    countryStats: promotion.stats!.countries ?? [],
+                                  ),
+                                ],
+                              )
                           ],
                         ),
                       )

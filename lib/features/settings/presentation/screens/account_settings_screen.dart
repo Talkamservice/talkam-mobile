@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
@@ -13,6 +12,8 @@ import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/core/utils/extensions/int_extension.dart';
+import 'package:talkam/features/profile/data/models/update_profile_payload.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/settings/presentation/blocs/settings/settings_bloc.dart';
 import 'package:talkam/features/settings/presentation/widgets/notification_setting_item.dart';
@@ -30,6 +31,8 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
   final bloc = SettingsBloc(injector.get(), injector.get());
 
   final profileBloc = ProfileBloc(injector.get());
+
+  bool adsDeactivated = false;
 
   @override
   void initState() {
@@ -76,7 +79,22 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
           ),
           body: BlocConsumer<ProfileBloc, ProfileState>(
             bloc: profileBloc,
-            listener: (context, state) {},
+            listener: (context, state) {
+
+
+              if (state is UpdateProfileFailure) {
+                adsDeactivated = !adsDeactivated;
+                CustomDialogs.error(state.error);
+              }
+
+
+              if (state is GetProfileSuccessState) {
+                adsDeactivated = !(state.user.shouldDisplayAd as int).toBool;
+              }
+
+
+            },
+            buildWhen: (previous, current) => current is GetProfileLoadingState || current is GetProfileFailureState || current is GetProfileSuccessState,
             builder: (context, state) {
               if (state is GetProfileLoadingState) {
                 return Center(
@@ -141,8 +159,12 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                           notificationItemType: NotificationItemType.switchType,
                           tittle: 'Deactivate ads on your feed',
                           subtittle: 'You will be unable to see ads on your feeds when this is activated.',
-                          selected: false,
-                          onTap: () async {},
+                          selected: adsDeactivated,
+                          onTap: () async {
+                            adsDeactivated = !adsDeactivated;
+                            setState(() {});
+                            profileBloc.add(UpdateProfileEvent(UpdateProfilePayload(shouldDisplayAd: (!adsDeactivated).toInt)));
+                          },
                         ),
                       ),
                       16.verticalSpace,

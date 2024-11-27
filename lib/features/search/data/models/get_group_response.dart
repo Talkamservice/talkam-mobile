@@ -229,6 +229,7 @@ class TalkamGroup extends Codec<TalkamGroup, String> {
   // }
 
   GroupAppBarData toGroupAppBarData() {
+
     return GroupAppBarData(
       id: uuid ?? "",
       // Use uuid if available, otherwise an empty string
