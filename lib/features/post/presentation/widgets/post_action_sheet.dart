@@ -19,8 +19,11 @@ import 'package:talkam/features/post/presentation/widgets/report_sucess_dialog.d
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
+import '../../../ads/data/models/promotion_data.dart';
+import '../../../ads/presentation/screens/ads_review_screens/view_analytics_page.dart';
+
 class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
-  PostActionSheet({super.key, required this.post, required this.onPostDeleted});
+  PostActionSheet({super.key, required this.post, required this.onPostDeleted,});
 
   TalkamPost post;
   final profileBloc = ProfileBloc(injector.get());
@@ -78,7 +81,7 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
                       bloc: profileBloc,
                       listener: (context, state) {
                         if (state is BlockUserLoadingState) {
-                          CustomDialogs.showLoading(context);
+                          CustomDialogs.showLoading(context);  
                         }
 
                         if (state is BlockUserFailureState) {
