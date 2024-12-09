@@ -39,7 +39,7 @@ class _ViewAnalyticsPageState extends State<ViewAnalyticsPage> {
 
   @override
   void initState() {
-    bloc.getAnalytics(true,widget.promotionId);
+    bloc.fetchPromotionById(widget.promotionId);
     super.initState();
   }
 
@@ -71,9 +71,7 @@ class _ViewAnalyticsPageState extends State<ViewAnalyticsPage> {
                   bloc.fetchPromotionById(widget.promotionId);
                 },
               ),
-              promotionByIdLoaded: (result) {
-
-                var promotion = result;
+              promotionByIdLoaded: (promotion) {
 
                 return Padding(
                   padding: const EdgeInsets.only(

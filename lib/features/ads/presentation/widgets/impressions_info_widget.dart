@@ -23,7 +23,7 @@ class ImpressionsInfoWidget extends StatelessWidget {
             ),
             ImpressionsInfoItem(
               header: "Engagements Rate",
-              number: "%${analyticsInfo.engagements.round().toString()}",
+              number: "${analyticsInfo.engagements.round().toString()}%",
             ),
             ImpressionsInfoItem(
               header: "New followers",

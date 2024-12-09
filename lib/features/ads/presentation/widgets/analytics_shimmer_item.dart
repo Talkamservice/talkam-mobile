@@ -10,9 +10,7 @@ import '../../../../common/widgets/custom_appbar.dart';
 import '../../../post/data/models/get_posts_response.dart';
 
 class ViewAnalyticsShimmer extends StatelessWidget {
-  const ViewAnalyticsShimmer({super.key, this.padding});
-
-  final EdgeInsetsGeometry? padding;
+  const ViewAnalyticsShimmer({super.key});
 
   @override
   Widget build(BuildContext context) {

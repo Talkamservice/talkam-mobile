@@ -11,6 +11,7 @@ import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/extensions/int_extension.dart';
 import 'package:talkam/core/utils/guest_user_helper.dart';
+import 'package:talkam/features/ads/presentation/widgets/view_analytics_bottomsheet.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
 import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
@@ -72,8 +73,12 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
                   _PostAction(
                     imagePath: Assets.images.svgs.analytics,
                     tittle: "View analytics",
-                    onTap: () {
-                      //  TODO: Display Post Analytics Info BottomSheet
+                    onTap: () async {
+                      context.pop();
+                       await CustomDialogs.showBottomSheet(
+                          context,
+                          ViewAnalyticsBottomSheet(postId: post.id.toString(),),
+                          );
                     },
                   ),
                   if (!post.isAnonymous.toBool && !postIsFromLoggedInUser)

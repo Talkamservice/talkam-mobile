@@ -166,6 +166,9 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/camera_icon.svg
   String get cameraIcon => 'assets/images/svgs/camera_icon.svg';
 
+  /// File path: assets/images/svgs/cancel_outlined.svg
+  String get cancelOutlined => 'assets/images/svgs/cancel_outlined.svg';
+
   /// File path: assets/images/svgs/chevron-right.svg
   String get chevronRight => 'assets/images/svgs/chevron-right.svg';
 
@@ -367,6 +370,7 @@ class $AssetsImagesSvgsGen {
         blueThick,
         calender,
         cameraIcon,
+        cancelOutlined,
         chevronRight,
         comment,
         copy07,
