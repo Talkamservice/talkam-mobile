@@ -20,7 +20,7 @@ mixin _$RecentGroupPostState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() getRecentPostsLoading,
-    required TResult Function(GetPostsResponse response) getRecentPostsSuccess,
+    required TResult Function(List<dynamic> response) getRecentPostsSuccess,
     required TResult Function(String error) getRecentPostsFailed,
     required TResult Function() loadingMore,
   }) =>
@@ -29,7 +29,7 @@ mixin _$RecentGroupPostState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? getRecentPostsLoading,
-    TResult? Function(GetPostsResponse response)? getRecentPostsSuccess,
+    TResult? Function(List<dynamic> response)? getRecentPostsSuccess,
     TResult? Function(String error)? getRecentPostsFailed,
     TResult? Function()? loadingMore,
   }) =>
@@ -38,7 +38,7 @@ mixin _$RecentGroupPostState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? getRecentPostsLoading,
-    TResult Function(GetPostsResponse response)? getRecentPostsSuccess,
+    TResult Function(List<dynamic> response)? getRecentPostsSuccess,
     TResult Function(String error)? getRecentPostsFailed,
     TResult Function()? loadingMore,
     required TResult orElse(),
@@ -141,7 +141,7 @@ class _$InitialImpl implements _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() getRecentPostsLoading,
-    required TResult Function(GetPostsResponse response) getRecentPostsSuccess,
+    required TResult Function(List<dynamic> response) getRecentPostsSuccess,
     required TResult Function(String error) getRecentPostsFailed,
     required TResult Function() loadingMore,
   }) {
@@ -153,7 +153,7 @@ class _$InitialImpl implements _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? getRecentPostsLoading,
-    TResult? Function(GetPostsResponse response)? getRecentPostsSuccess,
+    TResult? Function(List<dynamic> response)? getRecentPostsSuccess,
     TResult? Function(String error)? getRecentPostsFailed,
     TResult? Function()? loadingMore,
   }) {
@@ -165,7 +165,7 @@ class _$InitialImpl implements _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? getRecentPostsLoading,
-    TResult Function(GetPostsResponse response)? getRecentPostsSuccess,
+    TResult Function(List<dynamic> response)? getRecentPostsSuccess,
     TResult Function(String error)? getRecentPostsFailed,
     TResult Function()? loadingMore,
     required TResult orElse(),
@@ -269,7 +269,7 @@ class _$GetRecentPostsLoadingImpl implements _GetRecentPostsLoading {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() getRecentPostsLoading,
-    required TResult Function(GetPostsResponse response) getRecentPostsSuccess,
+    required TResult Function(List<dynamic> response) getRecentPostsSuccess,
     required TResult Function(String error) getRecentPostsFailed,
     required TResult Function() loadingMore,
   }) {
@@ -281,7 +281,7 @@ class _$GetRecentPostsLoadingImpl implements _GetRecentPostsLoading {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? getRecentPostsLoading,
-    TResult? Function(GetPostsResponse response)? getRecentPostsSuccess,
+    TResult? Function(List<dynamic> response)? getRecentPostsSuccess,
     TResult? Function(String error)? getRecentPostsFailed,
     TResult? Function()? loadingMore,
   }) {
@@ -293,7 +293,7 @@ class _$GetRecentPostsLoadingImpl implements _GetRecentPostsLoading {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? getRecentPostsLoading,
-    TResult Function(GetPostsResponse response)? getRecentPostsSuccess,
+    TResult Function(List<dynamic> response)? getRecentPostsSuccess,
     TResult Function(String error)? getRecentPostsFailed,
     TResult Function()? loadingMore,
     required TResult orElse(),
@@ -358,7 +358,7 @@ abstract class _$$GetRecentPostsSuccessImplCopyWith<$Res> {
           $Res Function(_$GetRecentPostsSuccessImpl) then) =
       __$$GetRecentPostsSuccessImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({GetPostsResponse response});
+  $Res call({List<dynamic> response});
 }
 
 /// @nodoc
@@ -379,9 +379,9 @@ class __$$GetRecentPostsSuccessImplCopyWithImpl<$Res>
   }) {
     return _then(_$GetRecentPostsSuccessImpl(
       null == response
-          ? _value.response
+          ? _value._response
           : response // ignore: cast_nullable_to_non_nullable
-              as GetPostsResponse,
+              as List<dynamic>,
     ));
   }
 }
@@ -389,10 +389,16 @@ class __$$GetRecentPostsSuccessImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$GetRecentPostsSuccessImpl implements _GetRecentPostsSuccess {
-  const _$GetRecentPostsSuccessImpl(this.response);
+  const _$GetRecentPostsSuccessImpl(final List<dynamic> response)
+      : _response = response;
 
+  final List<dynamic> _response;
   @override
-  final GetPostsResponse response;
+  List<dynamic> get response {
+    if (_response is EqualUnmodifiableListView) return _response;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_response);
+  }
 
   @override
   String toString() {
@@ -404,12 +410,12 @@ class _$GetRecentPostsSuccessImpl implements _GetRecentPostsSuccess {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GetRecentPostsSuccessImpl &&
-            (identical(other.response, response) ||
-                other.response == response));
+            const DeepCollectionEquality().equals(other._response, _response));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, response);
+  int get hashCode =>
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(_response));
 
   /// Create a copy of RecentGroupPostState
   /// with the given fields replaced by the non-null parameter values.
@@ -425,7 +431,7 @@ class _$GetRecentPostsSuccessImpl implements _GetRecentPostsSuccess {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() getRecentPostsLoading,
-    required TResult Function(GetPostsResponse response) getRecentPostsSuccess,
+    required TResult Function(List<dynamic> response) getRecentPostsSuccess,
     required TResult Function(String error) getRecentPostsFailed,
     required TResult Function() loadingMore,
   }) {
@@ -437,7 +443,7 @@ class _$GetRecentPostsSuccessImpl implements _GetRecentPostsSuccess {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? getRecentPostsLoading,
-    TResult? Function(GetPostsResponse response)? getRecentPostsSuccess,
+    TResult? Function(List<dynamic> response)? getRecentPostsSuccess,
     TResult? Function(String error)? getRecentPostsFailed,
     TResult? Function()? loadingMore,
   }) {
@@ -449,7 +455,7 @@ class _$GetRecentPostsSuccessImpl implements _GetRecentPostsSuccess {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? getRecentPostsLoading,
-    TResult Function(GetPostsResponse response)? getRecentPostsSuccess,
+    TResult Function(List<dynamic> response)? getRecentPostsSuccess,
     TResult Function(String error)? getRecentPostsFailed,
     TResult Function()? loadingMore,
     required TResult orElse(),
@@ -504,10 +510,10 @@ class _$GetRecentPostsSuccessImpl implements _GetRecentPostsSuccess {
 }
 
 abstract class _GetRecentPostsSuccess implements RecentGroupPostState {
-  const factory _GetRecentPostsSuccess(final GetPostsResponse response) =
+  const factory _GetRecentPostsSuccess(final List<dynamic> response) =
       _$GetRecentPostsSuccessImpl;
 
-  GetPostsResponse get response;
+  List<dynamic> get response;
 
   /// Create a copy of RecentGroupPostState
   /// with the given fields replaced by the non-null parameter values.
@@ -588,7 +594,7 @@ class _$GetRecentPostsFailedImpl implements _GetRecentPostsFailed {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() getRecentPostsLoading,
-    required TResult Function(GetPostsResponse response) getRecentPostsSuccess,
+    required TResult Function(List<dynamic> response) getRecentPostsSuccess,
     required TResult Function(String error) getRecentPostsFailed,
     required TResult Function() loadingMore,
   }) {
@@ -600,7 +606,7 @@ class _$GetRecentPostsFailedImpl implements _GetRecentPostsFailed {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? getRecentPostsLoading,
-    TResult? Function(GetPostsResponse response)? getRecentPostsSuccess,
+    TResult? Function(List<dynamic> response)? getRecentPostsSuccess,
     TResult? Function(String error)? getRecentPostsFailed,
     TResult? Function()? loadingMore,
   }) {
@@ -612,7 +618,7 @@ class _$GetRecentPostsFailedImpl implements _GetRecentPostsFailed {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? getRecentPostsLoading,
-    TResult Function(GetPostsResponse response)? getRecentPostsSuccess,
+    TResult Function(List<dynamic> response)? getRecentPostsSuccess,
     TResult Function(String error)? getRecentPostsFailed,
     TResult Function()? loadingMore,
     required TResult orElse(),
@@ -722,7 +728,7 @@ class _$LoadingMoreImpl implements _LoadingMore {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() getRecentPostsLoading,
-    required TResult Function(GetPostsResponse response) getRecentPostsSuccess,
+    required TResult Function(List<dynamic> response) getRecentPostsSuccess,
     required TResult Function(String error) getRecentPostsFailed,
     required TResult Function() loadingMore,
   }) {
@@ -734,7 +740,7 @@ class _$LoadingMoreImpl implements _LoadingMore {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? getRecentPostsLoading,
-    TResult? Function(GetPostsResponse response)? getRecentPostsSuccess,
+    TResult? Function(List<dynamic> response)? getRecentPostsSuccess,
     TResult? Function(String error)? getRecentPostsFailed,
     TResult? Function()? loadingMore,
   }) {
@@ -746,7 +752,7 @@ class _$LoadingMoreImpl implements _LoadingMore {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? getRecentPostsLoading,
-    TResult Function(GetPostsResponse response)? getRecentPostsSuccess,
+    TResult Function(List<dynamic> response)? getRecentPostsSuccess,
     TResult Function(String error)? getRecentPostsFailed,
     TResult Function()? loadingMore,
     required TResult orElse(),

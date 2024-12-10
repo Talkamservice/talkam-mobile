@@ -19,16 +19,11 @@ class UrlConfig {
   static const String messageUserEmail = String.fromEnvironment('MESSAGE_USER_EMAIL');
   static const String messageUserPassKey = String.fromEnvironment('MESSAGE_USER_PASSKEY');
 
-  static const String flutterWavePublicTestKey =
-  String.fromEnvironment('FLUTTER_WAVE_TEST_KEY');
-  static const String flutterWaveSecretTestKey =
-  String.fromEnvironment('FLUTTER_WAVE_SECRET_TEST_KEY');
+  static const String flutterWavePublicTestKey = String.fromEnvironment('FLUTTER_WAVE_TEST_KEY');
+  static const String flutterWaveSecretTestKey = String.fromEnvironment('FLUTTER_WAVE_SECRET_TEST_KEY');
 
-  static const String flutterWavePublicLiveKey =
-  String.fromEnvironment('FLUTTER_WAVE_LIVE_KEY');
-  static const String flutterWaveSecretLiveKey =
-  String.fromEnvironment('FLUTTER_WAVE_SECRET_LIVE_KEY');
-
+  static const String flutterWavePublicLiveKey = String.fromEnvironment('FLUTTER_WAVE_LIVE_KEY');
+  static const String flutterWaveSecretLiveKey = String.fromEnvironment('FLUTTER_WAVE_SECRET_LIVE_KEY');
 
   // static const String facePlusProdApiKey =
   //     String.fromEnvironment('FACE_PLUS_PROD_API_KEY');
@@ -37,12 +32,8 @@ class UrlConfig {
   static final coreBaseUrl = environment == Environment.production ? PRODUCTION_URL : STAGING_URL;
   static final webUrl = environment == Environment.production ? WEB_PRODUCTION_URL : WEB_STAGING_URL;
 
-  static final flutterWavePublicKey = environment == Environment.production
-      ? flutterWavePublicLiveKey
-      : flutterWavePublicTestKey;
-  static final flutterWaveSecretKey = environment == Environment.production
-      ? flutterWaveSecretLiveKey
-      : flutterWaveSecretTestKey;
+  static final flutterWavePublicKey = environment == Environment.production ? flutterWavePublicLiveKey : flutterWavePublicTestKey;
+  static final flutterWaveSecretKey = environment == Environment.production ? flutterWaveSecretLiveKey : flutterWaveSecretTestKey;
 
   static const String getLibraryCoursesEndpoint = "/wellness-library/courses/list";
 
@@ -99,6 +90,7 @@ class UrlConfig {
   static const String getCategoriesWithGroup = '/user/post-categories/merged-categories';
   static const String getSubCategories = '/user/post-categories/sub-categories';
   static const String getPosts = '/user/posts';
+  static const String getPromotedPosts = '/user/posts/promotions/list';
   static const String createPost = '/user/posts';
 
   static String getPostDetails(String id) => '/user/posts/$id';
@@ -140,6 +132,7 @@ class UrlConfig {
 
   static const String getGroups = '/user/groups';
   static const String getMyGroups = '/user/groups/members/following';
+  static const String getPromotedGroups = '/user/groups/promotions/list';
   static const String getFollowingGroupMembers = '/user/groups/members/following';
   static const String updateGroup = '/user/groups/';
   static const String getGroup = '/user/groups/';
@@ -196,12 +189,12 @@ class UrlConfig {
   static String getAnnouncementById(String id) => "/user/announcements/$id/show";
 
   // Plan-related endpoints
-  static const String getPlans = '/user/finance/plans';                // Fetch all plans
-  static const String getPlanById = '/user/finance/plans';             // Fetch a specific plan by ID (add /{id}/show)
+  static const String getPlans = '/user/finance/plans'; // Fetch all plans
+  static const String getPlanById = '/user/finance/plans'; // Fetch a specific plan by ID (add /{id}/show)
 
   // Subscription-related endpoints
-  static const String getSubscriptions = '/user/finance/subscriptions';            // Fetch all subscriptions
-  static const String getSubscriptionById = '/user/finance/subscriptions';         // Fetch a specific subscription by ID (add /{id}/show)
+  static const String getSubscriptions = '/user/finance/subscriptions'; // Fetch all subscriptions
+  static const String getSubscriptionById = '/user/finance/subscriptions'; // Fetch a specific subscription by ID (add /{id}/show)
   static const String initiateSubscription = '/user/finance/subscriptions/initiate'; // Initiate a subscription
   static const String cancelSubscription = '/user/finance/subscriptions';
 
@@ -212,6 +205,7 @@ class UrlConfig {
   static const String updateStat = '/user/posts/stats/save';
   static const String promotions = '/user/promotions';
   static const String analytics = '/user/posts/stats/fetch';
+  static const String promotedPosts = '/user/posts/promotions/list';
 
   static const String paymentCallback = '/user/finance/payments/callback';
 }

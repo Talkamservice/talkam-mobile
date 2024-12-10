@@ -48,6 +48,19 @@ class AdGroupOverView extends StatelessWidget {
                         fontSize: 16,
                       ),
                       8.horizontalSpace,
+                      SizedBox(
+                        width: 40,
+                        height: 25,
+                        child: TextButton(
+                            style: TextButton.styleFrom(
+                                padding: EdgeInsets.zero, shape: StadiumBorder(), backgroundColor: Pallets.adIndicator, foregroundColor: Pallets.black),
+                            onPressed: () {},
+                            child: TextView(
+                              text: "Ad",
+                              fontWeight: FontWeight.w700,
+                              fontSize: 12,
+                            )),
+                      )
 
                     ],
                   ),

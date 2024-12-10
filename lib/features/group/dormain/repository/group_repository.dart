@@ -4,6 +4,7 @@ import 'package:talkam/features/search/data/models/get_group_response.dart';
 
 abstract class GroupsRepository {
   Future<GetGroupsResponse> getGroups({required int? page, GroupsFilterModel? filter, bool? isFollowing = false});
+  Future<GetGroupsResponse> getPromotedGroups();
 
   Future<dynamic> getFollowingGroupMembers();
 
