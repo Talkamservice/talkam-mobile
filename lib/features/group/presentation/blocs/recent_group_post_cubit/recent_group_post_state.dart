@@ -8,7 +8,7 @@ class RecentGroupPostState with _$RecentGroupPostState {
       _GetRecentPostsLoading;
 
   const factory RecentGroupPostState.getRecentPostsSuccess(
-      GetPostsResponse response) = _GetRecentPostsSuccess;
+      List<dynamic> response) = _GetRecentPostsSuccess;
 
   const factory RecentGroupPostState.getRecentPostsFailed(String error) =
       _GetRecentPostsFailed;

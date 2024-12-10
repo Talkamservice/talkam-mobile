@@ -104,8 +104,8 @@ class AdsRepositoryImpl extends AdsRepository {
   @override
   Future<AdAnalyticsResponse> getAnalytics(bool isPost, String id) async {
     try {
-      final response = await _networkService
-          .call(UrlConfig.analytics, RequestMethod.get, queryParams: {if (isPost) "post_id": id, if (!isPost) "group_id": id});
+      final response =
+          await _networkService.call(UrlConfig.analytics, RequestMethod.get, queryParams: {if (isPost) "post_id": id, if (!isPost) "group_id": id});
       return AdAnalyticsResponse.fromJson(response.data);
     } catch (e) {
       rethrow;

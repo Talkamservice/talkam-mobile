@@ -147,6 +147,7 @@ dependencies:
   emoji_picker_flutter: ^2.1.1
   carousel_slider: ^5.0.0
   flutterwave_standard_smart: ^1.0.4
+  shorebird_code_push: ^2.0.0
   # flutter_background: ^1.2.0
 #  audio_manager: ^0.8.2
 

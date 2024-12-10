@@ -8,6 +8,8 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/features/ads/presentation/widgets/ad_indicator.dart';
+import 'package:talkam/features/group/presentation/blocs/featured_groups/featured_groups_cubit.dart';
 import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
 import 'package:talkam/features/group/presentation/widgets/join_group_button.dart';
 import 'package:talkam/features/group/presentation/widgets/suggestion_shimmer.dart';
@@ -23,7 +25,7 @@ class SuggestedGroups extends StatefulWidget {
 }
 
 class _SuggestedGroupsState extends State<SuggestedGroups> {
-  final bloc = GroupsCubit(injector.get());
+  final bloc = FeaturedGroupsCubit(injector.get());
 
   @override
   void initState() {
@@ -37,7 +39,7 @@ class _SuggestedGroupsState extends State<SuggestedGroups> {
   Widget build(BuildContext context) {
     return Visibility(
       visible: isViible,
-      child: BlocConsumer<GroupsCubit, GroupsState>(
+      child: BlocConsumer<FeaturedGroupsCubit, FeaturedGroupsState>(
         bloc: bloc,
         listener: (context, state) {},
         buildWhen: stateIsRecommended,
@@ -55,28 +57,26 @@ class _SuggestedGroupsState extends State<SuggestedGroups> {
               if (response.groups!.isNotEmpty) {
                 return Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                          top: 24.0, right: 18.0, left: 18.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          TextView(
-                            text: "Suggested",
-                            fontSize: 16.sp,
-                            fontWeight: FontWeight.w700,
-                          ),
-                          InkWell(
-                            onTap: () {
-                              isViible = false;
-                              setState(() {});
-                            },
-                            child: const Icon(Icons.close,
-                                size: 28, color: Pallets.boldBlackV2),
-                          )
-                        ],
-                      ),
-                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.only(top: 24.0, right: 18.0, left: 18.0),
+                    //   child: Row(
+                    //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    //     children: [
+                    //       TextView(
+                    //         text: "Suggested",
+                    //         fontSize: 16.sp,
+                    //         fontWeight: FontWeight.w700,
+                    //       ),
+                    //       InkWell(
+                    //         onTap: () {
+                    //           isViible = false;
+                    //           setState(() {});
+                    //         },
+                    //         child: const Icon(Icons.close, size: 28, color: Pallets.boldBlackV2),
+                    //       )
+                    //     ],
+                    //   ),
+                    // ),
                     Padding(
                       padding: const EdgeInsets.only(top: 18.0, bottom: 10),
                       child: SizedBox(
@@ -90,9 +90,7 @@ class _SuggestedGroupsState extends State<SuggestedGroups> {
                           itemBuilder: (_, int index) {
                             return _SuggestedTile(
                               onTap: () {
-                                context.pushNamed(PageUrl.groupsInfoScreen,
-                                    extra:
-                                        response.groups![index].id.toString());
+                                context.pushNamed(PageUrl.groupsInfoScreen, extra: response.groups![index].id.toString());
                               },
                               group: response.groups![index],
                             );
@@ -126,7 +124,7 @@ class _SuggestedGroupsState extends State<SuggestedGroups> {
     );
   }
 
-  bool stateIsRecommended(GroupsState previous, GroupsState current) {
+  bool stateIsRecommended(FeaturedGroupsState previous, FeaturedGroupsState current) {
     return current.maybeWhen(
       orElse: () => false,
       getRecommendedLoading: () => true,
@@ -148,62 +146,72 @@ class _SuggestedTile extends StatelessWidget {
       onTap: () {
         onTap.call();
       },
-      child: Container(
-        width: 268.w,
-        height: 100.h,
-        padding: const EdgeInsets.symmetric(horizontal: 10),
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12.0),
-            border: Border.all(color: Pallets.borderGrey, width: 1.5)),
-        child: Row(
-          children: [
-            ImageWidget(
-              imageUrl: group.image.toString(),
-              width: 93.w,
-              height: 80.h,
-              borderRadius: BorderRadius.circular(8.0),
-            ),
-            12.horizontalSpace,
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  TextView(
-                    text: group.name.toString(),
-                    fontWeight: FontWeight.w700,
-                    fontSize: 16.sp,
-                    maxLines: 1,
-                    textOverflow: TextOverflow.ellipsis,
-                    color: Pallets.boldBlackV2,
-                  ),
-                  TextView(
-                    text: "${group.totalMembers} Members",
-                    fontSize: 13.sp,
-                    fontWeight: FontWeight.w500,
-                    color: Pallets.boldBlackV2,
-                  ),
-                  2.verticalSpace,
-                  Container(
-                    width: 65,
-                    height: 25,
-                    decoration: BoxDecoration(
-                      color: Pallets.tabBarBlue,
-                      borderRadius: BorderRadius.circular(22.0),
-                    ),
-                    child: const Center(
-                      child: TextView(
-                        text: "View",
+      child: Stack(
+        children: [
+          Container(
+            width: 268.w,
+            height: 100.h,
+            padding: const EdgeInsets.symmetric(horizontal: 10),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(12.0), border: Border.all(color: Pallets.borderGrey, width: 1.5)),
+            child: Row(
+              children: [
+                ImageWidget(
+                  imageUrl: group.image.toString(),
+                  width: 93.w,
+                  height: 80.h,
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                12.horizontalSpace,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextView(
+                        text: group.name.toString(),
                         fontWeight: FontWeight.w700,
-                        color: Pallets.white,
+                        fontSize: 16.sp,
+                        maxLines: 1,
+                        textOverflow: TextOverflow.ellipsis,
+                        color: Pallets.boldBlackV2,
                       ),
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
-        ),
+                      TextView(
+                        text: "${group.totalMembers} Members",
+                        fontSize: 13.sp,
+                        fontWeight: FontWeight.w500,
+                        color: Pallets.boldBlackV2,
+                      ),
+                      2.verticalSpace,
+                      Container(
+                        width: 65,
+                        height: 25,
+                        decoration: BoxDecoration(
+                          color: Pallets.tabBarBlue,
+                          borderRadius: BorderRadius.circular(22.0),
+                        ),
+                        child: const Center(
+                          child: TextView(
+                            text: "View",
+                            fontWeight: FontWeight.w700,
+                            color: Pallets.white,
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+          if (group.isPromoted)
+            Positioned(
+                left: 2,
+                bottom: 1,
+                child: AdIndicator(
+                  promoter: "",
+                  padding: 4,
+                )),
+        ],
       ),
     );
   }

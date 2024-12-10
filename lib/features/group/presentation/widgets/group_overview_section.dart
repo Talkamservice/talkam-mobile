@@ -49,25 +49,26 @@ class GroupOverViewSection extends StatelessWidget {
                       if ((data.isOwner || data.isAdmin) && !data.isPromoted)
                         InkWell(
                           onTap: () {
-                            SubscriptionHelper.handleSubscriptionAction(
-                              unsubscribedUserAction: () {
-                                context.pushNamed(PageUrl.subscriptionScreen);
-                              },
-                              action: () {
-                                CustomDialogs.showBottomSheet(
-                                    context,
-                                    PromotePostSheet(
-                                      type: 'Group',
-                                      id: data.id ?? 0,
-                                      onPromoted: () {
-                                        if (onPromoted != null) {
-                                          onPromoted!();
-                                        }
-                                      },
-                                    ),
-                                    constraints: BoxConstraints(maxHeight: 0.7.sh));
-                              },
-                            );
+                            CustomDialogs.showBottomSheet(
+                                context,
+                                PromotePostSheet(
+                                  type: 'Group',
+                                  id: data.id ?? 0,
+                                  onPromoted: () {
+                                    if (onPromoted != null) {
+                                      onPromoted!();
+                                    }
+                                  },
+                                ),
+                                constraints: BoxConstraints(maxHeight: 0.7.sh));
+                            // SubscriptionHelper.handleSubscriptionAction(
+                            //   unsubscribedUserAction: () {
+                            //     context.pushNamed(PageUrl.subscriptionScreen);
+                            //   },
+                            //   action: () {
+                            //
+                            //   },
+                            // );
                           },
                           child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
