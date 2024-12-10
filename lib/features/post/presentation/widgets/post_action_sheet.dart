@@ -24,7 +24,11 @@ import '../../../ads/data/models/promotion_data.dart';
 import '../../../ads/presentation/screens/ads_review_screens/view_analytics_page.dart';
 
 class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
-  PostActionSheet({super.key, required this.post, required this.onPostDeleted,});
+  PostActionSheet({
+    super.key,
+    required this.post,
+    required this.onPostDeleted,
+  });
 
   TalkamPost post;
   final profileBloc = ProfileBloc(injector.get());
@@ -69,24 +73,27 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
                     tittle: "Get notifications for this post",
                     onTap: () {},
                   ),
-                  // if (postIsFromLoggedInUser && post.isPromoted)
-                  _PostAction(
-                    imagePath: Assets.images.svgs.analytics,
-                    tittle: "View analytics",
-                    onTap: () async {
-                      context.pop();
-                       await CustomDialogs.showBottomSheet(
+                  if (postIsFromLoggedInUser && post.isPromoted)
+                    _PostAction(
+                      imagePath: Assets.images.svgs.analytics,
+                      tittle: "View analytics",
+                      onTap: () async {
+                        context.pop();
+
+                        await CustomDialogs.showBottomSheet(
                           context,
-                          ViewAnalyticsBottomSheet(postId: post.id.toString(),),
-                          );
-                    },
-                  ),
+                          ViewAnalyticsBottomSheet(
+                            postId: post.id.toString(),
+                          ),
+                        );
+                      },
+                    ),
                   if (!post.isAnonymous.toBool && !postIsFromLoggedInUser)
                     BlocListener<ProfileBloc, ProfileState>(
                       bloc: profileBloc,
                       listener: (context, state) {
                         if (state is BlockUserLoadingState) {
-                          CustomDialogs.showLoading(context);  
+                          CustomDialogs.showLoading(context);
                         }
 
                         if (state is BlockUserFailureState) {
