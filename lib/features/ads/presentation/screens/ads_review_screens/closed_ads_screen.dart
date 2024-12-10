@@ -13,6 +13,8 @@ import 'package:talkam/features/ads/presentation/widgets/promotion_item.dart';
 import 'package:talkam/features/home/dormain/mixins/refresh_app_mixin.dart';
 import 'package:talkam/features/post/data/models/post_test_models.dart';
 
+import '../../widgets/promotion_shimmer_item.dart';
+
 class ClosedAdsScreen extends StatefulWidget {
   ClosedAdsScreen({super.key});
 
@@ -43,8 +45,11 @@ class _ClosedAdsScreenState extends State<ClosedAdsScreen> with RefreshAppMixin 
             },
             fetchingPromotions: () => SizedBox(
               height: 1.sh,
-              child: Center(
-                child: CustomDialogs.getLoading(size: 40),
+              child: ListView.builder(
+                  itemBuilder: (c, i) => Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: PromotionShimmer(),
+                  )
               ),
             ),
             promotionsLoaded: (promotion) {

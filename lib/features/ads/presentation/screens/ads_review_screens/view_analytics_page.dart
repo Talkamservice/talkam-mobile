@@ -12,6 +12,7 @@ import 'package:talkam/features/ads/presentation/blocs/ads/ads_cubit.dart';
 import 'package:talkam/features/ads/presentation/widgets/ad_group_item.dart';
 import 'package:talkam/features/ads/presentation/widgets/ad_post_item.dart';
 import 'package:talkam/features/ads/presentation/widgets/analytics_reactions_bar.dart';
+import 'package:talkam/features/ads/presentation/widgets/analytics_shimmer_item.dart';
 import 'package:talkam/features/ads/presentation/widgets/country_engagements_item.dart';
 import 'package:talkam/features/ads/presentation/widgets/country_engagements_widget.dart';
 import 'package:talkam/features/ads/presentation/widgets/impressions_info_item.dart';
@@ -62,16 +63,15 @@ class _ViewAnalyticsPageState extends State<ViewAnalyticsPage> {
                   bloc.fetchPromotionById(widget.promotionId);
                 },
               ),
-              fetchingPromotionById: () => Center(
-                child: CustomDialogs.getLoading(size: 30),
-              ),
+              fetchingPromotionById: () => ViewAnalyticsShimmer(),
               promotionByIdLoadFailed: (message) => AppErrorWidget(
                 onTap: () {
                   bloc.fetchPromotionById(widget.promotionId);
                 },
               ),
-              promotionByIdLoaded: (result) {
-                var promotion = result;
+
+              promotionByIdLoaded: (promotion) {
+
 
                 return Padding(
                   padding: const EdgeInsets.only(

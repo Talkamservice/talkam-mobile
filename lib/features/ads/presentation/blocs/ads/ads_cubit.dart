@@ -58,8 +58,6 @@ class AdsCubit extends Cubit<AdsState> {
       emit(const AdsState.fetchingPromotionById());
       final promotion = await adsRepository.getPromotionById(promotionId);
       emit(AdsState.promotionByIdLoaded(promotion));
-
-
     } catch (e) {
       emit(AdsState.promotionByIdLoadFailed(e.toString()));
     }
@@ -142,10 +140,7 @@ class AdsCubit extends Cubit<AdsState> {
   ) async {
     try {
       emit(const AdsState.getAnalyticsLoading());
-      final result = await adsRepository.getAnalytics(
-        isPost,
-        id,
-      );
+      final result = await adsRepository.getAnalytics(isPost, id);
       emit(AdsState.getAnalyticsSuccess(result));
     } catch (e) {
       emit(AdsState.getAnalyticsFailed(e.toString()));
