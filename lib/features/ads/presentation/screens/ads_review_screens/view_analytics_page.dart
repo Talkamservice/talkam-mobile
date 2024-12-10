@@ -38,7 +38,7 @@ class _ViewAnalyticsPageState extends State<ViewAnalyticsPage> {
 
   @override
   void initState() {
-    bloc.getAnalytics(true,widget.promotionId);
+    bloc.fetchPromotionById(widget.promotionId);
     super.initState();
   }
 
@@ -54,9 +54,7 @@ class _ViewAnalyticsPageState extends State<ViewAnalyticsPage> {
         backgroundColor: Colors.white,
         body: BlocConsumer<AdsCubit, AdsState>(
           bloc: bloc,
-          listener: (context, state) {
-            // TODO: implement listener
-          },
+          listener: (context, state) {},
           builder: (context, state) {
             return state.maybeWhen(
               orElse: () => AppErrorWidget(
@@ -73,7 +71,6 @@ class _ViewAnalyticsPageState extends State<ViewAnalyticsPage> {
                 },
               ),
               promotionByIdLoaded: (result) {
-
                 var promotion = result;
 
                 return Padding(

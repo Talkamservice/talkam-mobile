@@ -238,7 +238,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
       try {
         final notificationResponse = await _notificationsRepository.getAllAnnouncements();
         // await _firebaseMessagingService.onUpdatePalynxNotification(false);
-        logger.w(notificationResponse.message);
+        // logger.w(notificationResponse.message);
         emit(GetAnnouncementsSuccessState(response: notificationResponse));
       } catch (e, stack) {
         logger.e(stack);

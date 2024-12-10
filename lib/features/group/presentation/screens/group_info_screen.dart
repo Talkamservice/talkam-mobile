@@ -122,7 +122,8 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> with SingleTickerProv
                               },
                               onAboutCLicked: () {
                                 context.pushNamed(PageUrl.groupDetailsScreen, extra: response);
-                              },
+
+                                },
                             ),
                           ),
                           10.verticalSpace,

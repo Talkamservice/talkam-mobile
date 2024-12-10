@@ -133,4 +133,17 @@ class GroupsRepositoryImpl extends GroupsRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<GetGroupsResponse> getPromotedGroups() async {
+    try {
+      final response = await _networkService.call(
+        UrlConfig.getPromotedGroups,
+        RequestMethod.get,
+      );
+      return GetGroupsResponse.fromJson(response.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

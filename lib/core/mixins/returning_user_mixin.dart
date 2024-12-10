@@ -11,18 +11,13 @@ import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 
 mixin ReturningUserMixin<T extends StatefulWidget> on State<T> {
   void gotoNextScreen(BuildContext context, TalkamUser state) {
-
-
     if (state.emailVerifiedAt == null) {
-      context.pushNamed(PageUrl.verifyOtpScreen, queryParameters: {
-        PathParam.email: state.email,
-        PathParam.otpType: VerifyOtpType.returningUser.name
-      });
+      context.pushNamed(PageUrl.verifyOtpScreen, queryParameters: {PathParam.email: state.email, PathParam.otpType: VerifyOtpType.returningUser.name});
 
       AuthBloc(injector.get()).add(SendOtpEvent(state.email, "verify_email"));
     } else if (state.interests.isEmpty) {
       context.goNamed(PageUrl.interestsScreen);
-    } else if (state.username.isEmpty || state.avatar == null) {
+    } else if (state.username.isEmpty) {
       context.goNamed(PageUrl.userNameScreen);
     } else {
       injector.get<PostBloc>().add(const PostEvent.getGuidelines());

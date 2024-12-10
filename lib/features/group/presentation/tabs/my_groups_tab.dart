@@ -10,6 +10,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/group/data/models/groups_filter_model.dart';
+import 'package:talkam/features/group/presentation/blocs/featured_groups/featured_groups_cubit.dart';
 import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
 import 'package:talkam/features/group/presentation/screens/refresh_group_listener.dart';
 import 'package:talkam/features/group/presentation/widgets/categories_chips.dart';
@@ -56,6 +57,11 @@ class _GroupExploreRecentTabState extends State<MyGroupsTab> with AutomaticKeepA
                 builder: (context, state) {
                   return Column(
                     children: [
+                      BlocProvider<FeaturedGroupsCubit>.value(
+                        value: injector.get<FeaturedGroupsCubit>(),
+                        child: const SuggestedGroups(),
+                      ),
+                      16.verticalSpace,
                       state.maybeWhen(orElse: () {
                         return AppErrorWidget(
                           onTap: () {

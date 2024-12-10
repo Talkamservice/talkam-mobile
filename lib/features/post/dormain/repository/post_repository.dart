@@ -14,6 +14,7 @@ abstract class PostRepository {
   Future<GetCategoriesResponse> getCategories({String? categoryId, bool? mergeGroups});
 
   Future<GetPostsResponse> getPosts(PostFilterModel model);
+  Future<GetPostsResponse> getPromotedPosts();
 
   // Future<TalkamPost> getAPosts(String id);
 

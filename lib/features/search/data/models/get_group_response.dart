@@ -34,6 +34,20 @@ class GetGroupsResponse {
       code: json['code'],
     );
   }
+
+  GetGroupsResponse copyWith({
+    GroupPaginationMeta? paginationMeta,
+    List<TalkamGroup>? groups,
+    bool? success,
+    int? code,
+  }) {
+    return GetGroupsResponse(
+      paginationMeta: paginationMeta ?? this.paginationMeta,
+      groups: groups ?? this.groups,
+      success: success ?? this.success,
+      code: code ?? this.code,
+    );
+  }
 }
 
 class GroupPaginationMeta {
