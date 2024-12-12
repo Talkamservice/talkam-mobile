@@ -6,6 +6,7 @@ import 'package:flutter/painting.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/features/ads/presentation/widgets/comment_shimmer_item.dart';
 
 class PostLoadingShimmerCustomized extends StatelessWidget {
   const PostLoadingShimmerCustomized({super.key, this.padding, required this.numberOfShimmers});
@@ -101,6 +102,29 @@ class PostLoadingShimmerCustomized extends StatelessWidget {
                       width: 1.sw,
                       decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
                     ),
+                    Divider(
+                      thickness: 1,
+                      color: Pallets.buttonGrey,
+                    ),
+                    Container(
+                      height: 50,
+                      width: 1.sw,
+                      decoration: BoxDecoration(color: Colors.white, borderRadius: BorderRadius.circular(10)),
+                    ),
+                    Divider(
+                      thickness: 1,
+                      color: Pallets.buttonGrey,
+                    ),
+                    10.verticalSpace,
+                    CommentShimmerItem(),
+                    10.verticalSpace,
+                    CommentShimmerItem(),
+                    10.verticalSpace,
+                    CommentShimmerItem(),
+                    10.verticalSpace,
+                    CommentShimmerItem(),
+                    10.verticalSpace,
+                    CommentShimmerItem(),
                   ],
                 ),
               ),
