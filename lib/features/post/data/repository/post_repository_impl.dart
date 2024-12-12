@@ -304,4 +304,21 @@ class PostRepositoryImpl extends PostRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<GetPostsResponse> getPromotedPosts() async {
+    try {
+      final response = await _networkService.call(
+        UrlConfig.getPromotedPosts,
+        RequestMethod.get,
+      );
+
+      return GetPostsResponse.fromJson(response.data);
+    } catch (e, stack) {
+      logger.e(e);
+      logger.e(stack);
+
+      rethrow;
+    }
+  }
 }

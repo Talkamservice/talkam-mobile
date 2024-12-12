@@ -132,7 +132,7 @@ class AnalyticsInfo {
         clicks: json["clicks"],
         minTimeSpent: json["min_time_spent"],
         maxTimeSpent: json["max_time_spent"],
-        countries: List<CountryStat>.from(json["countries"].map((x) => CountryStat.fromJson(x))),
+        countries: List<CountryStat>.from((json["countries"]??[]).map((x) => CountryStat.fromJson(x))),
         createdAt: DateTime.parse(json["created_at"]),
       );
 

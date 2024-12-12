@@ -1,6 +1,7 @@
 import 'package:get_it/get_it.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/group/presentation/blocs/create_group_cubit/create_group_cubit.dart';
+import 'package:talkam/features/group/presentation/blocs/featured_groups/featured_groups_cubit.dart';
 import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
 import 'package:talkam/features/messaging/presentation/blocs/conversations/conversations_cubit.dart';
@@ -83,6 +84,9 @@ void setup(GetIt getIt) {
   getIt.registerLazySingleton<NotificationsBloc>(() => NotificationsBloc(injector.get(), injector.get()));
 
   getIt.registerLazySingleton<UserProfileMediaTabCubit>(() => UserProfileMediaTabCubit(
+        injector.get(),
+      ));
+  getIt.registerLazySingleton<FeaturedGroupsCubit>(() => FeaturedGroupsCubit(
         injector.get(),
       ));
 }

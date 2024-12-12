@@ -13,11 +13,13 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/int_extension.dart';
+import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/profile/data/models/update_profile_payload.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/settings/presentation/blocs/settings/settings_bloc.dart';
 import 'package:talkam/features/settings/presentation/widgets/notification_setting_item.dart';
 import 'package:talkam/features/subscription/presentation/widgets/subscription_plan_card.dart';
+import 'package:talkam/features/subscription/utils/subscription_helper.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class AccountSettingsScreen extends StatefulWidget {
@@ -80,19 +82,14 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
           body: BlocConsumer<ProfileBloc, ProfileState>(
             bloc: profileBloc,
             listener: (context, state) {
-
-
               if (state is UpdateProfileFailure) {
                 adsDeactivated = !adsDeactivated;
                 CustomDialogs.error(state.error);
               }
 
-
               if (state is GetProfileSuccessState) {
                 adsDeactivated = !(state.user.shouldDisplayAd as int).toBool;
               }
-
-
             },
             buildWhen: (previous, current) => current is GetProfileLoadingState || current is GetProfileFailureState || current is GetProfileSuccessState,
             builder: (context, state) {
@@ -151,20 +148,22 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 20.0,
-                        ),
-                        child: NotificationSettingItem(
-                          notificationItemType: NotificationItemType.switchType,
-                          tittle: 'Deactivate ads on your feed',
-                          subtittle: 'You will be unable to see ads on your feeds when this is activated.',
-                          selected: adsDeactivated,
-                          onTap: () async {
-                            adsDeactivated = !adsDeactivated;
-                            setState(() {});
-                            profileBloc.add(UpdateProfileEvent(UpdateProfilePayload(shouldDisplayAd: (!adsDeactivated).toInt)));
-                          },
+                      SubscriptionHelper.subscriptionWidget(
+                        widget: Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 20.0,
+                          ),
+                          child: NotificationSettingItem(
+                            notificationItemType: NotificationItemType.switchType,
+                            tittle: 'Deactivate ads on your feed',
+                            subtittle: 'You will be unable to see ads on your feeds when this is activated.',
+                            selected: adsDeactivated,
+                            onTap: () async {
+                              adsDeactivated = !adsDeactivated;
+                              setState(() {});
+                              profileBloc.add(UpdateProfileEvent(UpdateProfilePayload(shouldDisplayAd: (!adsDeactivated).toInt)));
+                            },
+                          ),
                         ),
                       ),
                       16.verticalSpace,

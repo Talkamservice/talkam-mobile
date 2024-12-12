@@ -22,8 +22,9 @@ class SubscriptionPlanCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    logger.i(activeSub?.plan.isPaid);
+    // logger.i(activeSub?.plan.isPaid);
 
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
