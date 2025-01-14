@@ -395,25 +395,15 @@ class PostCreator {
     required this.username,
     required this.email,
     this.activeSubscription,
-
   });
 
-  PostCreator copyWith({
-    int? id,
-    String? avatar,
-    String? name,
-    String? username,
-    String? email,
-    ActiveSubscription? activeSubscription
-  }) =>
-      PostCreator(
+  PostCreator copyWith({int? id, String? avatar, String? name, String? username, String? email, ActiveSubscription? activeSubscription}) => PostCreator(
         id: id ?? this.id,
         avatar: avatar ?? this.avatar,
         name: name ?? this.name,
         username: username ?? this.username,
         email: email ?? this.email,
         activeSubscription: activeSubscription ?? this.activeSubscription,
-
       );
 
   factory PostCreator.fromJson(Map<String, dynamic> json) => PostCreator(
@@ -422,8 +412,7 @@ class PostCreator {
         name: json["name"],
         username: json["username"],
         email: json["email"],
-    activeSubscription: json["active_subscription"] == null ? null : ActiveSubscription?.fromJson(json["active_subscription"]),
-
+        activeSubscription: json["active_subscription"] == null ? null : ActiveSubscription?.fromJson(json["active_subscription"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -432,13 +421,17 @@ class PostCreator {
         "name": name,
         "username": username,
         "email": email,
-    "active_subscription": activeSubscription?.toJson(),
-
+        "active_subscription": activeSubscription?.toJson(),
       };
 
-  bool get isSubscribed =>activeSubscription!=null;
+  bool get isSubscribed => activeSubscription != null;
 
-  String get usersName => name.isNotEmpty ? name : (username ?? email);
+  String get usersName => (username ?? "").isNotEmpty
+      ? username!
+      : (name ?? "").isNotEmpty
+          ? name
+          : email;
+
 
   factory PostCreator.anonymous() => PostCreator(id: 0, avatar: "anonymous", name: "anonymous", username: "anonymous", email: "anonymous");
 }

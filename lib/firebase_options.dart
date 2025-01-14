@@ -17,10 +17,7 @@ import 'package:flutter/foundation.dart'
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
-      throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
-      );
+      return web;
     }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
@@ -28,15 +25,9 @@ class DefaultFirebaseOptions {
       case TargetPlatform.iOS:
         return ios;
       case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return macos;
       case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return windows;
       case TargetPlatform.linux:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
@@ -51,7 +42,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAG_0IXf7nV8BdwiG4gKQMGNs-tzu75Prk',
-    appId: '1:478885302787:android:0687c098adcae8ae807436',
+    appId: '1:478885302787:android:47ff863f6ccc995b807436',
     messagingSenderId: '478885302787',
     projectId: 'talkam-temp',
     storageBucket: 'talkam-temp.appspot.com',
@@ -59,13 +50,42 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDNIPDDGTmviX0itRrEStBEpBJnvX2Ul6Y',
-    appId: '1:478885302787:ios:2bfbec65eef022ab807436',
+    appId: '1:478885302787:ios:074c846c87398546807436',
+    messagingSenderId: '478885302787',
+    projectId: 'talkam-temp',
+    storageBucket: 'talkam-temp.appspot.com',
+    androidClientId: '478885302787-2p5kropebl3t1sp6vdfokom4kkphod4h.apps.googleusercontent.com',
+    iosClientId: '478885302787-ok0upi23o86662habvpf6tsf06u1gpog.apps.googleusercontent.com',
+    iosBundleId: 'com.talkamtech.app',
+  );
+
+  static const FirebaseOptions web = FirebaseOptions(
+    apiKey: 'AIzaSyDZk-Lns5LOM0q0RgWZqY9LXeu_ZBq1Zyk',
+    appId: '1:478885302787:web:a1b3ec1a48046c1a807436',
+    messagingSenderId: '478885302787',
+    projectId: 'talkam-temp',
+    authDomain: 'talkam-temp.firebaseapp.com',
+    storageBucket: 'talkam-temp.appspot.com',
+  );
+
+  static const FirebaseOptions macos = FirebaseOptions(
+    apiKey: 'AIzaSyDNIPDDGTmviX0itRrEStBEpBJnvX2Ul6Y',
+    appId: '1:478885302787:ios:618205e62da88787807436',
     messagingSenderId: '478885302787',
     projectId: 'talkam-temp',
     storageBucket: 'talkam-temp.appspot.com',
     androidClientId: '478885302787-32qfubm0damgpkn5tm0tt655s09e3sfq.apps.googleusercontent.com',
-    iosClientId: '478885302787-46tgclrpaf3vqnti7g95ud418uvjla9b.apps.googleusercontent.com',
-    iosBundleId: 'com.talkam.app',
+    iosClientId: '478885302787-vq9cik065d8806umib3uc3htghoslvim.apps.googleusercontent.com',
+    iosBundleId: 'com.example.talkam',
+  );
+
+  static const FirebaseOptions windows = FirebaseOptions(
+    apiKey: 'AIzaSyAwQ7aHAj_1lpjBgMbudOu-l82lVklPZBU',
+    appId: '1:478885302787:web:1504ba25ba5e94cc807436',
+    messagingSenderId: '478885302787',
+    projectId: 'talkam-temp',
+    authDomain: 'talkam-temp.firebaseapp.com',
+    storageBucket: 'talkam-temp.appspot.com',
   );
 
 }

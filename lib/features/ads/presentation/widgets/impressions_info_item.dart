@@ -6,10 +6,11 @@ import '../../../../core/theme/pallets.dart';
 import '../../../../gen/assets.gen.dart';
 
 class ImpressionsInfoItem extends StatelessWidget {
-  const ImpressionsInfoItem({super.key, required this.header, required this.number});
+  const ImpressionsInfoItem({super.key, required this.header, required this.number, required this.toolTip});
 
   final String header;
   final String number;
+  final String toolTip;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +26,18 @@ class ImpressionsInfoItem extends StatelessWidget {
               color: Pallets.textGrey,
             ),
             5.horizontalSpace,
-            ImageWidget(imageUrl: Assets.images.svgs.curvedInfoCircle, height: 13.33, width: 13.33, color: const Color(0xFF858585), )
+
+            Tooltip(
+              message: toolTip,
+                margin: EdgeInsets.symmetric(horizontal: 20),
+                waitDuration: Duration(seconds: 5),
+                triggerMode: TooltipTriggerMode.tap,
+                child: ImageWidget(
+              imageUrl: Assets.images.svgs.curvedInfoCircle,
+              height: 13.33,
+              width: 13.33,
+              color: const Color(0xFF858585),
+            ))
           ],
         ),
         8.verticalSpace,

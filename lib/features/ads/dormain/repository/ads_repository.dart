@@ -1,5 +1,7 @@
 import 'package:talkam/features/ads/data/models/ad_analytics_response.dart';
 import 'package:talkam/features/ads/data/models/create_promotion_payload.dart';
+import 'package:talkam/features/ads/data/models/get_ads_calculation.dart';
+import 'package:talkam/features/ads/data/models/get_ads_pricing.dart';
 import 'package:talkam/features/ads/data/models/initiate_payment_response.dart';
 import 'package:talkam/features/ads/data/models/promotion_data.dart';
 import 'package:talkam/features/ads/data/models/update_stat_payload.dart';
@@ -20,6 +22,10 @@ abstract class AdsRepository {
   Future<InitiatePaymentResponse> reinitiatePromotion(String promotionId);
 
   Future<dynamic> paymentCallback(String reference);
+
+  Future<GetCalculationResponse> calculateAdsCost({required double amount, required double dailyBudget, required double duration, required double impressions});
+
+  Future<GetPricingResponse> getAdsPricing();
 
   Future<dynamic> updateAd(String promotionId, String status);
 }

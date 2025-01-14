@@ -105,6 +105,7 @@ class _SubcategoryListState extends State<SubcategoryList> {
                         category: response.data[index],
                         onTap: () {
                           // logger.w(response.data[index].toJson());
+                          context.read<DrawerCubit>().closeDrawer();
 
                           if (response.data[index].type.toString().toLowerCase() == "category") {
                             context.pushNamed(PageUrl.categoriesScreen, extra: response.data[index]);

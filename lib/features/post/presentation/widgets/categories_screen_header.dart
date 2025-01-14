@@ -13,9 +13,10 @@ import 'package:talkam/features/post/presentation/widgets/rules_button.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 
 class CategoriesScreenHeader extends StatefulWidget {
-  const CategoriesScreenHeader({super.key, required this.category});
+  const CategoriesScreenHeader({super.key, required this.category, this.onFollowUpdated});
 
   final PostCategory category;
+  final VoidCallback? onFollowUpdated;
 
   @override
   State<CategoriesScreenHeader> createState() => _CategoriesScreenHeaderState();
@@ -33,7 +34,7 @@ class _CategoriesScreenHeaderState extends State<CategoriesScreenHeader> {
               child: Stack(
                 children: [
                   ImageWidget(
-                    imageUrl: widget.category.backgroundImage??'',
+                    imageUrl: widget.category.backgroundImage ?? '',
                     height: 210,
                     width: 1.sw,
                     fit: BoxFit.cover,
@@ -57,7 +58,10 @@ class _CategoriesScreenHeaderState extends State<CategoriesScreenHeader> {
                                   color: Pallets.white,
                                 )),
                             const Spacer(),
-                            FollowCategoryButton(category: widget.category),
+                            FollowCategoryButton(
+                              category: widget.category,
+                              onFollowUpdated: widget.onFollowUpdated,
+                            ),
                             // 17.horizontalSpace,
                             // const Icon(
                             //   Icons.info_outline,
@@ -86,7 +90,7 @@ class _CategoriesScreenHeaderState extends State<CategoriesScreenHeader> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             TextView(
-                              text: widget.category.name,
+                              text: widget.category.name ?? "",
                               fontSize: 16,
                             ),
                             TextView(
@@ -133,9 +137,11 @@ class FollowCategoryButton extends StatefulWidget {
   FollowCategoryButton({
     super.key,
     required this.category,
+    required this.onFollowUpdated,
   });
 
   final PostCategory category;
+  final VoidCallback? onFollowUpdated;
 
   @override
   State<FollowCategoryButton> createState() => _FollowCategoryButtonState();
@@ -147,15 +153,16 @@ class _FollowCategoryButtonState extends State<FollowCategoryButton> {
   @override
   Widget build(BuildContext context) {
     return GuestUserHelper.guestUserWidget(
-
         widget: BlocConsumer<ProfileBloc, ProfileState>(
           bloc: bloc,
           listener: (context, state) {
             if (state is UpdateInterestFailureState) {
               CustomDialogs.error(state.error);
             }
+
             if (state is UpdateInterestSuccessState) {
               widget.category.isFollowing = !widget.category.isFollowing;
+              widget.onFollowUpdated?.call();
             }
           },
           builder: (context, state) {

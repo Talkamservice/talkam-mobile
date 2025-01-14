@@ -3,6 +3,8 @@ import 'package:talkam/core/services/network/network_service.dart';
 import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/features/ads/data/models/ad_analytics_response.dart';
 import 'package:talkam/features/ads/data/models/create_promotion_payload.dart';
+import 'package:talkam/features/ads/data/models/get_ads_calculation.dart';
+import 'package:talkam/features/ads/data/models/get_ads_pricing.dart';
 import 'package:talkam/features/ads/data/models/initiate_payment_response.dart';
 import 'package:talkam/features/ads/data/models/promotion_data.dart';
 import 'package:talkam/features/ads/data/models/update_stat_payload.dart';
@@ -34,8 +36,9 @@ class AdsRepositoryImpl extends AdsRepository {
       var promotion = PromotionData.fromJson(response.data["data"]);
 
       return promotion;
-    } catch (e) {
+    } catch (e,stack) {
       logger.e(e);
+      logger.e(stack);
       rethrow;
     }
   }
@@ -121,6 +124,36 @@ class AdsRepositoryImpl extends AdsRepository {
         data: payload.toJson(),
       );
       return response.data;
+    } catch (e, stack) {
+      logger.e(e, stackTrace: stack);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<GetPricingResponse> getAdsPricing() async {
+    try {
+      final response = await _networkService.call(
+        UrlConfig.getPricing,
+        RequestMethod.get,
+      );
+      return GetPricingResponse.fromJson(response.data);
+    } catch (e, stack) {
+      logger.e(e, stackTrace: stack);
+      rethrow;
+    }
+  }
+
+  @override
+  Future<GetCalculationResponse> calculateAdsCost(
+      {required double amount, required double dailyBudget, required double duration, required double impressions}) async {
+    try {
+      final response = await _networkService.call(
+        UrlConfig.calculatePrice,
+        RequestMethod.get,
+        queryParams: {"amount": amount, "daily_budget": dailyBudget, "duration": duration, "impressions": impressions},
+      );
+      return GetCalculationResponse.fromJson(response.data);
     } catch (e, stack) {
       logger.e(e, stackTrace: stack);
       rethrow;

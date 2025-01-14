@@ -155,9 +155,9 @@ class AnalyticsInfo {
 }
 
 class CountryStat {
-  int id;
-  String name;
-  int percentage;
+  dynamic id;
+  dynamic name;
+  dynamic percentage;
 
   CountryStat({
     required this.id,

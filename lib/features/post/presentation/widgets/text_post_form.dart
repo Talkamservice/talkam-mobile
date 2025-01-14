@@ -73,6 +73,7 @@ class _TextPostFormState extends State<TextPostForm> with AutomaticKeepAliveClie
                         showRequiredAsterics: true,
                         hint: "Write the rest of your text here. (optional)"),
                     if (showLimitedCharacterWarning)
+
                       TalkamSubscriptionPrompt(
                         padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
                         tittle: "To have access to unlimited characters,",

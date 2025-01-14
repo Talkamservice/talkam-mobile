@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:talkam/common/widgets/link_recognizing_text.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/_core.dart';
+import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/messaging/dormain/models/app_message_model.dart';
 import 'package:talkam/features/messaging/presentation/widgets/message_bubbles/media_item.dart';
 
@@ -44,8 +46,14 @@ class SenderMessageItem extends StatelessWidget {
                 : const BoxConstraints(maxWidth: 280),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
-              children: [if (messageIsMedia) MediaItem(messageModel: message), TextMessageWidget(message: message, isShortMessage: isShortMessage,
-                onRetryMessage: onRetryMessage,)],
+              children: [
+                if (messageIsMedia) MediaItem(messageModel: message),
+                TextMessageWidget(
+                  message: message,
+                  isShortMessage: isShortMessage,
+                  onRetryMessage: onRetryMessage,
+                )
+              ],
             ),
           );
         },
@@ -65,20 +73,25 @@ class TextMessageWidget extends StatelessWidget {
   final bool isShortMessage;
   final VoidCallback onRetryMessage;
 
-
-
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: (isShortMessage || (messageIsMedia)) ? CrossAxisAlignment.end : CrossAxisAlignment.start,
       children: [
         if (message.content != null)
-          TextView(
+          LinkRecognizingText(
             text: message.content.toString(),
-            color: const Color(0xFF444444),
+            mainTextColor: Color(0xFF444444),
             fontSize: 15,
             fontWeight: FontWeight.w600,
+            linkColor: Pallets.adIndicator,
           ),
+        // TextView(
+        //   text: message.content.toString(),
+        //   color: const Color(0xFF444444),
+        //   fontSize: 15,
+        //   fontWeight: FontWeight.w600,
+        // ),
         if (message.content != null) const SizedBox(height: 5.0),
         _buildMessageStatus(context),
       ],

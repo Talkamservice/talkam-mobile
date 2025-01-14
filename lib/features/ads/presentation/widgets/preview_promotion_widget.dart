@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talkam/core/_core.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/ads/data/models/create_promotion_payload.dart';
 import 'package:talkam/features/ads/data/models/initiate_payment_response.dart';
 import 'package:talkam/features/ads/presentation/widgets/payment_method_item.dart';
 import 'package:talkam/features/ads/presentation/widgets/preview_promotion_item.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 
 class PreviewPromotionWidget extends StatelessWidget {
   const PreviewPromotionWidget({super.key, required this.payload, required this.paymentInfo});
@@ -19,7 +21,7 @@ class PreviewPromotionWidget extends StatelessWidget {
       children: [
         Padding(
           padding: EdgeInsets.only(left: 16, right: 10),
-          child: PreviewPromotionItem(title: "Total", content: "\$${paymentInfo.data.amount}"),
+          child: PreviewPromotionItem(title: "Total", content: "${injector.get<ProfileBloc>().appUser?.currency.toString().getCurrencySymbol}${paymentInfo.data.amount}"),
         ),
         15.verticalSpace,
         const Divider(color: Colors.grey),
@@ -63,7 +65,7 @@ class PreviewPromotionWidget extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  PreviewPromotionItem(title: "Daily budget", content: "\$${payload.dailyBudget}"),
+                  PreviewPromotionItem(title: "Daily budget", content: "${injector.get<ProfileBloc>().appUser?.currency.toString().getCurrencySymbol}${payload.dailyBudget}"),
                   100.horizontalSpace,
                   PreviewPromotionItem(title: "Duration", content: "${payload.duration} days"),
                   1.horizontalSpace,

@@ -184,7 +184,9 @@ class Post {
         uuid: json["uuid"],
         canComment: json["can_comment"],
         isAnonymous: json["is_anonymous"],
-        tags: json["tags"] == null ? [] : List<String>.from(json["tags"].map((x) => x)),
+        tags: json["tags"] == null
+            ? []
+            : (json["tags"] is List ? List<String>.from(json["tags"]) : (json["tags"] as String).split(',').map((e) => e.trim()).toList()),
         viewsCount: json["views_count"],
         status: json["status"],
         publishAt: json["publish_at"],

@@ -29,14 +29,13 @@ class TestFactories {
       likesCount: 0,
       status: "published",
       publishAt: null,
-      attachments: [
-        Attachment(url: "url", type: "image")
-      ],
+      attachments: [Attachment(url: "url", type: "image")],
       polls: [],
       reaction: createPostReaction(),
       createdAt: DateTime.now(),
       updatedAt: DateTime.now(),
-      group: null, promotion: null,
+      group: null,
+      promotion: null,
     );
   }
 
@@ -52,7 +51,10 @@ class TestFactories {
       updatedAt: DateTime.now(),
       isFollowing: false,
       parentCategory: null,
-      type: "Catgory", isSuspended: null, groupAccess: '',
+      type: "Catgory",
+      isSuspended: null,
+      groupAccess: '',
+      uuid: null,
     );
   }
 
@@ -106,6 +108,7 @@ class TestFactories {
           id: 1,
           name: "Dummy Category",
           description: 'FD',
+
           backgroundImage: null,
           followersCount: null,
           iconImage: null,
@@ -113,7 +116,10 @@ class TestFactories {
           updatedAt: null,
           isFollowing: false,
           parentCategory: null,
-          type: "Category", isSuspended: null, groupAccess: ''),
+          type: "Category",
+          isSuspended: null,
+          groupAccess: '',
+          uuid: null),
       owner: GroupOwner(id: Random().nextInt(5), username: "Dummy Owner"),
       about: "This is a dummy group about something interesting.",
       totalMembers: 123,
@@ -188,21 +194,21 @@ class TestFactories {
 
   static TalkamGroup emptyGroup = TalkamGroup(
     id: 1,
-    name: 'null',
+    name: 'Group',
     uuid: 'null',
-    userRole: null,
+    userRole: "Admin",
     status: null,
     groupAccess: null,
-    image: null,
-    isFollowing: null,
-    hasRequested: null,
+    image: "null",
+    isFollowing: false,
+    hasRequested: false,
     isSuspended: null,
     totalMembers: null,
     category: null,
-    guidelines: null,
-    description: null,
+    guidelines: [],
+    description: "null",
     owner: null,
-    about: null,
+    about: "null",
     createdAt: null,
     updatedAt: null,
   );

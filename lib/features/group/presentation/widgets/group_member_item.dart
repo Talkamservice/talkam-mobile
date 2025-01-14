@@ -103,9 +103,9 @@ class GroupMemberItem extends StatelessWidget {
     );
   }
 
-  String get getDisplayName => (member.user.name ?? "").isNotEmpty
-      ? member.user.name!
-      : (member.user.username != null && member.user.username!.isNotEmpty)
-          ? member.user.username!
+  String get getDisplayName =>  (member.user.username ?? "").isNotEmpty
+      ? member.user.username!
+      : (member.user.name ?? "").isNotEmpty
+          ? member.user.name!
           : member.user.email!;
 }

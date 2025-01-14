@@ -13,7 +13,6 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/int_extension.dart';
-import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/profile/data/models/update_profile_payload.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/settings/presentation/blocs/settings/settings_bloc.dart';
@@ -165,6 +164,7 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                             },
                           ),
                         ),
+                        freeUserWidget: 0.verticalSpace
                       ),
                       16.verticalSpace,
                       const Divider(

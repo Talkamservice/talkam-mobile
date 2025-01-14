@@ -1,8 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/network/network_service.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
@@ -19,9 +21,9 @@ import 'package:talkam/gen/assets.gen.dart';
 import '../../data/repository/local_post_repository.dart';
 
 class CategoriesScreen extends StatefulWidget {
-  const CategoriesScreen({super.key, required this.category});
+  CategoriesScreen({super.key, required this.category});
 
-  final PostCategory category;
+  PostCategory category;
 
   @override
   State<CategoriesScreen> createState() => _CategoriesScreenState();
@@ -44,99 +46,121 @@ class _CategoriesScreenState extends State<CategoriesScreen> with SingleTickerPr
   @override
   void initState() {
     _tabController = TabController(length: 3, vsync: this);
-
+    bloc.add(PostEvent.getCategoryById(categoryId: widget.category.uuid.toString()));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: NestedScrollView(
-        headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-          return [
-            SliverToBoxAdapter(
-              child: Column(
-                children: [
-                  CategoriesScreenHeader(category: widget.category),
-                  Container(
-                    color: context.colorScheme.surface,
-                    width: 1.sw,
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.only(
-                          top: 16,
-                          bottom: 0,
-                        ),
-                        child: TabBar(
-                            tabAlignment: TabAlignment.center,
-                            indicatorColor: context.colorScheme.primary,
-                            controller: _tabController,
-                            indicatorSize: TabBarIndicatorSize.label,
-                            indicatorWeight: 3,
-                            onTap: (value) {
-                              selecteIndex = value;
-                              _pageController.jumpToPage(value);
-                              setState(() {});
-                            },
-                            tabs: List.generate(
-                              tabItems.length,
-                              (index) => Tab(
-                                child: Row(
-                                  children: [
-                                    ImageWidget(
-                                      imageUrl: tabItems[index].imagePath,
-                                      color: selecteIndex == index ? context.colorScheme.primary : Pallets.grey,
-                                    ),
-                                    8.horizontalSpace,
-                                    TextView(
-                                      fontSize: 15,
-                                      fontWeight: FontWeight.w600,
-                                      text: tabItems[index].tittle,
-                                      color: selecteIndex == index ? context.colorScheme.onSurface : Pallets.grey60,
-                                      // fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ).toList()),
-                      ),
-                    ),
-                  ),
-                  4.verticalSpace,
-                ],
-              ),
-            )
-          ];
-        },
-        body: Column(
-          children: [
-            Expanded(
-              child: PageView(
-                controller: _pageController,
-                // physics: const NeverScrollableScrollPhysics(),
-                onPageChanged: (int index) {
-                  _tabController.animateTo(index);
-                  selecteIndex = index;
+    return BlocConsumer<PostBloc, PostState>(
+      bloc: bloc,
+      listener: (context, state) {
+        state.maybeWhen(
+            orElse: () {},
+            getCategoryLoading: () {},
+            getCategorySuccess: (category) {
+              widget.category = widget.category.copyWith(followersCount: category.followersCount);
+              setState(() {});
 
-                  setState(() {});
-                  // setState(() {});
-                },
-                children: [
-                  RecentPostByCategoryScreen(
-                    categoryId: widget.category.id.toString(),
+              logger.d("Follow updated${category.followersCount}");
+            },
+            getCategoriesFailure: (error) {});
+      },
+      builder: (context, state) {
+        return Scaffold(
+          body: NestedScrollView(
+            headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
+              return [
+                SliverToBoxAdapter(
+                  child: Column(
+                    children: [
+                      CategoriesScreenHeader(
+                        category: widget.category,
+                        onFollowUpdated: () {
+                          bloc.add(PostEvent.getCategoryById(categoryId: widget.category.uuid.toString()));
+                        },
+                      ),
+                      Container(
+                        color: context.colorScheme.surface,
+                        width: 1.sw,
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                              top: 16,
+                              bottom: 0,
+                            ),
+                            child: TabBar(
+                                tabAlignment: TabAlignment.center,
+                                indicatorColor: context.colorScheme.primary,
+                                controller: _tabController,
+                                indicatorSize: TabBarIndicatorSize.label,
+                                indicatorWeight: 3,
+                                onTap: (value) {
+                                  selecteIndex = value;
+                                  _pageController.jumpToPage(value);
+                                  setState(() {});
+                                },
+                                tabs: List.generate(
+                                  tabItems.length,
+                                  (index) => Tab(
+                                    child: Row(
+                                      children: [
+                                        ImageWidget(
+                                          imageUrl: tabItems[index].imagePath,
+                                          color: selecteIndex == index ? context.colorScheme.primary : Pallets.grey,
+                                        ),
+                                        8.horizontalSpace,
+                                        TextView(
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600,
+                                          text: tabItems[index].tittle,
+                                          color: selecteIndex == index ? context.colorScheme.onSurface : Pallets.grey60,
+                                          // fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ).toList()),
+                          ),
+                        ),
+                      ),
+                      4.verticalSpace,
+                    ],
                   ),
-                  FeaturedPostByCategoryScreen(
-                    categoryId: widget.category.id.toString(),
+                )
+              ];
+            },
+            body: Column(
+              children: [
+                Expanded(
+                  child: PageView(
+                    controller: _pageController,
+                    // physics: const NeverScrollableScrollPhysics(),
+                    onPageChanged: (int index) {
+                      _tabController.animateTo(index);
+                      selecteIndex = index;
+
+                      setState(() {});
+                      // setState(() {});
+                    },
+                    children: [
+                      RecentPostByCategoryScreen(
+                        categoryId: widget.category.id.toString(),
+                      ),
+                      FeaturedPostByCategoryScreen(
+                        categoryId: widget.category.id.toString(),
+                      ),
+                      TrendingPostByCategoryScreen(
+                        categoryId: widget.category.id.toString(),
+                      ),
+                    ],
                   ),
-                  TrendingPostByCategoryScreen(
-                    categoryId: widget.category.id.toString(),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
+                )
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

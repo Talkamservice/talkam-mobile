@@ -107,7 +107,7 @@ class SubscriptionPrompt extends StatelessWidget {
       onPressed: () {
         rootNavigatorKey.currentContext?.goNamed(PageUrl.onboardingIntro);
       },
-      child: const TextView(text: "Login/Signup to Subscribe"),
+      child: const TextView(text: "Subscribe to access this feature"),
     );
   }
 }

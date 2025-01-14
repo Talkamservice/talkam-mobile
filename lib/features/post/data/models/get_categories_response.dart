@@ -50,8 +50,9 @@ class GetCategoriesResponse {
 }
 
 class PostCategory {
-  int id;
+  dynamic id;
   dynamic name;
+  dynamic uuid;
   dynamic followersCount;
   dynamic description;
   dynamic backgroundImage;
@@ -69,6 +70,7 @@ class PostCategory {
   PostCategory({
     required this.id,
     required this.name,
+    required this.uuid,
     required this.description,
     required this.backgroundImage,
     required this.followersCount,
@@ -86,6 +88,7 @@ class PostCategory {
     int? id,
     int? followersCount,
     String? name,
+    String? uuid,
     String? description,
     String? backgroundImage,
     String? type,
@@ -101,6 +104,7 @@ class PostCategory {
         id: id ?? this.id,
         followersCount: followersCount ?? this.followersCount,
         name: name ?? this.name,
+        uuid: uuid ?? this.uuid,
         isFollowing: isFollowing ?? this.isFollowing,
         groupAccess: groupAccess ?? this.groupAccess,
         isSuspended: isSuspended ?? this.isSuspended,
@@ -116,6 +120,7 @@ class PostCategory {
   factory PostCategory.fromJson(Map<String, dynamic> json) => PostCategory(
         id: json["id"],
         name: json["name"],
+        uuid: json["uuid"],
         groupAccess: json['group_access'],
         description: json["description"],
         isSuspended: json['is_suspended'],
@@ -132,6 +137,7 @@ class PostCategory {
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
+        "uuid": uuid,
         "description": description,
         "background_image": backgroundImage,
         "icon_image": iconImage,
@@ -146,7 +152,6 @@ class PostCategory {
       };
 
   bool get isPublic => groupAccess == null || groupAccess == "Opened";
-
 
   @override
   String toString() {

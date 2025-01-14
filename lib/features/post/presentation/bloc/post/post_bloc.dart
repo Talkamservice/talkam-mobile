@@ -28,8 +28,6 @@ class PostBloc extends Bloc<PostEvent, PostState> {
   List<Trend> trends = [];
 
   PostBloc(this._postRepository) : super(const PostState.initial()) {
-
-    
     on<PostEvent>((event, emit) async {
       await event.map(
         getGuidelines: (e) async => await _mapGetGuideLinesEventToState(emit, e),
@@ -48,26 +46,39 @@ class PostBloc extends Bloc<PostEvent, PostState> {
         saveAComment: (e) async => await _mapSaveACommentEventToState(e.payload, emit),
         deleteComment: (e) async => await _mapDeleteCommentEventToState(e.commentId, emit),
         commentReaction: (e) async => await _mapCommentReactionEventToState(e.commentId, e.action, emit),
-        getTrends: (e) async=>await _mapGetTrendsEventToState(emit, e),
+        getTrends: (e) async => await _mapGetTrendsEventToState(emit, e),
+        getCategoryById: (e) async => await _mapGetCategoryEventToState(emit, e),
       );
     });
   }
 
   Future<void> _mapGetCategoriesEventToState(Emitter<PostState> emit, _GetCategoriesEvent e) async {
-
     if (e.refresh ?? true) {
       emit(const PostState.getCategoriesLoading());
     }
 
-
     try {
-      final response = await _postRepository.getCategories(categoryId: e.categoryId,mergeGroups: e.mergeGroups);
+      final response = await _postRepository.getCategories(categoryId: e.categoryId, mergeGroups: e.mergeGroups);
 
       categories = response.data;
 
       emit(PostState.getCategoriesSuccess(response));
     } catch (error) {
       emit(PostState.getCategoriesFailure(error.toString()));
+    }
+  }
+
+  Future<void> _mapGetCategoryEventToState(Emitter<PostState> emit, _GetCategoryByIdEvent e) async {
+    emit(PostState.getCategoryLoading());
+
+    try {
+      final response = await _postRepository.getCategoryById(
+        categoryId: e.categoryId,
+      );
+
+      emit(PostState.getCategorySuccess(response));
+    } catch (error) {
+      emit(PostState.getCategoryFailure(error.toString()));
     }
   }
 

@@ -56,33 +56,33 @@ class _MessagesScreenState extends State<MessagesScreen> {
               thickness: 1,
             ),
           ),
-
-          GuestUserHelper.guestUserWidget(widget: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10.0),
-            child: CustomSearchField(
-              controller: _searchController,
-              onChanged: (p0) {
-                GuestUserHelper.handleGuestUserAction(
-                  action: () {
-                    Debouncer(milliseconds: 100).run(
+          GuestUserHelper.guestUserWidget(
+              widget: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                child: CustomSearchField(
+                  controller: _searchController,
+                  onChanged: (p0) {
+                    GuestUserHelper.handleGuestUserAction(
+                      action: () {
+                        Debouncer(milliseconds: 100).run(
                           () {
-                        injector
-                            .get<ConversationsCubit>()
-                            .getConversations(reload: false, filter: ConversationsFilter(status: "", search: _searchController.text, tab: ""));
+                            injector
+                                .get<ConversationsCubit>()
+                                .getConversations(reload: false, filter: ConversationsFilter(status: "", search: _searchController.text, tab: ""));
+                          },
+                        );
                       },
                     );
                   },
-                );
-              },
-              // focusNode: p2,
-            ),
-          ),guestWidget: 0.verticalSpace ),
+                  // focusNode: p2,
+                ),
+              ),
+              guestWidget: 0.verticalSpace),
           GuestUserHelper.guestUserWidget(
-              guestWidget:  AppErrorWidget(
+              guestWidget: AppErrorWidget(
                 title: "You are a guest",
                 retryText: "Sign In",
                 onTap: () {
-
                   context.pushNamed(PageUrl.onboardingIntro);
                 },
                 message: "You cannot view messages because you are a guest, Please signin to view messages.",
@@ -105,7 +105,6 @@ class _MessagesScreenState extends State<MessagesScreen> {
                     getConversationsLoading: () {
                       return const MessagesLoadingShimmer();
                     },
-
                     getConversationsSuccess: (response) {
                       return MessagesList(
                         message: response.data,
@@ -170,30 +169,36 @@ class MessageAppBar extends StatelessWidget {
                         return Stack(
                           clipBehavior: Clip.none,
                           children: [
-                            GestureDetector(
-                              onTap: () {
+                            TextButton(
+                              onPressed: () {
                                 context.pushNamed(PageUrl.new_requestScreen);
                               },
-                              child: const TextView(
-                                text: "Requests",
-                                fontSize: 16,
-                                fontWeight: FontWeight.w700,
+                              style: TextButton.styleFrom(
+                                shape: StadiumBorder(side: BorderSide(color: Pallets.blueBubbleColor)),
+                                foregroundColor: Pallets.blueBubbleColor,
+                              ),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const TextView(
+                                    text: "Requests",
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                  if (stat.totalRequests != 0) 4.horizontalSpace,
+                                  if (stat.totalRequests != 0)
+                                    CircleAvatar(
+                                      radius: 8,
+                                      backgroundColor: Colors.red,
+                                      foregroundColor: Colors.white,
+                                      child: TextView(
+                                        text: stat.totalRequests.toString(),
+                                        fontSize: 8,
+                                      ),
+                                    ),
+                                ],
                               ),
                             ),
-                            if (stat.totalRequests != 0)
-                              Positioned(
-                                top: -10,
-                                right: -10,
-                                child: CircleAvatar(
-                                  radius: 8,
-                                  backgroundColor: Colors.red,
-                                  foregroundColor: Colors.white,
-                                  child: TextView(
-                                    text: stat.totalRequests.toString(),
-                                    fontSize: 8,
-                                  ),
-                                ),
-                              ),
                           ],
                         );
                       },

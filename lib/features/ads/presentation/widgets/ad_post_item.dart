@@ -23,7 +23,7 @@ class AdPostItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return      InkWell(
       onTap: () {
-        context.pushNamed(PageUrl.postDetailsScreen, extra: promotion.id.toString());
+        context.pushNamed(PageUrl.postDetailsScreen, extra: promotion.post?.id.toString());
       },
       child: Container(
         decoration: BoxDecoration(color: context.theme.cardColor, borderRadius: BorderRadius.circular(10), border: Border.all(color: Pallets.borderGrey)),

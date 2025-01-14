@@ -48,6 +48,13 @@ mixin _$AdsState {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -82,6 +89,12 @@ mixin _$AdsState {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -116,6 +129,12 @@ mixin _$AdsState {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -155,6 +174,15 @@ mixin _$AdsState {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -189,6 +217,12 @@ mixin _$AdsState {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -223,6 +257,12 @@ mixin _$AdsState {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -319,6 +359,13 @@ class _$InitialImpl implements _Initial {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return initial();
   }
@@ -356,6 +403,12 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return initial?.call();
   }
@@ -393,6 +446,12 @@ class _$InitialImpl implements _Initial {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -438,6 +497,15 @@ class _$InitialImpl implements _Initial {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return initial(this);
   }
@@ -475,6 +543,12 @@ class _$InitialImpl implements _Initial {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return initial?.call(this);
   }
@@ -512,6 +586,12 @@ class _$InitialImpl implements _Initial {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -596,6 +676,13 @@ class _$FetchingPromotionsImpl implements _FetchingPromotions {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return fetchingPromotions();
   }
@@ -633,6 +720,12 @@ class _$FetchingPromotionsImpl implements _FetchingPromotions {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return fetchingPromotions?.call();
   }
@@ -670,6 +763,12 @@ class _$FetchingPromotionsImpl implements _FetchingPromotions {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (fetchingPromotions != null) {
@@ -715,6 +814,15 @@ class _$FetchingPromotionsImpl implements _FetchingPromotions {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return fetchingPromotions(this);
   }
@@ -752,6 +860,12 @@ class _$FetchingPromotionsImpl implements _FetchingPromotions {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return fetchingPromotions?.call(this);
   }
@@ -789,6 +903,12 @@ class _$FetchingPromotionsImpl implements _FetchingPromotions {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (fetchingPromotions != null) {
@@ -903,6 +1023,13 @@ class _$PromotionsLoadedImpl implements _PromotionsLoaded {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return promotionsLoaded(promotions);
   }
@@ -940,6 +1067,12 @@ class _$PromotionsLoadedImpl implements _PromotionsLoaded {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return promotionsLoaded?.call(promotions);
   }
@@ -977,6 +1110,12 @@ class _$PromotionsLoadedImpl implements _PromotionsLoaded {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (promotionsLoaded != null) {
@@ -1022,6 +1161,15 @@ class _$PromotionsLoadedImpl implements _PromotionsLoaded {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return promotionsLoaded(this);
   }
@@ -1059,6 +1207,12 @@ class _$PromotionsLoadedImpl implements _PromotionsLoaded {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return promotionsLoaded?.call(this);
   }
@@ -1096,6 +1250,12 @@ class _$PromotionsLoadedImpl implements _PromotionsLoaded {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (promotionsLoaded != null) {
@@ -1218,6 +1378,13 @@ class _$PromotionsLoadFailedImpl implements _PromotionsLoadFailed {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return promotionsLoadFailed(message);
   }
@@ -1255,6 +1422,12 @@ class _$PromotionsLoadFailedImpl implements _PromotionsLoadFailed {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return promotionsLoadFailed?.call(message);
   }
@@ -1292,6 +1465,12 @@ class _$PromotionsLoadFailedImpl implements _PromotionsLoadFailed {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (promotionsLoadFailed != null) {
@@ -1337,6 +1516,15 @@ class _$PromotionsLoadFailedImpl implements _PromotionsLoadFailed {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return promotionsLoadFailed(this);
   }
@@ -1374,6 +1562,12 @@ class _$PromotionsLoadFailedImpl implements _PromotionsLoadFailed {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return promotionsLoadFailed?.call(this);
   }
@@ -1411,6 +1605,12 @@ class _$PromotionsLoadFailedImpl implements _PromotionsLoadFailed {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (promotionsLoadFailed != null) {
@@ -1506,6 +1706,13 @@ class _$FetchingPromotionByIdImpl implements _FetchingPromotionById {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return fetchingPromotionById();
   }
@@ -1543,6 +1750,12 @@ class _$FetchingPromotionByIdImpl implements _FetchingPromotionById {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return fetchingPromotionById?.call();
   }
@@ -1580,6 +1793,12 @@ class _$FetchingPromotionByIdImpl implements _FetchingPromotionById {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (fetchingPromotionById != null) {
@@ -1625,6 +1844,15 @@ class _$FetchingPromotionByIdImpl implements _FetchingPromotionById {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return fetchingPromotionById(this);
   }
@@ -1662,6 +1890,12 @@ class _$FetchingPromotionByIdImpl implements _FetchingPromotionById {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return fetchingPromotionById?.call(this);
   }
@@ -1699,6 +1933,12 @@ class _$FetchingPromotionByIdImpl implements _FetchingPromotionById {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (fetchingPromotionById != null) {
@@ -1812,6 +2052,13 @@ class _$PromotionByIdLoadedImpl implements _PromotionByIdLoaded {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return promotionByIdLoaded(promotion);
   }
@@ -1849,6 +2096,12 @@ class _$PromotionByIdLoadedImpl implements _PromotionByIdLoaded {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return promotionByIdLoaded?.call(promotion);
   }
@@ -1886,6 +2139,12 @@ class _$PromotionByIdLoadedImpl implements _PromotionByIdLoaded {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (promotionByIdLoaded != null) {
@@ -1931,6 +2190,15 @@ class _$PromotionByIdLoadedImpl implements _PromotionByIdLoaded {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return promotionByIdLoaded(this);
   }
@@ -1968,6 +2236,12 @@ class _$PromotionByIdLoadedImpl implements _PromotionByIdLoaded {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return promotionByIdLoaded?.call(this);
   }
@@ -2005,6 +2279,12 @@ class _$PromotionByIdLoadedImpl implements _PromotionByIdLoaded {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (promotionByIdLoaded != null) {
@@ -2128,6 +2408,13 @@ class _$PromotionByIdLoadFailedImpl implements _PromotionByIdLoadFailed {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return promotionByIdLoadFailed(message);
   }
@@ -2165,6 +2452,12 @@ class _$PromotionByIdLoadFailedImpl implements _PromotionByIdLoadFailed {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return promotionByIdLoadFailed?.call(message);
   }
@@ -2202,6 +2495,12 @@ class _$PromotionByIdLoadFailedImpl implements _PromotionByIdLoadFailed {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (promotionByIdLoadFailed != null) {
@@ -2247,6 +2546,15 @@ class _$PromotionByIdLoadFailedImpl implements _PromotionByIdLoadFailed {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return promotionByIdLoadFailed(this);
   }
@@ -2284,6 +2592,12 @@ class _$PromotionByIdLoadFailedImpl implements _PromotionByIdLoadFailed {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return promotionByIdLoadFailed?.call(this);
   }
@@ -2321,6 +2635,12 @@ class _$PromotionByIdLoadFailedImpl implements _PromotionByIdLoadFailed {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (promotionByIdLoadFailed != null) {
@@ -2414,6 +2734,13 @@ class _$CreatingPromotionImpl implements _CreatingPromotion {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return creatingPromotion();
   }
@@ -2451,6 +2778,12 @@ class _$CreatingPromotionImpl implements _CreatingPromotion {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return creatingPromotion?.call();
   }
@@ -2488,6 +2821,12 @@ class _$CreatingPromotionImpl implements _CreatingPromotion {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (creatingPromotion != null) {
@@ -2533,6 +2872,15 @@ class _$CreatingPromotionImpl implements _CreatingPromotion {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return creatingPromotion(this);
   }
@@ -2570,6 +2918,12 @@ class _$CreatingPromotionImpl implements _CreatingPromotion {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return creatingPromotion?.call(this);
   }
@@ -2607,6 +2961,12 @@ class _$CreatingPromotionImpl implements _CreatingPromotion {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (creatingPromotion != null) {
@@ -2720,6 +3080,13 @@ class _$PromotionCreatedImpl implements _PromotionCreated {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return promotionCreated(result);
   }
@@ -2757,6 +3124,12 @@ class _$PromotionCreatedImpl implements _PromotionCreated {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return promotionCreated?.call(result);
   }
@@ -2794,6 +3167,12 @@ class _$PromotionCreatedImpl implements _PromotionCreated {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (promotionCreated != null) {
@@ -2839,6 +3218,15 @@ class _$PromotionCreatedImpl implements _PromotionCreated {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return promotionCreated(this);
   }
@@ -2876,6 +3264,12 @@ class _$PromotionCreatedImpl implements _PromotionCreated {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return promotionCreated?.call(this);
   }
@@ -2913,6 +3307,12 @@ class _$PromotionCreatedImpl implements _PromotionCreated {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (promotionCreated != null) {
@@ -3035,6 +3435,13 @@ class _$PromotionCreateFailedImpl implements _PromotionCreateFailed {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return promotionCreateFailed(message);
   }
@@ -3072,6 +3479,12 @@ class _$PromotionCreateFailedImpl implements _PromotionCreateFailed {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return promotionCreateFailed?.call(message);
   }
@@ -3109,6 +3522,12 @@ class _$PromotionCreateFailedImpl implements _PromotionCreateFailed {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (promotionCreateFailed != null) {
@@ -3154,6 +3573,15 @@ class _$PromotionCreateFailedImpl implements _PromotionCreateFailed {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return promotionCreateFailed(this);
   }
@@ -3191,6 +3619,12 @@ class _$PromotionCreateFailedImpl implements _PromotionCreateFailed {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return promotionCreateFailed?.call(this);
   }
@@ -3228,6 +3662,12 @@ class _$PromotionCreateFailedImpl implements _PromotionCreateFailed {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (promotionCreateFailed != null) {
@@ -3321,6 +3761,13 @@ class _$RemovingPromotionImpl implements _RemovingPromotion {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return removingPromotion();
   }
@@ -3358,6 +3805,12 @@ class _$RemovingPromotionImpl implements _RemovingPromotion {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return removingPromotion?.call();
   }
@@ -3395,6 +3848,12 @@ class _$RemovingPromotionImpl implements _RemovingPromotion {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (removingPromotion != null) {
@@ -3440,6 +3899,15 @@ class _$RemovingPromotionImpl implements _RemovingPromotion {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return removingPromotion(this);
   }
@@ -3477,6 +3945,12 @@ class _$RemovingPromotionImpl implements _RemovingPromotion {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return removingPromotion?.call(this);
   }
@@ -3514,6 +3988,12 @@ class _$RemovingPromotionImpl implements _RemovingPromotion {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (removingPromotion != null) {
@@ -3627,6 +4107,13 @@ class _$PromotionRemovedImpl implements _PromotionRemoved {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return promotionRemoved(result);
   }
@@ -3664,6 +4151,12 @@ class _$PromotionRemovedImpl implements _PromotionRemoved {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return promotionRemoved?.call(result);
   }
@@ -3701,6 +4194,12 @@ class _$PromotionRemovedImpl implements _PromotionRemoved {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (promotionRemoved != null) {
@@ -3746,6 +4245,15 @@ class _$PromotionRemovedImpl implements _PromotionRemoved {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return promotionRemoved(this);
   }
@@ -3783,6 +4291,12 @@ class _$PromotionRemovedImpl implements _PromotionRemoved {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return promotionRemoved?.call(this);
   }
@@ -3820,6 +4334,12 @@ class _$PromotionRemovedImpl implements _PromotionRemoved {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (promotionRemoved != null) {
@@ -3942,6 +4462,13 @@ class _$PromotionRemoveFailedImpl implements _PromotionRemoveFailed {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return promotionRemoveFailed(message);
   }
@@ -3979,6 +4506,12 @@ class _$PromotionRemoveFailedImpl implements _PromotionRemoveFailed {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return promotionRemoveFailed?.call(message);
   }
@@ -4016,6 +4549,12 @@ class _$PromotionRemoveFailedImpl implements _PromotionRemoveFailed {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (promotionRemoveFailed != null) {
@@ -4061,6 +4600,15 @@ class _$PromotionRemoveFailedImpl implements _PromotionRemoveFailed {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return promotionRemoveFailed(this);
   }
@@ -4098,6 +4646,12 @@ class _$PromotionRemoveFailedImpl implements _PromotionRemoveFailed {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return promotionRemoveFailed?.call(this);
   }
@@ -4135,6 +4689,12 @@ class _$PromotionRemoveFailedImpl implements _PromotionRemoveFailed {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (promotionRemoveFailed != null) {
@@ -4228,6 +4788,13 @@ class _$ValidateStateImpl implements _ValidateState {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return validateFormsState();
   }
@@ -4265,6 +4832,12 @@ class _$ValidateStateImpl implements _ValidateState {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return validateFormsState?.call();
   }
@@ -4302,6 +4875,12 @@ class _$ValidateStateImpl implements _ValidateState {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (validateFormsState != null) {
@@ -4347,6 +4926,15 @@ class _$ValidateStateImpl implements _ValidateState {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return validateFormsState(this);
   }
@@ -4384,6 +4972,12 @@ class _$ValidateStateImpl implements _ValidateState {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return validateFormsState?.call(this);
   }
@@ -4421,6 +5015,12 @@ class _$ValidateStateImpl implements _ValidateState {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (validateFormsState != null) {
@@ -4505,6 +5105,13 @@ class _$ValidateSuccessImpl implements _ValidateSuccess {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return validateFormsSuccessState();
   }
@@ -4542,6 +5149,12 @@ class _$ValidateSuccessImpl implements _ValidateSuccess {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return validateFormsSuccessState?.call();
   }
@@ -4579,6 +5192,12 @@ class _$ValidateSuccessImpl implements _ValidateSuccess {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (validateFormsSuccessState != null) {
@@ -4624,6 +5243,15 @@ class _$ValidateSuccessImpl implements _ValidateSuccess {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return validateFormsSuccessState(this);
   }
@@ -4661,6 +5289,12 @@ class _$ValidateSuccessImpl implements _ValidateSuccess {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return validateFormsSuccessState?.call(this);
   }
@@ -4698,6 +5332,12 @@ class _$ValidateSuccessImpl implements _ValidateSuccess {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (validateFormsSuccessState != null) {
@@ -4782,6 +5422,13 @@ class _$PaymentLoadingImpl implements _PaymentLoading {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return paymentLoading();
   }
@@ -4819,6 +5466,12 @@ class _$PaymentLoadingImpl implements _PaymentLoading {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return paymentLoading?.call();
   }
@@ -4856,6 +5509,12 @@ class _$PaymentLoadingImpl implements _PaymentLoading {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (paymentLoading != null) {
@@ -4901,6 +5560,15 @@ class _$PaymentLoadingImpl implements _PaymentLoading {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return paymentLoading(this);
   }
@@ -4938,6 +5606,12 @@ class _$PaymentLoadingImpl implements _PaymentLoading {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return paymentLoading?.call(this);
   }
@@ -4975,6 +5649,12 @@ class _$PaymentLoadingImpl implements _PaymentLoading {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (paymentLoading != null) {
@@ -5087,6 +5767,13 @@ class _$PaymentSuccessImpl implements _PaymentSuccess {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return paymentSuccess(result);
   }
@@ -5124,6 +5811,12 @@ class _$PaymentSuccessImpl implements _PaymentSuccess {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return paymentSuccess?.call(result);
   }
@@ -5161,6 +5854,12 @@ class _$PaymentSuccessImpl implements _PaymentSuccess {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (paymentSuccess != null) {
@@ -5206,6 +5905,15 @@ class _$PaymentSuccessImpl implements _PaymentSuccess {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return paymentSuccess(this);
   }
@@ -5243,6 +5951,12 @@ class _$PaymentSuccessImpl implements _PaymentSuccess {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return paymentSuccess?.call(this);
   }
@@ -5280,6 +5994,12 @@ class _$PaymentSuccessImpl implements _PaymentSuccess {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (paymentSuccess != null) {
@@ -5400,6 +6120,13 @@ class _$PaymentFailedImpl implements _PaymentFailed {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return paymentFailed(message);
   }
@@ -5437,6 +6164,12 @@ class _$PaymentFailedImpl implements _PaymentFailed {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return paymentFailed?.call(message);
   }
@@ -5474,6 +6207,12 @@ class _$PaymentFailedImpl implements _PaymentFailed {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (paymentFailed != null) {
@@ -5519,6 +6258,15 @@ class _$PaymentFailedImpl implements _PaymentFailed {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return paymentFailed(this);
   }
@@ -5556,6 +6304,12 @@ class _$PaymentFailedImpl implements _PaymentFailed {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return paymentFailed?.call(this);
   }
@@ -5593,6 +6347,12 @@ class _$PaymentFailedImpl implements _PaymentFailed {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (paymentFailed != null) {
@@ -5686,6 +6446,13 @@ class _$VerifyPaymentLoadingImpl implements _VerifyPaymentLoading {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return verifyPaymentLoading();
   }
@@ -5723,6 +6490,12 @@ class _$VerifyPaymentLoadingImpl implements _VerifyPaymentLoading {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return verifyPaymentLoading?.call();
   }
@@ -5760,6 +6533,12 @@ class _$VerifyPaymentLoadingImpl implements _VerifyPaymentLoading {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (verifyPaymentLoading != null) {
@@ -5805,6 +6584,15 @@ class _$VerifyPaymentLoadingImpl implements _VerifyPaymentLoading {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return verifyPaymentLoading(this);
   }
@@ -5842,6 +6630,12 @@ class _$VerifyPaymentLoadingImpl implements _VerifyPaymentLoading {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return verifyPaymentLoading?.call(this);
   }
@@ -5879,6 +6673,12 @@ class _$VerifyPaymentLoadingImpl implements _VerifyPaymentLoading {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (verifyPaymentLoading != null) {
@@ -5993,6 +6793,13 @@ class _$VerifyPaymentSuccessImpl implements _VerifyPaymentSuccess {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return verifyPaymentSuccess(result);
   }
@@ -6030,6 +6837,12 @@ class _$VerifyPaymentSuccessImpl implements _VerifyPaymentSuccess {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return verifyPaymentSuccess?.call(result);
   }
@@ -6067,6 +6880,12 @@ class _$VerifyPaymentSuccessImpl implements _VerifyPaymentSuccess {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (verifyPaymentSuccess != null) {
@@ -6112,6 +6931,15 @@ class _$VerifyPaymentSuccessImpl implements _VerifyPaymentSuccess {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return verifyPaymentSuccess(this);
   }
@@ -6149,6 +6977,12 @@ class _$VerifyPaymentSuccessImpl implements _VerifyPaymentSuccess {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return verifyPaymentSuccess?.call(this);
   }
@@ -6186,6 +7020,12 @@ class _$VerifyPaymentSuccessImpl implements _VerifyPaymentSuccess {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (verifyPaymentSuccess != null) {
@@ -6307,6 +7147,13 @@ class _$VarifyPaymentFailedImpl implements _VarifyPaymentFailed {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return verifyPaymentFailed(message);
   }
@@ -6344,6 +7191,12 @@ class _$VarifyPaymentFailedImpl implements _VarifyPaymentFailed {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return verifyPaymentFailed?.call(message);
   }
@@ -6381,6 +7234,12 @@ class _$VarifyPaymentFailedImpl implements _VarifyPaymentFailed {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (verifyPaymentFailed != null) {
@@ -6426,6 +7285,15 @@ class _$VarifyPaymentFailedImpl implements _VarifyPaymentFailed {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return verifyPaymentFailed(this);
   }
@@ -6463,6 +7331,12 @@ class _$VarifyPaymentFailedImpl implements _VarifyPaymentFailed {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return verifyPaymentFailed?.call(this);
   }
@@ -6500,6 +7374,12 @@ class _$VarifyPaymentFailedImpl implements _VarifyPaymentFailed {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (verifyPaymentFailed != null) {
@@ -6593,6 +7473,13 @@ class _$UpdateAdLoadingImpl implements _UpdateAdLoading {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return updateAdLoading();
   }
@@ -6630,6 +7517,12 @@ class _$UpdateAdLoadingImpl implements _UpdateAdLoading {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return updateAdLoading?.call();
   }
@@ -6667,6 +7560,12 @@ class _$UpdateAdLoadingImpl implements _UpdateAdLoading {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (updateAdLoading != null) {
@@ -6712,6 +7611,15 @@ class _$UpdateAdLoadingImpl implements _UpdateAdLoading {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return updateAdLoading(this);
   }
@@ -6749,6 +7657,12 @@ class _$UpdateAdLoadingImpl implements _UpdateAdLoading {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return updateAdLoading?.call(this);
   }
@@ -6786,6 +7700,12 @@ class _$UpdateAdLoadingImpl implements _UpdateAdLoading {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (updateAdLoading != null) {
@@ -6899,6 +7819,13 @@ class _$UpdateAdSuccessImpl implements _UpdateAdSuccess {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return updateAdSuccess(result);
   }
@@ -6936,6 +7863,12 @@ class _$UpdateAdSuccessImpl implements _UpdateAdSuccess {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return updateAdSuccess?.call(result);
   }
@@ -6973,6 +7906,12 @@ class _$UpdateAdSuccessImpl implements _UpdateAdSuccess {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (updateAdSuccess != null) {
@@ -7018,6 +7957,15 @@ class _$UpdateAdSuccessImpl implements _UpdateAdSuccess {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return updateAdSuccess(this);
   }
@@ -7055,6 +8003,12 @@ class _$UpdateAdSuccessImpl implements _UpdateAdSuccess {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return updateAdSuccess?.call(this);
   }
@@ -7092,6 +8046,12 @@ class _$UpdateAdSuccessImpl implements _UpdateAdSuccess {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (updateAdSuccess != null) {
@@ -7212,6 +8172,13 @@ class _$UpdateAdFailureImpl implements _UpdateAdFailure {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return updateAdFailed(message);
   }
@@ -7249,6 +8216,12 @@ class _$UpdateAdFailureImpl implements _UpdateAdFailure {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return updateAdFailed?.call(message);
   }
@@ -7286,6 +8259,12 @@ class _$UpdateAdFailureImpl implements _UpdateAdFailure {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (updateAdFailed != null) {
@@ -7331,6 +8310,15 @@ class _$UpdateAdFailureImpl implements _UpdateAdFailure {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return updateAdFailed(this);
   }
@@ -7368,6 +8356,12 @@ class _$UpdateAdFailureImpl implements _UpdateAdFailure {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return updateAdFailed?.call(this);
   }
@@ -7405,6 +8399,12 @@ class _$UpdateAdFailureImpl implements _UpdateAdFailure {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (updateAdFailed != null) {
@@ -7498,6 +8498,13 @@ class _$GetAnalyticsLoadingImpl implements _GetAnalyticsLoading {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return getAnalyticsLoading();
   }
@@ -7535,6 +8542,12 @@ class _$GetAnalyticsLoadingImpl implements _GetAnalyticsLoading {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return getAnalyticsLoading?.call();
   }
@@ -7572,6 +8585,12 @@ class _$GetAnalyticsLoadingImpl implements _GetAnalyticsLoading {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (getAnalyticsLoading != null) {
@@ -7617,6 +8636,15 @@ class _$GetAnalyticsLoadingImpl implements _GetAnalyticsLoading {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return getAnalyticsLoading(this);
   }
@@ -7654,6 +8682,12 @@ class _$GetAnalyticsLoadingImpl implements _GetAnalyticsLoading {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return getAnalyticsLoading?.call(this);
   }
@@ -7691,6 +8725,12 @@ class _$GetAnalyticsLoadingImpl implements _GetAnalyticsLoading {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (getAnalyticsLoading != null) {
@@ -7803,6 +8843,13 @@ class _$GetAnalyticsSuccessImpl implements _GetAnalyticsSuccess {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return getAnalyticsSuccess(result);
   }
@@ -7840,6 +8887,12 @@ class _$GetAnalyticsSuccessImpl implements _GetAnalyticsSuccess {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return getAnalyticsSuccess?.call(result);
   }
@@ -7877,6 +8930,12 @@ class _$GetAnalyticsSuccessImpl implements _GetAnalyticsSuccess {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (getAnalyticsSuccess != null) {
@@ -7922,6 +8981,15 @@ class _$GetAnalyticsSuccessImpl implements _GetAnalyticsSuccess {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return getAnalyticsSuccess(this);
   }
@@ -7959,6 +9027,12 @@ class _$GetAnalyticsSuccessImpl implements _GetAnalyticsSuccess {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return getAnalyticsSuccess?.call(this);
   }
@@ -7996,6 +9070,12 @@ class _$GetAnalyticsSuccessImpl implements _GetAnalyticsSuccess {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (getAnalyticsSuccess != null) {
@@ -8117,6 +9197,13 @@ class _$GetAnalyticsFailedImpl implements _GetAnalyticsFailed {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return getAnalyticsFailed(message);
   }
@@ -8154,6 +9241,12 @@ class _$GetAnalyticsFailedImpl implements _GetAnalyticsFailed {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return getAnalyticsFailed?.call(message);
   }
@@ -8191,6 +9284,12 @@ class _$GetAnalyticsFailedImpl implements _GetAnalyticsFailed {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (getAnalyticsFailed != null) {
@@ -8236,6 +9335,15 @@ class _$GetAnalyticsFailedImpl implements _GetAnalyticsFailed {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return getAnalyticsFailed(this);
   }
@@ -8273,6 +9381,12 @@ class _$GetAnalyticsFailedImpl implements _GetAnalyticsFailed {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return getAnalyticsFailed?.call(this);
   }
@@ -8310,6 +9424,12 @@ class _$GetAnalyticsFailedImpl implements _GetAnalyticsFailed {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (getAnalyticsFailed != null) {
@@ -8403,6 +9523,13 @@ class _$UpdateStatLoadingImpl implements _UpdateStatLoading {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return updateStatsLoading();
   }
@@ -8440,6 +9567,12 @@ class _$UpdateStatLoadingImpl implements _UpdateStatLoading {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return updateStatsLoading?.call();
   }
@@ -8477,6 +9610,12 @@ class _$UpdateStatLoadingImpl implements _UpdateStatLoading {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (updateStatsLoading != null) {
@@ -8522,6 +9661,15 @@ class _$UpdateStatLoadingImpl implements _UpdateStatLoading {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return updateStatsLoading(this);
   }
@@ -8559,6 +9707,12 @@ class _$UpdateStatLoadingImpl implements _UpdateStatLoading {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return updateStatsLoading?.call(this);
   }
@@ -8596,6 +9750,12 @@ class _$UpdateStatLoadingImpl implements _UpdateStatLoading {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (updateStatsLoading != null) {
@@ -8709,6 +9869,13 @@ class _$UpdateStatsSuccessImpl implements _UpdateStatsSuccess {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return updateStatsSuccess(result);
   }
@@ -8746,6 +9913,12 @@ class _$UpdateStatsSuccessImpl implements _UpdateStatsSuccess {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return updateStatsSuccess?.call(result);
   }
@@ -8783,6 +9956,12 @@ class _$UpdateStatsSuccessImpl implements _UpdateStatsSuccess {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (updateStatsSuccess != null) {
@@ -8828,6 +10007,15 @@ class _$UpdateStatsSuccessImpl implements _UpdateStatsSuccess {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return updateStatsSuccess(this);
   }
@@ -8865,6 +10053,12 @@ class _$UpdateStatsSuccessImpl implements _UpdateStatsSuccess {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return updateStatsSuccess?.call(this);
   }
@@ -8902,6 +10096,12 @@ class _$UpdateStatsSuccessImpl implements _UpdateStatsSuccess {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (updateStatsSuccess != null) {
@@ -9023,6 +10223,13 @@ class _$UpdateStatsFailureImpl implements _UpdateStatsFailure {
     required TResult Function() updateStatsLoading,
     required TResult Function(dynamic result) updateStatsSuccess,
     required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
   }) {
     return updateStatsFailed(message);
   }
@@ -9060,6 +10267,12 @@ class _$UpdateStatsFailureImpl implements _UpdateStatsFailure {
     TResult? Function()? updateStatsLoading,
     TResult? Function(dynamic result)? updateStatsSuccess,
     TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
   }) {
     return updateStatsFailed?.call(message);
   }
@@ -9097,6 +10310,12 @@ class _$UpdateStatsFailureImpl implements _UpdateStatsFailure {
     TResult Function()? updateStatsLoading,
     TResult Function(dynamic result)? updateStatsSuccess,
     TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (updateStatsFailed != null) {
@@ -9142,6 +10361,15 @@ class _$UpdateStatsFailureImpl implements _UpdateStatsFailure {
     required TResult Function(_UpdateStatLoading value) updateStatsLoading,
     required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
     required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
   }) {
     return updateStatsFailed(this);
   }
@@ -9179,6 +10407,12 @@ class _$UpdateStatsFailureImpl implements _UpdateStatsFailure {
     TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
   }) {
     return updateStatsFailed?.call(this);
   }
@@ -9216,6 +10450,12 @@ class _$UpdateStatsFailureImpl implements _UpdateStatsFailure {
     TResult Function(_UpdateStatLoading value)? updateStatsLoading,
     TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
     TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
     required TResult orElse(),
   }) {
     if (updateStatsFailed != null) {
@@ -9236,4 +10476,2058 @@ abstract class _UpdateStatsFailure implements AdsState {
   @JsonKey(includeFromJson: false, includeToJson: false)
   _$$UpdateStatsFailureImplCopyWith<_$UpdateStatsFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GetPricingLoadingImplCopyWith<$Res> {
+  factory _$$GetPricingLoadingImplCopyWith(_$GetPricingLoadingImpl value,
+          $Res Function(_$GetPricingLoadingImpl) then) =
+      __$$GetPricingLoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetPricingLoadingImplCopyWithImpl<$Res>
+    extends _$AdsStateCopyWithImpl<$Res, _$GetPricingLoadingImpl>
+    implements _$$GetPricingLoadingImplCopyWith<$Res> {
+  __$$GetPricingLoadingImplCopyWithImpl(_$GetPricingLoadingImpl _value,
+      $Res Function(_$GetPricingLoadingImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AdsState
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$GetPricingLoadingImpl implements _GetPricingLoading {
+  const _$GetPricingLoadingImpl();
+
+  @override
+  String toString() {
+    return 'AdsState.getPricingLoading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$GetPricingLoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() fetchingPromotions,
+    required TResult Function(dynamic promotions) promotionsLoaded,
+    required TResult Function(String message) promotionsLoadFailed,
+    required TResult Function() fetchingPromotionById,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
+    required TResult Function(String message) promotionByIdLoadFailed,
+    required TResult Function() creatingPromotion,
+    required TResult Function(dynamic result) promotionCreated,
+    required TResult Function(String message) promotionCreateFailed,
+    required TResult Function() removingPromotion,
+    required TResult Function(dynamic result) promotionRemoved,
+    required TResult Function(String message) promotionRemoveFailed,
+    required TResult Function() validateFormsState,
+    required TResult Function() validateFormsSuccessState,
+    required TResult Function() paymentLoading,
+    required TResult Function(ChargeResponse result) paymentSuccess,
+    required TResult Function(String message) paymentFailed,
+    required TResult Function() verifyPaymentLoading,
+    required TResult Function(dynamic result) verifyPaymentSuccess,
+    required TResult Function(String message) verifyPaymentFailed,
+    required TResult Function() updateAdLoading,
+    required TResult Function(dynamic result) updateAdSuccess,
+    required TResult Function(String message) updateAdFailed,
+    required TResult Function() getAnalyticsLoading,
+    required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
+    required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
+  }) {
+    return getPricingLoading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? fetchingPromotions,
+    TResult? Function(dynamic promotions)? promotionsLoaded,
+    TResult? Function(String message)? promotionsLoadFailed,
+    TResult? Function()? fetchingPromotionById,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
+    TResult? Function(String message)? promotionByIdLoadFailed,
+    TResult? Function()? creatingPromotion,
+    TResult? Function(dynamic result)? promotionCreated,
+    TResult? Function(String message)? promotionCreateFailed,
+    TResult? Function()? removingPromotion,
+    TResult? Function(dynamic result)? promotionRemoved,
+    TResult? Function(String message)? promotionRemoveFailed,
+    TResult? Function()? validateFormsState,
+    TResult? Function()? validateFormsSuccessState,
+    TResult? Function()? paymentLoading,
+    TResult? Function(ChargeResponse result)? paymentSuccess,
+    TResult? Function(String message)? paymentFailed,
+    TResult? Function()? verifyPaymentLoading,
+    TResult? Function(dynamic result)? verifyPaymentSuccess,
+    TResult? Function(String message)? verifyPaymentFailed,
+    TResult? Function()? updateAdLoading,
+    TResult? Function(dynamic result)? updateAdSuccess,
+    TResult? Function(String message)? updateAdFailed,
+    TResult? Function()? getAnalyticsLoading,
+    TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
+    TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
+  }) {
+    return getPricingLoading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? fetchingPromotions,
+    TResult Function(dynamic promotions)? promotionsLoaded,
+    TResult Function(String message)? promotionsLoadFailed,
+    TResult Function()? fetchingPromotionById,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
+    TResult Function(String message)? promotionByIdLoadFailed,
+    TResult Function()? creatingPromotion,
+    TResult Function(dynamic result)? promotionCreated,
+    TResult Function(String message)? promotionCreateFailed,
+    TResult Function()? removingPromotion,
+    TResult Function(dynamic result)? promotionRemoved,
+    TResult Function(String message)? promotionRemoveFailed,
+    TResult Function()? validateFormsState,
+    TResult Function()? validateFormsSuccessState,
+    TResult Function()? paymentLoading,
+    TResult Function(ChargeResponse result)? paymentSuccess,
+    TResult Function(String message)? paymentFailed,
+    TResult Function()? verifyPaymentLoading,
+    TResult Function(dynamic result)? verifyPaymentSuccess,
+    TResult Function(String message)? verifyPaymentFailed,
+    TResult Function()? updateAdLoading,
+    TResult Function(dynamic result)? updateAdSuccess,
+    TResult Function(String message)? updateAdFailed,
+    TResult Function()? getAnalyticsLoading,
+    TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
+    TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
+    required TResult orElse(),
+  }) {
+    if (getPricingLoading != null) {
+      return getPricingLoading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_FetchingPromotions value) fetchingPromotions,
+    required TResult Function(_PromotionsLoaded value) promotionsLoaded,
+    required TResult Function(_PromotionsLoadFailed value) promotionsLoadFailed,
+    required TResult Function(_FetchingPromotionById value)
+        fetchingPromotionById,
+    required TResult Function(_PromotionByIdLoaded value) promotionByIdLoaded,
+    required TResult Function(_PromotionByIdLoadFailed value)
+        promotionByIdLoadFailed,
+    required TResult Function(_CreatingPromotion value) creatingPromotion,
+    required TResult Function(_PromotionCreated value) promotionCreated,
+    required TResult Function(_PromotionCreateFailed value)
+        promotionCreateFailed,
+    required TResult Function(_RemovingPromotion value) removingPromotion,
+    required TResult Function(_PromotionRemoved value) promotionRemoved,
+    required TResult Function(_PromotionRemoveFailed value)
+        promotionRemoveFailed,
+    required TResult Function(_ValidateState value) validateFormsState,
+    required TResult Function(_ValidateSuccess value) validateFormsSuccessState,
+    required TResult Function(_PaymentLoading value) paymentLoading,
+    required TResult Function(_PaymentSuccess value) paymentSuccess,
+    required TResult Function(_PaymentFailed value) paymentFailed,
+    required TResult Function(_VerifyPaymentLoading value) verifyPaymentLoading,
+    required TResult Function(_VerifyPaymentSuccess value) verifyPaymentSuccess,
+    required TResult Function(_VarifyPaymentFailed value) verifyPaymentFailed,
+    required TResult Function(_UpdateAdLoading value) updateAdLoading,
+    required TResult Function(_UpdateAdSuccess value) updateAdSuccess,
+    required TResult Function(_UpdateAdFailure value) updateAdFailed,
+    required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
+    required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
+    required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
+  }) {
+    return getPricingLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_FetchingPromotions value)? fetchingPromotions,
+    TResult? Function(_PromotionsLoaded value)? promotionsLoaded,
+    TResult? Function(_PromotionsLoadFailed value)? promotionsLoadFailed,
+    TResult? Function(_FetchingPromotionById value)? fetchingPromotionById,
+    TResult? Function(_PromotionByIdLoaded value)? promotionByIdLoaded,
+    TResult? Function(_PromotionByIdLoadFailed value)? promotionByIdLoadFailed,
+    TResult? Function(_CreatingPromotion value)? creatingPromotion,
+    TResult? Function(_PromotionCreated value)? promotionCreated,
+    TResult? Function(_PromotionCreateFailed value)? promotionCreateFailed,
+    TResult? Function(_RemovingPromotion value)? removingPromotion,
+    TResult? Function(_PromotionRemoved value)? promotionRemoved,
+    TResult? Function(_PromotionRemoveFailed value)? promotionRemoveFailed,
+    TResult? Function(_ValidateState value)? validateFormsState,
+    TResult? Function(_ValidateSuccess value)? validateFormsSuccessState,
+    TResult? Function(_PaymentLoading value)? paymentLoading,
+    TResult? Function(_PaymentSuccess value)? paymentSuccess,
+    TResult? Function(_PaymentFailed value)? paymentFailed,
+    TResult? Function(_VerifyPaymentLoading value)? verifyPaymentLoading,
+    TResult? Function(_VerifyPaymentSuccess value)? verifyPaymentSuccess,
+    TResult? Function(_VarifyPaymentFailed value)? verifyPaymentFailed,
+    TResult? Function(_UpdateAdLoading value)? updateAdLoading,
+    TResult? Function(_UpdateAdSuccess value)? updateAdSuccess,
+    TResult? Function(_UpdateAdFailure value)? updateAdFailed,
+    TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
+    TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
+    TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
+  }) {
+    return getPricingLoading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_FetchingPromotions value)? fetchingPromotions,
+    TResult Function(_PromotionsLoaded value)? promotionsLoaded,
+    TResult Function(_PromotionsLoadFailed value)? promotionsLoadFailed,
+    TResult Function(_FetchingPromotionById value)? fetchingPromotionById,
+    TResult Function(_PromotionByIdLoaded value)? promotionByIdLoaded,
+    TResult Function(_PromotionByIdLoadFailed value)? promotionByIdLoadFailed,
+    TResult Function(_CreatingPromotion value)? creatingPromotion,
+    TResult Function(_PromotionCreated value)? promotionCreated,
+    TResult Function(_PromotionCreateFailed value)? promotionCreateFailed,
+    TResult Function(_RemovingPromotion value)? removingPromotion,
+    TResult Function(_PromotionRemoved value)? promotionRemoved,
+    TResult Function(_PromotionRemoveFailed value)? promotionRemoveFailed,
+    TResult Function(_ValidateState value)? validateFormsState,
+    TResult Function(_ValidateSuccess value)? validateFormsSuccessState,
+    TResult Function(_PaymentLoading value)? paymentLoading,
+    TResult Function(_PaymentSuccess value)? paymentSuccess,
+    TResult Function(_PaymentFailed value)? paymentFailed,
+    TResult Function(_VerifyPaymentLoading value)? verifyPaymentLoading,
+    TResult Function(_VerifyPaymentSuccess value)? verifyPaymentSuccess,
+    TResult Function(_VarifyPaymentFailed value)? verifyPaymentFailed,
+    TResult Function(_UpdateAdLoading value)? updateAdLoading,
+    TResult Function(_UpdateAdSuccess value)? updateAdSuccess,
+    TResult Function(_UpdateAdFailure value)? updateAdFailed,
+    TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
+    TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
+    TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
+    required TResult orElse(),
+  }) {
+    if (getPricingLoading != null) {
+      return getPricingLoading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetPricingLoading implements AdsState {
+  const factory _GetPricingLoading() = _$GetPricingLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$GetPricingSuccessImplCopyWith<$Res> {
+  factory _$$GetPricingSuccessImplCopyWith(_$GetPricingSuccessImpl value,
+          $Res Function(_$GetPricingSuccessImpl) then) =
+      __$$GetPricingSuccessImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({GetPricingResponse result});
+}
+
+/// @nodoc
+class __$$GetPricingSuccessImplCopyWithImpl<$Res>
+    extends _$AdsStateCopyWithImpl<$Res, _$GetPricingSuccessImpl>
+    implements _$$GetPricingSuccessImplCopyWith<$Res> {
+  __$$GetPricingSuccessImplCopyWithImpl(_$GetPricingSuccessImpl _value,
+      $Res Function(_$GetPricingSuccessImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AdsState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? result = null,
+  }) {
+    return _then(_$GetPricingSuccessImpl(
+      null == result
+          ? _value.result
+          : result // ignore: cast_nullable_to_non_nullable
+              as GetPricingResponse,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetPricingSuccessImpl implements _GetPricingSuccess {
+  const _$GetPricingSuccessImpl(this.result);
+
+  @override
+  final GetPricingResponse result;
+
+  @override
+  String toString() {
+    return 'AdsState.getPricingSuccess(result: $result)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetPricingSuccessImpl &&
+            (identical(other.result, result) || other.result == result));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, result);
+
+  /// Create a copy of AdsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetPricingSuccessImplCopyWith<_$GetPricingSuccessImpl> get copyWith =>
+      __$$GetPricingSuccessImplCopyWithImpl<_$GetPricingSuccessImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() fetchingPromotions,
+    required TResult Function(dynamic promotions) promotionsLoaded,
+    required TResult Function(String message) promotionsLoadFailed,
+    required TResult Function() fetchingPromotionById,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
+    required TResult Function(String message) promotionByIdLoadFailed,
+    required TResult Function() creatingPromotion,
+    required TResult Function(dynamic result) promotionCreated,
+    required TResult Function(String message) promotionCreateFailed,
+    required TResult Function() removingPromotion,
+    required TResult Function(dynamic result) promotionRemoved,
+    required TResult Function(String message) promotionRemoveFailed,
+    required TResult Function() validateFormsState,
+    required TResult Function() validateFormsSuccessState,
+    required TResult Function() paymentLoading,
+    required TResult Function(ChargeResponse result) paymentSuccess,
+    required TResult Function(String message) paymentFailed,
+    required TResult Function() verifyPaymentLoading,
+    required TResult Function(dynamic result) verifyPaymentSuccess,
+    required TResult Function(String message) verifyPaymentFailed,
+    required TResult Function() updateAdLoading,
+    required TResult Function(dynamic result) updateAdSuccess,
+    required TResult Function(String message) updateAdFailed,
+    required TResult Function() getAnalyticsLoading,
+    required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
+    required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
+  }) {
+    return getPricingSuccess(result);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? fetchingPromotions,
+    TResult? Function(dynamic promotions)? promotionsLoaded,
+    TResult? Function(String message)? promotionsLoadFailed,
+    TResult? Function()? fetchingPromotionById,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
+    TResult? Function(String message)? promotionByIdLoadFailed,
+    TResult? Function()? creatingPromotion,
+    TResult? Function(dynamic result)? promotionCreated,
+    TResult? Function(String message)? promotionCreateFailed,
+    TResult? Function()? removingPromotion,
+    TResult? Function(dynamic result)? promotionRemoved,
+    TResult? Function(String message)? promotionRemoveFailed,
+    TResult? Function()? validateFormsState,
+    TResult? Function()? validateFormsSuccessState,
+    TResult? Function()? paymentLoading,
+    TResult? Function(ChargeResponse result)? paymentSuccess,
+    TResult? Function(String message)? paymentFailed,
+    TResult? Function()? verifyPaymentLoading,
+    TResult? Function(dynamic result)? verifyPaymentSuccess,
+    TResult? Function(String message)? verifyPaymentFailed,
+    TResult? Function()? updateAdLoading,
+    TResult? Function(dynamic result)? updateAdSuccess,
+    TResult? Function(String message)? updateAdFailed,
+    TResult? Function()? getAnalyticsLoading,
+    TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
+    TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
+  }) {
+    return getPricingSuccess?.call(result);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? fetchingPromotions,
+    TResult Function(dynamic promotions)? promotionsLoaded,
+    TResult Function(String message)? promotionsLoadFailed,
+    TResult Function()? fetchingPromotionById,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
+    TResult Function(String message)? promotionByIdLoadFailed,
+    TResult Function()? creatingPromotion,
+    TResult Function(dynamic result)? promotionCreated,
+    TResult Function(String message)? promotionCreateFailed,
+    TResult Function()? removingPromotion,
+    TResult Function(dynamic result)? promotionRemoved,
+    TResult Function(String message)? promotionRemoveFailed,
+    TResult Function()? validateFormsState,
+    TResult Function()? validateFormsSuccessState,
+    TResult Function()? paymentLoading,
+    TResult Function(ChargeResponse result)? paymentSuccess,
+    TResult Function(String message)? paymentFailed,
+    TResult Function()? verifyPaymentLoading,
+    TResult Function(dynamic result)? verifyPaymentSuccess,
+    TResult Function(String message)? verifyPaymentFailed,
+    TResult Function()? updateAdLoading,
+    TResult Function(dynamic result)? updateAdSuccess,
+    TResult Function(String message)? updateAdFailed,
+    TResult Function()? getAnalyticsLoading,
+    TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
+    TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
+    required TResult orElse(),
+  }) {
+    if (getPricingSuccess != null) {
+      return getPricingSuccess(result);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_FetchingPromotions value) fetchingPromotions,
+    required TResult Function(_PromotionsLoaded value) promotionsLoaded,
+    required TResult Function(_PromotionsLoadFailed value) promotionsLoadFailed,
+    required TResult Function(_FetchingPromotionById value)
+        fetchingPromotionById,
+    required TResult Function(_PromotionByIdLoaded value) promotionByIdLoaded,
+    required TResult Function(_PromotionByIdLoadFailed value)
+        promotionByIdLoadFailed,
+    required TResult Function(_CreatingPromotion value) creatingPromotion,
+    required TResult Function(_PromotionCreated value) promotionCreated,
+    required TResult Function(_PromotionCreateFailed value)
+        promotionCreateFailed,
+    required TResult Function(_RemovingPromotion value) removingPromotion,
+    required TResult Function(_PromotionRemoved value) promotionRemoved,
+    required TResult Function(_PromotionRemoveFailed value)
+        promotionRemoveFailed,
+    required TResult Function(_ValidateState value) validateFormsState,
+    required TResult Function(_ValidateSuccess value) validateFormsSuccessState,
+    required TResult Function(_PaymentLoading value) paymentLoading,
+    required TResult Function(_PaymentSuccess value) paymentSuccess,
+    required TResult Function(_PaymentFailed value) paymentFailed,
+    required TResult Function(_VerifyPaymentLoading value) verifyPaymentLoading,
+    required TResult Function(_VerifyPaymentSuccess value) verifyPaymentSuccess,
+    required TResult Function(_VarifyPaymentFailed value) verifyPaymentFailed,
+    required TResult Function(_UpdateAdLoading value) updateAdLoading,
+    required TResult Function(_UpdateAdSuccess value) updateAdSuccess,
+    required TResult Function(_UpdateAdFailure value) updateAdFailed,
+    required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
+    required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
+    required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
+  }) {
+    return getPricingSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_FetchingPromotions value)? fetchingPromotions,
+    TResult? Function(_PromotionsLoaded value)? promotionsLoaded,
+    TResult? Function(_PromotionsLoadFailed value)? promotionsLoadFailed,
+    TResult? Function(_FetchingPromotionById value)? fetchingPromotionById,
+    TResult? Function(_PromotionByIdLoaded value)? promotionByIdLoaded,
+    TResult? Function(_PromotionByIdLoadFailed value)? promotionByIdLoadFailed,
+    TResult? Function(_CreatingPromotion value)? creatingPromotion,
+    TResult? Function(_PromotionCreated value)? promotionCreated,
+    TResult? Function(_PromotionCreateFailed value)? promotionCreateFailed,
+    TResult? Function(_RemovingPromotion value)? removingPromotion,
+    TResult? Function(_PromotionRemoved value)? promotionRemoved,
+    TResult? Function(_PromotionRemoveFailed value)? promotionRemoveFailed,
+    TResult? Function(_ValidateState value)? validateFormsState,
+    TResult? Function(_ValidateSuccess value)? validateFormsSuccessState,
+    TResult? Function(_PaymentLoading value)? paymentLoading,
+    TResult? Function(_PaymentSuccess value)? paymentSuccess,
+    TResult? Function(_PaymentFailed value)? paymentFailed,
+    TResult? Function(_VerifyPaymentLoading value)? verifyPaymentLoading,
+    TResult? Function(_VerifyPaymentSuccess value)? verifyPaymentSuccess,
+    TResult? Function(_VarifyPaymentFailed value)? verifyPaymentFailed,
+    TResult? Function(_UpdateAdLoading value)? updateAdLoading,
+    TResult? Function(_UpdateAdSuccess value)? updateAdSuccess,
+    TResult? Function(_UpdateAdFailure value)? updateAdFailed,
+    TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
+    TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
+    TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
+  }) {
+    return getPricingSuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_FetchingPromotions value)? fetchingPromotions,
+    TResult Function(_PromotionsLoaded value)? promotionsLoaded,
+    TResult Function(_PromotionsLoadFailed value)? promotionsLoadFailed,
+    TResult Function(_FetchingPromotionById value)? fetchingPromotionById,
+    TResult Function(_PromotionByIdLoaded value)? promotionByIdLoaded,
+    TResult Function(_PromotionByIdLoadFailed value)? promotionByIdLoadFailed,
+    TResult Function(_CreatingPromotion value)? creatingPromotion,
+    TResult Function(_PromotionCreated value)? promotionCreated,
+    TResult Function(_PromotionCreateFailed value)? promotionCreateFailed,
+    TResult Function(_RemovingPromotion value)? removingPromotion,
+    TResult Function(_PromotionRemoved value)? promotionRemoved,
+    TResult Function(_PromotionRemoveFailed value)? promotionRemoveFailed,
+    TResult Function(_ValidateState value)? validateFormsState,
+    TResult Function(_ValidateSuccess value)? validateFormsSuccessState,
+    TResult Function(_PaymentLoading value)? paymentLoading,
+    TResult Function(_PaymentSuccess value)? paymentSuccess,
+    TResult Function(_PaymentFailed value)? paymentFailed,
+    TResult Function(_VerifyPaymentLoading value)? verifyPaymentLoading,
+    TResult Function(_VerifyPaymentSuccess value)? verifyPaymentSuccess,
+    TResult Function(_VarifyPaymentFailed value)? verifyPaymentFailed,
+    TResult Function(_UpdateAdLoading value)? updateAdLoading,
+    TResult Function(_UpdateAdSuccess value)? updateAdSuccess,
+    TResult Function(_UpdateAdFailure value)? updateAdFailed,
+    TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
+    TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
+    TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
+    required TResult orElse(),
+  }) {
+    if (getPricingSuccess != null) {
+      return getPricingSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetPricingSuccess implements AdsState {
+  const factory _GetPricingSuccess(final GetPricingResponse result) =
+      _$GetPricingSuccessImpl;
+
+  GetPricingResponse get result;
+
+  /// Create a copy of AdsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$GetPricingSuccessImplCopyWith<_$GetPricingSuccessImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GetPricingFailureImplCopyWith<$Res> {
+  factory _$$GetPricingFailureImplCopyWith(_$GetPricingFailureImpl value,
+          $Res Function(_$GetPricingFailureImpl) then) =
+      __$$GetPricingFailureImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
+}
+
+/// @nodoc
+class __$$GetPricingFailureImplCopyWithImpl<$Res>
+    extends _$AdsStateCopyWithImpl<$Res, _$GetPricingFailureImpl>
+    implements _$$GetPricingFailureImplCopyWith<$Res> {
+  __$$GetPricingFailureImplCopyWithImpl(_$GetPricingFailureImpl _value,
+      $Res Function(_$GetPricingFailureImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AdsState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$GetPricingFailureImpl(
+      null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetPricingFailureImpl implements _GetPricingFailure {
+  const _$GetPricingFailureImpl(this.message);
+
+  @override
+  final String message;
+
+  @override
+  String toString() {
+    return 'AdsState.getPricingFailed(message: $message)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetPricingFailureImpl &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of AdsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetPricingFailureImplCopyWith<_$GetPricingFailureImpl> get copyWith =>
+      __$$GetPricingFailureImplCopyWithImpl<_$GetPricingFailureImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() fetchingPromotions,
+    required TResult Function(dynamic promotions) promotionsLoaded,
+    required TResult Function(String message) promotionsLoadFailed,
+    required TResult Function() fetchingPromotionById,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
+    required TResult Function(String message) promotionByIdLoadFailed,
+    required TResult Function() creatingPromotion,
+    required TResult Function(dynamic result) promotionCreated,
+    required TResult Function(String message) promotionCreateFailed,
+    required TResult Function() removingPromotion,
+    required TResult Function(dynamic result) promotionRemoved,
+    required TResult Function(String message) promotionRemoveFailed,
+    required TResult Function() validateFormsState,
+    required TResult Function() validateFormsSuccessState,
+    required TResult Function() paymentLoading,
+    required TResult Function(ChargeResponse result) paymentSuccess,
+    required TResult Function(String message) paymentFailed,
+    required TResult Function() verifyPaymentLoading,
+    required TResult Function(dynamic result) verifyPaymentSuccess,
+    required TResult Function(String message) verifyPaymentFailed,
+    required TResult Function() updateAdLoading,
+    required TResult Function(dynamic result) updateAdSuccess,
+    required TResult Function(String message) updateAdFailed,
+    required TResult Function() getAnalyticsLoading,
+    required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
+    required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
+  }) {
+    return getPricingFailed(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? fetchingPromotions,
+    TResult? Function(dynamic promotions)? promotionsLoaded,
+    TResult? Function(String message)? promotionsLoadFailed,
+    TResult? Function()? fetchingPromotionById,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
+    TResult? Function(String message)? promotionByIdLoadFailed,
+    TResult? Function()? creatingPromotion,
+    TResult? Function(dynamic result)? promotionCreated,
+    TResult? Function(String message)? promotionCreateFailed,
+    TResult? Function()? removingPromotion,
+    TResult? Function(dynamic result)? promotionRemoved,
+    TResult? Function(String message)? promotionRemoveFailed,
+    TResult? Function()? validateFormsState,
+    TResult? Function()? validateFormsSuccessState,
+    TResult? Function()? paymentLoading,
+    TResult? Function(ChargeResponse result)? paymentSuccess,
+    TResult? Function(String message)? paymentFailed,
+    TResult? Function()? verifyPaymentLoading,
+    TResult? Function(dynamic result)? verifyPaymentSuccess,
+    TResult? Function(String message)? verifyPaymentFailed,
+    TResult? Function()? updateAdLoading,
+    TResult? Function(dynamic result)? updateAdSuccess,
+    TResult? Function(String message)? updateAdFailed,
+    TResult? Function()? getAnalyticsLoading,
+    TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
+    TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
+  }) {
+    return getPricingFailed?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? fetchingPromotions,
+    TResult Function(dynamic promotions)? promotionsLoaded,
+    TResult Function(String message)? promotionsLoadFailed,
+    TResult Function()? fetchingPromotionById,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
+    TResult Function(String message)? promotionByIdLoadFailed,
+    TResult Function()? creatingPromotion,
+    TResult Function(dynamic result)? promotionCreated,
+    TResult Function(String message)? promotionCreateFailed,
+    TResult Function()? removingPromotion,
+    TResult Function(dynamic result)? promotionRemoved,
+    TResult Function(String message)? promotionRemoveFailed,
+    TResult Function()? validateFormsState,
+    TResult Function()? validateFormsSuccessState,
+    TResult Function()? paymentLoading,
+    TResult Function(ChargeResponse result)? paymentSuccess,
+    TResult Function(String message)? paymentFailed,
+    TResult Function()? verifyPaymentLoading,
+    TResult Function(dynamic result)? verifyPaymentSuccess,
+    TResult Function(String message)? verifyPaymentFailed,
+    TResult Function()? updateAdLoading,
+    TResult Function(dynamic result)? updateAdSuccess,
+    TResult Function(String message)? updateAdFailed,
+    TResult Function()? getAnalyticsLoading,
+    TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
+    TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
+    required TResult orElse(),
+  }) {
+    if (getPricingFailed != null) {
+      return getPricingFailed(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_FetchingPromotions value) fetchingPromotions,
+    required TResult Function(_PromotionsLoaded value) promotionsLoaded,
+    required TResult Function(_PromotionsLoadFailed value) promotionsLoadFailed,
+    required TResult Function(_FetchingPromotionById value)
+        fetchingPromotionById,
+    required TResult Function(_PromotionByIdLoaded value) promotionByIdLoaded,
+    required TResult Function(_PromotionByIdLoadFailed value)
+        promotionByIdLoadFailed,
+    required TResult Function(_CreatingPromotion value) creatingPromotion,
+    required TResult Function(_PromotionCreated value) promotionCreated,
+    required TResult Function(_PromotionCreateFailed value)
+        promotionCreateFailed,
+    required TResult Function(_RemovingPromotion value) removingPromotion,
+    required TResult Function(_PromotionRemoved value) promotionRemoved,
+    required TResult Function(_PromotionRemoveFailed value)
+        promotionRemoveFailed,
+    required TResult Function(_ValidateState value) validateFormsState,
+    required TResult Function(_ValidateSuccess value) validateFormsSuccessState,
+    required TResult Function(_PaymentLoading value) paymentLoading,
+    required TResult Function(_PaymentSuccess value) paymentSuccess,
+    required TResult Function(_PaymentFailed value) paymentFailed,
+    required TResult Function(_VerifyPaymentLoading value) verifyPaymentLoading,
+    required TResult Function(_VerifyPaymentSuccess value) verifyPaymentSuccess,
+    required TResult Function(_VarifyPaymentFailed value) verifyPaymentFailed,
+    required TResult Function(_UpdateAdLoading value) updateAdLoading,
+    required TResult Function(_UpdateAdSuccess value) updateAdSuccess,
+    required TResult Function(_UpdateAdFailure value) updateAdFailed,
+    required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
+    required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
+    required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
+  }) {
+    return getPricingFailed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_FetchingPromotions value)? fetchingPromotions,
+    TResult? Function(_PromotionsLoaded value)? promotionsLoaded,
+    TResult? Function(_PromotionsLoadFailed value)? promotionsLoadFailed,
+    TResult? Function(_FetchingPromotionById value)? fetchingPromotionById,
+    TResult? Function(_PromotionByIdLoaded value)? promotionByIdLoaded,
+    TResult? Function(_PromotionByIdLoadFailed value)? promotionByIdLoadFailed,
+    TResult? Function(_CreatingPromotion value)? creatingPromotion,
+    TResult? Function(_PromotionCreated value)? promotionCreated,
+    TResult? Function(_PromotionCreateFailed value)? promotionCreateFailed,
+    TResult? Function(_RemovingPromotion value)? removingPromotion,
+    TResult? Function(_PromotionRemoved value)? promotionRemoved,
+    TResult? Function(_PromotionRemoveFailed value)? promotionRemoveFailed,
+    TResult? Function(_ValidateState value)? validateFormsState,
+    TResult? Function(_ValidateSuccess value)? validateFormsSuccessState,
+    TResult? Function(_PaymentLoading value)? paymentLoading,
+    TResult? Function(_PaymentSuccess value)? paymentSuccess,
+    TResult? Function(_PaymentFailed value)? paymentFailed,
+    TResult? Function(_VerifyPaymentLoading value)? verifyPaymentLoading,
+    TResult? Function(_VerifyPaymentSuccess value)? verifyPaymentSuccess,
+    TResult? Function(_VarifyPaymentFailed value)? verifyPaymentFailed,
+    TResult? Function(_UpdateAdLoading value)? updateAdLoading,
+    TResult? Function(_UpdateAdSuccess value)? updateAdSuccess,
+    TResult? Function(_UpdateAdFailure value)? updateAdFailed,
+    TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
+    TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
+    TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
+  }) {
+    return getPricingFailed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_FetchingPromotions value)? fetchingPromotions,
+    TResult Function(_PromotionsLoaded value)? promotionsLoaded,
+    TResult Function(_PromotionsLoadFailed value)? promotionsLoadFailed,
+    TResult Function(_FetchingPromotionById value)? fetchingPromotionById,
+    TResult Function(_PromotionByIdLoaded value)? promotionByIdLoaded,
+    TResult Function(_PromotionByIdLoadFailed value)? promotionByIdLoadFailed,
+    TResult Function(_CreatingPromotion value)? creatingPromotion,
+    TResult Function(_PromotionCreated value)? promotionCreated,
+    TResult Function(_PromotionCreateFailed value)? promotionCreateFailed,
+    TResult Function(_RemovingPromotion value)? removingPromotion,
+    TResult Function(_PromotionRemoved value)? promotionRemoved,
+    TResult Function(_PromotionRemoveFailed value)? promotionRemoveFailed,
+    TResult Function(_ValidateState value)? validateFormsState,
+    TResult Function(_ValidateSuccess value)? validateFormsSuccessState,
+    TResult Function(_PaymentLoading value)? paymentLoading,
+    TResult Function(_PaymentSuccess value)? paymentSuccess,
+    TResult Function(_PaymentFailed value)? paymentFailed,
+    TResult Function(_VerifyPaymentLoading value)? verifyPaymentLoading,
+    TResult Function(_VerifyPaymentSuccess value)? verifyPaymentSuccess,
+    TResult Function(_VarifyPaymentFailed value)? verifyPaymentFailed,
+    TResult Function(_UpdateAdLoading value)? updateAdLoading,
+    TResult Function(_UpdateAdSuccess value)? updateAdSuccess,
+    TResult Function(_UpdateAdFailure value)? updateAdFailed,
+    TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
+    TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
+    TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
+    required TResult orElse(),
+  }) {
+    if (getPricingFailed != null) {
+      return getPricingFailed(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetPricingFailure implements AdsState {
+  const factory _GetPricingFailure(final String message) =
+      _$GetPricingFailureImpl;
+
+  String get message;
+
+  /// Create a copy of AdsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$GetPricingFailureImplCopyWith<_$GetPricingFailureImpl> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GetCalculationLoadingImplCopyWith<$Res> {
+  factory _$$GetCalculationLoadingImplCopyWith(
+          _$GetCalculationLoadingImpl value,
+          $Res Function(_$GetCalculationLoadingImpl) then) =
+      __$$GetCalculationLoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetCalculationLoadingImplCopyWithImpl<$Res>
+    extends _$AdsStateCopyWithImpl<$Res, _$GetCalculationLoadingImpl>
+    implements _$$GetCalculationLoadingImplCopyWith<$Res> {
+  __$$GetCalculationLoadingImplCopyWithImpl(_$GetCalculationLoadingImpl _value,
+      $Res Function(_$GetCalculationLoadingImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AdsState
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$GetCalculationLoadingImpl implements _GetCalculationLoading {
+  const _$GetCalculationLoadingImpl();
+
+  @override
+  String toString() {
+    return 'AdsState.getCalculationLoading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetCalculationLoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() fetchingPromotions,
+    required TResult Function(dynamic promotions) promotionsLoaded,
+    required TResult Function(String message) promotionsLoadFailed,
+    required TResult Function() fetchingPromotionById,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
+    required TResult Function(String message) promotionByIdLoadFailed,
+    required TResult Function() creatingPromotion,
+    required TResult Function(dynamic result) promotionCreated,
+    required TResult Function(String message) promotionCreateFailed,
+    required TResult Function() removingPromotion,
+    required TResult Function(dynamic result) promotionRemoved,
+    required TResult Function(String message) promotionRemoveFailed,
+    required TResult Function() validateFormsState,
+    required TResult Function() validateFormsSuccessState,
+    required TResult Function() paymentLoading,
+    required TResult Function(ChargeResponse result) paymentSuccess,
+    required TResult Function(String message) paymentFailed,
+    required TResult Function() verifyPaymentLoading,
+    required TResult Function(dynamic result) verifyPaymentSuccess,
+    required TResult Function(String message) verifyPaymentFailed,
+    required TResult Function() updateAdLoading,
+    required TResult Function(dynamic result) updateAdSuccess,
+    required TResult Function(String message) updateAdFailed,
+    required TResult Function() getAnalyticsLoading,
+    required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
+    required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
+  }) {
+    return getCalculationLoading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? fetchingPromotions,
+    TResult? Function(dynamic promotions)? promotionsLoaded,
+    TResult? Function(String message)? promotionsLoadFailed,
+    TResult? Function()? fetchingPromotionById,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
+    TResult? Function(String message)? promotionByIdLoadFailed,
+    TResult? Function()? creatingPromotion,
+    TResult? Function(dynamic result)? promotionCreated,
+    TResult? Function(String message)? promotionCreateFailed,
+    TResult? Function()? removingPromotion,
+    TResult? Function(dynamic result)? promotionRemoved,
+    TResult? Function(String message)? promotionRemoveFailed,
+    TResult? Function()? validateFormsState,
+    TResult? Function()? validateFormsSuccessState,
+    TResult? Function()? paymentLoading,
+    TResult? Function(ChargeResponse result)? paymentSuccess,
+    TResult? Function(String message)? paymentFailed,
+    TResult? Function()? verifyPaymentLoading,
+    TResult? Function(dynamic result)? verifyPaymentSuccess,
+    TResult? Function(String message)? verifyPaymentFailed,
+    TResult? Function()? updateAdLoading,
+    TResult? Function(dynamic result)? updateAdSuccess,
+    TResult? Function(String message)? updateAdFailed,
+    TResult? Function()? getAnalyticsLoading,
+    TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
+    TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
+  }) {
+    return getCalculationLoading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? fetchingPromotions,
+    TResult Function(dynamic promotions)? promotionsLoaded,
+    TResult Function(String message)? promotionsLoadFailed,
+    TResult Function()? fetchingPromotionById,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
+    TResult Function(String message)? promotionByIdLoadFailed,
+    TResult Function()? creatingPromotion,
+    TResult Function(dynamic result)? promotionCreated,
+    TResult Function(String message)? promotionCreateFailed,
+    TResult Function()? removingPromotion,
+    TResult Function(dynamic result)? promotionRemoved,
+    TResult Function(String message)? promotionRemoveFailed,
+    TResult Function()? validateFormsState,
+    TResult Function()? validateFormsSuccessState,
+    TResult Function()? paymentLoading,
+    TResult Function(ChargeResponse result)? paymentSuccess,
+    TResult Function(String message)? paymentFailed,
+    TResult Function()? verifyPaymentLoading,
+    TResult Function(dynamic result)? verifyPaymentSuccess,
+    TResult Function(String message)? verifyPaymentFailed,
+    TResult Function()? updateAdLoading,
+    TResult Function(dynamic result)? updateAdSuccess,
+    TResult Function(String message)? updateAdFailed,
+    TResult Function()? getAnalyticsLoading,
+    TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
+    TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
+    required TResult orElse(),
+  }) {
+    if (getCalculationLoading != null) {
+      return getCalculationLoading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_FetchingPromotions value) fetchingPromotions,
+    required TResult Function(_PromotionsLoaded value) promotionsLoaded,
+    required TResult Function(_PromotionsLoadFailed value) promotionsLoadFailed,
+    required TResult Function(_FetchingPromotionById value)
+        fetchingPromotionById,
+    required TResult Function(_PromotionByIdLoaded value) promotionByIdLoaded,
+    required TResult Function(_PromotionByIdLoadFailed value)
+        promotionByIdLoadFailed,
+    required TResult Function(_CreatingPromotion value) creatingPromotion,
+    required TResult Function(_PromotionCreated value) promotionCreated,
+    required TResult Function(_PromotionCreateFailed value)
+        promotionCreateFailed,
+    required TResult Function(_RemovingPromotion value) removingPromotion,
+    required TResult Function(_PromotionRemoved value) promotionRemoved,
+    required TResult Function(_PromotionRemoveFailed value)
+        promotionRemoveFailed,
+    required TResult Function(_ValidateState value) validateFormsState,
+    required TResult Function(_ValidateSuccess value) validateFormsSuccessState,
+    required TResult Function(_PaymentLoading value) paymentLoading,
+    required TResult Function(_PaymentSuccess value) paymentSuccess,
+    required TResult Function(_PaymentFailed value) paymentFailed,
+    required TResult Function(_VerifyPaymentLoading value) verifyPaymentLoading,
+    required TResult Function(_VerifyPaymentSuccess value) verifyPaymentSuccess,
+    required TResult Function(_VarifyPaymentFailed value) verifyPaymentFailed,
+    required TResult Function(_UpdateAdLoading value) updateAdLoading,
+    required TResult Function(_UpdateAdSuccess value) updateAdSuccess,
+    required TResult Function(_UpdateAdFailure value) updateAdFailed,
+    required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
+    required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
+    required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
+  }) {
+    return getCalculationLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_FetchingPromotions value)? fetchingPromotions,
+    TResult? Function(_PromotionsLoaded value)? promotionsLoaded,
+    TResult? Function(_PromotionsLoadFailed value)? promotionsLoadFailed,
+    TResult? Function(_FetchingPromotionById value)? fetchingPromotionById,
+    TResult? Function(_PromotionByIdLoaded value)? promotionByIdLoaded,
+    TResult? Function(_PromotionByIdLoadFailed value)? promotionByIdLoadFailed,
+    TResult? Function(_CreatingPromotion value)? creatingPromotion,
+    TResult? Function(_PromotionCreated value)? promotionCreated,
+    TResult? Function(_PromotionCreateFailed value)? promotionCreateFailed,
+    TResult? Function(_RemovingPromotion value)? removingPromotion,
+    TResult? Function(_PromotionRemoved value)? promotionRemoved,
+    TResult? Function(_PromotionRemoveFailed value)? promotionRemoveFailed,
+    TResult? Function(_ValidateState value)? validateFormsState,
+    TResult? Function(_ValidateSuccess value)? validateFormsSuccessState,
+    TResult? Function(_PaymentLoading value)? paymentLoading,
+    TResult? Function(_PaymentSuccess value)? paymentSuccess,
+    TResult? Function(_PaymentFailed value)? paymentFailed,
+    TResult? Function(_VerifyPaymentLoading value)? verifyPaymentLoading,
+    TResult? Function(_VerifyPaymentSuccess value)? verifyPaymentSuccess,
+    TResult? Function(_VarifyPaymentFailed value)? verifyPaymentFailed,
+    TResult? Function(_UpdateAdLoading value)? updateAdLoading,
+    TResult? Function(_UpdateAdSuccess value)? updateAdSuccess,
+    TResult? Function(_UpdateAdFailure value)? updateAdFailed,
+    TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
+    TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
+    TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
+  }) {
+    return getCalculationLoading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_FetchingPromotions value)? fetchingPromotions,
+    TResult Function(_PromotionsLoaded value)? promotionsLoaded,
+    TResult Function(_PromotionsLoadFailed value)? promotionsLoadFailed,
+    TResult Function(_FetchingPromotionById value)? fetchingPromotionById,
+    TResult Function(_PromotionByIdLoaded value)? promotionByIdLoaded,
+    TResult Function(_PromotionByIdLoadFailed value)? promotionByIdLoadFailed,
+    TResult Function(_CreatingPromotion value)? creatingPromotion,
+    TResult Function(_PromotionCreated value)? promotionCreated,
+    TResult Function(_PromotionCreateFailed value)? promotionCreateFailed,
+    TResult Function(_RemovingPromotion value)? removingPromotion,
+    TResult Function(_PromotionRemoved value)? promotionRemoved,
+    TResult Function(_PromotionRemoveFailed value)? promotionRemoveFailed,
+    TResult Function(_ValidateState value)? validateFormsState,
+    TResult Function(_ValidateSuccess value)? validateFormsSuccessState,
+    TResult Function(_PaymentLoading value)? paymentLoading,
+    TResult Function(_PaymentSuccess value)? paymentSuccess,
+    TResult Function(_PaymentFailed value)? paymentFailed,
+    TResult Function(_VerifyPaymentLoading value)? verifyPaymentLoading,
+    TResult Function(_VerifyPaymentSuccess value)? verifyPaymentSuccess,
+    TResult Function(_VarifyPaymentFailed value)? verifyPaymentFailed,
+    TResult Function(_UpdateAdLoading value)? updateAdLoading,
+    TResult Function(_UpdateAdSuccess value)? updateAdSuccess,
+    TResult Function(_UpdateAdFailure value)? updateAdFailed,
+    TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
+    TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
+    TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
+    required TResult orElse(),
+  }) {
+    if (getCalculationLoading != null) {
+      return getCalculationLoading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetCalculationLoading implements AdsState {
+  const factory _GetCalculationLoading() = _$GetCalculationLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$GetCalculationSuccessImplCopyWith<$Res> {
+  factory _$$GetCalculationSuccessImplCopyWith(
+          _$GetCalculationSuccessImpl value,
+          $Res Function(_$GetCalculationSuccessImpl) then) =
+      __$$GetCalculationSuccessImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({GetCalculationResponse result});
+}
+
+/// @nodoc
+class __$$GetCalculationSuccessImplCopyWithImpl<$Res>
+    extends _$AdsStateCopyWithImpl<$Res, _$GetCalculationSuccessImpl>
+    implements _$$GetCalculationSuccessImplCopyWith<$Res> {
+  __$$GetCalculationSuccessImplCopyWithImpl(_$GetCalculationSuccessImpl _value,
+      $Res Function(_$GetCalculationSuccessImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AdsState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? result = null,
+  }) {
+    return _then(_$GetCalculationSuccessImpl(
+      null == result
+          ? _value.result
+          : result // ignore: cast_nullable_to_non_nullable
+              as GetCalculationResponse,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetCalculationSuccessImpl implements _GetCalculationSuccess {
+  const _$GetCalculationSuccessImpl(this.result);
+
+  @override
+  final GetCalculationResponse result;
+
+  @override
+  String toString() {
+    return 'AdsState.getCalculationSuccess(result: $result)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetCalculationSuccessImpl &&
+            (identical(other.result, result) || other.result == result));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, result);
+
+  /// Create a copy of AdsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetCalculationSuccessImplCopyWith<_$GetCalculationSuccessImpl>
+      get copyWith => __$$GetCalculationSuccessImplCopyWithImpl<
+          _$GetCalculationSuccessImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() fetchingPromotions,
+    required TResult Function(dynamic promotions) promotionsLoaded,
+    required TResult Function(String message) promotionsLoadFailed,
+    required TResult Function() fetchingPromotionById,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
+    required TResult Function(String message) promotionByIdLoadFailed,
+    required TResult Function() creatingPromotion,
+    required TResult Function(dynamic result) promotionCreated,
+    required TResult Function(String message) promotionCreateFailed,
+    required TResult Function() removingPromotion,
+    required TResult Function(dynamic result) promotionRemoved,
+    required TResult Function(String message) promotionRemoveFailed,
+    required TResult Function() validateFormsState,
+    required TResult Function() validateFormsSuccessState,
+    required TResult Function() paymentLoading,
+    required TResult Function(ChargeResponse result) paymentSuccess,
+    required TResult Function(String message) paymentFailed,
+    required TResult Function() verifyPaymentLoading,
+    required TResult Function(dynamic result) verifyPaymentSuccess,
+    required TResult Function(String message) verifyPaymentFailed,
+    required TResult Function() updateAdLoading,
+    required TResult Function(dynamic result) updateAdSuccess,
+    required TResult Function(String message) updateAdFailed,
+    required TResult Function() getAnalyticsLoading,
+    required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
+    required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
+  }) {
+    return getCalculationSuccess(result);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? fetchingPromotions,
+    TResult? Function(dynamic promotions)? promotionsLoaded,
+    TResult? Function(String message)? promotionsLoadFailed,
+    TResult? Function()? fetchingPromotionById,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
+    TResult? Function(String message)? promotionByIdLoadFailed,
+    TResult? Function()? creatingPromotion,
+    TResult? Function(dynamic result)? promotionCreated,
+    TResult? Function(String message)? promotionCreateFailed,
+    TResult? Function()? removingPromotion,
+    TResult? Function(dynamic result)? promotionRemoved,
+    TResult? Function(String message)? promotionRemoveFailed,
+    TResult? Function()? validateFormsState,
+    TResult? Function()? validateFormsSuccessState,
+    TResult? Function()? paymentLoading,
+    TResult? Function(ChargeResponse result)? paymentSuccess,
+    TResult? Function(String message)? paymentFailed,
+    TResult? Function()? verifyPaymentLoading,
+    TResult? Function(dynamic result)? verifyPaymentSuccess,
+    TResult? Function(String message)? verifyPaymentFailed,
+    TResult? Function()? updateAdLoading,
+    TResult? Function(dynamic result)? updateAdSuccess,
+    TResult? Function(String message)? updateAdFailed,
+    TResult? Function()? getAnalyticsLoading,
+    TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
+    TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
+  }) {
+    return getCalculationSuccess?.call(result);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? fetchingPromotions,
+    TResult Function(dynamic promotions)? promotionsLoaded,
+    TResult Function(String message)? promotionsLoadFailed,
+    TResult Function()? fetchingPromotionById,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
+    TResult Function(String message)? promotionByIdLoadFailed,
+    TResult Function()? creatingPromotion,
+    TResult Function(dynamic result)? promotionCreated,
+    TResult Function(String message)? promotionCreateFailed,
+    TResult Function()? removingPromotion,
+    TResult Function(dynamic result)? promotionRemoved,
+    TResult Function(String message)? promotionRemoveFailed,
+    TResult Function()? validateFormsState,
+    TResult Function()? validateFormsSuccessState,
+    TResult Function()? paymentLoading,
+    TResult Function(ChargeResponse result)? paymentSuccess,
+    TResult Function(String message)? paymentFailed,
+    TResult Function()? verifyPaymentLoading,
+    TResult Function(dynamic result)? verifyPaymentSuccess,
+    TResult Function(String message)? verifyPaymentFailed,
+    TResult Function()? updateAdLoading,
+    TResult Function(dynamic result)? updateAdSuccess,
+    TResult Function(String message)? updateAdFailed,
+    TResult Function()? getAnalyticsLoading,
+    TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
+    TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
+    required TResult orElse(),
+  }) {
+    if (getCalculationSuccess != null) {
+      return getCalculationSuccess(result);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_FetchingPromotions value) fetchingPromotions,
+    required TResult Function(_PromotionsLoaded value) promotionsLoaded,
+    required TResult Function(_PromotionsLoadFailed value) promotionsLoadFailed,
+    required TResult Function(_FetchingPromotionById value)
+        fetchingPromotionById,
+    required TResult Function(_PromotionByIdLoaded value) promotionByIdLoaded,
+    required TResult Function(_PromotionByIdLoadFailed value)
+        promotionByIdLoadFailed,
+    required TResult Function(_CreatingPromotion value) creatingPromotion,
+    required TResult Function(_PromotionCreated value) promotionCreated,
+    required TResult Function(_PromotionCreateFailed value)
+        promotionCreateFailed,
+    required TResult Function(_RemovingPromotion value) removingPromotion,
+    required TResult Function(_PromotionRemoved value) promotionRemoved,
+    required TResult Function(_PromotionRemoveFailed value)
+        promotionRemoveFailed,
+    required TResult Function(_ValidateState value) validateFormsState,
+    required TResult Function(_ValidateSuccess value) validateFormsSuccessState,
+    required TResult Function(_PaymentLoading value) paymentLoading,
+    required TResult Function(_PaymentSuccess value) paymentSuccess,
+    required TResult Function(_PaymentFailed value) paymentFailed,
+    required TResult Function(_VerifyPaymentLoading value) verifyPaymentLoading,
+    required TResult Function(_VerifyPaymentSuccess value) verifyPaymentSuccess,
+    required TResult Function(_VarifyPaymentFailed value) verifyPaymentFailed,
+    required TResult Function(_UpdateAdLoading value) updateAdLoading,
+    required TResult Function(_UpdateAdSuccess value) updateAdSuccess,
+    required TResult Function(_UpdateAdFailure value) updateAdFailed,
+    required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
+    required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
+    required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
+  }) {
+    return getCalculationSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_FetchingPromotions value)? fetchingPromotions,
+    TResult? Function(_PromotionsLoaded value)? promotionsLoaded,
+    TResult? Function(_PromotionsLoadFailed value)? promotionsLoadFailed,
+    TResult? Function(_FetchingPromotionById value)? fetchingPromotionById,
+    TResult? Function(_PromotionByIdLoaded value)? promotionByIdLoaded,
+    TResult? Function(_PromotionByIdLoadFailed value)? promotionByIdLoadFailed,
+    TResult? Function(_CreatingPromotion value)? creatingPromotion,
+    TResult? Function(_PromotionCreated value)? promotionCreated,
+    TResult? Function(_PromotionCreateFailed value)? promotionCreateFailed,
+    TResult? Function(_RemovingPromotion value)? removingPromotion,
+    TResult? Function(_PromotionRemoved value)? promotionRemoved,
+    TResult? Function(_PromotionRemoveFailed value)? promotionRemoveFailed,
+    TResult? Function(_ValidateState value)? validateFormsState,
+    TResult? Function(_ValidateSuccess value)? validateFormsSuccessState,
+    TResult? Function(_PaymentLoading value)? paymentLoading,
+    TResult? Function(_PaymentSuccess value)? paymentSuccess,
+    TResult? Function(_PaymentFailed value)? paymentFailed,
+    TResult? Function(_VerifyPaymentLoading value)? verifyPaymentLoading,
+    TResult? Function(_VerifyPaymentSuccess value)? verifyPaymentSuccess,
+    TResult? Function(_VarifyPaymentFailed value)? verifyPaymentFailed,
+    TResult? Function(_UpdateAdLoading value)? updateAdLoading,
+    TResult? Function(_UpdateAdSuccess value)? updateAdSuccess,
+    TResult? Function(_UpdateAdFailure value)? updateAdFailed,
+    TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
+    TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
+    TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
+  }) {
+    return getCalculationSuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_FetchingPromotions value)? fetchingPromotions,
+    TResult Function(_PromotionsLoaded value)? promotionsLoaded,
+    TResult Function(_PromotionsLoadFailed value)? promotionsLoadFailed,
+    TResult Function(_FetchingPromotionById value)? fetchingPromotionById,
+    TResult Function(_PromotionByIdLoaded value)? promotionByIdLoaded,
+    TResult Function(_PromotionByIdLoadFailed value)? promotionByIdLoadFailed,
+    TResult Function(_CreatingPromotion value)? creatingPromotion,
+    TResult Function(_PromotionCreated value)? promotionCreated,
+    TResult Function(_PromotionCreateFailed value)? promotionCreateFailed,
+    TResult Function(_RemovingPromotion value)? removingPromotion,
+    TResult Function(_PromotionRemoved value)? promotionRemoved,
+    TResult Function(_PromotionRemoveFailed value)? promotionRemoveFailed,
+    TResult Function(_ValidateState value)? validateFormsState,
+    TResult Function(_ValidateSuccess value)? validateFormsSuccessState,
+    TResult Function(_PaymentLoading value)? paymentLoading,
+    TResult Function(_PaymentSuccess value)? paymentSuccess,
+    TResult Function(_PaymentFailed value)? paymentFailed,
+    TResult Function(_VerifyPaymentLoading value)? verifyPaymentLoading,
+    TResult Function(_VerifyPaymentSuccess value)? verifyPaymentSuccess,
+    TResult Function(_VarifyPaymentFailed value)? verifyPaymentFailed,
+    TResult Function(_UpdateAdLoading value)? updateAdLoading,
+    TResult Function(_UpdateAdSuccess value)? updateAdSuccess,
+    TResult Function(_UpdateAdFailure value)? updateAdFailed,
+    TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
+    TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
+    TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
+    required TResult orElse(),
+  }) {
+    if (getCalculationSuccess != null) {
+      return getCalculationSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetCalculationSuccess implements AdsState {
+  const factory _GetCalculationSuccess(final GetCalculationResponse result) =
+      _$GetCalculationSuccessImpl;
+
+  GetCalculationResponse get result;
+
+  /// Create a copy of AdsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$GetCalculationSuccessImplCopyWith<_$GetCalculationSuccessImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GetCalculationFailureImplCopyWith<$Res> {
+  factory _$$GetCalculationFailureImplCopyWith(
+          _$GetCalculationFailureImpl value,
+          $Res Function(_$GetCalculationFailureImpl) then) =
+      __$$GetCalculationFailureImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String message});
+}
+
+/// @nodoc
+class __$$GetCalculationFailureImplCopyWithImpl<$Res>
+    extends _$AdsStateCopyWithImpl<$Res, _$GetCalculationFailureImpl>
+    implements _$$GetCalculationFailureImplCopyWith<$Res> {
+  __$$GetCalculationFailureImplCopyWithImpl(_$GetCalculationFailureImpl _value,
+      $Res Function(_$GetCalculationFailureImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of AdsState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? message = null,
+  }) {
+    return _then(_$GetCalculationFailureImpl(
+      null == message
+          ? _value.message
+          : message // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetCalculationFailureImpl implements _GetCalculationFailure {
+  const _$GetCalculationFailureImpl(this.message);
+
+  @override
+  final String message;
+
+  @override
+  String toString() {
+    return 'AdsState.getCalculationFailed(message: $message)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetCalculationFailureImpl &&
+            (identical(other.message, message) || other.message == message));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, message);
+
+  /// Create a copy of AdsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetCalculationFailureImplCopyWith<_$GetCalculationFailureImpl>
+      get copyWith => __$$GetCalculationFailureImplCopyWithImpl<
+          _$GetCalculationFailureImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() fetchingPromotions,
+    required TResult Function(dynamic promotions) promotionsLoaded,
+    required TResult Function(String message) promotionsLoadFailed,
+    required TResult Function() fetchingPromotionById,
+    required TResult Function(PromotionData promotion) promotionByIdLoaded,
+    required TResult Function(String message) promotionByIdLoadFailed,
+    required TResult Function() creatingPromotion,
+    required TResult Function(dynamic result) promotionCreated,
+    required TResult Function(String message) promotionCreateFailed,
+    required TResult Function() removingPromotion,
+    required TResult Function(dynamic result) promotionRemoved,
+    required TResult Function(String message) promotionRemoveFailed,
+    required TResult Function() validateFormsState,
+    required TResult Function() validateFormsSuccessState,
+    required TResult Function() paymentLoading,
+    required TResult Function(ChargeResponse result) paymentSuccess,
+    required TResult Function(String message) paymentFailed,
+    required TResult Function() verifyPaymentLoading,
+    required TResult Function(dynamic result) verifyPaymentSuccess,
+    required TResult Function(String message) verifyPaymentFailed,
+    required TResult Function() updateAdLoading,
+    required TResult Function(dynamic result) updateAdSuccess,
+    required TResult Function(String message) updateAdFailed,
+    required TResult Function() getAnalyticsLoading,
+    required TResult Function(AdAnalyticsResponse result) getAnalyticsSuccess,
+    required TResult Function(String message) getAnalyticsFailed,
+    required TResult Function() updateStatsLoading,
+    required TResult Function(dynamic result) updateStatsSuccess,
+    required TResult Function(String message) updateStatsFailed,
+    required TResult Function() getPricingLoading,
+    required TResult Function(GetPricingResponse result) getPricingSuccess,
+    required TResult Function(String message) getPricingFailed,
+    required TResult Function() getCalculationLoading,
+    required TResult Function(GetCalculationResponse result)
+        getCalculationSuccess,
+    required TResult Function(String message) getCalculationFailed,
+  }) {
+    return getCalculationFailed(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? fetchingPromotions,
+    TResult? Function(dynamic promotions)? promotionsLoaded,
+    TResult? Function(String message)? promotionsLoadFailed,
+    TResult? Function()? fetchingPromotionById,
+    TResult? Function(PromotionData promotion)? promotionByIdLoaded,
+    TResult? Function(String message)? promotionByIdLoadFailed,
+    TResult? Function()? creatingPromotion,
+    TResult? Function(dynamic result)? promotionCreated,
+    TResult? Function(String message)? promotionCreateFailed,
+    TResult? Function()? removingPromotion,
+    TResult? Function(dynamic result)? promotionRemoved,
+    TResult? Function(String message)? promotionRemoveFailed,
+    TResult? Function()? validateFormsState,
+    TResult? Function()? validateFormsSuccessState,
+    TResult? Function()? paymentLoading,
+    TResult? Function(ChargeResponse result)? paymentSuccess,
+    TResult? Function(String message)? paymentFailed,
+    TResult? Function()? verifyPaymentLoading,
+    TResult? Function(dynamic result)? verifyPaymentSuccess,
+    TResult? Function(String message)? verifyPaymentFailed,
+    TResult? Function()? updateAdLoading,
+    TResult? Function(dynamic result)? updateAdSuccess,
+    TResult? Function(String message)? updateAdFailed,
+    TResult? Function()? getAnalyticsLoading,
+    TResult? Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
+    TResult? Function(String message)? getAnalyticsFailed,
+    TResult? Function()? updateStatsLoading,
+    TResult? Function(dynamic result)? updateStatsSuccess,
+    TResult? Function(String message)? updateStatsFailed,
+    TResult? Function()? getPricingLoading,
+    TResult? Function(GetPricingResponse result)? getPricingSuccess,
+    TResult? Function(String message)? getPricingFailed,
+    TResult? Function()? getCalculationLoading,
+    TResult? Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult? Function(String message)? getCalculationFailed,
+  }) {
+    return getCalculationFailed?.call(message);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? fetchingPromotions,
+    TResult Function(dynamic promotions)? promotionsLoaded,
+    TResult Function(String message)? promotionsLoadFailed,
+    TResult Function()? fetchingPromotionById,
+    TResult Function(PromotionData promotion)? promotionByIdLoaded,
+    TResult Function(String message)? promotionByIdLoadFailed,
+    TResult Function()? creatingPromotion,
+    TResult Function(dynamic result)? promotionCreated,
+    TResult Function(String message)? promotionCreateFailed,
+    TResult Function()? removingPromotion,
+    TResult Function(dynamic result)? promotionRemoved,
+    TResult Function(String message)? promotionRemoveFailed,
+    TResult Function()? validateFormsState,
+    TResult Function()? validateFormsSuccessState,
+    TResult Function()? paymentLoading,
+    TResult Function(ChargeResponse result)? paymentSuccess,
+    TResult Function(String message)? paymentFailed,
+    TResult Function()? verifyPaymentLoading,
+    TResult Function(dynamic result)? verifyPaymentSuccess,
+    TResult Function(String message)? verifyPaymentFailed,
+    TResult Function()? updateAdLoading,
+    TResult Function(dynamic result)? updateAdSuccess,
+    TResult Function(String message)? updateAdFailed,
+    TResult Function()? getAnalyticsLoading,
+    TResult Function(AdAnalyticsResponse result)? getAnalyticsSuccess,
+    TResult Function(String message)? getAnalyticsFailed,
+    TResult Function()? updateStatsLoading,
+    TResult Function(dynamic result)? updateStatsSuccess,
+    TResult Function(String message)? updateStatsFailed,
+    TResult Function()? getPricingLoading,
+    TResult Function(GetPricingResponse result)? getPricingSuccess,
+    TResult Function(String message)? getPricingFailed,
+    TResult Function()? getCalculationLoading,
+    TResult Function(GetCalculationResponse result)? getCalculationSuccess,
+    TResult Function(String message)? getCalculationFailed,
+    required TResult orElse(),
+  }) {
+    if (getCalculationFailed != null) {
+      return getCalculationFailed(message);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_FetchingPromotions value) fetchingPromotions,
+    required TResult Function(_PromotionsLoaded value) promotionsLoaded,
+    required TResult Function(_PromotionsLoadFailed value) promotionsLoadFailed,
+    required TResult Function(_FetchingPromotionById value)
+        fetchingPromotionById,
+    required TResult Function(_PromotionByIdLoaded value) promotionByIdLoaded,
+    required TResult Function(_PromotionByIdLoadFailed value)
+        promotionByIdLoadFailed,
+    required TResult Function(_CreatingPromotion value) creatingPromotion,
+    required TResult Function(_PromotionCreated value) promotionCreated,
+    required TResult Function(_PromotionCreateFailed value)
+        promotionCreateFailed,
+    required TResult Function(_RemovingPromotion value) removingPromotion,
+    required TResult Function(_PromotionRemoved value) promotionRemoved,
+    required TResult Function(_PromotionRemoveFailed value)
+        promotionRemoveFailed,
+    required TResult Function(_ValidateState value) validateFormsState,
+    required TResult Function(_ValidateSuccess value) validateFormsSuccessState,
+    required TResult Function(_PaymentLoading value) paymentLoading,
+    required TResult Function(_PaymentSuccess value) paymentSuccess,
+    required TResult Function(_PaymentFailed value) paymentFailed,
+    required TResult Function(_VerifyPaymentLoading value) verifyPaymentLoading,
+    required TResult Function(_VerifyPaymentSuccess value) verifyPaymentSuccess,
+    required TResult Function(_VarifyPaymentFailed value) verifyPaymentFailed,
+    required TResult Function(_UpdateAdLoading value) updateAdLoading,
+    required TResult Function(_UpdateAdSuccess value) updateAdSuccess,
+    required TResult Function(_UpdateAdFailure value) updateAdFailed,
+    required TResult Function(_GetAnalyticsLoading value) getAnalyticsLoading,
+    required TResult Function(_GetAnalyticsSuccess value) getAnalyticsSuccess,
+    required TResult Function(_GetAnalyticsFailed value) getAnalyticsFailed,
+    required TResult Function(_UpdateStatLoading value) updateStatsLoading,
+    required TResult Function(_UpdateStatsSuccess value) updateStatsSuccess,
+    required TResult Function(_UpdateStatsFailure value) updateStatsFailed,
+    required TResult Function(_GetPricingLoading value) getPricingLoading,
+    required TResult Function(_GetPricingSuccess value) getPricingSuccess,
+    required TResult Function(_GetPricingFailure value) getPricingFailed,
+    required TResult Function(_GetCalculationLoading value)
+        getCalculationLoading,
+    required TResult Function(_GetCalculationSuccess value)
+        getCalculationSuccess,
+    required TResult Function(_GetCalculationFailure value)
+        getCalculationFailed,
+  }) {
+    return getCalculationFailed(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_FetchingPromotions value)? fetchingPromotions,
+    TResult? Function(_PromotionsLoaded value)? promotionsLoaded,
+    TResult? Function(_PromotionsLoadFailed value)? promotionsLoadFailed,
+    TResult? Function(_FetchingPromotionById value)? fetchingPromotionById,
+    TResult? Function(_PromotionByIdLoaded value)? promotionByIdLoaded,
+    TResult? Function(_PromotionByIdLoadFailed value)? promotionByIdLoadFailed,
+    TResult? Function(_CreatingPromotion value)? creatingPromotion,
+    TResult? Function(_PromotionCreated value)? promotionCreated,
+    TResult? Function(_PromotionCreateFailed value)? promotionCreateFailed,
+    TResult? Function(_RemovingPromotion value)? removingPromotion,
+    TResult? Function(_PromotionRemoved value)? promotionRemoved,
+    TResult? Function(_PromotionRemoveFailed value)? promotionRemoveFailed,
+    TResult? Function(_ValidateState value)? validateFormsState,
+    TResult? Function(_ValidateSuccess value)? validateFormsSuccessState,
+    TResult? Function(_PaymentLoading value)? paymentLoading,
+    TResult? Function(_PaymentSuccess value)? paymentSuccess,
+    TResult? Function(_PaymentFailed value)? paymentFailed,
+    TResult? Function(_VerifyPaymentLoading value)? verifyPaymentLoading,
+    TResult? Function(_VerifyPaymentSuccess value)? verifyPaymentSuccess,
+    TResult? Function(_VarifyPaymentFailed value)? verifyPaymentFailed,
+    TResult? Function(_UpdateAdLoading value)? updateAdLoading,
+    TResult? Function(_UpdateAdSuccess value)? updateAdSuccess,
+    TResult? Function(_UpdateAdFailure value)? updateAdFailed,
+    TResult? Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
+    TResult? Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
+    TResult? Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult? Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult? Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult? Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult? Function(_GetPricingLoading value)? getPricingLoading,
+    TResult? Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult? Function(_GetPricingFailure value)? getPricingFailed,
+    TResult? Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult? Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult? Function(_GetCalculationFailure value)? getCalculationFailed,
+  }) {
+    return getCalculationFailed?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_FetchingPromotions value)? fetchingPromotions,
+    TResult Function(_PromotionsLoaded value)? promotionsLoaded,
+    TResult Function(_PromotionsLoadFailed value)? promotionsLoadFailed,
+    TResult Function(_FetchingPromotionById value)? fetchingPromotionById,
+    TResult Function(_PromotionByIdLoaded value)? promotionByIdLoaded,
+    TResult Function(_PromotionByIdLoadFailed value)? promotionByIdLoadFailed,
+    TResult Function(_CreatingPromotion value)? creatingPromotion,
+    TResult Function(_PromotionCreated value)? promotionCreated,
+    TResult Function(_PromotionCreateFailed value)? promotionCreateFailed,
+    TResult Function(_RemovingPromotion value)? removingPromotion,
+    TResult Function(_PromotionRemoved value)? promotionRemoved,
+    TResult Function(_PromotionRemoveFailed value)? promotionRemoveFailed,
+    TResult Function(_ValidateState value)? validateFormsState,
+    TResult Function(_ValidateSuccess value)? validateFormsSuccessState,
+    TResult Function(_PaymentLoading value)? paymentLoading,
+    TResult Function(_PaymentSuccess value)? paymentSuccess,
+    TResult Function(_PaymentFailed value)? paymentFailed,
+    TResult Function(_VerifyPaymentLoading value)? verifyPaymentLoading,
+    TResult Function(_VerifyPaymentSuccess value)? verifyPaymentSuccess,
+    TResult Function(_VarifyPaymentFailed value)? verifyPaymentFailed,
+    TResult Function(_UpdateAdLoading value)? updateAdLoading,
+    TResult Function(_UpdateAdSuccess value)? updateAdSuccess,
+    TResult Function(_UpdateAdFailure value)? updateAdFailed,
+    TResult Function(_GetAnalyticsLoading value)? getAnalyticsLoading,
+    TResult Function(_GetAnalyticsSuccess value)? getAnalyticsSuccess,
+    TResult Function(_GetAnalyticsFailed value)? getAnalyticsFailed,
+    TResult Function(_UpdateStatLoading value)? updateStatsLoading,
+    TResult Function(_UpdateStatsSuccess value)? updateStatsSuccess,
+    TResult Function(_UpdateStatsFailure value)? updateStatsFailed,
+    TResult Function(_GetPricingLoading value)? getPricingLoading,
+    TResult Function(_GetPricingSuccess value)? getPricingSuccess,
+    TResult Function(_GetPricingFailure value)? getPricingFailed,
+    TResult Function(_GetCalculationLoading value)? getCalculationLoading,
+    TResult Function(_GetCalculationSuccess value)? getCalculationSuccess,
+    TResult Function(_GetCalculationFailure value)? getCalculationFailed,
+    required TResult orElse(),
+  }) {
+    if (getCalculationFailed != null) {
+      return getCalculationFailed(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetCalculationFailure implements AdsState {
+  const factory _GetCalculationFailure(final String message) =
+      _$GetCalculationFailureImpl;
+
+  String get message;
+
+  /// Create a copy of AdsState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$GetCalculationFailureImplCopyWith<_$GetCalculationFailureImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }

@@ -30,9 +30,10 @@ class AdGroupOverView extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
+
           children: [
             ImageWidget(
-              imageUrl: data.category?.iconImage,
+              imageUrl: data.category?.iconImage??Assets.images.png.appIcon.path,
               size: 40,
               fit: BoxFit.cover,
             ),
@@ -44,7 +45,7 @@ class AdGroupOverView extends StatelessWidget {
                   Row(
                     children: [
                       TextView(
-                        text: data.name!,
+                        text: data.name??"",
                         fontSize: 16,
                       ),
                       8.horizontalSpace,
@@ -66,7 +67,7 @@ class AdGroupOverView extends StatelessWidget {
                   ),
                   // 2.verticalSpace,
                   TextView(
-                    text: formatFollowersCount(data.totalMembers),
+                    text: formatFollowersCount(data.totalMembers??0),
                     fontSize: 12,
                     fontWeight: FontWeight.w700,
                   ),

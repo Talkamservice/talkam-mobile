@@ -178,6 +178,14 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
                             refreshPost(reload: false);
                             CustomDialogs.success("Post Deleted");
                           },
+                          deletePostFailure: (e) {
+                            // injector.get<ProfilePostsTabCubit>().fetchUserPosts();
+                            context.pop();
+                            context.pop();
+                            // onPostDeleted();
+                            refreshPost(reload: false);
+                            CustomDialogs.error(e);
+                          },
                         );
                       },
                       child: _PostAction(

@@ -1,3 +1,4 @@
+import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -10,6 +11,7 @@ import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/network/api_error.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/subscription/data/models/get_plans_response.dart';
 import 'package:talkam/features/subscription/presentation/blocs/subscriptions_bloc/subscriptions_bloc_cubit.dart';
@@ -27,13 +29,18 @@ class SubscriptionScreen extends StatefulWidget {
 
 class _SubscriptionScreenState extends State<SubscriptionScreen> {
   TalkamPlanDuration? planDuration;
+  TalkamPlan? currentPlan;
+  int durationIndex = 0;
 
   // final _bloc = injector.get<SubscriptionBloc>();
 
   @override
   void initState() {
     injector.get<SubscriptionsCubit>().getPlans(reload: subscriptionPlans.isEmpty);
-
+    currentPlan = subscriptionPlans.firstWhereOrNull(
+      (element) => element.durations.isNotEmpty,
+    );
+    planDuration = firstDurations.firstOrNull;
     super.initState();
   }
 
@@ -58,8 +65,19 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
           state.maybeWhen(
               orElse: () => 0.verticalSpace,
               getPlansSuccess: (response) {
-                planDuration = firstDurations.firstOrNull;
+                if (currentPlan == null) {
+                  currentPlan = subscriptionPlans.firstWhereOrNull(
+                    (element) => element.durations.isNotEmpty,
+                  );
+                  planDuration = firstDurations.firstOrNull;
+                }
+
+                // planDuration = firstDurations.firstOrNull;
+                // currentPlan = subscriptionPlans.firstWhere(
+                //   (element) => element.durations.isNotEmpty,
+                // );
               });
+          setState(() {});
         },
         builder: (context, state) {
           return state.maybeWhen(
@@ -88,11 +106,14 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                             padding: const EdgeInsets.symmetric(horizontal: 16.0),
                             child: PlanTab(
                               durations: firstDurations,
-                              firstDuration: firstDurations.first,
-                              onSelected: (TalkamPlanDuration _planDuration) {
+                              selectedDuration: planDuration,
+                              firstDuration: firstDurations.firstOrNull,
+                              onSelected: (TalkamPlanDuration _planDuration, index) {
                                 planDuration = _planDuration;
+                                durationIndex = index;
                                 setState(() {});
                               },
+                              currentPlan: currentPlan,
                             ),
                           ),
                           19.verticalSpace
@@ -111,6 +132,15 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                         key: const PageStorageKey("Key"),
                         controller: PageController(viewportFraction: 0.88),
                         // itemCount: subscriptionPlans.length,
+
+                        onPageChanged: (value) {
+                          currentPlan = subscriptionPlans.toList()[value];
+                          planDuration = firstDurations.firstOrNull;
+                          durationIndex = 0;
+                          logger.i(currentPlan?.name);
+                          setState(() {});
+                        },
+
                         children: subscriptionPlans
                             .map(
                               (e) => Padding(
@@ -119,7 +149,7 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
                                   children: [
                                     PlanItem(
                                       plan: e,
-                                      planDuration: planDuration,
+                                      durationIndex: durationIndex,
                                     ),
                                   ],
                                 ),
@@ -148,11 +178,14 @@ class _SubscriptionScreenState extends State<SubscriptionScreen> {
   }
 
   List<TalkamPlanDuration> get firstDurations {
-    return subscriptionPlans
-        .firstWhere(
-          (element) => element.durations.isNotEmpty,
-        )
-        .durations;
+    return ((currentPlan?.durations ?? []).isNotEmpty
+            ? currentPlan?.durations ?? []
+            : subscriptionPlans
+                .firstWhereOrNull(
+                  (element) => element.durations.isNotEmpty,
+                )
+                ?.durations) ??
+        [];
   }
 
   List<TalkamPlan> get subscriptionPlans => injector.get<SubscriptionsCubit>().subscriptionPlans;
@@ -164,11 +197,15 @@ class PlanTab extends StatefulWidget {
     required this.durations,
     this.firstDuration,
     required this.onSelected,
+    this.selectedDuration,
+    required this.currentPlan,
   });
 
   final List<TalkamPlanDuration> durations;
   TalkamPlanDuration? firstDuration;
-  final Function(TalkamPlanDuration) onSelected;
+  final TalkamPlanDuration? selectedDuration;
+  final TalkamPlan? currentPlan;
+  final Function(TalkamPlanDuration, int) onSelected;
 
   @override
   State<PlanTab> createState() => _PlanTabState();
@@ -179,67 +216,81 @@ class _PlanTabState extends State<PlanTab> with AutomaticKeepAliveClientMixin {
 
   @override
   void initState() {
-    duration = widget.firstDuration ?? widget.durations.first;
+    duration = widget.durations.first;
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     super.build(context);
-    return Container(
-      padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-      decoration: BoxDecoration(borderRadius: BorderRadius.circular(45), color: Pallets.white, border: Border.all(color: Pallets.borderGrey)),
-      child: Row(
-        children: widget.durations
-            .map(
-              (e) => Expanded(
-                child: InkWell(
-                  onTap: () {
-                    duration = e;
-                    widget.onSelected(duration);
-                    setState(() {});
-                  },
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 300),
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(33), color: isSelected(e) ? Pallets.blueBubbleColor : Pallets.white),
-                    child: Center(
-                        child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        TextView(
-                          text: e.frequency,
-                          fontSize: 13,
-                          color: isSelected(e) ? Pallets.white : Pallets.black,
-                        ),
-                        5.horizontalSpace,
-                        if ((e.discount ?? 0) > 0)
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(22),
-                                gradient: const LinearGradient(colors: [
-                                  Color(0xffD1F2F7),
-                                  Color(0xffFDFFFF),
-                                  Color(0xffD1F2F7),
-                                ])),
-                            child: TextView(
-                              text: "Save ${e.discount}%",
-                              fontSize: 10,
+    return BlocConsumer<SubscriptionsCubit, SubscriptionsState>(
+      bloc: injector.get(),
+      listener: (context, state) {
+        state.maybeWhen(
+            orElse: () {},
+            getPlansSuccess: (response) {
+              duration = widget.durations.first;
+              widget.onSelected(duration, widget.durations.indexOf(duration));
+              logger.i(widget.durations.indexOf(duration));
+            });
+      },
+      builder: (context, state) {
+        return Container(
+          padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+          decoration: BoxDecoration(borderRadius: BorderRadius.circular(45), color: Pallets.white, border: Border.all(color: Pallets.borderGrey)),
+          child: Row(
+            children: widget.durations
+                .map(
+                  (e) => Expanded(
+                    child: InkWell(
+                      onTap: () {
+                        duration = e;
+                        widget.onSelected(duration, widget.durations.indexOf(e));
+                        setState(() {});
+                      },
+                      child: AnimatedContainer(
+                        duration: const Duration(milliseconds: 300),
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        decoration: BoxDecoration(borderRadius: BorderRadius.circular(33), color: isSelected(e) ? Pallets.blueBubbleColor : Pallets.white),
+                        child: Center(
+                            child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            TextView(
+                              text: e.frequency,
+                              fontSize: 13,
+                              color: isSelected(e) ? Pallets.white : Pallets.black,
                             ),
-                          )
-                      ],
-                    )),
+                            5.horizontalSpace,
+                            if ((widget.currentPlan?.discount ?? 0) > 0 && e.frequency.toString().toLowerCase() == "yearly")
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(22),
+                                    gradient: const LinearGradient(colors: [
+                                      Color(0xffD1F2F7),
+                                      Color(0xffFDFFFF),
+                                      Color(0xffD1F2F7),
+                                    ])),
+                                child: TextView(
+                                  text: "Save ${widget.currentPlan?.discount}%",
+                                  fontSize: 10,
+                                ),
+                              )
+                          ],
+                        )),
+                      ),
+                    ),
                   ),
-                ),
-              ),
-            )
-            .toList(),
-      ),
+                )
+                .toList(),
+          ),
+        );
+      },
     );
   }
 
-  bool isSelected(TalkamPlanDuration e) => e == duration;
+  bool isSelected(TalkamPlanDuration e) => e == widget.selectedDuration;
 
   @override
   bool get wantKeepAlive => true;

@@ -37,6 +37,12 @@ SettingsCategory contentSettings = SettingsCategory(
         context.pushNamed(PageUrl.blockedUsersScreen);
       },
     ),
+    SettingsItem(
+      title: 'Ads',
+      onTap: (context) {
+        context.pushNamed(PageUrl.adsPage);
+      },
+    ),
   ],
 );
 

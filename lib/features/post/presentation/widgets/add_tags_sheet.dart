@@ -21,21 +21,21 @@ class AddTagsSheet extends StatefulWidget {
 class _AddTagsSheetState extends State<AddTagsSheet> {
   @override
   void initState() {
-    if(widget.initialTAgs.isNotEmpty){
-      tagControllers = widget.initialTAgs.map(
+    if (widget.initialTAgs.isNotEmpty) {
+      tagControllers = widget.initialTAgs
+          .map(
             (e) => TextEditingController()..text = e,
-      ).toList();
+          )
+          .toList();
     }
-
 
     super.initState();
   }
 
   final tittleController = TextEditingController();
-   List<TextEditingController> tagControllers = [
+  List<TextEditingController> tagControllers = [
     TextEditingController(),
     TextEditingController(),
-
   ];
 
   int pollHours = 7;
@@ -73,9 +73,7 @@ class _AddTagsSheetState extends State<AddTagsSheet> {
               6.verticalSpace,
               const Divider(),
               6.verticalSpace,
-              const TextView(
-                  text:
-                      "Add at least one tag. Tags make your post easier to find."),
+              const TextView(text: "Add at least one tag. Tags make your post easier to find."),
               6.verticalSpace,
               const Divider(),
               ...List.generate(
@@ -95,8 +93,7 @@ class _AddTagsSheetState extends State<AddTagsSheet> {
                             tagControllers.removeAt(index);
                             setState(() {});
                           },
-                          icon: ImageWidget(
-                              imageUrl: Assets.images.svgs.trash03)),
+                          icon: ImageWidget(imageUrl: Assets.images.svgs.trash03)),
                   ],
                 ),
               ),
@@ -105,10 +102,8 @@ class _AddTagsSheetState extends State<AddTagsSheet> {
                 children: [
                   TextButton(
                       style: TextButton.styleFrom(
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 16),
-                          shape: const StadiumBorder(
-                              side: BorderSide(color: Pallets.borderGrey))),
+                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                          shape: const StadiumBorder(side: BorderSide(color: Pallets.borderGrey))),
                       onPressed: () {
                         tagControllers.add(TextEditingController());
                         setState(() {});
@@ -121,8 +116,7 @@ class _AddTagsSheetState extends State<AddTagsSheet> {
                       style: TextButton.styleFrom(
                           backgroundColor: Pallets.primary,
                           foregroundColor: Pallets.white,
-                          padding: const EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 16),
+                          padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                           shape: const StadiumBorder()),
                       onPressed: () {
                         if (formKey.currentState?.validate() ?? false) {

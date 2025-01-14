@@ -50,11 +50,11 @@ class InitiateSubscriptionResponse {
 }
 
 class Data {
-  int id;
+  dynamic id;
   User user;
   String currency;
-  int amount;
-  int fees;
+  dynamic amount;
+  dynamic fees;
   String reference;
   String activity;
   String description;

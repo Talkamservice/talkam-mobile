@@ -26,14 +26,14 @@ class _PreviewPromotionPageState extends State<PreviewPromotionPage> {
 crossAxisAlignment: CrossAxisAlignment.start,
       mainAxisSize: MainAxisSize.min,
       children: [
-        24.verticalSpace,
-        const Padding(
-          padding: EdgeInsets.only(left: 16, right: 10),
-          child: Text(
-            "Preview promotion",
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
-          ),
-        ),
+        // 24.verticalSpace,
+        // const Padding(
+        //   padding: EdgeInsets.only(left: 16, right: 10),
+        //   child: Text(
+        //     "Preview promotion",
+        //     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        //   ),
+        // ),
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

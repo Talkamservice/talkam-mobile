@@ -104,14 +104,15 @@ class AdInfoWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const TextView(
-                      text: "Engagements Rate",
+                      text: "Engagement Rate",
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                       color: Pallets.textGrey,
                     ),
                     8.verticalSpace,
+
                     TextView(
-                      text: "%${promotion.stats?.engagements.round().toString() ?? "0"}",
+                      text: "${promotion.stats?.engagements.round().toString() ?? "0"}%",
                       fontSize: 16,
                     ),
                   ],
@@ -120,7 +121,7 @@ class AdInfoWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const TextView(
-                      text: "New followers",
+                      text: "Engagement",
                       fontSize: 12,
                       fontWeight: FontWeight.w500,
                       color: Pallets.textGrey,
@@ -148,7 +149,6 @@ class AdInfoWidget extends StatelessWidget {
                                 promotionId: promotion.id.toString(),
                               )));
                 },
-
                 child: const Row(
                   children: [
                     Expanded(
@@ -177,6 +177,7 @@ class AdInfoWidget extends StatelessWidget {
                     promotion.id.toString(),
                   );
                 },
+                data: promotion,
               ),
             if (!promotion.isActive)
               InActiveAdBar(
@@ -188,6 +189,7 @@ class AdInfoWidget extends StatelessWidget {
                     promotion.id.toString(),
                   );
                 },
+                data: promotion,
               ),
           ],
         ),
@@ -201,10 +203,12 @@ class ActiveAdBar extends StatelessWidget {
     super.key,
     required this.onCancel,
     required this.onEdit,
+    required this.data,
   });
 
   final VoidCallback onCancel;
   final VoidCallback onEdit;
+  final PromotionData data;
 
   @override
   Widget build(BuildContext context) {
@@ -270,10 +274,12 @@ class InActiveAdBar extends StatelessWidget {
     super.key,
     required this.onDelete,
     required this.onRestart,
+    required this.data,
   });
 
   final VoidCallback onDelete;
   final VoidCallback onRestart;
+  final PromotionData data;
 
   @override
   Widget build(BuildContext context) {
@@ -283,16 +289,19 @@ class InActiveAdBar extends StatelessWidget {
         TextButton(
           style: TextButton.styleFrom(
             shape: StadiumBorder(),
-            backgroundColor: Pallets.buttonred.withOpacity(0.1),
-            foregroundColor: Pallets.buttonred,
+            backgroundColor: statusColor.withOpacity(0.1),
+            foregroundColor: statusColor,
             padding: EdgeInsets.symmetric(
               horizontal: 16,
             ),
-            textStyle: const TextStyle(color: Pallets.buttonred, fontSize: 12, fontWeight: FontWeight.w700),
+            // textStyle:
+            //     TextStyle(color: data.status.toString().toLowerCase() == "pending" ? Pallets.black : statusColor, fontSize: 12, fontWeight: FontWeight.w700),
+            //
           ),
           onPressed: () {},
-          child: const TextView(
-            text: "Closed Ad",
+          child: TextView(
+            text: "${data.status == "Inactive" ? "Closed" : data.status} Ad",
+            color: data.status.toString().toLowerCase() == "pending" ? Pallets.black : statusColor,
             fontSize: 12,
           ),
         ),
@@ -345,5 +354,18 @@ class InActiveAdBar extends StatelessWidget {
         )
       ],
     );
+  }
+
+  Color get statusColor {
+    switch (data.status.toString().toLowerCase()) {
+      case 'pending':
+        return Color(0xffECA110);
+      case 'active':
+        return Pallets.lightBlue;
+      case 'inactive':
+        return Pallets.buttonred;
+      default:
+        return Pallets.primary;
+    }
   }
 }

@@ -87,9 +87,26 @@ class PostMedia extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // logger.w(post.type.toString().toLowerCase());
+    if(post.type.toString().toLowerCase() == "poll"){
+      return Column(
+        children: [
+          10.verticalSpace,
+          PollsWidget(polls: post.polls),
+          10.verticalSpace,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              TextView(text: TimeUtil.getTimeRemaining(DateTime.now(), post.polls.first.expiresAt)),
+              TextView(text: "$totalVotesCount votes"),
+            ],
+          )
+        ],
+      );
+    }
     return post.attachments.isNotEmpty
         ? switch (post.type.toString().toLowerCase()) {
       "file" => Column(
+
           children: [
             10.verticalSpace,
             PostImage(
@@ -119,20 +136,7 @@ class PostMedia extends StatelessWidget {
             ),
           ],
         ),
-      "poll" => Column(
-          children: [
-            10.verticalSpace,
-            PollsWidget(polls: post.polls),
-            10.verticalSpace,
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextView(text: TimeUtil.getTimeRemaining(DateTime.now(), post.polls.first.expiresAt)),
-                TextView(text: "$totalVotesCount votes"),
-              ],
-            )
-          ],
-        ),
+
       "video" => Column(
           children: [
             10.verticalSpace,

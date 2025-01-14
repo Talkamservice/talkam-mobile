@@ -107,7 +107,7 @@ class _JoinGroupButtonState extends State<JoinGroupButton> {
   }
 
   bool get showIcon {
-    return !widget.group.isFollowing! && !widget.group.hasRequested! && widget.showIcon!;
+    return !(widget.group.isFollowing??false) && !(widget.group.hasRequested??false) &&( widget.showIcon??false);
   }
 
   void listenToGroupStates(context, GroupMembersState state) {
@@ -124,6 +124,8 @@ class _JoinGroupButtonState extends State<JoinGroupButton> {
       deleteMemberSuccess: (response) {
         widget.group.isFollowing = false;
         widget.group.hasRequested = false;
+        widget.onStateChanged();
+
       },
       deleteMemberFailure: (error) {
         CustomDialogs.error(error);
@@ -168,15 +170,19 @@ class _JoinGroupButtonState extends State<JoinGroupButton> {
     }
   }
 
-  bool get shouldSendJoinRequest => !widget.group.isFollowing! && !widget.group.isPublic && !widget.group.hasRequested!;
+  bool get shouldSendJoinRequest =>
+      !(widget.group.isFollowing ?? false) && !(widget.group.isPublic ?? false) && !(widget.group.hasRequested ?? false);
 
-  bool get canJoinGroup => !widget.group.isFollowing! && widget.group.isPublic && !widget.group.hasRequested! && widget.group.isPublic;
+  bool get canJoinGroup =>
+      !(widget.group.isFollowing ?? false) && (widget.group.isPublic ?? false) && !(widget.group.hasRequested ?? false);
 
-  String get tittleText => widget.group.isFollowing!
-      ? "Unfollow"
-      : widget.group.hasRequested!
+  String get tittleText =>
+      (widget.group.isFollowing ?? false)
+          ? "Unfollow"
+          : (widget.group.hasRequested ?? false)
           ? "Cancel Request"
           : "Join";
+
 }
 
 class _Loader extends StatelessWidget {

@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
@@ -124,19 +125,44 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> with RefreshPosts
                                   CustomDialogs.showBottomSheet(context, const RulesSheet());
                                 },
                                 child: Container(
+                                  width: 1.sw,
                                   decoration: BoxDecoration(color: context.theme.cardColor),
                                   padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 16),
-                                  child: Row(
-                                    children: [
-                                      const TextView(fontSize: 13, text: "Please be respectful and follow the"),
-                                      TextView(
-                                        text: "  Community Guidelines",
+                                  child: RichText(
+
+
+                                      text:  TextSpan(children: [
+                                    TextSpan(
+                                      text: "Please be respectful and follow the ",
+                                      style: GoogleFonts.nunito(
+                                        color: context.colorScheme.onSurface,
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                    TextSpan(
+                                      text: "Community Guidelines",
+                                      style: GoogleFonts.nunito(
+                                        color: context.colorScheme.primary,
                                         fontSize: 13,
                                         fontWeight: FontWeight.w700,
-                                        color: context.colorScheme.primary,
-                                      )
-                                    ],
-                                  ),
+
+                                      ),
+                                    ),
+                                  ])),
+                                  // child: Row(
+                                  //   crossAxisAlignment: CrossAxisAlignment.start,
+                                  //   children: [
+                                  //     const TextView(fontSize: 13, text: "Please be respectful and follow the"),
+                                  //     Expanded(
+                                  //       child: TextView(
+                                  //         text: "  Community Guidelines lhd",
+                                  //         fontSize: 13,
+                                  //         fontWeight: FontWeight.w700,
+                                  //         color: context.colorScheme.primary,
+                                  //       ),
+                                  //     )
+                                  //   ],
+                                  // ),
                                 ),
                               ),
                               3.verticalSpace,

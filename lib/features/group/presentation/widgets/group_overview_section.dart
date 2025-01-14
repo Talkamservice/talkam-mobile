@@ -46,7 +46,8 @@ class GroupOverViewSection extends StatelessWidget {
                         fontSize: 16,
                       ),
                       8.horizontalSpace,
-                      if ((data.isOwner || data.isAdmin) && !data.isPromoted)
+
+                      if ((data.isAdmin) && !data.isPromoted)
                         InkWell(
                           onTap: () {
                             CustomDialogs.showBottomSheet(

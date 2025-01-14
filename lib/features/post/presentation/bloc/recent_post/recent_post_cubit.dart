@@ -33,7 +33,7 @@ class RecentPostCubit extends Cubit<RecentPostState> {
       _promotedIndex = 0;
 
       // Merge posts
-      final mergedPosts = _mergePosts(response.data.data, _promotedPosts);
+      final mergedPosts = response.data.data.isEmpty ? <TalkamPost>[]: _mergePosts(response.data.data, _promotedPosts);
 
       // Emit success state with merged posts
       final mergedResponse = response.copyWith(
@@ -61,7 +61,7 @@ class RecentPostCubit extends Cubit<RecentPostState> {
       }
 
       // Merge new normal posts with remaining promoted posts
-      final mergedPosts = _mergePosts(
+      final mergedPosts = normalPostsResponse.data.data.isEmpty ? <TalkamPost>[]:_mergePosts(
         [...previousPosts.data.data, ...normalPostsResponse.data.data],
         _promotedPosts,
       );

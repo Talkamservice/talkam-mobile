@@ -206,6 +206,10 @@ class UrlConfig {
   static const String promotions = '/user/promotions';
   static const String analytics = '/user/posts/stats/fetch';
   static const String promotedPosts = '/user/posts/promotions/list';
+  static const String calculatePrice = '/user/promotion-pricings/calculate';
+  static const String getPricing = '/user/promotion-pricings/get';
 
   static const String paymentCallback = '/user/finance/payments/callback';
+
+  static String getCategoryById(String? categoryId) => '/user/post-categories/$categoryId/show';
 }

@@ -3,9 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talkam/core/theme/pallets.dart';
 
 class Indicator extends StatefulWidget {
-  const Indicator(
-      {Key? key, required this.seledtedIndex, required this.items_count})
-      : super(key: key);
+  const Indicator({Key? key, required this.seledtedIndex, required this.items_count}) : super(key: key);
   final int seledtedIndex;
   final int items_count;
 
@@ -28,11 +26,7 @@ class _IndicatorState extends State<Indicator> {
               // margin: const EdgeInsets.symmetric(vertical: 2, horizontal: 5),
               width: 6.w,
               duration: const Duration(milliseconds: 700),
-              decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
-                  color: (widget.seledtedIndex == index)
-                      ? Pallets.primary
-                      : Pallets.white)),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: (widget.seledtedIndex == index) ? Pallets.primary : Pallets.white)),
         ),
       ),
     );

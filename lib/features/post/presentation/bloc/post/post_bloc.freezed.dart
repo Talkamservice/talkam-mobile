@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$PostEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String? categoryId) getCategoryById,
     required TResult Function(
             String? categoryId, bool? refresh, bool? mergeGroups)
         getCategories,
@@ -42,6 +43,7 @@ mixin _$PostEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? categoryId)? getCategoryById,
     TResult? Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult? Function()? getSubCategories,
@@ -65,6 +67,7 @@ mixin _$PostEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? categoryId)? getCategoryById,
     TResult Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult Function()? getSubCategories,
@@ -89,6 +92,7 @@ mixin _$PostEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetCategoryByIdEvent value) getCategoryById,
     required TResult Function(_GetCategoriesEvent value) getCategories,
     required TResult Function(_GetSubCategoriesEvent value) getSubCategories,
     required TResult Function(_GetPostsEvent value) getPosts,
@@ -110,6 +114,7 @@ mixin _$PostEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult? Function(_GetCategoriesEvent value)? getCategories,
     TResult? Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult? Function(_GetPostsEvent value)? getPosts,
@@ -131,6 +136,7 @@ mixin _$PostEvent {
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult Function(_GetCategoriesEvent value)? getCategories,
     TResult Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult Function(_GetPostsEvent value)? getPosts,
@@ -171,6 +177,253 @@ class _$PostEventCopyWithImpl<$Res, $Val extends PostEvent>
 
   /// Create a copy of PostEvent
   /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+abstract class _$$GetCategoryByIdEventImplCopyWith<$Res> {
+  factory _$$GetCategoryByIdEventImplCopyWith(_$GetCategoryByIdEventImpl value,
+          $Res Function(_$GetCategoryByIdEventImpl) then) =
+      __$$GetCategoryByIdEventImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String? categoryId});
+}
+
+/// @nodoc
+class __$$GetCategoryByIdEventImplCopyWithImpl<$Res>
+    extends _$PostEventCopyWithImpl<$Res, _$GetCategoryByIdEventImpl>
+    implements _$$GetCategoryByIdEventImplCopyWith<$Res> {
+  __$$GetCategoryByIdEventImplCopyWithImpl(_$GetCategoryByIdEventImpl _value,
+      $Res Function(_$GetCategoryByIdEventImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? categoryId = freezed,
+  }) {
+    return _then(_$GetCategoryByIdEventImpl(
+      categoryId: freezed == categoryId
+          ? _value.categoryId
+          : categoryId // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetCategoryByIdEventImpl implements _GetCategoryByIdEvent {
+  const _$GetCategoryByIdEventImpl({this.categoryId});
+
+  @override
+  final String? categoryId;
+
+  @override
+  String toString() {
+    return 'PostEvent.getCategoryById(categoryId: $categoryId)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetCategoryByIdEventImpl &&
+            (identical(other.categoryId, categoryId) ||
+                other.categoryId == categoryId));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, categoryId);
+
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetCategoryByIdEventImplCopyWith<_$GetCategoryByIdEventImpl>
+      get copyWith =>
+          __$$GetCategoryByIdEventImplCopyWithImpl<_$GetCategoryByIdEventImpl>(
+              this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function(String? categoryId) getCategoryById,
+    required TResult Function(
+            String? categoryId, bool? refresh, bool? mergeGroups)
+        getCategories,
+    required TResult Function() getSubCategories,
+    required TResult Function() getPosts,
+    required TResult Function(CreatePostPayload postData) createPost,
+    required TResult Function(String postId, bool? refresh) getPostDetails,
+    required TResult Function(String postId) deletePost,
+    required TResult Function(String postId, String action) postReaction,
+    required TResult Function(String postId, String reason) reportPost,
+    required TResult Function(String postId, String commentId, String reason)
+        reportComment,
+    required TResult Function() getPolls,
+    required TResult Function(String postId) getComments,
+    required TResult Function(String commentId) getAComment,
+    required TResult Function(SaveCommentPayload payload) saveAComment,
+    required TResult Function(String commentId) deleteComment,
+    required TResult Function(String commentId, String action) commentReaction,
+    required TResult Function() getGuidelines,
+    required TResult Function() getTrends,
+  }) {
+    return getCategoryById(categoryId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? categoryId)? getCategoryById,
+    TResult? Function(String? categoryId, bool? refresh, bool? mergeGroups)?
+        getCategories,
+    TResult? Function()? getSubCategories,
+    TResult? Function()? getPosts,
+    TResult? Function(CreatePostPayload postData)? createPost,
+    TResult? Function(String postId, bool? refresh)? getPostDetails,
+    TResult? Function(String postId)? deletePost,
+    TResult? Function(String postId, String action)? postReaction,
+    TResult? Function(String postId, String reason)? reportPost,
+    TResult? Function(String postId, String commentId, String reason)?
+        reportComment,
+    TResult? Function()? getPolls,
+    TResult? Function(String postId)? getComments,
+    TResult? Function(String commentId)? getAComment,
+    TResult? Function(SaveCommentPayload payload)? saveAComment,
+    TResult? Function(String commentId)? deleteComment,
+    TResult? Function(String commentId, String action)? commentReaction,
+    TResult? Function()? getGuidelines,
+    TResult? Function()? getTrends,
+  }) {
+    return getCategoryById?.call(categoryId);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? categoryId)? getCategoryById,
+    TResult Function(String? categoryId, bool? refresh, bool? mergeGroups)?
+        getCategories,
+    TResult Function()? getSubCategories,
+    TResult Function()? getPosts,
+    TResult Function(CreatePostPayload postData)? createPost,
+    TResult Function(String postId, bool? refresh)? getPostDetails,
+    TResult Function(String postId)? deletePost,
+    TResult Function(String postId, String action)? postReaction,
+    TResult Function(String postId, String reason)? reportPost,
+    TResult Function(String postId, String commentId, String reason)?
+        reportComment,
+    TResult Function()? getPolls,
+    TResult Function(String postId)? getComments,
+    TResult Function(String commentId)? getAComment,
+    TResult Function(SaveCommentPayload payload)? saveAComment,
+    TResult Function(String commentId)? deleteComment,
+    TResult Function(String commentId, String action)? commentReaction,
+    TResult Function()? getGuidelines,
+    TResult Function()? getTrends,
+    required TResult orElse(),
+  }) {
+    if (getCategoryById != null) {
+      return getCategoryById(categoryId);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_GetCategoryByIdEvent value) getCategoryById,
+    required TResult Function(_GetCategoriesEvent value) getCategories,
+    required TResult Function(_GetSubCategoriesEvent value) getSubCategories,
+    required TResult Function(_GetPostsEvent value) getPosts,
+    required TResult Function(_CreatePostEvent value) createPost,
+    required TResult Function(_GetPostDetailsEvent value) getPostDetails,
+    required TResult Function(_DeletePostEvent value) deletePost,
+    required TResult Function(_PostReactionEvent value) postReaction,
+    required TResult Function(ReportPostEvent value) reportPost,
+    required TResult Function(ReportCommentEvent value) reportComment,
+    required TResult Function(_GetPollsEvent value) getPolls,
+    required TResult Function(_GetCommentsEvent value) getComments,
+    required TResult Function(_GetACommentEvent value) getAComment,
+    required TResult Function(_SaveACommentEvent value) saveAComment,
+    required TResult Function(_DeleteCommentEvent value) deleteComment,
+    required TResult Function(_CommentReactionEvent value) commentReaction,
+    required TResult Function(_GetGuidelines value) getGuidelines,
+    required TResult Function(_GetTrends value) getTrends,
+  }) {
+    return getCategoryById(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCategoryByIdEvent value)? getCategoryById,
+    TResult? Function(_GetCategoriesEvent value)? getCategories,
+    TResult? Function(_GetSubCategoriesEvent value)? getSubCategories,
+    TResult? Function(_GetPostsEvent value)? getPosts,
+    TResult? Function(_CreatePostEvent value)? createPost,
+    TResult? Function(_GetPostDetailsEvent value)? getPostDetails,
+    TResult? Function(_DeletePostEvent value)? deletePost,
+    TResult? Function(_PostReactionEvent value)? postReaction,
+    TResult? Function(ReportPostEvent value)? reportPost,
+    TResult? Function(ReportCommentEvent value)? reportComment,
+    TResult? Function(_GetPollsEvent value)? getPolls,
+    TResult? Function(_GetCommentsEvent value)? getComments,
+    TResult? Function(_GetACommentEvent value)? getAComment,
+    TResult? Function(_SaveACommentEvent value)? saveAComment,
+    TResult? Function(_DeleteCommentEvent value)? deleteComment,
+    TResult? Function(_CommentReactionEvent value)? commentReaction,
+    TResult? Function(_GetGuidelines value)? getGuidelines,
+    TResult? Function(_GetTrends value)? getTrends,
+  }) {
+    return getCategoryById?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCategoryByIdEvent value)? getCategoryById,
+    TResult Function(_GetCategoriesEvent value)? getCategories,
+    TResult Function(_GetSubCategoriesEvent value)? getSubCategories,
+    TResult Function(_GetPostsEvent value)? getPosts,
+    TResult Function(_CreatePostEvent value)? createPost,
+    TResult Function(_GetPostDetailsEvent value)? getPostDetails,
+    TResult Function(_DeletePostEvent value)? deletePost,
+    TResult Function(_PostReactionEvent value)? postReaction,
+    TResult Function(ReportPostEvent value)? reportPost,
+    TResult Function(ReportCommentEvent value)? reportComment,
+    TResult Function(_GetPollsEvent value)? getPolls,
+    TResult Function(_GetCommentsEvent value)? getComments,
+    TResult Function(_GetACommentEvent value)? getAComment,
+    TResult Function(_SaveACommentEvent value)? saveAComment,
+    TResult Function(_DeleteCommentEvent value)? deleteComment,
+    TResult Function(_CommentReactionEvent value)? commentReaction,
+    TResult Function(_GetGuidelines value)? getGuidelines,
+    TResult Function(_GetTrends value)? getTrends,
+    required TResult orElse(),
+  }) {
+    if (getCategoryById != null) {
+      return getCategoryById(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetCategoryByIdEvent implements PostEvent {
+  const factory _GetCategoryByIdEvent({final String? categoryId}) =
+      _$GetCategoryByIdEventImpl;
+
+  String? get categoryId;
+
+  /// Create a copy of PostEvent
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$GetCategoryByIdEventImplCopyWith<_$GetCategoryByIdEventImpl>
+      get copyWith => throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -262,6 +515,7 @@ class _$GetCategoriesEventImpl implements _GetCategoriesEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String? categoryId) getCategoryById,
     required TResult Function(
             String? categoryId, bool? refresh, bool? mergeGroups)
         getCategories,
@@ -289,6 +543,7 @@ class _$GetCategoriesEventImpl implements _GetCategoriesEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? categoryId)? getCategoryById,
     TResult? Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult? Function()? getSubCategories,
@@ -315,6 +570,7 @@ class _$GetCategoriesEventImpl implements _GetCategoriesEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? categoryId)? getCategoryById,
     TResult Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult Function()? getSubCategories,
@@ -345,6 +601,7 @@ class _$GetCategoriesEventImpl implements _GetCategoriesEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetCategoryByIdEvent value) getCategoryById,
     required TResult Function(_GetCategoriesEvent value) getCategories,
     required TResult Function(_GetSubCategoriesEvent value) getSubCategories,
     required TResult Function(_GetPostsEvent value) getPosts,
@@ -369,6 +626,7 @@ class _$GetCategoriesEventImpl implements _GetCategoriesEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult? Function(_GetCategoriesEvent value)? getCategories,
     TResult? Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult? Function(_GetPostsEvent value)? getPosts,
@@ -393,6 +651,7 @@ class _$GetCategoriesEventImpl implements _GetCategoriesEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult Function(_GetCategoriesEvent value)? getCategories,
     TResult Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult Function(_GetPostsEvent value)? getPosts,
@@ -479,6 +738,7 @@ class _$GetSubCategoriesEventImpl implements _GetSubCategoriesEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String? categoryId) getCategoryById,
     required TResult Function(
             String? categoryId, bool? refresh, bool? mergeGroups)
         getCategories,
@@ -506,6 +766,7 @@ class _$GetSubCategoriesEventImpl implements _GetSubCategoriesEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? categoryId)? getCategoryById,
     TResult? Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult? Function()? getSubCategories,
@@ -532,6 +793,7 @@ class _$GetSubCategoriesEventImpl implements _GetSubCategoriesEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? categoryId)? getCategoryById,
     TResult Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult Function()? getSubCategories,
@@ -562,6 +824,7 @@ class _$GetSubCategoriesEventImpl implements _GetSubCategoriesEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetCategoryByIdEvent value) getCategoryById,
     required TResult Function(_GetCategoriesEvent value) getCategories,
     required TResult Function(_GetSubCategoriesEvent value) getSubCategories,
     required TResult Function(_GetPostsEvent value) getPosts,
@@ -586,6 +849,7 @@ class _$GetSubCategoriesEventImpl implements _GetSubCategoriesEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult? Function(_GetCategoriesEvent value)? getCategories,
     TResult? Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult? Function(_GetPostsEvent value)? getPosts,
@@ -610,6 +874,7 @@ class _$GetSubCategoriesEventImpl implements _GetSubCategoriesEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult Function(_GetCategoriesEvent value)? getCategories,
     TResult Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult Function(_GetPostsEvent value)? getPosts,
@@ -681,6 +946,7 @@ class _$GetPostsEventImpl implements _GetPostsEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String? categoryId) getCategoryById,
     required TResult Function(
             String? categoryId, bool? refresh, bool? mergeGroups)
         getCategories,
@@ -708,6 +974,7 @@ class _$GetPostsEventImpl implements _GetPostsEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? categoryId)? getCategoryById,
     TResult? Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult? Function()? getSubCategories,
@@ -734,6 +1001,7 @@ class _$GetPostsEventImpl implements _GetPostsEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? categoryId)? getCategoryById,
     TResult Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult Function()? getSubCategories,
@@ -764,6 +1032,7 @@ class _$GetPostsEventImpl implements _GetPostsEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetCategoryByIdEvent value) getCategoryById,
     required TResult Function(_GetCategoriesEvent value) getCategories,
     required TResult Function(_GetSubCategoriesEvent value) getSubCategories,
     required TResult Function(_GetPostsEvent value) getPosts,
@@ -788,6 +1057,7 @@ class _$GetPostsEventImpl implements _GetPostsEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult? Function(_GetCategoriesEvent value)? getCategories,
     TResult? Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult? Function(_GetPostsEvent value)? getPosts,
@@ -812,6 +1082,7 @@ class _$GetPostsEventImpl implements _GetPostsEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult Function(_GetCategoriesEvent value)? getCategories,
     TResult Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult Function(_GetPostsEvent value)? getPosts,
@@ -912,6 +1183,7 @@ class _$CreatePostEventImpl implements _CreatePostEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String? categoryId) getCategoryById,
     required TResult Function(
             String? categoryId, bool? refresh, bool? mergeGroups)
         getCategories,
@@ -939,6 +1211,7 @@ class _$CreatePostEventImpl implements _CreatePostEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? categoryId)? getCategoryById,
     TResult? Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult? Function()? getSubCategories,
@@ -965,6 +1238,7 @@ class _$CreatePostEventImpl implements _CreatePostEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? categoryId)? getCategoryById,
     TResult Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult Function()? getSubCategories,
@@ -995,6 +1269,7 @@ class _$CreatePostEventImpl implements _CreatePostEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetCategoryByIdEvent value) getCategoryById,
     required TResult Function(_GetCategoriesEvent value) getCategories,
     required TResult Function(_GetSubCategoriesEvent value) getSubCategories,
     required TResult Function(_GetPostsEvent value) getPosts,
@@ -1019,6 +1294,7 @@ class _$CreatePostEventImpl implements _CreatePostEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult? Function(_GetCategoriesEvent value)? getCategories,
     TResult? Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult? Function(_GetPostsEvent value)? getPosts,
@@ -1043,6 +1319,7 @@ class _$CreatePostEventImpl implements _CreatePostEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult Function(_GetCategoriesEvent value)? getCategories,
     TResult Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult Function(_GetPostsEvent value)? getPosts,
@@ -1159,6 +1436,7 @@ class _$GetPostDetailsEventImpl implements _GetPostDetailsEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String? categoryId) getCategoryById,
     required TResult Function(
             String? categoryId, bool? refresh, bool? mergeGroups)
         getCategories,
@@ -1186,6 +1464,7 @@ class _$GetPostDetailsEventImpl implements _GetPostDetailsEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? categoryId)? getCategoryById,
     TResult? Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult? Function()? getSubCategories,
@@ -1212,6 +1491,7 @@ class _$GetPostDetailsEventImpl implements _GetPostDetailsEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? categoryId)? getCategoryById,
     TResult Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult Function()? getSubCategories,
@@ -1242,6 +1522,7 @@ class _$GetPostDetailsEventImpl implements _GetPostDetailsEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetCategoryByIdEvent value) getCategoryById,
     required TResult Function(_GetCategoriesEvent value) getCategories,
     required TResult Function(_GetSubCategoriesEvent value) getSubCategories,
     required TResult Function(_GetPostsEvent value) getPosts,
@@ -1266,6 +1547,7 @@ class _$GetPostDetailsEventImpl implements _GetPostDetailsEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult? Function(_GetCategoriesEvent value)? getCategories,
     TResult? Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult? Function(_GetPostsEvent value)? getPosts,
@@ -1290,6 +1572,7 @@ class _$GetPostDetailsEventImpl implements _GetPostDetailsEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult Function(_GetCategoriesEvent value)? getCategories,
     TResult Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult Function(_GetPostsEvent value)? getPosts,
@@ -1399,6 +1682,7 @@ class _$DeletePostEventImpl implements _DeletePostEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String? categoryId) getCategoryById,
     required TResult Function(
             String? categoryId, bool? refresh, bool? mergeGroups)
         getCategories,
@@ -1426,6 +1710,7 @@ class _$DeletePostEventImpl implements _DeletePostEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? categoryId)? getCategoryById,
     TResult? Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult? Function()? getSubCategories,
@@ -1452,6 +1737,7 @@ class _$DeletePostEventImpl implements _DeletePostEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? categoryId)? getCategoryById,
     TResult Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult Function()? getSubCategories,
@@ -1482,6 +1768,7 @@ class _$DeletePostEventImpl implements _DeletePostEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetCategoryByIdEvent value) getCategoryById,
     required TResult Function(_GetCategoriesEvent value) getCategories,
     required TResult Function(_GetSubCategoriesEvent value) getSubCategories,
     required TResult Function(_GetPostsEvent value) getPosts,
@@ -1506,6 +1793,7 @@ class _$DeletePostEventImpl implements _DeletePostEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult? Function(_GetCategoriesEvent value)? getCategories,
     TResult? Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult? Function(_GetPostsEvent value)? getPosts,
@@ -1530,6 +1818,7 @@ class _$DeletePostEventImpl implements _DeletePostEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult Function(_GetCategoriesEvent value)? getCategories,
     TResult Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult Function(_GetPostsEvent value)? getPosts,
@@ -1645,6 +1934,7 @@ class _$PostReactionEventImpl implements _PostReactionEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String? categoryId) getCategoryById,
     required TResult Function(
             String? categoryId, bool? refresh, bool? mergeGroups)
         getCategories,
@@ -1672,6 +1962,7 @@ class _$PostReactionEventImpl implements _PostReactionEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? categoryId)? getCategoryById,
     TResult? Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult? Function()? getSubCategories,
@@ -1698,6 +1989,7 @@ class _$PostReactionEventImpl implements _PostReactionEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? categoryId)? getCategoryById,
     TResult Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult Function()? getSubCategories,
@@ -1728,6 +2020,7 @@ class _$PostReactionEventImpl implements _PostReactionEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetCategoryByIdEvent value) getCategoryById,
     required TResult Function(_GetCategoriesEvent value) getCategories,
     required TResult Function(_GetSubCategoriesEvent value) getSubCategories,
     required TResult Function(_GetPostsEvent value) getPosts,
@@ -1752,6 +2045,7 @@ class _$PostReactionEventImpl implements _PostReactionEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult? Function(_GetCategoriesEvent value)? getCategories,
     TResult? Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult? Function(_GetPostsEvent value)? getPosts,
@@ -1776,6 +2070,7 @@ class _$PostReactionEventImpl implements _PostReactionEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult Function(_GetCategoriesEvent value)? getCategories,
     TResult Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult Function(_GetPostsEvent value)? getPosts,
@@ -1893,6 +2188,7 @@ class _$ReportPostEventImpl implements ReportPostEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String? categoryId) getCategoryById,
     required TResult Function(
             String? categoryId, bool? refresh, bool? mergeGroups)
         getCategories,
@@ -1920,6 +2216,7 @@ class _$ReportPostEventImpl implements ReportPostEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? categoryId)? getCategoryById,
     TResult? Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult? Function()? getSubCategories,
@@ -1946,6 +2243,7 @@ class _$ReportPostEventImpl implements ReportPostEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? categoryId)? getCategoryById,
     TResult Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult Function()? getSubCategories,
@@ -1976,6 +2274,7 @@ class _$ReportPostEventImpl implements ReportPostEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetCategoryByIdEvent value) getCategoryById,
     required TResult Function(_GetCategoriesEvent value) getCategories,
     required TResult Function(_GetSubCategoriesEvent value) getSubCategories,
     required TResult Function(_GetPostsEvent value) getPosts,
@@ -2000,6 +2299,7 @@ class _$ReportPostEventImpl implements ReportPostEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult? Function(_GetCategoriesEvent value)? getCategories,
     TResult? Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult? Function(_GetPostsEvent value)? getPosts,
@@ -2024,6 +2324,7 @@ class _$ReportPostEventImpl implements ReportPostEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult Function(_GetCategoriesEvent value)? getCategories,
     TResult Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult Function(_GetPostsEvent value)? getPosts,
@@ -2150,6 +2451,7 @@ class _$ReportCommentEventImpl implements ReportCommentEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String? categoryId) getCategoryById,
     required TResult Function(
             String? categoryId, bool? refresh, bool? mergeGroups)
         getCategories,
@@ -2177,6 +2479,7 @@ class _$ReportCommentEventImpl implements ReportCommentEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? categoryId)? getCategoryById,
     TResult? Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult? Function()? getSubCategories,
@@ -2203,6 +2506,7 @@ class _$ReportCommentEventImpl implements ReportCommentEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? categoryId)? getCategoryById,
     TResult Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult Function()? getSubCategories,
@@ -2233,6 +2537,7 @@ class _$ReportCommentEventImpl implements ReportCommentEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetCategoryByIdEvent value) getCategoryById,
     required TResult Function(_GetCategoriesEvent value) getCategories,
     required TResult Function(_GetSubCategoriesEvent value) getSubCategories,
     required TResult Function(_GetPostsEvent value) getPosts,
@@ -2257,6 +2562,7 @@ class _$ReportCommentEventImpl implements ReportCommentEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult? Function(_GetCategoriesEvent value)? getCategories,
     TResult? Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult? Function(_GetPostsEvent value)? getPosts,
@@ -2281,6 +2587,7 @@ class _$ReportCommentEventImpl implements ReportCommentEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult Function(_GetCategoriesEvent value)? getCategories,
     TResult Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult Function(_GetPostsEvent value)? getPosts,
@@ -2364,6 +2671,7 @@ class _$GetPollsEventImpl implements _GetPollsEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String? categoryId) getCategoryById,
     required TResult Function(
             String? categoryId, bool? refresh, bool? mergeGroups)
         getCategories,
@@ -2391,6 +2699,7 @@ class _$GetPollsEventImpl implements _GetPollsEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? categoryId)? getCategoryById,
     TResult? Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult? Function()? getSubCategories,
@@ -2417,6 +2726,7 @@ class _$GetPollsEventImpl implements _GetPollsEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? categoryId)? getCategoryById,
     TResult Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult Function()? getSubCategories,
@@ -2447,6 +2757,7 @@ class _$GetPollsEventImpl implements _GetPollsEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetCategoryByIdEvent value) getCategoryById,
     required TResult Function(_GetCategoriesEvent value) getCategories,
     required TResult Function(_GetSubCategoriesEvent value) getSubCategories,
     required TResult Function(_GetPostsEvent value) getPosts,
@@ -2471,6 +2782,7 @@ class _$GetPollsEventImpl implements _GetPollsEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult? Function(_GetCategoriesEvent value)? getCategories,
     TResult? Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult? Function(_GetPostsEvent value)? getPosts,
@@ -2495,6 +2807,7 @@ class _$GetPollsEventImpl implements _GetPollsEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult Function(_GetCategoriesEvent value)? getCategories,
     TResult Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult Function(_GetPostsEvent value)? getPosts,
@@ -2594,6 +2907,7 @@ class _$GetCommentsEventImpl implements _GetCommentsEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String? categoryId) getCategoryById,
     required TResult Function(
             String? categoryId, bool? refresh, bool? mergeGroups)
         getCategories,
@@ -2621,6 +2935,7 @@ class _$GetCommentsEventImpl implements _GetCommentsEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? categoryId)? getCategoryById,
     TResult? Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult? Function()? getSubCategories,
@@ -2647,6 +2962,7 @@ class _$GetCommentsEventImpl implements _GetCommentsEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? categoryId)? getCategoryById,
     TResult Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult Function()? getSubCategories,
@@ -2677,6 +2993,7 @@ class _$GetCommentsEventImpl implements _GetCommentsEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetCategoryByIdEvent value) getCategoryById,
     required TResult Function(_GetCategoriesEvent value) getCategories,
     required TResult Function(_GetSubCategoriesEvent value) getSubCategories,
     required TResult Function(_GetPostsEvent value) getPosts,
@@ -2701,6 +3018,7 @@ class _$GetCommentsEventImpl implements _GetCommentsEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult? Function(_GetCategoriesEvent value)? getCategories,
     TResult? Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult? Function(_GetPostsEvent value)? getPosts,
@@ -2725,6 +3043,7 @@ class _$GetCommentsEventImpl implements _GetCommentsEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult Function(_GetCategoriesEvent value)? getCategories,
     TResult Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult Function(_GetPostsEvent value)? getPosts,
@@ -2833,6 +3152,7 @@ class _$GetACommentEventImpl implements _GetACommentEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String? categoryId) getCategoryById,
     required TResult Function(
             String? categoryId, bool? refresh, bool? mergeGroups)
         getCategories,
@@ -2860,6 +3180,7 @@ class _$GetACommentEventImpl implements _GetACommentEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? categoryId)? getCategoryById,
     TResult? Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult? Function()? getSubCategories,
@@ -2886,6 +3207,7 @@ class _$GetACommentEventImpl implements _GetACommentEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? categoryId)? getCategoryById,
     TResult Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult Function()? getSubCategories,
@@ -2916,6 +3238,7 @@ class _$GetACommentEventImpl implements _GetACommentEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetCategoryByIdEvent value) getCategoryById,
     required TResult Function(_GetCategoriesEvent value) getCategories,
     required TResult Function(_GetSubCategoriesEvent value) getSubCategories,
     required TResult Function(_GetPostsEvent value) getPosts,
@@ -2940,6 +3263,7 @@ class _$GetACommentEventImpl implements _GetACommentEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult? Function(_GetCategoriesEvent value)? getCategories,
     TResult? Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult? Function(_GetPostsEvent value)? getPosts,
@@ -2964,6 +3288,7 @@ class _$GetACommentEventImpl implements _GetACommentEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult Function(_GetCategoriesEvent value)? getCategories,
     TResult Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult Function(_GetPostsEvent value)? getPosts,
@@ -3072,6 +3397,7 @@ class _$SaveACommentEventImpl implements _SaveACommentEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String? categoryId) getCategoryById,
     required TResult Function(
             String? categoryId, bool? refresh, bool? mergeGroups)
         getCategories,
@@ -3099,6 +3425,7 @@ class _$SaveACommentEventImpl implements _SaveACommentEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? categoryId)? getCategoryById,
     TResult? Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult? Function()? getSubCategories,
@@ -3125,6 +3452,7 @@ class _$SaveACommentEventImpl implements _SaveACommentEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? categoryId)? getCategoryById,
     TResult Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult Function()? getSubCategories,
@@ -3155,6 +3483,7 @@ class _$SaveACommentEventImpl implements _SaveACommentEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetCategoryByIdEvent value) getCategoryById,
     required TResult Function(_GetCategoriesEvent value) getCategories,
     required TResult Function(_GetSubCategoriesEvent value) getSubCategories,
     required TResult Function(_GetPostsEvent value) getPosts,
@@ -3179,6 +3508,7 @@ class _$SaveACommentEventImpl implements _SaveACommentEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult? Function(_GetCategoriesEvent value)? getCategories,
     TResult? Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult? Function(_GetPostsEvent value)? getPosts,
@@ -3203,6 +3533,7 @@ class _$SaveACommentEventImpl implements _SaveACommentEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult Function(_GetCategoriesEvent value)? getCategories,
     TResult Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult Function(_GetPostsEvent value)? getPosts,
@@ -3312,6 +3643,7 @@ class _$DeleteCommentEventImpl implements _DeleteCommentEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String? categoryId) getCategoryById,
     required TResult Function(
             String? categoryId, bool? refresh, bool? mergeGroups)
         getCategories,
@@ -3339,6 +3671,7 @@ class _$DeleteCommentEventImpl implements _DeleteCommentEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? categoryId)? getCategoryById,
     TResult? Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult? Function()? getSubCategories,
@@ -3365,6 +3698,7 @@ class _$DeleteCommentEventImpl implements _DeleteCommentEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? categoryId)? getCategoryById,
     TResult Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult Function()? getSubCategories,
@@ -3395,6 +3729,7 @@ class _$DeleteCommentEventImpl implements _DeleteCommentEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetCategoryByIdEvent value) getCategoryById,
     required TResult Function(_GetCategoriesEvent value) getCategories,
     required TResult Function(_GetSubCategoriesEvent value) getSubCategories,
     required TResult Function(_GetPostsEvent value) getPosts,
@@ -3419,6 +3754,7 @@ class _$DeleteCommentEventImpl implements _DeleteCommentEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult? Function(_GetCategoriesEvent value)? getCategories,
     TResult? Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult? Function(_GetPostsEvent value)? getPosts,
@@ -3443,6 +3779,7 @@ class _$DeleteCommentEventImpl implements _DeleteCommentEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult Function(_GetCategoriesEvent value)? getCategories,
     TResult Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult Function(_GetPostsEvent value)? getPosts,
@@ -3561,6 +3898,7 @@ class _$CommentReactionEventImpl implements _CommentReactionEvent {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String? categoryId) getCategoryById,
     required TResult Function(
             String? categoryId, bool? refresh, bool? mergeGroups)
         getCategories,
@@ -3588,6 +3926,7 @@ class _$CommentReactionEventImpl implements _CommentReactionEvent {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? categoryId)? getCategoryById,
     TResult? Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult? Function()? getSubCategories,
@@ -3614,6 +3953,7 @@ class _$CommentReactionEventImpl implements _CommentReactionEvent {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? categoryId)? getCategoryById,
     TResult Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult Function()? getSubCategories,
@@ -3644,6 +3984,7 @@ class _$CommentReactionEventImpl implements _CommentReactionEvent {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetCategoryByIdEvent value) getCategoryById,
     required TResult Function(_GetCategoriesEvent value) getCategories,
     required TResult Function(_GetSubCategoriesEvent value) getSubCategories,
     required TResult Function(_GetPostsEvent value) getPosts,
@@ -3668,6 +4009,7 @@ class _$CommentReactionEventImpl implements _CommentReactionEvent {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult? Function(_GetCategoriesEvent value)? getCategories,
     TResult? Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult? Function(_GetPostsEvent value)? getPosts,
@@ -3692,6 +4034,7 @@ class _$CommentReactionEventImpl implements _CommentReactionEvent {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult Function(_GetCategoriesEvent value)? getCategories,
     TResult Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult Function(_GetPostsEvent value)? getPosts,
@@ -3773,6 +4116,7 @@ class _$GetGuidelinesImpl implements _GetGuidelines {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String? categoryId) getCategoryById,
     required TResult Function(
             String? categoryId, bool? refresh, bool? mergeGroups)
         getCategories,
@@ -3800,6 +4144,7 @@ class _$GetGuidelinesImpl implements _GetGuidelines {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? categoryId)? getCategoryById,
     TResult? Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult? Function()? getSubCategories,
@@ -3826,6 +4171,7 @@ class _$GetGuidelinesImpl implements _GetGuidelines {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? categoryId)? getCategoryById,
     TResult Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult Function()? getSubCategories,
@@ -3856,6 +4202,7 @@ class _$GetGuidelinesImpl implements _GetGuidelines {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetCategoryByIdEvent value) getCategoryById,
     required TResult Function(_GetCategoriesEvent value) getCategories,
     required TResult Function(_GetSubCategoriesEvent value) getSubCategories,
     required TResult Function(_GetPostsEvent value) getPosts,
@@ -3880,6 +4227,7 @@ class _$GetGuidelinesImpl implements _GetGuidelines {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult? Function(_GetCategoriesEvent value)? getCategories,
     TResult? Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult? Function(_GetPostsEvent value)? getPosts,
@@ -3904,6 +4252,7 @@ class _$GetGuidelinesImpl implements _GetGuidelines {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult Function(_GetCategoriesEvent value)? getCategories,
     TResult Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult Function(_GetPostsEvent value)? getPosts,
@@ -3975,6 +4324,7 @@ class _$GetTrendsImpl implements _GetTrends {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
+    required TResult Function(String? categoryId) getCategoryById,
     required TResult Function(
             String? categoryId, bool? refresh, bool? mergeGroups)
         getCategories,
@@ -4002,6 +4352,7 @@ class _$GetTrendsImpl implements _GetTrends {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function(String? categoryId)? getCategoryById,
     TResult? Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult? Function()? getSubCategories,
@@ -4028,6 +4379,7 @@ class _$GetTrendsImpl implements _GetTrends {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
+    TResult Function(String? categoryId)? getCategoryById,
     TResult Function(String? categoryId, bool? refresh, bool? mergeGroups)?
         getCategories,
     TResult Function()? getSubCategories,
@@ -4058,6 +4410,7 @@ class _$GetTrendsImpl implements _GetTrends {
   @override
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
+    required TResult Function(_GetCategoryByIdEvent value) getCategoryById,
     required TResult Function(_GetCategoriesEvent value) getCategories,
     required TResult Function(_GetSubCategoriesEvent value) getSubCategories,
     required TResult Function(_GetPostsEvent value) getPosts,
@@ -4082,6 +4435,7 @@ class _$GetTrendsImpl implements _GetTrends {
   @override
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult? Function(_GetCategoriesEvent value)? getCategories,
     TResult? Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult? Function(_GetPostsEvent value)? getPosts,
@@ -4106,6 +4460,7 @@ class _$GetTrendsImpl implements _GetTrends {
   @override
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
+    TResult Function(_GetCategoryByIdEvent value)? getCategoryById,
     TResult Function(_GetCategoriesEvent value)? getCategories,
     TResult Function(_GetSubCategoriesEvent value)? getSubCategories,
     TResult Function(_GetPostsEvent value)? getPosts,
@@ -4141,6 +4496,9 @@ mixin _$PostState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -4197,6 +4555,9 @@ mixin _$PostState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -4250,6 +4611,9 @@ mixin _$PostState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -4304,6 +4668,9 @@ mixin _$PostState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -4378,6 +4745,9 @@ mixin _$PostState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -4434,6 +4804,9 @@ mixin _$PostState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -4549,6 +4922,9 @@ class _$PostInitialImpl implements PostInitial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -4608,6 +4984,9 @@ class _$PostInitialImpl implements PostInitial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -4664,6 +5043,9 @@ class _$PostInitialImpl implements PostInitial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -4724,6 +5106,9 @@ class _$PostInitialImpl implements PostInitial {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -4801,6 +5186,9 @@ class _$PostInitialImpl implements PostInitial {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -4860,6 +5248,9 @@ class _$PostInitialImpl implements PostInitial {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -4922,6 +5313,1384 @@ abstract class PostInitial implements PostState {
 }
 
 /// @nodoc
+abstract class _$$GetCategoryLoadingStateImplCopyWith<$Res> {
+  factory _$$GetCategoryLoadingStateImplCopyWith(
+          _$GetCategoryLoadingStateImpl value,
+          $Res Function(_$GetCategoryLoadingStateImpl) then) =
+      __$$GetCategoryLoadingStateImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetCategoryLoadingStateImplCopyWithImpl<$Res>
+    extends _$PostStateCopyWithImpl<$Res, _$GetCategoryLoadingStateImpl>
+    implements _$$GetCategoryLoadingStateImplCopyWith<$Res> {
+  __$$GetCategoryLoadingStateImplCopyWithImpl(
+      _$GetCategoryLoadingStateImpl _value,
+      $Res Function(_$GetCategoryLoadingStateImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+}
+
+/// @nodoc
+
+class _$GetCategoryLoadingStateImpl implements GetCategoryLoadingState {
+  const _$GetCategoryLoadingStateImpl();
+
+  @override
+  String toString() {
+    return 'PostState.getCategoryLoading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetCategoryLoadingStateImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
+    required TResult Function() getCategoriesLoading,
+    required TResult Function(GetCategoriesResponse response)
+        getCategoriesSuccess,
+    required TResult Function(String error) getCategoriesFailure,
+    required TResult Function() getPostsLoading,
+    required TResult Function(GetPostsResponse response) getPostsSuccess,
+    required TResult Function(String error) getPostsFailure,
+    required TResult Function() createPostLoading,
+    required TResult Function(CreatePostResponse response) createPostSuccess,
+    required TResult Function(String error) createPostFailure,
+    required TResult Function() getPostDetailsLoading,
+    required TResult Function(PostDetailsResponse response)
+        getPostDetailsSuccess,
+    required TResult Function(String error) getPostDetailsFailure,
+    required TResult Function() deletePostLoading,
+    required TResult Function() deletePostSuccess,
+    required TResult Function(String error) deletePostFailure,
+    required TResult Function() postReactionLoading,
+    required TResult Function() postReactionSuccess,
+    required TResult Function(String error) postReactionFailure,
+    required TResult Function() reportPostLoading,
+    required TResult Function() reportPostSuccess,
+    required TResult Function(String error) reportPostFailure,
+    required TResult Function() getPollsLoading,
+    required TResult Function(GetPollsResponse response) getPollsSuccess,
+    required TResult Function(String error) getPollsFailure,
+    required TResult Function() getCommentsLoading,
+    required TResult Function(dynamic response) getCommentsSuccess,
+    required TResult Function(String error) getCommentsFailure,
+    required TResult Function() getACommentLoading,
+    required TResult Function(dynamic response) getACommentSuccess,
+    required TResult Function(String error) getACommentFailure,
+    required TResult Function() saveACommentLoading,
+    required TResult Function() saveACommentSuccess,
+    required TResult Function(String error) saveACommentFailure,
+    required TResult Function() deleteCommentLoading,
+    required TResult Function() deleteCommentSuccess,
+    required TResult Function(String error) deleteCommentFailure,
+    required TResult Function() commentReactionLoading,
+    required TResult Function() commentReactionSuccess,
+    required TResult Function(String error) commentReactionFailure,
+    required TResult Function() getGuidelinesLoading,
+    required TResult Function(GetGuidlinesResponse response)
+        getGuideLinesSuccess,
+    required TResult Function(String error) getGuideLinesFailed,
+    required TResult Function() reportCommentLoading,
+    required TResult Function() reportCommentSuccess,
+    required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
+  }) {
+    return getCategoryLoading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
+    TResult? Function()? getCategoriesLoading,
+    TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
+    TResult? Function(String error)? getCategoriesFailure,
+    TResult? Function()? getPostsLoading,
+    TResult? Function(GetPostsResponse response)? getPostsSuccess,
+    TResult? Function(String error)? getPostsFailure,
+    TResult? Function()? createPostLoading,
+    TResult? Function(CreatePostResponse response)? createPostSuccess,
+    TResult? Function(String error)? createPostFailure,
+    TResult? Function()? getPostDetailsLoading,
+    TResult? Function(PostDetailsResponse response)? getPostDetailsSuccess,
+    TResult? Function(String error)? getPostDetailsFailure,
+    TResult? Function()? deletePostLoading,
+    TResult? Function()? deletePostSuccess,
+    TResult? Function(String error)? deletePostFailure,
+    TResult? Function()? postReactionLoading,
+    TResult? Function()? postReactionSuccess,
+    TResult? Function(String error)? postReactionFailure,
+    TResult? Function()? reportPostLoading,
+    TResult? Function()? reportPostSuccess,
+    TResult? Function(String error)? reportPostFailure,
+    TResult? Function()? getPollsLoading,
+    TResult? Function(GetPollsResponse response)? getPollsSuccess,
+    TResult? Function(String error)? getPollsFailure,
+    TResult? Function()? getCommentsLoading,
+    TResult? Function(dynamic response)? getCommentsSuccess,
+    TResult? Function(String error)? getCommentsFailure,
+    TResult? Function()? getACommentLoading,
+    TResult? Function(dynamic response)? getACommentSuccess,
+    TResult? Function(String error)? getACommentFailure,
+    TResult? Function()? saveACommentLoading,
+    TResult? Function()? saveACommentSuccess,
+    TResult? Function(String error)? saveACommentFailure,
+    TResult? Function()? deleteCommentLoading,
+    TResult? Function()? deleteCommentSuccess,
+    TResult? Function(String error)? deleteCommentFailure,
+    TResult? Function()? commentReactionLoading,
+    TResult? Function()? commentReactionSuccess,
+    TResult? Function(String error)? commentReactionFailure,
+    TResult? Function()? getGuidelinesLoading,
+    TResult? Function(GetGuidlinesResponse response)? getGuideLinesSuccess,
+    TResult? Function(String error)? getGuideLinesFailed,
+    TResult? Function()? reportCommentLoading,
+    TResult? Function()? reportCommentSuccess,
+    TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
+  }) {
+    return getCategoryLoading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
+    TResult Function()? getCategoriesLoading,
+    TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
+    TResult Function(String error)? getCategoriesFailure,
+    TResult Function()? getPostsLoading,
+    TResult Function(GetPostsResponse response)? getPostsSuccess,
+    TResult Function(String error)? getPostsFailure,
+    TResult Function()? createPostLoading,
+    TResult Function(CreatePostResponse response)? createPostSuccess,
+    TResult Function(String error)? createPostFailure,
+    TResult Function()? getPostDetailsLoading,
+    TResult Function(PostDetailsResponse response)? getPostDetailsSuccess,
+    TResult Function(String error)? getPostDetailsFailure,
+    TResult Function()? deletePostLoading,
+    TResult Function()? deletePostSuccess,
+    TResult Function(String error)? deletePostFailure,
+    TResult Function()? postReactionLoading,
+    TResult Function()? postReactionSuccess,
+    TResult Function(String error)? postReactionFailure,
+    TResult Function()? reportPostLoading,
+    TResult Function()? reportPostSuccess,
+    TResult Function(String error)? reportPostFailure,
+    TResult Function()? getPollsLoading,
+    TResult Function(GetPollsResponse response)? getPollsSuccess,
+    TResult Function(String error)? getPollsFailure,
+    TResult Function()? getCommentsLoading,
+    TResult Function(dynamic response)? getCommentsSuccess,
+    TResult Function(String error)? getCommentsFailure,
+    TResult Function()? getACommentLoading,
+    TResult Function(dynamic response)? getACommentSuccess,
+    TResult Function(String error)? getACommentFailure,
+    TResult Function()? saveACommentLoading,
+    TResult Function()? saveACommentSuccess,
+    TResult Function(String error)? saveACommentFailure,
+    TResult Function()? deleteCommentLoading,
+    TResult Function()? deleteCommentSuccess,
+    TResult Function(String error)? deleteCommentFailure,
+    TResult Function()? commentReactionLoading,
+    TResult Function()? commentReactionSuccess,
+    TResult Function(String error)? commentReactionFailure,
+    TResult Function()? getGuidelinesLoading,
+    TResult Function(GetGuidlinesResponse response)? getGuideLinesSuccess,
+    TResult Function(String error)? getGuideLinesFailed,
+    TResult Function()? reportCommentLoading,
+    TResult Function()? reportCommentSuccess,
+    TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
+    required TResult orElse(),
+  }) {
+    if (getCategoryLoading != null) {
+      return getCategoryLoading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
+    required TResult Function(GetCategoriesLoadingState value)
+        getCategoriesLoading,
+    required TResult Function(GetCategoriesSuccessState value)
+        getCategoriesSuccess,
+    required TResult Function(GetCategoriesFailureState value)
+        getCategoriesFailure,
+    required TResult Function(GetPostsLoadingState value) getPostsLoading,
+    required TResult Function(GetPostsSuccessState value) getPostsSuccess,
+    required TResult Function(GetPostsFailureState value) getPostsFailure,
+    required TResult Function(CreatePostLoadingState value) createPostLoading,
+    required TResult Function(CreatePostSuccessState value) createPostSuccess,
+    required TResult Function(CreatePostFailureState value) createPostFailure,
+    required TResult Function(GetPostDetailsLoadingState value)
+        getPostDetailsLoading,
+    required TResult Function(GetPostDetailsSuccessState value)
+        getPostDetailsSuccess,
+    required TResult Function(GetPostDetailsFailureState value)
+        getPostDetailsFailure,
+    required TResult Function(DeletePostLoadingState value) deletePostLoading,
+    required TResult Function(DeletePostSuccessState value) deletePostSuccess,
+    required TResult Function(DeletePostFailureState value) deletePostFailure,
+    required TResult Function(PostReactionLoadingState value)
+        postReactionLoading,
+    required TResult Function(PostReactionSuccessState value)
+        postReactionSuccess,
+    required TResult Function(PostReactionFailureState value)
+        postReactionFailure,
+    required TResult Function(ReportPostLoadingState value) reportPostLoading,
+    required TResult Function(ReportPostSuccessState value) reportPostSuccess,
+    required TResult Function(ReportPostFailureState value) reportPostFailure,
+    required TResult Function(GetPollsLoadingState value) getPollsLoading,
+    required TResult Function(GetPollsSuccessState value) getPollsSuccess,
+    required TResult Function(GetPollsFailureState value) getPollsFailure,
+    required TResult Function(GetCommentsLoadingState value) getCommentsLoading,
+    required TResult Function(GetCommentsSuccessState value) getCommentsSuccess,
+    required TResult Function(GetCommentsFailureState value) getCommentsFailure,
+    required TResult Function(GetACommentLoadingState value) getACommentLoading,
+    required TResult Function(GetACommentSuccessState value) getACommentSuccess,
+    required TResult Function(GetACommentFailureState value) getACommentFailure,
+    required TResult Function(SaveACommentLoadingState value)
+        saveACommentLoading,
+    required TResult Function(SaveACommentSuccessState value)
+        saveACommentSuccess,
+    required TResult Function(SaveACommentFailureState value)
+        saveACommentFailure,
+    required TResult Function(DeleteCommentLoadingState value)
+        deleteCommentLoading,
+    required TResult Function(DeleteCommentSuccessState value)
+        deleteCommentSuccess,
+    required TResult Function(DeleteCommentFailureState value)
+        deleteCommentFailure,
+    required TResult Function(CommentReactionLoadingState value)
+        commentReactionLoading,
+    required TResult Function(CommentReactionSuccessState value)
+        commentReactionSuccess,
+    required TResult Function(CommentReactionFailureState value)
+        commentReactionFailure,
+    required TResult Function(GetGuidelinesLoading value) getGuidelinesLoading,
+    required TResult Function(GetGuidelinesSuccess value) getGuideLinesSuccess,
+    required TResult Function(GetGuidelinesFailed value) getGuideLinesFailed,
+    required TResult Function(ReportCommentLoadingState value)
+        reportCommentLoading,
+    required TResult Function(ReportCommentSuccessState value)
+        reportCommentSuccess,
+    required TResult Function(ReportCommentFailureState value)
+        reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
+  }) {
+    return getCategoryLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
+    TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
+    TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
+    TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
+    TResult? Function(GetPostsLoadingState value)? getPostsLoading,
+    TResult? Function(GetPostsSuccessState value)? getPostsSuccess,
+    TResult? Function(GetPostsFailureState value)? getPostsFailure,
+    TResult? Function(CreatePostLoadingState value)? createPostLoading,
+    TResult? Function(CreatePostSuccessState value)? createPostSuccess,
+    TResult? Function(CreatePostFailureState value)? createPostFailure,
+    TResult? Function(GetPostDetailsLoadingState value)? getPostDetailsLoading,
+    TResult? Function(GetPostDetailsSuccessState value)? getPostDetailsSuccess,
+    TResult? Function(GetPostDetailsFailureState value)? getPostDetailsFailure,
+    TResult? Function(DeletePostLoadingState value)? deletePostLoading,
+    TResult? Function(DeletePostSuccessState value)? deletePostSuccess,
+    TResult? Function(DeletePostFailureState value)? deletePostFailure,
+    TResult? Function(PostReactionLoadingState value)? postReactionLoading,
+    TResult? Function(PostReactionSuccessState value)? postReactionSuccess,
+    TResult? Function(PostReactionFailureState value)? postReactionFailure,
+    TResult? Function(ReportPostLoadingState value)? reportPostLoading,
+    TResult? Function(ReportPostSuccessState value)? reportPostSuccess,
+    TResult? Function(ReportPostFailureState value)? reportPostFailure,
+    TResult? Function(GetPollsLoadingState value)? getPollsLoading,
+    TResult? Function(GetPollsSuccessState value)? getPollsSuccess,
+    TResult? Function(GetPollsFailureState value)? getPollsFailure,
+    TResult? Function(GetCommentsLoadingState value)? getCommentsLoading,
+    TResult? Function(GetCommentsSuccessState value)? getCommentsSuccess,
+    TResult? Function(GetCommentsFailureState value)? getCommentsFailure,
+    TResult? Function(GetACommentLoadingState value)? getACommentLoading,
+    TResult? Function(GetACommentSuccessState value)? getACommentSuccess,
+    TResult? Function(GetACommentFailureState value)? getACommentFailure,
+    TResult? Function(SaveACommentLoadingState value)? saveACommentLoading,
+    TResult? Function(SaveACommentSuccessState value)? saveACommentSuccess,
+    TResult? Function(SaveACommentFailureState value)? saveACommentFailure,
+    TResult? Function(DeleteCommentLoadingState value)? deleteCommentLoading,
+    TResult? Function(DeleteCommentSuccessState value)? deleteCommentSuccess,
+    TResult? Function(DeleteCommentFailureState value)? deleteCommentFailure,
+    TResult? Function(CommentReactionLoadingState value)?
+        commentReactionLoading,
+    TResult? Function(CommentReactionSuccessState value)?
+        commentReactionSuccess,
+    TResult? Function(CommentReactionFailureState value)?
+        commentReactionFailure,
+    TResult? Function(GetGuidelinesLoading value)? getGuidelinesLoading,
+    TResult? Function(GetGuidelinesSuccess value)? getGuideLinesSuccess,
+    TResult? Function(GetGuidelinesFailed value)? getGuideLinesFailed,
+    TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
+    TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
+    TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
+  }) {
+    return getCategoryLoading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
+    TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
+    TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
+    TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
+    TResult Function(GetPostsLoadingState value)? getPostsLoading,
+    TResult Function(GetPostsSuccessState value)? getPostsSuccess,
+    TResult Function(GetPostsFailureState value)? getPostsFailure,
+    TResult Function(CreatePostLoadingState value)? createPostLoading,
+    TResult Function(CreatePostSuccessState value)? createPostSuccess,
+    TResult Function(CreatePostFailureState value)? createPostFailure,
+    TResult Function(GetPostDetailsLoadingState value)? getPostDetailsLoading,
+    TResult Function(GetPostDetailsSuccessState value)? getPostDetailsSuccess,
+    TResult Function(GetPostDetailsFailureState value)? getPostDetailsFailure,
+    TResult Function(DeletePostLoadingState value)? deletePostLoading,
+    TResult Function(DeletePostSuccessState value)? deletePostSuccess,
+    TResult Function(DeletePostFailureState value)? deletePostFailure,
+    TResult Function(PostReactionLoadingState value)? postReactionLoading,
+    TResult Function(PostReactionSuccessState value)? postReactionSuccess,
+    TResult Function(PostReactionFailureState value)? postReactionFailure,
+    TResult Function(ReportPostLoadingState value)? reportPostLoading,
+    TResult Function(ReportPostSuccessState value)? reportPostSuccess,
+    TResult Function(ReportPostFailureState value)? reportPostFailure,
+    TResult Function(GetPollsLoadingState value)? getPollsLoading,
+    TResult Function(GetPollsSuccessState value)? getPollsSuccess,
+    TResult Function(GetPollsFailureState value)? getPollsFailure,
+    TResult Function(GetCommentsLoadingState value)? getCommentsLoading,
+    TResult Function(GetCommentsSuccessState value)? getCommentsSuccess,
+    TResult Function(GetCommentsFailureState value)? getCommentsFailure,
+    TResult Function(GetACommentLoadingState value)? getACommentLoading,
+    TResult Function(GetACommentSuccessState value)? getACommentSuccess,
+    TResult Function(GetACommentFailureState value)? getACommentFailure,
+    TResult Function(SaveACommentLoadingState value)? saveACommentLoading,
+    TResult Function(SaveACommentSuccessState value)? saveACommentSuccess,
+    TResult Function(SaveACommentFailureState value)? saveACommentFailure,
+    TResult Function(DeleteCommentLoadingState value)? deleteCommentLoading,
+    TResult Function(DeleteCommentSuccessState value)? deleteCommentSuccess,
+    TResult Function(DeleteCommentFailureState value)? deleteCommentFailure,
+    TResult Function(CommentReactionLoadingState value)? commentReactionLoading,
+    TResult Function(CommentReactionSuccessState value)? commentReactionSuccess,
+    TResult Function(CommentReactionFailureState value)? commentReactionFailure,
+    TResult Function(GetGuidelinesLoading value)? getGuidelinesLoading,
+    TResult Function(GetGuidelinesSuccess value)? getGuideLinesSuccess,
+    TResult Function(GetGuidelinesFailed value)? getGuideLinesFailed,
+    TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
+    TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
+    TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
+    required TResult orElse(),
+  }) {
+    if (getCategoryLoading != null) {
+      return getCategoryLoading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetCategoryLoadingState implements PostState {
+  const factory GetCategoryLoadingState() = _$GetCategoryLoadingStateImpl;
+}
+
+/// @nodoc
+abstract class _$$GetCategorySuccessStateImplCopyWith<$Res> {
+  factory _$$GetCategorySuccessStateImplCopyWith(
+          _$GetCategorySuccessStateImpl value,
+          $Res Function(_$GetCategorySuccessStateImpl) then) =
+      __$$GetCategorySuccessStateImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({PostCategory category});
+}
+
+/// @nodoc
+class __$$GetCategorySuccessStateImplCopyWithImpl<$Res>
+    extends _$PostStateCopyWithImpl<$Res, _$GetCategorySuccessStateImpl>
+    implements _$$GetCategorySuccessStateImplCopyWith<$Res> {
+  __$$GetCategorySuccessStateImplCopyWithImpl(
+      _$GetCategorySuccessStateImpl _value,
+      $Res Function(_$GetCategorySuccessStateImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? category = null,
+  }) {
+    return _then(_$GetCategorySuccessStateImpl(
+      null == category
+          ? _value.category
+          : category // ignore: cast_nullable_to_non_nullable
+              as PostCategory,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetCategorySuccessStateImpl implements GetCategorySuccessState {
+  const _$GetCategorySuccessStateImpl(this.category);
+
+  @override
+  final PostCategory category;
+
+  @override
+  String toString() {
+    return 'PostState.getCategorySuccess(category: $category)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetCategorySuccessStateImpl &&
+            (identical(other.category, category) ||
+                other.category == category));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, category);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetCategorySuccessStateImplCopyWith<_$GetCategorySuccessStateImpl>
+      get copyWith => __$$GetCategorySuccessStateImplCopyWithImpl<
+          _$GetCategorySuccessStateImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
+    required TResult Function() getCategoriesLoading,
+    required TResult Function(GetCategoriesResponse response)
+        getCategoriesSuccess,
+    required TResult Function(String error) getCategoriesFailure,
+    required TResult Function() getPostsLoading,
+    required TResult Function(GetPostsResponse response) getPostsSuccess,
+    required TResult Function(String error) getPostsFailure,
+    required TResult Function() createPostLoading,
+    required TResult Function(CreatePostResponse response) createPostSuccess,
+    required TResult Function(String error) createPostFailure,
+    required TResult Function() getPostDetailsLoading,
+    required TResult Function(PostDetailsResponse response)
+        getPostDetailsSuccess,
+    required TResult Function(String error) getPostDetailsFailure,
+    required TResult Function() deletePostLoading,
+    required TResult Function() deletePostSuccess,
+    required TResult Function(String error) deletePostFailure,
+    required TResult Function() postReactionLoading,
+    required TResult Function() postReactionSuccess,
+    required TResult Function(String error) postReactionFailure,
+    required TResult Function() reportPostLoading,
+    required TResult Function() reportPostSuccess,
+    required TResult Function(String error) reportPostFailure,
+    required TResult Function() getPollsLoading,
+    required TResult Function(GetPollsResponse response) getPollsSuccess,
+    required TResult Function(String error) getPollsFailure,
+    required TResult Function() getCommentsLoading,
+    required TResult Function(dynamic response) getCommentsSuccess,
+    required TResult Function(String error) getCommentsFailure,
+    required TResult Function() getACommentLoading,
+    required TResult Function(dynamic response) getACommentSuccess,
+    required TResult Function(String error) getACommentFailure,
+    required TResult Function() saveACommentLoading,
+    required TResult Function() saveACommentSuccess,
+    required TResult Function(String error) saveACommentFailure,
+    required TResult Function() deleteCommentLoading,
+    required TResult Function() deleteCommentSuccess,
+    required TResult Function(String error) deleteCommentFailure,
+    required TResult Function() commentReactionLoading,
+    required TResult Function() commentReactionSuccess,
+    required TResult Function(String error) commentReactionFailure,
+    required TResult Function() getGuidelinesLoading,
+    required TResult Function(GetGuidlinesResponse response)
+        getGuideLinesSuccess,
+    required TResult Function(String error) getGuideLinesFailed,
+    required TResult Function() reportCommentLoading,
+    required TResult Function() reportCommentSuccess,
+    required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
+  }) {
+    return getCategorySuccess(category);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
+    TResult? Function()? getCategoriesLoading,
+    TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
+    TResult? Function(String error)? getCategoriesFailure,
+    TResult? Function()? getPostsLoading,
+    TResult? Function(GetPostsResponse response)? getPostsSuccess,
+    TResult? Function(String error)? getPostsFailure,
+    TResult? Function()? createPostLoading,
+    TResult? Function(CreatePostResponse response)? createPostSuccess,
+    TResult? Function(String error)? createPostFailure,
+    TResult? Function()? getPostDetailsLoading,
+    TResult? Function(PostDetailsResponse response)? getPostDetailsSuccess,
+    TResult? Function(String error)? getPostDetailsFailure,
+    TResult? Function()? deletePostLoading,
+    TResult? Function()? deletePostSuccess,
+    TResult? Function(String error)? deletePostFailure,
+    TResult? Function()? postReactionLoading,
+    TResult? Function()? postReactionSuccess,
+    TResult? Function(String error)? postReactionFailure,
+    TResult? Function()? reportPostLoading,
+    TResult? Function()? reportPostSuccess,
+    TResult? Function(String error)? reportPostFailure,
+    TResult? Function()? getPollsLoading,
+    TResult? Function(GetPollsResponse response)? getPollsSuccess,
+    TResult? Function(String error)? getPollsFailure,
+    TResult? Function()? getCommentsLoading,
+    TResult? Function(dynamic response)? getCommentsSuccess,
+    TResult? Function(String error)? getCommentsFailure,
+    TResult? Function()? getACommentLoading,
+    TResult? Function(dynamic response)? getACommentSuccess,
+    TResult? Function(String error)? getACommentFailure,
+    TResult? Function()? saveACommentLoading,
+    TResult? Function()? saveACommentSuccess,
+    TResult? Function(String error)? saveACommentFailure,
+    TResult? Function()? deleteCommentLoading,
+    TResult? Function()? deleteCommentSuccess,
+    TResult? Function(String error)? deleteCommentFailure,
+    TResult? Function()? commentReactionLoading,
+    TResult? Function()? commentReactionSuccess,
+    TResult? Function(String error)? commentReactionFailure,
+    TResult? Function()? getGuidelinesLoading,
+    TResult? Function(GetGuidlinesResponse response)? getGuideLinesSuccess,
+    TResult? Function(String error)? getGuideLinesFailed,
+    TResult? Function()? reportCommentLoading,
+    TResult? Function()? reportCommentSuccess,
+    TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
+  }) {
+    return getCategorySuccess?.call(category);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
+    TResult Function()? getCategoriesLoading,
+    TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
+    TResult Function(String error)? getCategoriesFailure,
+    TResult Function()? getPostsLoading,
+    TResult Function(GetPostsResponse response)? getPostsSuccess,
+    TResult Function(String error)? getPostsFailure,
+    TResult Function()? createPostLoading,
+    TResult Function(CreatePostResponse response)? createPostSuccess,
+    TResult Function(String error)? createPostFailure,
+    TResult Function()? getPostDetailsLoading,
+    TResult Function(PostDetailsResponse response)? getPostDetailsSuccess,
+    TResult Function(String error)? getPostDetailsFailure,
+    TResult Function()? deletePostLoading,
+    TResult Function()? deletePostSuccess,
+    TResult Function(String error)? deletePostFailure,
+    TResult Function()? postReactionLoading,
+    TResult Function()? postReactionSuccess,
+    TResult Function(String error)? postReactionFailure,
+    TResult Function()? reportPostLoading,
+    TResult Function()? reportPostSuccess,
+    TResult Function(String error)? reportPostFailure,
+    TResult Function()? getPollsLoading,
+    TResult Function(GetPollsResponse response)? getPollsSuccess,
+    TResult Function(String error)? getPollsFailure,
+    TResult Function()? getCommentsLoading,
+    TResult Function(dynamic response)? getCommentsSuccess,
+    TResult Function(String error)? getCommentsFailure,
+    TResult Function()? getACommentLoading,
+    TResult Function(dynamic response)? getACommentSuccess,
+    TResult Function(String error)? getACommentFailure,
+    TResult Function()? saveACommentLoading,
+    TResult Function()? saveACommentSuccess,
+    TResult Function(String error)? saveACommentFailure,
+    TResult Function()? deleteCommentLoading,
+    TResult Function()? deleteCommentSuccess,
+    TResult Function(String error)? deleteCommentFailure,
+    TResult Function()? commentReactionLoading,
+    TResult Function()? commentReactionSuccess,
+    TResult Function(String error)? commentReactionFailure,
+    TResult Function()? getGuidelinesLoading,
+    TResult Function(GetGuidlinesResponse response)? getGuideLinesSuccess,
+    TResult Function(String error)? getGuideLinesFailed,
+    TResult Function()? reportCommentLoading,
+    TResult Function()? reportCommentSuccess,
+    TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
+    required TResult orElse(),
+  }) {
+    if (getCategorySuccess != null) {
+      return getCategorySuccess(category);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
+    required TResult Function(GetCategoriesLoadingState value)
+        getCategoriesLoading,
+    required TResult Function(GetCategoriesSuccessState value)
+        getCategoriesSuccess,
+    required TResult Function(GetCategoriesFailureState value)
+        getCategoriesFailure,
+    required TResult Function(GetPostsLoadingState value) getPostsLoading,
+    required TResult Function(GetPostsSuccessState value) getPostsSuccess,
+    required TResult Function(GetPostsFailureState value) getPostsFailure,
+    required TResult Function(CreatePostLoadingState value) createPostLoading,
+    required TResult Function(CreatePostSuccessState value) createPostSuccess,
+    required TResult Function(CreatePostFailureState value) createPostFailure,
+    required TResult Function(GetPostDetailsLoadingState value)
+        getPostDetailsLoading,
+    required TResult Function(GetPostDetailsSuccessState value)
+        getPostDetailsSuccess,
+    required TResult Function(GetPostDetailsFailureState value)
+        getPostDetailsFailure,
+    required TResult Function(DeletePostLoadingState value) deletePostLoading,
+    required TResult Function(DeletePostSuccessState value) deletePostSuccess,
+    required TResult Function(DeletePostFailureState value) deletePostFailure,
+    required TResult Function(PostReactionLoadingState value)
+        postReactionLoading,
+    required TResult Function(PostReactionSuccessState value)
+        postReactionSuccess,
+    required TResult Function(PostReactionFailureState value)
+        postReactionFailure,
+    required TResult Function(ReportPostLoadingState value) reportPostLoading,
+    required TResult Function(ReportPostSuccessState value) reportPostSuccess,
+    required TResult Function(ReportPostFailureState value) reportPostFailure,
+    required TResult Function(GetPollsLoadingState value) getPollsLoading,
+    required TResult Function(GetPollsSuccessState value) getPollsSuccess,
+    required TResult Function(GetPollsFailureState value) getPollsFailure,
+    required TResult Function(GetCommentsLoadingState value) getCommentsLoading,
+    required TResult Function(GetCommentsSuccessState value) getCommentsSuccess,
+    required TResult Function(GetCommentsFailureState value) getCommentsFailure,
+    required TResult Function(GetACommentLoadingState value) getACommentLoading,
+    required TResult Function(GetACommentSuccessState value) getACommentSuccess,
+    required TResult Function(GetACommentFailureState value) getACommentFailure,
+    required TResult Function(SaveACommentLoadingState value)
+        saveACommentLoading,
+    required TResult Function(SaveACommentSuccessState value)
+        saveACommentSuccess,
+    required TResult Function(SaveACommentFailureState value)
+        saveACommentFailure,
+    required TResult Function(DeleteCommentLoadingState value)
+        deleteCommentLoading,
+    required TResult Function(DeleteCommentSuccessState value)
+        deleteCommentSuccess,
+    required TResult Function(DeleteCommentFailureState value)
+        deleteCommentFailure,
+    required TResult Function(CommentReactionLoadingState value)
+        commentReactionLoading,
+    required TResult Function(CommentReactionSuccessState value)
+        commentReactionSuccess,
+    required TResult Function(CommentReactionFailureState value)
+        commentReactionFailure,
+    required TResult Function(GetGuidelinesLoading value) getGuidelinesLoading,
+    required TResult Function(GetGuidelinesSuccess value) getGuideLinesSuccess,
+    required TResult Function(GetGuidelinesFailed value) getGuideLinesFailed,
+    required TResult Function(ReportCommentLoadingState value)
+        reportCommentLoading,
+    required TResult Function(ReportCommentSuccessState value)
+        reportCommentSuccess,
+    required TResult Function(ReportCommentFailureState value)
+        reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
+  }) {
+    return getCategorySuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
+    TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
+    TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
+    TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
+    TResult? Function(GetPostsLoadingState value)? getPostsLoading,
+    TResult? Function(GetPostsSuccessState value)? getPostsSuccess,
+    TResult? Function(GetPostsFailureState value)? getPostsFailure,
+    TResult? Function(CreatePostLoadingState value)? createPostLoading,
+    TResult? Function(CreatePostSuccessState value)? createPostSuccess,
+    TResult? Function(CreatePostFailureState value)? createPostFailure,
+    TResult? Function(GetPostDetailsLoadingState value)? getPostDetailsLoading,
+    TResult? Function(GetPostDetailsSuccessState value)? getPostDetailsSuccess,
+    TResult? Function(GetPostDetailsFailureState value)? getPostDetailsFailure,
+    TResult? Function(DeletePostLoadingState value)? deletePostLoading,
+    TResult? Function(DeletePostSuccessState value)? deletePostSuccess,
+    TResult? Function(DeletePostFailureState value)? deletePostFailure,
+    TResult? Function(PostReactionLoadingState value)? postReactionLoading,
+    TResult? Function(PostReactionSuccessState value)? postReactionSuccess,
+    TResult? Function(PostReactionFailureState value)? postReactionFailure,
+    TResult? Function(ReportPostLoadingState value)? reportPostLoading,
+    TResult? Function(ReportPostSuccessState value)? reportPostSuccess,
+    TResult? Function(ReportPostFailureState value)? reportPostFailure,
+    TResult? Function(GetPollsLoadingState value)? getPollsLoading,
+    TResult? Function(GetPollsSuccessState value)? getPollsSuccess,
+    TResult? Function(GetPollsFailureState value)? getPollsFailure,
+    TResult? Function(GetCommentsLoadingState value)? getCommentsLoading,
+    TResult? Function(GetCommentsSuccessState value)? getCommentsSuccess,
+    TResult? Function(GetCommentsFailureState value)? getCommentsFailure,
+    TResult? Function(GetACommentLoadingState value)? getACommentLoading,
+    TResult? Function(GetACommentSuccessState value)? getACommentSuccess,
+    TResult? Function(GetACommentFailureState value)? getACommentFailure,
+    TResult? Function(SaveACommentLoadingState value)? saveACommentLoading,
+    TResult? Function(SaveACommentSuccessState value)? saveACommentSuccess,
+    TResult? Function(SaveACommentFailureState value)? saveACommentFailure,
+    TResult? Function(DeleteCommentLoadingState value)? deleteCommentLoading,
+    TResult? Function(DeleteCommentSuccessState value)? deleteCommentSuccess,
+    TResult? Function(DeleteCommentFailureState value)? deleteCommentFailure,
+    TResult? Function(CommentReactionLoadingState value)?
+        commentReactionLoading,
+    TResult? Function(CommentReactionSuccessState value)?
+        commentReactionSuccess,
+    TResult? Function(CommentReactionFailureState value)?
+        commentReactionFailure,
+    TResult? Function(GetGuidelinesLoading value)? getGuidelinesLoading,
+    TResult? Function(GetGuidelinesSuccess value)? getGuideLinesSuccess,
+    TResult? Function(GetGuidelinesFailed value)? getGuideLinesFailed,
+    TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
+    TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
+    TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
+  }) {
+    return getCategorySuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
+    TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
+    TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
+    TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
+    TResult Function(GetPostsLoadingState value)? getPostsLoading,
+    TResult Function(GetPostsSuccessState value)? getPostsSuccess,
+    TResult Function(GetPostsFailureState value)? getPostsFailure,
+    TResult Function(CreatePostLoadingState value)? createPostLoading,
+    TResult Function(CreatePostSuccessState value)? createPostSuccess,
+    TResult Function(CreatePostFailureState value)? createPostFailure,
+    TResult Function(GetPostDetailsLoadingState value)? getPostDetailsLoading,
+    TResult Function(GetPostDetailsSuccessState value)? getPostDetailsSuccess,
+    TResult Function(GetPostDetailsFailureState value)? getPostDetailsFailure,
+    TResult Function(DeletePostLoadingState value)? deletePostLoading,
+    TResult Function(DeletePostSuccessState value)? deletePostSuccess,
+    TResult Function(DeletePostFailureState value)? deletePostFailure,
+    TResult Function(PostReactionLoadingState value)? postReactionLoading,
+    TResult Function(PostReactionSuccessState value)? postReactionSuccess,
+    TResult Function(PostReactionFailureState value)? postReactionFailure,
+    TResult Function(ReportPostLoadingState value)? reportPostLoading,
+    TResult Function(ReportPostSuccessState value)? reportPostSuccess,
+    TResult Function(ReportPostFailureState value)? reportPostFailure,
+    TResult Function(GetPollsLoadingState value)? getPollsLoading,
+    TResult Function(GetPollsSuccessState value)? getPollsSuccess,
+    TResult Function(GetPollsFailureState value)? getPollsFailure,
+    TResult Function(GetCommentsLoadingState value)? getCommentsLoading,
+    TResult Function(GetCommentsSuccessState value)? getCommentsSuccess,
+    TResult Function(GetCommentsFailureState value)? getCommentsFailure,
+    TResult Function(GetACommentLoadingState value)? getACommentLoading,
+    TResult Function(GetACommentSuccessState value)? getACommentSuccess,
+    TResult Function(GetACommentFailureState value)? getACommentFailure,
+    TResult Function(SaveACommentLoadingState value)? saveACommentLoading,
+    TResult Function(SaveACommentSuccessState value)? saveACommentSuccess,
+    TResult Function(SaveACommentFailureState value)? saveACommentFailure,
+    TResult Function(DeleteCommentLoadingState value)? deleteCommentLoading,
+    TResult Function(DeleteCommentSuccessState value)? deleteCommentSuccess,
+    TResult Function(DeleteCommentFailureState value)? deleteCommentFailure,
+    TResult Function(CommentReactionLoadingState value)? commentReactionLoading,
+    TResult Function(CommentReactionSuccessState value)? commentReactionSuccess,
+    TResult Function(CommentReactionFailureState value)? commentReactionFailure,
+    TResult Function(GetGuidelinesLoading value)? getGuidelinesLoading,
+    TResult Function(GetGuidelinesSuccess value)? getGuideLinesSuccess,
+    TResult Function(GetGuidelinesFailed value)? getGuideLinesFailed,
+    TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
+    TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
+    TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
+    required TResult orElse(),
+  }) {
+    if (getCategorySuccess != null) {
+      return getCategorySuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetCategorySuccessState implements PostState {
+  const factory GetCategorySuccessState(final PostCategory category) =
+      _$GetCategorySuccessStateImpl;
+
+  PostCategory get category;
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$GetCategorySuccessStateImplCopyWith<_$GetCategorySuccessStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GetCategoryFailureStateImplCopyWith<$Res> {
+  factory _$$GetCategoryFailureStateImplCopyWith(
+          _$GetCategoryFailureStateImpl value,
+          $Res Function(_$GetCategoryFailureStateImpl) then) =
+      __$$GetCategoryFailureStateImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class __$$GetCategoryFailureStateImplCopyWithImpl<$Res>
+    extends _$PostStateCopyWithImpl<$Res, _$GetCategoryFailureStateImpl>
+    implements _$$GetCategoryFailureStateImplCopyWith<$Res> {
+  __$$GetCategoryFailureStateImplCopyWithImpl(
+      _$GetCategoryFailureStateImpl _value,
+      $Res Function(_$GetCategoryFailureStateImpl) _then)
+      : super(_value, _then);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$GetCategoryFailureStateImpl(
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetCategoryFailureStateImpl implements GetCategoryFailureState {
+  const _$GetCategoryFailureStateImpl(this.error);
+
+  @override
+  final String error;
+
+  @override
+  String toString() {
+    return 'PostState.getCategoryFailure(error: $error)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetCategoryFailureStateImpl &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetCategoryFailureStateImplCopyWith<_$GetCategoryFailureStateImpl>
+      get copyWith => __$$GetCategoryFailureStateImplCopyWithImpl<
+          _$GetCategoryFailureStateImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
+    required TResult Function() getCategoriesLoading,
+    required TResult Function(GetCategoriesResponse response)
+        getCategoriesSuccess,
+    required TResult Function(String error) getCategoriesFailure,
+    required TResult Function() getPostsLoading,
+    required TResult Function(GetPostsResponse response) getPostsSuccess,
+    required TResult Function(String error) getPostsFailure,
+    required TResult Function() createPostLoading,
+    required TResult Function(CreatePostResponse response) createPostSuccess,
+    required TResult Function(String error) createPostFailure,
+    required TResult Function() getPostDetailsLoading,
+    required TResult Function(PostDetailsResponse response)
+        getPostDetailsSuccess,
+    required TResult Function(String error) getPostDetailsFailure,
+    required TResult Function() deletePostLoading,
+    required TResult Function() deletePostSuccess,
+    required TResult Function(String error) deletePostFailure,
+    required TResult Function() postReactionLoading,
+    required TResult Function() postReactionSuccess,
+    required TResult Function(String error) postReactionFailure,
+    required TResult Function() reportPostLoading,
+    required TResult Function() reportPostSuccess,
+    required TResult Function(String error) reportPostFailure,
+    required TResult Function() getPollsLoading,
+    required TResult Function(GetPollsResponse response) getPollsSuccess,
+    required TResult Function(String error) getPollsFailure,
+    required TResult Function() getCommentsLoading,
+    required TResult Function(dynamic response) getCommentsSuccess,
+    required TResult Function(String error) getCommentsFailure,
+    required TResult Function() getACommentLoading,
+    required TResult Function(dynamic response) getACommentSuccess,
+    required TResult Function(String error) getACommentFailure,
+    required TResult Function() saveACommentLoading,
+    required TResult Function() saveACommentSuccess,
+    required TResult Function(String error) saveACommentFailure,
+    required TResult Function() deleteCommentLoading,
+    required TResult Function() deleteCommentSuccess,
+    required TResult Function(String error) deleteCommentFailure,
+    required TResult Function() commentReactionLoading,
+    required TResult Function() commentReactionSuccess,
+    required TResult Function(String error) commentReactionFailure,
+    required TResult Function() getGuidelinesLoading,
+    required TResult Function(GetGuidlinesResponse response)
+        getGuideLinesSuccess,
+    required TResult Function(String error) getGuideLinesFailed,
+    required TResult Function() reportCommentLoading,
+    required TResult Function() reportCommentSuccess,
+    required TResult Function(String error) reportCommentFailure,
+    required TResult Function() getTrendsLoading,
+    required TResult Function() getTrendsSuccess,
+    required TResult Function(String error) getTrendsFailure,
+  }) {
+    return getCategoryFailure(error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
+    TResult? Function()? getCategoriesLoading,
+    TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
+    TResult? Function(String error)? getCategoriesFailure,
+    TResult? Function()? getPostsLoading,
+    TResult? Function(GetPostsResponse response)? getPostsSuccess,
+    TResult? Function(String error)? getPostsFailure,
+    TResult? Function()? createPostLoading,
+    TResult? Function(CreatePostResponse response)? createPostSuccess,
+    TResult? Function(String error)? createPostFailure,
+    TResult? Function()? getPostDetailsLoading,
+    TResult? Function(PostDetailsResponse response)? getPostDetailsSuccess,
+    TResult? Function(String error)? getPostDetailsFailure,
+    TResult? Function()? deletePostLoading,
+    TResult? Function()? deletePostSuccess,
+    TResult? Function(String error)? deletePostFailure,
+    TResult? Function()? postReactionLoading,
+    TResult? Function()? postReactionSuccess,
+    TResult? Function(String error)? postReactionFailure,
+    TResult? Function()? reportPostLoading,
+    TResult? Function()? reportPostSuccess,
+    TResult? Function(String error)? reportPostFailure,
+    TResult? Function()? getPollsLoading,
+    TResult? Function(GetPollsResponse response)? getPollsSuccess,
+    TResult? Function(String error)? getPollsFailure,
+    TResult? Function()? getCommentsLoading,
+    TResult? Function(dynamic response)? getCommentsSuccess,
+    TResult? Function(String error)? getCommentsFailure,
+    TResult? Function()? getACommentLoading,
+    TResult? Function(dynamic response)? getACommentSuccess,
+    TResult? Function(String error)? getACommentFailure,
+    TResult? Function()? saveACommentLoading,
+    TResult? Function()? saveACommentSuccess,
+    TResult? Function(String error)? saveACommentFailure,
+    TResult? Function()? deleteCommentLoading,
+    TResult? Function()? deleteCommentSuccess,
+    TResult? Function(String error)? deleteCommentFailure,
+    TResult? Function()? commentReactionLoading,
+    TResult? Function()? commentReactionSuccess,
+    TResult? Function(String error)? commentReactionFailure,
+    TResult? Function()? getGuidelinesLoading,
+    TResult? Function(GetGuidlinesResponse response)? getGuideLinesSuccess,
+    TResult? Function(String error)? getGuideLinesFailed,
+    TResult? Function()? reportCommentLoading,
+    TResult? Function()? reportCommentSuccess,
+    TResult? Function(String error)? reportCommentFailure,
+    TResult? Function()? getTrendsLoading,
+    TResult? Function()? getTrendsSuccess,
+    TResult? Function(String error)? getTrendsFailure,
+  }) {
+    return getCategoryFailure?.call(error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
+    TResult Function()? getCategoriesLoading,
+    TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
+    TResult Function(String error)? getCategoriesFailure,
+    TResult Function()? getPostsLoading,
+    TResult Function(GetPostsResponse response)? getPostsSuccess,
+    TResult Function(String error)? getPostsFailure,
+    TResult Function()? createPostLoading,
+    TResult Function(CreatePostResponse response)? createPostSuccess,
+    TResult Function(String error)? createPostFailure,
+    TResult Function()? getPostDetailsLoading,
+    TResult Function(PostDetailsResponse response)? getPostDetailsSuccess,
+    TResult Function(String error)? getPostDetailsFailure,
+    TResult Function()? deletePostLoading,
+    TResult Function()? deletePostSuccess,
+    TResult Function(String error)? deletePostFailure,
+    TResult Function()? postReactionLoading,
+    TResult Function()? postReactionSuccess,
+    TResult Function(String error)? postReactionFailure,
+    TResult Function()? reportPostLoading,
+    TResult Function()? reportPostSuccess,
+    TResult Function(String error)? reportPostFailure,
+    TResult Function()? getPollsLoading,
+    TResult Function(GetPollsResponse response)? getPollsSuccess,
+    TResult Function(String error)? getPollsFailure,
+    TResult Function()? getCommentsLoading,
+    TResult Function(dynamic response)? getCommentsSuccess,
+    TResult Function(String error)? getCommentsFailure,
+    TResult Function()? getACommentLoading,
+    TResult Function(dynamic response)? getACommentSuccess,
+    TResult Function(String error)? getACommentFailure,
+    TResult Function()? saveACommentLoading,
+    TResult Function()? saveACommentSuccess,
+    TResult Function(String error)? saveACommentFailure,
+    TResult Function()? deleteCommentLoading,
+    TResult Function()? deleteCommentSuccess,
+    TResult Function(String error)? deleteCommentFailure,
+    TResult Function()? commentReactionLoading,
+    TResult Function()? commentReactionSuccess,
+    TResult Function(String error)? commentReactionFailure,
+    TResult Function()? getGuidelinesLoading,
+    TResult Function(GetGuidlinesResponse response)? getGuideLinesSuccess,
+    TResult Function(String error)? getGuideLinesFailed,
+    TResult Function()? reportCommentLoading,
+    TResult Function()? reportCommentSuccess,
+    TResult Function(String error)? reportCommentFailure,
+    TResult Function()? getTrendsLoading,
+    TResult Function()? getTrendsSuccess,
+    TResult Function(String error)? getTrendsFailure,
+    required TResult orElse(),
+  }) {
+    if (getCategoryFailure != null) {
+      return getCategoryFailure(error);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
+    required TResult Function(GetCategoriesLoadingState value)
+        getCategoriesLoading,
+    required TResult Function(GetCategoriesSuccessState value)
+        getCategoriesSuccess,
+    required TResult Function(GetCategoriesFailureState value)
+        getCategoriesFailure,
+    required TResult Function(GetPostsLoadingState value) getPostsLoading,
+    required TResult Function(GetPostsSuccessState value) getPostsSuccess,
+    required TResult Function(GetPostsFailureState value) getPostsFailure,
+    required TResult Function(CreatePostLoadingState value) createPostLoading,
+    required TResult Function(CreatePostSuccessState value) createPostSuccess,
+    required TResult Function(CreatePostFailureState value) createPostFailure,
+    required TResult Function(GetPostDetailsLoadingState value)
+        getPostDetailsLoading,
+    required TResult Function(GetPostDetailsSuccessState value)
+        getPostDetailsSuccess,
+    required TResult Function(GetPostDetailsFailureState value)
+        getPostDetailsFailure,
+    required TResult Function(DeletePostLoadingState value) deletePostLoading,
+    required TResult Function(DeletePostSuccessState value) deletePostSuccess,
+    required TResult Function(DeletePostFailureState value) deletePostFailure,
+    required TResult Function(PostReactionLoadingState value)
+        postReactionLoading,
+    required TResult Function(PostReactionSuccessState value)
+        postReactionSuccess,
+    required TResult Function(PostReactionFailureState value)
+        postReactionFailure,
+    required TResult Function(ReportPostLoadingState value) reportPostLoading,
+    required TResult Function(ReportPostSuccessState value) reportPostSuccess,
+    required TResult Function(ReportPostFailureState value) reportPostFailure,
+    required TResult Function(GetPollsLoadingState value) getPollsLoading,
+    required TResult Function(GetPollsSuccessState value) getPollsSuccess,
+    required TResult Function(GetPollsFailureState value) getPollsFailure,
+    required TResult Function(GetCommentsLoadingState value) getCommentsLoading,
+    required TResult Function(GetCommentsSuccessState value) getCommentsSuccess,
+    required TResult Function(GetCommentsFailureState value) getCommentsFailure,
+    required TResult Function(GetACommentLoadingState value) getACommentLoading,
+    required TResult Function(GetACommentSuccessState value) getACommentSuccess,
+    required TResult Function(GetACommentFailureState value) getACommentFailure,
+    required TResult Function(SaveACommentLoadingState value)
+        saveACommentLoading,
+    required TResult Function(SaveACommentSuccessState value)
+        saveACommentSuccess,
+    required TResult Function(SaveACommentFailureState value)
+        saveACommentFailure,
+    required TResult Function(DeleteCommentLoadingState value)
+        deleteCommentLoading,
+    required TResult Function(DeleteCommentSuccessState value)
+        deleteCommentSuccess,
+    required TResult Function(DeleteCommentFailureState value)
+        deleteCommentFailure,
+    required TResult Function(CommentReactionLoadingState value)
+        commentReactionLoading,
+    required TResult Function(CommentReactionSuccessState value)
+        commentReactionSuccess,
+    required TResult Function(CommentReactionFailureState value)
+        commentReactionFailure,
+    required TResult Function(GetGuidelinesLoading value) getGuidelinesLoading,
+    required TResult Function(GetGuidelinesSuccess value) getGuideLinesSuccess,
+    required TResult Function(GetGuidelinesFailed value) getGuideLinesFailed,
+    required TResult Function(ReportCommentLoadingState value)
+        reportCommentLoading,
+    required TResult Function(ReportCommentSuccessState value)
+        reportCommentSuccess,
+    required TResult Function(ReportCommentFailureState value)
+        reportCommentFailure,
+    required TResult Function(_GetTrendsLoading value) getTrendsLoading,
+    required TResult Function(_GetTrendsSuccess value) getTrendsSuccess,
+    required TResult Function(_GetTrendsFailure value) getTrendsFailure,
+  }) {
+    return getCategoryFailure(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
+    TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
+    TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
+    TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
+    TResult? Function(GetPostsLoadingState value)? getPostsLoading,
+    TResult? Function(GetPostsSuccessState value)? getPostsSuccess,
+    TResult? Function(GetPostsFailureState value)? getPostsFailure,
+    TResult? Function(CreatePostLoadingState value)? createPostLoading,
+    TResult? Function(CreatePostSuccessState value)? createPostSuccess,
+    TResult? Function(CreatePostFailureState value)? createPostFailure,
+    TResult? Function(GetPostDetailsLoadingState value)? getPostDetailsLoading,
+    TResult? Function(GetPostDetailsSuccessState value)? getPostDetailsSuccess,
+    TResult? Function(GetPostDetailsFailureState value)? getPostDetailsFailure,
+    TResult? Function(DeletePostLoadingState value)? deletePostLoading,
+    TResult? Function(DeletePostSuccessState value)? deletePostSuccess,
+    TResult? Function(DeletePostFailureState value)? deletePostFailure,
+    TResult? Function(PostReactionLoadingState value)? postReactionLoading,
+    TResult? Function(PostReactionSuccessState value)? postReactionSuccess,
+    TResult? Function(PostReactionFailureState value)? postReactionFailure,
+    TResult? Function(ReportPostLoadingState value)? reportPostLoading,
+    TResult? Function(ReportPostSuccessState value)? reportPostSuccess,
+    TResult? Function(ReportPostFailureState value)? reportPostFailure,
+    TResult? Function(GetPollsLoadingState value)? getPollsLoading,
+    TResult? Function(GetPollsSuccessState value)? getPollsSuccess,
+    TResult? Function(GetPollsFailureState value)? getPollsFailure,
+    TResult? Function(GetCommentsLoadingState value)? getCommentsLoading,
+    TResult? Function(GetCommentsSuccessState value)? getCommentsSuccess,
+    TResult? Function(GetCommentsFailureState value)? getCommentsFailure,
+    TResult? Function(GetACommentLoadingState value)? getACommentLoading,
+    TResult? Function(GetACommentSuccessState value)? getACommentSuccess,
+    TResult? Function(GetACommentFailureState value)? getACommentFailure,
+    TResult? Function(SaveACommentLoadingState value)? saveACommentLoading,
+    TResult? Function(SaveACommentSuccessState value)? saveACommentSuccess,
+    TResult? Function(SaveACommentFailureState value)? saveACommentFailure,
+    TResult? Function(DeleteCommentLoadingState value)? deleteCommentLoading,
+    TResult? Function(DeleteCommentSuccessState value)? deleteCommentSuccess,
+    TResult? Function(DeleteCommentFailureState value)? deleteCommentFailure,
+    TResult? Function(CommentReactionLoadingState value)?
+        commentReactionLoading,
+    TResult? Function(CommentReactionSuccessState value)?
+        commentReactionSuccess,
+    TResult? Function(CommentReactionFailureState value)?
+        commentReactionFailure,
+    TResult? Function(GetGuidelinesLoading value)? getGuidelinesLoading,
+    TResult? Function(GetGuidelinesSuccess value)? getGuideLinesSuccess,
+    TResult? Function(GetGuidelinesFailed value)? getGuideLinesFailed,
+    TResult? Function(ReportCommentLoadingState value)? reportCommentLoading,
+    TResult? Function(ReportCommentSuccessState value)? reportCommentSuccess,
+    TResult? Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult? Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult? Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult? Function(_GetTrendsFailure value)? getTrendsFailure,
+  }) {
+    return getCategoryFailure?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
+    TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
+    TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
+    TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
+    TResult Function(GetPostsLoadingState value)? getPostsLoading,
+    TResult Function(GetPostsSuccessState value)? getPostsSuccess,
+    TResult Function(GetPostsFailureState value)? getPostsFailure,
+    TResult Function(CreatePostLoadingState value)? createPostLoading,
+    TResult Function(CreatePostSuccessState value)? createPostSuccess,
+    TResult Function(CreatePostFailureState value)? createPostFailure,
+    TResult Function(GetPostDetailsLoadingState value)? getPostDetailsLoading,
+    TResult Function(GetPostDetailsSuccessState value)? getPostDetailsSuccess,
+    TResult Function(GetPostDetailsFailureState value)? getPostDetailsFailure,
+    TResult Function(DeletePostLoadingState value)? deletePostLoading,
+    TResult Function(DeletePostSuccessState value)? deletePostSuccess,
+    TResult Function(DeletePostFailureState value)? deletePostFailure,
+    TResult Function(PostReactionLoadingState value)? postReactionLoading,
+    TResult Function(PostReactionSuccessState value)? postReactionSuccess,
+    TResult Function(PostReactionFailureState value)? postReactionFailure,
+    TResult Function(ReportPostLoadingState value)? reportPostLoading,
+    TResult Function(ReportPostSuccessState value)? reportPostSuccess,
+    TResult Function(ReportPostFailureState value)? reportPostFailure,
+    TResult Function(GetPollsLoadingState value)? getPollsLoading,
+    TResult Function(GetPollsSuccessState value)? getPollsSuccess,
+    TResult Function(GetPollsFailureState value)? getPollsFailure,
+    TResult Function(GetCommentsLoadingState value)? getCommentsLoading,
+    TResult Function(GetCommentsSuccessState value)? getCommentsSuccess,
+    TResult Function(GetCommentsFailureState value)? getCommentsFailure,
+    TResult Function(GetACommentLoadingState value)? getACommentLoading,
+    TResult Function(GetACommentSuccessState value)? getACommentSuccess,
+    TResult Function(GetACommentFailureState value)? getACommentFailure,
+    TResult Function(SaveACommentLoadingState value)? saveACommentLoading,
+    TResult Function(SaveACommentSuccessState value)? saveACommentSuccess,
+    TResult Function(SaveACommentFailureState value)? saveACommentFailure,
+    TResult Function(DeleteCommentLoadingState value)? deleteCommentLoading,
+    TResult Function(DeleteCommentSuccessState value)? deleteCommentSuccess,
+    TResult Function(DeleteCommentFailureState value)? deleteCommentFailure,
+    TResult Function(CommentReactionLoadingState value)? commentReactionLoading,
+    TResult Function(CommentReactionSuccessState value)? commentReactionSuccess,
+    TResult Function(CommentReactionFailureState value)? commentReactionFailure,
+    TResult Function(GetGuidelinesLoading value)? getGuidelinesLoading,
+    TResult Function(GetGuidelinesSuccess value)? getGuideLinesSuccess,
+    TResult Function(GetGuidelinesFailed value)? getGuideLinesFailed,
+    TResult Function(ReportCommentLoadingState value)? reportCommentLoading,
+    TResult Function(ReportCommentSuccessState value)? reportCommentSuccess,
+    TResult Function(ReportCommentFailureState value)? reportCommentFailure,
+    TResult Function(_GetTrendsLoading value)? getTrendsLoading,
+    TResult Function(_GetTrendsSuccess value)? getTrendsSuccess,
+    TResult Function(_GetTrendsFailure value)? getTrendsFailure,
+    required TResult orElse(),
+  }) {
+    if (getCategoryFailure != null) {
+      return getCategoryFailure(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class GetCategoryFailureState implements PostState {
+  const factory GetCategoryFailureState(final String error) =
+      _$GetCategoryFailureStateImpl;
+
+  String get error;
+
+  /// Create a copy of PostState
+  /// with the given fields replaced by the non-null parameter values.
+  @JsonKey(includeFromJson: false, includeToJson: false)
+  _$$GetCategoryFailureStateImplCopyWith<_$GetCategoryFailureStateImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
 abstract class _$$GetCategoriesLoadingStateImplCopyWith<$Res> {
   factory _$$GetCategoriesLoadingStateImplCopyWith(
           _$GetCategoriesLoadingStateImpl value,
@@ -4966,6 +6735,9 @@ class _$GetCategoriesLoadingStateImpl implements GetCategoriesLoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -5025,6 +6797,9 @@ class _$GetCategoriesLoadingStateImpl implements GetCategoriesLoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -5081,6 +6856,9 @@ class _$GetCategoriesLoadingStateImpl implements GetCategoriesLoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -5141,6 +6919,9 @@ class _$GetCategoriesLoadingStateImpl implements GetCategoriesLoadingState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -5218,6 +6999,9 @@ class _$GetCategoriesLoadingStateImpl implements GetCategoriesLoadingState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -5277,6 +7061,9 @@ class _$GetCategoriesLoadingStateImpl implements GetCategoriesLoadingState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -5411,6 +7198,9 @@ class _$GetCategoriesSuccessStateImpl implements GetCategoriesSuccessState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -5470,6 +7260,9 @@ class _$GetCategoriesSuccessStateImpl implements GetCategoriesSuccessState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -5526,6 +7319,9 @@ class _$GetCategoriesSuccessStateImpl implements GetCategoriesSuccessState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -5586,6 +7382,9 @@ class _$GetCategoriesSuccessStateImpl implements GetCategoriesSuccessState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -5663,6 +7462,9 @@ class _$GetCategoriesSuccessStateImpl implements GetCategoriesSuccessState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -5722,6 +7524,9 @@ class _$GetCategoriesSuccessStateImpl implements GetCategoriesSuccessState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -5864,6 +7669,9 @@ class _$GetCategoriesFailureStateImpl implements GetCategoriesFailureState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -5923,6 +7731,9 @@ class _$GetCategoriesFailureStateImpl implements GetCategoriesFailureState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -5979,6 +7790,9 @@ class _$GetCategoriesFailureStateImpl implements GetCategoriesFailureState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -6039,6 +7853,9 @@ class _$GetCategoriesFailureStateImpl implements GetCategoriesFailureState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -6116,6 +7933,9 @@ class _$GetCategoriesFailureStateImpl implements GetCategoriesFailureState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -6175,6 +7995,9 @@ class _$GetCategoriesFailureStateImpl implements GetCategoriesFailureState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -6288,6 +8111,9 @@ class _$GetPostsLoadingStateImpl implements GetPostsLoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -6347,6 +8173,9 @@ class _$GetPostsLoadingStateImpl implements GetPostsLoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -6403,6 +8232,9 @@ class _$GetPostsLoadingStateImpl implements GetPostsLoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -6463,6 +8295,9 @@ class _$GetPostsLoadingStateImpl implements GetPostsLoadingState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -6540,6 +8375,9 @@ class _$GetPostsLoadingStateImpl implements GetPostsLoadingState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -6599,6 +8437,9 @@ class _$GetPostsLoadingStateImpl implements GetPostsLoadingState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -6732,6 +8573,9 @@ class _$GetPostsSuccessStateImpl implements GetPostsSuccessState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -6791,6 +8635,9 @@ class _$GetPostsSuccessStateImpl implements GetPostsSuccessState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -6847,6 +8694,9 @@ class _$GetPostsSuccessStateImpl implements GetPostsSuccessState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -6907,6 +8757,9 @@ class _$GetPostsSuccessStateImpl implements GetPostsSuccessState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -6984,6 +8837,9 @@ class _$GetPostsSuccessStateImpl implements GetPostsSuccessState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -7043,6 +8899,9 @@ class _$GetPostsSuccessStateImpl implements GetPostsSuccessState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -7184,6 +9043,9 @@ class _$GetPostsFailureStateImpl implements GetPostsFailureState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -7243,6 +9105,9 @@ class _$GetPostsFailureStateImpl implements GetPostsFailureState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -7299,6 +9164,9 @@ class _$GetPostsFailureStateImpl implements GetPostsFailureState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -7359,6 +9227,9 @@ class _$GetPostsFailureStateImpl implements GetPostsFailureState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -7436,6 +9307,9 @@ class _$GetPostsFailureStateImpl implements GetPostsFailureState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -7495,6 +9369,9 @@ class _$GetPostsFailureStateImpl implements GetPostsFailureState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -7610,6 +9487,9 @@ class _$CreatePostLoadingStateImpl implements CreatePostLoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -7669,6 +9549,9 @@ class _$CreatePostLoadingStateImpl implements CreatePostLoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -7725,6 +9608,9 @@ class _$CreatePostLoadingStateImpl implements CreatePostLoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -7785,6 +9671,9 @@ class _$CreatePostLoadingStateImpl implements CreatePostLoadingState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -7862,6 +9751,9 @@ class _$CreatePostLoadingStateImpl implements CreatePostLoadingState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -7921,6 +9813,9 @@ class _$CreatePostLoadingStateImpl implements CreatePostLoadingState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -8055,6 +9950,9 @@ class _$CreatePostSuccessStateImpl implements CreatePostSuccessState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -8114,6 +10012,9 @@ class _$CreatePostSuccessStateImpl implements CreatePostSuccessState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -8170,6 +10071,9 @@ class _$CreatePostSuccessStateImpl implements CreatePostSuccessState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -8230,6 +10134,9 @@ class _$CreatePostSuccessStateImpl implements CreatePostSuccessState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -8307,6 +10214,9 @@ class _$CreatePostSuccessStateImpl implements CreatePostSuccessState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -8366,6 +10276,9 @@ class _$CreatePostSuccessStateImpl implements CreatePostSuccessState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -8508,6 +10421,9 @@ class _$CreatePostFailureStateImpl implements CreatePostFailureState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -8567,6 +10483,9 @@ class _$CreatePostFailureStateImpl implements CreatePostFailureState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -8623,6 +10542,9 @@ class _$CreatePostFailureStateImpl implements CreatePostFailureState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -8683,6 +10605,9 @@ class _$CreatePostFailureStateImpl implements CreatePostFailureState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -8760,6 +10685,9 @@ class _$CreatePostFailureStateImpl implements CreatePostFailureState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -8819,6 +10747,9 @@ class _$CreatePostFailureStateImpl implements CreatePostFailureState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -8934,6 +10865,9 @@ class _$GetPostDetailsLoadingStateImpl implements GetPostDetailsLoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -8993,6 +10927,9 @@ class _$GetPostDetailsLoadingStateImpl implements GetPostDetailsLoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -9049,6 +10986,9 @@ class _$GetPostDetailsLoadingStateImpl implements GetPostDetailsLoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -9109,6 +11049,9 @@ class _$GetPostDetailsLoadingStateImpl implements GetPostDetailsLoadingState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -9186,6 +11129,9 @@ class _$GetPostDetailsLoadingStateImpl implements GetPostDetailsLoadingState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -9245,6 +11191,9 @@ class _$GetPostDetailsLoadingStateImpl implements GetPostDetailsLoadingState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -9379,6 +11328,9 @@ class _$GetPostDetailsSuccessStateImpl implements GetPostDetailsSuccessState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -9438,6 +11390,9 @@ class _$GetPostDetailsSuccessStateImpl implements GetPostDetailsSuccessState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -9494,6 +11449,9 @@ class _$GetPostDetailsSuccessStateImpl implements GetPostDetailsSuccessState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -9554,6 +11512,9 @@ class _$GetPostDetailsSuccessStateImpl implements GetPostDetailsSuccessState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -9631,6 +11592,9 @@ class _$GetPostDetailsSuccessStateImpl implements GetPostDetailsSuccessState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -9690,6 +11654,9 @@ class _$GetPostDetailsSuccessStateImpl implements GetPostDetailsSuccessState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -9832,6 +11799,9 @@ class _$GetPostDetailsFailureStateImpl implements GetPostDetailsFailureState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -9891,6 +11861,9 @@ class _$GetPostDetailsFailureStateImpl implements GetPostDetailsFailureState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -9947,6 +11920,9 @@ class _$GetPostDetailsFailureStateImpl implements GetPostDetailsFailureState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -10007,6 +11983,9 @@ class _$GetPostDetailsFailureStateImpl implements GetPostDetailsFailureState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -10084,6 +12063,9 @@ class _$GetPostDetailsFailureStateImpl implements GetPostDetailsFailureState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -10143,6 +12125,9 @@ class _$GetPostDetailsFailureStateImpl implements GetPostDetailsFailureState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -10258,6 +12243,9 @@ class _$DeletePostLoadingStateImpl implements DeletePostLoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -10317,6 +12305,9 @@ class _$DeletePostLoadingStateImpl implements DeletePostLoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -10373,6 +12364,9 @@ class _$DeletePostLoadingStateImpl implements DeletePostLoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -10433,6 +12427,9 @@ class _$DeletePostLoadingStateImpl implements DeletePostLoadingState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -10510,6 +12507,9 @@ class _$DeletePostLoadingStateImpl implements DeletePostLoadingState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -10569,6 +12569,9 @@ class _$DeletePostLoadingStateImpl implements DeletePostLoadingState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -10675,6 +12678,9 @@ class _$DeletePostSuccessStateImpl implements DeletePostSuccessState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -10734,6 +12740,9 @@ class _$DeletePostSuccessStateImpl implements DeletePostSuccessState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -10790,6 +12799,9 @@ class _$DeletePostSuccessStateImpl implements DeletePostSuccessState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -10850,6 +12862,9 @@ class _$DeletePostSuccessStateImpl implements DeletePostSuccessState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -10927,6 +12942,9 @@ class _$DeletePostSuccessStateImpl implements DeletePostSuccessState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -10986,6 +13004,9 @@ class _$DeletePostSuccessStateImpl implements DeletePostSuccessState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -11119,6 +13140,9 @@ class _$DeletePostFailureStateImpl implements DeletePostFailureState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -11178,6 +13202,9 @@ class _$DeletePostFailureStateImpl implements DeletePostFailureState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -11234,6 +13261,9 @@ class _$DeletePostFailureStateImpl implements DeletePostFailureState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -11294,6 +13324,9 @@ class _$DeletePostFailureStateImpl implements DeletePostFailureState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -11371,6 +13404,9 @@ class _$DeletePostFailureStateImpl implements DeletePostFailureState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -11430,6 +13466,9 @@ class _$DeletePostFailureStateImpl implements DeletePostFailureState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -11545,6 +13584,9 @@ class _$PostReactionLoadingStateImpl implements PostReactionLoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -11604,6 +13646,9 @@ class _$PostReactionLoadingStateImpl implements PostReactionLoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -11660,6 +13705,9 @@ class _$PostReactionLoadingStateImpl implements PostReactionLoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -11720,6 +13768,9 @@ class _$PostReactionLoadingStateImpl implements PostReactionLoadingState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -11797,6 +13848,9 @@ class _$PostReactionLoadingStateImpl implements PostReactionLoadingState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -11856,6 +13910,9 @@ class _$PostReactionLoadingStateImpl implements PostReactionLoadingState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -11962,6 +14019,9 @@ class _$PostReactionSuccessStateImpl implements PostReactionSuccessState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -12021,6 +14081,9 @@ class _$PostReactionSuccessStateImpl implements PostReactionSuccessState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -12077,6 +14140,9 @@ class _$PostReactionSuccessStateImpl implements PostReactionSuccessState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -12137,6 +14203,9 @@ class _$PostReactionSuccessStateImpl implements PostReactionSuccessState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -12214,6 +14283,9 @@ class _$PostReactionSuccessStateImpl implements PostReactionSuccessState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -12273,6 +14345,9 @@ class _$PostReactionSuccessStateImpl implements PostReactionSuccessState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -12406,6 +14481,9 @@ class _$PostReactionFailureStateImpl implements PostReactionFailureState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -12465,6 +14543,9 @@ class _$PostReactionFailureStateImpl implements PostReactionFailureState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -12521,6 +14602,9 @@ class _$PostReactionFailureStateImpl implements PostReactionFailureState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -12581,6 +14665,9 @@ class _$PostReactionFailureStateImpl implements PostReactionFailureState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -12658,6 +14745,9 @@ class _$PostReactionFailureStateImpl implements PostReactionFailureState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -12717,6 +14807,9 @@ class _$PostReactionFailureStateImpl implements PostReactionFailureState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -12832,6 +14925,9 @@ class _$ReportPostLoadingStateImpl implements ReportPostLoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -12891,6 +14987,9 @@ class _$ReportPostLoadingStateImpl implements ReportPostLoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -12947,6 +15046,9 @@ class _$ReportPostLoadingStateImpl implements ReportPostLoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -13007,6 +15109,9 @@ class _$ReportPostLoadingStateImpl implements ReportPostLoadingState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -13084,6 +15189,9 @@ class _$ReportPostLoadingStateImpl implements ReportPostLoadingState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -13143,6 +15251,9 @@ class _$ReportPostLoadingStateImpl implements ReportPostLoadingState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -13249,6 +15360,9 @@ class _$ReportPostSuccessStateImpl implements ReportPostSuccessState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -13308,6 +15422,9 @@ class _$ReportPostSuccessStateImpl implements ReportPostSuccessState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -13364,6 +15481,9 @@ class _$ReportPostSuccessStateImpl implements ReportPostSuccessState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -13424,6 +15544,9 @@ class _$ReportPostSuccessStateImpl implements ReportPostSuccessState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -13501,6 +15624,9 @@ class _$ReportPostSuccessStateImpl implements ReportPostSuccessState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -13560,6 +15686,9 @@ class _$ReportPostSuccessStateImpl implements ReportPostSuccessState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -13693,6 +15822,9 @@ class _$ReportPostFailureStateImpl implements ReportPostFailureState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -13752,6 +15884,9 @@ class _$ReportPostFailureStateImpl implements ReportPostFailureState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -13808,6 +15943,9 @@ class _$ReportPostFailureStateImpl implements ReportPostFailureState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -13868,6 +16006,9 @@ class _$ReportPostFailureStateImpl implements ReportPostFailureState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -13945,6 +16086,9 @@ class _$ReportPostFailureStateImpl implements ReportPostFailureState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -14004,6 +16148,9 @@ class _$ReportPostFailureStateImpl implements ReportPostFailureState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -14117,6 +16264,9 @@ class _$GetPollsLoadingStateImpl implements GetPollsLoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -14176,6 +16326,9 @@ class _$GetPollsLoadingStateImpl implements GetPollsLoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -14232,6 +16385,9 @@ class _$GetPollsLoadingStateImpl implements GetPollsLoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -14292,6 +16448,9 @@ class _$GetPollsLoadingStateImpl implements GetPollsLoadingState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -14369,6 +16528,9 @@ class _$GetPollsLoadingStateImpl implements GetPollsLoadingState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -14428,6 +16590,9 @@ class _$GetPollsLoadingStateImpl implements GetPollsLoadingState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -14561,6 +16726,9 @@ class _$GetPollsSuccessStateImpl implements GetPollsSuccessState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -14620,6 +16788,9 @@ class _$GetPollsSuccessStateImpl implements GetPollsSuccessState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -14676,6 +16847,9 @@ class _$GetPollsSuccessStateImpl implements GetPollsSuccessState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -14736,6 +16910,9 @@ class _$GetPollsSuccessStateImpl implements GetPollsSuccessState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -14813,6 +16990,9 @@ class _$GetPollsSuccessStateImpl implements GetPollsSuccessState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -14872,6 +17052,9 @@ class _$GetPollsSuccessStateImpl implements GetPollsSuccessState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -15013,6 +17196,9 @@ class _$GetPollsFailureStateImpl implements GetPollsFailureState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -15072,6 +17258,9 @@ class _$GetPollsFailureStateImpl implements GetPollsFailureState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -15128,6 +17317,9 @@ class _$GetPollsFailureStateImpl implements GetPollsFailureState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -15188,6 +17380,9 @@ class _$GetPollsFailureStateImpl implements GetPollsFailureState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -15265,6 +17460,9 @@ class _$GetPollsFailureStateImpl implements GetPollsFailureState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -15324,6 +17522,9 @@ class _$GetPollsFailureStateImpl implements GetPollsFailureState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -15439,6 +17640,9 @@ class _$GetCommentsLoadingStateImpl implements GetCommentsLoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -15498,6 +17702,9 @@ class _$GetCommentsLoadingStateImpl implements GetCommentsLoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -15554,6 +17761,9 @@ class _$GetCommentsLoadingStateImpl implements GetCommentsLoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -15614,6 +17824,9 @@ class _$GetCommentsLoadingStateImpl implements GetCommentsLoadingState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -15691,6 +17904,9 @@ class _$GetCommentsLoadingStateImpl implements GetCommentsLoadingState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -15750,6 +17966,9 @@ class _$GetCommentsLoadingStateImpl implements GetCommentsLoadingState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -15884,6 +18103,9 @@ class _$GetCommentsSuccessStateImpl implements GetCommentsSuccessState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -15943,6 +18165,9 @@ class _$GetCommentsSuccessStateImpl implements GetCommentsSuccessState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -15999,6 +18224,9 @@ class _$GetCommentsSuccessStateImpl implements GetCommentsSuccessState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -16059,6 +18287,9 @@ class _$GetCommentsSuccessStateImpl implements GetCommentsSuccessState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -16136,6 +18367,9 @@ class _$GetCommentsSuccessStateImpl implements GetCommentsSuccessState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -16195,6 +18429,9 @@ class _$GetCommentsSuccessStateImpl implements GetCommentsSuccessState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -16337,6 +18574,9 @@ class _$GetCommentsFailureStateImpl implements GetCommentsFailureState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -16396,6 +18636,9 @@ class _$GetCommentsFailureStateImpl implements GetCommentsFailureState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -16452,6 +18695,9 @@ class _$GetCommentsFailureStateImpl implements GetCommentsFailureState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -16512,6 +18758,9 @@ class _$GetCommentsFailureStateImpl implements GetCommentsFailureState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -16589,6 +18838,9 @@ class _$GetCommentsFailureStateImpl implements GetCommentsFailureState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -16648,6 +18900,9 @@ class _$GetCommentsFailureStateImpl implements GetCommentsFailureState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -16763,6 +19018,9 @@ class _$GetACommentLoadingStateImpl implements GetACommentLoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -16822,6 +19080,9 @@ class _$GetACommentLoadingStateImpl implements GetACommentLoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -16878,6 +19139,9 @@ class _$GetACommentLoadingStateImpl implements GetACommentLoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -16938,6 +19202,9 @@ class _$GetACommentLoadingStateImpl implements GetACommentLoadingState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -17015,6 +19282,9 @@ class _$GetACommentLoadingStateImpl implements GetACommentLoadingState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -17074,6 +19344,9 @@ class _$GetACommentLoadingStateImpl implements GetACommentLoadingState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -17208,6 +19481,9 @@ class _$GetACommentSuccessStateImpl implements GetACommentSuccessState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -17267,6 +19543,9 @@ class _$GetACommentSuccessStateImpl implements GetACommentSuccessState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -17323,6 +19602,9 @@ class _$GetACommentSuccessStateImpl implements GetACommentSuccessState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -17383,6 +19665,9 @@ class _$GetACommentSuccessStateImpl implements GetACommentSuccessState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -17460,6 +19745,9 @@ class _$GetACommentSuccessStateImpl implements GetACommentSuccessState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -17519,6 +19807,9 @@ class _$GetACommentSuccessStateImpl implements GetACommentSuccessState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -17661,6 +19952,9 @@ class _$GetACommentFailureStateImpl implements GetACommentFailureState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -17720,6 +20014,9 @@ class _$GetACommentFailureStateImpl implements GetACommentFailureState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -17776,6 +20073,9 @@ class _$GetACommentFailureStateImpl implements GetACommentFailureState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -17836,6 +20136,9 @@ class _$GetACommentFailureStateImpl implements GetACommentFailureState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -17913,6 +20216,9 @@ class _$GetACommentFailureStateImpl implements GetACommentFailureState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -17972,6 +20278,9 @@ class _$GetACommentFailureStateImpl implements GetACommentFailureState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -18087,6 +20396,9 @@ class _$SaveACommentLoadingStateImpl implements SaveACommentLoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -18146,6 +20458,9 @@ class _$SaveACommentLoadingStateImpl implements SaveACommentLoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -18202,6 +20517,9 @@ class _$SaveACommentLoadingStateImpl implements SaveACommentLoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -18262,6 +20580,9 @@ class _$SaveACommentLoadingStateImpl implements SaveACommentLoadingState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -18339,6 +20660,9 @@ class _$SaveACommentLoadingStateImpl implements SaveACommentLoadingState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -18398,6 +20722,9 @@ class _$SaveACommentLoadingStateImpl implements SaveACommentLoadingState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -18504,6 +20831,9 @@ class _$SaveACommentSuccessStateImpl implements SaveACommentSuccessState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -18563,6 +20893,9 @@ class _$SaveACommentSuccessStateImpl implements SaveACommentSuccessState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -18619,6 +20952,9 @@ class _$SaveACommentSuccessStateImpl implements SaveACommentSuccessState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -18679,6 +21015,9 @@ class _$SaveACommentSuccessStateImpl implements SaveACommentSuccessState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -18756,6 +21095,9 @@ class _$SaveACommentSuccessStateImpl implements SaveACommentSuccessState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -18815,6 +21157,9 @@ class _$SaveACommentSuccessStateImpl implements SaveACommentSuccessState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -18948,6 +21293,9 @@ class _$SaveACommentFailureStateImpl implements SaveACommentFailureState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -19007,6 +21355,9 @@ class _$SaveACommentFailureStateImpl implements SaveACommentFailureState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -19063,6 +21414,9 @@ class _$SaveACommentFailureStateImpl implements SaveACommentFailureState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -19123,6 +21477,9 @@ class _$SaveACommentFailureStateImpl implements SaveACommentFailureState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -19200,6 +21557,9 @@ class _$SaveACommentFailureStateImpl implements SaveACommentFailureState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -19259,6 +21619,9 @@ class _$SaveACommentFailureStateImpl implements SaveACommentFailureState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -19374,6 +21737,9 @@ class _$DeleteCommentLoadingStateImpl implements DeleteCommentLoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -19433,6 +21799,9 @@ class _$DeleteCommentLoadingStateImpl implements DeleteCommentLoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -19489,6 +21858,9 @@ class _$DeleteCommentLoadingStateImpl implements DeleteCommentLoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -19549,6 +21921,9 @@ class _$DeleteCommentLoadingStateImpl implements DeleteCommentLoadingState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -19626,6 +22001,9 @@ class _$DeleteCommentLoadingStateImpl implements DeleteCommentLoadingState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -19685,6 +22063,9 @@ class _$DeleteCommentLoadingStateImpl implements DeleteCommentLoadingState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -19791,6 +22172,9 @@ class _$DeleteCommentSuccessStateImpl implements DeleteCommentSuccessState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -19850,6 +22234,9 @@ class _$DeleteCommentSuccessStateImpl implements DeleteCommentSuccessState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -19906,6 +22293,9 @@ class _$DeleteCommentSuccessStateImpl implements DeleteCommentSuccessState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -19966,6 +22356,9 @@ class _$DeleteCommentSuccessStateImpl implements DeleteCommentSuccessState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -20043,6 +22436,9 @@ class _$DeleteCommentSuccessStateImpl implements DeleteCommentSuccessState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -20102,6 +22498,9 @@ class _$DeleteCommentSuccessStateImpl implements DeleteCommentSuccessState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -20235,6 +22634,9 @@ class _$DeleteCommentFailureStateImpl implements DeleteCommentFailureState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -20294,6 +22696,9 @@ class _$DeleteCommentFailureStateImpl implements DeleteCommentFailureState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -20350,6 +22755,9 @@ class _$DeleteCommentFailureStateImpl implements DeleteCommentFailureState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -20410,6 +22818,9 @@ class _$DeleteCommentFailureStateImpl implements DeleteCommentFailureState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -20487,6 +22898,9 @@ class _$DeleteCommentFailureStateImpl implements DeleteCommentFailureState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -20546,6 +22960,9 @@ class _$DeleteCommentFailureStateImpl implements DeleteCommentFailureState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -20661,6 +23078,9 @@ class _$CommentReactionLoadingStateImpl implements CommentReactionLoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -20720,6 +23140,9 @@ class _$CommentReactionLoadingStateImpl implements CommentReactionLoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -20776,6 +23199,9 @@ class _$CommentReactionLoadingStateImpl implements CommentReactionLoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -20836,6 +23262,9 @@ class _$CommentReactionLoadingStateImpl implements CommentReactionLoadingState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -20913,6 +23342,9 @@ class _$CommentReactionLoadingStateImpl implements CommentReactionLoadingState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -20972,6 +23404,9 @@ class _$CommentReactionLoadingStateImpl implements CommentReactionLoadingState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -21079,6 +23514,9 @@ class _$CommentReactionSuccessStateImpl implements CommentReactionSuccessState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -21138,6 +23576,9 @@ class _$CommentReactionSuccessStateImpl implements CommentReactionSuccessState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -21194,6 +23635,9 @@ class _$CommentReactionSuccessStateImpl implements CommentReactionSuccessState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -21254,6 +23698,9 @@ class _$CommentReactionSuccessStateImpl implements CommentReactionSuccessState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -21331,6 +23778,9 @@ class _$CommentReactionSuccessStateImpl implements CommentReactionSuccessState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -21390,6 +23840,9 @@ class _$CommentReactionSuccessStateImpl implements CommentReactionSuccessState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -21524,6 +23977,9 @@ class _$CommentReactionFailureStateImpl implements CommentReactionFailureState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -21583,6 +24039,9 @@ class _$CommentReactionFailureStateImpl implements CommentReactionFailureState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -21639,6 +24098,9 @@ class _$CommentReactionFailureStateImpl implements CommentReactionFailureState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -21699,6 +24161,9 @@ class _$CommentReactionFailureStateImpl implements CommentReactionFailureState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -21776,6 +24241,9 @@ class _$CommentReactionFailureStateImpl implements CommentReactionFailureState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -21835,6 +24303,9 @@ class _$CommentReactionFailureStateImpl implements CommentReactionFailureState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -21948,6 +24419,9 @@ class _$GetGuidelinesLoadingImpl implements GetGuidelinesLoading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -22007,6 +24481,9 @@ class _$GetGuidelinesLoadingImpl implements GetGuidelinesLoading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -22063,6 +24540,9 @@ class _$GetGuidelinesLoadingImpl implements GetGuidelinesLoading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -22123,6 +24603,9 @@ class _$GetGuidelinesLoadingImpl implements GetGuidelinesLoading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -22200,6 +24683,9 @@ class _$GetGuidelinesLoadingImpl implements GetGuidelinesLoading {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -22259,6 +24745,9 @@ class _$GetGuidelinesLoadingImpl implements GetGuidelinesLoading {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -22392,6 +24881,9 @@ class _$GetGuidelinesSuccessImpl implements GetGuidelinesSuccess {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -22451,6 +24943,9 @@ class _$GetGuidelinesSuccessImpl implements GetGuidelinesSuccess {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -22507,6 +25002,9 @@ class _$GetGuidelinesSuccessImpl implements GetGuidelinesSuccess {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -22567,6 +25065,9 @@ class _$GetGuidelinesSuccessImpl implements GetGuidelinesSuccess {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -22644,6 +25145,9 @@ class _$GetGuidelinesSuccessImpl implements GetGuidelinesSuccess {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -22703,6 +25207,9 @@ class _$GetGuidelinesSuccessImpl implements GetGuidelinesSuccess {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -22843,6 +25350,9 @@ class _$GetGuidelinesFailedImpl implements GetGuidelinesFailed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -22902,6 +25412,9 @@ class _$GetGuidelinesFailedImpl implements GetGuidelinesFailed {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -22958,6 +25471,9 @@ class _$GetGuidelinesFailedImpl implements GetGuidelinesFailed {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -23018,6 +25534,9 @@ class _$GetGuidelinesFailedImpl implements GetGuidelinesFailed {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -23095,6 +25614,9 @@ class _$GetGuidelinesFailedImpl implements GetGuidelinesFailed {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -23154,6 +25676,9 @@ class _$GetGuidelinesFailedImpl implements GetGuidelinesFailed {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -23269,6 +25794,9 @@ class _$ReportCommentLoadingStateImpl implements ReportCommentLoadingState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -23328,6 +25856,9 @@ class _$ReportCommentLoadingStateImpl implements ReportCommentLoadingState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -23384,6 +25915,9 @@ class _$ReportCommentLoadingStateImpl implements ReportCommentLoadingState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -23444,6 +25978,9 @@ class _$ReportCommentLoadingStateImpl implements ReportCommentLoadingState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -23521,6 +26058,9 @@ class _$ReportCommentLoadingStateImpl implements ReportCommentLoadingState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -23580,6 +26120,9 @@ class _$ReportCommentLoadingStateImpl implements ReportCommentLoadingState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -23686,6 +26229,9 @@ class _$ReportCommentSuccessStateImpl implements ReportCommentSuccessState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -23745,6 +26291,9 @@ class _$ReportCommentSuccessStateImpl implements ReportCommentSuccessState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -23801,6 +26350,9 @@ class _$ReportCommentSuccessStateImpl implements ReportCommentSuccessState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -23861,6 +26413,9 @@ class _$ReportCommentSuccessStateImpl implements ReportCommentSuccessState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -23938,6 +26493,9 @@ class _$ReportCommentSuccessStateImpl implements ReportCommentSuccessState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -23997,6 +26555,9 @@ class _$ReportCommentSuccessStateImpl implements ReportCommentSuccessState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -24130,6 +26691,9 @@ class _$ReportCommentFailureStateImpl implements ReportCommentFailureState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -24189,6 +26753,9 @@ class _$ReportCommentFailureStateImpl implements ReportCommentFailureState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -24245,6 +26812,9 @@ class _$ReportCommentFailureStateImpl implements ReportCommentFailureState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -24305,6 +26875,9 @@ class _$ReportCommentFailureStateImpl implements ReportCommentFailureState {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -24382,6 +26955,9 @@ class _$ReportCommentFailureStateImpl implements ReportCommentFailureState {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -24441,6 +27017,9 @@ class _$ReportCommentFailureStateImpl implements ReportCommentFailureState {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -24553,6 +27132,9 @@ class _$GetTrendsLoadingImpl implements _GetTrendsLoading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -24612,6 +27194,9 @@ class _$GetTrendsLoadingImpl implements _GetTrendsLoading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -24668,6 +27253,9 @@ class _$GetTrendsLoadingImpl implements _GetTrendsLoading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -24728,6 +27316,9 @@ class _$GetTrendsLoadingImpl implements _GetTrendsLoading {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -24805,6 +27396,9 @@ class _$GetTrendsLoadingImpl implements _GetTrendsLoading {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -24864,6 +27458,9 @@ class _$GetTrendsLoadingImpl implements _GetTrendsLoading {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -24967,6 +27564,9 @@ class _$GetTrendsSuccessImpl implements _GetTrendsSuccess {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -25026,6 +27626,9 @@ class _$GetTrendsSuccessImpl implements _GetTrendsSuccess {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -25082,6 +27685,9 @@ class _$GetTrendsSuccessImpl implements _GetTrendsSuccess {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -25142,6 +27748,9 @@ class _$GetTrendsSuccessImpl implements _GetTrendsSuccess {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -25219,6 +27828,9 @@ class _$GetTrendsSuccessImpl implements _GetTrendsSuccess {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -25278,6 +27890,9 @@ class _$GetTrendsSuccessImpl implements _GetTrendsSuccess {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -25409,6 +28024,9 @@ class _$GetTrendsFailureImpl implements _GetTrendsFailure {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
+    required TResult Function() getCategoryLoading,
+    required TResult Function(PostCategory category) getCategorySuccess,
+    required TResult Function(String error) getCategoryFailure,
     required TResult Function() getCategoriesLoading,
     required TResult Function(GetCategoriesResponse response)
         getCategoriesSuccess,
@@ -25468,6 +28086,9 @@ class _$GetTrendsFailureImpl implements _GetTrendsFailure {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
+    TResult? Function()? getCategoryLoading,
+    TResult? Function(PostCategory category)? getCategorySuccess,
+    TResult? Function(String error)? getCategoryFailure,
     TResult? Function()? getCategoriesLoading,
     TResult? Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult? Function(String error)? getCategoriesFailure,
@@ -25524,6 +28145,9 @@ class _$GetTrendsFailureImpl implements _GetTrendsFailure {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
+    TResult Function()? getCategoryLoading,
+    TResult Function(PostCategory category)? getCategorySuccess,
+    TResult Function(String error)? getCategoryFailure,
     TResult Function()? getCategoriesLoading,
     TResult Function(GetCategoriesResponse response)? getCategoriesSuccess,
     TResult Function(String error)? getCategoriesFailure,
@@ -25584,6 +28208,9 @@ class _$GetTrendsFailureImpl implements _GetTrendsFailure {
   @optionalTypeArgs
   TResult map<TResult extends Object?>({
     required TResult Function(PostInitial value) initial,
+    required TResult Function(GetCategoryLoadingState value) getCategoryLoading,
+    required TResult Function(GetCategorySuccessState value) getCategorySuccess,
+    required TResult Function(GetCategoryFailureState value) getCategoryFailure,
     required TResult Function(GetCategoriesLoadingState value)
         getCategoriesLoading,
     required TResult Function(GetCategoriesSuccessState value)
@@ -25661,6 +28288,9 @@ class _$GetTrendsFailureImpl implements _GetTrendsFailure {
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(PostInitial value)? initial,
+    TResult? Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult? Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult? Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult? Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult? Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult? Function(GetCategoriesFailureState value)? getCategoriesFailure,
@@ -25720,6 +28350,9 @@ class _$GetTrendsFailureImpl implements _GetTrendsFailure {
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(PostInitial value)? initial,
+    TResult Function(GetCategoryLoadingState value)? getCategoryLoading,
+    TResult Function(GetCategorySuccessState value)? getCategorySuccess,
+    TResult Function(GetCategoryFailureState value)? getCategoryFailure,
     TResult Function(GetCategoriesLoadingState value)? getCategoriesLoading,
     TResult Function(GetCategoriesSuccessState value)? getCategoriesSuccess,
     TResult Function(GetCategoriesFailureState value)? getCategoriesFailure,

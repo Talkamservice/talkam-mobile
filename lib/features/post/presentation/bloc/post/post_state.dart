@@ -8,6 +8,11 @@ part of 'post_bloc.dart';
 class PostState with _$PostState {
   const factory PostState.initial() = PostInitial;
 
+  const factory PostState.getCategoryLoading() = GetCategoryLoadingState;
+  const factory PostState.getCategorySuccess(PostCategory category) = GetCategorySuccessState;
+  const factory PostState.getCategoryFailure(String error) = GetCategoryFailureState;
+
+
   const factory PostState.getCategoriesLoading() = GetCategoriesLoadingState;
   const factory PostState.getCategoriesSuccess(GetCategoriesResponse response) = GetCategoriesSuccessState;
   const factory PostState.getCategoriesFailure(String error) = GetCategoriesFailureState;

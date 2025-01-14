@@ -6,22 +6,24 @@ import 'package:talkam/features/components/talkam_tab_bar.dart';
 import 'package:talkam/features/search/presentation/screens/groups_result_tab.dart';
 import 'package:talkam/features/search/presentation/screens/media_search_tab.dart';
 import 'package:talkam/features/search/presentation/screens/post_search_result_tab.dart';
+import 'package:talkam/features/search/presentation/screens/user_search_result_tab.dart';
 
 enum _SearchTabOptions {
   posts,
   groups,
-  media;
+  media,
+  users;
 
   String get title {
     switch (this) {
       case posts:
         return "Posts";
-
       case groups:
         return "Groups";
-
       case media:
         return "Media";
+      case users:
+        return "Users";
     }
   }
 }
@@ -85,7 +87,9 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                     ? _SearchTabOptions.posts
                     : index == 1
                         ? _SearchTabOptions.groups
-                        : _SearchTabOptions.media;
+                        : index == 2
+                            ? _SearchTabOptions.media
+                            : _SearchTabOptions.users;
                 setState(() {});
               },
               children: [
@@ -96,6 +100,9 @@ class _SearchResultScreenState extends State<SearchResultScreen> {
                   query: widget.query,
                 ),
                 MediaSearchResultTab(
+                  query: widget.query,
+                ),
+                UserSearchResultTab(
                   query: widget.query,
                 ),
               ],

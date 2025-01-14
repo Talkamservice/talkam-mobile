@@ -4,6 +4,7 @@ part of 'post_bloc.dart';
 
 @freezed
 class PostEvent with _$PostEvent {
+  const factory PostEvent.getCategoryById({String? categoryId,}) = _GetCategoryByIdEvent;
   const factory PostEvent.getCategories({String? categoryId,bool? refresh, bool? mergeGroups}) = _GetCategoriesEvent;
   const factory PostEvent.getSubCategories() = _GetSubCategoriesEvent;
   const factory PostEvent.getPosts() = _GetPostsEvent;

@@ -145,10 +145,10 @@ class ExtraClass {
 
 class NotificationUser {
   dynamic id;
-  String avatar;
-  String name;
-  String username;
-  String email;
+  dynamic avatar;
+  dynamic name;
+  dynamic username;
+  dynamic email;
 
   NotificationUser({
     required this.id,
@@ -175,7 +175,7 @@ class NotificationUser {
 
   factory NotificationUser.fromJson(Map<String, dynamic> json) => NotificationUser(
         id: json["id"],
-        avatar: json["avatar"],
+        avatar: json["avatar"] ?? "",
         name: json["name"],
         username: json["username"],
         email: json["email"],

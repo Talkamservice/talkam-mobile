@@ -12,7 +12,8 @@ part 'featured_post_cubit.freezed.dart';
 class FeaturedPostCubit extends Cubit<FeaturedPostState> {
   final PostRepository postRepository;
 
-  var curentPage = 1;
+  List<TalkamPost> _promotedPosts = []; // Track promoted posts
+  int _promotedIndex = 0; // Current index of promoted posts
 
   FeaturedPostCubit(this.postRepository) : super(const FeaturedPostState.initial());
 
@@ -21,8 +22,27 @@ class FeaturedPostCubit extends Cubit<FeaturedPostState> {
       emit(const FeaturedPostState.getFeaturedPostsLoading());
     }
     try {
-      final response = await postRepository.getPosts(filter);
-      emit(FeaturedPostState.getFeaturedPostsSuccess(response));
+      // Fetch featured and promoted posts simultaneously
+      var response;
+      var promotedResponse;
+      var allResponse = await Future.wait([postRepository.getPosts(filter), postRepository.getPromotedPosts()]);
+
+      response = allResponse.first;
+      promotedResponse = allResponse.last;
+
+      // Save promoted posts and reset index
+      _promotedPosts = promotedResponse.data.data;
+      _promotedIndex = 0;
+
+      // Merge posts
+      final mergedPosts = response.data.data.isEmpty ? <TalkamPost>[]: _mergePosts(response.data.data, _promotedPosts);
+
+      // Emit success state with merged posts
+      final mergedResponse = response.copyWith(
+        data: response.data.copyWith(data: mergedPosts),
+      );
+
+      emit(FeaturedPostState.getFeaturedPostsSuccess(mergedResponse));
     } catch (error, stack) {
       logger.e(error);
       logger.e(stack);
@@ -31,16 +51,63 @@ class FeaturedPostCubit extends Cubit<FeaturedPostState> {
   }
 
   void loadMore(GetPostsResponse previousPosts) async {
-    // emit(const RecentPostState.loadingMore());
-
     try {
-      final response = await postRepository.getPosts(PostFilterModel(page: previousPosts.data.paginationMeta.currentPage + 1, tab: "featured"));
+      // Fetch more featured posts
+      final featuredPostsResponse = await postRepository.getPosts(
+        PostFilterModel(
+          page: previousPosts.data.paginationMeta.currentPage + 1,
+          tab: "featured",
+        ),
+      );
 
-      var updated = response.copyWith(data: response.data.copyWith(data: [...previousPosts.data.data, ...response.data.data]));
+      // Check if promoted posts are exhausted
+      if (_promotedIndex >= _promotedPosts.length) {
+        final promotedResponse = await postRepository.getPromotedPosts();
+        _promotedPosts = promotedResponse.data.data;
+        _promotedIndex = 0;
+      }
 
-      emit(FeaturedPostState.getFeaturedPostsSuccess(updated));
+      // Merge new featured posts with remaining/promoted posts
+      final mergedPosts = featuredPostsResponse.data.data.isEmpty ? <TalkamPost>[]: _mergePosts(
+        [...previousPosts.data.data, ...featuredPostsResponse.data.data],
+        _promotedPosts,
+      );
+
+      // Emit success state with updated posts
+      final updatedResponse = featuredPostsResponse.copyWith(
+        data: featuredPostsResponse.data.copyWith(data: mergedPosts),
+      );
+
+      emit(FeaturedPostState.getFeaturedPostsSuccess(updatedResponse));
     } catch (error) {
       emit(FeaturedPostState.getFeaturedPostsFailed(error.toString()));
     }
+  }
+
+  List<TalkamPost> _mergePosts(List<TalkamPost> featuredPosts, List<TalkamPost> promotedPosts) {
+    final List<TalkamPost> mergedPosts = [];
+    int featuredIndex = 0;
+    int count = 0;
+
+    // Merge featured and promoted posts
+    while (featuredIndex < featuredPosts.length) {
+      mergedPosts.add(featuredPosts[featuredIndex]);
+      featuredIndex++;
+      count++;
+
+      if (count == 5 && _promotedIndex < promotedPosts.length) {
+        mergedPosts.add(promotedPosts[_promotedIndex]);
+        _promotedIndex++;
+        count = 0;
+      }
+    }
+
+    // Add remaining promoted posts if any
+    while (_promotedIndex < promotedPosts.length) {
+      mergedPosts.add(promotedPosts[_promotedIndex]);
+      _promotedIndex++;
+    }
+
+    return mergedPosts;
   }
 }
