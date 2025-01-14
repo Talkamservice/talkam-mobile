@@ -9,6 +9,7 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/core/services/firebase/remote_config_service.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
@@ -162,6 +163,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       ),
                                     ),
                                     8.verticalSpace,
+                                    if(subscriptionEnabled)
                                     TalkamSubscriptionWidget(
                                       subscribedUserWidget: 0.verticalSpace,
                                       freemiumUserWidget: InkWell(
@@ -268,4 +270,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       },
     );
   }
+  bool get subscriptionEnabled => RemoteConfigsService.getBool(RemoteConfigKeys.SUBSCRIPTION_ENABLED) ?? false;
+
 }

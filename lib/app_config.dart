@@ -14,6 +14,7 @@ import 'package:talkam/features/subscription/presentation/blocs/subscriptions_bl
 import 'package:talkam/gen/assets.gen.dart';
 import 'package:tiktok_login_flutter/tiktok_login_flutter.dart';
 import 'core/services/firebase/notifiactions.dart';
+import 'core/services/firebase/remote_config_service.dart';
 import 'core/services/pay/pay_service.dart';
 import 'core/services/pusher/pusher_channel_service.dart';
 import 'firebase_options.dart';
@@ -85,6 +86,9 @@ class AppConfig {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+
+    await RemoteConfigsService.create();
+
 
     await notificationService.initializeNotification();
   }

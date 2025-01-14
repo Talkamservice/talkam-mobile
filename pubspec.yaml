@@ -149,6 +149,7 @@ dependencies:
   flutterwave_standard_smart: ^1.0.4
   shorebird_code_push: ^2.0.0
   flutter_linkify: ^6.0.0
+  firebase_remote_config: ^5.3.0
   # flutter_background: ^1.2.0
 #  audio_manager: ^0.8.2
 

@@ -63,7 +63,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
                             profileBloc.add(UpdateProfileEvent(UpdateProfilePayload(
                               interests: selectedInterests
                                   .map(
-                                    (e) => int.tryParse(e.id) ?? 0,
+                                    (e) => int.tryParse(e.id.toString()) ?? 0,
                                   )
                                   .toList(),
                             )));
