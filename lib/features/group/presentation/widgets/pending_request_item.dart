@@ -9,7 +9,6 @@ import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/group/data/models/get_pending_requests_response.dart';
 import 'package:talkam/features/group/presentation/tabs/preview_rules_tab.dart';
-import 'package:talkam/gen/assets.gen.dart';
 
 enum RequestAction { Approved, Declined }
 
@@ -28,14 +27,18 @@ class PendingRequestItem extends StatelessWidget {
             if (SessionManager().isMe(pendingRequest.user.id.toString())) {
               context.pushNamed(PageUrl.profileScreen, extra: pendingRequest.user.id.toString());
             } else {
-              context.pushNamed(PageUrl.userProfileScreen);
+              context.pushNamed(PageUrl.userProfileScreen, extra: pendingRequest.user.username.toString());
             }
           },
         );
       },
       child: Row(
         children: [
-          ImageWidget(imageUrl: Assets.images.svgs.member),
+          ImageWidget(
+            imageUrl: pendingRequest.user.avatar,
+            size: 36,
+            shape: BoxShape.circle,
+          ),
           10.horizontalSpace,
           Expanded(
             child: Column(

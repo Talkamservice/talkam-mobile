@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:image/image.dart';
 import 'package:talkam/common/models/get_countries_response.dart';
 import 'package:talkam/common/models/get_states_response.dart';
 import 'package:talkam/common/widgets/country_state_picker.dart';
@@ -104,12 +105,6 @@ class _UsernameScreenState extends State<UsernameScreen> {
                             MultiValidator([RequiredValidator(errorText: "Field is required"), SpaceValidator(errorText: "Username must not contain space")])
                                 .call,
                       ),
-
-
-
-
-
-
                       20.verticalSpace,
                       TextView(
                         text: "Date of birth",
@@ -119,9 +114,13 @@ class _UsernameScreenState extends State<UsernameScreen> {
                       8.verticalSpace,
                       TextButton(
                           style: TextButton.styleFrom(
-
                               shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                              foregroundColor: Pallets.grey, padding: const EdgeInsets.all(16), side: const BorderSide(color: Pallets.borderGrey, width: 0.7,)),
+                              foregroundColor: Pallets.grey,
+                              padding: const EdgeInsets.all(16),
+                              side: const BorderSide(
+                                color: Pallets.borderGrey,
+                                width: 0.7,
+                              )),
                           onPressed: () async {
                             dob = await selectDate(context);
                             setState(() {});
@@ -142,11 +141,9 @@ class _UsernameScreenState extends State<UsernameScreen> {
                           label: "Gender",
                           hint: "Male / Female",
                           value: gender,
-
                           onChanged: (p0) {
                             gender = p0!;
                             setState(() {});
-
                           },
                           items: const [
                             DropdownMenuItem<String>(
@@ -161,6 +158,18 @@ class _UsernameScreenState extends State<UsernameScreen> {
                                 text: "Female",
                               ),
                             ),
+                            DropdownMenuItem<String>(
+                              value: "Others",
+                              child: TextView(
+                                text: "Others",
+                              ),
+                            ),
+                            DropdownMenuItem<String>(
+                              value: "Choose not to specify",
+                              child: TextView(
+                                text: "Choose not to specify",
+                              ),
+                            ),
                           ]),
                       20.verticalSpace,
                       TalkamCountryStatePicker(
@@ -172,25 +181,21 @@ class _UsernameScreenState extends State<UsernameScreen> {
                         },
                       ),
                       38.verticalSpace,
-
-
-
                       CustomButton(
                         child: const TextView(
                           text: "Save and Continue",
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
-
                         ),
                         onPressed: () {
                           if (formkey.currentState?.validate() ?? false) {
-                            profileBloc.add(UpdateProfileEvent(
-                                UpdateProfilePayload(
-                                    dob: dob,
-                                    gender: gender,
-                                    countryId: _country?.id.toString(),
-                                    stateId: _state?.id.toString(),
-                                    avatar: selectedImage, username: usernameController.text.trim())));
+                            profileBloc.add(UpdateProfileEvent(UpdateProfilePayload(
+                                dob: dob,
+                                gender: gender,
+                                countryId: _country?.id.toString(),
+                                stateId: _state?.id.toString(),
+                                avatar: selectedImage,
+                                username: usernameController.text.trim())));
                           }
                         },
                       )
@@ -219,6 +224,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
       return null; // User canceled or did not select
     }
   }
+
   Future<void> selectImage(BuildContext context) async {
     selectedImage = await CustomDialogs.showBottomSheet(
         context,
@@ -226,7 +232,6 @@ class _UsernameScreenState extends State<UsernameScreen> {
           onAvatarSelected: (p0) {},
           onBackgroundSelector: (p0) {},
         ));
-
     setState(() {});
   }
 

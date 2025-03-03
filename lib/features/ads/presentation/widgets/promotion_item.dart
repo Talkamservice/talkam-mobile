@@ -7,6 +7,7 @@ import 'package:talkam/features/ads/presentation/blocs/ads/ads_cubit.dart';
 import 'package:talkam/features/ads/presentation/widgets/ad_group_item.dart';
 import 'package:talkam/features/ads/presentation/widgets/ad_info_widget.dart';
 import 'package:talkam/features/ads/presentation/widgets/ad_post_item.dart';
+import 'package:talkam/features/post/data/models/post_test_models.dart';
 import '../../../../core/di/injector.dart';
 import '../../../../core/theme/pallets.dart';
 
@@ -40,7 +41,7 @@ class PromotionItem extends StatelessWidget {
                 padding: EdgeInsets.all(10),
                 child: AdGroupResultItem(
                   imageRadius: BorderRadius.circular(5),
-                  group: promotion.group!,
+                  group: promotion.group??TestFactories.emptyGroup,
                   onJoinStateChanged: () {},
                 ),
               ),

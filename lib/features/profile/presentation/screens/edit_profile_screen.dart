@@ -131,10 +131,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> with RefreshPosts
                                 width: 0.7,
                               )),
                           onPressed: () async {
-                            var _dob = await selectDate(context);
+                            var _dob = await selectDate(context,initialDate: dob);
                             if (_dob != null) {
-                              _dob = dob;
+                              dob= _dob  ;
                             }
+
+
                             setState(() {});
                             // pickDateAndTime(context);
                           },
@@ -235,11 +237,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> with RefreshPosts
     setState(() {});
   }
 
-  Future<DateTime?> selectDate(BuildContext context) async {
+  Future<DateTime?> selectDate(BuildContext context, {DateTime? initialDate}) async {
     final now = DateTime.now();
     final pickedDate = await showDatePicker(
       context: context,
-      initialDate: now,
+      initialDate:initialDate?? now,
       firstDate: DateTime(now.year - 200),
       lastDate: now,
     );

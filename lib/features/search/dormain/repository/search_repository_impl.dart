@@ -6,6 +6,7 @@ import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/features/search/data/models/get_search_response.dart';
 import 'package:talkam/features/search/data/models/search_user_response.dart';
 import 'package:talkam/features/search/data/models/talkam_search_result.dart';
+import 'package:talkam/features/search/data/models/user_search_response.dart';
 import 'package:talkam/features/search/data/repository/search_repository.dart';
 
 class SearchRepositoryImpl extends SearchRepository {
@@ -33,6 +34,7 @@ class SearchRepositoryImpl extends SearchRepository {
         SearchSort.post => SearchResult<GetPostsResponse>(GetPostsResponse.fromJson(response.data)),
         SearchSort.group => SearchResult<GetGroupsResponse>(GetGroupsResponse.fromJson(response.data)),
         SearchSort.media => SearchResult<GetPostsResponse>(GetPostsResponse.fromJson(response.data)),
+        SearchSort.user => SearchResult<UserSearchResponse>(UserSearchResponse.fromJson(response.data)),
       };
       // return response.data;
     } catch (e) {
@@ -77,8 +79,9 @@ class SearchRepositoryImpl extends SearchRepository {
     return List.from(response.data['data']).map((e) => SearchedUser.fromJson(e)).toList();
   }
 
+
   @override
-  Future clearSearchHistory(int userId) async{
+  Future clearSearchHistory(int userId) async {
     try {
       final response = await _networkService.call('${UrlConfig.deleteSearch}/$userId/delete-all', RequestMethod.delete);
       return response.data;
@@ -86,4 +89,5 @@ class SearchRepositoryImpl extends SearchRepository {
       rethrow;
     }
   }
+
 }

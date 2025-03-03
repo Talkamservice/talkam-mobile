@@ -74,4 +74,20 @@ class AdsState with _$AdsState {
 
   const factory AdsState.updateStatsFailed(String message) = _UpdateStatsFailure;
 
+
+  // Get Pricing states
+  const factory AdsState.getPricingLoading() = _GetPricingLoading;
+
+  const factory AdsState.getPricingSuccess(GetPricingResponse result) = _GetPricingSuccess;
+
+  const factory AdsState.getPricingFailed(String message) = _GetPricingFailure;
+
+
+  // Get Pricing states
+  const factory AdsState.getCalculationLoading() = _GetCalculationLoading;
+
+  const factory AdsState.getCalculationSuccess(GetCalculationResponse result) = _GetCalculationSuccess;
+
+  const factory AdsState.getCalculationFailed(String message) = _GetCalculationFailure;
+
 }

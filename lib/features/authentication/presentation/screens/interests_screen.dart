@@ -37,7 +37,6 @@ class _InterestsScreenState extends State<InterestsScreen> {
       bloc: postBloc,
       listener: (context, state) {},
       builder: (context, state) {
-
         return Scaffold(
           bottomNavigationBar: BlocListener<ProfileBloc, ProfileState>(
             bloc: profileBloc,
@@ -49,8 +48,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
                 children: [
                   Row(
                     children: [
-                      const Expanded(
-                          child: TextView(text: 'Select at least 3')),
+                      const Expanded(child: TextView(text: 'Select at least 3')),
                       TextView(
                         text: '${selectedInterests.length}/3',
                         fontSize: 15,
@@ -62,11 +60,10 @@ class _InterestsScreenState extends State<InterestsScreen> {
                   CustomButton(
                     onPressed: selectedInterests.length >= 3
                         ? () {
-                            profileBloc
-                                .add(UpdateProfileEvent(UpdateProfilePayload(
+                            profileBloc.add(UpdateProfileEvent(UpdateProfilePayload(
                               interests: selectedInterests
                                   .map(
-                                    (e) => e.id,
+                                    (e) => int.tryParse(e.id.toString()) ?? 0,
                                   )
                                   .toList(),
                             )));
@@ -104,14 +101,13 @@ class _InterestsScreenState extends State<InterestsScreen> {
                   39.verticalSpace,
                   Expanded(
                       child: state.maybeWhen(
-                    getCategoriesSuccess: (response) =>
-                        LifeChipsList<PostCategory>.multiple(
-                            items: response.data,
-                            onItemSelected: (p0) {
-                              selectedInterests = p0;
-                              setState(() {});
-                            },
-                            initialItems: selectedInterests),
+                    getCategoriesSuccess: (response) => LifeChipsList<PostCategory>.multiple(
+                        items: response.data,
+                        onItemSelected: (p0) {
+                          selectedInterests = p0;
+                          setState(() {});
+                        },
+                        initialItems: selectedInterests),
                     getCategoriesLoading: () => Center(
                       child: CustomDialogs.getLoading(size: 40),
                     ),

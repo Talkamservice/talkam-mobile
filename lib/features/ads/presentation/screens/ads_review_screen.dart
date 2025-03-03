@@ -29,9 +29,9 @@ class _AdsReviewScreenState extends State<AdsReviewScreen> {
         tittleText: "Ads",
         centerTile: false,
         showDivider: true,
-        actions: [
-          Icon(Icons.more_vert),
-        ],
+        // actions: [
+        //   Icon(Icons.more_vert),
+        // ],
       ),
       backgroundColor: Colors.white,
       body: Column(
@@ -139,7 +139,7 @@ class _AdsReviewScreenState extends State<AdsReviewScreen> {
                   _selectedIndex = index;
                 });
               },
-              children:  [
+              children: [
                 RunningAdsScreen(),
                 ClosedAdsScreen(),
               ],

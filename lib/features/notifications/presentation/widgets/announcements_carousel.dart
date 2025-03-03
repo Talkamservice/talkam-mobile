@@ -33,7 +33,7 @@ class _AnnouncementsCarouselState extends State<AnnouncementsCarousel> {
             children: [
               CarouselSlider(
                 options: CarouselOptions(
-                  height: 88.0,
+                  height: 100.0,
                   padEnds: false,
                   viewportFraction: 1,
                   autoPlay: true,

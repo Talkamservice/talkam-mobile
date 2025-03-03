@@ -61,6 +61,9 @@ class AnalyticsInfo {
   dynamic shares;
   dynamic impressions;
   dynamic engagements;
+  dynamic engagementRate;
+
+
   dynamic followers;
   dynamic profileVisits;
   dynamic clicks;
@@ -77,6 +80,7 @@ class AnalyticsInfo {
     required this.shares,
     required this.impressions,
     required this.engagements,
+    required this.engagementRate,
     required this.followers,
     required this.profileVisits,
     required this.clicks,
@@ -110,6 +114,7 @@ class AnalyticsInfo {
         shares: shares ?? this.shares,
         impressions: impressions ?? this.impressions,
         engagements: engagements ?? this.engagements,
+        engagementRate: engagementRate ?? this.engagementRate,
         followers: followers ?? this.followers,
         profileVisits: profileVisits ?? this.profileVisits,
         clicks: clicks ?? this.clicks,
@@ -122,6 +127,7 @@ class AnalyticsInfo {
   factory AnalyticsInfo.fromJson(Map<String, dynamic> json) => AnalyticsInfo(
         id: json["id"],
         comments: json["comments"],
+        engagementRate: json["engagement_rates"],
         likes: json["likes"],
         dislikes: json["dislikes"],
         shares: json["shares"],
@@ -144,6 +150,7 @@ class AnalyticsInfo {
         "shares": shares,
         "impressions": impressions,
         "engagements": engagements,
+        "engagement_rates": engagementRate,
         "followers": followers,
         "profile_visits": profileVisits,
         "clicks": clicks,
@@ -155,9 +162,9 @@ class AnalyticsInfo {
 }
 
 class CountryStat {
-  int id;
-  String name;
-  int percentage;
+  dynamic id;
+  dynamic name;
+  dynamic percentage;
 
   CountryStat({
     required this.id,

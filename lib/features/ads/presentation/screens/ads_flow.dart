@@ -8,6 +8,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/navigation/routes.dart';
 import 'package:talkam/core/services/flutterwave/flutterwave_payment_helper.dart';
+import 'package:talkam/features/ads/data/models/get_ads_pricing.dart';
 import 'package:talkam/features/ads/data/models/initiate_payment_response.dart';
 import 'package:talkam/features/ads/presentation/blocs/ads/ads_cubit.dart';
 import 'package:talkam/features/ads/presentation/screens/ads_flow_screens/budget_page.dart';
@@ -34,6 +35,8 @@ class AdsFlowPage extends StatefulWidget {
 class _AdsFlowPageState extends State<AdsFlowPage> {
   late int _selectedIndex = 0;
   CreatePostPayload? createPostPayload;
+  GetPricingResponse? pricing;
+
 
   @override
   void initState() {
@@ -86,11 +89,12 @@ class _AdsFlowPageState extends State<AdsFlowPage> {
 
   String getRightButtonText() {
     if (_selectedIndex == 1) {
-      return "Review";
+      return "Preview";
     } else if (_selectedIndex == 2) {
       return "Create Promotion";
     } else {
       return "Next";
+
     }
   }
 
@@ -109,7 +113,7 @@ class _AdsFlowPageState extends State<AdsFlowPage> {
           tittleText: "Ads",
           centerTile: false,
           showDivider: true,
-          actions: [Icon(Icons.more_vert)],
+          // actions: [Icon(Icons.more_vert)],
         ),
         bottomNavigationBar: Column(
           mainAxisSize: MainAxisSize.min,
@@ -187,6 +191,7 @@ class _AdsFlowPageState extends State<AdsFlowPage> {
                 paymentFailed: (message) {
                   CustomDialogs.error(message);
                 },
+
                 verifyPaymentLoading: () {
                   CustomDialogs.showLoading(context);
                 },
@@ -202,6 +207,21 @@ class _AdsFlowPageState extends State<AdsFlowPage> {
                   CustomDialogs.success("Promotion created");
                   CustomRoutes.goRouter.pushNamed(PageUrl.adsPage);
                 },
+                getPricingLoading: () {
+                  CustomDialogs.showLoading(context);
+                },
+                getPricingSuccess: (result) {
+                  context.pop();
+                  pricing = result;
+                  setState(() {
+                    _selectedIndex++;
+                  });
+                },
+                getPricingFailed: (error) {
+                  context.pop();
+                  CustomDialogs.error(error);
+
+                },
               );
             },
             builder: (context, state) {
@@ -214,14 +234,14 @@ class _AdsFlowPageState extends State<AdsFlowPage> {
 
                       context.read<AdsCubit>().updatePayloadField(data: {"type": "Post", "data": createPostPayload!.toJson()});
 
-
+                      adsBloc.getPricing();
                       // logger.i(context.read<AdsCubit>().payload?.toMap());
-                      setState(() {
-                        _selectedIndex++;
-                      });
+
                     },
                   ),
-                  BudgetPage(
+                  if (pricing != null)
+                    BudgetPage(
+                      pricing:pricing,
                     onValidated: () {
                       adsBloc.createPromotion(adsBloc.payload!);
                     },

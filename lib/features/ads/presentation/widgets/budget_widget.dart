@@ -6,15 +6,21 @@ import 'package:talkam/common/models/get_states_response.dart';
 import 'package:talkam/common/widgets/country_state_picker.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/custom_thumb_shape.dart';
+import 'package:talkam/core/_core.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/core/utils/helper_utils.dart';
+import 'package:talkam/features/ads/data/models/get_ads_pricing.dart';
 import 'package:talkam/features/ads/presentation/blocs/ads/ads_cubit.dart';
 import 'package:talkam/features/post/presentation/widgets/country_picker_sheet.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 
 class BudgetWidget extends StatefulWidget {
-  const BudgetWidget({super.key, required this.onValidated, required this.controller});
+  const BudgetWidget({super.key, required this.onValidated, required this.controller, this.pricing});
 
   final Function({required int dailyBudge, required int duration}) onValidated;
   final AdsCubit controller;
+  final GetPricingResponse? pricing;
 
   @override
   State<BudgetWidget> createState() => _BudgetWidgetState();
@@ -22,18 +28,17 @@ class BudgetWidget extends StatefulWidget {
 
 class _BudgetWidgetState extends State<BudgetWidget> {
   //for initial daily budget
-  double _dailyBudget = 16;
+  double _dailyBudget = 1000;
 
   // for duration initial value
   double _duration = 15;
-
 
   @override
   void initState() {
     super.initState();
     Future.delayed(
       Duration(milliseconds: 300),
-          () {
+      () {
         setState(() {});
       },
     );
@@ -47,7 +52,7 @@ class _BudgetWidgetState extends State<BudgetWidget> {
         state.maybeWhen(
           orElse: () {},
           validateFormsState: () {
-           validate(context);
+            validate(context);
           },
           validateFormsSuccessState: () {
             widget.onValidated(dailyBudge: _dailyBudget.round(), duration: _duration.round());
@@ -79,8 +84,8 @@ class _BudgetWidgetState extends State<BudgetWidget> {
             data: SliderThemeData(thumbShape: CustomThumbShape()),
             child: Slider(
               value: _dailyBudget,
-              min: 5,
-              max: 2000,
+              min: minAmount,
+              max: maxAmount,
               divisions: 5000,
               label: _dailyBudget.round().toString(),
               onChanged: (double value) {
@@ -90,17 +95,17 @@ class _BudgetWidgetState extends State<BudgetWidget> {
               },
             ),
           ),
-          const Padding(
+          Padding(
             padding: EdgeInsets.only(left: 23, right: 22),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "\$5",
+                  "${injector.get<ProfileBloc>().appUser?.currency.toString().getCurrencySymbol}$minAmount",
                   style: TextStyle(fontSize: 10),
                 ),
                 Text(
-                  "\$2000",
+                  "${injector.get<ProfileBloc>().appUser?.currency.toString().getCurrencySymbol}$maxAmount",
                   style: TextStyle(fontSize: 10),
                 ),
               ],
@@ -153,10 +158,9 @@ class _BudgetWidgetState extends State<BudgetWidget> {
           Padding(
             padding: const EdgeInsets.only(left: 20, right: 20),
             child: Container(
-
               width: 1.sw,
               decoration:
-              BoxDecoration(color: const Color(0xffF1FAFF), border: Border.all(color: const Color(0xffE5F6FF)), borderRadius: BorderRadius.circular(12)),
+                  BoxDecoration(color: const Color(0xffF1FAFF), border: Border.all(color: const Color(0xffE5F6FF)), borderRadius: BorderRadius.circular(12)),
               child: Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Column(
@@ -166,7 +170,7 @@ class _BudgetWidgetState extends State<BudgetWidget> {
                       children: [
                         10.horizontalSpace,
                         Text(
-                          "\$ ${_dailyBudget.toInt()}",
+                          "${injector.get<ProfileBloc>().appUser?.currency.toString().getCurrencySymbol} ${_dailyBudget.toInt()}",
                           style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Color(0xFF017FC8)),
                         ),
                         60.horizontalSpace,
@@ -192,7 +196,7 @@ class _BudgetWidgetState extends State<BudgetWidget> {
                     ),
                     20.verticalSpace,
                     Text(
-                      "Estimated reach within ${_duration.toInt()}days is ${((_duration * _dailyBudget) / 10).toInt()}k",
+                      "Estimated reach within ${_duration.toInt()}days is ${(calculateImpressions(_dailyBudget, _duration.toInt(), widget.pricing?.data.impressions ?? 600)).toInt().toString().formatNumber()}",
                       style: const TextStyle(fontSize: 12),
                     ),
                   ],
@@ -202,9 +206,25 @@ class _BudgetWidgetState extends State<BudgetWidget> {
           )
         ],
       ),
-
-
     );
+  }
+
+  double get minAmount => (widget.pricing?.data.amount ?? 5).toDouble();
+
+  double get maxAmount => (widget.pricing?.data.maxDailyAmount ?? 5).toDouble();
+
+  int calculateImpressions(double dailyBudget, int numberOfDays, int dailyImpressions) {
+    // // Define a constant value for the impression rate per amount
+    // const double impressionsPerUnitAmount = 60000 / 10; // 6000 impressions per unit amount
+    //
+    // // Calculate total impressions
+    // double totalBudget = dailyBudget * numberOfDays;
+    // int totalImpressions = (totalBudget * impressionsPerUnitAmount).toInt();
+
+    // return totalImpressions;
+
+    // return ((dailyImpressions / dailyBudget) * numberOfDays).round();
+    return ((dailyBudget) * numberOfDays).round();
   }
 
   void validate(BuildContext context) {

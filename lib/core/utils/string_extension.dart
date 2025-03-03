@@ -1,13 +1,17 @@
 import 'dart:ui';
 
+import 'package:intl/intl.dart';
 import 'package:talkam/core/theme/pallets.dart';
 
 import '_utils.dart';
 
 extension StringExtension on String {
+  String get getCurrencySymbol => NumberFormat.simpleCurrency(name: this).currencySymbol;
+
   Color toColor() {
     try {
       String hexCode = replaceAll('#', '');
+      // fofyekopso@gufum.com
 
       if (hexCode.length == 6) {
         hexCode = 'FF$hexCode'; // Add alpha value if not provided
@@ -25,13 +29,28 @@ extension StringExtension on String {
   }
 
   String formatAmount() {
-    if ((int.tryParse(this) ?? 0) > 1) {
-      String amount = replaceAllMapped(
-          RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},');
-      return amount;
-    }
+    try {
+      // Convert the string to a double
+      final double amount = double.parse(this);
 
-    return this;
+      // Format the double to currency/amount
+      final NumberFormat formatter = NumberFormat("#,##0.00");
+      return formatter.format(amount);
+    } catch (e) {
+      return 'Invalid amount';
+    }
+  }
+  String formatNumber() {
+    try {
+      // Convert the string to a double
+      final double amount = double.parse(this);
+
+      // Format the double to currency/amount
+      final NumberFormat formatter = NumberFormat("#,##0");
+      return formatter.format(amount);
+    } catch (e) {
+      return 'Invalid amount';
+    }
   }
 
   String removeHTML() {
@@ -126,11 +145,9 @@ extension StringExtension on String {
 
   bool get isCnpj => CustomUtils.isCnpj(this);
 
-  bool isCaseInsensitiveContains(String b) =>
-      CustomUtils.isCaseInsensitiveContains(this, b);
+  bool isCaseInsensitiveContains(String b) => CustomUtils.isCaseInsensitiveContains(this, b);
 
-  bool isCaseInsensitiveContainsAny(String b) =>
-      CustomUtils.isCaseInsensitiveContainsAny(this, b);
+  bool isCaseInsensitiveContainsAny(String b) => CustomUtils.isCaseInsensitiveContainsAny(this, b);
 
   String? get capitalize => CustomUtils.capitalize(this);
 
@@ -152,8 +169,7 @@ extension StringExtension on String {
 
   String? get paramCase => CustomUtils.paramCase(this);
 
-  String numericOnly({bool firstWordOnly = false}) =>
-      CustomUtils.numericOnly(this, firstWordOnly: firstWordOnly);
+  String numericOnly({bool firstWordOnly = false}) => CustomUtils.numericOnly(this, firstWordOnly: firstWordOnly);
 
   String createPath([Iterable? segments]) {
     final path = startsWith('/') ? this : '/$this';
@@ -162,6 +178,5 @@ extension StringExtension on String {
 }
 
 extension NumExtension on num {
-  num? getDiscount(num discount) =>
-      CustomUtils.getDiscountedPrice(this, discount);
+  num? getDiscount(num discount) => CustomUtils.getDiscountedPrice(this, discount);
 }

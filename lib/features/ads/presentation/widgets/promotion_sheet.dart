@@ -9,6 +9,7 @@ import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/custom_outlined_button.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/features/ads/data/models/get_ads_pricing.dart';
 import 'package:talkam/features/ads/data/models/initiate_payment_response.dart';
 import 'package:talkam/features/ads/presentation/blocs/ads/ads_cubit.dart';
 import 'package:talkam/features/ads/presentation/screens/ads_flow_screens/preview_promotion_page.dart';
@@ -48,6 +49,7 @@ class _PromotePostSheetState extends State<PromotePostSheet> with RefreshAppMixi
   var adsBloc = AdsCubit(injector.get());
   InitiatePaymentResponse? paymentInfo;
   late ScrollController _scrollController;
+  GetPricingResponse? pricing;
 
   @override
   void initState() {
@@ -98,11 +100,12 @@ class _PromotePostSheetState extends State<PromotePostSheet> with RefreshAppMixi
                   ),
 
                   15.horizontalSpace,
-
+              //guspakorti@gufum.com
                   Expanded(
                     flex: 2,
                     child: CustomButton(
                       bgColor: Pallets.tabBarBlue,
+                      foregroundColor: Pallets.white,
                       padding: EdgeInsets.all(12),
                       // padding: const EdgeInsets.symmetric(vertical: 5),
                       borderRadius: BorderRadius.circular(30),
@@ -128,30 +131,7 @@ class _PromotePostSheetState extends State<PromotePostSheet> with RefreshAppMixi
                 padding: const EdgeInsets.symmetric(horizontal: 12),
                 child: Column(
                   children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: TextView(
-                            text: "Promote your  ${widget.type.toLowerCase()}",
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
-                          ),
-                        ),
-                        IconButton(
-                            onPressed: () {
-                              context.pop();
-                            },
-                            icon: Icon(Icons.close))
-                      ],
-                    ),
-                    Divider(
-                      thickness: 1,
-                    ),
-                    TextView(
-                      text: "Reach more people and make your group more visible to a large audience of people.",
-                      color: Pallets.textGrey,
-                    ),
-                    16.verticalSpace,
+                    _selectedIndex == 2 ? PreviewPromotionHeader() : PromotePostHeader(type: widget.type),
                   ],
                 ),
               ),
@@ -175,20 +155,21 @@ class _PromotePostSheetState extends State<PromotePostSheet> with RefreshAppMixi
                               _maxAge = maxAge;
                               _minAge = minAge;
                               // _state = state;
-                              setState(() {
-                                _selectedIndex++;
-                              });
+
+                              adsBloc.getPricing();
                             },
                             tittle: "",
                             controller: targetsController),
-                        BudgetWidget(
-                            onValidated: ({required dailyBudge, required duration}) {
-                              _dailyBudget = dailyBudge;
-                              _duration = duration;
+                        if (pricing != null)
+                          BudgetWidget(
+                              pricing: pricing,
+                              onValidated: ({required dailyBudge, required duration}) {
+                                _dailyBudget = dailyBudge;
+                                _duration = duration;
 
-                              validate(context);
-                            },
-                            controller: budgetController),
+                                validate(context);
+                              },
+                              controller: budgetController),
                         if (paymentInfo != null)
                           PreviewPromotionPage(
                             paymentInfo: paymentInfo!,
@@ -198,6 +179,7 @@ class _PromotePostSheetState extends State<PromotePostSheet> with RefreshAppMixi
                   },
                 ),
               ),
+              20.verticalSpace
             ],
           ),
         ),
@@ -247,6 +229,20 @@ class _PromotePostSheetState extends State<PromotePostSheet> with RefreshAppMixi
       verifyPaymentFailed: (message) {
         // context.pop();
         // CustomDialogs.error(message);
+      },
+      getPricingLoading: () {
+        CustomDialogs.showLoading(context);
+      },
+      getPricingSuccess: (result) {
+        context.pop();
+        pricing = result;
+        setState(() {
+          _selectedIndex++;
+        });
+      },
+      getPricingFailed: (error) {
+        context.pop();
+        CustomDialogs.error(error);
       },
     );
   }
@@ -303,5 +299,86 @@ class _PromotePostSheetState extends State<PromotePostSheet> with RefreshAppMixi
     adsBloc.payForPromotion(paymentInfo!);
   }
 
-  String get getRightButtonText => _selectedIndex == 1 ? "Review" : (_selectedIndex == 2 ? "Create Promotion" : "Next");
+  String get getRightButtonText => _selectedIndex == 1 ? "Preview" : (_selectedIndex == 2 ? "Create Promotion" : "Next");
+}
+
+class PromotePostHeader extends StatelessWidget {
+  const PromotePostHeader({
+    super.key,
+    required this.type,
+  });
+
+  final String type;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: TextView(
+                text: "Promote your  ${type.toLowerCase()}",
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
+            ),
+            IconButton(
+                onPressed: () {
+                  context.pop();
+                },
+                icon: Icon(Icons.close))
+          ],
+        ),
+        Divider(
+          thickness: 1,
+        ),
+        TextView(
+          text: "Reach more people and make your group more visible to a large audience of people.",
+          color: Pallets.textGrey,
+        ),
+        16.verticalSpace,
+      ],
+    );
+  }
+}
+
+class PreviewPromotionHeader extends StatelessWidget {
+  const PreviewPromotionHeader({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Row(
+          children: [
+            Expanded(
+              child: TextView(
+                text: "Preview promotion",
+                fontWeight: FontWeight.w700,
+                fontSize: 16,
+              ),
+            ),
+            IconButton(
+                onPressed: () {
+                  context.pop();
+                },
+                icon: Icon(Icons.close))
+          ],
+        ),
+        Divider(
+          thickness: 1,
+        ),
+        TextView(
+          text: "Preview the information you have created.",
+          color: Pallets.textGrey,
+        ),
+        16.verticalSpace,
+      ],
+    );
+  }
 }

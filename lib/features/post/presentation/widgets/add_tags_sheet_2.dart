@@ -71,9 +71,7 @@ class _AddTagsSheet2State extends State<AddTagsSheet2> {
             bloc: injector.get(),
             builder: (context, state) {
               return state.maybeWhen(
-                getTrendsLoading: () => SizedBox(
-                    width: 1.sw,
-                    height: 200, child: Center(child: CustomDialogs.getLoading(size: 30))),
+                getTrendsLoading: () => SizedBox(width: 1.sw, height: 200, child: Center(child: CustomDialogs.getLoading(size: 30))),
                 getTrendsSuccess: () {
                   allTrends = injector
                       .get<PostBloc>()
@@ -130,8 +128,6 @@ class _AddTagsSheet2State extends State<AddTagsSheet2> {
                               child: TextView(
                                 text: 'No matching tags found. Press Enter to add "${searchController.text}".',
                                 fontSize: 14,
-
-
                               ),
                             )
                           : SizedBox(
@@ -178,10 +174,16 @@ class _AddTagsSheet2State extends State<AddTagsSheet2> {
                       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
                       shape: const StadiumBorder()),
                   onPressed: () {
-                    context.pop(selectedTags);
+                    if (filteredTrends.isEmpty && searchController.text.isNotEmpty && !selectedTags.contains(searchController.text)) {
+                      selectedTags.add(searchController.text);
+                      searchController.clear();
+                      setState(() {});
+                    } else {
+                      context.pop(selectedTags);
+                    }
                   },
-                  child: const TextView(
-                    text: "Save",
+                  child: TextView(
+                    text: filteredTrends.isEmpty && searchController.text.isNotEmpty ? "Add tag" : "Save",
                     fontWeight: FontWeight.w700,
                   )),
             ],

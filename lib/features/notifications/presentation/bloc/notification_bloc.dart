@@ -149,8 +149,9 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
       try {
         final notificationResponse = await _notificationsRepository.getNotificationsStats();
         stats = notificationResponse.data;
-        _listenForMessages();
+        logger.i('stats: ${stats.unreadMessages}');
         emit(GetNotificationsStatsSuccessState(response: notificationResponse));
+        _listenForMessages();
       } catch (e, stack) {
         logger.e(stack);
         logger.e(e);

@@ -14,9 +14,11 @@ import 'package:talkam/features/subscription/presentation/blocs/subscriptions_bl
 import 'package:talkam/gen/assets.gen.dart';
 import 'package:tiktok_login_flutter/tiktok_login_flutter.dart';
 import 'core/services/firebase/notifiactions.dart';
+import 'core/services/firebase/remote_config_service.dart';
 import 'core/services/pay/pay_service.dart';
 import 'core/services/pusher/pusher_channel_service.dart';
 import 'firebase_options.dart';
+import 'package:shorebird_code_push/shorebird_code_push.dart';
 
 class AppConfig {
   final String appName;
@@ -25,9 +27,7 @@ class AppConfig {
   AppConfig(this.appName, this.enviroment);
 
   static Future<void> run(String appName, Environment enviroment) async {
-
     WidgetsFlutterBinding.ensureInitialized();
-
 
     final appConfig = AppConfig(appName, enviroment);
     await appConfig._setup();
@@ -36,19 +36,12 @@ class AppConfig {
       logger.e(error.toString());
       logger.e(stack.toString());
     });
-
-
-
   }
 
-
-
   Future<void> _setup() async {
-
     await di.init();
     await _initializeServices();
     await initializeDB();
-
   }
 
   Future<void> _initializeServices() async {
@@ -57,6 +50,7 @@ class AppConfig {
     await initFirebaseServices();
 
     await SessionManager().init();
+    _checkForUpdates();
 
     await TimezoneService().init();
     await _getLoggedInUser();
@@ -67,12 +61,25 @@ class AppConfig {
       DeviceOrientation.portraitUp,
       DeviceOrientation.portraitDown,
     ]);
-
-
   }
 
   Future<void> initializeDB() async {
     // Implement your DB initialization logic here
+  }
+
+  Future<void> _checkForUpdates() async {
+    final updater = ShorebirdUpdater();
+    // Check whether a new update is available.
+    final status = await updater.checkForUpdate();
+
+    if (status == UpdateStatus.outdated) {
+      try {
+        // Perform the update
+        await updater.update();
+      } on UpdateException catch (error) {
+        // Handle any errors that occur while updating.
+      }
+    }
   }
 
   Future<void> initFirebaseServices() async {
@@ -80,8 +87,10 @@ class AppConfig {
       options: DefaultFirebaseOptions.currentPlatform,
     );
 
-    await notificationService.initializeNotification();
+    await RemoteConfigsService.create();
 
+
+    await notificationService.initializeNotification();
   }
 
   Future _getLoggedInUser() async {
@@ -90,7 +99,6 @@ class AppConfig {
     if (SessionManager.instance.isLoggedIn) {
       injector.get<ProfileBloc>().add(GetCachedUserEvent());
       injector.get<SubscriptionsCubit>().getPlans();
-
     }
   }
 }

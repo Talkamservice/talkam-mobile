@@ -321,4 +321,20 @@ class PostRepositoryImpl extends PostRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<PostCategory> getCategoryById({String? categoryId}) async {
+    try {
+      final response = await _networkService.call(
+        UrlConfig.getCategoryById(categoryId),
+        RequestMethod.get,
+      );
+      return PostCategory.fromJson(response.data["data"]);
+    } catch (e, stack) {
+      logger.e(e);
+      logger.e(stack);
+
+      rethrow;
+    }
+  }
 }

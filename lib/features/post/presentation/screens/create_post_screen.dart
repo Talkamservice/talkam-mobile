@@ -1,27 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:form_field_validator/form_field_validator.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
-import 'package:talkam/common/widgets/outlined_form_field.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/dialog_texts.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
-import 'package:talkam/core/utils/_utils.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
-import 'package:talkam/core/utils/extensions/int_extension.dart';
-import 'package:talkam/features/post/data/models/create_post_payload.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
 import 'package:talkam/features/post/presentation/bloc/create_post/create_post_cubit.dart';
 import 'package:talkam/features/post/presentation/screens/create_post_form.dart';
-import 'package:talkam/features/post/presentation/widgets/create_poll_form.dart';
-import 'package:talkam/features/post/presentation/widgets/create_post_header.dart';
-import 'package:talkam/features/post/presentation/widgets/media_post_form.dart';
-import 'package:talkam/features/post/presentation/widgets/schedule_post_form.dart';
-import 'package:talkam/features/post/presentation/widgets/text_post_form.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 
 enum PostType { text, file, poll }
@@ -139,7 +129,7 @@ class CreatePostAppBar extends StatelessWidget implements PreferredSizeWidget {
               },
               child: const TextView(
                 text: "Post",
-                fontSize: 16,
+                fontSize: 14,
                 fontWeight: FontWeight.w700,
               )),
         ),

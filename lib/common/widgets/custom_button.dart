@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 
 class CustomButton extends StatefulWidget {
@@ -44,15 +45,10 @@ class _CustomButtonState extends State<CustomButton> {
               style: ElevatedButton.styleFrom(
                 elevation: widget.elevation,
                 padding: widget.padding ?? const EdgeInsets.all(16),
-                foregroundColor: widget.foregroundColor ??
-                    Theme.of(context).colorScheme.onPrimary,
-                shape: RoundedRectangleBorder(
-                    borderRadius:
-                        widget.borderRadius ?? BorderRadius.circular(8.r)),
-                disabledBackgroundColor: widget.bgColor == null
-                    ? Theme.of(context).colorScheme.primary.withAlpha(-200)
-                    : widget.bgColor!.withAlpha(-200),
-                backgroundColor: widget.bgColor ?? context.colorScheme.primary,
+                foregroundColor: widget.foregroundColor ?? Theme.of(context).colorScheme.onPrimary,
+                shape: RoundedRectangleBorder(borderRadius: widget.borderRadius ?? BorderRadius.circular(8.r)),
+                disabledBackgroundColor: widget.bgColor == null ? Theme.of(context).colorScheme.primary.withAlpha(-200) : widget.bgColor!.withAlpha(-200),
+                backgroundColor: widget.bgColor ?? Pallets.blueBubbleColor,
               ),
               child: widget.child ??
                   TextView(

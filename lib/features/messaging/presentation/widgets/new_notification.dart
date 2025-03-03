@@ -129,12 +129,12 @@ class TalkamNotificationItem extends StatelessWidget {
       case "group":
         context.pushNamed(PageUrl.groupsInfoScreen, extra: notification.dataId.toString());
       case "promotion":
-      Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => ViewAnalyticsPage(
-                promotionId: notification.dataId.toString(),
-              )));
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => ViewAnalyticsPage(
+                      promotionId: notification.dataId.toString(),
+                    )));
       case "group_request":
         context.pushNamed(PageUrl.pendingRequestsScreen, extra: notification.dataId.toString());
       case "request":
@@ -145,7 +145,6 @@ class TalkamNotificationItem extends StatelessWidget {
         showDialog(
           context: context,
           builder: (context) {
-
             return AdminNotificationDialog(
               notification: notification,
             );

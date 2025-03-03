@@ -13,6 +13,7 @@ import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
 import 'package:talkam/features/notifications/presentation/widgets/notification_icon.dart';
+import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/search/data/models/get_search_response.dart';
 import 'package:talkam/features/search/presentation/blocs/search/search_cubit.dart';
@@ -33,6 +34,7 @@ class _SearchScreenState extends State<SearchScreen> {
   @override
   void initState() {
     injector.get<SearchCubit>().loadSearchScreen();
+    injector.get<PostBloc>().add(const PostEvent.getTrends());
     super.initState();
   }
 
@@ -124,41 +126,41 @@ class _SearchScreenState extends State<SearchScreen> {
                     children: [
                       19.verticalSpace,
                       const TextView(
-                        text: "Trending searches",
+                        text: "Trending tags",
                         fontSize: 18,
                         fontWeight: FontWeight.w700,
                       ),
                       11.verticalSpace,
-                      BlocConsumer<SearchCubit, SearchState>(
+                      BlocConsumer<PostBloc, PostState>(
                         bloc: injector.get(),
                         buildWhen: stateIsTrending,
                         listener: (context, state) {},
                         builder: (context, state) {
                           return state.maybeWhen(
                             orElse: () => 0.verticalSpace,
-                            fetchTrendingSearchesLoading: () {
+                            getTrendsLoading: () {
                               return const Center(
                                 child: TrendingSearchesLoadingShimmer(),
                               );
                             },
-                            fetchTrendingSearchesFailure: (error) {
+                            getTrendsFailure: (error) {
                               return AppErrorWidget(
                                 onTap: () => injector.get<SearchCubit>().fetchTrendingSearches(),
                               );
                             },
-                            fetchTrendingSearchesSuccess: (response) {
+                            getTrendsSuccess: () {
                               return Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  if (response.data.isNotEmpty)
+                                  if (injector.get<PostBloc>().trends.isNotEmpty)
                                     Wrap(
                                       spacing: 4,
                                       runSpacing: 8,
                                       children: List.generate(
-                                        response.data.length,
+                                        injector.get<PostBloc>().trends.length,
                                         (index) => InkWell(
                                           onTap: () {
-                                            context.pushNamed(PageUrl.searchResultScreen, extra: response.data[index].word).then(
+                                            context.pushNamed(PageUrl.searchResultScreen, extra: injector.get<PostBloc>().trends[index].tag).then(
                                               (value) {
                                                 injector.get<SearchCubit>().fetchRecentSearches(reload: false);
                                               },
@@ -172,12 +174,12 @@ class _SearchScreenState extends State<SearchScreen> {
                                                   width: 1,
                                                   color: Pallets.borderGrey,
                                                 )),
-                                            child: TextView(text: response.data[index].word),
+                                            child: TextView(text: injector.get<PostBloc>().trends[index].tag),
                                           ),
                                         ),
                                       ),
                                     ),
-                                  if (response.data.isEmpty)
+                                  if (injector.get<PostBloc>().trends.isEmpty)
                                     const SizedBox(
                                       height: 200,
                                       child: Center(
@@ -282,12 +284,12 @@ class _SearchScreenState extends State<SearchScreen> {
     );
   }
 
-  bool stateIsTrending(SearchState previous, SearchState current) {
+  bool stateIsTrending(PostState previous, PostState current) {
     return current.maybeWhen(
       orElse: () => false,
-      fetchTrendingSearchesSuccess: (response) => true,
-      fetchTrendingSearchesFailure: (error) => true,
-      fetchTrendingSearchesLoading: () => true,
+      getTrendsSuccess: () => true,
+      getTrendsFailure: (error) => true,
+      getTrendsLoading: () => true,
     );
   }
 

@@ -10,8 +10,6 @@ import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/ads/presentation/widgets/ad_indicator.dart';
 import 'package:talkam/features/group/presentation/blocs/featured_groups/featured_groups_cubit.dart';
-import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
-import 'package:talkam/features/group/presentation/widgets/join_group_button.dart';
 import 'package:talkam/features/group/presentation/widgets/suggestion_shimmer.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 
@@ -183,13 +181,14 @@ class _SuggestedTile extends StatelessWidget {
                       ),
                       2.verticalSpace,
                       Container(
-                        width: 65,
-                        height: 25,
+                        // width: 65,
+                        // height: 25,
                         decoration: BoxDecoration(
-                          color: Pallets.tabBarBlue,
+                          color: Pallets.blueBubbleColor,
                           borderRadius: BorderRadius.circular(22.0),
                         ),
-                        child: const Center(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 12.0,vertical: 4),
                           child: TextView(
                             text: "View",
                             fontWeight: FontWeight.w700,

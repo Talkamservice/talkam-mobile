@@ -13,10 +13,10 @@ packages:
     dependency: transitive
     description:
       name: _flutterfire_internals
-      sha256: "5534e701a2c505fed1f0799e652dd6ae23bd4d2c4cf797220e5ced5764a7c1c2"
+      sha256: "27899c95f9e7ec06c8310e6e0eac967707714b9f1450c4a58fa00ca011a4a8ae"
       url: "https://pub.dev"
     source: hosted
-    version: "1.3.44"
+    version: "1.3.49"
   _macros:
     dependency: transitive
     description: dart
@@ -610,26 +610,26 @@ packages:
     dependency: "direct main"
     description:
       name: firebase_core
-      sha256: "51dfe2fbf3a984787a2e7b8592f2f05c986bfedd6fdacea3f9e0a7beb334de96"
+      sha256: "0307c1fde82e2b8b97e0be2dab93612aff9a72f31ebe9bfac66ed8b37ef7c568"
       url: "https://pub.dev"
     source: hosted
-    version: "3.6.0"
+    version: "3.10.0"
   firebase_core_platform_interface:
     dependency: transitive
     description:
       name: firebase_core_platform_interface
-      sha256: e30da58198a6d4b49d5bce4e852f985c32cb10db329ebef9473db2b9f09ce810
+      sha256: d7253d255ff10f85cfd2adaba9ac17bae878fa3ba577462451163bd9f1d1f0bf
       url: "https://pub.dev"
     source: hosted
-    version: "5.3.0"
+    version: "5.4.0"
   firebase_core_web:
     dependency: transitive
     description:
       name: firebase_core_web
-      sha256: f967a7138f5d2ffb1ce15950e2a382924239eaa521150a8f144af34e68b3b3e5
+      sha256: fbc008cf390d909b823763064b63afefe9f02d8afdb13eb3f485b871afee956b
       url: "https://pub.dev"
     source: hosted
-    version: "2.18.1"
+    version: "2.19.0"
   firebase_crashlytics:
     dependency: "direct main"
     description:
@@ -694,6 +694,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.9.2"
+  firebase_remote_config:
+    dependency: "direct main"
+    description:
+      name: firebase_remote_config
+      sha256: "1ddeee5055a6fd2295429b8cc3019d5f422c60c77fd22156a789aa6446645595"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.3.0"
+  firebase_remote_config_platform_interface:
+    dependency: transitive
+    description:
+      name: firebase_remote_config_platform_interface
+      sha256: a17a43aa27f860a4e13c2cea11f66d71584976c5b9aa59b0e1720b8435d14764
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.4.48"
+  firebase_remote_config_web:
+    dependency: transitive
+    description:
+      name: firebase_remote_config_web
+      sha256: a85a95d6cc0692b82663acf3b0c312f219c55fbdf8ce997922ab862e64945415
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.7.6"
   firebase_storage:
     dependency: "direct main"
     description:
@@ -971,6 +995,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.14.1"
+  flutter_linkify:
+    dependency: "direct main"
+    description:
+      name: flutter_linkify
+      sha256: "74669e06a8f358fee4512b4320c0b80e51cffc496607931de68d28f099254073"
+      url: "https://pub.dev"
+    source: hosted
+    version: "6.0.0"
   flutter_lints:
     dependency: "direct dev"
     description:
@@ -1578,6 +1610,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.0.1"
+  linkify:
+    dependency: transitive
+    description:
+      name: linkify
+      sha256: "4139ea77f4651ab9c315b577da2dd108d9aa0bd84b5d03d33323f1970c645832"
+      url: "https://pub.dev"
+    source: hosted
+    version: "5.0.0"
   lints:
     dependency: transitive
     description:
@@ -2295,6 +2335,70 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "9.5.0+1"
+  syncfusion_flutter_core:
+    dependency: transitive
+    description:
+      name: syncfusion_flutter_core
+      sha256: "3c1876b0a245de23de3b17a19e3106fed57d88f4fd2c8dc9bc1976705b1c31d5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "28.2.4"
+  syncfusion_flutter_pdf:
+    dependency: transitive
+    description:
+      name: syncfusion_flutter_pdf
+      sha256: f89aea01d60ed11801aad5067705070b01250a909369e0d2dc5d4bd0292a9b46
+      url: "https://pub.dev"
+    source: hosted
+    version: "28.2.4"
+  syncfusion_flutter_pdfviewer:
+    dependency: "direct main"
+    description:
+      name: syncfusion_flutter_pdfviewer
+      sha256: "792f70be12f633982a2a0fc0dba725250c425e4ac630c48fa13591e68c3b6cd5"
+      url: "https://pub.dev"
+    source: hosted
+    version: "28.2.4"
+  syncfusion_flutter_signaturepad:
+    dependency: transitive
+    description:
+      name: syncfusion_flutter_signaturepad
+      sha256: "447143026fa013f822abb61dc6b1c7942940043885ccb39c20bbb35a80c639fc"
+      url: "https://pub.dev"
+    source: hosted
+    version: "28.2.4"
+  syncfusion_pdfviewer_macos:
+    dependency: transitive
+    description:
+      name: syncfusion_pdfviewer_macos
+      sha256: bfa1371edf9ef1b0191ec8799e0d87f04149d1d1c81722a563a911c0c5c05567
+      url: "https://pub.dev"
+    source: hosted
+    version: "28.2.4"
+  syncfusion_pdfviewer_platform_interface:
+    dependency: transitive
+    description:
+      name: syncfusion_pdfviewer_platform_interface
+      sha256: "827b0e9d780d16c89de113f2d741de86b156f77e572966a95975a5990b89e2df"
+      url: "https://pub.dev"
+    source: hosted
+    version: "28.2.4"
+  syncfusion_pdfviewer_web:
+    dependency: transitive
+    description:
+      name: syncfusion_pdfviewer_web
+      sha256: "310da263e447be7f4e091927b92976a9ccf2be1cb67b8d1467f426a5e68f77c3"
+      url: "https://pub.dev"
+    source: hosted
+    version: "28.2.4"
+  syncfusion_pdfviewer_windows:
+    dependency: transitive
+    description:
+      name: syncfusion_pdfviewer_windows
+      sha256: bca461aeac6e0d30980907970e15ce960aa558877196a2cdced890133eefa611
+      url: "https://pub.dev"
+    source: hosted
+    version: "28.2.4"
   synchronized:
     dependency: transitive
     description:

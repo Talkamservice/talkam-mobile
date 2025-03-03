@@ -8,13 +8,16 @@ import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/custom_thumb_shape.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/features/ads/data/models/get_ads_pricing.dart';
 import 'package:talkam/features/ads/presentation/blocs/ads/ads_cubit.dart';
 import 'package:talkam/features/ads/presentation/widgets/budget_widget.dart';
 import 'package:talkam/features/ads/presentation/widgets/promotion_target_form.dart';
 import 'package:talkam/features/post/presentation/widgets/country_picker_sheet.dart';
 
 class BudgetPage extends StatefulWidget {
-  const BudgetPage({super.key, required this.onValidated});
+  const BudgetPage({super.key, required this.onValidated, this.pricing});
+
+  final GetPricingResponse? pricing;
 
   final VoidCallback onValidated;
 
@@ -66,7 +69,12 @@ class _BudgetPageState extends State<BudgetPage> {
           child: Column(
             children: [
               PromotionTargetWidget(
-                  onValidated: ({required country, required gender, required maxAge, required minAge, }) {
+                  onValidated: ({
+                    required country,
+                    required gender,
+                    required maxAge,
+                    required minAge,
+                  }) {
                     _country = country;
                     _selectedGender = gender;
                     _maxAge = maxAge;
@@ -80,13 +88,13 @@ class _BudgetPageState extends State<BudgetPage> {
               const Divider(color: Colors.grey),
               16.verticalSpace,
               BudgetWidget(
+                pricing: widget.pricing,
                   onValidated: ({required dailyBudge, required duration}) {
                     _dailyBudget = dailyBudge;
                     _duration = duration;
                     _budgetValidated = true;
                   },
                   controller: budgetController)
-
             ],
           ),
         ),

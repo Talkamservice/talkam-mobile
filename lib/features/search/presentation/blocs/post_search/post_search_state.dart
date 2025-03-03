@@ -11,4 +11,5 @@ class PostSearchState with _$PostSearchState {
 
 
   const factory PostSearchState.getPostSearchFailed(String error) = _PostSearchFailed;
+
 }

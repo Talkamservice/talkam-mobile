@@ -35,7 +35,8 @@ class _CreatePostHeaderState extends State<CreatePostHeader> {
   PostType _postType = PostType.text;
   bool _isAnonymous = false;
 
-  bool canPostAnonymously = true;
+  bool showAnonymousWarning = true;
+
 
   @override
   Widget build(BuildContext context) {
@@ -47,12 +48,14 @@ class _CreatePostHeaderState extends State<CreatePostHeader> {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 8.0),
             child: Row(
+
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 SelectCategoryDropDownButton(
                   onCategorySelected: widget.onCategorySelected,
                   onGroupSelected: widget.onGroupSelected,
                 ),
+
                 const RulesButton(),
               ],
             ),
@@ -106,10 +109,10 @@ class _CreatePostHeaderState extends State<CreatePostHeader> {
             height: 1,
             color: Pallets.grey90,
           ),
-          if (!canPostAnonymously)
+          if (!showAnonymousWarning)
             TalkamSubscriptionPrompt(
               onReturnFromSubscription: () {
-                canPostAnonymously = SubscriptionHelper.canPostAnonymously;
+                showAnonymousWarning = SubscriptionHelper.canPostAnonymously;
                 setState(() {});
               },
             ),
@@ -132,9 +135,14 @@ class _CreatePostHeaderState extends State<CreatePostHeader> {
 
     if(!SubscriptionHelper.isSubscribed) {
 
-      canPostAnonymously = false;
+      showAnonymousWarning = false;
 
     }
+
+       if(!value){
+
+         showAnonymousWarning = true;
+       }
 
     setState(() {});
   }

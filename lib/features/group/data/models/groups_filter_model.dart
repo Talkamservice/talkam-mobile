@@ -1,4 +1,3 @@
-
 class GroupsFilterModel {
   String? tab;
   String? category;
@@ -6,10 +5,9 @@ class GroupsFilterModel {
   String? search;
   String? target;
 
-  factory GroupsFilterModel.all() =>  GroupsFilterModel();
+  factory GroupsFilterModel.all() => GroupsFilterModel();
 
-  factory GroupsFilterModel.featuredPost({String? category}) =>
-      GroupsFilterModel(tab: 'featured', category: category);
+  factory GroupsFilterModel.featuredPost({String? category}) => GroupsFilterModel(tab: 'featured', category: category);
 
   factory GroupsFilterModel.recommended({
     String? category,
@@ -19,15 +17,11 @@ class GroupsFilterModel {
         category: category,
       );
 
-  factory GroupsFilterModel.trendingPost({String? category}) =>
-      GroupsFilterModel(tab: 'trending', category: category);
+  factory GroupsFilterModel.trendingPost({String? category}) => GroupsFilterModel(tab: 'trending', category: category);
 
-  factory GroupsFilterModel.category(
-          {required String categoryId, required String tab}) =>
-      GroupsFilterModel(tab: 'featured', category: categoryId);
+  factory GroupsFilterModel.category({required String categoryId, required String tab}) => GroupsFilterModel(tab: 'featured', category: categoryId);
 
-  GroupsFilterModel(
-      {this.tab, this.category, this.limit, this.search, this.target});
+  GroupsFilterModel({this.tab, this.category, this.limit, this.search, this.target});
 
   Map<String, dynamic> toJson() => {
         'tab': tab,

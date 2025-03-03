@@ -97,6 +97,7 @@ class TalkamUser {
   dynamic gender;
   dynamic dob;
   dynamic country;
+  dynamic currency;
   dynamic state;
   dynamic googleId;
   dynamic facebookId;
@@ -124,6 +125,7 @@ class TalkamUser {
     required this.gender,
     required this.state,
     required this.country,
+    required this.currency,
     required this.username,
     required this.status,
     required this.interests,
@@ -154,6 +156,7 @@ class TalkamUser {
           dynamic gender,
           dynamic dob,
           dynamic country,
+          dynamic currency,
           dynamic shouldDisplayAd,
           dynamic state,
           dynamic facebookId,
@@ -183,6 +186,7 @@ class TalkamUser {
         gender: gender ?? this.gender,
         state: state ?? this.state,
         country: country ?? this.country,
+        currency: currency ?? this.currency,
         username: username ?? this.username,
         status: status ?? this.status,
         interests: interests ?? this.interests,
@@ -208,6 +212,7 @@ class TalkamUser {
         email: json["email"],
         role: json["role"],
         age: json["age"],
+    currency: json["pricing_currency"],
         shouldDisplayAd: json["should_display_ads"],
         gender: json["gender"],
         dob: json["date_of_birth"] == null ? null : DateTime.tryParse(json["date_of_birth"]),
@@ -240,6 +245,7 @@ class TalkamUser {
         "age": age,
         "date_of_birth": dob.toString(),
         "gender": gender,
+        "pricing_currency": currency,
         "country": country != null ? (country as TalkamCountry).toJson() : null,
         "state": state != null ? (state as TalkamState).toJson() : null,
         "is_blocked": isBlocked,
@@ -272,6 +278,7 @@ class TalkamUser {
       username: "bardo_khan",
       name: "bardo_khan",
       status: "Active",
+      currency: "USD",
       interests: [],
       emailVerifiedAt: DateTime.now(),
       googleId: null,

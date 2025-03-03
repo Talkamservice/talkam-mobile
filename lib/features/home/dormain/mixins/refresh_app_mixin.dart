@@ -13,6 +13,9 @@ mixin RefreshAppMixin {
     injector.get<FeaturedPostCubit>().getFeaturedPosts(PostFilterModel.featuredPost(), reload: reload);
     injector.get<RecentPostCubit>().getRecentPosts(PostFilterModel.recentPost(), reload: reload);
     injector.get<TrendingPostCubit>().getTrendingPosts(PostFilterModel.trendingPost(), reload: reload);
+
+
+
     injector.get<ProfileBloc>().add(const GetRemoteUser());
     injector.get<NotificationsBloc>().add(const GetAnnouncementsEvent());
     injector.get<ProfileScreenCubit>().fetchUserProfile();

@@ -203,6 +203,7 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
                             iconPath: Assets.images.svgs.message,
                             itemIndex: 3,
                           ),
+
                           if (stat.unreadMessages != 0)
                             Positioned(
                                 top: 10,
@@ -213,6 +214,7 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
                                   foregroundColor: Colors.white,
                                   child: TextView(
                                     text: stat.unreadMessages.toString(),
+
                                     fontSize: 8,
                                   ),
                                 ))

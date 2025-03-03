@@ -7,6 +7,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/authentication/data/models/get_avatars_response.dart';
 import 'package:talkam/features/post/data/models/update_profile_response.dart';
+import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
 import 'package:talkam/features/profile/data/models/block_user_response.dart';
 import 'package:talkam/features/profile/data/models/update_profile_payload.dart';
 import 'package:talkam/features/profile/dormain/repository/profile_repository.dart';
@@ -15,7 +16,7 @@ part 'profile_event.dart';
 
 part 'profile_state.dart';
 
-class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
+class ProfileBloc extends Bloc<ProfileEvent, ProfileState> with RefreshPostsMixin {
   final ProfileRepository _profileRepository;
 
   TalkamUser? appUser;
@@ -68,8 +69,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       final response = await _profileRepository.updateProfile(event.payload);
       emit(UpdateProfileSuccess(response));
       injector.get<ProfileBloc>().add(SaveUserLocallyEvent(response.data));
-    } catch (error,stack) {
-      logger.e(error,stackTrace: stack);
+      refreshPost(reload: false);
+    } catch (error, stack) {
+      logger.e(error, stackTrace: stack);
       emit(UpdateProfileFailure(error.toString()));
     }
   }
@@ -85,7 +87,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   FutureOr<void> _mapBlockUerEventToState(BlockUerEvent event, Emitter<ProfileState> emit) async {
-
     if (event.reload!) {
       emit(BlockUserLoadingState());
     }

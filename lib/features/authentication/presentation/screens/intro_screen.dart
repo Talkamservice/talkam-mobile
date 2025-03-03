@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -10,12 +9,10 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/onboarding_texts.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
-import 'package:talkam/core/mixins/returning_user_mixin.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
-import 'package:talkam/core/services/network/network_service.dart';
+import 'package:talkam/core/services/firebase/remote_config_service.dart';
 import 'package:talkam/core/theme/pallets.dart';
-import 'package:talkam/features/authentication/data/repository/auth_repository_impl.dart';
 import 'package:talkam/features/authentication/dormain/mixins/auth_success_mixin.dart';
 import 'package:talkam/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
@@ -94,7 +91,11 @@ class _IntroScreenState extends State<IntroScreen> with AuthSuccessMixin {
                                   ],
                                 ),
                               ),
+                            if(false)
+
                             12.verticalSpace,
+                            if(false)
+
                             CustomButton(
                               bgColor: Pallets.white,
                               foregroundColor: Pallets.black,
@@ -117,6 +118,7 @@ class _IntroScreenState extends State<IntroScreen> with AuthSuccessMixin {
                                 ],
                               ),
                             ),
+
                             12.verticalSpace,
                             CustomButton(
                               bgColor: Pallets.white,
@@ -139,6 +141,7 @@ class _IntroScreenState extends State<IntroScreen> with AuthSuccessMixin {
                                 ],
                               ),
                             ),
+
                             12.verticalSpace,
                             if(false)
                             CustomButton(
@@ -225,6 +228,8 @@ class _IntroScreenState extends State<IntroScreen> with AuthSuccessMixin {
       },
     );
   }
+
+
 
   void _listenToAuthBloc(BuildContext context, AuthState state) {
     if (state is OauthLoadingState) {

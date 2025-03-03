@@ -48,6 +48,42 @@
           ]
         }
       }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:478885302787:android:47ff863f6ccc995b807436",
+        "android_client_info": {
+          "package_name": "com.talkamtech.app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "478885302787-1gaden2q9a6320jk2ajjpqoa7borgj7n.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAG_0IXf7nV8BdwiG4gKQMGNs-tzu75Prk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "478885302787-1gaden2q9a6320jk2ajjpqoa7borgj7n.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "478885302787-46tgclrpaf3vqnti7g95ud418uvjla9b.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.talkam.app"
+              }
+            }
+          ]
+        }
+      }
     }
   ],
   "configuration_version": "1"

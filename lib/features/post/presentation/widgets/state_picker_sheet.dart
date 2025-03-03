@@ -28,13 +28,13 @@ class _StatePickerSheetState extends State<StatePickerSheet> {
     bloc.add(GetStatesEvent(widget.countryId));
     super.initState();
   }
+
   var textEditingController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: 1.sw,
-
       height: 1.sh * 0.5,
       padding: const EdgeInsets.all(16),
       decoration: const BoxDecoration(
@@ -55,81 +55,80 @@ class _StatePickerSheetState extends State<StatePickerSheet> {
           // Add Search Bar
           CustomSearchField(
             hint: "Search states...",
-
             onChanged: (value) {
               setState(() {
                 searchTerm = value.toLowerCase();
               });
-            }, controller: textEditingController,
+            },
+            controller: textEditingController,
           ),
           8.verticalSpace,
           Expanded(
               child: BlocConsumer<LocationBloc, LocationState>(
-                bloc: bloc,
-                listener: (context, state) {},
-                builder: (context, state) {
-                  if (state is LocationLoading) {
-                    return Center(
-                        child: SizedBox(
-                          height: 100,
-                          child: Center(child: CustomDialogs.getLoading(size: 50)),
-                        ));
-                  }
+            bloc: bloc,
+            listener: (context, state) {},
+            builder: (context, state) {
+              if (state is LocationLoading) {
+                return Center(
+                    child: SizedBox(
+                  height: 100,
+                  child: Center(child: CustomDialogs.getLoading(size: 50)),
+                ));
+              }
 
-                  if (state is GetStateSuccessState) {
-                    if (state.response.data.isEmpty) {
-                      return const Center(
-                        child: TextView(
-                          text: "No states for this country",
-                        ),
-                      );
-                    }
-
-                    // Filter the list based on search term
-                    final filteredList = state.response.data.where((state) =>
-                        state.name.toLowerCase().contains(searchTerm)).toList();
-
-                    return ListView.builder(
-                      itemCount: filteredList.length,
-                      itemBuilder: (context, index) => Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 5),
-                        child: InkWell(
-                          onTap: () {
-                            context.pop(filteredList[index]);
-                          },
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: TextView(
-                                  text: filteredList[index].name,
-                                  fontSize: 16,
-                                  fontWeight: FontWeight.w500,
-                                ),
-                              ),
-                              const Icon(Icons.keyboard_arrow_right_sharp)
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
-                  }
-
-                  if (state is LocationFailure) {
-                    return AppErrorWidget(
-                      message: state.error,
-                      onTap: () {
-                        bloc.add(GetStatesEvent(widget.countryId));
-                      },
-                    );
-                  }
-
-                  return AppErrorWidget(
-                    onTap: () {
-                      bloc.add(GetStatesEvent(widget.countryId));
-                    },
+              if (state is GetStateSuccessState) {
+                if (state.response.data.isEmpty) {
+                  return const Center(
+                    child: TextView(
+                      text: "No states for this country",
+                    ),
                   );
+                }
+
+                // Filter the list based on search term
+                final filteredList = state.response.data.where((state) => state.name.toLowerCase().contains(searchTerm)).toList();
+
+                return ListView.builder(
+                  itemCount: filteredList.length,
+                  itemBuilder: (context, index) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 5),
+                    child: InkWell(
+                      onTap: () {
+                        context.pop(filteredList[index]);
+                      },
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: TextView(
+                              text: filteredList[index].name,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const Icon(Icons.keyboard_arrow_right_sharp)
+                        ],
+                      ),
+                    ),
+                  ),
+                );
+              }
+
+              if (state is LocationFailure) {
+                return AppErrorWidget(
+                  message: state.error,
+                  onTap: () {
+                    bloc.add(GetStatesEvent(widget.countryId));
+                  },
+                );
+              }
+
+              return AppErrorWidget(
+                onTap: () {
+                  bloc.add(GetStatesEvent(widget.countryId));
                 },
-              ))
+              );
+            },
+          ))
         ],
       ),
     );

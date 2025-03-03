@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:talkam/app.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
@@ -27,13 +29,14 @@ class TalkamSubscriptionPrompt extends StatelessWidget {
       },
       child: Container(
         padding: padding ?? const EdgeInsets.all(10),
+        width: 1.sw,
         decoration: BoxDecoration(gradient: blueWhiteGradient),
         child: RichText(
             textAlign: TextAlign.center,
             text: TextSpan(children: [
               TextSpan(
                   text: tittle ??
-                      "You have used  ${SubscriptionHelper.usedAnonymousCount} your 5 free anonymous post and comments, to post anonymously "
+                      "You have used ${SubscriptionHelper.usedAnonymousCount} of your 5 free anonymous post and comments, to post anonymously "
                           "without limit, ",
                   style: GoogleFonts.nunito(color: Pallets.black, fontSize: 12)),
               TextSpan(

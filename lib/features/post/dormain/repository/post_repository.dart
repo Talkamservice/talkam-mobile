@@ -13,6 +13,8 @@ import 'package:talkam/features/post/data/models/trends_response.dart';
 abstract class PostRepository {
   Future<GetCategoriesResponse> getCategories({String? categoryId, bool? mergeGroups});
 
+  Future<PostCategory> getCategoryById({String? categoryId,});
+
   Future<GetPostsResponse> getPosts(PostFilterModel model);
   Future<GetPostsResponse> getPromotedPosts();
 

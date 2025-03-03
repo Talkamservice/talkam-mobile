@@ -62,6 +62,7 @@ class AnnouncementBanner extends StatelessWidget {
                         child: TextView(
                           text: announcement.title,
                           fontWeight: FontWeight.w700,
+                          maxLines: 2,
 
                         ),
                       ),

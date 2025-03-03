@@ -81,8 +81,8 @@ class Data {
 
 class PendingRequest {
   int id;
-  String role;
-  String status;
+  dynamic role;
+  dynamic status;
   dynamic suspensionEndsAt;
   RequestGroup group;
   RequestUser user;
@@ -192,11 +192,11 @@ class RequestGroup {
 }
 
 class RequestUser {
-  int id;
-  String avatar;
-  String name;
-  String username;
-  String email;
+  dynamic id;
+  dynamic avatar;
+  dynamic name;
+  dynamic username;
+  dynamic email;
 
   RequestUser({
     required this.id,

@@ -5,6 +5,7 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
+import 'package:talkam/gen/assets.gen.dart';
 
 class AdGroupHeader extends StatelessWidget {
   const AdGroupHeader({super.key, required this.group, required this.onStateChanged, this.imageRadius});
@@ -19,7 +20,7 @@ class AdGroupHeader extends StatelessWidget {
     return Stack(
       children: [
         ImageWidget(
-          imageUrl: group.image!,
+          imageUrl: group.image??"",
           width: 1.sw,
           borderRadius: imageRadius,
           onTap: () {},
@@ -35,11 +36,11 @@ class AdGroupHeader extends StatelessWidget {
               children: [
 
                 ImageWidget(
-                  imageUrl: group.category!.postCategoryImage,
+                  imageUrl: group.category?.postCategoryImage??Assets.images.png.appIcon.path,
                   size: 20,
                 ),
                 4.horizontalSpace,
-                TextView(text: group.category?.name,fontSize: 14,)
+                TextView(text: group.category?.name??"",fontSize: 14,)
               ],
             ),
           ),

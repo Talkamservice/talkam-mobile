@@ -1,7 +1,7 @@
 import 'package:talkam/features/search/data/models/get_search_response.dart';
 import 'package:talkam/features/search/data/models/search_user_response.dart';
 
-enum SearchSort { post, group, media }
+enum SearchSort { post, group, media,user }
 
 abstract class SearchRepository {
   Future<GetSearchResponse> fetchRecentSearches(int userId);

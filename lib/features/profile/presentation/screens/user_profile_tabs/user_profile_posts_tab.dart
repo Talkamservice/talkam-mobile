@@ -78,7 +78,7 @@ class _UserProfilePostTabState extends State<UserProfilePostTab>
                       60.verticalSpace,
                       const EmptyState(
                         title: 'No posts yet',
-                        subtitle: "Posts  will appear here if any ",
+                        subtitle: "Posts will appear here if any ",
 
                       ),
                     ],

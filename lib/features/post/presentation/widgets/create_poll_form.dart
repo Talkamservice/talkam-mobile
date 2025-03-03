@@ -88,6 +88,7 @@ class _CreatePollFormState extends State<CreatePollForm> {
                   ],
                 ),
               ),
+              16.verticalSpace,
               TextButton(
                   style: TextButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),

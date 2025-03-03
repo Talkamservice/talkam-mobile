@@ -28,7 +28,6 @@ class _RunningAdsScreenState extends State<RunningAdsScreen> {
     super.initState();
   }
 
-
   final bloc = AdsCubit(injector.get());
 
   @override
@@ -43,19 +42,15 @@ class _RunningAdsScreenState extends State<RunningAdsScreen> {
             orElse: () {
               return 0.verticalSpace;
             },
-
             fetchingPromotions: () => SizedBox(
               height: 1.sh,
               child: ListView.builder(
                   itemBuilder: (c, i) => Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: PromotionShimmer(),
-                  )
-              ),
+                        padding: const EdgeInsets.all(16),
+                        child: PromotionShimmer(),
+                      )),
             ),
-
             promotionsLoaded: (promotion) {
-
               if ((promotion as Promotion).data.data.isEmpty) {
                 return EmptyAdPage();
               }
@@ -64,12 +59,12 @@ class _RunningAdsScreenState extends State<RunningAdsScreen> {
                 padding: const EdgeInsets.symmetric(
                   horizontal: 16,
                 ),
-                itemCount: (promotion).data.data.length,
+                itemCount: promotions(promotion).length,
                 itemBuilder: (context, index) {
                   return Padding(
                     padding: const EdgeInsets.only(bottom: 16, top: 16),
                     child: PromotionItem(
-                      promotion: (promotion).data.data[index],
+                      promotion: promotions(promotion).toList()[index],
                       onAdCancelled: () {
                         refresh();
                       },
@@ -81,8 +76,6 @@ class _RunningAdsScreenState extends State<RunningAdsScreen> {
                       },
                     ),
                   );
-
-
                 },
               );
             },
@@ -97,7 +90,13 @@ class _RunningAdsScreenState extends State<RunningAdsScreen> {
     );
   }
 
+  Iterable<PromotionData> promotions(Promotion promotion) {
+    return promotion.data.data.where(
+      (element) => element.post != null || element.group != null,
+    );
+  }
+
   void refresh() {
-    bloc.fetchPromotions(status: "Active");
+    bloc.fetchPromotions();
   }
 }

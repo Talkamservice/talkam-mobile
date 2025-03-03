@@ -7,6 +7,7 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/core/services/firebase/remote_config_service.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/guest_user_helper.dart';
@@ -152,6 +153,7 @@ class HomeAppBar extends StatelessWidget {
             padding: const EdgeInsets.only(top: 10, left: 1, right: 18),
             child: Column(
               children: [
+                if(subscriptionEnabled)
                 GuestUserHelper.guestUserWidget(
                   guestWidget: 0.verticalSpace,
                   widget: TalkamSubscriptionWidget(
@@ -198,6 +200,7 @@ class HomeAppBar extends StatelessWidget {
                           color: context.colorScheme.onSurface,
                         )),
 
+
                     GuestUserHelper.guestUserWidget(
                       guestWidget: ImageWidget(imageUrl: Assets.images.svgs.logo2),
                       widget: TalkamSubscriptionWidget(
@@ -230,6 +233,8 @@ class HomeAppBar extends StatelessWidget {
       },
     );
   }
+  bool get subscriptionEnabled => RemoteConfigsService.getBool(RemoteConfigKeys.SUBSCRIPTION_ENABLED) ?? false;
+
 }
 
 class TabItemModel {

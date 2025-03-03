@@ -4,19 +4,21 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/flutterwave/flutterwave_payment_helper.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/core/utils/helper_utils.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/subscription/data/models/get_plans_response.dart';
 import 'package:talkam/features/subscription/presentation/blocs/subscriptions_bloc/subscriptions_bloc_cubit.dart';
 import 'package:talkam/features/subscription/presentation/widgets/subscription_succes_dialog.dart';
 
 class PlanItem extends StatelessWidget {
-  PlanItem({super.key, required this.plan, required this.planDuration});
+  PlanItem({super.key, required this.plan, required this.durationIndex});
 
-  final TalkamPlanDuration? planDuration;
+  final int durationIndex;
 
   final TalkamPlan plan;
   final bloc = SubscriptionsCubit(injector.get());
@@ -41,7 +43,7 @@ class PlanItem extends StatelessWidget {
             var paymentResponse = await PaymentHelper().makePayment(
                 context,
                 FlutterRequirements(
-                  amount: planDuration?.price,
+                  amount: plan.durations[durationIndex].price,
                   referenceNumber: response.data.reference,
                   currency: plan.currency,
                   meta: response.data.metadata.toJson(),
@@ -53,7 +55,7 @@ class PlanItem extends StatelessWidget {
               CustomDialogs.showOverlayDialog(context,
                   dissmisable: false,
                   child: SubscriptionSucessDialog(
-                    duration: planDuration!,
+                    duration: plan.durations[durationIndex]!,
                   ));
             } else {
               CustomDialogs.error(paymentResponse?.status.toString() ?? "Payment canceled");
@@ -100,18 +102,19 @@ class PlanItem extends StatelessWidget {
                     5.verticalSpace,
                     if (planIsPaid)
                       TextView(
-                        text: "\$${planDuration?.price ?? 0}",
+                        text: "${plan.currency.toString().getCurrencySymbol}${(plan.durations[durationIndex]?.price ?? 0).toString().formatAmount()}",
+                        // text: "${plan.currency.toString().getCurrencySymbol}${planDuration?.price ?? 0}",
                         fontSize: 32,
                         fontWeight: FontWeight.w700,
                       ),
                     if (!planIsPaid)
-                      const TextView(
-                        text: "\$${0}",
+                      TextView(
+                        text: "Free",
                         fontSize: 32,
                         fontWeight: FontWeight.w700,
                       ),
                     4.verticalSpace,
-                    if (planIsPaid) TextView(text: "Billed ${planDuration?.frequency ?? "Monthly"}")
+                    if (planIsPaid) TextView(text: "Billed ${plan.durations[durationIndex]?.frequency ?? "Monthly"}")
                   ],
                 ),
               ),
@@ -126,7 +129,7 @@ class PlanItem extends StatelessWidget {
                         elevation: 0,
                         padding: const EdgeInsets.all(12),
                         onPressed: () {
-                          bloc.initiateSubscription(planDuration?.id.toString() ?? "0");
+                          bloc.initiateSubscription(plan.durations[durationIndex]?.id.toString() ?? "0");
                         },
                         borderRadius: BorderRadius.circular(100),
                         child: const TextView(text: "Subscribe and Pay"),
@@ -172,10 +175,16 @@ class PlanItem extends StatelessWidget {
                       fontSize: 10,
                       color: Pallets.textGrey,
                     ),
-                    const TextView(
-                      text: "Purchase Terms and Conditions",
-                      fontSize: 10,
-                      color: Pallets.primary,
+                    InkWell(
+                      onTap: () {
+                        Helpers.launchRawUrl("https://web.talkam.prodevs.io/help&info/payment-terms");
+
+                      },
+                      child: const TextView(
+                        text: "Purchase Terms and Conditions",
+                        fontSize: 10,
+                        color: Pallets.primary,
+                      ),
                     ),
                     18.verticalSpace
                   ],
@@ -188,5 +197,5 @@ class PlanItem extends StatelessWidget {
     );
   }
 
-  bool get planIsPaid => (plan.price ?? 0) > 0;
+  bool get planIsPaid => !(plan.name.toString().toLowerCase() == "freemium");
 }

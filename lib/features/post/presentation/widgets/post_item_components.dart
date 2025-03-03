@@ -92,21 +92,14 @@ class PostHeader extends StatelessWidget {
                   if (enablePromoteAddPill! && post.postIsFromLoggedInUser && !post.isPromoted && _userCanPromote())
                     InkWell(
                       onTap: () {
-                        SubscriptionHelper.handleSubscriptionAction(
-                          unsubscribedUserAction: () {
-                            context.pushNamed(PageUrl.subscriptionScreen);
-                          },
-                          action: () {
-                            CustomDialogs.showBottomSheet(
-                                context,
-                                PromotePostSheet(
-                                  type: 'Post',
-                                  id: post.id,
-                                  onPromoted: () {},
-                                ),
-                                constraints: BoxConstraints(maxHeight: 0.7.sh));
-                          },
-                        );
+                        CustomDialogs.showBottomSheet(
+                            context,
+                            PromotePostSheet(
+                              type: 'Post',
+                              id: post.id,
+                              onPromoted: () {},
+                            ),
+                            constraints: BoxConstraints(maxHeight: 0.7.sh));
                       },
                       child: Container(
                         padding: const EdgeInsets.symmetric(horizontal: 7, vertical: 3),
@@ -239,7 +232,6 @@ class PostHeader extends StatelessWidget {
           }
         },
         message: "Login to view user profile");
-
   }
 
   bool _userCanPromote() {

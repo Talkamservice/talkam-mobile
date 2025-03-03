@@ -57,14 +57,22 @@ class _NotificationsScreenState extends State<NotificationsScreen> with SingleTi
             const Spacer(),
             20.horizontalSpace,
             TextButton(
+              style: TextButton.styleFrom(
+                shape: StadiumBorder(side: BorderSide(color: Pallets.blueBubbleColor)),
+                foregroundColor: Pallets.blueBubbleColor,
+              ),
               onPressed: () {
                 injector.get<NotificationsBloc>().add(const ReadAllNotificationEvent());
               },
-              child: const TextView(
-                color: Color(0xff212121),
-                text: "Mark all as read",
-                fontSize: 16,
-                fontWeight: FontWeight.w500,
+
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: const TextView(
+                  // color: Color(0xff212121),
+                  text: "Mark all as read",
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                ),
               ),
             ),
           ],

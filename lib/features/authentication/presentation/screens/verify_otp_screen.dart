@@ -23,8 +23,7 @@ enum VerifyOtpType {
 }
 
 class VerifyOtpScreen extends StatefulWidget {
-  const VerifyOtpScreen(
-      {super.key, required this.email, required this.verifyOtpType});
+  const VerifyOtpScreen({super.key, required this.email, required this.verifyOtpType});
 
   final VerifyOtpType verifyOtpType;
 
@@ -34,8 +33,7 @@ class VerifyOtpScreen extends StatefulWidget {
   State<VerifyOtpScreen> createState() => _VerifyOtpScreenState();
 }
 
-class _VerifyOtpScreenState extends State<VerifyOtpScreen>
-    with RefreshAppMixin {
+class _VerifyOtpScreenState extends State<VerifyOtpScreen> with RefreshAppMixin {
   // final TextEditingController emailController = TextEditingController();
   final otpCtrl = TextEditingController();
   bool isSent = true;
@@ -55,91 +53,87 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen>
         builder: (context, state) {
           return SingleChildScrollView(
             padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
+            child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
+              18.verticalSpace,
+              Center(
+                child: TextView(
+                  text: tittle,
+                  fontWeight: FontWeight.w700,
+                  fontSize: 24,
+                ),
+              ),
+              4.verticalSpace,
+              Wrap(
                 children: [
-                  18.verticalSpace,
-                  Center(
-                    child: TextView(
-                      text: tittle,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 24,
-                    ),
+                  const TextView(text: "Please enter the PIN we sent to"),
+                  TextView(
+                    text: "${widget.email[0]}*********${widget.email.substring(4)} ",
+                    fontWeight: FontWeight.w700,
                   ),
-                  4.verticalSpace,
-                  Wrap(
-                    children: [
-                      const TextView(text: "Please enter the PIN we sent to"),
-                      TextView(
-                        text:
-                            "${widget.email[0]}*********${widget.email.substring(4)} ",
-                        fontWeight: FontWeight.w700,
-                      ),
-                    ],
-                  ),
-                  33.verticalSpace,
-                  Form(
-                    key: formKey,
-                    onChanged: () {
+                ],
+              ),
+              33.verticalSpace,
+              Form(
+                key: formKey,
+                onChanged: () {
+                  setState(() {});
+                },
+                child: Center(
+                  child: OtpField(
+                    count: otpLength,
+                    controller: otpCtrl,
+                    onChanged: (p0) {
                       setState(() {});
                     },
-                    child: Center(
-                      child: OtpField(
-                        count: otpLength,
-                        controller: otpCtrl,
-                        onChanged: (p0) {
-                          setState(() {});
-                        },
-                      ),
+                  ),
+                ),
+              ),
+              24.verticalSpace,
+              CustomButton(
+                text: "Confirm",
+                onPressed: () {
+                  _verifyOtp();
+                  // context.pushNamed(PageUrl.passwordResetScreen);
+                },
+              ),
+              33.verticalSpace,
+              if (isCounting == true)
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CustomCountDown(
+                      endTime: _countDownEndTime,
+                      onEnd: () {
+                        isCounting = false;
+                        setState(() {});
+                      },
+                      style: TextStyle(fontSize: 14.sp),
                     ),
-                  ),
-                  24.verticalSpace,
-                  CustomButton(
-                    text: "Confirm",
-                    onPressed: () {
-                      _verifyOtp();
-                      // context.pushNamed(PageUrl.passwordResetScreen);
-                    },
-                  ),
-                  33.verticalSpace,
-                  if (isCounting == true)
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CustomCountDown(
-                          endTime: _countDownEndTime,
-                          onEnd: () {
-                            isCounting = false;
-                            setState(() {});
+                  ],
+                ),
+              if (isCounting != true)
+                Column(
+                  children: [
+                    TextView(
+                      text: "Haven’t received the PIN yet ?",
+                      style: GoogleFonts.nunitoSans(fontSize: 15.sp, fontWeight: FontWeight.w600),
+                    ),
+                    Center(
+                      child: TextButton(
+                          onPressed: () {
+                            _resendOtp();
                           },
-                          style: TextStyle(fontSize: 14.sp),
-                        ),
-                      ],
+                          child: const TextView(
+                            text: 'Resend PIN',
+                            decoration: TextDecoration.underline,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15,
+                          )),
                     ),
-                  if (isCounting != true)
-                    Column(
-                      children: [
-                        TextView(
-                          text: "Haven’t received the PIN yet ?",
-                          style: GoogleFonts.nunitoSans(
-                              fontSize: 15.sp, fontWeight: FontWeight.w600),
-                        ),
-                        Center(
-                          child: TextButton(
-                              onPressed: () {
-                                _resendOtp();
-                              },
-                              child: const TextView(
-                                text: 'Resend PIN',
-                                decoration: TextDecoration.underline,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 15,
-                              )),
-                        ),
-                      ],
-                    ),
-                ]),
+                  ],
+                ),
+            ]),
           );
         },
       ),
@@ -147,9 +141,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen>
   }
 
   String get tittle {
-    return widget.verifyOtpType == VerifyOtpType.auth
-        ? "Verify Account"
-        : "Verify Email";
+    return widget.verifyOtpType == VerifyOtpType.auth ? "Verify Account" : "Verify Email";
   }
 
   void _resendOtp() {
@@ -157,14 +149,11 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen>
   }
 
   void _verifyOtp() {
-    _authBloc.add(
-        VerifyOtpEvent(code: otpCtrl.text, email: widget.email, type: otpType));
+    _authBloc.add(VerifyOtpEvent(code: otpCtrl.text, email: widget.email, type: otpType));
   }
 
   String get otpType {
-    return widget.verifyOtpType == VerifyOtpType.passwordReset
-        ? "password_reset"
-        : "verify_email";
+    return widget.verifyOtpType == VerifyOtpType.passwordReset ? "password_reset" : "verify_email";
   }
 
   void _listenToOtpBloc(BuildContext context, AuthState state) {

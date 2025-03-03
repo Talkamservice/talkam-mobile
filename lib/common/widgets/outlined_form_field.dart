@@ -10,6 +10,7 @@ class OutlinedFormField extends StatefulWidget {
     required this.hint,
     this.suffix,
     this.validator,
+    this.autovalidateMode,
     this.preffix,
     this.textCapitalization = TextCapitalization.none,
     this.maxLine,
@@ -52,6 +53,7 @@ class OutlinedFormField extends StatefulWidget {
   final bool? filled;
   final EdgeInsetsGeometry? padding;
   final TextStyle? hintStyle;
+  final AutovalidateMode? autovalidateMode;
 
   final Color? fillColor;
 
@@ -97,6 +99,7 @@ class _OutlinedFormFieldState extends State<OutlinedFormField> {
             controller: widget.controller,
             validator: widget.validator,
             maxLines: widget.maxLine ?? 1,
+            autovalidateMode: widget.autovalidateMode,
             minLines: widget.minLine ?? 1,
             onChanged: widget.onChange,
             keyboardType: widget.inputType,
@@ -104,6 +107,7 @@ class _OutlinedFormFieldState extends State<OutlinedFormField> {
             textCapitalization: TextCapitalization.sentences,
             inputFormatters: widget.inputFormatters,
             maxLength: widget.maxLength ?? 200000,
+
             obscureText: widget.obscure == null ? false : widget.obscure!,
             style: TextStyle(color: Theme.of(context).colorScheme.onBackground, fontSize: 14.sp),
             decoration: InputDecoration(

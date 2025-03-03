@@ -142,7 +142,7 @@ class _GroupmemberActionSheetState extends State<GroupmemberActionSheet> {
               if (widget.currentUserIsAdmin && !SessionManager().isMe(widget.member.user.id.toString()))
                 _ActionItem(
                   imagePath: Assets.images.svgs.slashCircle01,
-                  tittle: "Remove ${widget.member.user.name}",
+                  tittle: "Remove ${widget.member.user.username}",
                   onTap: () {
                     groupMemberBLoc.cancelRequest(
                       widget.member.id.toString(),

@@ -8,6 +8,8 @@ import 'package:talkam/core/navigation/routes.dart';
 import 'package:talkam/core/services/flutterwave/flutterwave_payment_helper.dart';
 import 'package:talkam/features/ads/data/models/ad_analytics_response.dart';
 import 'package:talkam/features/ads/data/models/create_promotion_payload.dart';
+import 'package:talkam/features/ads/data/models/get_ads_calculation.dart';
+import 'package:talkam/features/ads/data/models/get_ads_pricing.dart';
 import 'package:talkam/features/ads/data/models/initiate_payment_response.dart';
 import 'package:talkam/features/ads/data/models/promotion_data.dart';
 import 'package:talkam/features/ads/data/models/update_stat_payload.dart';
@@ -82,6 +84,30 @@ class AdsCubit extends Cubit<AdsState> {
       emit(AdsState.promotionCreated(result));
     } catch (e) {
       emit(AdsState.promotionCreateFailed(e.toString()));
+    }
+  }
+
+  // Get Pricing
+  Future<void> getPricing() async {
+    try {
+      emit(const AdsState.getPricingLoading());
+      final pricing = await adsRepository.getAdsPricing();
+      emit(AdsState.getPricingSuccess(pricing));
+    } catch (e, stack) {
+      logger.e(e, stackTrace: stack);
+      emit(AdsState.getPricingFailed(e.toString()));
+    }
+  }
+
+  // Get Pricing
+  Future<void> getCalculation({required double amount, required double dailyBudget, required double duration, required double impressions}) async {
+    try {
+      emit(const AdsState.getCalculationLoading());
+      final calculationResponse = await adsRepository.calculateAdsCost(amount: amount, dailyBudget: dailyBudget, duration: duration, impressions: impressions);
+      emit(AdsState.getCalculationSuccess(calculationResponse));
+    } catch (e, stack) {
+      logger.e(e, stackTrace: stack);
+      emit(AdsState.getPricingFailed(e.toString()));
     }
   }
 

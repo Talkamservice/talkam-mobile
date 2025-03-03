@@ -3,11 +3,11 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>478885302787-46tgclrpaf3vqnti7g95ud418uvjla9b.apps.googleusercontent.com</string>
+	<string>478885302787-ok0upi23o86662habvpf6tsf06u1gpog.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.478885302787-46tgclrpaf3vqnti7g95ud418uvjla9b</string>
+	<string>com.googleusercontent.apps.478885302787-ok0upi23o86662habvpf6tsf06u1gpog</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>478885302787-32qfubm0damgpkn5tm0tt655s09e3sfq.apps.googleusercontent.com</string>
+	<string>478885302787-2p5kropebl3t1sp6vdfokom4kkphod4h.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
 	<string>AIzaSyDNIPDDGTmviX0itRrEStBEpBJnvX2Ul6Y</string>
 	<key>GCM_SENDER_ID</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.talkam.app</string>
+	<string>com.talkamtech.app</string>
 	<key>PROJECT_ID</key>
 	<string>talkam-temp</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:478885302787:ios:2bfbec65eef022ab807436</string>
+	<string>1:478885302787:ios:074c846c87398546807436</string>
 </dict>
 </plist>

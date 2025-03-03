@@ -43,8 +43,7 @@ class GroupPostCubit extends Cubit<GroupPostState> {
 
     try {
       final GetPostsResponse response = await groupRepository.getPosts(
-        PostFilterModel.groupPost(
-            groupId: groupId, page: paginationData.currentPage + 1),
+        PostFilterModel.groupPost(groupId: groupId, page: paginationData.currentPage + 1),
       );
 
       emit(GroupPostState.postsLoaded(
@@ -88,14 +87,10 @@ class GroupPostCubit extends Cubit<GroupPostState> {
 
     try {
       final GetPostsResponse response = await groupRepository.getPosts(
-        PostFilterModel.groupPost(
-            groupId: groupId,
-            page: paginationData.currentPage + 1,
-            isMedia: true),
+        PostFilterModel.groupPost(groupId: groupId, page: paginationData.currentPage + 1, isMedia: true),
       );
 
       emit(GroupPostState.mediaLoaded(
-
         media: [
           ...previousMedia,
           ...response.data.data,

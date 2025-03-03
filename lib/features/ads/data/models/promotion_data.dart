@@ -224,11 +224,12 @@ final  AnalyticsInfo? stats;
 }
 
 class User {
-  final int id;
-  final String avatar;
-  final String name;
-  final String username;
-  final String email;
+  final dynamic id;
+  final dynamic avatar;
+  final dynamic name;
+  final dynamic username;
+  final dynamic email;
+
 
   User({
     required this.id,
@@ -241,7 +242,7 @@ class User {
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
       id: json['id'],
-      avatar: json['avatar'],
+      avatar: json ['avatar'],
       name: json['name'],
       username: json['username'],
       email: json['email'],

@@ -1,4 +1,4 @@
-import 'dart:ui';
+
 
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/features/messaging/data/models/get_messages_response.dart';
@@ -42,7 +42,7 @@ class AppMessageModel {
   }
 
   @override
-  int get hashCode => hashList([content, iAmSender, sendingState, time, id]);
+  int get hashCode =>[content, iAmSender, sendingState, time, id].hashCode;
 
   factory AppMessageModel.fromResponse(TalkamMessage message) =>
       AppMessageModel(

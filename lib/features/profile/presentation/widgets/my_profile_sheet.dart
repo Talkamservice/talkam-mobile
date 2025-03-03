@@ -50,20 +50,20 @@ class MyProfileSheet extends StatelessWidget with RefreshPostsMixin {
               context.pushNamed(PageUrl.userScheduledPosts);
             },
           ),
-          _PostAction(
-            imagePath: Assets.images.svgs.infoCircle,
-
-            iconColor: Pallets.black,
-            tittle: "Ads",
-            onTap: () {
-              context.pop();
-              context.pushNamed(PageUrl.adsPage);
-
-
-
-
-            },
-          ),
+          // _PostAction(
+          //   imagePath: Assets.images.svgs.infoCircle,
+          //
+          //   iconColor: Pallets.black,
+          //   tittle: "Ads",
+          //   onTap: () {
+          //     context.pop();
+          //     context.pushNamed(PageUrl.adsPage);
+          //
+          //
+          //
+          //
+          //   },5531 8866 5214 2950
+          // ),
         ],
       ),
     );
