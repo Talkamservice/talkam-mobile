@@ -61,15 +61,13 @@ class MessagingCubit extends Cubit<MessagingState> with MessagingFormatterMixin 
     }
   }
 
-
-
-
-
-
   Future<void> retryMessage(AppMessageModel message) async {
-
-    messages.firstWhere((element) => element.id == message.id,).sendingState = SendingState.loading;
-    logger.w("cjns");
+    messages
+        .firstWhere(
+          (element) => element.id == message.id,
+        )
+        .sendingState = SendingState.loading;
+    // logger.w("cjns");
 
     emit(const MessagingState.sendMessageLoading());
     // listController.jumpTo(0);
@@ -88,23 +86,6 @@ class MessagingCubit extends Cubit<MessagingState> with MessagingFormatterMixin 
       emit(MessagingState.sendMessageFailure(e.toString()));
     }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   Future<void> getMessages(String conversationId, {bool? refresh = true}) async {
     if (refresh!) {
@@ -178,7 +159,6 @@ class MessagingCubit extends Cubit<MessagingState> with MessagingFormatterMixin 
 
   void _listenForMessages(String conversationId) async {
     logger.w('listening');
-
     try {
       var pusherService = await PusherChannelService.getInstance;
       var pusher = await pusherService.getClient;

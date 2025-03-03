@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:talkam/common/widgets/custom_colored_controller.dart';
 import 'package:talkam/common/widgets/outlined_form_field.dart';
+import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
@@ -55,8 +56,12 @@ class _TextPostFormState extends State<TextPostForm> with AutomaticKeepAliveClie
                         fillColor: Pallets.borderGrey.withOpacity(0.15),
                         radius: 4,
                         filled: true,
-                        validator: MultiValidator([MaxLengthValidator(cannotPostUnLimited ? 350 : 100 * 100, errorText: "Character limit exceeded")]).call,
-                        // maxLength: cannotPostUnLimited ? 350 : null,
+                        autovalidateMode: AutovalidateMode.onUserInteraction,
+                        validator: MultiValidator([
+                          MaxLengthValidator(cannotPostUnLimited ? 350 : 100 * 100,
+                              errorText: "Character limit exceeded  (${bodyController.text.length}/${350})")
+                        ]).call,
+                        //  maxLength: cannotPostUnLimited ? 350 : null,
                         textCapitalization: TextCapitalization.sentences,
 
                         // validator:
@@ -72,8 +77,11 @@ class _TextPostFormState extends State<TextPostForm> with AutomaticKeepAliveClie
                         },
                         showRequiredAsterics: true,
                         hint: "Write the rest of your text here. (optional)"),
+                    // if(cannotPostUnLimited)
+                    //   TextView(
+                    //       color: bodyController.text.length>1,
+                    //       text: "${bodyController.text.length}/${350}"),
                     if (showLimitedCharacterWarning)
-
                       TalkamSubscriptionPrompt(
                         padding: const EdgeInsets.symmetric(vertical: 6, horizontal: 10),
                         tittle: "To have access to unlimited characters,",

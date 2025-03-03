@@ -44,9 +44,7 @@ class _TalkAmAppState extends State<TalkAmApp> {
                     GlobalWidgetsLocalizations.delegate,
                     GlobalCupertinoLocalizations.delegate,
                   ],
-
                   theme: AppTheme.lightTheme,
-
                   routerConfig: CustomRoutes.goRouter,
                 ),
               ),

@@ -8,6 +8,7 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/features/ads/presentation/widgets/view_analytics_bottomsheet.dart';
 import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
 import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
 import 'package:talkam/features/post/presentation/widgets/confirm_report_dialog.dart';
@@ -84,12 +85,29 @@ class _GroupActionSheetState extends State<GroupActionSheet> {
                   }
                 },
               ),
+              if (groupIsFromLoggedInUser && widget.group.isPromoted)
+                _ActionItem(
+                  imagePath: Assets.images.svgs.analytics,
+                  tittle: "View analytics",
+                  onTap: () async {
+                    context.pop();
+                    await CustomDialogs.showBottomSheet(
+                      context,
+                      ViewAnalyticsBottomSheet(
+                        isPost: false,
+                        postId: widget.group.id.toString(),
+                      ),
+                    );
+                  },
+                ),
             ],
           );
         },
       ),
     );
   }
+  bool get groupIsFromLoggedInUser => widget.group.isOwner;
+
 }
 
 class _ActionItem extends StatelessWidget {

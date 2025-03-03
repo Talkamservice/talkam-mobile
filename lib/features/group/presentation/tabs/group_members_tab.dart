@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
-import 'package:talkam/common/widgets/empty_state.dart';
 import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
@@ -107,14 +106,12 @@ class GroupMembersList extends StatelessWidget {
           members: reponse.data.owner,
           tittle: "Administrator/Creator",
           group: group,
-
           showPendingRequest: false,
           onActionSuccess: onActionSuccess,
         ),
         GroupMembersComponent(
           members: reponse.data.admin,
           tittle: "Moderators",
-
           group: group,
           showPendingRequest: false,
           onActionSuccess: onActionSuccess,
@@ -134,7 +131,6 @@ class GroupMembersList extends StatelessWidget {
 class GroupMembersComponent extends StatefulWidget {
   const GroupMembersComponent(
       {super.key, required this.members, required this.tittle, this.showPendingRequest = false, required this.group, required this.onActionSuccess});
-
 
   final List<GroupMemberDetails> members;
   final String tittle;
@@ -185,8 +181,6 @@ class _GroupMembersComponentState extends State<GroupMembersComponent> {
   }
 
   bool get canViewRequests {
-
-
     return widget.showPendingRequest && (widget.group.userRole == "Owner" || widget.group.userRole == "Admin" || widget.group.userRole == "Moderator");
   }
 }

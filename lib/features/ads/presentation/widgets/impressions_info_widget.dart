@@ -22,12 +22,14 @@ class ImpressionsInfoWidget extends StatelessWidget {
               header: "Impressions",
               number: analyticsInfo.impressions.toString(),
               toolTip: TooltipTexts.impressions,
+
             ),
             ImpressionsInfoItem(
               toolTip: TooltipTexts.engagementRate,
               header: "Engagement rate",
-              number: "${analyticsInfo.engagements.round().toString()}%",
+              number: "${double.tryParse(analyticsInfo.engagementRate.toString())?.round()??0}%",
             ),
+
             ImpressionsInfoItem(
                 toolTip: TooltipTexts.clicks,
                 header: "Clicks", number: analyticsInfo.clicks.toString()),
@@ -48,8 +50,13 @@ class ImpressionsInfoWidget extends StatelessWidget {
                 header: "Profile visit", number: analyticsInfo.profileVisits.toString()),
             ImpressionsInfoItem(
               toolTip: TooltipTexts.newFollowers,
-              header: "Engagement",
+              header: "New followers",
               number: analyticsInfo.followers.toString(),
+            ),
+            ImpressionsInfoItem(
+              toolTip: TooltipTexts.newFollowers,
+              header: "Engagement",
+              number: analyticsInfo.engagements.toString(),
             ),
             // 5.horizontalSpace,
             // ImpressionsInfoItem(header: "Profile visit", number: analyticsInfo.impressions),

@@ -17,11 +17,12 @@ class AdGroupOverView extends StatelessWidget {
   const AdGroupOverView({
     super.key,
     this.showAbout = true,
-    required this.data,
+    required this.data,  this.showFollowButton = false,
   });
 
   final TalkamGroup data;
 
+  final bool showFollowButton;
   final bool? showAbout;
 
   @override
@@ -74,6 +75,7 @@ class AdGroupOverView extends StatelessWidget {
                 ],
               ),
             ),
+            if(showFollowButton)
             JoinGroupButton(
               group: data,
               onStateChanged: () {},

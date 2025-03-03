@@ -112,7 +112,7 @@ class AdInfoWidget extends StatelessWidget {
                     8.verticalSpace,
 
                     TextView(
-                      text: "${promotion.stats?.engagements.round().toString() ?? "0"}%",
+                      text: "${double.tryParse(promotion.stats?.engagementRate)?.round() ?? "0"}%",
                       fontSize: 16,
                     ),
                   ],
@@ -128,7 +128,7 @@ class AdInfoWidget extends StatelessWidget {
                     ),
                     8.verticalSpace,
                     TextView(
-                      text: promotion.stats?.followers.toString() ?? "0",
+                      text: promotion.stats?.engagements.toString() ?? "0",
                       fontSize: 16,
                     ),
                   ],

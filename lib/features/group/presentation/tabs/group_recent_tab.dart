@@ -93,6 +93,7 @@ class _GroupRecentTabState extends State<GroupRecentTab> with AutomaticKeepAlive
                                       color: context.theme.cardColor, borderRadius: BorderRadius.circular(10), border: Border.all(color: Pallets.borderGrey)),
                                   padding: EdgeInsets.all(10),
                                   child: AdGroupResultItem(
+                                    showFollowGroup: true,
                                     imageRadius: BorderRadius.circular(5),
                                     group: item,
                                     onJoinStateChanged: () {},

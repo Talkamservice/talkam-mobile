@@ -38,7 +38,6 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> with RefreshPosts
 
   late DateTime _startTime;
   Duration _timeSpent = Duration.zero;
-
   final adBloc = AdsCubit(injector.get());
 
   @override

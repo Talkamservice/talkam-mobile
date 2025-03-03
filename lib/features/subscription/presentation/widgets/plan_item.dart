@@ -175,10 +175,16 @@ class PlanItem extends StatelessWidget {
                       fontSize: 10,
                       color: Pallets.textGrey,
                     ),
-                    const TextView(
-                      text: "Purchase Terms and Conditions",
-                      fontSize: 10,
-                      color: Pallets.primary,
+                    InkWell(
+                      onTap: () {
+                        Helpers.launchRawUrl("https://web.talkam.prodevs.io/help&info/payment-terms");
+
+                      },
+                      child: const TextView(
+                        text: "Purchase Terms and Conditions",
+                        fontSize: 10,
+                        color: Pallets.primary,
+                      ),
                     ),
                     18.verticalSpace
                   ],

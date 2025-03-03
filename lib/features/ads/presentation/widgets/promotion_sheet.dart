@@ -100,11 +100,12 @@ class _PromotePostSheetState extends State<PromotePostSheet> with RefreshAppMixi
                   ),
 
                   15.horizontalSpace,
-
+              //guspakorti@gufum.com
                   Expanded(
                     flex: 2,
                     child: CustomButton(
                       bgColor: Pallets.tabBarBlue,
+                      foregroundColor: Pallets.white,
                       padding: EdgeInsets.all(12),
                       // padding: const EdgeInsets.symmetric(vertical: 5),
                       borderRadius: BorderRadius.circular(30),

@@ -67,9 +67,9 @@ class _JoinGroupButtonState extends State<JoinGroupButton> {
         }
         return TextButton(
             style: TextButton.styleFrom(
-                padding: const EdgeInsets.all(8),
-                fixedSize: const Size.fromHeight(5),
-                backgroundColor: Pallets.primary,
+                padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 4),
+                // fixedSize: const Size.fromHeight(5),
+                backgroundColor: Pallets.blueBubbleColor,
                 foregroundColor: Pallets.white,
                 shape: const StadiumBorder()),
             onPressed: () {

@@ -12,7 +12,6 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/group/presentation/blocs/group_members_cubit/group_members_cubit.dart';
 import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
 import 'package:talkam/features/group/presentation/widgets/pending_request_item.dart';
-import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class PendingRequestsScreen extends StatefulWidget {
@@ -45,17 +44,11 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
         // tittleText: ,
         tittle: Row(
           mainAxisSize: MainAxisSize.min,
-          children: [
-            ImageWidget(imageUrl: Assets.images.svgs.groupRequests),
-            10.horizontalSpace,
-            const TextView(text: "Join Requests")
-          ],
+          children: [ImageWidget(imageUrl: Assets.images.svgs.groupRequests), 10.horizontalSpace, const TextView(text: "Join Requests")],
         ),
       ),
       body: Column(
         children: [
-
-
           Expanded(
               child: BlocConsumer<GroupMembersCubit, GroupMembersState>(
             bloc: bloc,
@@ -68,8 +61,7 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
                 requestActionSuccess: (response) {
                   context.pop();
                   injector.get<GroupsCubit>().refreshGroups();
-                  bloc.getPendingRequests(widget.groupId.toString(),
-                      refresh: false);
+                  bloc.getPendingRequests(widget.groupId.toString(), refresh: false);
                 },
                 requestActionFailure: (error) {
                   CustomDialogs.error(error);
@@ -91,8 +83,7 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
                     return const Center(
                       child: EmptyState(
                         title: "No pending requests",
-                        subtitle:
-                            "You pending requests will show here if there are any",
+                        subtitle: "You pending requests will show here if there are any",
                       ),
                     );
                   }
@@ -110,10 +101,7 @@ class _PendingRequestsScreenState extends State<PendingRequestsScreen> {
                           pendingRequest: response.data.data[index],
                           onRequestAction: (requestAction) {
                             bloc.acceptOrDeclineRequest(
-                                memberId:
-                                    response.data.data[index].id.toString(),
-                                action: requestAction.name,
-                                groupId: widget.groupId.toString());
+                                memberId: response.data.data[index].id.toString(), action: requestAction.name, groupId: widget.groupId.toString());
                           },
                         ),
                       ),

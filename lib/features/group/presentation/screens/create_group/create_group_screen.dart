@@ -12,7 +12,6 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
-import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/group/presentation/blocs/create_group_cubit/create_group_cubit.dart';
 import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
 import 'package:talkam/features/group/presentation/tabs/group_rules_tab.dart';
@@ -73,7 +72,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                 const Spacer(),
                 TextButton(
                     style: TextButton.styleFrom(
-                        backgroundColor: Pallets.primary,
+                        backgroundColor: Pallets.blueBubbleColor,
                         shape: const StadiumBorder(),
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         foregroundColor: Pallets.white),

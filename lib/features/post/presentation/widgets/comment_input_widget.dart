@@ -62,7 +62,7 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
 
   var searchBloc = SearchCubit(injector.get());
 
-  bool canCommentAnonymously = true;
+  bool showCommentWarning = false;
 
   @override
   void initState() {
@@ -95,8 +95,8 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
       myFocusNode.unfocus();
       _commentController.clear();
       stagedFile = null;
-      _isAnonymous= false;
-      canCommentAnonymously = true;
+      _isAnonymous = false;
+      showCommentWarning = true;
       _isEmojiVisible = false; // Close emoji picker after comment submission
       setState(() {});
     }
@@ -124,7 +124,7 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 8.0),
                     child: ImageWidget(
-                      imageUrl: injector.get<ProfileBloc>().appUser?.avatar ?? Assets.images.png.woman.path,
+                      imageUrl: injector.get<ProfileBloc>().appUser?.avatar ?? Assets.images.svgs.blockedUser,
                       size: 36,
                       fit: BoxFit.cover,
                     ),
@@ -193,7 +193,7 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                                backgroundColor: context.colorScheme.primary,
+                                backgroundColor: Pallets.blueBubbleColor,
                                 shape: const StadiumBorder(),
                               ),
                               onPressed: _submitComment,
@@ -239,11 +239,11 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
                 ],
               ),
             ),
-            if (!canCommentAnonymously)
+            if (showCommentWarning)
               TalkamSubscriptionPrompt(
                 // tittle: "You have used up your free anonymous comments, to comment anonymously without limit, ",
                 onReturnFromSubscription: () {
-                  canCommentAnonymously = SubscriptionHelper.canCommentAnonymously;
+                  showCommentWarning = !SubscriptionHelper.isSubscribed;
                   setState(() {});
                 },
               ),
@@ -268,9 +268,14 @@ class _CommentInputWidgetState extends State<CommentInputWidget> {
     }
 
     if (!SubscriptionHelper.isSubscribed) {
-      canCommentAnonymously = false;
+      showCommentWarning = true;
     }
 
+    if (!value) {
+      showCommentWarning = false;
+    }
+
+    logger.i(showCommentWarning);
 
     // if (!value) {
     //   canCommentAnonymously = true;

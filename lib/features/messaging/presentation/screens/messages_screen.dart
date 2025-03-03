@@ -173,30 +173,34 @@ class MessageAppBar extends StatelessWidget {
                               onPressed: () {
                                 context.pushNamed(PageUrl.new_requestScreen);
                               },
+
                               style: TextButton.styleFrom(
                                 shape: StadiumBorder(side: BorderSide(color: Pallets.blueBubbleColor)),
                                 foregroundColor: Pallets.blueBubbleColor,
                               ),
-                              child: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  const TextView(
-                                    text: "Requests",
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                  ),
-                                  if (stat.totalRequests != 0) 4.horizontalSpace,
-                                  if (stat.totalRequests != 0)
-                                    CircleAvatar(
-                                      radius: 8,
-                                      backgroundColor: Colors.red,
-                                      foregroundColor: Colors.white,
-                                      child: TextView(
-                                        text: stat.totalRequests.toString(),
-                                        fontSize: 8,
-                                      ),
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const TextView(
+                                      text: "Requests",
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w700,
                                     ),
-                                ],
+                                    if (stat.totalRequests != 0) 4.horizontalSpace,
+                                    if (stat.totalRequests != 0)
+                                      CircleAvatar(
+                                        radius: 8,
+                                        backgroundColor: Colors.red,
+                                        foregroundColor: Colors.white,
+                                        child: TextView(
+                                          text: stat.totalRequests.toString(),
+                                          fontSize: 8,
+                                        ),
+                                      ),
+                                  ],
+                                ),
                               ),
                             ),
                           ],

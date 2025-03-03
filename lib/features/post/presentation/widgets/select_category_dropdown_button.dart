@@ -48,18 +48,20 @@ class _SelectCategoryDropDownButtonState
             10.horizontalSpace,
             TextView(
               text: name ?? "Select sub-category or group",
-              fontSize: 14,
+              fontSize: 13,
               color: context.colorScheme.onSurface,
               fontWeight: FontWeight.w600,
             ),
             TextView(
               text: " *",
-              fontSize: 15.sp,
+              fontSize: 14.sp,
               color: Pallets.red,
               fontWeight: FontWeight.w600,
             ),
-            10.horizontalSpace,
-            const Icon(color: Pallets.grey, Icons.keyboard_arrow_down_rounded)
+            4.horizontalSpace,
+            const Icon(
+
+                color: Pallets.grey, Icons.keyboard_arrow_down_rounded)
           ],
         ));
   }

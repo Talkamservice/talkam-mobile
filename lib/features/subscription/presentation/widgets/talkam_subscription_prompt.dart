@@ -36,7 +36,7 @@ class TalkamSubscriptionPrompt extends StatelessWidget {
             text: TextSpan(children: [
               TextSpan(
                   text: tittle ??
-                      "You have used  ${SubscriptionHelper.usedAnonymousCount} your 5 free anonymous post and comments, to post anonymously "
+                      "You have used ${SubscriptionHelper.usedAnonymousCount} of your 5 free anonymous post and comments, to post anonymously "
                           "without limit, ",
                   style: GoogleFonts.nunito(color: Pallets.black, fontSize: 12)),
               TextSpan(
