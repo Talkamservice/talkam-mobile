@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/pusher/pusher_channel_service.dart';
@@ -12,6 +14,8 @@ import 'package:talkam/features/messaging/dormain/mixins/messaging_formater_mixi
 import 'package:talkam/features/messaging/dormain/models/app_message_model.dart';
 import 'package:talkam/features/messaging/dormain/repository/messaging_repository.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
+
+import '../message_hive/message.dart';
 
 part 'messaging_state.dart';
 
@@ -87,24 +91,24 @@ class MessagingCubit extends Cubit<MessagingState> with MessagingFormatterMixin 
     }
   }
 
-  Future<void> getMessages(String conversationId, {bool? refresh = true}) async {
-    if (refresh!) {
-      emit(const MessagingState.fetchCurrentConversationLoading());
-    }
+  Future<void> getMessages(String conversationId, {bool refresh = true}) async {
 
     try {
       final response = await messagingRepository.getMessages(conversationId);
-      messages = sortAndInsertDividers(response.data.data
-          .map(
-            (e) => AppMessageModel.fromResponse(e),
-          )
-          .toList()
-        ..removeWhere(
-          (element) => element.messageType == "divider",
-        ));
+      final fetchedMessages = sortAndInsertDividers(
+        response.data.data
+            .map((e) => AppMessageModel.fromResponse(e))
+            .where((msg) => msg.messageType != "divider")
+            .toList()
+      );
+      messages = fetchedMessages;
+      final Box cacheBox = await Hive.openBox('chatCache');
+      final messagesJson = fetchedMessages.map((e) => e.toJson()).toList();
+      cacheBox.put(conversationId, messagesJson);
       emit(MessagingState.getMessagesSuccess(response));
       _listenForMessages(currentConversation!.id.toString());
     } catch (e, stack) {
+      log(stack.toString());
       emit(MessagingState.getMessagesFailure(e.toString()));
     }
   }
@@ -119,22 +123,93 @@ class MessagingCubit extends Cubit<MessagingState> with MessagingFormatterMixin 
     }
   }
 
-  Future<void> fetchCurrentConversation(String receiverId, {bool? refresh = true}) async {
-    if (refresh!) {
-      emit(const MessagingState.fetchCurrentConversationLoading());
+  Future<void> fetchCurrentConversation(String receiverId, {bool refresh = true}) async {
+    String? storedConversationId = await getStoredConversationId(receiverId);
+    final Box cacheBox = await Hive.openBox('chatCache');
+    log("Cache keys: ${cacheBox.keys.toList()}");
+
+    if (storedConversationId != null) {
+      if (cacheBox.containsKey(storedConversationId)) {
+        final cachedData = cacheBox.get(storedConversationId) as List<dynamic>? ?? [];
+        if (cachedData.isNotEmpty) {
+          final rawCachedMessages = sortAndInsertDividers(cachedData
+          .map((e) => AppMessageModel.fromJson(Map<String, dynamic>.from(e)))
+          .where((msg) => msg.messageType.toLowerCase() != "divider")
+          .toList());
+          final cachedMessages = rawCachedMessages;
+          messages = cachedMessages;
+          emit(MessagingState.getMessagesSuccess(cachedMessages));
+          if (!refresh) {
+            return;
+          }
+        }
+      }
+    }
+    if (refresh) {
+      // emit(const MessagingState.fetchCurrentConversationLoading());
     }
 
     try {
+      // Fetch conversation details from the API.
       final response = await messagingRepository.fetchCurrentConversation(receiverId);
-
       currentConversation = response;
-
+      // Store the conversation ID persistently.
+      await storeConversationId(receiverId, response.id.toString());
       getMessages(response.id.toString(), refresh: refresh);
-      // emit(MessagingState.fetchCurrentConversationSuccess(response));
     } catch (e, stack) {
       emit(MessagingState.fetchCurrentConversationFailure(e.toString()));
     }
   }
+
+
+  // Future<void> fetchCurrentConversation(String receiverId,  String conversationId, {bool? refresh = true}) async {
+  //   final Box cacheBox = await Hive.openBox('chatCache');
+  //   log("Cache keys: ${cacheBox.keys.toList()}");
+        
+  //   log("Cache keys: $conversationId");
+  //   log("cache: ${cacheBox.containsKey(conversationId)}");
+  //   if (cacheBox.containsKey(conversationId)) {
+  //       log("cache box: $cacheBox");
+
+  //     final cachedData = cacheBox.get(conversationId) as List<dynamic>? ?? [];
+  //       log("from cache: $cachedData");
+
+  //     if (cachedData.isNotEmpty) {
+  //       final rawCachedMessages = cachedData
+  //         .map((e) => AppMessageModel.fromJson(Map<String, dynamic>.from(e)))
+  //         .where((element) => element.messageType != "divider")
+  //         .toList();
+
+  //     final cachedMessages = sortAndInsertDividers(rawCachedMessages);
+  //     log("Fetched from cache: $cachedMessages");
+
+  //       messages = cachedMessages;
+  //       emit(MessagingState.getMessagesSuccess(cachedMessages));
+        
+  //       // If you don't want to refresh when cache exists, return early.
+  //       if (!refresh!) {
+  //         return;
+  //       }
+  //     }
+  //   }
+  //   if (refresh!) {
+  //     // emit(const MessagingState.fetchCurrentConversationLoading());
+  //   }
+
+  //   try {
+     
+  //     final response = await messagingRepository.fetchCurrentConversation(receiverId);
+
+  //     currentConversation = response;
+
+  //     getMessages(response.id.toString(), refresh: refresh);
+  //     // emit(MessagingState.fetchCurrentConversationSuccess(response));
+  //   } catch (e, stack) {
+  //     emit(MessagingState.fetchCurrentConversationFailure(e.toString()));
+  //   }
+  // }
+
+
 
   Future<void> updateConversationStatus({required String conversationId, required String status}) async {
     emit(const MessagingState.updateConversationStatusLoading());
@@ -148,13 +223,35 @@ class MessagingCubit extends Cubit<MessagingState> with MessagingFormatterMixin 
     }
   }
 
-  void init({TalkamConversation? conversation, required String receiverId}) {
+  // void init({TalkamConversation? conversation, required String receiverId}) {
+  //   if (conversation == null) {
+  //     fetchCurrentConversation(receiverId, conversation!.id.toString());
+  //   } else {
+  //     currentConversation = conversation;
+  //     emit(MessagingState.fetchCurrentConversationSuccess(currentConversation!));
+  //   }
+  // }
+    void init({TalkamConversation? conversation, required String receiverId}) {
     if (conversation == null) {
-      fetchCurrentConversation(receiverId);
+      // If conversation is null, call fetchCurrentConversation with only the receiverId.
+      fetchCurrentConversation(receiverId, refresh: true);
     } else {
+      // If a conversation is provided, pass its id (as a string) to fetchCurrentConversation.
       currentConversation = conversation;
+      storeConversationId(receiverId, conversation.id.toString());
+      fetchCurrentConversation(receiverId);
       emit(MessagingState.fetchCurrentConversationSuccess(currentConversation!));
     }
+  }
+
+  Future<String?> getStoredConversationId(String receiverId) async {
+    final Box conversationBox = await Hive.openBox('conversationCache');
+    return conversationBox.get(receiverId) as String?;
+  }
+
+  Future<void> storeConversationId(String receiverId, String conversationId) async {
+    final Box conversationBox = await Hive.openBox('conversationCache');
+    await conversationBox.put(receiverId, conversationId);
   }
 
   void _listenForMessages(String conversationId) async {

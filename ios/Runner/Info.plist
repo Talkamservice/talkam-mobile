@@ -2,7 +2,7 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>FlutterDeepLinkingEnabled</key>
+	<key>CADisableMinimumFrameDurationOnPhone</key>
 	<true/>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
@@ -19,12 +19,62 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>$(FLUTTER_BUILD_NAME)</string>
+	<string>1.0.2</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>CFBundleURLTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>sbawv08gbmy7ntisfh</string>
+				<string>com.googleusercontent.apps.478885302787-46tgclrpaf3vqnti7g95ud418uvjla9b</string>
+				<string>fb3700490343547694</string>
+			</array>
+		</dict>
+	</array>
 	<key>CFBundleVersion</key>
-	<string>$(FLUTTER_BUILD_NUMBER)</string>
+	<string>2</string>
+	<key>FacebookAppID</key>
+	<string>3700490343547694</string>
+	<key>FacebookClientToken</key>
+	<string>f055a6e3d63e1adf42c82192a01e1fbb</string>
+	<key>FacebookDisplayName</key>
+	<string>TalKAM Tech</string>
+	<key>FlutterDeepLinkingEnabled</key>
+	<true/>
+	<key>GoogleSignIn</key>
+	<dict>
+		<key>APIKey</key>
+		<string>AIzaSyDNIPDDGTmviX0itRrEStBEpBJnvX2Ul6Y</string>
+		<key>ClientId</key>
+		<string>478885302787-46tgclrpaf3vqnti7g95ud418uvjla9b.apps.googleusercontent.com</string>
+		<key>ReversedClientId</key>
+		<string>com.googleusercontent.apps.478885302787-46tgclrpaf3vqnti7g95ud418uvjla9b</string>
+	</dict>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>tiktokopensdk</string>
+		<string>tiktoksharesdk</string>
+		<string>snssdk1180</string>
+		<string>snssdk1233</string>
+		<string>com.googleusercontent.apps.478885302787-46tgclrpaf3vqnti7g95ud418uvjla9b</string>
+		<string>fbapi</string>
+		<string>fb-messenger-share-api</string>
+	</array>
 	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Talkam uses your location to display nearby posts.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Talkam uses your location to display nearby posts.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Talkam uses your photo library to upload picture contents.</string>
+	<key>TikTokClientKey</key>
+	<string>sbawv08gbmy7ntisfh</string>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
@@ -43,55 +93,5 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>LSApplicationQueriesSchemes</key>
-	<array>
-		<string>tiktokopensdk</string>
-		<string>tiktoksharesdk</string>
-		<string>snssdk1180</string>
-		<string>snssdk1233</string>
-		<string>com.googleusercontent.apps.478885302787-46tgclrpaf3vqnti7g95ud418uvjla9b</string>
-		<string>fbapi</string>
-		<string>fb-messenger-share-api</string>
-	</array>
-	<key>TikTokClientKey</key>
-	<string>sbawv08gbmy7ntisfh</string>
-	<key>CFBundleURLTypes</key>
-	<array>
-		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
-			<key>CFBundleURLSchemes</key>
-			<array>
-				<string>sbawv08gbmy7ntisfh</string>
-				<string>com.googleusercontent.apps.478885302787-46tgclrpaf3vqnti7g95ud418uvjla9b</string>
-				<string>fb3700490343547694</string>
-			</array>
-		</dict>
-	</array>
-	<key>GoogleSignIn</key>
-	<dict>
-		<key>ClientId</key>
-		<string>478885302787-46tgclrpaf3vqnti7g95ud418uvjla9b.apps.googleusercontent.com</string>
-		<key>ReversedClientId</key>
-		<string>com.googleusercontent.apps.478885302787-46tgclrpaf3vqnti7g95ud418uvjla9b</string>
-		<key>APIKey</key>
-		<string>AIzaSyDNIPDDGTmviX0itRrEStBEpBJnvX2Ul6Y</string>
-	</dict>
-	<key>FacebookAppID</key>
-	<string>3700490343547694</string>
-	<key>FacebookClientToken</key>
-	<string>f055a6e3d63e1adf42c82192a01e1fbb</string>
-	<key>FacebookDisplayName</key>
-	<string>TalKAM Tech</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Talkam uses your photo library to upload picture contents.</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Talkam uses your location to display nearby posts.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Talkam uses your location to display nearby posts.</string>
-	<key>CADisableMinimumFrameDurationOnPhone</key>
-	<true/>
-	<key>UIApplicationSupportsIndirectInputEvents</key>
-	<true/>
 </dict>
 </plist>

@@ -70,6 +70,22 @@ class $AssetsImagesPngGen {
   AssetGenImage get mancity =>
       const AssetGenImage('assets/images/png/mancity.png');
 
+  /// File path: assets/images/png/onboard0.png
+  AssetGenImage get onboard0 =>
+      const AssetGenImage('assets/images/png/onboard0.png');
+
+  /// File path: assets/images/png/onboard1.png
+  AssetGenImage get onboard1 =>
+      const AssetGenImage('assets/images/png/onboard1.png');
+
+  /// File path: assets/images/png/splash1.png
+  AssetGenImage get splash1 =>
+      const AssetGenImage('assets/images/png/splash1.png');
+
+  /// File path: assets/images/png/splash2.png
+  AssetGenImage get splash2 =>
+      const AssetGenImage('assets/images/png/splash2.png');
+
   /// File path: assets/images/png/sports.png
   AssetGenImage get sports =>
       const AssetGenImage('assets/images/png/sports.png');
@@ -93,6 +109,10 @@ class $AssetsImagesPngGen {
         dating,
         manShoping,
         mancity,
+        onboard0,
+        onboard1,
+        splash1,
+        splash2,
         sports,
         thumb,
         woman,
@@ -278,6 +298,12 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/notification.svg
   String get notification => 'assets/images/svgs/notification.svg';
 
+  /// File path: assets/images/svgs/onboard1.svg
+  String get onboard1 => 'assets/images/svgs/onboard1.svg';
+
+  /// File path: assets/images/svgs/onboard2.svg
+  String get onboard2 => 'assets/images/svgs/onboard2.svg';
+
   /// File path: assets/images/svgs/profile.svg
   String get profile => 'assets/images/svgs/profile.svg';
 
@@ -407,6 +433,8 @@ class $AssetsImagesSvgsGen {
         messageSent,
         newMessageIndicator,
         notification,
+        onboard1,
+        onboard2,
         profile,
         radioActive,
         radioInactive,
@@ -434,13 +462,9 @@ class $AssetsImagesSvgsGen {
 }
 
 class Assets {
-  Assets._();
+  const Assets._();
 
   static const $AssetsImagesGen images = $AssetsImagesGen();
-  static const String shorebird = 'shorebird.yaml';
-
-  /// List of all assets
-  static List<String> get values => [shorebird];
 }
 
 class AssetGenImage {
@@ -476,7 +500,7 @@ class AssetGenImage {
     bool gaplessPlayback = true,
     bool isAntiAlias = false,
     String? package,
-    FilterQuality filterQuality = FilterQuality.low,
+    FilterQuality filterQuality = FilterQuality.medium,
     int? cacheWidth,
     int? cacheHeight,
   }) {

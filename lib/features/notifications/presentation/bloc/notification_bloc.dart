@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:crypto/crypto.dart';
 import 'package:equatable/equatable.dart';
+import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
@@ -52,10 +54,25 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   ) async {
     if (SessionManager().isLoggedIn) {
       emit(GetNotificationsLoadingState());
+       final Box cacheBox = await Hive.openBox('notificationsCache');
+       String cacheKey = "notifications_${event.tab}";
+      if (cacheBox.containsKey(cacheKey)) {
+        final cachedData = cacheBox.get(cacheKey) as List<dynamic>? ?? [];
+        if (cachedData.isNotEmpty) {
+          final cachedNotifications = cachedData
+              .map((e) => TalkamNotification.fromJson(Map<String, dynamic>.from(e)))
+              .toList();          
+          emit(GetNotificationsSuccessState(response: cachedNotifications));
+        }
+      }
       try {
         _currentPage = 1;
         _hasReachedEndOfList = false;
         final notificationResponse = await _notificationsRepository.getNotifications(_currentPage, tab: event.tab);
+        final fetchedNotifications = notificationResponse.data.cast<TalkamNotification>();
+        final messagesJson = fetchedNotifications.map((e) => e.toJson()).toList();
+
+        await cacheBox.put(cacheKey, messagesJson);
         // await _firebaseMessagingService.onUpdatePalynxNotification(false);
         emit(GetNotificationsSuccessState(response: notificationResponse.data));
       } catch (e, stack) {

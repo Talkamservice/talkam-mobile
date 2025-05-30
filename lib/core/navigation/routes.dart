@@ -54,6 +54,7 @@ import 'package:talkam/features/search/presentation/screens/search_screen.dart';
 import 'package:talkam/features/subscription/presentation/screens/subscription_screen.dart';
 
 import '../../common/widgets/custom_dialogs.dart';
+import '../../features/authentication/presentation/screens/onboarding.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'rootNavigator');
 final _shellNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'shellA');
@@ -332,6 +333,13 @@ class CustomRoutes {
         name: PageUrl.createAdsScreen,
         pageBuilder: (context, state) => const NoTransitionPage(
           child: AdsFlowPage(),
+        ),
+      ),
+      GoRoute(
+        path: '/onboardingScreen',
+        name: PageUrl.onboardingScreen,
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: OnboardingScreen(),
         ),
       ),
       StatefulShellRoute.indexedStack(

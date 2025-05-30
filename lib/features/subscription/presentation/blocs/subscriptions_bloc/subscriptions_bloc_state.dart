@@ -1,9 +1,6 @@
 part of 'subscriptions_bloc_cubit.dart';
 
 
-
-
-
 @freezed
 class SubscriptionsState with _$SubscriptionsState {
   const factory SubscriptionsState.initial() = _Initial;

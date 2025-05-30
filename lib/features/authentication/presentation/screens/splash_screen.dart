@@ -83,19 +83,10 @@ class _SplashScreenState extends State<SplashScreen>
     } else {
 
       if(SessionManager().hasOnboarded){
-
-
-
-
         context.goNamed(PageUrl.homeScreen);
-
       }else{
-        context.goNamed(PageUrl.onboardingIntro);
-
+        context.goNamed(PageUrl.onboardingScreen);
       }
-
-
-
     }
 
   }

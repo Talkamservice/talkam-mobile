@@ -11,6 +11,8 @@ abstract class Pallets {
   static const splash = Color(0xFF002C3C);
   static const boldBlack = Color(0xFF1A1A1A);
   static const blueBubbleColor = Color(0xFF017FC8);
+  static const blueOnboardColor = Color(0xFF0365A1);
+
 
   static const anonymousBg = Color(0xFFFDD78D);
   static const pollTrackColor = Color(0xFFBAE4FD);

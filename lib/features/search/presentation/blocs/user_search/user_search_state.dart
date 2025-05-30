@@ -1,5 +1,6 @@
 part of 'user_search_cubit.dart';
 
+
 @freezed
 class UserSearchState with _$UserSearchState {
 

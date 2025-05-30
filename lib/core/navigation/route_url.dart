@@ -10,6 +10,7 @@ class PageUrl {
   static const emailSentScreen = 'emailSentScreen';
   static const interestsScreen = 'interestsScreen';
   static const userNameScreen = 'userNameScreen';
+  static const onboardingScreen = 'onboardingScreen';
 
   static const homeScreen = 'homeScreen';
 

@@ -40,7 +40,7 @@ class _IntroScreenState extends State<IntroScreen> with AuthSuccessMixin {
                 imageUrl: "Assets.images.gif.intro.path",
                 height: 1.sh,
                 width: 1.sw,
-                fit: BoxFit.cover,
+                fit: BoxFit.cover,      
               ),
               Container(
                 height: 1.sh,

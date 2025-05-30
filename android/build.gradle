@@ -1,7 +1,28 @@
+buildscript {
+    ext.kotlin_version = '1.9.21'
+    repositories {
+        google()
+        mavenCentral()
+    }
+   
+    dependencies {
+        classpath 'com.android.tools.build:gradle:7.2.0'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
 allprojects {
     repositories {
         google()
         mavenCentral()
+    }
+   configurations.all {
+        resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == "com.google.errorprone" &&
+                details.requested.name == "error_prone_annotations") {
+                details.useVersion "2.5.1"
+            }
+        }
     }
 }
 
@@ -9,11 +30,12 @@ rootProject.buildDir = "../build"
 subprojects {
     project.buildDir = "${rootProject.buildDir}/${project.name}"
 }
-
 subprojects {
-    afterEvaluate {
-        android {
-            compileSdkVersion 34
+    afterEvaluate { project ->
+        if (project.hasProperty("android")) {
+            project.android {
+                compileSdkVersion 34
+            }
         }
     }
 }
@@ -24,8 +46,5 @@ subprojects {
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
 }
-
-
-
 
 apply from: 'pusher_channels_flutter_fix.gradle'
