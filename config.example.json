@@ -1,0 +1,17 @@
+{
+  "PROD_BASE_URL": "https://talkam.prodevs.io/api/v1",
+  "DEV_BASE_URL": "https://talkam.prodevs.io/api/v1",
+  "WEB_PROD_BASE_URL": "https://web.talkam.prodevs.io/",
+  "WEB_DEV_BASE_URL": "https://web.talkam.prodevs.io/",
+  "MESSAGE_USER_EMAIL": "",
+  "MESSAGE_USER_PASSKEY": "",
+  "SUPPORT_NUMBER": "08057116157",
+  "SUPPORT_EMAIL": "raycoon@gmail.com",
+  "SUPPORT_GOOGLE_PLACES_API_KEY": "",
+  "STRIPE_TEST_KEY": "",
+  "STRIPE_SECRET_KEY": "",
+  "FLUTTER_WAVE_TEST_KEY": "",
+  "FLUTTER_WAVE_SECRET_TEST_KEY": "",
+  "FLUTTER_WAVE_LIVE_KEY": "",
+  "FLUTTER_WAVE_SECRET_LIVE_KEY": ""
+}
