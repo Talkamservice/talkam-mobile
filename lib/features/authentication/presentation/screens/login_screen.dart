@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
-import 'package:talkam/common/widgets/image_widget.dart';
-import 'package:talkam/common/widgets/outlined_form_field.dart';
+import 'package:talkam/common/widgets/custom_outlined_button.dart';
+import 'package:talkam/common/widgets/custom_text_field.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/mixins/returning_user_mixin.dart';
 import 'package:talkam/core/navigation/route_url.dart';
-import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
+
+import '../../../../core/theme/pallets.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -36,101 +38,212 @@ class _LoginScreenState extends State<LoginScreen> with ReturningUserMixin {
       listener: _listenToAuthBloc,
       builder: (context, state) {
         return Scaffold(
-          appBar: CustomAppBar(
-            fgColor: context.colorScheme.onSurface,
-            tittle: ImageWidget(imageUrl: Assets.images.svgs.logo2),
-          ),
-          bottomNavigationBar: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 24),
-            child: CustomButton(
-              child: const TextView(
-                text: "Login",
-                fontSize: 15,
-                fontWeight: FontWeight.w700,
-              ),
-              onPressed: () {
-                login(context);
-              },
-            ),
+          backgroundColor: Colors.white,
+          appBar: const CustomAppBar(
+            bgColor: Colors.transparent,
+            elevation: 0,
           ),
           body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
             child: Form(
               key: formKey,
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    29.verticalSpace,
                     const TextView(
-                      text: "Sign In",
+                      text: "Welcome Back",
                       fontSize: 24,
                       fontWeight: FontWeight.w700,
+                      color: Pallets.boldBlackV2,
                     ),
-                    4.verticalSpace,
-                    Row(
-                      children: [
-                        const TextView(
-                          text: "Don’t have an account? ",
-                        ),
-                        TextView(
-                          text: "Create one",
-                          color: context.colorScheme.primary,
-                          fontWeight: FontWeight.w700,
-                          onTap: () {
-                            context.pushNamed(PageUrl.signUp);
-                          },
-                        ),
-                      ],
+                    8.verticalSpace,
+                    const TextView(
+                      text:
+                          "Join a community that understands. Post anonymously and find support.",
+                      fontSize: 14,
+                      fontWeight: FontWeight.w500,
+                      color: Pallets.grey400,
+                      lineHeight: 1.4,
                     ),
-                    39.verticalSpace,
-                    OutlinedFormField(
-                        controller: emailController,
-                        validator: MultiValidator([
-                          RequiredValidator(errorText: "Field is required"),
-                          MinLengthValidator(5,
-                              errorText:
-                                  "User name should be up to 5 characters"),
-                        ]).call,
-                        placeHolder: "Username / Email address",
-                        hint: "Enter your email address or Username"),
-                    16.verticalSpace,
-                    OutlinedFormField(
-                      hint: "Enter your password",
-                      placeHolder: "Password",
-                      obscure: passwordObscured,
+                    32.verticalSpace,
+
+                    // Email Field
+                    CustomTextField(
+                      label: "Email Address",
+                      hint: "Enter your Email Address",
+                      controller: emailController,
+                      keyboardType: TextInputType.emailAddress,
+                      validator: MultiValidator([
+                        RequiredValidator(errorText: "Field is required"),
+                        EmailValidator(
+                            errorText: "Enter a valid email address"),
+                      ]).call,
+                    ),
+
+                    20.verticalSpace,
+
+                    // Password Field
+                    CustomTextField(
+                      label: "Password",
+                      hint: "Enter your Password",
                       controller: passwordController,
+                      obscureText: passwordObscured,
                       validator: MultiValidator([
                         RequiredValidator(errorText: "Field is required"),
                         MinLengthValidator(8,
-                            errorText: "Password should be up to 8 characters"),
+                            errorText:
+                                "Password should be at least 8 characters"),
                       ]).call,
-                      suffix: InkWell(
-                        onTap: () {
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          passwordObscured
+                              ? Icons.visibility_off_outlined
+                              : Icons.visibility_outlined,
+                          color: Pallets.grey400,
+                        ),
+                        onPressed: () {
                           setState(() {
                             passwordObscured = !passwordObscured;
                           });
                         },
-                        child: Icon(
-                          passwordObscured
-                              ? Icons.visibility_off_outlined
-                              : Icons.visibility_outlined,
-                          color: context.colorScheme.onBackground,
+                      ),
+                    ),
+
+                    12.verticalSpace,
+
+                    // Forgot Password
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: GestureDetector(
+                        onTap: () {
+                          context.pushNamed(PageUrl.passwordRecoveryScreen);
+                        },
+                        child: const TextView(
+                          text: "Forgot Password?",
+                          color: Pallets.blueBubbleColor,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 14,
                         ),
                       ),
                     ),
+
+                    24.verticalSpace,
+
+                    // OR divider
+                    Row(
+                      children: [
+                        const Expanded(
+                            child:
+                                Divider(color: Pallets.grey90, thickness: 1)),
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 16.w),
+                          child: const TextView(
+                            text: "or",
+                            fontSize: 14,
+                            color: Pallets.boldBlack,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const Expanded(
+                            child:
+                                Divider(color: Pallets.grey90, thickness: 1)),
+                      ],
+                    ),
+
+                    32.verticalSpace,
+
+                    // Google Button
+                    CustomOutlinedButton(
+                      onPressed: () {},
+                      borderColor: Pallets.grey90,
+                      borderRadius: BorderRadius.circular(14.r),
+                      padding: EdgeInsets.symmetric(vertical: 14.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(Assets.images.svgs.googleAuth,
+                              height: 20.w),
+                          12.horizontalSpace,
+                          const TextView(
+                            text: "Continue with Google",
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: Pallets.boldBlack,
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    8.verticalSpace,
+
+                    // Apple Button
+                    CustomOutlinedButton(
+                      onPressed: () {},
+                      borderColor: Pallets.grey90,
+                      borderRadius: BorderRadius.circular(14.r),
+                      padding: EdgeInsets.symmetric(vertical: 14.h),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(Assets.images.svgs.appleDark,
+                              height: 20.w),
+                          12.horizontalSpace,
+                          const TextView(
+                            text: "Continue with Apple",
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: Pallets.boldBlack,
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    24.verticalSpace,
+
+                    // Sign in Button
+                    CustomButton(
+                      onPressed: () {
+                        login(context);
+                      },
+                      bgColor: Pallets.blueBubbleColor,
+                      borderRadius: BorderRadius.circular(14.r),
+                      padding: EdgeInsets.symmetric(vertical: 14.h),
+                      child: const TextView(
+                        text: "Sign in",
+                        fontSize: 14,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    ),
+
                     18.verticalSpace,
-                    Align(
-                      alignment: Alignment.bottomRight,
-                      child: TextButton(
-                          onPressed: () {
-                            context.pushNamed(PageUrl.passwordRecoveryScreen);
+
+                    // Don't have an account
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        const TextView(
+                          text: "Don’t have an Account? ",
+                          fontSize: 14,
+                          color: Pallets.grey500,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            context.pushNamed(PageUrl.signUp);
                           },
                           child: const TextView(
-                            text: "Forgot Password",
+                            text: "Sign Up",
+                            fontSize: 14,
+                            color: Pallets.blueBubbleColor,
                             fontWeight: FontWeight.w700,
-                          )),
-                    )
+                          ),
+                        ),
+                      ],
+                    ),
+
+                    40.verticalSpace,
                   ],
                 ),
               ),

@@ -1,14 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:talkam/common/widgets/custom_back_button.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const
-  CustomAppBar({
+  const CustomAppBar({
     super.key,
     this.actions,
     this.leading,
@@ -42,7 +40,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showDivider;
 
   @override
-
   Widget build(BuildContext context) {
     return Padding(
       padding: padding ?? EdgeInsets.symmetric(horizontal: 0.w),
@@ -55,12 +52,23 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             toolbarHeight: height,
             elevation: elevation ?? 0,
             centerTitle: centerTile,
-            iconTheme: IconThemeData(color: fgColor ?? context.colorScheme.onSurface),
+            iconTheme:
+                IconThemeData(color: fgColor ?? context.colorScheme.onSurface),
             surfaceTintColor: bgColor ?? Colors.transparent,
             titleTextStyle: GoogleFonts.sora(
-                fontWeight: FontWeight.w600, fontSize: 16, color: Theme.of(context).colorScheme.onSurface),
+                fontWeight: FontWeight.w600,
+                fontSize: 16,
+                color: Theme.of(context).colorScheme.onSurface),
             leadingWidth: leadingWidth,
-            leading: canGoBack! ? null : 0.verticalSpace,
+            leading: leading ??
+                (canGoBack!
+                    ? IconButton(
+                        icon: Icon(Icons.arrow_back_ios_new,
+                            color: fgColor ?? Pallets.boldBlack),
+                        onPressed:
+                            onBackPressed ?? () => Navigator.pop(context),
+                      )
+                    : 0.verticalSpace),
             title: tittle ??
                 TextView(
                   text: tittleText ?? '',

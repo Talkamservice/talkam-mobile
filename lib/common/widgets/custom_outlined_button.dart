@@ -51,7 +51,7 @@ class _CustomOutlinedButtonState extends State<CustomOutlinedButton> {
     final effectiveRadius = widget.borderRadius ??
         (widget.radius != null
             ? BorderRadius.circular(widget.radius!)
-            : BorderRadius.circular(18.r));
+            : BorderRadius.circular(14.r));
     final effectiveFgColor = widget.foregroundColor ??
         widget.foreGroundColor ??
         Theme.of(context).colorScheme.onPrimary;
@@ -64,7 +64,7 @@ class _CustomOutlinedButtonState extends State<CustomOutlinedButton> {
           child: OutlinedButton(
             onPressed: widget.onPressed,
             style: OutlinedButton.styleFrom(
-              padding: widget.padding ?? const EdgeInsets.all(16),
+              padding: widget.padding ?? const EdgeInsets.all(14),
               foregroundColor: effectiveFgColor,
               backgroundColor: widget.bgColor,
               side: BorderSide(

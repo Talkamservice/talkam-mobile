@@ -143,6 +143,18 @@ class $AssetsImagesPngGen {
 class $AssetsImagesSvgsGen {
   const $AssetsImagesSvgsGen();
 
+  /// File path: assets/images/svgs/calendar-03.svg
+  String get calendar3 => 'assets/images/svgs/calendar-03.svg';
+
+  /// File path: assets/images/svgs/apple_dark.svg
+  String get appleDark => 'assets/images/svgs/apple_dark.svg';
+
+  /// File path: assets/images/svgs/user-03.svg
+  String get user3 => 'assets/images/svgs/user-03.svg';
+
+  /// File path: assets/images/svgs/brain.svg
+  String get brain => 'assets/images/svgs/brain.svg';
+
   /// File path: assets/images/svgs/icon.svg
   String get appIcon => 'assets/images/svgs/icon.svg';
 

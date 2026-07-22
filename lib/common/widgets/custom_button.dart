@@ -49,7 +49,7 @@ class _CustomButtonState extends State<CustomButton> {
                     Theme.of(context).colorScheme.onPrimary,
                 shape: RoundedRectangleBorder(
                     borderRadius:
-                        widget.borderRadius ?? BorderRadius.circular(18.r)),
+                        widget.borderRadius ?? BorderRadius.circular(14.r)),
                 disabledBackgroundColor: widget.bgColor == null
                     ? Theme.of(context).colorScheme.primary.withAlpha(-200)
                     : widget.bgColor!.withAlpha(-200),

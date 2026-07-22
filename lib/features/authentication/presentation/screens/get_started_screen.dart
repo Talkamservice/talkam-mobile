@@ -97,10 +97,10 @@ class _GetStartedButton extends StatelessWidget {
       onPressed: onPressed,
       elevation: 0,
       bgColor: Pallets.blueBubbleColor,
-      padding: EdgeInsets.symmetric(vertical: 17.h),
+      padding: EdgeInsets.symmetric(vertical: 14.h),
       child: const TextView(
         text: 'Get Started',
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: FontWeight.w700,
         color: Pallets.white,
       ),
@@ -119,10 +119,10 @@ class _SignInButton extends StatelessWidget {
     return CustomOutlinedButton(
       onPressed: onPressed,
       borderColor: Pallets.borderGrey,
-      padding: EdgeInsets.symmetric(vertical: 17.h),
+      padding: EdgeInsets.symmetric(vertical: 14.h),
       child: const TextView(
         text: 'Sign In',
-        fontSize: 16,
+        fontSize: 14,
         fontWeight: FontWeight.w700,
         color: Pallets.boldBlack,
       ),
