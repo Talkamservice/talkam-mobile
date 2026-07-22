@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:talkam/common/widgets/image_widget.dart';
-import 'package:talkam/core/constants/package_exports.dart';
-import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/mixins/returning_user_mixin.dart';
-import 'package:talkam/core/navigation/route_url.dart';
-import 'package:talkam/core/services/data/session_manager.dart';
-import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
-import 'package:talkam/gen/assets.gen.dart';
+import 'package:talkam/features/authentication/presentation/widgets/app_logo.dart';
+
+import '../../../../core/constants/package_exports.dart';
+import '../../../../core/di/injector.dart';
+import '../../../../core/navigation/route_url.dart';
+import '../../../../core/services/data/session_manager.dart';
+import '../../../profile/presentation/bloc/profile_bloc/profile_bloc.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
@@ -15,60 +15,48 @@ class SplashScreen extends StatefulWidget {
   State createState() => _SplashScreenState();
 }
 
-class _SplashScreenState extends State<SplashScreen>
-    with SingleTickerProviderStateMixin, ReturningUserMixin {
+class _SplashScreenState extends State<SplashScreen> with ReturningUserMixin {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> dialogKey = GlobalKey<FormState>();
 
-  late Animation<double> animation;
-  AnimationController? animationCtrl;
+  /// Key used to call [AppLogoWidgetState.forward] after the first frame.
+  final GlobalKey<AppLogoWidgetState> _logoKey =
+      GlobalKey<AppLogoWidgetState>();
 
   @override
   void initState() {
     super.initState();
-    animationCtrl = AnimationController(
-      duration: const Duration(seconds: 4),
-      vsync: this,
-    );
-    animation = Tween<double>(begin: 0, end: 100).animate(
-      CurvedAnimation(
-        parent: animationCtrl!,
-        curve: Curves.easeIn,
-      ),
-    );
 
-    // Future.delayed(Duration.zero, () {
-    //
-    //   ref.read(setupProfileProvider.notifier).getDataConfigs();
-    //   // ref.read(locationProvider.notifier).caller();
-    // });
-
-    animationCtrl?.forward();
-    animation.addListener(() async {
-      if (animation.isCompleted ?? false) {
-        _goToNextScreen();
-      }
+    // Start the logo animation on the first rendered frame.
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _logoKey.currentState?.addStatusListener((status) {
+        if (status == AnimationStatus.completed) {
+          // Short pause after animation settles, then navigate.
+          Future.delayed(const Duration(milliseconds: 500), _goToNextScreen);
+        }
+      });
+      _logoKey.currentState?.forward();
     });
   }
 
   @override
   void dispose() {
-    super.dispose();
     dialogKey.currentState?.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
-      body: Center(
-        child: IgnorePointer(
-          child: ImageWidget(
-            // size: 100,
-            width: 100,
-            height: 100,
-            fit: BoxFit.cover,
-            imageUrl: Assets.images.png.appIcon.path,
+      backgroundColor: Colors.white,
+      body: ClipRect(
+        child: Center(
+          child: IgnorePointer(
+            child: AppLogoWidget(
+              key: _logoKey,
+              iconHeight: 72,
+            ),
           ),
         ),
       ),
@@ -76,18 +64,14 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   void _goToNextScreen() {
-    // context.goNamed(PageUrl.userNameScreen);
-
     if (SessionManager.instance.isLoggedIn) {
       gotoNextScreen(context, injector.get<ProfileBloc>().appUser!);
     } else {
-
-      if(SessionManager().hasOnboarded){
-        context.goNamed(PageUrl.homeScreen);
-      }else{
+      if (SessionManager().hasOnboarded) {
+        context.goNamed(PageUrl.getStartedScreen);
+      } else {
         context.goNamed(PageUrl.onboardingScreen);
       }
     }
-
   }
 }

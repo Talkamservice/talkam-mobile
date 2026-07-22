@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:talkam/core/theme/pallets.dart';
 
 class AppStyles {
-
   static InputDecoration filledTextFieldDecoration = InputDecoration(
     filled: true,
     contentPadding: const EdgeInsets.symmetric(horizontal: 10, vertical: 16),
@@ -12,9 +11,8 @@ class AppStyles {
         borderRadius: BorderRadius.circular(10)),
   );
 
-  static BoxDecoration customFilledTextFieldBoxDecoration =  BoxDecoration(
-      color: Pallets.white,
-      borderRadius: BorderRadius.circular(17));
+  static BoxDecoration customFilledTextFieldBoxDecoration = BoxDecoration(
+      color: Pallets.white, borderRadius: BorderRadius.circular(17));
 
   static ShapeDecoration customBorderedTextFieldBoxDecoration = ShapeDecoration(
       color: Pallets.white,

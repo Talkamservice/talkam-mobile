@@ -13,6 +13,7 @@ import 'package:talkam/features/authentication/presentation/screens/login_screen
 import 'package:talkam/features/authentication/presentation/screens/password_recovery_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/password_reset_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/signup_screen.dart';
+import 'package:talkam/features/authentication/presentation/screens/get_started_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/splash_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/username_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/verify_otp_screen.dart';
@@ -76,6 +77,11 @@ class CustomRoutes {
         path: '/splash',
         name: PageUrl.splash,
         builder: (context, state) => const SplashScreen(),
+      ),
+      GoRoute(
+        path: '/getStarted',
+        name: PageUrl.getStartedScreen,
+        builder: (context, state) => const GetStartedScreen(),
       ),
       GoRoute(
         path: '/onboardingIntro',

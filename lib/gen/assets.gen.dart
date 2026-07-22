@@ -100,6 +100,22 @@ class $AssetsImagesPngGen {
   AssetGenImage get womanDriving =>
       const AssetGenImage('assets/images/png/woman_driving.png');
 
+  /// File path: assets/images/png/frame1.png
+  AssetGenImage get frame1 =>
+      const AssetGenImage('assets/images/png/frame_1.png');
+
+  /// File path: assets/images/png/frame2.png
+  AssetGenImage get frame2 =>
+      const AssetGenImage('assets/images/png/frame_2.png');
+
+  /// File path: assets/images/png/frame3.png
+  AssetGenImage get frame3 =>
+      const AssetGenImage('assets/images/png/frame_3.png');
+
+  /// File path: assets/images/png/frame3second.png
+  AssetGenImage get frame3second =>
+      const AssetGenImage('assets/images/png/frame_3_2nd.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
         add,
@@ -116,12 +132,26 @@ class $AssetsImagesPngGen {
         sports,
         thumb,
         woman,
-        womanDriving
+        womanDriving,
+        frame1,
+        frame2,
+        frame3,
+        frame3second
       ];
 }
 
 class $AssetsImagesSvgsGen {
   const $AssetsImagesSvgsGen();
+
+  /// File path: assets/images/svgs/icon.svg
+  String get appIcon => 'assets/images/svgs/icon.svg';
+
+  /// File path: assets/images/svgs/icon-tech-service.svg
+  String get appIconTechServiceText =>
+      'assets/images/svgs/icon-tech-service.svg';
+
+  /// File path: assets/images/svgs/icon-talkam.svg
+  String get appIconTalkamText => 'assets/images/svgs/icon-talkam.svg';
 
   /// File path: assets/images/svgs/Empty-cuate.svg
   String get emptyCuate => 'assets/images/svgs/Empty-cuate.svg';

@@ -1,7 +1,7 @@
 import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
@@ -11,7 +11,6 @@ import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
-import 'package:talkam/core/services/firebase/remote_config_service.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/authentication/dormain/mixins/auth_success_mixin.dart';
 import 'package:talkam/features/authentication/presentation/bloc/auth_bloc.dart';
@@ -40,7 +39,7 @@ class _IntroScreenState extends State<IntroScreen> with AuthSuccessMixin {
                 imageUrl: "Assets.images.gif.intro.path",
                 height: 1.sh,
                 width: 1.sw,
-                fit: BoxFit.cover,      
+                fit: BoxFit.cover,
               ),
               Container(
                 height: 1.sh,
@@ -72,16 +71,16 @@ class _IntroScreenState extends State<IntroScreen> with AuthSuccessMixin {
                                 bgColor: Pallets.white,
                                 foregroundColor: Pallets.black,
                                 borderRadius: BorderRadius.circular(8.r),
-                                padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 20.w),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 16.h, horizontal: 20.w),
                                 onPressed: () {
-
                                   _authBloc.add(const AppleAuthEvent());
-
                                 },
                                 child: Row(
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    ImageWidget(imageUrl: Assets.images.svgs.apple),
+                                    ImageWidget(
+                                        imageUrl: Assets.images.svgs.apple),
                                     const Expanded(
                                         child: TextView(
                                       text: 'Login with Apple ID',
@@ -91,47 +90,47 @@ class _IntroScreenState extends State<IntroScreen> with AuthSuccessMixin {
                                   ],
                                 ),
                               ),
-                            if(false)
+                            if (false) 12.verticalSpace,
+                            if (false)
+                              CustomButton(
+                                bgColor: Pallets.white,
+                                foregroundColor: Pallets.black,
+                                borderRadius: BorderRadius.circular(8.r),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 16.h, horizontal: 20.w),
+                                onPressed: () {
+                                  _authBloc.add(const FacebookAuthEvent());
 
-                            12.verticalSpace,
-                            if(false)
-
-                            CustomButton(
-                              bgColor: Pallets.white,
-                              foregroundColor: Pallets.black,
-                              borderRadius: BorderRadius.circular(8.r),
-                              padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 20.w),
-                              onPressed: () {
-                                _authBloc.add(const FacebookAuthEvent());
-
-                                // context.pushNamed(PageUrl.termsScreen);
-                              },
-                              child: Row(
-                                children: [
-                                  ImageWidget(imageUrl: Assets.images.svgs.facebook),
-                                  const Expanded(
-                                      child: TextView(
-                                    text: 'Login with Facebook',
-                                    align: TextAlign.center,
-                                    fontWeight: FontWeight.w700,
-                                  )),
-                                ],
+                                  // context.pushNamed(PageUrl.termsScreen);
+                                },
+                                child: Row(
+                                  children: [
+                                    ImageWidget(
+                                        imageUrl: Assets.images.svgs.facebook),
+                                    const Expanded(
+                                        child: TextView(
+                                      text: 'Login with Facebook',
+                                      align: TextAlign.center,
+                                      fontWeight: FontWeight.w700,
+                                    )),
+                                  ],
+                                ),
                               ),
-                            ),
-
                             12.verticalSpace,
                             CustomButton(
                               bgColor: Pallets.white,
                               foregroundColor: Pallets.black,
                               borderRadius: BorderRadius.circular(8.r),
-                              padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 20.w),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 16.h, horizontal: 20.w),
                               onPressed: () {
                                 _authBloc.add(const GoogleAuthEvent());
                                 // context.pushNamed(PageUrl.termsScreen);
                               },
                               child: Row(
                                 children: [
-                                  ImageWidget(imageUrl: Assets.images.svgs.googleAuth),
+                                  ImageWidget(
+                                      imageUrl: Assets.images.svgs.googleAuth),
                                   const Expanded(
                                       child: TextView(
                                     text: 'Login with Google',
@@ -141,33 +140,32 @@ class _IntroScreenState extends State<IntroScreen> with AuthSuccessMixin {
                                 ],
                               ),
                             ),
-
                             12.verticalSpace,
-                            if(false)
-                            CustomButton(
-                              bgColor: Pallets.white,
-                              foregroundColor: Pallets.black,
-                              borderRadius: BorderRadius.circular(8.r),
-                              padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 20.w),
-                              onPressed: () {
-                                _authBloc.add(const TikTokAuthEvent());
-                                // context.pushNamed(PageUrl.termsScreen);
-                              },
-                              child: Row(
-                                children: [
-                                  ImageWidget(imageUrl: Assets.images.svgs.tiktok),
-                                  const Expanded(
-                                      child: TextView(
-                                    text: 'Login with TikTok',
-                                    align: TextAlign.center,
-                                    fontWeight: FontWeight.w700,
-                                  )),
-                                ],
+                            if (false)
+                              CustomButton(
+                                bgColor: Pallets.white,
+                                foregroundColor: Pallets.black,
+                                borderRadius: BorderRadius.circular(8.r),
+                                padding: EdgeInsets.symmetric(
+                                    vertical: 16.h, horizontal: 20.w),
+                                onPressed: () {
+                                  _authBloc.add(const TikTokAuthEvent());
+                                  // context.pushNamed(PageUrl.termsScreen);
+                                },
+                                child: Row(
+                                  children: [
+                                    ImageWidget(
+                                        imageUrl: Assets.images.svgs.tiktok),
+                                    const Expanded(
+                                        child: TextView(
+                                      text: 'Login with TikTok',
+                                      align: TextAlign.center,
+                                      fontWeight: FontWeight.w700,
+                                    )),
+                                  ],
+                                ),
                               ),
-                            ),
-                            if(false)
-
-                            16.verticalSpace,
+                            if (false) 16.verticalSpace,
                             const Center(
                               child: TextView(
                                 text: "or",
@@ -180,7 +178,8 @@ class _IntroScreenState extends State<IntroScreen> with AuthSuccessMixin {
                               bgColor: Pallets.white,
                               foregroundColor: Pallets.black,
                               borderRadius: BorderRadius.circular(8.r),
-                              padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 20.w),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 16.h, horizontal: 20.w),
                               onPressed: () {
                                 context.pushNamed(PageUrl.login);
                               },
@@ -195,7 +194,8 @@ class _IntroScreenState extends State<IntroScreen> with AuthSuccessMixin {
                               bgColor: Pallets.white,
                               foregroundColor: Pallets.black,
                               borderRadius: BorderRadius.circular(8.r),
-                              padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 20.w),
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 16.h, horizontal: 20.w),
                               onPressed: () {
                                 SessionManager().hasOnboarded = true;
 
@@ -228,8 +228,6 @@ class _IntroScreenState extends State<IntroScreen> with AuthSuccessMixin {
       },
     );
   }
-
-
 
   void _listenToAuthBloc(BuildContext context, AuthState state) {
     if (state is OauthLoadingState) {

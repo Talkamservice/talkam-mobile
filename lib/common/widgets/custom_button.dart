@@ -45,9 +45,14 @@ class _CustomButtonState extends State<CustomButton> {
               style: ElevatedButton.styleFrom(
                 elevation: widget.elevation,
                 padding: widget.padding ?? const EdgeInsets.all(16),
-                foregroundColor: widget.foregroundColor ?? Theme.of(context).colorScheme.onPrimary,
-                shape: RoundedRectangleBorder(borderRadius: widget.borderRadius ?? BorderRadius.circular(8.r)),
-                disabledBackgroundColor: widget.bgColor == null ? Theme.of(context).colorScheme.primary.withAlpha(-200) : widget.bgColor!.withAlpha(-200),
+                foregroundColor: widget.foregroundColor ??
+                    Theme.of(context).colorScheme.onPrimary,
+                shape: RoundedRectangleBorder(
+                    borderRadius:
+                        widget.borderRadius ?? BorderRadius.circular(18.r)),
+                disabledBackgroundColor: widget.bgColor == null
+                    ? Theme.of(context).colorScheme.primary.withAlpha(-200)
+                    : widget.bgColor!.withAlpha(-200),
                 backgroundColor: widget.bgColor ?? Pallets.blueBubbleColor,
               ),
               child: widget.child ??

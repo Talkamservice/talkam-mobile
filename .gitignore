@@ -45,3 +45,4 @@ app.*.map.json
 # Local config with secrets (use *.example.json as templates)
 config.json
 prod_config.json
+config-staging.json

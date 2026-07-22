@@ -11,6 +11,7 @@ class PageUrl {
   static const interestsScreen = 'interestsScreen';
   static const userNameScreen = 'userNameScreen';
   static const onboardingScreen = 'onboardingScreen';
+  static const getStartedScreen = 'getStartedScreen';
 
   static const homeScreen = 'homeScreen';
 
