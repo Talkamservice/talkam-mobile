@@ -16,6 +16,15 @@ import 'package:talkam/features/authentication/presentation/screens/signup_scree
 import 'package:talkam/features/authentication/presentation/screens/get_started_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/splash_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/anonymous_signin_screen.dart';
+import 'package:talkam/features/authentication/presentation/screens/therapist/therapist_availability_screen.dart';
+import 'package:talkam/features/authentication/presentation/screens/therapist/therapist_onboarding_screen.dart';
+import 'package:talkam/features/authentication/presentation/screens/therapist/therapist_payout_screen.dart';
+import 'package:talkam/features/authentication/presentation/screens/therapist/therapist_personal_info_screen.dart';
+import 'package:talkam/features/authentication/presentation/screens/therapist/therapist_qualifications_screen.dart';
+import 'package:talkam/features/authentication/presentation/screens/therapist/therapist_requirements_screen.dart';
+import 'package:talkam/features/authentication/presentation/screens/therapist/therapist_specialties_screen.dart';
+import 'package:talkam/features/authentication/presentation/screens/therapist/therapist_verification_pending_screen.dart';
+import 'package:talkam/features/therapist_application/presentation/bloc/therapist_application_bloc.dart';
 import 'package:talkam/features/authentication/presentation/screens/user_type_selection_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/username_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/verify_otp_screen.dart';
@@ -153,6 +162,59 @@ class CustomRoutes {
         path: '/userTypeSelectionScreen',
         name: PageUrl.userTypeSelectionScreen,
         builder: (context, state) => const UserTypeSelectionScreen(),
+      ),
+      GoRoute(
+        path: '/therapistOnboardingScreen',
+        name: PageUrl.therapistOnboardingScreen,
+        builder: (context, state) => const TherapistOnboardingScreen(),
+      ),
+      GoRoute(
+        path: '/therapistRequirementsScreen',
+        name: PageUrl.therapistRequirementsScreen,
+        builder: (context, state) => TherapistRequirementsScreen(
+          bloc: state.extra as TherapistApplicationBloc,
+        ),
+      ),
+      GoRoute(
+        path: '/therapistPersonalInfoScreen',
+        name: PageUrl.therapistPersonalInfoScreen,
+        builder: (context, state) => TherapistPersonalInfoScreen(
+          bloc: state.extra as TherapistApplicationBloc,
+        ),
+      ),
+      GoRoute(
+        path: '/therapistQualificationsScreen',
+        name: PageUrl.therapistQualificationsScreen,
+        builder: (context, state) => TherapistQualificationsScreen(
+          bloc: state.extra as TherapistApplicationBloc,
+        ),
+      ),
+      GoRoute(
+        path: '/therapistSpecialtiesScreen',
+        name: PageUrl.therapistSpecialtiesScreen,
+        builder: (context, state) => TherapistSpecialtiesScreen(
+          bloc: state.extra as TherapistApplicationBloc,
+        ),
+      ),
+      GoRoute(
+        path: '/therapistAvailabilityScreen',
+        name: PageUrl.therapistAvailabilityScreen,
+        builder: (context, state) => TherapistAvailabilityScreen(
+          bloc: state.extra as TherapistApplicationBloc,
+        ),
+      ),
+      GoRoute(
+        path: '/therapistPayoutScreen',
+        name: PageUrl.therapistPayoutScreen,
+        builder: (context, state) => TherapistPayoutScreen(
+          bloc: state.extra as TherapistApplicationBloc,
+        ),
+      ),
+      GoRoute(
+        path: '/therapistVerificationPendingScreen',
+        name: PageUrl.therapistVerificationPendingScreen,
+        builder: (context, state) =>
+            const TherapistVerificationPendingScreen(),
       ),
       GoRoute(
         path: '/interestsScreen',

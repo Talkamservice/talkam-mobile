@@ -10,6 +10,15 @@ class PageUrl {
   static const emailSentScreen = 'emailSentScreen';
   static const anonymousSignInScreen = 'anonymousSignInScreen';
   static const userTypeSelectionScreen = 'userTypeSelectionScreen';
+  static const therapistOnboardingScreen = 'therapistOnboardingScreen';
+  static const therapistRequirementsScreen = 'therapistRequirementsScreen';
+  static const therapistPersonalInfoScreen = 'therapistPersonalInfoScreen';
+  static const therapistQualificationsScreen = 'therapistQualificationsScreen';
+  static const therapistSpecialtiesScreen = 'therapistSpecialtiesScreen';
+  static const therapistAvailabilityScreen = 'therapistAvailabilityScreen';
+  static const therapistPayoutScreen = 'therapistPayoutScreen';
+  static const therapistVerificationPendingScreen =
+      'therapistVerificationPendingScreen';
   static const interestsScreen = 'interestsScreen';
   static const userNameScreen = 'userNameScreen';
   static const dataPrivacyScreen = 'dataPrivacyScreen';

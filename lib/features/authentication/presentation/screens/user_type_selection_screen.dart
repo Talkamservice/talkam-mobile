@@ -107,8 +107,7 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
       return;
     }
 
-    // TODO: route the therapist into the professional onboarding flow.
-    // Left unwired deliberately — the destination screen doesn't exist yet.
+    context.pushNamed(PageUrl.therapistOnboardingScreen);
   }
 
   Widget _buildSelectionCard({

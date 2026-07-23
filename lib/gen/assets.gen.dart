@@ -33,6 +33,11 @@ class $AssetsImagesJpegsGen {
   AssetGenImage get logosMastercard =>
       const AssetGenImage('assets/images/jpegs/logos_mastercard.jpg');
 
+
+  /// File path: assets/images/jpegs/therapist_splash.jpg
+  AssetGenImage get therapistSplashJpg =>
+      const AssetGenImage('assets/images/jpegs/therapist_splash.jpg');
+
   /// File path: assets/images/jpegs/manShopping.jpeg
   AssetGenImage get manShopping =>
       const AssetGenImage('assets/images/jpegs/manShopping.jpeg');
@@ -116,8 +121,13 @@ class $AssetsImagesPngGen {
   AssetGenImage get frame3second =>
       const AssetGenImage('assets/images/png/frame_3_2nd.png');
 
+  /// File path: assets/images/png/therapist_splash.png
+  AssetGenImage get therapistSplash =>
+      const AssetGenImage('assets/images/png/therapist_splash.png');
+
   /// List of all assets
   List<AssetGenImage> get values => [
+        therapistSplash,
         add,
         appIcon,
         back1,
@@ -142,6 +152,16 @@ class $AssetsImagesPngGen {
 
 class $AssetsImagesSvgsGen {
   const $AssetsImagesSvgsGen();
+
+
+  /// File path: assets/images/svgs/verification_icon.svg
+  String get verificationIcon => 'assets/images/svgs/verification_icon.svg';
+
+  /// File path: assets/images/svgs/earnings_icon.svg
+  String get earningsIcon => 'assets/images/svgs/earnings_icon.svg';
+
+  /// File path: assets/images/svgs/schedule_icon.svg
+  String get scheduleIcon => 'assets/images/svgs/schedule_icon.svg';
 
   /// File path: assets/images/svgs/calendar-03.svg
   String get calendar3 => 'assets/images/svgs/calendar-03.svg';
@@ -415,8 +435,39 @@ class $AssetsImagesSvgsGen {
   /// File path: assets/images/svgs/user.svg
   String get user => 'assets/images/svgs/user.svg';
 
+  /// File path: assets/images/svgs/checkbox.svg
+  String get checkbox => 'assets/images/svgs/checkbox.svg';
+
+  /// File path: assets/images/svgs/document_delete.svg
+  String get documentDelete => 'assets/images/svgs/document_delete.svg';
+
+  /// File path: assets/images/svgs/error_icon.svg
+  String get errorIcon => 'assets/images/svgs/error_icon.svg';
+
+  /// File path: assets/images/svgs/insurance_icon.svg
+  String get insuranceIcon => 'assets/images/svgs/insurance_icon.svg';
+
+  /// File path: assets/images/svgs/uploading_document_icon.svg
+  String get uploadingDocumentIcon => 'assets/images/svgs/uploading_document_icon.svg';
+
+  /// File path: assets/images/svgs/uploading_document_cancel.svg
+  String get uploadingDocumentCancel => 'assets/images/svgs/uploading_document_cancel.svg';
+
+  /// File path: assets/images/svgs/upload_icon_doc.svg
+  String get uploadIconDoc => 'assets/images/svgs/upload_icon_doc.svg';
+
   /// List of all assets
   List<String> get values => [
+        uploadIconDoc,
+        uploadingDocumentCancel,
+        uploadingDocumentIcon,
+        insuranceIcon,
+        errorIcon,
+        documentDelete,
+        checkbox,
+        verificationIcon,
+        earningsIcon,
+        scheduleIcon,
         emptyCuate,
         groupAdd,
         icNew,

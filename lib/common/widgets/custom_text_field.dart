@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/theme/pallets.dart';
@@ -12,6 +13,17 @@ class CustomTextField extends StatefulWidget {
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
   final void Function(String)? onChanged;
+  final int? maxLines;
+  final int? minLines;
+  final List<TextInputFormatter>? inputFormatters;
+
+  /// Forces the red error style regardless of [validator] — for live
+  /// validation that isn't driven by an ancestor [Form] (e.g. an account
+  /// number checked as the user types). Mirrors OtpField's `hasError`.
+  final bool forceError;
+
+  /// Forces a green "looks good" style. Ignored when [forceError] is true.
+  final bool forceValid;
 
   const CustomTextField({
     super.key,
@@ -23,6 +35,11 @@ class CustomTextField extends StatefulWidget {
     this.validator,
     this.keyboardType,
     this.onChanged,
+    this.maxLines = 1,
+    this.minLines,
+    this.inputFormatters,
+    this.forceError = false,
+    this.forceValid = false,
   });
 
   @override
@@ -34,6 +51,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
 
   @override
   Widget build(BuildContext context) {
+    final hasError = widget.forceError || _hasError;
+    final isValid = !hasError && widget.forceValid;
+    final activeColor =
+        hasError ? Pallets.errorRed : (isValid ? Pallets.successGreen : null);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -51,6 +73,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
           obscureText: widget.obscureText,
           keyboardType: widget.keyboardType,
           onChanged: widget.onChanged,
+          maxLines: widget.obscureText ? 1 : widget.maxLines,
+          minLines: widget.minLines,
+          inputFormatters: widget.inputFormatters,
+          textAlignVertical: (widget.maxLines ?? 1) > 1
+              ? TextAlignVertical.top
+              : TextAlignVertical.center,
           style: TextStyle(
             fontSize: 14.sp,
             color: Pallets.boldBlack,
@@ -76,27 +104,30 @@ class _CustomTextFieldState extends State<CustomTextField> {
             contentPadding:
                 EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
             filled: true,
-            fillColor: _hasError
+            fillColor: hasError
                 ? Pallets.errorRed.withOpacity(0.06)
-                : Colors.white,
+                : (isValid
+                    ? Pallets.successGreen.withOpacity(0.06)
+                    : Colors.white),
             suffixIcon: widget.suffixIcon,
             border: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14.r),
-              borderSide: const BorderSide(color: Pallets.grey90, width: 1),
+              borderSide: BorderSide(
+                color: activeColor ?? Pallets.grey90,
+                width: activeColor != null ? 1.5 : 1,
+              ),
             ),
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14.r),
               borderSide: BorderSide(
-                color: _hasError ? Pallets.errorRed : Pallets.grey90,
-                width: _hasError ? 1.5 : 1,
+                color: activeColor ?? Pallets.grey90,
+                width: activeColor != null ? 1.5 : 1,
               ),
             ),
             focusedBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(14.r),
               borderSide: BorderSide(
-                color: _hasError
-                    ? Pallets.errorRed
-                    : Pallets.blueBubbleColor,
+                color: activeColor ?? Pallets.blueBubbleColor,
                 width: 1.5,
               ),
             ),
