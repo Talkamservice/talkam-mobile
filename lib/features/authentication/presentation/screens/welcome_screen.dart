@@ -74,8 +74,8 @@ class WelcomeScreen extends StatelessWidget {
   /// design without any decorative confetti.
   Widget _buildCheckMark() {
     return Container(
-      height: 220.w,
-      width: 220.w,
+      height: 120.w,
+      width: 120.w,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
         color: Pallets.successGreen.withValues(alpha: 0.05),
