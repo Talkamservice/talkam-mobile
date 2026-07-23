@@ -4,7 +4,6 @@ import 'package:talkam/common/widgets/custom_outlined_button.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/navigation/route_url.dart';
-import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/authentication/presentation/widgets/app_logo.dart';
 
@@ -63,10 +62,8 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
 
                 // "Browse anonymously" text link
                 GestureDetector(
-                  onTap: () {
-                    SessionManager().hasOnboarded = true;
-                    context.goNamed(PageUrl.homeScreen);
-                  },
+                  onTap: () =>
+                      context.pushNamed(PageUrl.anonymousSignInScreen),
                   child: const TextView(
                     text: 'Browse anonymously',
                     color: Pallets.grey60,

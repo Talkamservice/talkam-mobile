@@ -21,6 +21,10 @@ class CustomCountDown extends StatelessWidget {
       timeTextStyle: style,
       minutesDescription: '',
       secondsDescription: '',
+      // Descriptions are blank anyway, and leaving them enabled adds a 5px gap
+      // plus an empty Text line under the digits — which pushes the digits up
+      // relative to any text beside them.
+      enableDescriptions: false,
       format: CountDownTimerFormat.minutesSeconds,
       endTime: endTime ??
           DateTime.now().add(

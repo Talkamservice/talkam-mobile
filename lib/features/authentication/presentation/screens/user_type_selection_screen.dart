@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
+import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
@@ -17,8 +18,11 @@ class UserTypeSelectionScreen extends StatefulWidget {
 }
 
 class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
-  // 0 for "I need support", 1 for "I'm a mental health pro"
-  int _selectedType = 0;
+  static const int _typeUser = 0;
+  static const int _typeTherapist = 1;
+
+  /// Null until the user picks — the Continue button stays disabled.
+  int? _selectedType;
 
   @override
   Widget build(BuildContext context) {
@@ -34,16 +38,15 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              16.verticalSpace,
               // Headline
               const TextView(
                 text: "How will you use Talkam",
-                fontSize: 28,
+                fontSize: 24,
                 fontWeight: FontWeight.w800,
                 color: Pallets.boldBlackV2,
                 align: TextAlign.left,
               ),
-              8.verticalSpace,
+              4.verticalSpace,
               // Subtitle
               const TextView(
                 text: "Choose your experience to get started",
@@ -52,43 +55,38 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
                 color: Pallets.grey400,
                 align: TextAlign.left,
               ),
-              32.verticalSpace,
+              24.verticalSpace,
 
               // Option 1: I need support
               _buildSelectionCard(
-                index: 0,
+                index: _typeUser,
                 title: "I need support",
                 description:
                     "Browse the community anonymously, find a therapist, or book a session.",
                 iconAsset: Assets.images.svgs.user3,
               ),
 
-              24.verticalSpace,
+              12.verticalSpace,
 
               // Option 2: I'm a mental health pro
               _buildSelectionCard(
-                index: 1,
+                index: _typeTherapist,
                 title: "I'm a mental health pro",
                 description:
                     "Apply to join our verified therapist network and start seeing clients.",
                 iconAsset: Assets.images.svgs.brain,
               ),
 
-              const Spacer(),
+              24.verticalSpace,
 
               // Continue Button
               CustomButton(
                 elevation: 0,
-                onPressed: () {
-                  // TODO: Handle navigation based on _selectedType
-                },
-                bgColor: Pallets.blueBubbleColor,
-                borderRadius: BorderRadius.circular(24.r),
-                padding: EdgeInsets.symmetric(vertical: 14.h),
+                onPressed: _selectedType == null ? null : _continue,
                 child: TextView(
-                  text: _selectedType == 0
-                      ? "Continue as User"
-                      : "Continue as Pro",
+                  text: _selectedType == _typeTherapist
+                      ? "Continue as Therapist"
+                      : "Continue as User",
                   fontSize: 14,
                   fontWeight: FontWeight.w700,
                   color: Colors.white,
@@ -101,6 +99,16 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
         ),
       ),
     );
+  }
+
+  void _continue() {
+    if (_selectedType == _typeUser) {
+      context.pushNamed(PageUrl.interestsScreen);
+      return;
+    }
+
+    // TODO: route the therapist into the professional onboarding flow.
+    // Left unwired deliberately — the destination screen doesn't exist yet.
   }
 
   Widget _buildSelectionCard({
@@ -124,10 +132,10 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
           color: isSelected
               ? Pallets.blueBubbleColor.withOpacity(0.05)
               : Colors.white,
-          borderRadius: BorderRadius.circular(20.r),
+          borderRadius: BorderRadius.circular(35.r),
           border: Border.all(
             color: isSelected ? Pallets.blueBubbleColor : Pallets.grey90,
-            width: isSelected ? 1.5 : 1.0,
+            width: 1.0,
           ),
         ),
         child: Column(
@@ -145,19 +153,17 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
                     color: Pallets.blueBubbleColor.withOpacity(0.1),
                     borderRadius: BorderRadius.circular(14.r),
                   ),
-                  child: SvgPicture.asset(
-                    iconAsset,
-                    colorFilter: const ColorFilter.mode(
-                      Pallets.blueBubbleColor,
-                      BlendMode.srcIn,
-                    ),
+                  child: ImageWidget(
+                    imageUrl: iconAsset,
+                    size: 24.w,
+                    color: Pallets.blueBubbleColor,
                   ),
                 ),
                 // Radio Button
                 Container(
-                  height: 24.w,
-                  width: 24.w,
-                  padding: EdgeInsets.all(4.w),
+                  height: 34.w,
+                  width: 34.w,
+                  padding: EdgeInsets.all(6.w),
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     color: Colors.white,

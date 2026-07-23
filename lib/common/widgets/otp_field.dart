@@ -13,7 +13,11 @@ class OtpField extends StatelessWidget {
   final int count;
   final TextEditingController? controller;
 
-  OtpField({
+  /// Forces the red error styling on the boxes — use it to reflect a failed
+  /// verification coming back from the API, not just local validation.
+  final bool hasError;
+
+  const OtpField({
     Key? key,
     this.onCompleted,
     this.validator,
@@ -22,45 +26,55 @@ class OtpField extends StatelessWidget {
     this.useNativeKeyboard = true,
     this.controller,
     this.onChanged,
+    this.hasError = false,
   }) : super(key: key);
-
-  final defaultPinTheme = PinTheme(
-    width: 60.w,
-    height: 65.h,
-
-    margin: EdgeInsets.symmetric(horizontal: 5.w),
-    textStyle: TextStyle(
-      fontSize: 24.sp,
-      color: Colors.black,
-      fontWeight: FontWeight.w500,
-    ),
-    // decoration: const BoxDecoration(
-    //   // color: Pallets.black,
-    //   border: Border(bottom: BorderSide(width: 2,color: Colors.black)),
-    // ),
-    decoration: BoxDecoration(
-      // color: Pallets.white,
-      borderRadius: BorderRadius.circular(7),
-      border: Border.all(color: Pallets.borderGrey),
-    ),
-  );
 
   @override
   Widget build(BuildContext context) {
-    final focusedPinTheme = defaultPinTheme.copyWith(
+    // Shrink the boxes when there are more of them so 6 digits still fit
+    // inside the 24.w screen gutters on narrow devices.
+    final boxWidth = count > 4 ? 48.w : 56.w;
+    final boxHeight = count > 4 ? 60.h : 64.h;
+
+    final defaultPinTheme = PinTheme(
+      width: boxWidth,
+      height: boxHeight,
+      margin: EdgeInsets.symmetric(horizontal: 4.w),
       textStyle: TextStyle(
         fontSize: 24.sp,
-        fontWeight: FontWeight.w600,
+        color: Pallets.boldBlackV2,
+        fontWeight: FontWeight.w700,
       ),
       decoration: BoxDecoration(
-        // color: Pallets.white,
-        borderRadius: BorderRadius.circular(7),
-
-        border: Border.all(color: Pallets.borderGrey),
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14.r),
+        border: Border.all(color: Pallets.grey90, width: 1),
       ),
     );
 
-    final submittedPinTheme = focusedPinTheme;
+    final focusedPinTheme = defaultPinTheme.copyWith(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14.r),
+        border: Border.all(color: Pallets.blueBubbleColor, width: 1.5),
+      ),
+    );
+
+    final submittedPinTheme = defaultPinTheme.copyWith(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(14.r),
+        border: Border.all(color: Pallets.grey75, width: 1),
+      ),
+    );
+
+    final errorPinTheme = defaultPinTheme.copyWith(
+      decoration: BoxDecoration(
+        color: Pallets.errorRed.withOpacity(0.08),
+        borderRadius: BorderRadius.circular(14.r),
+        border: Border.all(color: Pallets.errorRed, width: 1.5),
+      ),
+    );
 
     return Pinput(
       obscureText: obscureText,
@@ -72,6 +86,8 @@ class OtpField extends StatelessWidget {
       defaultPinTheme: defaultPinTheme,
       focusedPinTheme: focusedPinTheme,
       submittedPinTheme: submittedPinTheme,
+      errorPinTheme: errorPinTheme,
+      forceErrorState: hasError,
       controller: controller,
       useNativeKeyboard: useNativeKeyboard,
 
@@ -81,11 +97,6 @@ class OtpField extends StatelessWidget {
 
       pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
       validator: validator,
-
-      //     (s) {
-      //   ///TODO(TAMUNOR): check for the response from api and display the error with this
-      //   // return s == '2222' ? null : 'Pin is incorrect';
-      // },
       onCompleted: onCompleted,
     );
   }

@@ -10,7 +10,6 @@ import 'package:talkam/core/constants/onboarding_texts.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
-import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/authentication/dormain/mixins/auth_success_mixin.dart';
 import 'package:talkam/features/authentication/presentation/bloc/auth_bloc.dart';
@@ -196,11 +195,8 @@ class _IntroScreenState extends State<IntroScreen> with AuthSuccessMixin {
                               borderRadius: BorderRadius.circular(8.r),
                               padding: EdgeInsets.symmetric(
                                   vertical: 16.h, horizontal: 20.w),
-                              onPressed: () {
-                                SessionManager().hasOnboarded = true;
-
-                                context.goNamed(PageUrl.homeScreen);
-                              },
+                              onPressed: () => context
+                                  .pushNamed(PageUrl.anonymousSignInScreen),
                               child: const TextView(
                                 text: 'Continue as Guest',
                                 align: TextAlign.center,

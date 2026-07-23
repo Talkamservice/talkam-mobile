@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/theme/pallets.dart';
-import 'package:talkam/core/utils/extensions/context_extension.dart';
 
 class LifeChipsList<T> extends StatefulWidget {
   const LifeChipsList({
@@ -129,48 +128,33 @@ class CustomChip extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: AnimatedContainer(
-        // margin: const EdgeInsets.all(5),
-        padding: EdgeInsets.symmetric(vertical: 6.h, horizontal: 12.w),
+        padding: EdgeInsets.symmetric(vertical: 8.h, horizontal: 14.w),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
           border: Border.all(
-              width: 1, color: selected ? Pallets.primary : Pallets.grey60),
-          color: selected ? Pallets.primary.withOpacity(0.1) : null,
+            width: 1,
+            color: selected ? Pallets.blueBubbleColor : Pallets.grey90,
+          ),
+          color: selected ? Pallets.blueBubbleColor : Pallets.bgLight,
         ),
-        duration: const Duration(milliseconds: 400),
+        duration: const Duration(milliseconds: 250),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            5.horizontalSpace,
             TextView(
               text: title,
-              fontSize: 13,
-              color: context.colorScheme.onSurface,
-              // fontSize: 14,
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: selected ? Colors.white : Pallets.boldBlackV2,
             ),
-            if (selectionMode == SelectionMode.multiple)
-              Container(
-                child: Row(
-                  children: [
-                    8.horizontalSpace,
-                    Container(
-                      height: 16,
-                      width: 1.w,
-                      color: Pallets.grey60,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.only(
-                        left: 10.w,
-                      ),
-                      child: Icon(
-                        selected ? Icons.close : Icons.add,
-                        color: selected ? Pallets.primary : Pallets.grey60,
-                        size: 18,
-                      ),
-                    )
-                  ],
-                ),
-              )
+            if (selectionMode == SelectionMode.multiple) ...[
+              10.horizontalSpace,
+              Icon(
+                selected ? Icons.close : Icons.add,
+                color: selected ? Colors.white : Pallets.boldBlackV2,
+                size: 18.sp,
+              ),
+            ],
           ],
         ),
       ),

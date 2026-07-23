@@ -15,6 +15,8 @@ import 'package:talkam/features/authentication/presentation/screens/password_res
 import 'package:talkam/features/authentication/presentation/screens/signup_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/get_started_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/splash_screen.dart';
+import 'package:talkam/features/authentication/presentation/screens/anonymous_signin_screen.dart';
+import 'package:talkam/features/authentication/presentation/screens/user_type_selection_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/username_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/verify_otp_screen.dart';
 import 'package:talkam/features/group/data/models/create_group_payload.dart';
@@ -56,12 +58,36 @@ import 'package:talkam/features/subscription/presentation/screens/subscription_s
 
 import '../../common/widgets/custom_dialogs.dart';
 import '../../features/authentication/presentation/screens/onboarding.dart';
+import '../../features/authentication/presentation/screens/welcome_screen.dart';
+import '../../features/privacy/presentation/screens/data_privacy_screen.dart';
+import '../services/data/session_manager.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'rootNavigator');
 final _shellNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'shellA');
 final _shellNavigatorBKey = GlobalKey<NavigatorState>(debugLabel: 'shellB');
 final _shellNavigatorCKey = GlobalKey<NavigatorState>(debugLabel: 'shellC');
 final _shellNavigatorDKey = GlobalKey<NavigatorState>(debugLabel: 'shellD');
+
+/// Tabs inside the main app shell. A guest reaching any of these without an
+/// alias is bounced to the anonymous sign-in screen first.
+const _shellPaths = <String>{
+  '/homeScreen',
+  '/search',
+  '/groups',
+  '/messagingScreen',
+};
+
+/// Guests must choose an alias before entering the app.
+///
+/// This is enforced at the router rather than on each button, so no entry
+/// point — current or future — can land a guest in the shell without one.
+String? _requireAliasForGuests(BuildContext context, GoRouterState state) {
+  if (SessionManager.instance.isLoggedIn) return null;
+  if (SessionManager.instance.anonymousUsername.isNotEmpty) return null;
+  if (!_shellPaths.contains(state.matchedLocation)) return null;
+
+  return '/anonymousSignInScreen';
+}
 
 class CustomRoutes {
   static final goRouter = GoRouter(
@@ -72,6 +98,7 @@ class CustomRoutes {
     // initialLocation: '/profile/setupProfileIntroPage/setupProfilePage',
     navigatorKey: rootNavigatorKey,
     debugLogDiagnostics: true,
+    redirect: _requireAliasForGuests,
     routes: [
       GoRoute(
         path: '/splash',
@@ -118,6 +145,16 @@ class CustomRoutes {
         builder: (context, state) => const EmailSentScreen(),
       ),
       GoRoute(
+        path: '/anonymousSignInScreen',
+        name: PageUrl.anonymousSignInScreen,
+        builder: (context, state) => const AnonymousSignInScreen(),
+      ),
+      GoRoute(
+        path: '/userTypeSelectionScreen',
+        name: PageUrl.userTypeSelectionScreen,
+        builder: (context, state) => const UserTypeSelectionScreen(),
+      ),
+      GoRoute(
         path: '/interestsScreen',
         name: PageUrl.interestsScreen,
         builder: (context, state) => const InterestsScreen(),
@@ -126,6 +163,16 @@ class CustomRoutes {
         path: '/userNameScreen',
         name: PageUrl.userNameScreen,
         builder: (context, state) => const UsernameScreen(),
+      ),
+      GoRoute(
+        path: '/dataPrivacyScreen',
+        name: PageUrl.dataPrivacyScreen,
+        builder: (context, state) => const DataPrivacyScreen(),
+      ),
+      GoRoute(
+        path: '/welcomeScreen',
+        name: PageUrl.welcomeScreen,
+        builder: (context, state) => const WelcomeScreen(),
       ),
       GoRoute(
         path: '/editProfileScreen',
@@ -142,6 +189,7 @@ class CustomRoutes {
         name: PageUrl.passWordResetScreen,
         builder: (context, state) => PassWordResetScreen(
           otp: state.uri.queryParameters[PathParam.otp] ?? "",
+          email: state.uri.queryParameters[PathParam.email] ?? "",
         ),
       ),
       GoRoute(

@@ -56,6 +56,8 @@ class SessionManager {
   static const String NOTIFICATIONS_ENABLED = 'notifications_enabled';
   static const String IS_CONTACT_PERMITTED = 'permit_contact';
   static const String KEY_USER_EMAIL = 'logged_in_user_email';
+  static const String KEY_ANONYMOUS_USERNAME = 'anonymous_username';
+  static const String KEY_CONSENT_SETTINGS = 'consent_settings';
 
 
   Map<String, dynamic> get usersData =>
@@ -105,6 +107,22 @@ class SessionManager {
 
   set balance(String balance) =>
       sharedPreferences!.setString(KEY_BALANCE, balance);
+
+  /// Alias chosen on the anonymous sign-in screen. Device-local only — it is
+  /// never sent to the backend, since guests have no account.
+  String get anonymousUsername =>
+      sharedPreferences!.getString(KEY_ANONYMOUS_USERNAME) ?? '';
+
+  set anonymousUsername(String username) =>
+      sharedPreferences!.setString(KEY_ANONYMOUS_USERNAME, username);
+
+  /// Data & Privacy consents, stored as the JSON encoding of ConsentSettings.
+  /// Device-local until a consent endpoint exists.
+  String get consentSettings =>
+      sharedPreferences!.getString(KEY_CONSENT_SETTINGS) ?? '';
+
+  set consentSettings(String encoded) =>
+      sharedPreferences!.setString(KEY_CONSENT_SETTINGS, encoded);
 
   set isLoggedIn(bool loggedIn) {
     sharedPreferences!.setBool(KEY_IS_LOGIN, loggedIn);

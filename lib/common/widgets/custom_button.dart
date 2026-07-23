@@ -43,7 +43,7 @@ class _CustomButtonState extends State<CustomButton> {
             child: ElevatedButton(
               onPressed: widget.onPressed,
               style: ElevatedButton.styleFrom(
-                elevation: widget.elevation,
+                elevation: widget.elevation ?? 0,
                 padding: widget.padding ?? const EdgeInsets.all(16),
                 foregroundColor: widget.foregroundColor ??
                     Theme.of(context).colorScheme.onPrimary,

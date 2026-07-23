@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:talkam/core/constants/dev_flags.dart';
 import 'package:talkam/core/navigation/path_params.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
@@ -15,9 +16,10 @@ mixin AuthSuccessMixin<T extends StatefulWidget> on State<T> {
         PathParam.otpType: VerifyOtpType.auth.name
       });
 
-    } else if (state.interests.isEmpty) {
+    } else if (!kSkipInterestsGate && state.interests.isEmpty) {
 
-      context.goNamed(PageUrl.interestsScreen);
+      // Onboarding isn't finished — pick the account type before interests.
+      context.goNamed(PageUrl.userTypeSelectionScreen);
 
     } else if (state.username.isEmpty || state.avatar == null) {
 

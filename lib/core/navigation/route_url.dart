@@ -8,8 +8,12 @@ class PageUrl {
   static const verifyOtpScreen = 'verifyOtpScreen';
   static const passwordRecoveryScreen = 'passwordRecoveryScreen';
   static const emailSentScreen = 'emailSentScreen';
+  static const anonymousSignInScreen = 'anonymousSignInScreen';
+  static const userTypeSelectionScreen = 'userTypeSelectionScreen';
   static const interestsScreen = 'interestsScreen';
   static const userNameScreen = 'userNameScreen';
+  static const dataPrivacyScreen = 'dataPrivacyScreen';
+  static const welcomeScreen = 'welcomeScreen';
   static const onboardingScreen = 'onboardingScreen';
   static const getStartedScreen = 'getStartedScreen';
 

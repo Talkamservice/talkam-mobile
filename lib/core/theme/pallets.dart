@@ -34,6 +34,9 @@ abstract class Pallets {
   // static const darkOrange = Color(0xFFEEB21A);
   static const transparentOrage = Color(0xFFFFF8EC);
 
+  /// Amber used for informational notices (border + text on [transparentOrage]).
+  static const noticeAmber = Color(0xFFE0A42B);
+
   // static const secondary = Color(0xFFC1A269);
   // static const secondaryDark = Color(0xFFA47A46);
   static const seconDaryLight = Color(0xFFF4EFE1);

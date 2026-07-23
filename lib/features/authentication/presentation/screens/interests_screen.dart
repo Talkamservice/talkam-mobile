@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/chips_selector_widget.dart';
+import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 import 'package:talkam/features/profile/data/models/update_profile_payload.dart';
@@ -20,107 +22,260 @@ class InterestsScreen extends StatefulWidget {
 }
 
 class _InterestsScreenState extends State<InterestsScreen> {
-  List<PostCategory> selectedInterests = [];
+  static const int _minSelection = 3;
 
-  @override
-  void initState() {
-    postBloc.add(const PostEvent.getCategories());
-    super.initState();
-  }
+  /// Used only when the categories endpoint returns nothing or fails, so the
+  /// user is never trapped on this screen with no way to satisfy [_minSelection].
+  /// Ids are positional placeholders, NOT real backend category ids.
+  static const List<String> _fallbackInterestNames = [
+    'Anxiety',
+    'Depression',
+    'Fear',
+    'Grief',
+    'Bipolar',
+    'OCD',
+    'ADHD',
+    'Addiction',
+    'Eating Disorder',
+    'Psychosis',
+    'Schizophrenia',
+    'Insomnia',
+    'Panic',
+    'PTSD',
+    'Relationships',
+    'Physical Abuse',
+    'Job Loss',
+    'Social Isolation',
+  ];
+
+  late final List<PostCategory> _fallbackInterests = List.generate(
+    _fallbackInterestNames.length,
+    (index) => PostCategory(
+      id: index + 1,
+      name: _fallbackInterestNames[index],
+      uuid: null,
+      description: null,
+      backgroundImage: null,
+      followersCount: null,
+      iconImage: null,
+      createdAt: null,
+      updatedAt: null,
+      parentCategory: null,
+      type: null,
+      isFollowing: false,
+      isSuspended: false,
+      groupAccess: null,
+    ),
+  );
+
+  List<PostCategory> selectedInterests = [];
 
   final postBloc = PostBloc(injector.get());
   final profileBloc = ProfileBloc(injector.get());
 
   @override
+  void initState() {
+    super.initState();
+    postBloc.add(const PostEvent.getCategories());
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return BlocConsumer<PostBloc, PostState>(
-      bloc: postBloc,
-      listener: (context, state) {},
-      builder: (context, state) {
-        return Scaffold(
-          bottomNavigationBar: BlocListener<ProfileBloc, ProfileState>(
-            bloc: profileBloc,
-            listener: _listenToProfileBloc,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Row(
-                    children: [
-                      const Expanded(child: TextView(text: 'Select at least 3')),
-                      TextView(
-                        text: '${selectedInterests.length}/3',
+    return Scaffold(
+      backgroundColor: Colors.white,
+      appBar: const CustomAppBar(
+        bgColor: Colors.transparent,
+        elevation: 0,
+      ),
+      bottomNavigationBar: BlocListener<ProfileBloc, ProfileState>(
+        bloc: profileBloc,
+        listener: _listenToProfileBloc,
+        child: SafeArea(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(24.w, 8.h, 24.w, 20.h),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Row(
+                  children: [
+                    const Expanded(
+                      child: TextView(
+                        text: 'Select at least $_minSelection',
                         fontSize: 15,
                         fontWeight: FontWeight.w500,
-                      )
-                    ],
-                  ),
-                  21.verticalSpace,
-                  CustomButton(
-                    onPressed: selectedInterests.length >= 3
-                        ? () {
-                            profileBloc.add(UpdateProfileEvent(UpdateProfilePayload(
-                              interests: selectedInterests
-                                  .map(
-                                    (e) => int.tryParse(e.id.toString()) ?? 0,
-                                  )
-                                  .toList(),
-                            )));
-                          }
-                        : null,
-                    child: const TextView(
-                      text: 'Next',
+                        color: Pallets.boldBlackV2,
+                      ),
+                    ),
+                    TextView(
+                      text: '${selectedInterests.length}/$_minSelection',
                       fontSize: 15,
-                      fontWeight: FontWeight.w600,
+                      fontWeight: FontWeight.w500,
+                      color: Pallets.boldBlackV2,
                     ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          body: SafeArea(
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
-              child: Column(
-                children: [
-                  24.verticalSpace,
-                  const TextView(
-                    text: 'What are your interests?',
+                  ],
+                ),
+                16.verticalSpace,
+                CustomButton(
+                  onPressed: selectedInterests.length >= _minSelection
+                      ? _submitInterests
+                      : null,
+                  child: const TextView(
+                    text: 'Next',
+                    fontSize: 15,
                     fontWeight: FontWeight.w700,
-                    fontSize: 18,
+                    color: Colors.white,
                   ),
-                  8.verticalSpace,
-                  const TextView(
-                    lineHeight: 1.5,
-                    align: TextAlign.center,
-                    text: 'We’ll use this to recommend groups you can join.',
-                    // fontWeight: FontWeight.w500,
-                    // fontSize: 13,
-                  ),
-                  39.verticalSpace,
-                  Expanded(
-                      child: state.maybeWhen(
-                    getCategoriesSuccess: (response) => LifeChipsList<PostCategory>.multiple(
-                        items: response.data,
-                        onItemSelected: (p0) {
-                          selectedInterests = p0;
-                          setState(() {});
-                        },
-                        initialItems: selectedInterests),
-                    getCategoriesLoading: () => Center(
-                      child: CustomDialogs.getLoading(size: 40),
-                    ),
-                    orElse: () => 0.verticalSpace,
-                  )),
-                  // 43.verticalSpace,
-                ],
-              ),
+                ),
+              ],
             ),
           ),
-        );
-      },
+        ),
+      ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // ── Header ─────────────────────────────────────────────────
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const TextView(
+                  text: 'What are some of your interests?',
+                  fontWeight: FontWeight.w800,
+                  fontSize: 28,
+                  lineHeight: 1.25,
+                  color: Pallets.boldBlackV2,
+                ),
+                8.verticalSpace,
+                const TextView(
+                  text:
+                      'We’ll use this to personalize your for you page and groups you can join.',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Pallets.grey400,
+                  lineHeight: 1.4,
+                ),
+              ],
+            ),
+          ),
+
+          32.verticalSpace,
+
+          // ── Interest chips ─────────────────────────────────────────
+          Expanded(
+            child: BlocBuilder<PostBloc, PostState>(
+              bloc: postBloc,
+              builder: (context, state) {
+                return state.maybeWhen(
+                  getCategoriesSuccess: (response) => response.data.isEmpty
+                      ? _buildChips(_fallbackInterests,
+                          fallbackReason:
+                              'The server returned an empty interest list.')
+                      : _buildChips(response.data),
+                  getCategoriesLoading: () => Center(
+                    child: CustomDialogs.getLoading(size: 40),
+                  ),
+                  getCategoriesFailure: (error) =>
+                      _buildChips(_fallbackInterests, fallbackReason: error),
+                  orElse: () => 0.verticalSpace,
+                );
+              },
+            ),
+          ),
+        ],
+      ),
     );
+  }
+
+  /// Chip list. When [fallbackReason] is non-null the items are local fallback
+  /// data and a banner explaining why is shown above them.
+  Widget _buildChips(List<PostCategory> items, {String? fallbackReason}) {
+    return SingleChildScrollView(
+      padding: EdgeInsets.symmetric(horizontal: 24.w),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (fallbackReason != null) ...[
+            _buildFallbackNotice(fallbackReason),
+            20.verticalSpace,
+          ],
+          LifeChipsList<PostCategory>.multiple(
+            items: items,
+            initialItems: selectedInterests,
+            onItemSelected: (selected) {
+              setState(
+                  () => selectedInterests = List<PostCategory>.from(selected));
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildFallbackNotice(String reason) {
+    return Container(
+      width: double.infinity,
+      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 12.h),
+      decoration: BoxDecoration(
+        color: Pallets.dailyTaskItemBg,
+        borderRadius: BorderRadius.circular(12.r),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(Icons.info_outline_rounded,
+              size: 18.sp, color: Pallets.boldBlackV2),
+          10.horizontalSpace,
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const TextView(
+                  text: 'Showing default interests',
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: Pallets.boldBlackV2,
+                ),
+                2.verticalSpace,
+                const TextView(
+                  text:
+                      'This is offline fallback data — these selections cannot be saved to your profile.',
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: Pallets.grey400,
+                  lineHeight: 1.4,
+                ),
+                4.verticalSpace,
+                TextView(
+                  text: reason,
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: Pallets.grey500,
+                  lineHeight: 1.4,
+                ),
+                6.verticalSpace,
+                TextView(
+                  text: 'Retry',
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: Pallets.blueBubbleColor,
+                  onTap: () => postBloc.add(const PostEvent.getCategories()),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _submitInterests() {
+    profileBloc.add(UpdateProfileEvent(UpdateProfilePayload(
+      interests: selectedInterests
+          .map((e) => int.tryParse(e.id.toString()) ?? 0)
+          .toList(),
+    )));
   }
 
   void _listenToProfileBloc(BuildContext context, ProfileState state) {

@@ -1,0 +1,222 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:talkam/common/widgets/custom_appbar.dart';
+import 'package:talkam/common/widgets/custom_button.dart';
+import 'package:talkam/common/widgets/custom_dialogs.dart';
+import 'package:talkam/common/widgets/custom_outlined_button.dart';
+import 'package:talkam/common/widgets/custom_switch.dart';
+import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/constants/package_exports.dart';
+import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/core/services/data/session_manager.dart';
+import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/core/utils/helper_utils.dart';
+import 'package:talkam/features/privacy/data/models/consent_settings.dart';
+import 'package:talkam/features/privacy/presentation/bloc/privacy_bloc.dart';
+
+class DataPrivacyScreen extends StatefulWidget {
+  const DataPrivacyScreen({super.key});
+
+  @override
+  State<DataPrivacyScreen> createState() => _DataPrivacyScreenState();
+}
+
+class _DataPrivacyScreenState extends State<DataPrivacyScreen> {
+  static const String _privacyPolicyUrl =
+      'https://web.talkam.prodevs.io/help&info/privacy-policy';
+
+  final privacyBloc = PrivacyBloc();
+
+  @override
+  void initState() {
+    super.initState();
+    privacyBloc.add(const LoadConsentsEvent());
+  }
+
+  @override
+  void dispose() {
+    privacyBloc.close();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocConsumer<PrivacyBloc, PrivacyState>(
+      bloc: privacyBloc,
+      listener: _listenToPrivacyBloc,
+      builder: (context, state) {
+        final settings = state is ConsentsLoaded
+            ? state.settings
+            : privacyBloc.settings;
+
+        return Scaffold(
+          backgroundColor: Colors.white,
+          appBar: const CustomAppBar(
+            bgColor: Colors.transparent,
+            elevation: 0,
+          ),
+          body: SingleChildScrollView(
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // ── Header ─────────────────────────────────────────────
+                const TextView(
+                  text: "Data & Privacy",
+                  fontSize: 24,
+                  fontWeight: FontWeight.w800,
+                  color: Pallets.boldBlackV2,
+                ),
+                8.verticalSpace,
+                const TextView(
+                  text:
+                      "Therapy Mode secures your data. Manage consent below.",
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Pallets.grey400,
+                  lineHeight: 1.4,
+                ),
+
+                24.verticalSpace,
+
+                // ── Consent cards ──────────────────────────────────────
+                ...ConsentType.values.map(
+                  (type) => Padding(
+                    padding: EdgeInsets.only(bottom: 12.h),
+                    child: _ConsentCard(
+                      type: type,
+                      value: settings.valueOf(type),
+                      onChanged: (value) => privacyBloc
+                          .add(ToggleConsentEvent(type, value)),
+                    ),
+                  ),
+                ),
+
+                12.verticalSpace,
+
+                // ── Confirm ────────────────────────────────────────────
+                CustomButton(
+                  elevation: 0,
+                  onPressed: settings.hasRequiredConsents
+                      ? () => privacyBloc.add(const SaveConsentsEvent())
+                      : null,
+                  child: const TextView(
+                    text: "Confirm",
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
+
+                12.verticalSpace,
+
+                // ── Privacy policy ─────────────────────────────────────
+                CustomOutlinedButton(
+                  borderColor: Pallets.grey90,
+                  onPressed: () => Helpers.launchRawUrl(_privacyPolicyUrl),
+                  child: const TextView(
+                    text: "Privacy Policy",
+                    fontSize: 15,
+                    fontWeight: FontWeight.w500,
+                    color: Pallets.boldBlackV2,
+                  ),
+                ),
+
+                32.verticalSpace,
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  void _listenToPrivacyBloc(BuildContext context, PrivacyState state) {
+    if (state is ConsentsFailure) {
+      CustomDialogs.error(state.error);
+    }
+    if (state is ConsentsSaved) {
+      SessionManager().hasOnboarded = true;
+      context.goNamed(PageUrl.welcomeScreen);
+    }
+  }
+}
+
+/// Single consent row — title, optional "Required" chip, description, switch.
+class _ConsentCard extends StatelessWidget {
+  const _ConsentCard({
+    required this.type,
+    required this.value,
+    required this.onChanged,
+  });
+
+  final ConsentType type;
+  final bool value;
+  final ValueChanged<bool> onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+      decoration: BoxDecoration(
+        color: Pallets.bgLight.withValues(alpha: 0.5),
+        borderRadius: BorderRadius.circular(16.r),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  children: [
+                    Flexible(
+                      child: TextView(
+                        text: type.title,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color: Pallets.boldBlackV2,
+                      ),
+                    ),
+                    if (type.isRequired) ...[
+                      8.horizontalSpace,
+                      Container(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 10.w, vertical: 4.h),
+                        decoration: BoxDecoration(
+                          color: Pallets.grey95,
+                          borderRadius: BorderRadius.circular(100),
+                        ),
+                        child: const TextView(
+                          text: "Required",
+                          fontSize: 12,
+                          fontWeight: FontWeight.w500,
+                          color: Pallets.grey400,
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+                6.verticalSpace,
+                TextView(
+                  text: type.description,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: Pallets.boldBlackV2,
+                  lineHeight: 1.4,
+                ),
+              ],
+            ),
+          ),
+          SizedBox(width: 24.w,),
+          12.horizontalSpace,
+          CustomSwitch(
+            value: value,
+            onChanged: onChanged,
+          ),
+        ],
+      ),
+    );
+  }
+}
