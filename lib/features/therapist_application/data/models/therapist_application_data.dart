@@ -132,6 +132,8 @@ class DayAvailability {
     required this.day,
     this.active = false,
     this.start = const TimeOfDay(hour: 9, minute: 0),
+    // Stays within TimeSelectSheet's 9 AM–5 PM picker range — see
+    // TherapistAvailabilityScreen._pickTime.
     this.end = const TimeOfDay(hour: 17, minute: 0),
     this.paid = false,
   });
@@ -203,7 +205,7 @@ class PayoutInfo {
   });
 
   static const int minSessionRate = 0;
-  static const int maxSessionRate = 15000;
+  static const int maxSessionRate = 20000;
 
   final String? bankName;
   final String accountNumber;

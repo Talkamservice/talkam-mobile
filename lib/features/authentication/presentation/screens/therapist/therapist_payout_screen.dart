@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
@@ -10,6 +11,7 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/core/utils/string_extension.dart';
 import 'package:talkam/features/authentication/presentation/screens/therapist/therapist_availability_screen.dart'
     show kSessionDurations;
 import 'package:talkam/features/therapist_application/data/models/therapist_application_data.dart';
@@ -43,7 +45,8 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
   void initState() {
     super.initState();
     _accountController.text = widget.bloc.state.payout.accountNumber;
-    _rateController.text = widget.bloc.state.payout.sessionRate;
+    final rate = widget.bloc.state.payout.sessionRate;
+    _rateController.text = rate.isEmpty ? '' : rate.formatNumber();
   }
 
   @override
@@ -56,6 +59,16 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
   String _durationLabel(int minutes) {
     final match = kSessionDurations.where((d) => d.minutes == minutes);
     return match.isEmpty ? "$minutes min" : "${match.first.label} (${minutes}min)";
+  }
+
+  /// "₦0" while the rate isn't valid yet, otherwise 85% of it, comma-formatted.
+  String _earnings(PayoutInfo payout, {bool full = false}) {
+    if (!payout.isSessionRateValid) return "₦0";
+
+    final rate = double.tryParse(payout.sessionRate ?? '') ?? 0.0;
+    final earnings = (full ? rate : rate * 0.85).round();
+
+    return "₦${earnings.toString().formatNumber()}";
   }
 
   @override
@@ -100,14 +113,20 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
                 const TextView(
                   text:
                       "80% of each session fee goes directly to you. Paid weekly every Friday.",
-                  fontSize: 13,
+                  fontSize: 16,
                   fontWeight: FontWeight.w500,
                   color: Pallets.grey400,
                   lineHeight: 1.4,
                 ),
                 24.verticalSpace,
+                const TextView(
+                  text: "Bank Name",
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: Pallets.grey400,
+                ),
+                10.verticalSpace,
                 InlineSelectField<String>(
-                  label: "Bank Name",
                   hint: "Select your bank",
                   options: kNigerianBanks,
                   labelBuilder: (v) => v,
@@ -116,8 +135,14 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
                       widget.bloc.add(SetBankNameEvent(v)),
                 ),
                 16.verticalSpace,
+                const TextView(
+                  text: "Account Number",
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: Pallets.grey400,
+                ),
+                10.verticalSpace,
                 CustomTextField(
-                  label: "Account Number",
                   hint: "Enter your 10-digit account number",
                   controller: _accountController,
                   keyboardType: TextInputType.number,
@@ -139,7 +164,13 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
                   ),
                 ],
                 24.verticalSpace,
-
+                const TextView(
+                  text: "SET YOUR SESSION RATE",
+                  fontSize: 13,
+                  fontWeight: FontWeight.w700,
+                  color: Pallets.grey400,
+                ),
+                10.verticalSpace,
                 // ── Session rate card ───────────────────────────────────
                 Container(
                   padding: EdgeInsets.all(16.w),
@@ -151,43 +182,62 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const TextView(
-                        text: "SET YOUR SESSION RATE",
-                        fontSize: 11,
+                        text: "Amount",
+                        fontSize: 13,
                         fontWeight: FontWeight.w700,
                         color: Pallets.grey400,
                       ),
-                      10.verticalSpace,
+                      4.verticalSpace,
                       CustomTextField(
-                        label: "Amount",
                         hint:
-                            "Min: ₦${PayoutInfo.minSessionRate} - Max: ₦${PayoutInfo.maxSessionRate}",
+                            "Min: ₦${PayoutInfo.minSessionRate.toString().formatNumber()} - Max: ₦${PayoutInfo.maxSessionRate.toString().formatNumber()}",
                         controller: _rateController,
                         keyboardType: TextInputType.number,
+                        inputFormatters: [_ThousandsInputFormatter()],
                         forceError:
                             rateTouched && !payout.isSessionRateValid,
-                        onChanged: (v) =>
-                            widget.bloc.add(SetSessionRateEvent(v)),
+                        onChanged: (v) => widget.bloc
+                            .add(SetSessionRateEvent(v.removeCommas())),
                       ),
                       if (rateTouched && !payout.isSessionRateValid) ...[
                         6.verticalSpace,
                         TextView(
                           text:
-                              "Amount can't exceed ₦${PayoutInfo.maxSessionRate}",
+                              "Amount can't exceed ₦${PayoutInfo.maxSessionRate.toString().formatNumber()}",
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                           color: Pallets.errorRed,
                         ),
                       ],
                       14.verticalSpace,
-                      TextView(
-                        text: _durationLabel(
-                            state.availability.sessionDurationMinutes),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w700,
-                        color: Pallets.boldBlackV2,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          TextView(
+                            text: _durationLabel(
+                                state.availability.sessionDurationMinutes),
+                            fontSize: 14,
+                            fontWeight: FontWeight.w700,
+                            color: Pallets.boldBlackV2,
+                          ),
+                          Container(
+                            padding: EdgeInsetsGeometry.symmetric(vertical: 4, horizontal: 8),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Pallets.grey75),
+                              borderRadius: BorderRadius.circular(8.r),
+                              color: Pallets.white
+                            ),
+                            child: TextView(
+                              text: _earnings(payout, full: true),
+                              fontSize: 15,
+                              fontWeight: FontWeight.w700,
+                              color: Pallets.surfaceDark,
+                            ),
+                          )
+                        ],
                       ),
                       10.verticalSpace,
-                      Divider(height: 1, color: Pallets.grey90),
+                      Divider(height: 1, color: Pallets.grey75),
                       10.verticalSpace,
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -212,9 +262,7 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
                             ),
                           ),
                           TextView(
-                            text: payout.isSessionRateValid
-                                ? "₦${(int.parse(payout.sessionRate) * 0.85).round()}"
-                                : "₦0",
+                            text: _earnings(payout),
                             fontSize: 15,
                             fontWeight: FontWeight.w700,
                             color: Pallets.successGreen,
@@ -225,7 +273,7 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
                   ),
                 ),
 
-                20.verticalSpace,
+                12.verticalSpace,
 
                 // ── Info notices ─────────────────────────────────────────
                 Container(
@@ -255,7 +303,7 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
                     ],
                   ),
                 ),
-                10.verticalSpace,
+                8.verticalSpace,
                 Container(
                   width: double.infinity,
                   padding:
@@ -290,8 +338,6 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
                           widget.bloc.add(const SubmitApplicationEvent())
                       : null,
                   bgColor: Pallets.blueBubbleColor,
-                  borderRadius: BorderRadius.circular(24.r),
-                  padding: EdgeInsets.symmetric(vertical: 16.h),
                   child: const TextView(
                     text: "Submit Application",
                     fontSize: 15,
@@ -305,6 +351,27 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
           );
         },
       ),
+    );
+  }
+}
+
+/// Formats digits with thousand separators as they're typed (e.g. "20000" →
+/// "20,000"). The comma-free digits still reach the bloc — see the Amount
+/// field's `onChanged`, which strips them back out before dispatching.
+class _ThousandsInputFormatter extends TextInputFormatter {
+  @override
+  TextEditingValue formatEditUpdate(
+      TextEditingValue oldValue, TextEditingValue newValue) {
+    final digits = newValue.text.removeCommas();
+    if (digits.isEmpty) {
+      return const TextEditingValue(text: '');
+    }
+    if (int.tryParse(digits) == null) return oldValue;
+
+    final formatted = digits.formatNumber();
+    return TextEditingValue(
+      text: formatted,
+      selection: TextSelection.collapsed(offset: formatted.length),
     );
   }
 }

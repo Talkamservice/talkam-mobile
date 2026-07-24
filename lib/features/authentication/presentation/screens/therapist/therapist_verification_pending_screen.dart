@@ -23,31 +23,31 @@ class TherapistVerificationPendingScreen extends StatelessWidget {
             children: [
               Center(child: _buildCheckMark()),
               32.verticalSpace,
-              const TextView(
+              Padding(padding: EdgeInsetsGeometry.symmetric(horizontal: 24.w),
+              child: const TextView(
                 text: "Your verification process is ongoing",
                 align: TextAlign.center,
-                fontSize: 26,
+                fontSize: 32,
                 fontWeight: FontWeight.w800,
                 color: Pallets.boldBlackV2,
                 lineHeight: 1.2,
-              ),
+              ),),
               12.verticalSpace,
-              const TextView(
+              Padding(padding: EdgeInsetsGeometry.symmetric(horizontal: 28.w),
+              child: const TextView(
                 text:
-                    "It takes 3–5 business days to verify your account. You can browse the app while you wait — we'll notify you the moment you're approved.",
+                "It takes 3–5 business days to verify your account. You can browse the app while you wait — we'll notify you the moment you're approved.",
                 align: TextAlign.center,
                 fontSize: 15,
                 fontWeight: FontWeight.w500,
                 color: Pallets.grey400,
                 lineHeight: 1.5,
-              ),
+              ),),
               32.verticalSpace,
               CustomButton(
                 elevation: 0,
                 onPressed: () => context.goNamed(PageUrl.homeScreen),
                 bgColor: Pallets.blueBubbleColor,
-                borderRadius: BorderRadius.circular(24.r),
-                padding: EdgeInsets.symmetric(vertical: 16.h),
                 child: const TextView(
                   text: "Explore TalkAm",
                   fontSize: 15,
@@ -64,15 +64,15 @@ class TherapistVerificationPendingScreen extends StatelessWidget {
 
   Widget _buildCheckMark() {
     return Container(
-      height: 160.w,
-      width: 160.w,
+      height: 120.w,
+      width: 120.w,
       decoration: BoxDecoration(
         shape: BoxShape.circle,
-        color: Pallets.successGreen.withValues(alpha: 0.12),
+        color: Pallets.successGreen.withValues(alpha: 0.05),
       ),
       child: Icon(
         Icons.check_rounded,
-        size: 72.sp,
+        size: 90.sp,
         color: Pallets.successGreen,
       ),
     );

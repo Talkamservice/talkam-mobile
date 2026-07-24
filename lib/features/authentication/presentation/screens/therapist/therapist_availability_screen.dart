@@ -5,6 +5,7 @@ import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_switch.dart';
 import 'package:talkam/common/widgets/step_progress_bar.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/common/widgets/time_select_sheet.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
@@ -27,8 +28,8 @@ class TherapistAvailabilityScreen extends StatelessWidget {
 
   Future<void> _pickTime(
       BuildContext context, DayAvailability day, {required bool isStart}) async {
-    final picked = await showTimePicker(
-      context: context,
+    final picked = await TimeSelectSheet.show(
+      context,
       initialTime: isStart ? day.start : day.end,
     );
     if (picked == null) return;
@@ -75,7 +76,7 @@ class TherapistAvailabilityScreen extends StatelessWidget {
                 const TextView(
                   text:
                       "Choose when clients can book you. You can edit this anytime.",
-                  fontSize: 13,
+                  fontSize: 16,
                   fontWeight: FontWeight.w500,
                   color: Pallets.grey400,
                   lineHeight: 1.4,
@@ -85,7 +86,7 @@ class TherapistAvailabilityScreen extends StatelessWidget {
                 // ── Session duration ─────────────────────────────────
                 const TextView(
                   text: "SESSION DURATION",
-                  fontSize: 11,
+                  fontSize: 13,
                   fontWeight: FontWeight.w700,
                   color: Pallets.grey400,
                 ),
@@ -112,13 +113,13 @@ class TherapistAvailabilityScreen extends StatelessWidget {
                 // ── Working days ──────────────────────────────────────
                 const TextView(
                   text: "WORKING DAYS",
-                  fontSize: 11,
+                  fontSize: 13,
                   fontWeight: FontWeight.w700,
                   color: Pallets.grey400,
                 ),
                 10.verticalSpace,
                 Wrap(
-                  spacing: 8.w,
+                  spacing: 4.w,
                   runSpacing: 8.h,
                   children: [
                     for (final day in state.availability.days)
@@ -131,27 +132,50 @@ class TherapistAvailabilityScreen extends StatelessWidget {
                 24.verticalSpace,
 
                 // ── Working hours ─────────────────────────────────────
-                if (activeDays.isNotEmpty) ...[
-                  const TextView(
-                    text: "WORKING HOURS",
-                    fontSize: 11,
-                    fontWeight: FontWeight.w700,
-                    color: Pallets.grey400,
-                  ),
-                  10.verticalSpace,
-                  for (final day in activeDays) ...[
-                    _WorkingHoursRow(
-                      day: day,
-                      onTapStart: () =>
-                          _pickTime(context, day, isStart: true),
-                      onTapEnd: () => _pickTime(context, day, isStart: false),
-                      onTogglePaid: () =>
-                          bloc.add(ToggleDayPaidEvent(day.day)),
-                    ),
-                    12.verticalSpace,
-                  ],
-                  8.verticalSpace,
-                ],
+                AnimatedSize(
+                  duration: const Duration(milliseconds: 220),
+                  curve: Curves.easeInOut,
+                  alignment: Alignment.topCenter,
+                  child: activeDays.isEmpty
+                      ? const SizedBox.shrink()
+                      : Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            const TextView(
+                              text: "WORKING HOURS",
+                              fontSize: 13,
+                              fontWeight: FontWeight.w700,
+                              color: Pallets.grey400,
+                            ),
+                            // Every day stays mounted so toggling one animates
+                            // its row in/out instead of popping the list.
+                            for (final day in state.availability.days)
+                              AnimatedSize(
+                                duration: const Duration(milliseconds: 220),
+                                curve: Curves.easeInOut,
+                                alignment: Alignment.topCenter,
+                                child: AnimatedOpacity(
+                                  duration: const Duration(milliseconds: 180),
+                                  opacity: day.active ? 1 : 0,
+                                  child: day.active
+                                      ? _WorkingHoursRow(
+                                          day: day,
+                                          onTapStart: () => _pickTime(
+                                              context, day,
+                                              isStart: true),
+                                          onTapEnd: () => _pickTime(
+                                              context, day,
+                                              isStart: false),
+                                          onTogglePaid: () => bloc.add(
+                                              ToggleDayPaidEvent(day.day)),
+                                        )
+                                      : const SizedBox(width: double.infinity),
+                                ),
+                              ),
+                            8.verticalSpace,
+                          ],
+                        ),
+                ),
 
                 // ── Buffer ─────────────────────────────────────────────
                 const TextView(
@@ -194,8 +218,6 @@ class TherapistAvailabilityScreen extends StatelessWidget {
                           )
                       : null,
                   bgColor: Pallets.blueBubbleColor,
-                  borderRadius: BorderRadius.circular(24.r),
-                  padding: EdgeInsets.symmetric(vertical: 16.h),
                   child: const TextView(
                     text: "Continue",
                     fontSize: 15,
@@ -235,11 +257,11 @@ class _DurationChip extends StatelessWidget {
         decoration: BoxDecoration(
           color: selected
               ? Pallets.blueBubbleColor.withValues(alpha: 0.08)
-              : Colors.white,
+              : Pallets.grey95.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(12.r),
           border: Border.all(
             color: selected ? Pallets.blueBubbleColor : Pallets.grey90,
-            width: selected ? 1.5 : 1,
+            width: 1,
           ),
         ),
         child: Column(
@@ -281,18 +303,18 @@ class _DayChip extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: 44.w,
-        height: 40.h,
+        height: 30.h,
         alignment: Alignment.center,
         decoration: BoxDecoration(
-          color: day.active ? Pallets.blueBubbleColor : Colors.white,
-          borderRadius: BorderRadius.circular(10.r),
+          color: day.active ? Pallets.blueBubbleColor : Pallets.grey95.withValues(alpha: 0.1),
+          borderRadius: BorderRadius.circular(8.r),
           border: Border.all(
             color: day.active ? Pallets.blueBubbleColor : Pallets.grey90,
           ),
         ),
         child: TextView(
           text: day.day.substring(0, 3).toUpperCase(),
-          fontSize: 12,
+          fontSize: 11,
           fontWeight: FontWeight.w700,
           color: day.active ? Colors.white : Pallets.boldBlackV2,
         ),
@@ -322,7 +344,6 @@ class _WorkingHoursRow extends StatelessWidget {
     return Container(
       padding: EdgeInsets.all(14.w),
       decoration: BoxDecoration(
-        color: Pallets.bgLight,
         borderRadius: BorderRadius.circular(14.r),
       ),
       child: Column(
@@ -361,16 +382,17 @@ class _WorkingHoursRow extends StatelessWidget {
           10.verticalSpace,
           Row(
             children: [
+              CustomSwitch(value: day.paid, onChanged: (_) => onTogglePaid()),
+              SizedBox(width: 8.w,),
               const TextView(
                 text: "Paid",
                 fontSize: 13,
                 fontWeight: FontWeight.w500,
                 color: Pallets.boldBlackV2,
               ),
-              const Spacer(),
-              CustomSwitch(value: day.paid, onChanged: (_) => onTogglePaid()),
             ],
           ),
+          Divider()
         ],
       ),
     );
@@ -390,17 +412,29 @@ class _TimePill extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 12.w),
         decoration: BoxDecoration(
-          color: Colors.white,
+          color: Pallets.grey95.withValues(alpha: 0.1),
           borderRadius: BorderRadius.circular(10.r),
           border: Border.all(color: Pallets.grey90),
         ),
-        child: TextView(
-          text: label,
-          align: TextAlign.center,
-          fontSize: 13,
-          fontWeight: FontWeight.w600,
-          color: Pallets.boldBlackV2,
-        ),
+        child: Column(
+          children: [
+            TextView(
+              text: label,
+              align: TextAlign.center,
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: Pallets.boldBlackV2,
+            ),
+            2.verticalSpace,
+            TextView(
+              text: "Start",
+              align: TextAlign.center,
+              fontSize: 11,
+              fontWeight: FontWeight.w500,
+              color: Pallets.grey400,
+            ),
+          ],
+        )
       ),
     );
   }
