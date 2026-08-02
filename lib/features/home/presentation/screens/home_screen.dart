@@ -236,7 +236,12 @@ class HomeAppBar extends StatelessWidget {
                     const Spacer(),
                     ImageWidget(
                       imageUrl: Assets.images.svgV2.searchIcon,
-                      onTap: () => context.pushNamed(PageUrl.search),
+                      onTap: () {
+                        context.pushNamed(
+                          PageUrl.searchResultScreen,
+                          extra: '',
+                        );
+                      },
                     ),
                     16.horizontalSpace,
                     const NotificationIcon(),

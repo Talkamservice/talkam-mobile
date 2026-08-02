@@ -49,13 +49,20 @@ class _ImageWidgetState extends State<ImageWidget> {
     return Builder(
       builder: (context) {
         if (widget.imageUrl.split('.').lastOrNull == 'svg') {
-          return SvgPicture.asset(
+          final svgWidget = SvgPicture.asset(
             widget.imageUrl,
             width: widget.size,
             height: widget.size,
             color: widget.color,
             fit: widget.fit ?? BoxFit.contain,
           );
+          if (widget.onTap != null) {
+            return InkWell(
+              onTap: widget.onTap,
+              child: svgWidget,
+            );
+          }
+          return svgWidget;
         }
         if ((widget.imageUrl.split('.').firstOrNull?.contains('http') ==
                 true) ||

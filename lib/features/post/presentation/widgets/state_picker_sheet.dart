@@ -8,8 +8,6 @@ import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/theme/pallets.dart';
-import 'package:talkam/features/messaging/presentation/screens/messages_screen.dart';
-import 'package:talkam/features/search/presentation/screens/search_screen.dart';
 
 class StatePickerSheet extends StatefulWidget {
   const StatePickerSheet({super.key, required this.countryId});

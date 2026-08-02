@@ -127,14 +127,28 @@ class _GroupInfoScreenState extends State<GroupInfoScreen>
                                       child: Row(
                                         children: [
                                           _HeaderIconButton(
-                                            icon: Icons.arrow_back,
+                                            icon: Icons.arrow_back_ios,
                                             onTap: () => context.pop(),
                                           ),
                                           const Spacer(),
-                                          _HeaderIconButton(
-                                            icon: Icons.search,
-                                            onTap: () => CustomDialogs.showToast(
-                                                "Coming soon"),
+                                          Container(
+                                            width: 38.w,
+                                            height: 38.w,
+                                            alignment: Alignment.center,
+                                            decoration: BoxDecoration(
+                                              color: Colors.black.withOpacity(0.3),
+                                              shape: BoxShape.circle,
+                                            ),
+                                            child: ImageWidget(imageUrl: Assets.images.svgV2.searchIcon,
+                                                color: Colors.white,
+                                                onTap: ()=> context.pushNamed(
+                                                  PageUrl.searchResultScreen,
+                                                  extra: {
+                                                    'query': '',
+                                                    'initialTab': 2,
+                                                  },
+                                                )
+                                            ),
                                           ),
                                           8.horizontalSpace,
                                           _HeaderIconButton(

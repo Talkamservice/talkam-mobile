@@ -846,6 +846,106 @@ class MockHomeData {
       ];
 }
 
+/// Simple data holder for People search results (mock only).
+class MockSearchUser {
+  const MockSearchUser({
+    required this.id,
+    required this.name,
+    required this.username,
+    this.avatar,
+    required this.bio,
+    this.isVerified = true,
+    this.isFollowing = false,
+  });
+
+  final int id;
+  final String name;
+  final String username;
+  final String? avatar;
+  final String bio;
+  final bool isVerified;
+  final bool isFollowing;
+}
+
+class MockSearchData {
+  MockSearchData._();
+
+  static const List<String> relatedTopics = [
+    "Anxiety",
+    "Depression",
+    "Fear",
+    "Grief",
+    "Bipolar",
+    "OCD",
+  ];
+
+  static List<MockSearchUser> get searchPeople => const [
+    MockSearchUser(
+      id: 1,
+      name: "Dr Adebayo",
+      username: "Dr Adebayo",
+      avatar: "https://i.pravatar.cc/150?img=51",
+      bio: "I'm a licensed therapist dedicated to helping individuals navigate life's challenges and achieve personal growth. With a compassionate...",
+      isVerified: true,
+    ),
+    MockSearchUser(
+      id: 2,
+      name: "Dr Linda",
+      username: "DrLinda",
+      avatar: "https://i.pravatar.cc/150?img=47",
+      bio: "As a clinical psychologist, I focus on cognitive-behavioral therapy for children and adolescents. My passion lies in fostering resilience and...",
+      isVerified: true,
+    ),
+    MockSearchUser(
+      id: 3,
+      name: "Prof. James",
+      username: "ProfJames",
+      avatar: "https://i.pravatar.cc/150?img=33",
+      bio: "I am a psychiatrist with over 20 years of experience in treating mood disorders. My approach combines medication management with the...",
+      isVerified: true,
+    ),
+    MockSearchUser(
+      id: 4,
+      name: "Ms. Clara",
+      username: "MsClara",
+      avatar: null,
+      bio: "As a licensed social worker, I provide counseling services that empower clients to overcome trauma and find support in their com...",
+      isVerified: false,
+    ),
+    MockSearchUser(
+      id: 5,
+      name: "Dr. Samuel",
+      username: "DrSamuel",
+      avatar: "https://i.pravatar.cc/150?img=12",
+      bio: "I am a family therapist specializing in systemic therapy. I work with families to enhance communication, resolve conflicts, and strengthe...",
+      isVerified: true,
+    ),
+  ];
+
+  static List<MockGroupSearchEntry> get searchGroupEntries => const [
+    MockGroupSearchEntry(id: 1, name: "Anxiety", memberCount: 3200, image: "https://picsum.photos/id/1015/200/120", isJoined: true),
+    MockGroupSearchEntry(id: 3, name: "Depression", memberCount: 2500, image: "https://picsum.photos/id/1016/200/120", isJoined: false),
+    MockGroupSearchEntry(id: 9, name: "Mindfulness", memberCount: 4100, image: "https://picsum.photos/id/1024/200/120", isJoined: false),
+  ];
+}
+
+class MockGroupSearchEntry {
+  final int id;
+  final String name;
+  final int memberCount;
+  final String image;
+  final bool isJoined;
+
+  const MockGroupSearchEntry({
+    required this.id,
+    required this.name,
+    required this.memberCount,
+    required this.image,
+    required this.isJoined,
+  });
+}
+
+
 enum MockNotificationType { session, comment, like, message, wellness }
 
 class MockNotificationGroup {

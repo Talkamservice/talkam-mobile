@@ -21,11 +21,11 @@ import 'package:talkam/gen/assets.gen.dart';
 /// reachable from the sidebar). Messaging is NOT part of this shell at all —
 /// it's a standalone top-level route, pushed separately from the drawer.
 const int _kHomeBranch = 0;
-const int _kGroupsBranch = 2;
-const int _kWellnessBranch = 3;
-const int _kCalendarBranch = 4;
-const int _kEarningsBranch = 5;
-const int _kProfileBranch = 6;
+const int _kGroupsBranch = 1;
+const int _kWellnessBranch = 2;
+const int _kCalendarBranch = 3;
+const int _kEarningsBranch = 4;
+const int _kProfileBranch = 5;
 
 class BasePage extends StatefulWidget {
   const BasePage({
@@ -141,32 +141,37 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     _NavIcon(
-                      iconPath: Assets.images.svgV2.userMultipleInActive,
+                      selectedIconPath: Assets.images.svgV2.userMultipleActive,
+                      unselectedIconPath: Assets.images.svgV2.userMultipleInActive,
                       selected:
                           widget.navigationShell.currentIndex == _kHomeBranch,
                       onTap: () => _goBranch(_kHomeBranch),
                     ),
                     _NavIcon(
-                      iconPath: Assets.images.svgV2.brainInActive,
+                      selectedIconPath: Assets.images.svgV2.brainActive,
+                      unselectedIconPath: Assets.images.svgV2.brainInActive,
                       selected: widget.navigationShell.currentIndex ==
                           _kWellnessBranch,
                       onTap: () => _goBranch(_kWellnessBranch),
                     ),
                     _NavIcon(
-                      iconPath: Assets.images.svgV2.calendarInActive,
+                      selectedIconPath: Assets.images.svgV2.calendarActive,
+                      unselectedIconPath: Assets.images.svgV2.calendarInActive,
                       selected: widget.navigationShell.currentIndex ==
                           _kCalendarBranch,
                       onTap: () => _goBranch(_kCalendarBranch),
                     ),
                     if (_isTherapist)
                       _NavIcon(
-                        iconPath: Assets.images.svgV2.dollar2,
+                        selectedIconPath: Assets.images.svgV2.dollar2,
+                        unselectedIconPath: Assets.images.svgV2.dollar2,
                         selected: widget.navigationShell.currentIndex ==
                             _kEarningsBranch,
                         onTap: () => _goBranch(_kEarningsBranch),
                       ),
                     _NavIcon(
-                      iconPath: Assets.images.svgV2.user2,
+                      selectedIconPath: Assets.images.svgV2.userActive,
+                      unselectedIconPath: Assets.images.svgV2.userInActive,
                       selected: widget.navigationShell.currentIndex ==
                           _kProfileBranch,
                       onTap: () => _goBranch(_kProfileBranch),
@@ -199,12 +204,14 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
 
 class _NavIcon extends StatelessWidget {
   const _NavIcon({
-    required this.iconPath,
+    required this.selectedIconPath,
+    required this.unselectedIconPath,
     required this.selected,
     required this.onTap,
   });
 
-  final String iconPath;
+  final String selectedIconPath;
+  final String unselectedIconPath;
   final bool selected;
   final VoidCallback onTap;
 
@@ -213,18 +220,14 @@ class _NavIcon extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       customBorder: const CircleBorder(),
-      child: Container(
+      child: SizedBox(
         width: 48.w,
         height: 48.h,
         child: Center(
           child: SvgPicture.asset(
-            iconPath,
+            selected ? selectedIconPath : unselectedIconPath,
             width: 22.w,
             height: 22.w,
-            colorFilter: ColorFilter.mode(
-              selected ? Pallets.blueBubbleColor : Pallets.boldBlackV2,
-              BlendMode.srcIn,
-            ),
           ),
         ),
       ),

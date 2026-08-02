@@ -29,6 +29,10 @@ class CustomTextField extends StatefulWidget {
   /// Corner radius applied to all borders. Defaults to 14.
   final double? borderRadius;
 
+  final FocusNode? focusNode;
+  final TextInputAction? textInputAction;
+  final void Function(String)? onFieldSubmitted;
+
   const CustomTextField({
     super.key,
     this.label,
@@ -46,6 +50,9 @@ class CustomTextField extends StatefulWidget {
     this.forceError = false,
     this.forceValid = false,
     this.borderRadius,
+    this.focusNode,
+    this.textInputAction,
+    this.onFieldSubmitted,
   });
 
   @override
@@ -76,6 +83,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
         ],
         TextFormField(
           controller: widget.controller,
+          focusNode: widget.focusNode,
+          textInputAction: widget.textInputAction,
+          onFieldSubmitted: widget.onFieldSubmitted,
           obscureText: widget.obscureText,
           keyboardType: widget.keyboardType,
           onChanged: widget.onChanged,

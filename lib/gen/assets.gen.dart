@@ -59,10 +59,10 @@ class $AssetsImagesSvgsGenV2 {
   String get brainActive => 'assets/images/svg_v2/brain_selected.svg';
 
   /// File path: assets/images/svg_v2/calendar_selected.svg
-  String get calendarActive => 'assets/images/svg_v2/calendar_selected.svg';
+  String get calendarActive => 'assets/images/svg_v2/calender_selected.svg';
 
-  /// File path: assets/images/svg_v2/user_multiple_selected.svg
-  String get userMultipleActive => 'assets/images/svg_v2/user_multiple_selected.svg';
+  /// File path: assets/images/svg_v2/user-multiple-selected.svg
+  String get userMultipleActive => 'assets/images/svg_v2/user-multiple-selected.svg';
 
   /// File path: assets/images/svg_v2/user_selected.svg
   String get userActive => 'assets/images/svg_v2/user_selected.svg';

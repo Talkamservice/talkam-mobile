@@ -63,7 +63,6 @@ import 'package:talkam/features/settings/presentation/screens/notifications_sett
 import 'package:talkam/features/settings/presentation/screens/settings_screen.dart';
 import 'package:talkam/features/profile/presentation/screens/user_profile_screen.dart';
 import 'package:talkam/features/search/presentation/screens/search_result_screen.dart';
-import 'package:talkam/features/search/presentation/screens/search_screen.dart';
 import 'package:talkam/features/subscription/presentation/screens/subscription_screen.dart';
 
 import '../../common/widgets/custom_dialogs.dart';
@@ -74,7 +73,6 @@ import '../services/data/session_manager.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'rootNavigator');
 final _shellNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'shellA');
-final _shellNavigatorBKey = GlobalKey<NavigatorState>(debugLabel: 'shellB');
 final _shellNavigatorCKey = GlobalKey<NavigatorState>(debugLabel: 'shellC');
 final _shellNavigatorEKey = GlobalKey<NavigatorState>(debugLabel: 'shellE');
 final _shellNavigatorFKey = GlobalKey<NavigatorState>(debugLabel: 'shellF');
@@ -85,7 +83,6 @@ final _shellNavigatorHKey = GlobalKey<NavigatorState>(debugLabel: 'shellH');
 /// alias is bounced to the anonymous sign-in screen first.
 const _shellPaths = <String>{
   '/homeScreen',
-  '/search',
   '/groups',
   '/messagingScreen',
 };
@@ -319,9 +316,22 @@ class CustomRoutes {
       GoRoute(
         path: '/searchResultScreen',
         name: PageUrl.searchResultScreen,
-        builder: (context, state) => SearchResultScreen(
-          query: state.extra as String,
-        ),
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (context, state) {
+          String query = '';
+          int initialTab = 0;
+          if (state.extra is String) {
+            query = state.extra as String;
+          } else if (state.extra is Map<String, dynamic>) {
+            final map = state.extra as Map<String, dynamic>;
+            query = map['query'] as String? ?? '';
+            initialTab = map['initialTab'] as int? ?? 0;
+          }
+          return SearchResultScreen(
+            query: query,
+            initialTab: initialTab,
+          );
+        },
       ),
       GoRoute(
         path: '/groupsInfoScreen',
@@ -471,18 +481,6 @@ class CustomRoutes {
                   child: HomeScreen(),
                 ),
                 routes: const [],
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            navigatorKey: _shellNavigatorBKey,
-            routes: [
-              GoRoute(
-                path: '/search',
-                name: PageUrl.search,
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: SearchScreen(),
-                ),
               ),
             ],
           ),
