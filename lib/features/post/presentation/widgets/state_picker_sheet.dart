@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/blocs/location_bloc/location_bloc.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
+import 'package:talkam/common/widgets/custom_text_field.dart';
 import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
@@ -53,7 +54,7 @@ class _StatePickerSheetState extends State<StatePickerSheet> {
           ),
           8.verticalSpace,
           // Add Search Bar
-          CustomSearchField(
+          CustomTextField(
             hint: "Search states...",
             onChanged: (value) {
               setState(() {

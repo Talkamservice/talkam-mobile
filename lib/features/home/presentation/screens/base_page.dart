@@ -16,17 +16,16 @@ import 'package:talkam/features/post/presentation/widgets/create_post_sheet.dart
 import 'package:talkam/gen/assets.gen.dart';
 
 /// Shell branch indices — see the StatefulShellRoute in routes.dart. Search
-/// (1), Groups (2) and Messaging (3) stay real, reachable branches; they're
-/// just no longer represented in the bottom bar itself (see Part B of the
-/// redesign — Search moved to the top app bar, Groups/Messages are reachable
-/// from the sidebar).
+/// (1) and Groups (2) stay real, reachable branches, just not represented in
+/// the bottom bar itself (Search moved to the top app bar, Groups is
+/// reachable from the sidebar). Messaging is NOT part of this shell at all —
+/// it's a standalone top-level route, pushed separately from the drawer.
 const int _kHomeBranch = 0;
 const int _kGroupsBranch = 2;
-const int _kMessagingBranch = 3;
-const int _kWellnessBranch = 4;
-const int _kCalendarBranch = 5;
-const int _kEarningsBranch = 6;
-const int _kProfileBranch = 7;
+const int _kWellnessBranch = 3;
+const int _kCalendarBranch = 4;
+const int _kEarningsBranch = 5;
+const int _kProfileBranch = 6;
 
 class BasePage extends StatefulWidget {
   const BasePage({
@@ -90,7 +89,6 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
         key: baseScaffoldKey,
         extendBody: true,
         drawer: AppDrawer(
-          onMessagesTap: () => _goBranchFromDrawer(_kMessagingBranch),
           onGroupsTap: () => _goBranchFromDrawer(_kGroupsBranch),
         ),
         body: BlocConsumer<DrawerCubit, DrawerState>(

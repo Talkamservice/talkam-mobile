@@ -110,6 +110,12 @@ class $AssetsImagesSvgsGenV2 {
   /// File path: assets/images/svg_v2/text.svg
   String get text => 'assets/images/svg_v2/text.svg';
 
+  /// File path: assets/images/svg_v2/sent.svg
+  String get sent => 'assets/images/svg_v2/sent.svg';
+
+  /// File path: assets/images/svg_v2/attachment-02.svg
+  String get attachment02 => 'assets/images/svg_v2/attachment-02.svg';
+
   /// List of all assets
   List<String> get values => [
     angry,
@@ -118,6 +124,8 @@ class $AssetsImagesSvgsGenV2 {
     happy,
     neutral,
     tired1,
+    sent,
+    attachment02,
     user2,
     notificationIcon,
     searchIcon,

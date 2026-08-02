@@ -22,12 +22,14 @@ class SenderMessageItem extends StatelessWidget {
       alignment: Alignment.centerRight,
       child: LayoutBuilder(
         builder: (context, constraints) {
-          // Determine if the message is short or long
-          bool isShortMessage = message.content.toString().length <= 20;
+          final bool isShortMessage = message.content.toString().length <= 20;
 
           return Container(
             margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-            padding: EdgeInsets.symmetric(vertical: messageIsMedia ? 4 : 8.0, horizontal: messageIsMedia ? 4 : 8.0),
+            padding: EdgeInsets.symmetric(
+              vertical: messageIsMedia ? 4 : 8.0,
+              horizontal: messageIsMedia ? 4 : 8.0,
+            ),
             decoration: const BoxDecoration(
               color: Color(0xFFEEEEEE),
               borderRadius: BorderRadius.only(
@@ -38,11 +40,7 @@ class SenderMessageItem extends StatelessWidget {
               ),
             ),
             constraints: isShortMessage
-                ? const BoxConstraints(
-                    // minWidth: 60,
-                    minHeight: 20,
-                    maxWidth: 280,
-                  )
+                ? const BoxConstraints(minHeight: 20, maxWidth: 280)
                 : const BoxConstraints(maxWidth: 280),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -52,7 +50,7 @@ class SenderMessageItem extends StatelessWidget {
                   message: message,
                   isShortMessage: isShortMessage,
                   onRetryMessage: onRetryMessage,
-                )
+                ),
               ],
             ),
           );
@@ -62,44 +60,55 @@ class SenderMessageItem extends StatelessWidget {
   }
 
   bool get messageIsMedia {
-    return message.messageType.toLowerCase() == "media" || message.messageType.toLowerCase() == "file";
+    return message.messageType.toLowerCase() == "media" ||
+        message.messageType.toLowerCase() == "file";
   }
 }
 
 class TextMessageWidget extends StatelessWidget {
-  const TextMessageWidget({Key? key, required this.message, required this.isShortMessage, required this.onRetryMessage}) : super(key: key);
+  const TextMessageWidget({
+    Key? key,
+    required this.message,
+    required this.isShortMessage,
+    required this.onRetryMessage,
+  }) : super(key: key);
 
   final AppMessageModel message;
   final bool isShortMessage;
   final VoidCallback onRetryMessage;
 
+  static const double _timeWidth = 58;
+
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: (isShortMessage || (messageIsMedia)) ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+    return Stack(
       children: [
-        if (message.content != null)
-          LinkRecognizingText(
-            text: message.content.toString(),
-            mainTextColor: Color(0xFF444444),
-            fontSize: 15,
-            fontWeight: FontWeight.w600,
-            linkColor: Pallets.adIndicator,
-          ),
-        // TextView(
-        //   text: message.content.toString(),
-        //   color: const Color(0xFF444444),
-        //   fontSize: 15,
-        //   fontWeight: FontWeight.w600,
-        // ),
-        if (message.content != null) const SizedBox(height: 5.0),
-        _buildMessageStatus(context),
+        // message text with right padding to make room for the timestamp
+        Padding(
+          padding: const EdgeInsets.only(right: _timeWidth, bottom: 2),
+          child: message.content != null
+              ? LinkRecognizingText(
+                  text: message.content.toString(),
+                  mainTextColor: const Color(0xFF444444),
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  linkColor: Pallets.adIndicator,
+                )
+              : const SizedBox.shrink(),
+        ),
+        // timestamp pinned to bottom-right, raised into the last line
+        Positioned(
+          bottom: 0,
+          right: 0,
+          child: _buildMessageStatus(context),
+        ),
       ],
     );
   }
 
   bool get messageIsMedia {
-    return message.messageType.toLowerCase() == "media" || message.messageType.toLowerCase() == "file";
+    return message.messageType.toLowerCase() == "media" ||
+        message.messageType.toLowerCase() == "file";
   }
 
   Widget _buildMessageStatus(BuildContext context) {
@@ -109,19 +118,17 @@ class TextMessageWidget extends StatelessWidget {
       case SendingState.success:
         return TextView(
           text: TimeUtil.formatTime(message.time!),
-          color: const Color(0xFF666666),
-          fontSize: 13,
-          fontWeight: FontWeight.w600,
+          color: const Color(0xFF888888),
+          fontSize: 11,
+          fontWeight: FontWeight.w500,
         );
       case SendingState.failed:
         return TextButton(
-          onPressed: () {
-            onRetryMessage();
-          },
+          onPressed: onRetryMessage,
           child: const TextView(text: "Retry"),
         );
       default:
-        return const SizedBox.shrink(); // Or handle other states as needed
+        return const SizedBox.shrink();
     }
   }
 }

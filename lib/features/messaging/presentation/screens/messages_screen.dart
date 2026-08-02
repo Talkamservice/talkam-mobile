@@ -1,26 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:talkam/common/widgets/custom_dialogs.dart';
+import 'package:talkam/common/widgets/custom_appbar.dart';
+import 'package:talkam/common/widgets/custom_text_field.dart';
 import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
-import 'package:talkam/common/widgets/typeahead_widget.dart';
-import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/mock/mock_home_data.dart';
+import 'package:talkam/core/utils/custom_debouncer.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
-import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/guest_user_helper.dart';
-import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
 import 'package:talkam/features/messaging/data/models/conversations_filter.dart';
-import 'package:talkam/features/messaging/presentation/blocs/conversations/conversations_cubit.dart';
+import 'package:talkam/features/messaging/data/models/get_conversations_response.dart';
 import 'package:talkam/features/messaging/presentation/blocs/conversations/conversations_cubit.dart';
 import 'package:talkam/features/messaging/presentation/widgets/messages_list.dart';
 import 'package:talkam/features/messaging/presentation/widgets/messages_loading_shimmer.dart';
 import 'package:talkam/features/notifications/presentation/bloc/notification_bloc.dart';
-import 'package:talkam/features/search/data/models/get_search_response.dart';
-import 'package:talkam/features/search/presentation/blocs/search/search_cubit.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class MessagesScreen extends StatefulWidget {
@@ -43,38 +40,75 @@ class _MessagesScreenState extends State<MessagesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Pallets.white,
+      appBar: CustomAppBar(
+        tittleText: "Messages",
+        showDivider: true,
+        actions: [
+          GuestUserHelper.guestUserWidget(
+            widget: BlocBuilder<NotificationsBloc, NotificationsState>(
+              bloc: injector.get<NotificationsBloc>(),
+              builder: (context, state) {
+                final stat = injector.get<NotificationsBloc>().stats;
+                return Stack(
+                  clipBehavior: Clip.none,
+                  children: [
+                    IconButton(
+                      onPressed: () =>
+                          context.pushNamed(PageUrl.new_requestScreen),
+                      icon: const Icon(Icons.person_add_alt_outlined),
+                    ),
+                    if (stat.totalRequests != 0)
+                      Positioned(
+                        top: 4,
+                        right: 4,
+                        child: CircleAvatar(
+                          radius: 8,
+                          backgroundColor: Colors.red,
+                          foregroundColor: Colors.white,
+                          child: TextView(
+                              text: stat.totalRequests.toString(), fontSize: 8),
+                        ),
+                      ),
+                  ],
+                );
+              },
+            ),
+            guestWidget: const SizedBox.shrink(),
+          ),
+          8.horizontalSpace,
+        ],
+      ),
       body: Column(
         children: [
-          const Padding(
-            padding: EdgeInsets.only(top: 30, left: 1, right: 18),
-            child: MessageAppBar(),
-          ),
-          2.verticalSpace,
-          SizedBox(
-            width: 1.sw,
-            child: const Divider(
-              thickness: 1,
-            ),
-          ),
           GuestUserHelper.guestUserWidget(
               widget: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                child: CustomSearchField(
+                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
+                child: CustomTextField(
                   controller: _searchController,
+                  hint: "Search messages",
+                  prefixIcon: Padding(
+                    padding: const EdgeInsets.all(13.0),
+                    child: ImageWidget(
+                      imageUrl: Assets.images.svgV2.searchIcon,
+                      color: Pallets.grey400,
+                    ),
+                  ),
                   onChanged: (p0) {
                     GuestUserHelper.handleGuestUserAction(
                       action: () {
                         Debouncer(milliseconds: 100).run(
                           () {
-                            injector
-                                .get<ConversationsCubit>()
-                                .getConversations(reload: false, filter: ConversationsFilter(status: "", search: _searchController.text, tab: ""));
+                            injector.get<ConversationsCubit>().getConversations(
+                                reload: false,
+                                filter: ConversationsFilter(
+                                    status: "",
+                                    search: _searchController.text,
+                                    tab: ""));
                           },
                         );
                       },
                     );
                   },
-                  // focusNode: p2,
                 ),
               ),
               guestWidget: 0.verticalSpace),
@@ -85,7 +119,8 @@ class _MessagesScreenState extends State<MessagesScreen> {
                 onTap: () {
                   context.pushNamed(PageUrl.onboardingIntro);
                 },
-                message: "You cannot view messages because you are a guest, Please signin to view messages.",
+                message:
+                    "You cannot view messages because you are a guest, Please signin to view messages.",
               ),
               widget: Expanded(
                   child: BlocConsumer<ConversationsCubit, ConversationsState>(
@@ -106,8 +141,13 @@ class _MessagesScreenState extends State<MessagesScreen> {
                       return const MessagesLoadingShimmer();
                     },
                     getConversationsSuccess: (response) {
+                      final List<TalkamConversation> conversations =
+                          response.data.isEmpty &&
+                                  _searchController.text.isEmpty
+                              ? MockHomeData.conversations
+                              : response.data;
                       return MessagesList(
-                        message: response.data,
+                        message: conversations,
                       );
                     },
                   );
@@ -126,151 +166,4 @@ bool _buildWhen(ConversationsState previous, ConversationsState current) {
     getConversationsLoading: () => true,
     getConversationsSuccess: (response) => true,
   );
-}
-
-class MessageAppBar extends StatelessWidget {
-  const MessageAppBar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      color: context.colorScheme.surface,
-      child: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.only(top: 20, left: 1, right: 18),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                IconButton(
-                    onPressed: () {
-                      context.read<DrawerCubit>().closeDrawer();
-                      context.read<DrawerCubit>().openDrawer();
-                      /**/
-                    },
-                    icon: Icon(
-                      Icons.menu_outlined,
-                      color: context.colorScheme.onSurface,
-                    )),
-                const TextView(
-                  text: "Messages",
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                ),
-                const Spacer(),
-                20.horizontalSpace,
-                GuestUserHelper.guestUserWidget(
-                  widget: InkWell(
-                    onTap: () => context.pushNamed(PageUrl.new_requestScreen),
-                    child: BlocBuilder<NotificationsBloc, NotificationsState>(
-                      bloc: injector.get<NotificationsBloc>(),
-                      builder: (context, state) {
-                        final stat = injector.get<NotificationsBloc>().stats;
-                        return Stack(
-                          clipBehavior: Clip.none,
-                          children: [
-                            TextButton(
-                              onPressed: () {
-                                context.pushNamed(PageUrl.new_requestScreen);
-                              },
-
-                              style: TextButton.styleFrom(
-                                shape: StadiumBorder(side: BorderSide(color: Pallets.blueBubbleColor)),
-                                foregroundColor: Pallets.blueBubbleColor,
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    const TextView(
-                                      text: "Requests",
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                    if (stat.totalRequests != 0) 4.horizontalSpace,
-                                    if (stat.totalRequests != 0)
-                                      CircleAvatar(
-                                        radius: 8,
-                                        backgroundColor: Colors.red,
-                                        foregroundColor: Colors.white,
-                                        child: TextView(
-                                          text: stat.totalRequests.toString(),
-                                          fontSize: 8,
-                                        ),
-                                      ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ],
-                        );
-                      },
-                    ),
-                  ),
-                  guestWidget: const SizedBox.shrink(), // Or your desired guest widget
-                ),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class CustomSearchField extends StatelessWidget {
-  const CustomSearchField({super.key, required this.controller, this.focusNode, this.onSubmitted, this.onChanged, this.hint});
-
-  final TextEditingController controller;
-  final FocusNode? focusNode;
-  final Function(String)? onSubmitted;
-  final Function(String)? onChanged;
-  final String? hint;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextField(
-      controller: controller,
-      focusNode: focusNode,
-      // keyboardType: TextInputType.,
-
-      onSubmitted: onSubmitted,
-      onChanged: onChanged,
-      decoration: InputDecoration(
-        prefixIcon: Padding(
-          padding: const EdgeInsets.all(13.0),
-          child: ImageWidget(
-            imageUrl: Assets.images.svgs.search,
-            color: Pallets.grey,
-          ),
-        ),
-        filled: true,
-        fillColor: Colors.white,
-        hintText: hint ?? "Search messages",
-        hintStyle: const TextStyle(
-          color: Color(0xff212121),
-        ),
-        contentPadding: const EdgeInsets.all(16),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(40),
-          borderSide: const BorderSide(
-            color: Pallets.borderGrey,
-          ),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(40),
-          borderSide: const BorderSide(
-            color: Pallets.borderGrey,
-          ),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(40),
-          borderSide: const BorderSide(
-            color: Pallets.borderGrey,
-          ),
-        ),
-      ),
-    );
-  }
 }

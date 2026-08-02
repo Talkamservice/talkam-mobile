@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:talkam/common/widgets/custom_text_field.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
-import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/mock/mock_home_data.dart';
@@ -20,12 +20,8 @@ import 'category_list.dart';
 class AppDrawer extends StatefulWidget {
   const AppDrawer({
     super.key,
-    required this.onMessagesTap,
     required this.onGroupsTap,
   });
-
-  /// Switches the shell to the real Messaging branch (and closes the drawer).
-  final VoidCallback onMessagesTap;
 
   /// Switches the shell to the real Groups branch (and closes the drawer).
   final VoidCallback onGroupsTap;
@@ -50,7 +46,7 @@ class _AppDrawerState extends State<AppDrawer> {
             children: [
               const _DrawerProfileHeader(),
               12.verticalSpace,
-              _DrawerQuickLinks(onMessagesTap: widget.onMessagesTap),
+              const _DrawerQuickLinks(),
               16.verticalSpace,
               const _DrawerFollowingSection(),
               12.verticalSpace,
@@ -77,33 +73,6 @@ class _AppDrawerState extends State<AppDrawer> {
                   },
                 ),
               ),
-              InkWell(
-                onTap: () {
-                  Helpers.launchRawUrl(
-                      "https://web.talkam.prodevs.io/help&info/feedback");
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                      vertical: 16.0, horizontal: 12),
-                  child: Row(
-                    children: [
-                      ImageWidget(
-                        imageUrl: Assets.images.png.add.path,
-                        size: 30,
-                        fit: BoxFit.cover,
-                      ),
-                      8.horizontalSpace,
-                      const Expanded(
-                          child: TextView(
-                        text: "Submit a suggestion",
-                        fontSize: 16,
-                      )),
-                      8.horizontalSpace,
-                      ImageWidget(imageUrl: Assets.images.svgs.chevronRight)
-                    ],
-                  ),
-                ),
-              )
             ],
           ),
         ),
@@ -128,34 +97,16 @@ class _DrawerGroupSearchField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextField(
+    return CustomTextField(
+      hint: "Search",
       onChanged: onChanged,
-      style: TextStyle(fontSize: 14.sp),
-      decoration: InputDecoration(
-        hintText: "Search",
-        hintStyle: TextStyle(fontSize: 14.sp, color: Pallets.grey400),
-        prefixIcon: Padding(
-          padding: EdgeInsets.only(left: 12.w, right: 6.w),
-          child: ImageWidget(
-            imageUrl: Assets.images.svgV2.searchIcon,
-            size: 16.w,
-            color: Pallets.grey400,
-          ),
-        ),
-        prefixIconConstraints: BoxConstraints(minWidth: 34.w, minHeight: 0),
-        contentPadding: EdgeInsets.symmetric(vertical: 10.h),
-        isDense: true,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(24.r),
-          borderSide: BorderSide(color: Pallets.grey90),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(24.r),
-          borderSide: BorderSide(color: Pallets.grey90),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(24.r),
-          borderSide: BorderSide(color: Pallets.blueBubbleColor),
+      borderRadius: 24,
+      prefixIcon: Padding(
+        padding: EdgeInsets.only(left: 12.w, right: 6.w),
+        child: ImageWidget(
+          imageUrl: Assets.images.svgV2.searchIcon,
+          size: 16.w,
+          color: Pallets.grey400,
         ),
       ),
     );
@@ -247,9 +198,7 @@ class _DrawerProfileHeader extends StatelessWidget {
 
 /// Messages / Notifications quick links.
 class _DrawerQuickLinks extends StatelessWidget {
-  const _DrawerQuickLinks({required this.onMessagesTap});
-
-  final VoidCallback onMessagesTap;
+  const _DrawerQuickLinks();
 
   @override
   Widget build(BuildContext context) {
@@ -259,7 +208,10 @@ class _DrawerQuickLinks extends StatelessWidget {
         _QuickLinkRow(
           iconUrl: Assets.images.svgV2.messageIcon,
           label: "Messages",
-          onTap: onMessagesTap,
+          onTap: () {
+            Navigator.of(context).pop();
+            context.pushNamed(PageUrl.messagingScreen);
+          },
         ),
         BlocBuilder<NotificationsBloc, NotificationsState>(
           bloc: injector.get<NotificationsBloc>(),

@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:talkam/common/widgets/filled_textfield.dart';
+import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
@@ -15,6 +16,7 @@ import 'package:talkam/features/messaging/data/models/get_conversations_response
 import 'package:talkam/features/messaging/presentation/widgets/chat_emoji_widget.dart';
 import 'package:talkam/features/messaging/presentation/widgets/message_bubbles/preview_media_message.dart';
 import 'package:talkam/features/messaging/presentation/widgets/pending_conversation_action.dart';
+import 'package:talkam/gen/assets.gen.dart';
 
 class ConversationActionsWidget extends StatefulWidget {
   final ConversationUser user; // Assuming a user class or model
@@ -150,18 +152,25 @@ class _ConversationActionsWidgetState extends State<ConversationActionsWidget> {
                   children: [
                     GestureDetector(
                       onTap: () => sendImage(),
-                      child: const Icon(Icons.attach_file, size: 20, color: Pallets.grey),
+                      child: ImageWidget(
+                        imageUrl: Assets.images.svgV2.attachment02,
+                        size: 22,
+                        color: Pallets.grey,
+                      ),
                     ),
                     const SizedBox(width: 8),
                     GestureDetector(
                       onTap: () {
                         logger.w(pickedFile?.path);
-
                         widget.onSendMessage(controller.text, file: pickedFile?.path);
                         pickedFile = null;
                         controller.clear();
                       },
-                      child: const Icon(Icons.send, size: 20, color: Pallets.grey),
+                      child: ImageWidget(
+                        imageUrl: Assets.images.svgV2.sent,
+                        size: 22,
+                        color: Pallets.grey,
+                      ),
                     ),
                     const SizedBox(width: 16),
                   ],

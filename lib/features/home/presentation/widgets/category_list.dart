@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:go_router/go_router.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/mock/mock_home_data.dart';
-import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
+import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/features/home/presentation/widgets/app_drawer.dart';
 import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 
@@ -85,7 +86,7 @@ class _CategoriesListState extends State<CategoriesList> {
           children: [
             24.verticalSpace,
             const TextView(
-              text: "Categories",
+              text: "Groups",
               fontSize: 16,
               fontWeight: FontWeight.w600,
             ),
@@ -114,7 +115,7 @@ class _CategoriesListState extends State<CategoriesList> {
                         return Center(
                           child: TextView(
                             text: widget.searchQuery.isEmpty
-                                ? "There are no categories yet"
+                                ? "There are no groups yet"
                                 : "No groups match \"${widget.searchQuery}\"",
                           ),
                         );
@@ -129,9 +130,9 @@ class _CategoriesListState extends State<CategoriesList> {
                           child: NavCategoryItem(
                             category: categories[index],
                             onTap: () {
-                              context.read<DrawerCubit>().switchView(
-                                  DrawerView.subCategory,
-                                  subCategory: categories[index]);
+                              Navigator.of(context).pop();
+                              context.pushNamed(PageUrl.categoriesScreen,
+                                  extra: categories[index]);
                             },
                           ),
                         ),

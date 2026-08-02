@@ -77,7 +77,6 @@ final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'rootNavigator');
 final _shellNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'shellA');
 final _shellNavigatorBKey = GlobalKey<NavigatorState>(debugLabel: 'shellB');
 final _shellNavigatorCKey = GlobalKey<NavigatorState>(debugLabel: 'shellC');
-final _shellNavigatorDKey = GlobalKey<NavigatorState>(debugLabel: 'shellD');
 final _shellNavigatorEKey = GlobalKey<NavigatorState>(debugLabel: 'shellE');
 final _shellNavigatorFKey = GlobalKey<NavigatorState>(debugLabel: 'shellF');
 final _shellNavigatorGKey = GlobalKey<NavigatorState>(debugLabel: 'shellG');
@@ -422,6 +421,13 @@ class CustomRoutes {
         ),
       ),
       GoRoute(
+        path: '/messagingScreen',
+        name: PageUrl.messagingScreen,
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: MessagesScreen(),
+        ),
+      ),
+      GoRoute(
         path: '/adsPage',
         name: PageUrl.adsPage,
         pageBuilder: (context, state) => NoTransitionPage(
@@ -496,18 +502,6 @@ class CustomRoutes {
                 name: PageUrl.groups,
                 pageBuilder: (context, state) => const NoTransitionPage(
                   child: GroupsScreen(),
-                ),
-              ),
-            ],
-          ),
-          StatefulShellBranch(
-            navigatorKey: _shellNavigatorDKey,
-            routes: [
-              GoRoute(
-                path: '/messagingScreen',
-                name: PageUrl.messagingScreen,
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: MessagesScreen(),
                 ),
               ),
             ],

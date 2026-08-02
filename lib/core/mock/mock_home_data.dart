@@ -1,5 +1,7 @@
 import 'package:talkam/features/authentication/data/models/auth_response.dart'
     hide Data;
+import 'package:talkam/features/messaging/data/models/get_conversations_response.dart';
+import 'package:talkam/features/messaging/dormain/models/app_message_model.dart';
 import 'package:talkam/features/post/data/models/create_post_payload.dart'
     show Attachment;
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
@@ -70,15 +72,128 @@ class MockHomeData {
         _category(2, "Anxiety"),
       ];
 
-  static List<PostCategory> get groups => [
-        _category(1, "Anxiety"),
-        _category(3, "Depression"),
-        _category(4, "OCD"),
-        _category(5, "Fear"),
-        _category(6, "Psychosis"),
-        _category(7, "Eating Disorder"),
-        _category(8, "Relationships"),
-      ];
+  /// Full mock content for each Group screen — staging has no real groups
+  /// seeded yet, so every field a `CategoriesScreen` renders (hero image,
+  /// description, member count/avatars, creator) is filled in here per
+  /// group rather than sharing one generic placeholder.
+  static final Map<int, _MockGroupInfo> _groupInfoById = {
+    1: _MockGroupInfo(
+      name: "Anxiety",
+      description:
+          "A safe space to share anxious thoughts, coping strategies, and support each other through panic, worry, and overwhelm.",
+      backgroundImage: "https://picsum.photos/id/1015/800/500",
+      memberCount: 46200,
+      avatarSeeds: const [15, 32, 41, 51],
+      creatorId: 301,
+      creatorName: "Dr Adebayo",
+      creatorUsername: "dr_adebayo",
+      creatorAvatarSeed: 51,
+    ),
+    3: _MockGroupInfo(
+      name: "Depression",
+      description:
+          "Connect with others navigating depression — share what's helping, what's hard, and a reminder that recovery isn't linear.",
+      backgroundImage: "https://picsum.photos/id/1016/800/500",
+      memberCount: 38700,
+      avatarSeeds: const [5, 32, 22, 41],
+      creatorId: 401,
+      creatorName: "Dr. Chioma",
+      creatorUsername: "dr_chioma",
+      creatorAvatarSeed: 47,
+    ),
+    4: _MockGroupInfo(
+      name: "OCD",
+      description:
+          "Support and understanding for people living with obsessive-compulsive disorder, from intrusive thoughts to exposure therapy.",
+      backgroundImage: "https://picsum.photos/id/1018/800/500",
+      memberCount: 21400,
+      avatarSeeds: const [15, 5, 53, 32],
+      creatorId: 402,
+      creatorName: "Dr. Bello",
+      creatorUsername: "dr_bello",
+      creatorAvatarSeed: 33,
+    ),
+    5: _MockGroupInfo(
+      name: "Fear",
+      description:
+          "Talk through phobias, panic, and grounding techniques with people who understand what fear really feels like.",
+      backgroundImage: "https://picsum.photos/id/1024/800/500",
+      memberCount: 15300,
+      avatarSeeds: const [41, 51, 22, 5],
+      creatorId: 403,
+      creatorName: "Dr. Grace",
+      creatorUsername: "dr_grace",
+      creatorAvatarSeed: 44,
+    ),
+    6: _MockGroupInfo(
+      name: "Psychosis",
+      description:
+          "A judgment-free space to talk about psychosis, hallucinations, and staying connected to reality and support.",
+      backgroundImage: "https://picsum.photos/id/1035/800/500",
+      memberCount: 8100,
+      avatarSeeds: const [53, 15, 41, 22],
+      creatorId: 404,
+      creatorName: "Dr. Tunde",
+      creatorUsername: "dr_tunde",
+      creatorAvatarSeed: 12,
+    ),
+    7: _MockGroupInfo(
+      name: "Eating Disorder",
+      description:
+          "Support for anyone navigating disordered eating, body image struggles, and the road to recovery.",
+      backgroundImage: "https://picsum.photos/id/1039/800/500",
+      memberCount: 12600,
+      avatarSeeds: const [32, 53, 5, 51],
+      creatorId: 405,
+      creatorName: "Dr. Ngozi",
+      creatorUsername: "dr_ngozi",
+      creatorAvatarSeed: 29,
+    ),
+    8: _MockGroupInfo(
+      name: "Relationships",
+      description:
+          "Boundaries, breakups, family, and everything in between — talk relationships with people who get it.",
+      backgroundImage: "https://picsum.photos/id/1041/800/500",
+      memberCount: 29800,
+      avatarSeeds: const [22, 41, 32, 15],
+      creatorId: 406,
+      creatorName: "Dr. Efe",
+      creatorUsername: "dr_efe",
+      creatorAvatarSeed: 36,
+    ),
+  };
+
+  static List<PostCategory> get groups => _groupInfoById.entries
+      .map((entry) => _category(entry.key, entry.value.name).copyWith(
+            description: entry.value.description,
+            backgroundImage: entry.value.backgroundImage,
+            followersCount: entry.value.memberCount,
+          ))
+      .toList();
+
+  /// Member avatars for a category's Group screen — falls back to the
+  /// Anxiety group's set for any category not in [_groupInfoById].
+  static List<String> groupMemberAvatars(PostCategory category) {
+    final seeds =
+        _groupInfoById[category.id]?.avatarSeeds ?? const [15, 32, 41, 51];
+    return seeds.map((seed) => "https://i.pravatar.cc/150?img=$seed").toList();
+  }
+
+  /// Falls back to a large placeholder count when the real followers count
+  /// isn't seeded yet, matching the "46K Members" reference design.
+  static int groupMemberCount(PostCategory category) {
+    final real = category.followersCount;
+    if (real is num && real > 0) return real.toInt();
+    return 46200;
+  }
+
+  /// "Created by" persona shown on a Group screen's About tab.
+  static PostCreator groupCreator(PostCategory category) {
+    final info = _groupInfoById[category.id];
+    if (info == null) return _creator(301, "Dr Adebayo", "dr_adebayo", 51);
+    return _creator(info.creatorId, info.creatorName, info.creatorUsername,
+        info.creatorAvatarSeed);
+  }
 
   /// True if [id] belongs to one of [posts] — these don't exist on the real
   /// backend, so the post-detail screen must not fetch them over the network.
@@ -460,4 +575,291 @@ class MockHomeData {
         success: true,
         code: 200,
       );
+
+  /// The signed-in "me" placeholder used as the second member of every mock
+  /// conversation — never rendered directly (TalkamConversation.otherUser
+  /// always resolves to the other, non-me member).
+  static final ConversationUser _me = ConversationUser(
+    id: -1,
+    name: user.name,
+    username: user.username,
+    email: user.email,
+    avatar: user.avatar,
+  );
+
+  static ConversationUser _contact(int id, String name, int avatarSeed) =>
+      ConversationUser(
+        id: id,
+        name: name,
+        username: name.toLowerCase().replaceAll(' ', '_'),
+        email: "${name.toLowerCase().replaceAll(' ', '.')}@example.com",
+        avatar: "https://i.pravatar.cc/150?img=$avatarSeed",
+      );
+
+  /// Contact ids that should show the verified badge next to their name.
+  static const Set<int> verifiedContactIds = {301};
+
+  static LastMessage _lastMessage({
+    required int conversationId,
+    required int senderId,
+    required String message,
+    required int minutesAgo,
+  }) {
+    final createdAt =
+        DateTime(2026, 8, 1, 9, 41).subtract(Duration(minutes: minutesAgo));
+    return LastMessage(
+      id: conversationId * 10,
+      senderId: senderId,
+      receiverId: _me.id,
+      conversationId: conversationId,
+      message: message,
+      messageType: "Text",
+      assetUrl: "",
+      read: false,
+      createdAt: createdAt,
+      updatedAt: createdAt,
+    );
+  }
+
+  /// True if [id] belongs to one of [conversations] — these don't exist on
+  /// the real backend, so opening one must not hit the real chat/socket infra.
+  static bool isMockConversationId(int id) =>
+      conversations.any((c) => c.id == id);
+
+  /// Conversation list shown on the Messages screen — staging has no real
+  /// conversations yet, so this is the fallback when the real list is empty.
+  static List<TalkamConversation> get conversations {
+    final entries = [
+      (
+        id: 301,
+        name: "Dr Adebayo",
+        avatarSeed: 51,
+        message: "I missed it. Heard it was a close one though. Wh...",
+        minutesAgo: 12,
+      ),
+      (
+        id: 302,
+        name: "Bhandari",
+        avatarSeed: 54,
+        message: "It was an incredible match! The home team clinc...",
+        minutesAgo: 10,
+      ),
+      (
+        id: 303,
+        name: "Chen",
+        avatarSeed: 56,
+        message: "I can't believe I missed it! Was it as thrilling as l...",
+        minutesAgo: 9,
+      ),
+      (
+        id: 304,
+        name: "Patel",
+        avatarSeed: 58,
+        message: "Absolutely! The last-minute goal had everyone...",
+        minutesAgo: 8,
+      ),
+      (
+        id: 305,
+        name: "Dr Smith",
+        avatarSeed: 60,
+        message: "I heard the referee made some controversial call...",
+        minutesAgo: 7,
+      ),
+      (
+        id: 306,
+        name: "Kim",
+        avatarSeed: 62,
+        message: "It was wild! The atmosphere in the stadium was...",
+        minutesAgo: 6,
+      ),
+    ];
+
+    return entries.map((e) {
+      final contact = _contact(e.id, e.name, e.avatarSeed);
+      return TalkamConversation(
+        id: e.id,
+        members: [contact, _me],
+        lastMessage: _lastMessage(
+          conversationId: e.id,
+          senderId: e.id,
+          message: e.message,
+          minutesAgo: e.minutesAgo,
+        ),
+        numberOfUnread: 1,
+        notificationStatus: true,
+        isAnonymous: false,
+        requestedBy: contact,
+        userBlocked: false,
+        userBanned: false,
+        status: "Accepted",
+      );
+    }).toList();
+  }
+
+  /// The mock chat thread for a conversation from [conversations] — keyed by
+  /// conversation id. Dr Adebayo's thread matches the reference design
+  /// exactly; everyone else gets a short generic thread built from their
+  /// list preview so every mock conversation is still tappable.
+  static List<AppMessageModel> chatThread(TalkamConversation conversation) {
+    final other = conversation.otherUser;
+    final now = DateTime(2026, 8, 2, 11, 53);
+
+    if (other.id == 301) {
+      const sent =
+          'I saw "Galactic Odyssey." It was an incredible journey reminding me to care.';
+      const received =
+          'Yeah, I watched that new sci-fi movie "Galactic Odyssey". It was epic!';
+      return [
+        AppMessageModel(
+          content: sent,
+          iAmSender: true,
+          sendingState: SendingState.success,
+          time: now,
+          receiverId: other.id.toString(),
+          messageType: "Text",
+          conversationId: conversation.id.toString(),
+        ),
+        AppMessageModel(
+          content: received,
+          iAmSender: false,
+          sendingState: SendingState.success,
+          time: now,
+          receiverId: _me.id.toString(),
+          messageType: "Text",
+          conversationId: conversation.id.toString(),
+        ),
+        AppMessageModel(
+          content: sent,
+          iAmSender: true,
+          sendingState: SendingState.success,
+          time: now,
+          receiverId: other.id.toString(),
+          messageType: "Text",
+          conversationId: conversation.id.toString(),
+        ),
+        AppMessageModel(
+          content: received,
+          iAmSender: false,
+          sendingState: SendingState.success,
+          time: now,
+          receiverId: _me.id.toString(),
+          messageType: "Text",
+          conversationId: conversation.id.toString(),
+        ),
+      ];
+    }
+
+    return [
+      AppMessageModel(
+        content: conversation.lastMessage?.message ?? "Hey!",
+        iAmSender: false,
+        sendingState: SendingState.success,
+        time: now.subtract(const Duration(minutes: 5)),
+        receiverId: _me.id.toString(),
+        messageType: "Text",
+        conversationId: conversation.id.toString(),
+      ),
+      AppMessageModel(
+        content: "Tell me more!",
+        iAmSender: true,
+        sendingState: SendingState.success,
+        time: now,
+        receiverId: other.id.toString(),
+        messageType: "Text",
+        conversationId: conversation.id.toString(),
+      ),
+    ];
+  }
+
+  /// The Notification screen's unified feed — staging has no seed data, so
+  /// this is what renders whenever the real feed comes back empty.
+  static List<MockNotificationGroup> get notificationGroups => [
+        MockNotificationGroup(label: "Today", items: [
+          MockNotificationItem(
+            type: MockNotificationType.session,
+            title: "Session in 30 minutes",
+            body: "Dr. Chioma • Video • 2:00 PM",
+            timeAgo: "30m",
+            actionLabel: "Open Session",
+          ),
+          MockNotificationItem(
+            type: MockNotificationType.comment,
+            title: "calm_water replied to your post",
+            body: '"What helped me was a consistent...',
+            timeAgo: "1h",
+          ),
+          MockNotificationItem(
+            type: MockNotificationType.like,
+            title: "48 people cared about your post",
+            body: '"Been walking up 3am with racing th...',
+            timeAgo: "2h",
+          ),
+          MockNotificationItem(
+            type: MockNotificationType.message,
+            title: "Dr. Chioma sent you message",
+            body: '"Looking forward to our session t...',
+            timeAgo: "3h",
+          ),
+        ]),
+        MockNotificationGroup(label: "Yesterday", items: [
+          MockNotificationItem(
+            type: MockNotificationType.wellness,
+            title: "TalkAM Wellness check-in",
+            body: '"You haven\'t logged your moo...',
+            timeAgo: "3h",
+          ),
+        ]),
+      ];
+}
+
+enum MockNotificationType { session, comment, like, message, wellness }
+
+class MockNotificationGroup {
+  const MockNotificationGroup({required this.label, required this.items});
+
+  final String label;
+  final List<MockNotificationItem> items;
+}
+
+class MockNotificationItem {
+  const MockNotificationItem({
+    required this.type,
+    required this.title,
+    required this.body,
+    required this.timeAgo,
+    this.actionLabel,
+  });
+
+  final MockNotificationType type;
+  final String title;
+  final String body;
+  final String timeAgo;
+
+  /// e.g. "Open Session" — only the session-reminder card has one.
+  final String? actionLabel;
+}
+
+/// Backing content for one entry in [MockHomeData._groupInfoById].
+class _MockGroupInfo {
+  const _MockGroupInfo({
+    required this.name,
+    required this.description,
+    required this.backgroundImage,
+    required this.memberCount,
+    required this.avatarSeeds,
+    required this.creatorId,
+    required this.creatorName,
+    required this.creatorUsername,
+    required this.creatorAvatarSeed,
+  });
+
+  final String name;
+  final String description;
+  final String backgroundImage;
+  final int memberCount;
+  final List<int> avatarSeeds;
+  final int creatorId;
+  final String creatorName;
+  final String creatorUsername;
+  final int creatorAvatarSeed;
 }

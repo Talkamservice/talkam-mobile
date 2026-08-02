@@ -6,14 +6,16 @@ import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/mock/mock_home_data.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
-import 'package:talkam/features/post/presentation/widgets/rules_button.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
+import 'package:talkam/gen/assets.gen.dart';
 
 class CategoriesScreenHeader extends StatefulWidget {
-  const CategoriesScreenHeader({super.key, required this.category, this.onFollowUpdated});
+  const CategoriesScreenHeader(
+      {super.key, required this.category, this.onFollowUpdated});
 
   final PostCategory category;
   final VoidCallback? onFollowUpdated;
@@ -25,110 +27,169 @@ class CategoriesScreenHeader extends StatefulWidget {
 class _CategoriesScreenHeaderState extends State<CategoriesScreenHeader> {
   @override
   Widget build(BuildContext context) {
+    final avatars = MockHomeData.groupMemberAvatars(widget.category);
+    final memberCount = MockHomeData.groupMemberCount(widget.category);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Column(
+        Stack(
           children: [
-            SizedBox(
-              child: Stack(
+            ImageWidget(
+              imageUrl: widget.category.backgroundImage ?? '',
+              height: 210,
+              width: 1.sw,
+              fit: BoxFit.cover,
+            ),
+            SafeArea(
+              bottom: false,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 8.h),
+                child: Row(
+                  children: [
+                    _HeaderIconButton(
+                      icon: Icons.arrow_back,
+                      onTap: () => context.pop(),
+                    ),
+                    const Spacer(),
+                    _HeaderIconButton(
+                      icon: Icons.more_vert,
+                      onTap: () => CustomDialogs.showToast("Coming soon"),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              TextView(
+                text: widget.category.name ?? "",
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+              ),
+              10.verticalSpace,
+              Row(
                 children: [
-                  ImageWidget(
-                    imageUrl: widget.category.backgroundImage ?? '',
-                    height: 210,
-                    width: 1.sw,
-                    fit: BoxFit.cover,
+                  _MemberAvatarsStack(avatarUrls: avatars),
+                  8.horizontalSpace,
+                  TextView(
+                    text: "${_formatMemberCount(memberCount)} Members",
+                    fontSize: 13,
+                    color: Pallets.grey60,
                   ),
-                  Container(
-                    height: 210.h,
-                    padding: const EdgeInsets.all(16),
-                    width: 1.sw,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        40.verticalSpace,
-                        Row(
-                          children: [
-                            IconButton(
-                                onPressed: () {
-                                  context.pop();
-                                },
-                                icon: const Icon(
-                                  Icons.arrow_back,
-                                  color: Pallets.white,
-                                )),
-                            const Spacer(),
-                            FollowCategoryButton(
-                              category: widget.category,
-                              onFollowUpdated: widget.onFollowUpdated,
-                            ),
-                            // 17.horizontalSpace,
-                            // const Icon(
-                            //   Icons.info_outline,
-                            //   color: Pallets.white,
-                            // )
-                          ],
-                        )
-                      ],
+                  const Spacer(),
+                  FollowCategoryButton(
+                    category: widget.category,
+                    onFollowUpdated: widget.onFollowUpdated,
+                  ),
+                  8.horizontalSpace,
+                  InkWell(
+                    onTap: () => CustomDialogs.showToast("Coming soon"),
+                    customBorder: const CircleBorder(),
+                    child: Container(
+                      width: 34.w,
+                      height: 34.w,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(color: Pallets.grey90),
+                      ),
+                      child: ImageWidget(
+                        imageUrl: Assets.images.svgs.groupsAdd,
+                        size: 16,
+                      ),
                     ),
                   ),
                 ],
               ),
-            ),
-            10.verticalSpace,
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 14.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      ImageWidget(size: 50, fit: BoxFit.contain, imageUrl: widget.category.iconImage.toString()),
-                      10.horizontalSpace,
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            TextView(
-                              text: widget.category.name ?? "",
-                              fontSize: 16,
-                            ),
-                            TextView(
-                              text: "${widget.category.followersCount} Followers",
-                              fontSize: 12,
-                            ),
-                          ],
-                        ),
-                      ),
-                      const RulesButton()
-                    ],
-                  ),
-                  // 21.verticalSpace,
-                  // Wrap(
-                  //   spacing: 4,
-                  //   runSpacing: 8,
-                  //   children: List.generate(
-                  //     widget.category.,
-                  //     (index) => Container(
-                  //       padding: const EdgeInsets.symmetric(
-                  //           horizontal: 10, vertical: 5),
-                  //       decoration: BoxDecoration(
-                  //           borderRadius: BorderRadius.circular(100.r),
-                  //           border: Border.all(
-                  //             width: 1,
-                  //             color: Pallets.borderGrey,
-                  //           )),
-                  //       child: const TextView(text: "Sports"),
-                  //     ),
-                  //   ),
-                  // ),
-                  15.verticalSpace,
-                ],
+              12.verticalSpace,
+              TextView(
+                text: widget.category.description?.toString() ?? "",
+                fontSize: 14,
+                color: Pallets.grey60,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+String _formatMemberCount(int count) {
+  if (count < 1000) return count.toString();
+  final k = count / 1000;
+  return "${k % 1 == 0 ? k.toStringAsFixed(0) : k.toStringAsFixed(1)}K";
+}
+
+class _HeaderIconButton extends StatelessWidget {
+  const _HeaderIconButton({required this.icon, required this.onTap});
+
+  final IconData icon;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      customBorder: const CircleBorder(),
+      child: Container(
+        width: 36.w,
+        height: 36.w,
+        alignment: Alignment.center,
+        decoration: BoxDecoration(
+          shape: BoxShape.circle,
+          color: Colors.black.withValues(alpha: 0.35),
+        ),
+        child: Icon(icon, color: Colors.white, size: 20),
+      ),
+    );
+  }
+}
+
+/// Overlapping circular avatars, e.g. the small preview of a group's members
+/// shown next to its member count.
+class _MemberAvatarsStack extends StatelessWidget {
+  const _MemberAvatarsStack({required this.avatarUrls});
+
+  final List<String> avatarUrls;
+
+  static const double _size = 28;
+  static const double _overlap = 18;
+
+  @override
+  Widget build(BuildContext context) {
+    final shown = avatarUrls.take(4).toList();
+    if (shown.isEmpty) return const SizedBox.shrink();
+
+    return SizedBox(
+      width: _overlap * (shown.length - 1) + _size,
+      height: _size,
+      child: Stack(
+        children: [
+          for (int i = 0; i < shown.length; i++)
+            Positioned(
+              left: i * _overlap,
+              child: Container(
+                decoration: const BoxDecoration(
+                  shape: BoxShape.circle,
+                  border: Border.fromBorderSide(
+                      BorderSide(color: Colors.white, width: 2)),
+                ),
+                child: ImageWidget(
+                  imageUrl: shown[i],
+                  size: _size,
+                  shape: BoxShape.circle,
+                ),
               ),
             ),
-          ],
-        )
-      ],
+        ],
+      ),
     );
   }
 }
@@ -168,36 +229,35 @@ class _FollowCategoryButtonState extends State<FollowCategoryButton> {
           builder: (context, state) {
             return TextButton(
                 style: TextButton.styleFrom(
-                    backgroundColor: widget.category.isFollowing ? Pallets.red : Pallets.primary, foregroundColor: Pallets.white, shape: const StadiumBorder()),
+                    backgroundColor: widget.category.isFollowing
+                        ? Pallets.red
+                        : Pallets.primary,
+                    foregroundColor: Pallets.white,
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                    shape: const StadiumBorder()),
                 onPressed: () {
-                  // var userInterests =
-                  //     injector.get<ProfileBloc>().appUser!.interests;
-
                   bloc.add(UpdateInterestEvent(widget.category.id.toString()));
                 },
                 child: Builder(builder: (context) {
                   if (state is UpdateInterestLoadingState) {
                     return const SizedBox(
-                      height: 20,
-                      width: 20,
+                      height: 16,
+                      width: 16,
                       child: CircularProgressIndicator(
+                        strokeWidth: 2,
                         color: Pallets.white,
                       ),
                     );
                   }
 
-                  return Row(
-                    children: [
-                      if (!widget.category.isFollowing)
-                        const Icon(
-                          Icons.add,
-                          color: Pallets.white,
-                        ),
-                      if (!widget.category.isFollowing) 5.horizontalSpace,
-                      TextView(text: widget.category.isFollowing ? "Unfollow" : "Follow"),
-                    ],
+                  return TextView(
+                    text: widget.category.isFollowing
+                        ? "Subscribed"
+                        : "Subscribe",
+                    fontSize: 13,
+                    fontWeight: FontWeight.w600,
                   );
-                  // CustomDialogs.success("");
                 }));
           },
         ),

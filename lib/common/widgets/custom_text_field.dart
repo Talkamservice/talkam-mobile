@@ -10,6 +10,7 @@ class CustomTextField extends StatefulWidget {
   final TextEditingController? controller;
   final bool obscureText;
   final Widget? suffixIcon;
+  final Widget? prefixIcon;
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
   final void Function(String)? onChanged;
@@ -25,6 +26,9 @@ class CustomTextField extends StatefulWidget {
   /// Forces a green "looks good" style. Ignored when [forceError] is true.
   final bool forceValid;
 
+  /// Corner radius applied to all borders. Defaults to 14.
+  final double? borderRadius;
+
   const CustomTextField({
     super.key,
     this.label,
@@ -32,6 +36,7 @@ class CustomTextField extends StatefulWidget {
     this.controller,
     this.obscureText = false,
     this.suffixIcon,
+    this.prefixIcon,
     this.validator,
     this.keyboardType,
     this.onChanged,
@@ -40,6 +45,7 @@ class CustomTextField extends StatefulWidget {
     this.inputFormatters,
     this.forceError = false,
     this.forceValid = false,
+    this.borderRadius,
   });
 
   @override
@@ -110,33 +116,34 @@ class _CustomTextFieldState extends State<CustomTextField> {
                     ? Pallets.successGreen.withOpacity(0.06)
                     : Colors.white),
             suffixIcon: widget.suffixIcon,
+            prefixIcon: widget.prefixIcon,
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14.r),
+              borderRadius: BorderRadius.circular((widget.borderRadius ?? 14).r),
               borderSide: BorderSide(
                 color: activeColor ?? Pallets.grey90,
                 width: activeColor != null ? 1.5 : 1,
               ),
             ),
             enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14.r),
+              borderRadius: BorderRadius.circular((widget.borderRadius ?? 14).r),
               borderSide: BorderSide(
                 color: activeColor ?? Pallets.grey90,
                 width: activeColor != null ? 1.5 : 1,
               ),
             ),
             focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14.r),
+              borderRadius: BorderRadius.circular((widget.borderRadius ?? 14).r),
               borderSide: BorderSide(
                 color: activeColor ?? Pallets.blueBubbleColor,
                 width: 1.5,
               ),
             ),
             errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14.r),
+              borderRadius: BorderRadius.circular((widget.borderRadius ?? 14).r),
               borderSide: const BorderSide(color: Pallets.errorRed, width: 1.5),
             ),
             focusedErrorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(14.r),
+              borderRadius: BorderRadius.circular((widget.borderRadius ?? 14).r),
               borderSide:
                   const BorderSide(color: Pallets.errorRed, width: 1.5),
             ),

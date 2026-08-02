@@ -1,20 +1,15 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:talkam/common/widgets/empty_state.dart';
-import 'package:talkam/common/widgets/image_widget.dart';
-import 'package:talkam/common/widgets/text_view.dart';
-import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/mock/mock_home_data.dart';
 import 'package:talkam/core/navigation/route_url.dart';
-import 'package:talkam/core/services/data/session_manager.dart';
-import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/messaging/data/models/get_conversations_response.dart';
 import 'package:talkam/features/messaging/presentation/blocs/conversations/conversations_cubit.dart';
 import 'package:talkam/features/messaging/presentation/screens/chat_screen.dart';
+import 'package:talkam/features/messaging/presentation/screens/mock_chat_screen.dart';
 import 'package:talkam/features/messaging/presentation/widgets/conversation_item.dart';
-import 'package:talkam/gen/assets.gen.dart';
 
 class MessagesList extends StatefulWidget {
   final List<TalkamConversation> message;
@@ -42,8 +37,9 @@ class _MessagesListState extends State<MessagesList> {
           children: [
             100.verticalSpace,
             const EmptyState(
-              title: "No Conversations yet",
-              subtitle: "Your conversations will appear here if there are any",
+              title: "You are all caught up",
+              subtitle:
+                  "No messages yet. Start a conversation to see your messages here.",
             ),
           ],
         ),
@@ -58,14 +54,24 @@ class _MessagesListState extends State<MessagesList> {
         padding: const EdgeInsets.all(16.0),
         itemCount: widget.message.length,
         itemBuilder: (BuildContext context, index) {
+          final conversation = widget.message[index];
           return InkWell(
             onTap: () {
-              context.pushNamed(PageUrl.chatScreen, extra: ChatScreenParam(conversation: widget.message[index], user: widget.message[index].otherUser));
+              if (MockHomeData.isMockConversationId(conversation.id)) {
+                Navigator.of(context).push(MaterialPageRoute(
+                  builder: (_) => MockChatScreen(conversation: conversation),
+                ));
+              } else {
+                context.pushNamed(PageUrl.chatScreen,
+                    extra: ChatScreenParam(
+                        conversation: conversation,
+                        user: conversation.otherUser));
+              }
             },
-            child: ConversationItem(message: widget.message[index]),
+            child: ConversationItem(message: conversation),
           );
         },
-        separatorBuilder: (context, _) => const SizedBox(height: 16),
+        separatorBuilder: (context, _) => const SizedBox(height: 24),
       ),
     );
   }
