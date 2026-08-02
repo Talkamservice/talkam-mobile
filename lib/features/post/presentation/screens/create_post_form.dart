@@ -23,10 +23,6 @@ import 'package:talkam/features/post/presentation/widgets/schedule_post_form.dar
 import 'package:talkam/features/post/presentation/widgets/text_post_form.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 
-import 'create_post_screen.dart';
-
-
-
 class CreatePostForm extends StatefulWidget {
   const CreatePostForm({super.key, required this.onValidated});
   final Function(CreatePostPayload payload) onValidated;

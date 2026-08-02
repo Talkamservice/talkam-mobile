@@ -118,6 +118,11 @@ class TimeUtil {
     return formatter.format(date);
   }
 
+  /// e.g. "19:31 · 02 Jul 26"
+  static String formatPostMeta(DateTime date) {
+    return "${DateFormat('HH:mm').format(date)} · ${DateFormat('dd MMM yy').format(date)}";
+  }
+
   static String formatToFullDate(DateTime dateTime) {
     return DateFormat('EEEE, dd MMMM yyyy').format(dateTime);
   }
@@ -141,6 +146,7 @@ class TimeUtil {
   static String formatDay(DateTime dateTime) {
     return DateFormat('EEEE').format(dateTime);
   }
+
   static String monthYeay(DateTime dateTime) {
     return DateFormat('MMMM yyyy').format(dateTime);
   }

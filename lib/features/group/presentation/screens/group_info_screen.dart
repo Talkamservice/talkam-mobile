@@ -18,6 +18,7 @@ import 'package:talkam/features/group/presentation/tabs/group_posts_tab.dart';
 import 'package:talkam/features/group/presentation/widgets/group_app_bar.dart';
 import 'package:talkam/features/group/presentation/widgets/group_overview_section.dart';
 import 'package:talkam/features/home/presentation/screens/home_screen.dart';
+import 'package:talkam/features/post/presentation/widgets/create_post_sheet.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class GroupInfoScreen extends StatefulWidget {
@@ -29,7 +30,8 @@ class GroupInfoScreen extends StatefulWidget {
   State<GroupInfoScreen> createState() => _GroupInfoScreenState();
 }
 
-class _GroupInfoScreenState extends State<GroupInfoScreen> with SingleTickerProviderStateMixin {
+class _GroupInfoScreenState extends State<GroupInfoScreen>
+    with SingleTickerProviderStateMixin {
   final tabItems = [
     TabItemModel(imagePath: Assets.images.svgs.icfeatured, tittle: "Posts"),
     TabItemModel(imagePath: Assets.images.svgs.icTrending, tittle: "Media"),
@@ -59,9 +61,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> with SingleTickerProv
           foregroundColor: Pallets.white,
           backgroundColor: Pallets.primary,
           onPressed: () {
-            context.pushNamed(PageUrl.createPostScreen);
-            //
-            // context.pushNamed(PageUrl.createGroupScreen);
+            showCreatePostSheet(context);
           },
           child: const Icon(Icons.add),
         ),
@@ -108,22 +108,25 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> with SingleTickerProv
                           GroupInfoAppBar(
                             group: response,
                             onStateChanged: () {
-                              injector.get<GroupsCubit>().getGroups(shouldRefresh: false);
+                              injector
+                                  .get<GroupsCubit>()
+                                  .getGroups(shouldRefresh: false);
                               bloc.getGroup(widget.groupId, refresh: false);
                             },
                           ),
                           10.verticalSpace,
                           Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                            padding:
+                                const EdgeInsets.symmetric(horizontal: 10.0),
                             child: GroupOverViewSection(
                               data: response,
                               onPromoted: () {
                                 bloc.getGroup(widget.groupId);
                               },
                               onAboutCLicked: () {
-                                context.pushNamed(PageUrl.groupDetailsScreen, extra: response);
-
-                                },
+                                context.pushNamed(PageUrl.groupDetailsScreen,
+                                    extra: response);
+                              },
                             ),
                           ),
                           10.verticalSpace,
@@ -152,7 +155,8 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> with SingleTickerProv
                               tabs: List.generate(
                                 tabItems.length,
                                 (index) => Padding(
-                                  padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 16.0),
                                   child: Tab(
                                     child: Row(
                                       children: [
@@ -160,7 +164,9 @@ class _GroupInfoScreenState extends State<GroupInfoScreen> with SingleTickerProv
                                           fontSize: 15,
                                           fontWeight: FontWeight.w600,
                                           text: tabItems[index].tittle,
-                                          color: selecteIndex == index ? context.colorScheme.onSurface : Pallets.grey60,
+                                          color: selecteIndex == index
+                                              ? context.colorScheme.onSurface
+                                              : Pallets.grey60,
                                           // fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
                                         ),
                                       ],

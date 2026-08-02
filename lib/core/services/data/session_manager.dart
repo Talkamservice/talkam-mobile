@@ -58,6 +58,8 @@ class SessionManager {
   static const String KEY_USER_EMAIL = 'logged_in_user_email';
   static const String KEY_ANONYMOUS_USERNAME = 'anonymous_username';
   static const String KEY_CONSENT_SETTINGS = 'consent_settings';
+  static const String KEY_IS_THERAPIST_ACCOUNT = 'is_therapist_account';
+  static const String KEY_LAST_MOOD_CHECK_DATE = 'last_mood_check_date';
 
 
   Map<String, dynamic> get usersData =>
@@ -123,6 +125,23 @@ class SessionManager {
 
   set consentSettings(String encoded) =>
       sharedPreferences!.setString(KEY_CONSENT_SETTINGS, encoded);
+
+  /// True once a therapist application has been submitted. Device-local
+  /// stand-in until the backend returns a real account-type field on the
+  /// user object (TalkamUser.role exists but nothing currently populates it).
+  bool get isTherapistAccount =>
+      sharedPreferences!.getBool(KEY_IS_THERAPIST_ACCOUNT) ?? false;
+
+  set isTherapistAccount(bool value) =>
+      sharedPreferences!.setBool(KEY_IS_THERAPIST_ACCOUNT, value);
+
+  /// ISO date (yyyy-MM-dd) the mood check-in dialog was last shown/dismissed.
+  /// Empty until the first time it's shown.
+  String get lastMoodCheckDate =>
+      sharedPreferences!.getString(KEY_LAST_MOOD_CHECK_DATE) ?? '';
+
+  set lastMoodCheckDate(String isoDate) =>
+      sharedPreferences!.setString(KEY_LAST_MOOD_CHECK_DATE, isoDate);
 
   set isLoggedIn(bool loggedIn) {
     sharedPreferences!.setBool(KEY_IS_LOGIN, loggedIn);

@@ -27,7 +27,7 @@ class NotificationIcon extends StatelessWidget {
               clipBehavior: Clip.none,
               children: [
                 ImageWidget(
-                  imageUrl: Assets.images.svgs.notification,
+                  imageUrl: Assets.images.svgV2.notificationIcon,
                   onTap: () => context.pushNamed(PageUrl.notificationScreen),
                 ),
                 if (stat.unreadNotifications != 0)

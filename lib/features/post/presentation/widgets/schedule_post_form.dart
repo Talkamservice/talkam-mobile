@@ -7,8 +7,6 @@ import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/extensions/date_extensions.dart';
-import 'package:talkam/core/utils/extensions/time_of_day_extension.dart';
-import 'package:talkam/features/profile/data/models/update_profile_payload.dart';
 
 class SchedulePostForm extends StatefulWidget {
   const SchedulePostForm({super.key, required this.schedulePost, required this.onChanged, required this.onScheduleDateSelected});
@@ -49,20 +47,37 @@ class _SchedulePostFormState extends State<SchedulePostForm> {
           ),
           23.verticalSpace,
           if (widget.schedulePost)
-            TextButton(
-                style: TextButton.styleFrom(
-                    foregroundColor: Pallets.grey, padding: const EdgeInsets.all(16), side: const BorderSide(color: Pallets.borderGrey, width: 1)),
-                onPressed: () {
-                  pickDateAndTime(context);
-                },
+            InkWell(
+              onTap: () => pickDateAndTime(context),
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 2, horizontal: 16),
+                decoration: BoxDecoration(
+                  color: Pallets.borderGrey.withOpacity(0.1),
+                  border: Border.all(color: Pallets.borderGrey, width: 1),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                constraints: const BoxConstraints(minHeight: 55),
+                width: 1.sw,
                 child: Row(
                   children: [
                     Expanded(
-                        child: TextView(
-                            fontSize: 16, fontWeight: FontWeight.w600, text: scheduleDate != null ? TimeUtil.formartToDayTime(scheduleDate!) : "Date & Time")),
-                    const Icon(Icons.keyboard_arrow_right)
+                      child: TextView(
+                        fontSize: 15.sp,
+                        fontWeight: FontWeight.w500,
+                        color: scheduleDate != null
+                            ? context.colorScheme.onSurface
+                            : Pallets.grey75,
+                        text: scheduleDate != null
+                            ? TimeUtil.formartToDayTime(scheduleDate!)
+                            : "Date & Time",
+                      ),
+                    ),
+                    10.horizontalSpace,
+                    const Icon(Icons.keyboard_arrow_down_rounded),
                   ],
-                ))
+                ),
+              ),
+            )
         ],
       ),
     );

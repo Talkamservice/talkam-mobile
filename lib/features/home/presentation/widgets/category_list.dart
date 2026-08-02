@@ -5,6 +5,7 @@ import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/mock/mock_home_data.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
 import 'package:talkam/features/home/presentation/widgets/app_drawer.dart';
 import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
@@ -12,7 +13,10 @@ import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 class CategoriesList extends StatefulWidget {
   CategoriesList({
     super.key,
+    this.searchQuery = '',
   });
+
+  final String searchQuery;
 
   @override
   State<CategoriesList> createState() => _CategoriesListState();
@@ -93,25 +97,41 @@ class _CategoriesListState extends State<CategoriesList> {
                 builder: (context, state) {
                   return state.maybeWhen(
                     orElse: () {
-                      var response = injector.get<PostBloc>();
-                      if (response.categories.isEmpty) {
-                        return const Center(
-                          child: TextView(text: "There are no categories yet"),
+                      final response = injector.get<PostBloc>();
+                      final source = response.categories.isEmpty
+                          ? MockHomeData.groups
+                          : response.categories;
+                      final categories = widget.searchQuery.isEmpty
+                          ? source
+                          : source
+                              .where((category) => category.name
+                                  .toString()
+                                  .toLowerCase()
+                                  .contains(widget.searchQuery.toLowerCase()))
+                              .toList();
+
+                      if (categories.isEmpty) {
+                        return Center(
+                          child: TextView(
+                            text: widget.searchQuery.isEmpty
+                                ? "There are no categories yet"
+                                : "No groups match \"${widget.searchQuery}\"",
+                          ),
                         );
                       }
 
                       return ListView.builder(
-                        itemCount: response.categories.length,
+                        itemCount: categories.length,
                         shrinkWrap: true,
                         // physics: const BouncingScrollPhysics(),
                         itemBuilder: (context, index) => Padding(
                           padding: const EdgeInsets.symmetric(vertical: 2.0),
                           child: NavCategoryItem(
-                            category: response.categories[index],
+                            category: categories[index],
                             onTap: () {
                               context.read<DrawerCubit>().switchView(
                                   DrawerView.subCategory,
-                                  subCategory: response.categories[index]);
+                                  subCategory: categories[index]);
                             },
                           ),
                         ),
@@ -119,12 +139,13 @@ class _CategoriesListState extends State<CategoriesList> {
                     },
                     getCategoriesFailure: (error) => AppErrorWidget(
                       onTap: () {
-                        injector.get<PostBloc>().add(const PostEvent.getCategories(refresh: false));
+                        injector
+                            .get<PostBloc>()
+                            .add(const PostEvent.getCategories(refresh: false));
                       },
                     ),
                     getCategoriesLoading: () =>
                         CustomDialogs.getLoading(size: 50),
-
                   );
                 },
               ),

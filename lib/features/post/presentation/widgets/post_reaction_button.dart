@@ -77,7 +77,7 @@ class _PostReactionButtonState extends State<PostReactionButton> {
           },
           child: switch (widget.reactionType) {
             ReactionType.like => ImageWidget(
-                imageUrl: Assets.images.svgs.thumbsUp,
+                imageUrl: Assets.images.svgV2.likeIcon,
                 color: widget.reaction?.isLike ?? false ? Pallets.primary : null,
               ),
             ReactionType.dislike => ImageWidget(

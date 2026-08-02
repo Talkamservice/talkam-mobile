@@ -5,51 +5,28 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
-import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
-import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
-import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
 import 'package:talkam/features/home/presentation/widgets/app_drawer.dart';
-import 'package:talkam/features/notifications/presentation/bloc/notification_bloc.dart';
-import 'package:talkam/features/notifications/presentation/bloc/notification_bloc.dart';
 import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
+import 'package:talkam/features/post/presentation/widgets/create_post_sheet.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
-class _BottomNavIcon extends StatelessWidget {
-  final Function(int) onTap;
-  final int currentIndex, itemIndex;
-  final String iconPath;
-  final Color? bgColor;
-
-  const _BottomNavIcon({
-    super.key,
-    required this.onTap,
-    required this.currentIndex,
-    required this.iconPath,
-    required this.itemIndex,
-    this.bgColor,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => onTap(itemIndex),
-      child: Container(
-        width: 48.w,
-        height: 48.h,
-        decoration: bgColor != null
-            ? BoxDecoration(color: bgColor, shape: BoxShape.circle)
-            : currentIndex == itemIndex
-                ? BoxDecoration(color: context.colorScheme.primary, shape: BoxShape.circle)
-                : null,
-        child: Center(child: SvgPicture.asset(iconPath)),
-      ),
-    );
-  }
-}
+/// Shell branch indices — see the StatefulShellRoute in routes.dart. Search
+/// (1), Groups (2) and Messaging (3) stay real, reachable branches; they're
+/// just no longer represented in the bottom bar itself (see Part B of the
+/// redesign — Search moved to the top app bar, Groups/Messages are reachable
+/// from the sidebar).
+const int _kHomeBranch = 0;
+const int _kGroupsBranch = 2;
+const int _kMessagingBranch = 3;
+const int _kWellnessBranch = 4;
+const int _kCalendarBranch = 5;
+const int _kEarningsBranch = 6;
+const int _kProfileBranch = 7;
 
 class BasePage extends StatefulWidget {
   const BasePage({
@@ -70,6 +47,8 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
   final GlobalKey<FormState> dialogKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> baseScaffoldKey = GlobalKey<ScaffoldState>();
 
+  bool get _isTherapist => SessionManager.instance.isTherapistAccount;
+
   @override
   void dispose() {
     dialogKey.currentState?.dispose();
@@ -77,19 +56,17 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
   }
 
   void _goBranch(int index) {
-    if (index == widget.navigationShell.currentIndex) {
+    if (index == _kHomeBranch && index == widget.navigationShell.currentIndex) {
       refreshPost();
     }
-    if (index == 3) {
-      GuestUserHelper.handleGuestUserAction(
-        action: () {
-          widget.navigationShell.goBranch(index, initialLocation: index == widget.navigationShell.currentIndex);
-        },
-      );
-    } else {
-      widget.navigationShell.goBranch(index, initialLocation: index == widget.navigationShell.currentIndex);
-    }
+    widget.navigationShell.goBranch(index,
+        initialLocation: index == widget.navigationShell.currentIndex);
     setState(() {});
+  }
+
+  void _goBranchFromDrawer(int index) {
+    Navigator.of(context).pop();
+    _goBranch(index);
   }
 
   @override
@@ -112,8 +89,10 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
       child: Scaffold(
         key: baseScaffoldKey,
         extendBody: true,
-        drawer: const AppDrawer(),
-        // backgroundColor: Pallets.defaultBackgroundColor,
+        drawer: AppDrawer(
+          onMessagesTap: () => _goBranchFromDrawer(_kMessagingBranch),
+          onGroupsTap: () => _goBranchFromDrawer(_kGroupsBranch),
+        ),
         body: BlocConsumer<DrawerCubit, DrawerState>(
           listener: (context, state) {
             state.maybeWhen(
@@ -125,7 +104,14 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
           builder: (BuildContext context, DrawerState state) {
             return widget.navigationShell;
           },
-          // child: ,
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: Pallets.blueBubbleColor,
+          onPressed: () => GuestUserHelper.handleGuestUserAction(
+            message: "Login or Signup to create post",
+            action: () => showCreatePostSheet(context),
+          ),
+          child: const Icon(Icons.add, color: Colors.white),
         ),
         bottomNavigationBar: WillPopScope(
           onWillPop: () async {
@@ -143,86 +129,52 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
 
             return false;
           },
-          child: Padding(
-            padding: const EdgeInsets.only(left: 12, right: 12, bottom: 12),
-            child: Container(
-              height: 64.h,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(100.r),
-                color: Pallets.boldBlack,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  _BottomNavIcon(
-                    onTap: _goBranch,
-                    currentIndex: widget.navigationShell.currentIndex,
-                    iconPath: Assets.images.svgs.home,
-                    itemIndex: 0,
-                  ),
-                  _BottomNavIcon(
-                    onTap: _goBranch,
-                    currentIndex: widget.navigationShell.currentIndex,
-                    iconPath: Assets.images.svgs.search,
-                    itemIndex: 1,
-                  ),
-                  _BottomNavIcon(
-                    onTap: (p0) {
-                      GuestUserHelper.handleGuestUserAction(
-                        message: "Login or Signup to create post",
-                        action: () {
-                          context.pushNamed(PageUrl.createPostScreen);
-                        },
-                      );
-                      // SessionManager.instance.logOut();
-                    },
-                    currentIndex: widget.navigationShell.currentIndex,
-                    iconPath: Assets.images.svgs.add,
-                    bgColor: Pallets.white,
-                    itemIndex: 2,
-                  ),
-                  _BottomNavIcon(
-                    onTap: (p0) {
-                      _goBranch(2);
-                    },
-                    currentIndex: widget.navigationShell.currentIndex,
-                    iconPath: Assets.images.svgs.groups,
-                    itemIndex: 2,
-                  ),
-                  BlocBuilder<NotificationsBloc, NotificationsState>(
-                    bloc: injector.get<NotificationsBloc>(),
-                    builder: (context, state) {
-                      var stat = injector.get<NotificationsBloc>().stats;
-                      return Stack(
-                        children: [
-                          _BottomNavIcon(
-                            onTap: (p0) {
-                              _goBranch(3);
-                            },
-                            currentIndex: widget.navigationShell.currentIndex,
-                            iconPath: Assets.images.svgs.message,
-                            itemIndex: 3,
-                          ),
-
-                          if (stat.unreadMessages != 0)
-                            Positioned(
-                                top: 10,
-                                right: 6,
-                                child: CircleAvatar(
-                                  radius: 8,
-                                  backgroundColor: Colors.red,
-                                  foregroundColor: Colors.white,
-                                  child: TextView(
-                                    text: stat.unreadMessages.toString(),
-
-                                    fontSize: 8,
-                                  ),
-                                ))
-                        ],
-                      );
-                    },
-                  ),
-                ],
+          child: Container(
+            width: double.infinity,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              border: Border(top: BorderSide(color: Pallets.grey90, width: 1)),
+            ),
+            child: SafeArea(
+              top: false,
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 10.h),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _NavIcon(
+                      iconPath: Assets.images.svgV2.userMultipleInActive,
+                      selected:
+                          widget.navigationShell.currentIndex == _kHomeBranch,
+                      onTap: () => _goBranch(_kHomeBranch),
+                    ),
+                    _NavIcon(
+                      iconPath: Assets.images.svgV2.brainInActive,
+                      selected: widget.navigationShell.currentIndex ==
+                          _kWellnessBranch,
+                      onTap: () => _goBranch(_kWellnessBranch),
+                    ),
+                    _NavIcon(
+                      iconPath: Assets.images.svgV2.calendarInActive,
+                      selected: widget.navigationShell.currentIndex ==
+                          _kCalendarBranch,
+                      onTap: () => _goBranch(_kCalendarBranch),
+                    ),
+                    if (_isTherapist)
+                      _NavIcon(
+                        iconPath: Assets.images.svgV2.dollar2,
+                        selected: widget.navigationShell.currentIndex ==
+                            _kEarningsBranch,
+                        onTap: () => _goBranch(_kEarningsBranch),
+                      ),
+                    _NavIcon(
+                      iconPath: Assets.images.svgV2.user2,
+                      selected: widget.navigationShell.currentIndex ==
+                          _kProfileBranch,
+                      onTap: () => _goBranch(_kProfileBranch),
+                    ),
+                  ],
+                ),
               ),
             ),
           ),
@@ -244,5 +196,40 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
     if (baseScaffoldKey.currentState!.isDrawerOpen) {
       Navigator.of(context).pop();
     }
+  }
+}
+
+class _NavIcon extends StatelessWidget {
+  const _NavIcon({
+    required this.iconPath,
+    required this.selected,
+    required this.onTap,
+  });
+
+  final String iconPath;
+  final bool selected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      customBorder: const CircleBorder(),
+      child: Container(
+        width: 48.w,
+        height: 48.h,
+        child: Center(
+          child: SvgPicture.asset(
+            iconPath,
+            width: 22.w,
+            height: 22.w,
+            colorFilter: ColorFilter.mode(
+              selected ? Pallets.blueBubbleColor : Pallets.boldBlackV2,
+              BlendMode.srcIn,
+            ),
+          ),
+        ),
+      ),
+    );
   }
 }

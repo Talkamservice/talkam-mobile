@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:talkam/common/widgets/custom_switch.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
-import 'package:talkam/features/post/presentation/screens/create_post_screen.dart';
-import 'package:talkam/features/post/presentation/screens/post_details_screen.dart';
 import 'package:talkam/features/post/presentation/widgets/rules_button.dart';
 import 'package:talkam/features/post/presentation/widgets/select_category_dropdown_button.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/features/subscription/presentation/widgets/talkam_subscription_prompt.dart';
 import 'package:talkam/features/subscription/utils/subscription_helper.dart';
 import 'package:talkam/gen/assets.gen.dart';
+
+enum PostType { text, file, poll }
 
 class CreatePostHeader extends StatefulWidget {
   const CreatePostHeader({
@@ -69,19 +70,19 @@ class _CreatePostHeaderState extends State<CreatePostHeader> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     PostTypeButton(
-                      icon: Assets.images.svgs.text,
+                      icon: Assets.images.svgV2.text,
                       postType: PostType.text,
                       isSelected: _postType == PostType.text,
                       onTap: () => _updatePostType(PostType.text),
                     ),
                     PostTypeButton(
-                      icon: Assets.images.svgs.attatchement,
+                      icon: Assets.images.svgV2.addImageIcon,
                       postType: PostType.file,
                       isSelected: _postType == PostType.file,
                       onTap: () => _updatePostType(PostType.file),
                     ),
                     PostTypeButton(
-                      icon: Assets.images.svgs.list,
+                      icon: Assets.images.svgV2.rightToLeftListBullet,
                       postType: PostType.poll,
                       isSelected: _postType == PostType.poll,
                       onTap: () => _updatePostType(PostType.poll),
@@ -94,7 +95,7 @@ class _CreatePostHeaderState extends State<CreatePostHeader> {
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
-                child: AnonymousSwitcher(
+                child: CustomSwitch(
                   value: _isAnonymous,
                   onChanged: (value) {
                     onChanged(value);

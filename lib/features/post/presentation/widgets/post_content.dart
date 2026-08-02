@@ -27,7 +27,7 @@ class PostContent extends StatelessWidget {
   final TalkamPost post;
   final double? mediaHeight;
 
-  const PostContent({required this.post, this.mediaHeight});
+  const PostContent({super.key, required this.post, this.mediaHeight});
 
   @override
   Widget build(BuildContext context) {
@@ -38,14 +38,13 @@ class PostContent extends StatelessWidget {
           fontSize: 16,
           fontWeight: FontWeight.w600,
         ),
-      if (post.body?.isNotEmpty ?? false)12.verticalSpace,
+      if (post.body?.isNotEmpty ?? false)4.verticalSpace,
       if (post.body?.isNotEmpty ?? false)
         CustomReadMoreText(
           text: post.body ?? '',
           fontSize: 14,
           fontWeight: FontWeight.w400,
         ),
-      PostMedia(post: post,mediaHeight: mediaHeight,),
       if (post.tags.isNotEmpty ?? false)
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,6 +74,7 @@ class PostContent extends StatelessWidget {
             ),
           ],
         ),
+      PostMedia(post: post,mediaHeight: mediaHeight,),
     ]);
   }
 }

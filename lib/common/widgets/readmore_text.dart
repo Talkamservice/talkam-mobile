@@ -13,7 +13,7 @@ class CustomReadMoreText extends StatefulWidget {
 
   CustomReadMoreText({
     required this.text,
-    this.trimLines = 4,
+    this.trimLines = 2,
     this.fontSize,
     this.fontWeight,
     this.mentionCallback,
@@ -63,6 +63,7 @@ class _CustomReadMoreTextState extends State<CustomReadMoreText> {
                         fontSize: widget.fontSize,
                       ),
                 ),
+                8.verticalSpace,
                 InkWell(
                   child: Text(
                     _readMore ? 'Read less' : 'Read more',

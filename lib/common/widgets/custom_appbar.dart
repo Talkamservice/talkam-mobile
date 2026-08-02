@@ -22,6 +22,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.leadingWidth,
     this.padding,
     this.showDivider = false,
+    this.titleAlign,
   });
 
   final List<Widget>? actions;
@@ -38,6 +39,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool? centerTile;
   final EdgeInsets? padding;
   final bool showDivider;
+  final TextAlign? titleAlign;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +47,6 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       padding: padding ?? EdgeInsets.symmetric(horizontal: 0.w),
       child: Column(
         children: [
-          1.verticalSpace,
           AppBar(
             backgroundColor: bgColor ?? Colors.transparent,
             foregroundColor: fgColor,
@@ -64,7 +65,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 (canGoBack!
                     ? IconButton(
                         icon: Icon(Icons.arrow_back_ios_new,
-                            color: fgColor ?? Pallets.boldBlack),
+                            color: fgColor ?? context.colorScheme.onSurface),
                         onPressed:
                             onBackPressed ?? () => Navigator.pop(context),
                       )
@@ -73,10 +74,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 TextView(
                   text: tittleText ?? '',
                   fontSize: 16,
+                  align: titleAlign,
                   fontWeight: FontWeight.w600,
                   style: GoogleFonts.plusJakartaSans(
                       // fontSize: 16,
-                      color: fgColor),
+                      color: fgColor ?? context.colorScheme.onSurface),
                 ),
             actions: actions,
           ),
@@ -91,5 +93,5 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   }
 
   @override
-  Size get preferredSize => Size.fromHeight(height?.h ?? 70.h);
+  Size get preferredSize => Size.fromHeight(height ?? (showDivider ? kToolbarHeight + 1 : kToolbarHeight));
 }

@@ -34,11 +34,15 @@ class PageUrl {
 
   static const messagingScreen = 'messagingScreen';
 
+  static const wellnessScreen = 'wellnessScreen';
+  static const calendarScreen = 'calendarScreen';
+  static const earningsScreen = 'earningsScreen';
+  static const profileTabScreen = 'profileTabScreen';
+
   static const passWordResetScreen = 'passWordResetScreen';
 
 //   Posts
   static const postDetailsScreen = 'postDetailsScreen';
-  static const createPostScreen = 'createPostScreen';
 
   // Profile
 
@@ -77,12 +81,9 @@ class PageUrl {
 
   static const pendingRequestsScreen = 'pendingRequestsScreen';
 
-
-
   //Ads
   static const adsPage = 'adsPage';
 
   static const subscriptionScreen = 'subscriptionScreen';
   static const createAdsScreen = 'createAdsScreen';
-
 }

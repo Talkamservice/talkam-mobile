@@ -85,25 +85,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
       },
       builder: (context, state) {
         return Scaffold(
-          appBar: CustomAppBar(
-            padding: const EdgeInsets.all(0.0),
-            tittleText: "My Profile",
-            centerTile: false,
-            showDivider: true,
-            actions: [
-              Padding(
-                padding: EdgeInsets.only(right: 10.w),
-                child: GestureDetector(
-                  onTap: () {
-                    context.pushNamed(PageUrl.settingsScreen);
-                  },
-                  child: SvgPicture.asset(
-                    Assets.images.svgs.icSetting,
-                  ),
-                ),
-              )
-            ],
-          ),
           body: SafeArea(
             child: state.maybeWhen(
                 loading: () => Center(child: CustomDialogs.getLoading(size: 50)),

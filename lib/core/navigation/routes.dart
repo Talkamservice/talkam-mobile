@@ -39,7 +39,10 @@ import 'package:talkam/features/group/presentation/screens/groups_screen.dart';
 import 'package:talkam/features/group/presentation/screens/create_group/preview_group_screen.dart';
 import 'package:talkam/features/group/presentation/screens/pending_requests_screen.dart';
 import 'package:talkam/features/home/presentation/screens/base_page.dart';
+import 'package:talkam/features/calendar/presentation/screens/calendar_screen.dart';
+import 'package:talkam/features/earnings/presentation/screens/earnings_screen.dart';
 import 'package:talkam/features/home/presentation/screens/home_screen.dart';
+import 'package:talkam/features/wellness/presentation/screens/wellness_screen.dart';
 import 'package:talkam/features/messaging/presentation/screens/chat_screen.dart';
 import 'package:talkam/features/messaging/presentation/screens/messages_screen.dart';
 import 'package:talkam/features/messaging/presentation/screens/new_message_screen.dart';
@@ -48,7 +51,6 @@ import 'package:talkam/features/notifications/presentation/screens/notifications
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/presentation/screens/categories_screen.dart';
-import 'package:talkam/features/post/presentation/screens/create_post_screen.dart';
 import 'package:talkam/features/post/presentation/screens/post_details_screen.dart';
 import 'package:talkam/features/profile/presentation/screens/edit_profile_screen.dart';
 import 'package:talkam/features/profile/presentation/screens/profile_screen.dart';
@@ -76,6 +78,10 @@ final _shellNavigatorAKey = GlobalKey<NavigatorState>(debugLabel: 'shellA');
 final _shellNavigatorBKey = GlobalKey<NavigatorState>(debugLabel: 'shellB');
 final _shellNavigatorCKey = GlobalKey<NavigatorState>(debugLabel: 'shellC');
 final _shellNavigatorDKey = GlobalKey<NavigatorState>(debugLabel: 'shellD');
+final _shellNavigatorEKey = GlobalKey<NavigatorState>(debugLabel: 'shellE');
+final _shellNavigatorFKey = GlobalKey<NavigatorState>(debugLabel: 'shellF');
+final _shellNavigatorGKey = GlobalKey<NavigatorState>(debugLabel: 'shellG');
+final _shellNavigatorHKey = GlobalKey<NavigatorState>(debugLabel: 'shellH');
 
 /// Tabs inside the main app shell. A guest reaching any of these without an
 /// alias is bounced to the anonymous sign-in screen first.
@@ -213,8 +219,7 @@ class CustomRoutes {
       GoRoute(
         path: '/therapistVerificationPendingScreen',
         name: PageUrl.therapistVerificationPendingScreen,
-        builder: (context, state) =>
-            const TherapistVerificationPendingScreen(),
+        builder: (context, state) => const TherapistVerificationPendingScreen(),
       ),
       GoRoute(
         path: '/interestsScreen',
@@ -257,9 +262,9 @@ class CustomRoutes {
       GoRoute(
         path: '/postDetailsScreen',
         name: PageUrl.postDetailsScreen,
-        builder: (context, state) => PostDetailsScreen(
-          postId: state.extra as String,
-        ),
+        builder: (context, state) => state.extra is TalkamPost
+            ? PostDetailsScreen(post: state.extra as TalkamPost)
+            : PostDetailsScreen(postId: state.extra as String),
       ),
       GoRoute(
         path: '/${PageUrl.profileScreen}',
@@ -312,11 +317,6 @@ class CustomRoutes {
         builder: (context, state) => const ChangePasswordScreen(
             // userId: state.extra as String,
             ),
-      ),
-      GoRoute(
-        path: '/createPostScreen',
-        name: PageUrl.createPostScreen,
-        builder: (context, state) => const CreatePostScreen(),
       ),
       GoRoute(
         path: '/categoriesScreen',
@@ -512,6 +512,54 @@ class CustomRoutes {
               ),
             ],
           ),
+          StatefulShellBranch(
+            navigatorKey: _shellNavigatorEKey,
+            routes: [
+              GoRoute(
+                path: '/wellnessScreen',
+                name: PageUrl.wellnessScreen,
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: WellnessScreen(),
+                ),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: _shellNavigatorFKey,
+            routes: [
+              GoRoute(
+                path: '/calendarScreen',
+                name: PageUrl.calendarScreen,
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: CalendarScreen(),
+                ),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: _shellNavigatorGKey,
+            routes: [
+              GoRoute(
+                path: '/earningsScreen',
+                name: PageUrl.earningsScreen,
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: EarningsScreen(),
+                ),
+              ),
+            ],
+          ),
+          StatefulShellBranch(
+            navigatorKey: _shellNavigatorHKey,
+            routes: [
+              GoRoute(
+                path: '/profileTabScreen',
+                name: PageUrl.profileTabScreen,
+                pageBuilder: (context, state) => const NoTransitionPage(
+                  child: ProfileScreen(),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     ],
@@ -525,7 +573,8 @@ class CustomRoutes {
     return CustomTransitionPage<T>(
       key: state.pageKey,
       child: child,
-      transitionsBuilder: (context, animation, secondaryAnimation, child) => FadeTransition(opacity: animation, child: child),
+      transitionsBuilder: (context, animation, secondaryAnimation, child) =>
+          FadeTransition(opacity: animation, child: child),
     );
   }
 

@@ -12,4 +12,4 @@ library;
 /// loops there forever and the screens after it are unreachable.
 ///
 /// Set back to `false` once the categories endpoint returns real data.
-const bool kSkipInterestsGate = false;
+const bool kSkipInterestsGate = true;

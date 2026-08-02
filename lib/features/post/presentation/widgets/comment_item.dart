@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
@@ -9,25 +8,41 @@ import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/extensions/int_extension.dart';
 import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/post/data/models/get_comments_response.dart';
+import 'package:talkam/features/post/data/models/save_comment_payload.dart';
 import 'package:talkam/features/post/presentation/bloc/comments/comments_bloc.dart';
 import 'package:talkam/features/post/presentation/widgets/comment_actions.dart';
-import 'package:talkam/features/post/presentation/widgets/comment_input_widget.dart';
+import 'package:talkam/features/post/presentation/widgets/reply_composer_sheet.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class CommentItem extends StatefulWidget {
-  const CommentItem(
-      {super.key, this.isReply = false, this.hasReply = false, required this.comment, required this.posId, this.parentId, required this.onDeleted});
+  const CommentItem({
+    super.key,
+    this.isReply = false,
+    this.hasReply = false,
+    required this.comment,
+    required this.posId,
+    this.parentId,
+    required this.replyingToName,
+    this.isLast = false,
+    required this.onDeleted,
+  });
 
   final PostComment comment;
   final bool? isReply;
   final bool? hasReply;
   final int posId;
   final int? parentId;
+
+  /// Who this comment is replying to — the post's author for top-level
+  /// comments, or the parent comment's author for nested replies.
+  final String replyingToName;
+  final bool isLast;
   final VoidCallback onDeleted;
 
   @override
@@ -36,7 +51,6 @@ class CommentItem extends StatefulWidget {
 
 class _CommentItemState extends State<CommentItem> {
   bool repliesCollapsed = true;
-  bool reply = true;
 
   @override
   Widget build(BuildContext context) {
@@ -44,138 +58,210 @@ class _CommentItemState extends State<CommentItem> {
       listener: (context, state) {},
       builder: (context, state) {
         return Container(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-          decoration: BoxDecoration(color: context.theme.cardColor),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          padding: EdgeInsets.only(
+            left: (widget.isReply ?? false) ? 0 : 12,
+            right: 12,
+            top: 8,
+            bottom: 8,
+          ),
+          decoration: BoxDecoration(
+            color: (widget.isReply ?? false) ? Colors.transparent : context.theme.cardColor,
+          ),
+          child: Stack(
+            clipBehavior: Clip.none,
             children: [
-              Row(
+              if (widget.isReply == true)
+                Positioned(
+                  left: avatarSize / 2 - 0.5,
+                  top: -12,
+                  height: widget.isLast == true ? 44 : null,
+                  bottom: widget.isLast == true ? null : 0,
+                  child: Container(width: 1, color: Pallets.grey90),
+                ),
+              Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if (widget.comment.isAnonymous.toBool) ImageWidget(imageUrl: Assets.images.svgs.dummyUser),
-                  if (!widget.comment.isAnonymous.toBool)
-                    InkWell(
-                      onTap: () {
-                        viewUserProfile(context);
-                      },
-                      child: IgnorePointer(
-                        child: ImageWidget(
-                          imageUrl: widget.comment.user.avatar ?? Assets.images.png.appIcon.path,
-                          size: widget.isReply! ? 24 : 36,
-                          fit: BoxFit.contain,
-                          
+                  Stack(
+                    clipBehavior: Clip.none,
+                    children: [
+                      if (canShowThreadLine)
+                        Positioned(
+                          left: avatarSize / 2 - 0.5,
+                          top: avatarSize / 2,
+                          bottom: 0,
+                          child: Container(width: 1, color: Pallets.grey90),
                         ),
-                      ),
-                    ),
-                  8.horizontalSpace,
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
+                      InkWell(
+                        onTap: commentHasChildren ? _toggleReplies : null,
+                        splashColor: Colors.transparent,
+                        highlightColor: Colors.transparent,
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            InkWell(
-                              onTap: () {
-                                if (!widget.comment.isAnonymous.toBool) {
-                                  viewUserProfile(context);
-                                } else {
-                                  CustomDialogs.showToast("User is Anonymous");
-                                }
-                              },
-                              child: TextView(
-                                text: posterName,
-                                fontWeight: FontWeight.w700,
+                            if (widget.comment.isAnonymous.toBool)
+                              ImageWidget(
+                                  imageUrl: Assets.images.svgs.dummyUser,
+                                  size: avatarSize)
+                            else
+                              InkWell(
+                                onTap: () => viewUserProfile(context),
+                                child: IgnorePointer(
+                                  child: ClipOval(
+                                    child: ImageWidget(
+                                      imageUrl: widget.comment.user.avatar ??
+                                          Assets.images.svgs.dummyUser,
+                                      size: avatarSize,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
                               ),
-                            ),
-                            4.horizontalSpace,
-                            ImageWidget(imageUrl: Assets.images.svgs.grid03),
-                            4.horizontalSpace,
-                            TextView(
-                              text: TimeUtil.getTimeAgo(widget.comment.createdAt.toString()),
-                              fontWeight: FontWeight.w700,
-                              color: context.colorScheme.primary,
+                            8.horizontalSpace,
+                            Expanded(
+                              child: Padding(
+                                padding: const EdgeInsets.only(bottom: 12),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Expanded(
+                                          child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: [
+                                              Row(
+                                                children: [
+                                                  InkWell(
+                                                    onTap: () {
+                                                      if (!widget.comment.isAnonymous.toBool) {
+                                                        viewUserProfile(context);
+                                                      } else {
+                                                        CustomDialogs.showToast(
+                                                            "User is Anonymous");
+                                                      }
+                                                    },
+                                                    child: TextView(
+                                                      text: posterName,
+                                                      fontWeight: FontWeight.w700,
+                                                    ),
+                                                  ),
+                                                  6.horizontalSpace,
+                                                  Text("·",
+                                                      style: TextStyle(color: Pallets.grey60)),
+                                                  6.horizontalSpace,
+                                                  TextView(
+                                                    text: TimeUtil.getTimeAgo(
+                                                        widget.comment.createdAt.toString()),
+                                                    color: Pallets.grey60,
+                                                  ),
+                                                ],
+                                              ),
+                                              TextView(
+                                                text: "Replying to @${widget.replyingToName}",
+                                                color: Pallets.blueBubbleColor,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 12,
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        CommentMenuButton(
+                                          comment: widget.comment,
+                                          postId: widget.posId.toString(),
+                                          onCommentDeleted: widget.onDeleted,
+                                        ),
+                                      ],
+                                    ),
+                                    1.verticalSpace,
+                                    CustomReadMoreText(
+                                      text: widget.comment.comment,
+                                      mentionCallback: (mention) {
+                                        Helpers.viewMentionedUserProfile(
+                                            context, mention);
+                                      },
+                                    ),
+                                    if (widget.comment.attachment != null) ...[
+                                      10.verticalSpace,
+                                      ImageWidget(
+                                        imageUrl: widget.comment.attachment!,
+                                        height: 200,
+                                        canPreview: true,
+                                        borderRadius: BorderRadius.circular(16),
+                                        width: 1.sw,
+                                      ),
+                                    ],
+                                    10.verticalSpace,
+                                    CommentActions(
+                                      likeCount: widget.comment.likes,
+                                      onCommentTap: () => _openReplySheet(context),
+                                      onLikeTap: () {},
+                                      dislikeCount: widget.comment.unlikes,
+                                      comment: widget.comment,
+                                      postId: widget.posId.toString(),
+                                      onCommentDeleted: widget.onDeleted,
+                                    ),
+                                  ],
+                                ),
+                              ),
                             ),
                           ],
                         ),
-                        10.verticalSpace,
-                        CustomReadMoreText(
-                          text: widget.comment.comment,
-                          mentionCallback: (mention) {
-                            Helpers.viewMentionedUserProfile(context, mention);
-                          },
-                        ),
-                        // TextView(
-                        //   text: widget.comment.comment,
-                        //   fontSize: 16,
-                        // ),
-                        10.verticalSpace,
-                        if (widget.comment.attachment != null)
-                          ImageWidget(
-                            imageUrl: widget.comment.attachment!,
-                            height: 200,
-                            canPreview: true,
-                            borderRadius: BorderRadius.circular(16),
-                            width: 1.sw,
-                          ),
-                        16.verticalSpace,
-                        CommentActions(
-                          likeCount: 2,
-                          onCommentTap: () {},
-                          onLikeTap: () {},
-                          dislikeCount: 3,
-                          comment: widget.comment,
-                          postId: widget.posId.toString(),
-                          onCommentDeleted: widget.onDeleted,
-                        )
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
+                  if (commentHasChildren)
+                    AnimatedCrossFade(
+                        firstChild: Column(
+                          children: widget.comment.children
+                              .asMap()
+                              .entries
+                              .map((entry) => CommentItem(
+                                    isReply: true,
+                                    parentId: widget.comment.id,
+                                    comment: entry.value,
+                                    posId: widget.posId,
+                                    replyingToName: posterName,
+                                    isLast: entry.key ==
+                                        widget.comment.children.length - 1,
+                                    onDeleted: widget.onDeleted,
+                                  ))
+                              .toList(),
+                        ),
+                        secondChild: 0.verticalSpace,
+                        crossFadeState: repliesCrosFadeState,
+                        duration: const Duration(milliseconds: 300))
                 ],
               ),
-              if (commentHasChildren)
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                      onPressed: () {
-                        repliesCollapsed = !repliesCollapsed;
-                        setState(() {});
-                      },
-                      child: TextView(
-                        text: collapsText,
-                        fontWeight: FontWeight.w700,
-                      )),
-                ),
-              if (isReplying(context))
-                CommentInputWidget(
-                    parentComment: widget.parentId ?? widget.comment.id,
-                    replyComment: widget.comment.id,
-                    onCommentSubmitted: (comment) {
-                      context.read<CommentsBloc>().add(const CommentsEvent.selectCommentForReply(null));
-
-                      context.read<CommentsBloc>().add(CommentsEvent.saveAComment(comment));
-                    },
-                    postId: widget.posId),
-              if (commentHasChildren)
-                AnimatedCrossFade(
-                    firstChild: Column(
-                      children: widget.comment.children
-                          .map((e) => CommentItem(
-                                isReply: true,
-                                parentId: widget.comment.id,
-                                comment: e,
-                                posId: widget.posId,
-                                onDeleted: widget.onDeleted,
-                              ))
-                          .toList(),
-                    ),
-                    secondChild: 0.verticalSpace,
-                    crossFadeState: repliesCrosFadeState,
-                    duration: const Duration(milliseconds: 300))
             ],
           ),
         );
       },
     );
+  }
+
+  void _openReplySheet(BuildContext context) {
+    GuestUserHelper.handleGuestUserAction(action: () async {
+      final commentsBloc = context.read<CommentsBloc>();
+      final payload = await CustomDialogs.showBottomSheet<SaveCommentPayload>(
+        context,
+        ReplyComposerSheet(
+          avatarUrl:
+              widget.comment.user.avatar ?? Assets.images.svgs.dummyUser,
+          posterName: posterName,
+          isVerified: widget.comment.user.isSubscribed,
+          timeAgo: TimeUtil.getTimeAgo(widget.comment.createdAt.toString()),
+          body: widget.comment.comment,
+          replyingToUsername: posterName,
+          postId: widget.posId,
+          parentId: widget.parentId ?? widget.comment.id,
+          replyComment: widget.comment.id,
+        ),
+      );
+      if (payload != null) {
+        commentsBloc.add(CommentsEvent.saveAComment(payload));
+      }
+    });
   }
 
   void viewUserProfile(BuildContext context) {
@@ -187,31 +273,46 @@ class _CommentItemState extends State<CommentItem> {
             PageUrl.profileScreen,
           );
         } else {
-          context.pushNamed(PageUrl.userProfileScreen, extra: widget.comment.user.id.toString());
+          context.pushNamed(PageUrl.userProfileScreen,
+              extra: widget.comment.user.id.toString());
         }
       },
     );
   }
 
+  void _toggleReplies() {
+    if (commentHasChildren) {
+      setState(() {
+        repliesCollapsed = !repliesCollapsed;
+      });
+    }
+  }
 
   String get posterName {
-    return widget.comment.isAnonymous.toBool ? "Anonymous" : widget.comment.user.usersName;
+    return widget.comment.isAnonymous.toBool
+        ? "Anonymous"
+        : widget.comment.user.usersName;
   }
 
   String get collapsText {
-    return repliesCollapsed ? "View ${widget.comment.children.length} replies" : "Collapse";
+    return repliesCollapsed
+        ? "View ${widget.comment.children.length} replies"
+        : "Collapse";
   }
+
+  double get avatarSize => 36;
 
   bool get commentHasChildren => widget.comment.children.isNotEmpty;
 
-  bool get commentIsFromLoggedInUser => widget.comment.user.id == injector.get<ProfileBloc>().appUser?.id;
+  bool get canShowThreadLine => commentHasChildren && !repliesCollapsed;
 
-  bool isReplying(BuildContext context) {
-    return widget.comment.id == context.read<CommentsBloc>().stagedComment?.id && context.read<CommentsBloc>().stagedComment != null;
-  }
+  bool get commentIsFromLoggedInUser =>
+      widget.comment.user.id == injector.get<ProfileBloc>().appUser?.id;
 
   CrossFadeState get repliesCrosFadeState {
-    return !repliesCollapsed ? CrossFadeState.showFirst : CrossFadeState.showSecond;
+    return !repliesCollapsed
+        ? CrossFadeState.showFirst
+        : CrossFadeState.showSecond;
   }
 
   bool get canShowReplies => widget.hasReply! && !repliesCollapsed;

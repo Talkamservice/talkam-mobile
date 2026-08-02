@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:talkam/common/widgets/custom_button.dart';
+import 'package:talkam/common/widgets/document_upload_tile.dart' show DottedBox;
+import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/theme/pallets.dart';
-import 'package:talkam/gen/assets.gen.dart';
 
-import 'image_widget.dart';
-
+/// Generic "nothing here yet" placeholder — dashed box + title/subtitle +
+/// an optional full-width retry CTA. Same public API as before (11 call
+/// sites across messaging/groups/notifications/profile), only the internal
+/// rendering changed.
 class EmptyState extends StatelessWidget {
   const EmptyState({
     super.key,
@@ -19,6 +23,10 @@ class EmptyState extends StatelessWidget {
 
   final String? title;
   final String? subtitle;
+
+  /// Unused for now — the placeholder box renders a generic icon rather than
+  /// a caller-supplied image. Kept for backwards compatibility with existing
+  /// call sites that still pass it.
   final String? imageUrl;
   final String? retryText;
   final bool? canTryAgain;
@@ -27,59 +35,46 @@ class EmptyState extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24.0),
+      padding: EdgeInsets.symmetric(horizontal: 24.w),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          24.verticalSpace,
-          // SizedBox(
-          //   height: 200,
-          //   width: 100,
-          //
-          //   child: ImageWidget(
-          //
-          //
-          //
-          //       fit: BoxFit.cover,
-          //       imageUrl: imageUrl?? Assets.images.svgs.emptyCuate),
-          // ),
-          // 24.verticalSpace,
-          TextView(
-            text: title ?? 'No activity to show !',
-            fontWeight: FontWeight.w700,
-            fontSize: 18,
+          ImageWidget(
+              imageUrl: imageUrl ?? ""
           ),
-          11.verticalSpace,
-          if (subtitle?.isNotEmpty ?? false)
+          20.verticalSpace,
+          TextView(
+            text: title ?? 'No activity to show!',
+            fontSize: 16,
+            fontWeight: FontWeight.w700,
+            color: Pallets.boldBlackV2,
+            align: TextAlign.center,
+          ),
+          if (subtitle?.isNotEmpty ?? false) ...[
+            8.verticalSpace,
             TextView(
-              text: subtitle ??
-                  'You don’t have any transactions done. Once you make any transactions it will show here.',
-              fontWeight: FontWeight.w400,
+              text: subtitle!,
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: Pallets.grey400,
               align: TextAlign.center,
+              lineHeight: 1.4,
             ),
-          if (canTryAgain!)
-            Column(
-              children: [
-                const SizedBox(
-                  height: 16,
-                ),
-                OutlinedButton(
-                  onPressed: onTap,
-                  style: OutlinedButton.styleFrom(
-                      foregroundColor: Pallets.primary,
-                      side: BorderSide(
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 25, vertical: 8),
-                      shape: RoundedRectangleBorder(
-                          side: const BorderSide(
-                              color: Pallets.primary, width: 2),
-                          borderRadius: BorderRadius.circular(16))),
-                  child: Text(retryText ?? "Retry"),
-                )
-              ],
-            )
+          ],
+          if (canTryAgain ?? false) ...[
+            20.verticalSpace,
+            CustomButton(
+              elevation: 0,
+              onPressed: onTap,
+              bgColor: Pallets.blueBubbleColor,
+              child: TextView(
+                text: retryText ?? "Retry",
+                fontSize: 15,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+              ),
+            ),
+          ],
         ],
       ),
     );

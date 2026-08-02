@@ -20,7 +20,128 @@ class $AssetsImagesGen {
 
   /// Directory path: assets/images/svgs
   $AssetsImagesSvgsGen get svgs => const $AssetsImagesSvgsGen();
+
+  /// Directory path: assets/images/svgs
+  $AssetsImagesSvgsGenV2 get svgV2 => const $AssetsImagesSvgsGenV2();
 }
+
+class $AssetsImagesSvgsGenV2 {
+  const $AssetsImagesSvgsGenV2();
+
+  /// File path: assets/images/svg_v2/angry.svg
+  String get angry => 'assets/images/svg_v2/angry.svg';
+
+  /// File path: assets/images/svg_v2/happy-01.svg
+  String get happy1 => 'assets/images/svg_v2/happy-01.svg';
+
+  /// File path: assets/images/svg_v2/happy.svg
+  String get happy => 'assets/images/svg_v2/happy.svg';
+
+  /// File path: assets/images/svg_v2/neutral.svg
+  String get neutral => 'assets/images/svg_v2/neutral.svg';
+
+  /// File path: assets/images/svg_v2/tired-01.svg
+  String get tired1 => 'assets/images/svg_v2/tired-01.svg';
+
+  /// File path: assets/images/svg_v2/brain_unselected.svg
+  String get brainInActive => 'assets/images/svg_v2/brain_unselected.svg';
+
+  /// File path: assets/images/svg_v2/calendar_unselected.svg
+  String get calendarInActive => 'assets/images/svg_v2/calendar_unselected.svg';
+
+  /// File path: assets/images/svg_v2/user_multiple_unselected.svg
+  String get userMultipleInActive => 'assets/images/svg_v2/user_multiple_unselected.svg';
+
+  /// File path: assets/images/svg_v2/user_unselected.svg
+  String get userInActive => 'assets/images/svg_v2/user_unselected.svg';
+
+  /// File path: assets/images/svg_v2/brain_selected.svg
+  String get brainActive => 'assets/images/svg_v2/brain_selected.svg';
+
+  /// File path: assets/images/svg_v2/calendar_selected.svg
+  String get calendarActive => 'assets/images/svg_v2/calendar_selected.svg';
+
+  /// File path: assets/images/svg_v2/user_multiple_selected.svg
+  String get userMultipleActive => 'assets/images/svg_v2/user_multiple_selected.svg';
+
+  /// File path: assets/images/svg_v2/user_selected.svg
+  String get userActive => 'assets/images/svg_v2/user_selected.svg';
+
+  /// File path: assets/images/svg_v2/dollar-02.svg
+  String get dollar2 => 'assets/images/svg_v2/dollar-02.svg';
+
+  /// File path: assets/images/svg_v2/user-02.svg
+  String get user2 => 'assets/images/svg_v2/user-02.svg';
+
+  /// File path: assets/images/svg_v2/notification_icon.svg
+  String get notificationIcon => 'assets/images/svg_v2/notification_icon.svg';
+
+  /// File path: assets/images/svg_v2/search.svg
+  String get searchIcon => 'assets/images/svg_v2/search.svg';
+
+  /// File path: assets/images/svg_v2/menu.svg
+  String get menu => 'assets/images/svg_v2/menu.svg';
+
+  /// File path: assets/images/svg_v2/empty-state.svg
+  String get emptyState => 'assets/images/svg_v2/empty-state.svg';
+
+  /// File path: assets/images/svg_v2/message-icon.svg
+  String get messageIcon => 'assets/images/svg_v2/message-icon.svg';
+
+  /// File path: assets/images/svg_v2/comment.svg
+  String get commentIcon => 'assets/images/svg_v2/comment.svg';
+
+  /// File path: assets/images/svg_v2/like.svg
+  String get likeIcon => 'assets/images/svg_v2/like.svg';
+
+  /// File path: assets/images/svg_v2/share.svg
+  String get shareIcon => 'assets/images/svg_v2/share.svg';
+
+  /// File path: assets/images/svg_v2/add-image-icon.svg
+  String get addImageIcon => 'assets/images/svg_v2/add-image-icon.svg';
+
+  /// File path: assets/images/svg_v2/gif-02.svg
+  String get gif02 => 'assets/images/svg_v2/gif-02.svg';
+
+  /// File path: assets/images/svg_v2/right-to-left-list-bullet.svg
+  String get rightToLeftListBullet =>
+      'assets/images/svg_v2/right-to-left-list-bullet.svg';
+
+  /// File path: assets/images/svg_v2/text.svg
+  String get text => 'assets/images/svg_v2/text.svg';
+
+  /// List of all assets
+  List<String> get values => [
+    angry,
+    dollar2,
+    happy1,
+    happy,
+    neutral,
+    tired1,
+    user2,
+    notificationIcon,
+    searchIcon,
+    menu,
+    brainInActive,
+    brainActive,
+    userInActive,
+    userActive,
+    userMultipleInActive,
+    userMultipleActive,
+    calendarInActive,
+    calendarActive,
+    emptyState,
+    messageIcon,
+    commentIcon,
+    likeIcon,
+    shareIcon,
+    addImageIcon,
+    gif02,
+    rightToLeftListBullet,
+    text
+  ];
+}
+
 
 class $AssetsImagesJpegsGen {
   const $AssetsImagesJpegsGen();
@@ -152,7 +273,6 @@ class $AssetsImagesPngGen {
 
 class $AssetsImagesSvgsGen {
   const $AssetsImagesSvgsGen();
-
 
   /// File path: assets/images/svgs/verification_icon.svg
   String get verificationIcon => 'assets/images/svgs/verification_icon.svg';

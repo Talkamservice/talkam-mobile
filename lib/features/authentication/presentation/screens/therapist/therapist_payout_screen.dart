@@ -10,6 +10,7 @@ import 'package:talkam/common/widgets/step_progress_bar.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/string_extension.dart';
 import 'package:talkam/features/authentication/presentation/screens/therapist/therapist_availability_screen.dart'
@@ -86,6 +87,7 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
             CustomDialogs.showLoading(context);
           }
           if (state.submitStatus == SubmitStatus.submitted) {
+            SessionManager.instance.isTherapistAccount = true;
             context.pop();
             widget.bloc.close();
             context.goNamed(PageUrl.therapistVerificationPendingScreen);

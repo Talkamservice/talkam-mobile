@@ -7,6 +7,7 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/dialog_texts.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/mock/mock_home_data.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/features/post/data/models/get_guidlines_response.dart';
 import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
@@ -85,18 +86,24 @@ class _RulesSheetState extends State<RulesSheet>
                             child: CustomDialogs.getLoading(size: 30),
                           ),
                         ),
-                        getGuideLinesSuccess: (response) => ListView.builder(
-                          itemCount: injector.get<PostBloc>().talkamRules.length,
-                          shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(),
-                          itemBuilder: (context, index) => Padding(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 5.0, horizontal: 16),
-                            child: _GuidelineItem(
-                              guidline: injector.get<PostBloc>().talkamRules[index],
+                        getGuideLinesSuccess: (response) {
+                          final rules =
+                              injector.get<PostBloc>().talkamRules.isEmpty
+                                  ? MockHomeData.guidelines
+                                  : injector.get<PostBloc>().talkamRules;
+                          return ListView.builder(
+                            itemCount: rules.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemBuilder: (context, index) => Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 5.0, horizontal: 16),
+                              child: _GuidelineItem(
+                                guidline: rules[index],
+                              ),
                             ),
-                          ),
-                        ),
+                          );
+                        },
                         getGuideLinesFailed: (error) => AppErrorWidget(
                           title: "Something went wrong",
                           message: error,

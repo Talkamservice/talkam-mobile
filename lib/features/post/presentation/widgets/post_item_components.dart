@@ -23,7 +23,7 @@ class AvatarImage extends StatelessWidget {
   final String imageUrl;
   final double size;
 
-  const AvatarImage({required this.imageUrl, required this.size});
+  const AvatarImage({super.key, required this.imageUrl, required this.size});
 
   @override
   Widget build(BuildContext context) {
@@ -62,9 +62,14 @@ class PostHeader extends StatelessWidget {
             onTap: () {
               viewUsersProfile(context);
             },
-            child: IgnorePointer(
-              child: AvatarImage(imageUrl: post.user.avatar ?? Assets.images.svgs.dummyUser, size: 32),
-            ),
+              child: ClipOval(
+                child: IgnorePointer(
+                  child: AvatarImage(
+                    imageUrl: post.user.avatar ?? Assets.images.svgs.dummyUser,
+                    size: 32,
+                  ),
+                ),
+              )
           ),
         10.horizontalSpace,
         Expanded(
@@ -77,16 +82,17 @@ class PostHeader extends StatelessWidget {
                     text: category.name,
                     maxLines: 1,
                     maxLength: 14,
+                    fontSize: 17,
                     textOverflow: TextOverflow.ellipsis,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w700,
                   ),
                   4.horizontalSpace,
-                  ImageWidget(imageUrl: Assets.images.svgs.grid03),
+                  Text("•", style: TextStyle(color: Pallets.grey60),),
                   4.horizontalSpace,
                   TextView(
                     text: TimeUtil.getTimeAgo(post.createdAt.toString()),
-                    fontWeight: FontWeight.w700,
-                    color: context.colorScheme.primary,
+                    fontWeight: FontWeight.w500,
+                    color: Pallets.grey60,
                   ),
                   if (enablePromoteAddPill!) 12.horizontalSpace,
                   if (enablePromoteAddPill! && post.postIsFromLoggedInUser && !post.isPromoted && _userCanPromote())
@@ -133,77 +139,6 @@ class PostHeader extends StatelessWidget {
                       size: 10,
                     ),
                   if (posterIsSubscribed) 4.horizontalSpace,
-                  if (showGroupAndCategory!)
-                    Expanded(
-                      child: Builder(
-                        builder: (context) {
-                          if (post.group != null) {
-                            return InkWell(
-                              onTap: () {
-                                context.pushNamed(PageUrl.groupsInfoScreen, extra: post.group!.id.toString());
-
-                                // if (!post.isAnonymous.toBool) {
-                                //   viewUsersProfile(context);
-                                // } else {
-                                //   CustomDialogs.showToast("User is anonymous");
-                                // }
-                              },
-                              child: Row(
-                                children: [
-                                  const TextView(
-                                    text: "to",
-                                    color: Pallets.grey,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 12,
-                                  ),
-                                  Expanded(
-                                    child: TextView(
-                                      text: " ${post.group!.name}",
-                                      maxLines: 1,
-                                      textOverflow: TextOverflow.ellipsis,
-                                      color: Pallets.primary,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 12,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            );
-                          }
-                          return InkWell(
-                            onTap: () {
-                              context.pushNamed(PageUrl.categoriesScreen, extra: post.category);
-
-                              // if (!post.isAnonymous.toBool) {
-                              //   viewUsersProfile(context);
-                              // } else {
-                              //   CustomDialogs.showToast("User is anonymous");
-                              // }
-                            },
-                            child: Row(
-                              children: [
-                                const TextView(
-                                  text: "to",
-                                  color: Pallets.grey,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 12,
-                                ),
-                                Expanded(
-                                  child: TextView(
-                                    text: " ${post.category.name}",
-                                    color: Pallets.primary,
-                                    fontWeight: FontWeight.w600,
-                                    maxLines: 1,
-                                    textOverflow: TextOverflow.ellipsis,
-                                    fontSize: 12,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                      ),
-                    )
                 ],
               ),
             ],
@@ -269,88 +204,54 @@ class _PostActionsState extends State<PostActions> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        IgnorePointer(
-          child: TextButton(
-              style: outlinedBorderStyle,
-              onPressed: widget.onCommentTap,
-              child: Row(
-                children: [
-                  ImageWidget(imageUrl: Assets.images.svgs.comment),
-                  10.horizontalSpace,
-                  TextView(
-                    text: "${widget.post.commentsCount} Comments",
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  )
-                ],
-              )),
+        Row(
+          children: [
+            PostReactionButton(
+              reactionType: ReactionType.like,
+              id: widget.post.id.toString(),
+              reaction: widget.post.reaction,
+              onLikeAdded: () {
+                widget.post.reaction = PostReaction.like();
+                widget.post.likesCount += 1;
+                setState(() {});
+              },
+              onCountReduced: () {
+                widget.post.likesCount -= 1;
+                setState(() {});
+              },
+              onDisliked: () {},
+              onReactionRemoved: () {
+                widget.post.reaction = null;
+              },
+            ),
+            4.horizontalSpace,
+            TextView(
+              text: widget.post.likesCount.toString(),
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
+          ],
         ),
-        5.horizontalSpace,
-        TextButton(
-            style: outlinedBorderStyle,
-            onPressed: widget.onLikeTap,
-            child: Row(
-              children: [
-                PostReactionButton(
-                  reactionType: ReactionType.like,
-                  id: widget.post.id.toString(),
-                  reaction: widget.post.reaction,
-                  onLikeAdded: () {
-                    widget.post.reaction = PostReaction.like();
-                    widget.post.likesCount += 1;
-                    setState(() {});
-                  },
-                  onCountReduced: () {
-                    widget.post.likesCount -= 1;
-                    setState(() {});
-                  },
-                  onDisliked: () {},
-                  onReactionRemoved: () {
-                    widget.post.reaction = null;
-                  },
-                ),
-                16.horizontalSpace,
-                TextView(
-                  text: widget.post.likesCount.toString(),
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                ),
-                16.horizontalSpace,
-                PostReactionButton(
-                  reactionType: ReactionType.dislike,
-                  id: widget.post.id.toString(),
-                  reaction: widget.post.reaction,
-                  onLikeAdded: () {},
-                  onCountReduced: () {
-                    if (widget.post.likesCount >= 1) {
-                      widget.post.likesCount -= 1;
-                    }
-                    setState(() {});
-                  },
-                  onDisliked: () {
-                    widget.post.reaction = PostReaction.dislike();
-                    setState(() {});
-                  },
-                  onReactionRemoved: () {
-                    widget.post.reaction = null;
-                    setState(() {});
-                  },
-                ),
-              ],
-            )),
-        const Spacer(),
+        18.horizontalSpace,
+        IgnorePointer(
+          child: Row(
+            children: [
+              ImageWidget(imageUrl: Assets.images.svgV2.commentIcon),
+              4.horizontalSpace,
+              TextView(
+                text: "${widget.post.commentsCount}",
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              )
+            ],
+          )
+        ),
+
         InkWell(
           onTap: widget.onShareTap,
           child: Container(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 5),
-            decoration: BoxDecoration(
-                // shape: BoxShape.circle,
-                borderRadius: BorderRadius.circular(100.r),
-                border: Border.all(
-                  width: 1,
-                  color: Pallets.borderGrey,
-                )),
-            child: ImageWidget(imageUrl: Assets.images.svgs.share),
+            child: ImageWidget(imageUrl: Assets.images.svgV2.shareIcon),
           ),
         )
       ],
