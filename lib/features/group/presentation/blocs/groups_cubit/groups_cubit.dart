@@ -5,6 +5,7 @@ import 'package:talkam/features/group/data/models/create_group_payload.dart';
 import 'package:talkam/features/group/data/models/groups_filter_model.dart';
 import 'package:talkam/features/group/dormain/repository/group_repository.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
+import 'package:talkam/core/mock/mock_home_data.dart';
 
 part 'groups_state.dart';
 
@@ -102,6 +103,12 @@ class GroupsCubit extends Cubit<GroupsState> {
 
       emit(GroupsState.getGroupSuccess(response));
     } catch (e, stack) {
+      final mockGroup = MockHomeData.getTalkamGroup(groupId);
+      if (mockGroup != null) {
+        emit(GroupsState.getGroupSuccess(mockGroup));
+        return;
+      }
+
       logger.e(e.toString(), stackTrace: stack);
       emit(GroupsState.getGroupFailure(e.toString()));
     }

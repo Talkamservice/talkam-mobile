@@ -1,3 +1,5 @@
+#!/bin/bash
+cat << 'FILE_END' > /home/michael/StudioProjects/talkam-mobile/lib/features/group/presentation/screens/group_info_screen.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -18,7 +20,6 @@ import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cub
 import 'package:talkam/features/group/presentation/screens/refresh_group_listener.dart';
 import 'package:talkam/features/group/presentation/tabs/groups_about_tab.dart';
 import 'package:talkam/features/group/presentation/tabs/group_posts_tab.dart';
-import 'package:talkam/features/group/presentation/widgets/group_action_sheet.dart';
 import 'package:talkam/features/home/presentation/screens/home_screen.dart';
 import 'package:talkam/features/post/presentation/widgets/create_post_sheet.dart';
 import 'package:talkam/gen/assets.gen.dart';
@@ -59,7 +60,6 @@ class _GroupInfoScreenState extends State<GroupInfoScreen>
         bloc.getGroup(widget.groupId);
       },
       child: Scaffold(
-        backgroundColor: context.colorScheme.surface,
         floatingActionButton: FloatingActionButton(
           foregroundColor: Pallets.white,
           backgroundColor: Pallets.primary,
@@ -104,110 +104,113 @@ class _GroupInfoScreenState extends State<GroupInfoScreen>
                 return NestedScrollView(
                   headerSliverBuilder: (context, innerBoxIsScrolled) => [
                     SliverToBoxAdapter(
-                        child: Container(
-                          color: context.colorScheme.surface,
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Stack(
                             children: [
-                              Stack(
-                                children: [
-                                  ImageWidget(
-                                    imageUrl: response.image ?? '',
-                                    height: 250.h,
-                                    width: 1.sw,
-                                    fit: BoxFit.cover,
-                                    borderRadius: BorderRadius.zero,
-                                  ),
-                                  SafeArea(
-                                    bottom: false,
-                                    child: Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 12.w, vertical: 8.h),
-                                      child: Row(
-                                        children: [
-                                          _HeaderIconButton(
-                                            icon: Icons.arrow_back,
-                                            onTap: () => context.pop(),
-                                          ),
-                                          const Spacer(),
-                                          _HeaderIconButton(
-                                            icon: Icons.search,
-                                            onTap: () => CustomDialogs.showToast(
-                                                "Coming soon"),
-                                          ),
-                                          8.horizontalSpace,
-                                          _HeaderIconButton(
-                                            icon: Icons.more_vert,
-                                            onTap: () async {
-                                              await CustomDialogs.showCustomDialog(
-                                                  GroupActionSheet(group: response),
-                                                  context);
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ],
+                              ImageWidget(
+                                imageUrl: response.image ?? '',
+                                height: 210.h,
+                                width: 1.sw,
+                                fit: BoxFit.cover,
+                                borderRadius: BorderRadius.zero,
                               ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: 16.w, vertical: 14.h),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    TextView(
-                                      text: response.name ?? "",
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                    10.verticalSpace,
-                                    Row(
-                                      children: [
-                                        _MemberAvatarsStack(
-                                            avatarUrls: MockHomeData
-                                                .groupMemberAvatars(response)),
-                                        8.horizontalSpace,
-                                        TextView(
-                                          text:
-                                          "${_formatMemberCount(MockHomeData.groupMemberCount(response))} Members",
-                                          fontSize: 13,
-                                          color: context.colorScheme.onSurface,
-                                        ),
-                                        const Spacer(),
-                                        SubscribeButton(
-                                          text: "Subscribe",
-                                          onTap: () {
-                                            // TODO: handle logic
-                                          },
-                                        ),
-                                        8.horizontalSpace,
-                                        InkWell(
-                                          onTap: () => CustomDialogs.showToast(
-                                              "Coming soon"),
-                                          customBorder: const CircleBorder(),
-                                          child: ImageWidget(
-                                            imageUrl:
-                                            Assets.images.svgV2.userAdd,
-                                            size: 20,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    12.verticalSpace,
-                                    TextView(
-                                      text: response.description ?? "",
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w700,
-                                      color: context.colorScheme.onSurface,
-                                    ),
-                                  ],
+                              SafeArea(
+                                bottom: false,
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 12.w, vertical: 8.h),
+                                  child: Row(
+                                    children: [
+                                      _HeaderIconButton(
+                                        icon: Icons.arrow_back,
+                                        onTap: () => context.pop(),
+                                      ),
+                                      const Spacer(),
+                                      _HeaderIconButton(
+                                        icon: Icons.search,
+                                        onTap: () => CustomDialogs.showToast(
+                                            "Coming soon"),
+                                      ),
+                                      8.horizontalSpace,
+                                      _HeaderIconButton(
+                                        icon: Icons.more_vert,
+                                        onTap: () => CustomDialogs.showToast(
+                                            "Coming soon"),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             ],
                           ),
-                        )
+                          Padding(
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 16.w, vertical: 14.h),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                TextView(
+                                  text: response.name ?? "",
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                                10.verticalSpace,
+                                Row(
+                                  children: [
+                                    _MemberAvatarsStack(
+                                        avatarUrls: MockHomeData
+                                            .groupMemberAvatars(response)),
+                                    8.horizontalSpace,
+                                    TextView(
+                                      text:
+                                          "${_formatMemberCount(MockHomeData.groupMemberCount(response))} Members",
+                                      fontSize: 13,
+                                      color: Pallets.grey60,
+                                    ),
+                                    const Spacer(),
+                                    SubscribeButton(
+                                      text: "Subscribe",
+                                      onTap: () {
+                                        // TODO: handle logic
+                                      },
+                                    ),
+                                    8.horizontalSpace,
+                                    InkWell(
+                                      onTap: () => CustomDialogs.showToast(
+                                          "Coming soon"),
+                                      customBorder: const CircleBorder(),
+                                      child: Container(
+                                        width: 34.w,
+                                        height: 34.w,
+                                        alignment: Alignment.center,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          border:
+                                              Border.all(color: Pallets.grey90),
+                                        ),
+                                        child: ImageWidget(
+                                          imageUrl:
+                                              Assets.images.svgs.groupsAdd,
+                                          size: 16,
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                12.verticalSpace,
+                                TextView(
+                                  text: response.description ?? "",
+                                  fontSize: 14,
+                                  color: Pallets.grey60,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
                     )
                   ],
                   body: Column(
@@ -230,7 +233,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen>
                               },
                               tabs: List.generate(
                                 tabItems.length,
-                                    (index) => Padding(
+                                (index) => Padding(
                                   padding: const EdgeInsets.symmetric(
                                       horizontal: 16.0),
                                   child: Tab(
@@ -252,8 +255,8 @@ class _GroupInfoScreenState extends State<GroupInfoScreen>
                         ),
                       ),
                       Container(
-                        color: context.colorScheme.surface,
-                        height: 12.h,
+                        color: Pallets.grey90,
+                        height: 1,
                       ),
                       BlocProvider.value(
                         value: groupPostCubit,
@@ -360,3 +363,4 @@ String _formatMemberCount(int count) {
   }
   return count.toString();
 }
+FILE_END

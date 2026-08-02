@@ -8,6 +8,8 @@ import 'package:talkam/features/post/data/models/get_comments_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/presentation/widgets/comment_action_sheet.dart';
 import 'package:talkam/features/post/presentation/widgets/comment_reaction_buttton.dart';
+import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 /// Plain heart/comment/share icon row shown under a comment's body — no
@@ -40,34 +42,53 @@ class _CommentActionsState extends State<CommentActions> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        CommentReactionButton(
-          reactionType: ReactionType.like,
-          id: widget.comment.id.toString(),
-          reaction: widget.comment.reaction,
-          onLikeAdded: () {
-            if (widget.comment.reaction?.isDisLike ?? false) {
-              widget.comment.unlikes -= 1;
-            }
-            widget.comment.reaction = PostReaction.like();
-            widget.comment.likes += 1;
-            setState(() {});
-          },
-          onLikeCountReduced: () {
-            widget.comment.likes -= 1;
-            setState(() {});
-          },
-          onDisliked: () {},
-          onReactionRemoved: () {
-            widget.comment.reaction = null;
-          },
+        Row(
+          children: [
+            CommentReactionButton(
+              reactionType: ReactionType.like,
+              id: widget.comment.id.toString(),
+              reaction: widget.comment.reaction,
+              onLikeAdded: () {
+                if (widget.comment.reaction?.isDisLike ?? false) {
+                  widget.comment.unlikes -= 1;
+                }
+                widget.comment.reaction = PostReaction.like();
+                widget.comment.likes += 1;
+                setState(() {});
+              },
+              onLikeCountReduced: () {
+                widget.comment.likes -= 1;
+                setState(() {});
+              },
+              onDisliked: () {},
+              onReactionRemoved: () {
+                widget.comment.reaction = null;
+              },
+            ),
+            4.horizontalSpace,
+            TextView(
+              text: widget.comment.likes.toString(),
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+            ),
+          ],
         ),
-        24.horizontalSpace,
+        18.horizontalSpace,
         InkWell(
           onTap: widget.onCommentTap,
-          child:
+          child: Row(
+            children: [
               ImageWidget(imageUrl: Assets.images.svgV2.commentIcon, size: 20),
+              4.horizontalSpace,
+              TextView(
+                text: "${widget.comment.children.length}",
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+              ),
+            ],
+          ),
         ),
-        24.horizontalSpace,
+        18.horizontalSpace,
         InkWell(
           onTap: () =>
               Helpers.share("${UrlConfig.webUrl}comment/${widget.comment.id}"),

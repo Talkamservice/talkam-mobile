@@ -1,5 +1,6 @@
 import 'package:talkam/features/authentication/data/models/auth_response.dart'
     hide Data;
+import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/features/messaging/data/models/get_conversations_response.dart';
 import 'package:talkam/features/messaging/dormain/models/app_message_model.dart';
 import 'package:talkam/features/post/data/models/create_post_payload.dart'
@@ -171,18 +172,51 @@ class MockHomeData {
           ))
       .toList();
 
-  /// Member avatars for a category's Group screen — falls back to the
+  static TalkamGroup? getTalkamGroup(String id) {
+    final intId = int.tryParse(id);
+    if (intId == null) return null;
+    final info = _groupInfoById[intId];
+    if (info == null) return null;
+
+    return TalkamGroup(
+      id: intId,
+      name: info.name,
+      uuid: "group-$intId",
+      description: info.description,
+      about: info.description,
+      image: info.backgroundImage,
+      totalMembers: info.memberCount,
+      isFollowing: true,
+      hasRequested: false,
+      isReported: false,
+      isSuspended: false,
+      groupAccess: "Opened",
+      status: "Active",
+      owner: GroupOwner(
+        id: info.creatorId,
+        name: info.creatorName,
+        username: info.creatorUsername,
+        avatar: "https://i.pravatar.cc/150?img=${info.creatorAvatarSeed}",
+        email: "${info.creatorUsername}@example.com",
+      ),
+      createdAt: DateTime(2022, 2, 15),
+      updatedAt: DateTime(2022, 2, 15),
+    );
+  }
+
+  /// Member avatars for a category's or group's screen — falls back to the
   /// Anxiety group's set for any category not in [_groupInfoById].
-  static List<String> groupMemberAvatars(PostCategory category) {
+  static List<String> groupMemberAvatars(dynamic item) {
+    final id = item is PostCategory ? item.id : (item as TalkamGroup).id;
     final seeds =
-        _groupInfoById[category.id]?.avatarSeeds ?? const [15, 32, 41, 51];
+        _groupInfoById[id]?.avatarSeeds ?? const [15, 32, 41, 51];
     return seeds.map((seed) => "https://i.pravatar.cc/150?img=$seed").toList();
   }
 
   /// Falls back to a large placeholder count when the real followers count
   /// isn't seeded yet, matching the "46K Members" reference design.
-  static int groupMemberCount(PostCategory category) {
-    final real = category.followersCount;
+  static int groupMemberCount(dynamic item) {
+    final real = item is PostCategory ? item.followersCount : (item as TalkamGroup).totalMembers;
     if (real is num && real > 0) return real.toInt();
     return 46200;
   }

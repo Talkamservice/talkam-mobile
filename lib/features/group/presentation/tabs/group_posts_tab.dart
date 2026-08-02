@@ -45,33 +45,33 @@ class _GroupPostsTabState extends State<GroupPostsTab> {
               context.read<GroupPostCubit>().getGroupPosts(widget.group.id.toString());
             },
           ),
-          postsLoaded: (media, paginationData) {
+          postsLoaded: (posts, paginationData) {
             return Column(
               children: [
-                if (media.isNotEmpty)
+                if (posts.isNotEmpty)
                   Expanded(
                     child: ListView.builder(
-                      itemCount: paginationData.canLoadMore ? media.length + 1 : media.length,
+                      itemCount: paginationData.canLoadMore ? posts.length + 1 : posts.length,
                       padding: EdgeInsets.zero,
                       itemBuilder: (context, index) {
-                        if (index >= media.length) {
+                        if (index >= posts.length) {
                           context
                               .read<GroupPostCubit>()
-                              .fetchNextMediaPage(groupId: widget.group.id.toString(), paginationData: paginationData, previousMedia: media);
+                              .fetchNextPostsPage(groupId: widget.group.id.toString(), paginationData: paginationData, previousPosts: posts);
                           return const Center(child: CircularProgressIndicator());
                         }
 
                         return Padding(
                           padding: const EdgeInsets.only(bottom: 8.0),
                           child: PostItem(
-                            post: media[index],
+                            post: posts[index],
                             showGroupAndCategory: false,
                           ),
                         );
                       },
                     ),
                   ),
-                if (media.isEmpty) const Expanded(child: Center(child: TextView(text: "No posts here")))
+                if (posts.isEmpty) const Expanded(child: Center(child: TextView(text: "No posts here")))
               ],
             );
           },

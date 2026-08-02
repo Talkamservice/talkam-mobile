@@ -110,7 +110,7 @@ class _CommentReactionButtonState extends State<CommentReactionButton> {
 
           child: switch (widget.reactionType) {
             ReactionType.like => ImageWidget(
-                imageUrl: Assets.images.svgs.thumbsUp,
+                imageUrl: Assets.images.svgV2.likeIcon,
                 color:
                     widget.reaction?.isLike ?? false ? Pallets.primary : null,
               ),

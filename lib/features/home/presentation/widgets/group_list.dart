@@ -11,8 +11,8 @@ import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/features/home/presentation/widgets/app_drawer.dart';
 import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 
-class CategoriesList extends StatefulWidget {
-  CategoriesList({
+class GroupList extends StatefulWidget {
+  GroupList({
     super.key,
     this.searchQuery = '',
   });
@@ -20,10 +20,10 @@ class CategoriesList extends StatefulWidget {
   final String searchQuery;
 
   @override
-  State<CategoriesList> createState() => _CategoriesListState();
+  State<GroupList> createState() => _GroupListState();
 }
 
-class _CategoriesListState extends State<CategoriesList> {
+class _GroupListState extends State<GroupList> {
   @override
   void initState() {
     injector.get<PostBloc>().add(const PostEvent.getCategories(refresh: false));
@@ -131,8 +131,8 @@ class _CategoriesListState extends State<CategoriesList> {
                             category: categories[index],
                             onTap: () {
                               Navigator.of(context).pop();
-                              context.pushNamed(PageUrl.categoriesScreen,
-                                  extra: categories[index]);
+                              context.pushNamed(PageUrl.groupsInfoScreen,
+                                  extra: categories[index].id.toString());
                             },
                           ),
                         ),

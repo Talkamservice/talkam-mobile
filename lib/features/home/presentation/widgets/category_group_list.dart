@@ -16,16 +16,16 @@ import 'package:talkam/gen/assets.gen.dart';
 
 import 'app_drawer.dart';
 
-class SubcategoryList extends StatefulWidget {
-  const SubcategoryList({super.key, required this.category});
+class CategoryGroupList extends StatefulWidget {
+  const CategoryGroupList({super.key, required this.category});
 
   final PostCategory category;
 
   @override
-  State<SubcategoryList> createState() => _SubcategoryListState();
+  State<CategoryGroupList> createState() => _CategoryGroupListState();
 }
 
-class _SubcategoryListState extends State<SubcategoryList> {
+class _CategoryGroupListState extends State<CategoryGroupList> {
   @override
   void initState() {
     logger.w(widget.category.id);
@@ -89,7 +89,7 @@ class _SubcategoryListState extends State<SubcategoryList> {
                     return const SizedBox(
                       height: 300,
                       child: Center(
-                        child: TextView(text: "There are no sub categories here"),
+                        child: TextView(text: "There are no groups here"),
                       ),
                     );
                   }
@@ -108,7 +108,7 @@ class _SubcategoryListState extends State<SubcategoryList> {
                           context.read<DrawerCubit>().closeDrawer();
 
                           if (response.data[index].type.toString().toLowerCase() == "category") {
-                            context.pushNamed(PageUrl.categoriesScreen, extra: response.data[index]);
+                            context.pushNamed(PageUrl.groupsInfoScreen, extra: response.data[index].id.toString());
                           } else {
                             if (response.data[index].isSuspended ?? false) {
                               CustomDialogs.error("You have been suspended from this group");

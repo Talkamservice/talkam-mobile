@@ -116,8 +116,20 @@ class $AssetsImagesSvgsGenV2 {
   /// File path: assets/images/svg_v2/attachment-02.svg
   String get attachment02 => 'assets/images/svg_v2/attachment-02.svg';
 
+  /// File path: assets/images/svg_v2/user-add.svg
+  String get userAdd => 'assets/images/svg_v2/user-add.svg';
+
+  /// File path: assets/images/svg_v2/user-multiple.svg
+  String get userMultiple => 'assets/images/svg_v2/user-multiple.svg';
+
+  /// File path: assets/images/svg_v2/global.svg
+  String get global => 'assets/images/svg_v2/global.svg';
+
   /// List of all assets
   List<String> get values => [
+    global,
+    userMultiple,
+    userAdd,
     angry,
     dollar2,
     happy1,

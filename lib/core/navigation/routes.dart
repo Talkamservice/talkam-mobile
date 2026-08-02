@@ -50,7 +50,6 @@ import 'package:talkam/features/messaging/presentation/screens/new_request_scree
 import 'package:talkam/features/notifications/presentation/screens/notifications_screen.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
-import 'package:talkam/features/post/presentation/screens/categories_screen.dart';
 import 'package:talkam/features/post/presentation/screens/post_details_screen.dart';
 import 'package:talkam/features/profile/presentation/screens/edit_profile_screen.dart';
 import 'package:talkam/features/profile/presentation/screens/profile_screen.dart';
@@ -316,13 +315,6 @@ class CustomRoutes {
         builder: (context, state) => const ChangePasswordScreen(
             // userId: state.extra as String,
             ),
-      ),
-      GoRoute(
-        path: '/categoriesScreen',
-        name: PageUrl.categoriesScreen,
-        builder: (context, state) => CategoriesScreen(
-          category: state.extra as PostCategory,
-        ),
       ),
       GoRoute(
         path: '/searchResultScreen',

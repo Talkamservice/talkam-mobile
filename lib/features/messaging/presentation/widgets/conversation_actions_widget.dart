@@ -155,7 +155,6 @@ class _ConversationActionsWidgetState extends State<ConversationActionsWidget> {
                       child: ImageWidget(
                         imageUrl: Assets.images.svgV2.attachment02,
                         size: 22,
-                        color: Pallets.grey,
                       ),
                     ),
                     const SizedBox(width: 8),
@@ -169,7 +168,6 @@ class _ConversationActionsWidgetState extends State<ConversationActionsWidget> {
                       child: ImageWidget(
                         imageUrl: Assets.images.svgV2.sent,
                         size: 22,
-                        color: Pallets.grey,
                       ),
                     ),
                     const SizedBox(width: 16),

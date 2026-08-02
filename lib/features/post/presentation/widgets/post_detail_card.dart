@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
+import 'package:talkam/common/widgets/subscribe_button.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/services/network/url_config.dart';
@@ -151,20 +153,8 @@ class _PostDetailHeader extends StatelessWidget {
             ],
           ),
         ),
-        InkWell(
+        SubscribeButton(
           onTap: () => CustomDialogs.showToast("Coming soon"),
-          child: Container(
-            padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 6.h),
-            decoration: BoxDecoration(
-              color: Pallets.blueBubbleColor,
-              borderRadius: BorderRadius.circular(100.r),
-            ),
-            child: const TextView(
-                text: "Subscribe",
-                color: Colors.white,
-                fontWeight: FontWeight.w600,
-                fontSize: 13),
-          ),
         ),
         GuestUserHelper.guestUserWidget(
           widget: IconButton(

@@ -10,12 +10,12 @@ import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
-import 'package:talkam/features/home/presentation/widgets/subcategory_list.dart';
+import 'package:talkam/features/home/presentation/widgets/category_group_list.dart';
 import 'package:talkam/features/notifications/presentation/bloc/notification_bloc.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
-import 'category_list.dart';
+import 'group_list.dart';
 
 class AppDrawer extends StatefulWidget {
   const AppDrawer({
@@ -63,10 +63,10 @@ class _AppDrawerState extends State<AppDrawer> {
                   builder: (context, state) {
                     return state.maybeWhen(
                       orElse: () =>
-                          CategoriesList(searchQuery: _groupSearchQuery),
+                          GroupList(searchQuery: _groupSearchQuery),
                       categoryView: () =>
-                          CategoriesList(searchQuery: _groupSearchQuery),
-                      subCategoryView: (subCategory) => SubcategoryList(
+                          GroupList(searchQuery: _groupSearchQuery),
+                      subCategoryView: (subCategory) => CategoryGroupList(
                         category: subCategory,
                       ),
                     );

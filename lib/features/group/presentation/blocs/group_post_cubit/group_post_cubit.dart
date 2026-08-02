@@ -4,6 +4,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/data/models/post_filter_model.dart';
 import 'package:talkam/features/post/dormain/repository/post_repository.dart';
+import 'package:talkam/core/mock/mock_home_data.dart';
 
 part 'group_post_state.dart';
 
@@ -23,13 +24,25 @@ class GroupPostCubit extends Cubit<GroupPostState> {
         PostFilterModel.groupPost(groupId: groupId, page: 1),
       );
 
-      emit(GroupPostState.postsLoaded(
-        posts: response.data.data,
-        paginationData: response.data.paginationMeta,
-      ));
+      if (response.data.data.isEmpty) {
+        emit(GroupPostState.postsLoaded(
+          posts: MockHomeData.postsResponse.data.data,
+          paginationData: MockHomeData.postsResponse.data.paginationMeta,
+        ));
+      } else {
+        emit(GroupPostState.postsLoaded(
+          posts: response.data.data,
+          paginationData: response.data.paginationMeta,
+        ));
+      }
     } catch (e, stack) {
       logger.e(e.toString(), stackTrace: stack);
-      emit(GroupPostState.postsFailed(e.toString()));
+      
+      // Fallback to mock data for now
+      emit(GroupPostState.postsLoaded(
+        posts: MockHomeData.postsResponse.data.data,
+        paginationData: MockHomeData.postsResponse.data.paginationMeta,
+      ));
     }
   }
 
@@ -67,13 +80,25 @@ class GroupPostCubit extends Cubit<GroupPostState> {
         PostFilterModel.groupPost(groupId: groupId, page: 1, isMedia: true),
       );
 
-      emit(GroupPostState.mediaLoaded(
-        media: response.data.data,
-        paginationData: response.data.paginationMeta,
-      ));
+      if (response.data.data.isEmpty) {
+        emit(GroupPostState.mediaLoaded(
+          media: MockHomeData.postsResponse.data.data.where((p) => p.attachments.isNotEmpty).toList(),
+          paginationData: MockHomeData.postsResponse.data.paginationMeta,
+        ));
+      } else {
+        emit(GroupPostState.mediaLoaded(
+          media: response.data.data,
+          paginationData: response.data.paginationMeta,
+        ));
+      }
     } catch (e, stack) {
       logger.e(e.toString(), stackTrace: stack);
-      emit(GroupPostState.mediaFailed(e.toString()));
+      
+      // Fallback to mock data for now
+      emit(GroupPostState.mediaLoaded(
+        media: MockHomeData.postsResponse.data.data.where((p) => p.attachments.isNotEmpty).toList(),
+        paginationData: MockHomeData.postsResponse.data.paginationMeta,
+      ));
     }
   }
 
