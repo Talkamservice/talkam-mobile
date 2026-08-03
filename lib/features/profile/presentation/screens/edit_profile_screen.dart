@@ -1,22 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
-import 'package:talkam/common/models/get_countries_response.dart';
-import 'package:talkam/common/models/get_states_response.dart';
-import 'package:talkam/common/widgets/country_state_picker.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
-import 'package:talkam/common/widgets/dropdown_field_form.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/outlined_form_field.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/theme/pallets.dart';
-import 'package:talkam/core/utils/extensions/context_extension.dart';
-import 'package:talkam/core/utils/time_util.dart';
-import 'package:talkam/core/utils/validators.dart';
 import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
 import 'package:talkam/features/profile/data/models/update_profile_payload.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
@@ -32,47 +26,74 @@ class EditProfileScreen extends StatefulWidget {
   State<EditProfileScreen> createState() => _EditProfileScreenState();
 }
 
-class _EditProfileScreenState extends State<EditProfileScreen> with RefreshPostsMixin {
-  DateTime? dob;
+class _EditProfileScreenState extends State<EditProfileScreen>
+    with RefreshPostsMixin {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController phoneController = TextEditingController();
+  final TextEditingController bioController = TextEditingController();
 
-  var gender;
+  final formkey = GlobalKey<FormState>();
+  final profileBloc = injector.get<ProfileBloc>();
+
+  var selectedImage;
+  String? _email;
+
+  /// Snapshot of the initial values so Save only enables once something
+  /// actually changes (mirrors the enabled/disabled mockup variants).
+  late String _initialName;
+  late String _initialPhone;
+  late String _initialBio;
+  late dynamic _initialImage;
+
+  static const int _bioMaxLength = 300;
 
   @override
   void initState() {
-    selectedImage = injector.get<ProfileBloc>().appUser?.avatar;
-    usernameController.text = injector.get<ProfileBloc>().appUser?.username ?? '';
-    gender = injector.get<ProfileBloc>().appUser?.gender;
-    if (gender.toString().isEmpty) {
-      gender = null;
-    }
-
-    dob = injector.get<ProfileBloc>().appUser?.dob;
-    _country = injector.get<ProfileBloc>().appUser?.country;
-    _state = injector.get<ProfileBloc>().appUser?.state;
-    setState(() {});
     super.initState();
+    final user = profileBloc.appUser;
+    selectedImage = user?.avatar;
+    nameController.text = user?.name ?? '';
+    _email = user?.email;
+
+    _initialName = nameController.text;
+    _initialPhone = phoneController.text;
+    _initialBio = bioController.text;
+    _initialImage = selectedImage;
+
+    nameController.addListener(_onChanged);
+    phoneController.addListener(_onChanged);
+    bioController.addListener(_onChanged);
+    setState(() {});
   }
 
-  final TextEditingController usernameController = TextEditingController();
-  bool passwordObscured = true;
-  final formkey = GlobalKey<FormState>();
-  final profileBloc = injector.get<ProfileBloc>();
-  var selectedImage;
-  TalkamCountry? _country;
-  TalkamState? _state;
+  @override
+  void dispose() {
+    nameController.dispose();
+    phoneController.dispose();
+    bioController.dispose();
+    super.dispose();
+  }
+
+  void _onChanged() => setState(() {});
+
+  bool get _hasChanges =>
+      nameController.text != _initialName ||
+      phoneController.text != _initialPhone ||
+      bioController.text != _initialBio ||
+      selectedImage != _initialImage;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: const CustomAppBar(
         padding: EdgeInsets.all(0.0),
         tittleText: "Edit Profile",
         centerTile: false,
-        showDivider: true,
         actions: [],
       ),
       body: BlocConsumer<ProfileBloc, ProfileState>(
-        bloc: injector.get<ProfileBloc>(),
+        bloc: profileBloc,
         listener: _listenToProfileBloc,
         builder: (context, state) {
           return SafeArea(
@@ -84,135 +105,144 @@ class _EditProfileScreenState extends State<EditProfileScreen> with RefreshPosts
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      29.verticalSpace,
-                      Center(child: ImageWidget(size: 100, shape: BoxShape.circle, imageUrl: selectedImage ?? Assets.images.svgs.user)),
-                      5.verticalSpace,
+                      24.verticalSpace,
+
+                      // ── Avatar + Change Photo ─────────────────────────
                       Center(
-                        child: TextButton(
-                            style: TextButton.styleFrom(
-                                // padding: EdgeInsets.all(),
-                                foregroundColor: context.colorScheme.onSurface,
-                                shape: const StadiumBorder(side: BorderSide(color: Pallets.borderGrey))),
-                            onPressed: () {
-                              selectImage(context);
-                            },
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                ImageWidget(imageUrl: Assets.images.svgs.uploadAvatar),
-                                5.horizontalSpace,
-                                const TextView(text: "Set avatar"),
-                              ],
-                            )),
+                        child: Column(
+                          children: [
+                            GestureDetector(
+                              onTap: () => selectImage(context),
+                              child: Stack(
+                                clipBehavior: Clip.none,
+                                children: [
+                                  ImageWidget(
+                                    size: 100,
+                                    shape: BoxShape.circle,
+                                    imageUrl:
+                                        selectedImage ?? Assets.images.svgs.user,
+                                  ),
+                                  Positioned(
+                                    right: 0,
+                                    bottom: 0,
+                                    child: Container(
+                                      padding: EdgeInsets.all(6.r),
+                                      decoration: const BoxDecoration(
+                                        color: Pallets.blueBubbleColor,
+                                        shape: BoxShape.circle,
+                                        border: Border.fromBorderSide(
+                                          BorderSide(
+                                              color: Colors.white, width: 2),
+                                        ),
+                                      ),
+                                      child: Icon(
+                                        Icons.edit,
+                                        size: 14.r,
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            8.verticalSpace,
+                            InkWell(
+                              onTap: () => selectImage(context),
+                              child: const TextView(
+                                text: "Change Photo",
+                                fontSize: 15,
+                                fontWeight: FontWeight.w700,
+                                color: Pallets.grey400,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      25.verticalSpace,
+
+                      28.verticalSpace,
+
+                      // ── Full Name ─────────────────────────────────────
                       OutlinedFormField(
-                        placeHolder: "Username",
-                        hint: "Use a unique username",
-                        controller: usernameController,
-                        validator:
-                            MultiValidator([RequiredValidator(errorText: "Field is required"), SpaceValidator(errorText: "Username must not contain space")])
-                                .call,
+                        placeHolder: "Full Name",
+                        hint: "Enter your name",
+                        controller: nameController,
+                        validator: MultiValidator([
+                          RequiredValidator(errorText: "Field is required"),
+                        ]).call,
+                        suffix: const Icon(
+                          Icons.remove_red_eye_outlined,
+                          color: Pallets.grey75,
+                        ),
                       ),
                       16.verticalSpace,
-                      TextView(
-                        text: "Date of birth",
-                        fontSize: 15.sp,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      8.verticalSpace,
-                      TextButton(
-                          style: TextButton.styleFrom(
-                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                              foregroundColor: Pallets.grey,
-                              padding: const EdgeInsets.all(16),
-                              side: const BorderSide(
-                                color: Pallets.borderGrey,
-                                width: 0.7,
-                              )),
-                          onPressed: () async {
-                            var _dob = await selectDate(context,initialDate: dob);
-                            if (_dob != null) {
-                              dob= _dob  ;
-                            }
 
-
-                            setState(() {});
-                            // pickDateAndTime(context);
-                          },
-                          child: Row(
-                            children: [
-                              Expanded(
-                                  child: TextView(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                      text: dob != null ? TimeUtil.formatDate(dob!.toIso8601String()) : "Date of birth")),
-                              const Icon(Icons.keyboard_arrow_right)
-                            ],
-                          )),
-                      16.verticalSpace,
-                      CustomDropdownFieldButton<String>(
-                          label: "Gender",
-                          hint: "Male / Female",
-                          value: gender,
-                          onChanged: (p0) {
-                            gender = p0!;
-                            setState(() {});
-                          },
-                          items: const [
-                            DropdownMenuItem<String>(
-                              value: "Male",
-                              child: TextView(
-                                text: "Male",
-                              ),
-                            ),
-                            DropdownMenuItem<String>(
-                              value: "Female",
-                              child: TextView(
-                                text: "Female",
-                              ),
-                            ),
-                            DropdownMenuItem<String>(
-                              value: "Others",
-                              child: TextView(
-                                text: "Others",
-                              ),
-                            ),
-                            DropdownMenuItem<String>(
-                              value: "Choose not to specify",
-                              child: TextView(
-                                text: "Choose not to specify",
-                              ),
-                            ),
-                          ]),
-                      16.verticalSpace,
-                      TalkamCountryStatePicker(
-                        country: _country,
-                        state: _state,
-                        onChanged: (TalkamCountry? country, TalkamState? state) {
-                          _country = country;
-                          _state = state;
-                        },
+                      // ── Email (read-only) ─────────────────────────────
+                      OutlinedFormField(
+                        placeHolder: "Email Address",
+                        hint: _email ?? "Email Address",
+                        enabled: false,
+                        filled: true,
+                        fillColor: Pallets.bgLight,
                       ),
-                      38.verticalSpace,
+                      16.verticalSpace,
+
+                      // ── Phone Number ──────────────────────────────────
+                      // NOTE: the user model / update payload has no phone
+                      // field yet, so this is UI-only until the backend adds
+                      // support. Wire into the payload once available.
+                      OutlinedFormField(
+                        placeHolder: "Phone Number",
+                        hint: "+234 801 234 5678",
+                        controller: phoneController,
+                        inputType: TextInputType.phone,
+                        suffix: const Icon(
+                          Icons.remove_red_eye_outlined,
+                          color: Pallets.grey75,
+                        ),
+                      ),
+                      16.verticalSpace,
+
+                      // ── Bio ───────────────────────────────────────────
+                      // NOTE: also UI-only until the backend exposes a bio
+                      // field on the profile update payload.
+                      OutlinedFormField(
+                        placeHolder: "Bio",
+                        hint: "Finding my way through life, one day at a time.",
+                        controller: bioController,
+                        maxLine: 5,
+                        minLine: 5,
+                        inputFormatters: [
+                          LengthLimitingTextInputFormatter(_bioMaxLength),
+                        ],
+                      ),
+                      6.verticalSpace,
+                      Align(
+                        alignment: Alignment.centerRight,
+                        child: TextView(
+                          text: "${bioController.text.length}/$_bioMaxLength",
+                          fontSize: 13,
+                          fontWeight: FontWeight.w500,
+                          color: Pallets.grey400,
+                        ),
+                      ),
+
+                      32.verticalSpace,
+
+                      // ── Save ──────────────────────────────────────────
                       CustomButton(
+                        elevation: 0,
+                        bgColor: _hasChanges
+                            ? Pallets.blueBubbleColor
+                            : Pallets.lightBlue,
+                        onPressed: _hasChanges ? _onSave : null,
                         child: const TextView(
-                          text: "Save changes",
+                          text: "Save Changes",
                           fontSize: 15,
                           fontWeight: FontWeight.w700,
+                          color: Colors.white,
                         ),
-                        onPressed: () {
-                          if (formkey.currentState?.validate() ?? false) {
-                            injector.get<ProfileBloc>().add(UpdateProfileEvent(UpdateProfilePayload(
-                                avatar: selectedImage,
-                                username: usernameController.text.trim(),
-                                dob: dob,
-                                countryId: _country?.id.toString(),
-                                stateId: _state?.id.toString(),
-                                gender: gender)));
-                          }
-                        },
-                      )
+                      ),
+                      24.verticalSpace,
                     ],
                   ),
                 ),
@@ -222,6 +252,19 @@ class _EditProfileScreenState extends State<EditProfileScreen> with RefreshPosts
         },
       ),
     );
+  }
+
+  void _onSave() {
+    if (formkey.currentState?.validate() ?? false) {
+      profileBloc.add(
+        UpdateProfileEvent(
+          UpdateProfilePayload(
+            avatar: selectedImage,
+            name: nameController.text.trim(),
+          ),
+        ),
+      );
+    }
   }
 
   Future<void> selectImage(BuildContext context) async {
@@ -235,21 +278,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> with RefreshPosts
       selectedImage = image;
     }
     setState(() {});
-  }
-
-  Future<DateTime?> selectDate(BuildContext context, {DateTime? initialDate}) async {
-    final now = DateTime.now();
-    final pickedDate = await showDatePicker(
-      context: context,
-      initialDate:initialDate?? now,
-      firstDate: DateTime(now.year - 200),
-      lastDate: now,
-    );
-    if (pickedDate != null && pickedDate != now) {
-      return pickedDate;
-    } else {
-      return null; // User canceled or did not select
-    }
   }
 
   void _listenToProfileBloc(BuildContext context, ProfileState state) {

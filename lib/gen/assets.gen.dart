@@ -140,8 +140,56 @@ class $AssetsImagesSvgsGenV2 {
   /// File path: assets/images/svg_v2/user-search-02.svg
   String get userSearch => 'assets/images/svg_v2/user-search-02.svg';
 
+  /// File path: assets/images/svg_v2/clock.svg
+  String get clock => 'assets/images/svg_v2/clock.svg';
+
+  /// File path: assets/images/svg_v2/video.svg
+  String get video => 'assets/images/svg_v2/video.svg';
+
+  /// File path: assets/images/svg_v2/volume-high.svg
+  String get volumeHigh => 'assets/images/svg_v2/volume-high.svg';
+
+  /// File path: assets/images/svg_v2/video-02.svg
+  String get video2 => 'assets/images/svg_v2/video-02.svg';
+
+  /// File path: assets/images/svg_v2/call.svg
+  String get call => 'assets/images/svg_v2/call.svg';
+
+  /// File path: assets/images/svg_v2/mic.svg
+  String get mic => 'assets/images/svg_v2/mic.svg';
+
+  /// File path: assets/images/svg_v2/rating-star-fill.svg
+  String get ratingStarFilled => 'assets/images/svg_v2/rating-star-fill.svg';
+
+  /// File path: assets/images/svg_v2/rating-star-outline.svg
+  String get ratingStarOutline => 'assets/images/svg_v2/rating-star-outline.svg';
+
+  /// File path: assets/images/svg_v2/star-filled.svg
+  String get starFilled => 'assets/images/svg_v2/star-filled.svg';
+
+  /// File path: assets/images/svg_v2/delete.svg
+  String get delete => 'assets/images/svg_v2/delete.svg';
+
+  /// File path: assets/images/svg_v2/gear.svg
+  String get gear => 'assets/images/svg_v2/gear.svg';
+
+  /// File path: assets/images/svg_v2/card.svg
+  String get card => 'assets/images/svg_v2/card.svg';
+
+  /// File path: assets/images/svg_v2/shield.svg
+  String get shield => 'assets/images/svg_v2/shield.svg';
+
   /// List of all assets
   List<String> get values => [
+    gear,
+    card,
+    shield,
+    volumeHigh,
+    video2,
+    call,
+    mic,
+    clock,
+    video,
     userSearch,
     global,
     userMultiple,

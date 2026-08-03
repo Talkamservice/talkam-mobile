@@ -60,6 +60,7 @@ import 'package:talkam/features/settings/presentation/screens/blocked_users_scre
 import 'package:talkam/features/settings/presentation/screens/change_password_screen.dart';
 import 'package:talkam/features/settings/presentation/screens/delete_account_screen.dart';
 import 'package:talkam/features/settings/presentation/screens/notifications_settings_screen.dart';
+import 'package:talkam/features/settings/presentation/screens/privacy_settings_screen.dart';
 import 'package:talkam/features/settings/presentation/screens/settings_screen.dart';
 import 'package:talkam/features/profile/presentation/screens/user_profile_screen.dart';
 import 'package:talkam/features/search/presentation/screens/search_result_screen.dart';
@@ -73,6 +74,11 @@ import 'package:talkam/features/therapist/presentation/screens/booking_confirmed
 import 'package:talkam/features/therapist/presentation/screens/booking_failed_screen.dart';
 import 'package:talkam/features/therapist/data/models/therapist_model.dart';
 import 'package:talkam/features/therapist/presentation/bloc/therapist_booking_bloc.dart';
+
+import 'package:talkam/features/session/presentation/screens/session_room_screen.dart';
+import 'package:talkam/features/session/presentation/screens/session_call_screen.dart';
+import 'package:talkam/features/session/presentation/screens/session_complete_screen.dart';
+import 'package:talkam/features/session/data/models/session_model.dart';
 
 
 import '../../common/widgets/custom_dialogs.dart';
@@ -324,6 +330,11 @@ class CustomRoutes {
             ),
       ),
       GoRoute(
+        path: '/${PageUrl.privacySettingsScreen}',
+        name: PageUrl.privacySettingsScreen,
+        builder: (context, state) => const PrivacySettingsScreen(),
+      ),
+      GoRoute(
         path: '/searchResultScreen',
         name: PageUrl.searchResultScreen,
         parentNavigatorKey: rootNavigatorKey,
@@ -518,6 +529,33 @@ class CustomRoutes {
         pageBuilder: (context, state) => NoTransitionPage(
           child: BookingFailedScreen(
             errorMessage: state.extra as String,
+          ),
+        ),
+      ),
+      GoRoute(
+        path: '/sessionRoomScreen',
+        name: PageUrl.sessionRoomScreen,
+        pageBuilder: (context, state) => NoTransitionPage(
+          child: SessionRoomScreen(
+            session: state.extra as SessionModel?,
+          ),
+        ),
+      ),
+      GoRoute(
+        path: '/sessionCallScreen',
+        name: PageUrl.sessionCallScreen,
+        pageBuilder: (context, state) => NoTransitionPage(
+          child: SessionCallScreen(
+            session: state.extra as SessionModel?,
+          ),
+        ),
+      ),
+      GoRoute(
+        path: '/sessionCompleteScreen',
+        name: PageUrl.sessionCompleteScreen,
+        pageBuilder: (context, state) => NoTransitionPage(
+          child: SessionCompleteScreen(
+            session: state.extra as SessionModel?,
           ),
         ),
       ),

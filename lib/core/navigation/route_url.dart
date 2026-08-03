@@ -59,6 +59,7 @@ class PageUrl {
   static const accountSettingsScreen = 'accountSettingsScreen';
   static const changePasswordScreen = 'changePasswordScreen';
   static const notificationSettingsScreen = 'notificationSettingsScreen';
+  static const privacySettingsScreen = 'privacySettingsScreen';
 
 //   Groups
   static const groupsInfoScreen = 'groupsInfoScreen';
@@ -93,4 +94,9 @@ class PageUrl {
   static const bookingReviewScreen = 'bookingReviewScreen';
   static const bookingConfirmedScreen = 'bookingConfirmedScreen';
   static const bookingFailedScreen = 'bookingFailedScreen';
+
+  // Sessions
+  static const sessionRoomScreen = 'sessionRoomScreen';
+  static const sessionCallScreen = 'sessionCallScreen';
+  static const sessionCompleteScreen = 'sessionCompleteScreen';
 }

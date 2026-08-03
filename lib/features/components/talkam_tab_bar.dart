@@ -26,20 +26,19 @@ class TalkamTabBar extends StatelessWidget {
         children: [
           TextView(
             text: title,
-            color: Pallets.grey400,
+            color: isSelected ? Pallets.boldBlackV2 : Pallets.grey400,
             fontWeight: FontWeight.w600,
           ),
           10.verticalSpace,
 
-          if (isSelected)
-            Container(
-              height: 3.0,
-              width: 60.w,
-              decoration: BoxDecoration(
-                color: Pallets.tabBarBlue,
-                borderRadius: BorderRadius.circular(4.0),
-              ),
+          Container(
+            height: 3.0,
+            width: 60.w,
+            decoration: BoxDecoration(
+              color: isSelected ? Pallets.tabBarBlue : Colors.transparent,
+              borderRadius: BorderRadius.circular(4.0),
             ),
+          ),
         ],
       ),
     );

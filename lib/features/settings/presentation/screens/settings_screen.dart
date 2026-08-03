@@ -11,6 +11,7 @@ import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/profile/data/models/settings_category.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_screen_cubit/profile_screen_cubit.dart';
+import 'package:talkam/features/settings/presentation/widgets/delete_account_dialog.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class SettingsScreen extends StatefulWidget {
@@ -146,7 +147,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                           EdgeInsets.only(left: 16.w, right: 16.w, top: 40.h),
                       child: InkWell(
                         onTap: () {
-                          context.pushNamed(PageUrl.deleteAccountScreen);
+                          DeleteAccountDialog.show(context);
                         },
                         child: const Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,

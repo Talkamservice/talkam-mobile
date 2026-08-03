@@ -52,29 +52,37 @@ class _DataPrivacyScreenState extends State<DataPrivacyScreen> {
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: const CustomAppBar(
+            padding: EdgeInsets.all(0.0),
+            tittleText: "Privacy",
+            centerTile: false,
             bgColor: Colors.transparent,
             elevation: 0,
           ),
           body: SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 24.w),
+            padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 8.h),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // ── Header ─────────────────────────────────────────────
-                const TextView(
-                  text: "Data & Privacy",
-                  fontSize: 24,
-                  fontWeight: FontWeight.w800,
-                  color: Pallets.boldBlackV2,
-                ),
-                8.verticalSpace,
-                const TextView(
-                  text:
-                      "Therapy Mode secures your data. Manage consent below.",
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  color: Pallets.grey400,
-                  lineHeight: 1.4,
+                // ── Info banner ────────────────────────────────────────
+                Container(
+                  width: double.infinity,
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+                  decoration: BoxDecoration(
+                    color: Pallets.blueBubbleColor.withValues(alpha: 0.08),
+                    borderRadius: BorderRadius.circular(12.r),
+                    border: Border.all(
+                      color: Pallets.blueBubbleColor.withValues(alpha: 0.4),
+                    ),
+                  ),
+                  child: const TextView(
+                    text:
+                        "You are in control of your data. Review and manage your consents below. Required consents are needed to use TalkAM.",
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                    color: Pallets.blueBubbleColor,
+                    lineHeight: 1.4,
+                  ),
                 ),
 
                 24.verticalSpace,
@@ -101,7 +109,7 @@ class _DataPrivacyScreenState extends State<DataPrivacyScreen> {
                       ? () => privacyBloc.add(const SaveConsentsEvent())
                       : null,
                   child: const TextView(
-                    text: "Confirm",
+                    text: "Save Preferences",
                     fontSize: 15,
                     fontWeight: FontWeight.w700,
                     color: Colors.white,
