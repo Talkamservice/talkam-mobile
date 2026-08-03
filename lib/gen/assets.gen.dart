@@ -125,8 +125,24 @@ class $AssetsImagesSvgsGenV2 {
   /// File path: assets/images/svg_v2/global.svg
   String get global => 'assets/images/svg_v2/global.svg';
 
+  /// File path: assets/images/svg_v2/checkmark-badge.svg
+  String get checkmarkBadge => 'assets/images/svg_v2/checkmark-badge.svg';
+
+  /// File path: assets/images/svg_v2/star.svg
+  String get star => 'assets/images/svg_v2/star.svg';
+
+  /// File path: assets/images/svg_v2/money-03.svg
+  String get money03 => 'assets/images/svg_v2/money-03.svg';
+
+  /// File path: assets/images/svg_v2/preference-horizontal.svg
+  String get preferenceHorizontal => 'assets/images/svg_v2/preference-horizontal.svg';
+
+  /// File path: assets/images/svg_v2/user-search-02.svg
+  String get userSearch => 'assets/images/svg_v2/user-search-02.svg';
+
   /// List of all assets
   List<String> get values => [
+    userSearch,
     global,
     userMultiple,
     userAdd,

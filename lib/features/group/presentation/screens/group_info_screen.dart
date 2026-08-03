@@ -24,9 +24,14 @@ import 'package:talkam/features/post/presentation/widgets/create_post_sheet.dart
 import 'package:talkam/gen/assets.gen.dart';
 
 class GroupInfoScreen extends StatefulWidget {
-  GroupInfoScreen({super.key, required this.groupId});
+  GroupInfoScreen({
+    super.key,
+    required this.groupId,
+    this.isPrivate = false,
+  });
 
-  String groupId;
+  final String groupId;
+  final bool isPrivate;
 
   @override
   State<GroupInfoScreen> createState() => _GroupInfoScreenState();
@@ -155,8 +160,11 @@ class _GroupInfoScreenState extends State<GroupInfoScreen>
                                             icon: Icons.more_vert,
                                             onTap: () async {
                                               await CustomDialogs.showCustomDialog(
-                                                  GroupActionSheet(group: response),
-                                                  context);
+                                                GroupActionSheet(
+                                                  group: response,
+                                                  isPrivate: widget.isPrivate,
+                                                ),
+                                                context);
                                             },
                                           ),
                                         ],

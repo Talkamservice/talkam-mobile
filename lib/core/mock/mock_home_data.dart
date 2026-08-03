@@ -90,6 +90,18 @@ class MockHomeData {
       creatorUsername: "dr_adebayo",
       creatorAvatarSeed: 51,
     ),
+    2: _MockGroupInfo(
+      name: "Anxiety (Private)",
+      description:
+          "A private and secure space to share anxious thoughts, coping strategies, and support each other through panic, worry, and overwhelm.",
+      backgroundImage: "https://picsum.photos/id/1015/800/500",
+      memberCount: 1200,
+      avatarSeeds: const [15, 32, 41, 51],
+      creatorId: 301,
+      creatorName: "Dr Adebayo",
+      creatorUsername: "dr_adebayo",
+      creatorAvatarSeed: 51,
+    ),
     3: _MockGroupInfo(
       name: "Depression",
       description:
@@ -190,7 +202,7 @@ class MockHomeData {
       hasRequested: false,
       isReported: false,
       isSuspended: false,
-      groupAccess: "Opened",
+      groupAccess: intId == 2 ? "Closed" : "Opened",
       status: "Active",
       owner: GroupOwner(
         id: info.creatorId,

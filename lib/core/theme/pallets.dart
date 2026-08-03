@@ -19,6 +19,7 @@ abstract class Pallets {
 
   static const borderGrey = Color(0xFFDDDDDD);
   static const adIndicator = Color(0xFFECA110);
+  static const yellow = Color(0xFFFFB800);
 
 
   // static const buttonBlack = Color(0xFF0666EB);

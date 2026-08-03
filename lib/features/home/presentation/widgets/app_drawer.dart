@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_text_field.dart';
@@ -35,46 +36,64 @@ class _AppDrawerState extends State<AppDrawer> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 280.w,
-      decoration: BoxDecoration(color: context.theme.cardColor),
-      child: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const _DrawerProfileHeader(),
-              12.verticalSpace,
-              const _DrawerQuickLinks(),
-              16.verticalSpace,
-              const _DrawerFollowingSection(),
-              12.verticalSpace,
-              _DrawerPrivateGroupsSection(onGroupsTap: widget.onGroupsTap),
-              Divider(height: 24.h, color: Pallets.grey90),
-              _DrawerGroupSearchField(
-                onChanged: (value) => setState(() => _groupSearchQuery = value),
-              ),
-              8.verticalSpace,
-              Expanded(
-                child: BlocConsumer<DrawerCubit, DrawerState>(
-                  buildWhen: _buildWhen,
-                  listener: (context, state) {},
-                  builder: (context, state) {
-                    return state.maybeWhen(
-                      orElse: () =>
-                          GroupList(searchQuery: _groupSearchQuery),
-                      categoryView: () =>
-                          GroupList(searchQuery: _groupSearchQuery),
-                      subCategoryView: (subCategory) => CategoryGroupList(
-                        category: subCategory,
+    return Drawer(
+      width: 1.sw,
+      backgroundColor: Colors.transparent,
+      elevation: 0,
+      child: BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+        child: Row(
+          children: [
+            Container(
+              width: 0.9.sw,
+              decoration: BoxDecoration(color: context.theme.cardColor),
+              child: SafeArea(
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const _DrawerProfileHeader(),
+                      12.verticalSpace,
+                      const _DrawerQuickLinks(),
+                      16.verticalSpace,
+                      const _DrawerFollowingSection(),
+                      12.verticalSpace,
+                      _DrawerPrivateGroupsSection(onGroupsTap: widget.onGroupsTap),
+                      Divider(height: 24.h, color: Pallets.grey90),
+                      _DrawerGroupSearchField(
+                        onChanged: (value) => setState(() => _groupSearchQuery = value),
                       ),
-                    );
-                  },
+                      8.verticalSpace,
+                      Expanded(
+                        child: BlocConsumer<DrawerCubit, DrawerState>(
+                          buildWhen: _buildWhen,
+                          listener: (context, state) {},
+                          builder: (context, state) {
+                            return state.maybeWhen(
+                              orElse: () =>
+                                  GroupList(searchQuery: _groupSearchQuery),
+                              categoryView: () =>
+                                  GroupList(searchQuery: _groupSearchQuery),
+                              subCategoryView: (subCategory) => CategoryGroupList(
+                                category: subCategory,
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ],
-          ),
+            ),
+            Expanded(
+              child: GestureDetector(
+                onTap: () => Navigator.of(context).pop(),
+                child: Container(color: Colors.transparent),
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -312,7 +331,15 @@ class _DrawerPrivateGroupsSection extends StatelessWidget {
       title: "Private Groups",
       items: MockHomeData.privateGroups,
       emptyLabel: "No private groups yet",
-      onItemTap: (category) => onGroupsTap(),
+      onItemTap: (category) {
+        context.pushNamed(
+          PageUrl.groupsInfoScreen,
+          extra: {
+            'groupId': category.id.toString(),
+            'isPrivate': true,
+          },
+        );
+      },
     );
   }
 }

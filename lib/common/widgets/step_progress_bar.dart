@@ -13,16 +13,18 @@ class StepProgressBar extends StatelessWidget {
     required this.step,
     required this.totalSteps,
     required this.label,
+    this.customPercentage,
   });
 
   /// 1-based step index (e.g. 1 for the first step).
   final int step;
   final int totalSteps;
   final String label;
+  final double? customPercentage;
 
   @override
   Widget build(BuildContext context) {
-    final percent = (step / totalSteps).clamp(0.0, 1.0);
+    final percent = (customPercentage ?? (step / totalSteps)).clamp(0.0, 1.0);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

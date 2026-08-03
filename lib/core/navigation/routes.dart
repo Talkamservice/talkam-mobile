@@ -65,6 +65,16 @@ import 'package:talkam/features/profile/presentation/screens/user_profile_screen
 import 'package:talkam/features/search/presentation/screens/search_result_screen.dart';
 import 'package:talkam/features/subscription/presentation/screens/subscription_screen.dart';
 
+import 'package:talkam/features/therapist/presentation/screens/therapist_list_screen.dart';
+import 'package:talkam/features/therapist/presentation/screens/therapist_profile_screen.dart';
+import 'package:talkam/features/therapist/presentation/screens/booking_step_one_screen.dart';
+import 'package:talkam/features/therapist/presentation/screens/booking_review_screen.dart';
+import 'package:talkam/features/therapist/presentation/screens/booking_confirmed_screen.dart';
+import 'package:talkam/features/therapist/presentation/screens/booking_failed_screen.dart';
+import 'package:talkam/features/therapist/data/models/therapist_model.dart';
+import 'package:talkam/features/therapist/presentation/bloc/therapist_booking_bloc.dart';
+
+
 import '../../common/widgets/custom_dialogs.dart';
 import '../../features/authentication/presentation/screens/onboarding.dart';
 import '../../features/authentication/presentation/screens/welcome_screen.dart';
@@ -336,9 +346,21 @@ class CustomRoutes {
       GoRoute(
         path: '/groupsInfoScreen',
         name: PageUrl.groupsInfoScreen,
-        builder: (context, state) => GroupInfoScreen(
-          groupId: state.extra as String,
-        ),
+        builder: (context, state) {
+          String groupId = '';
+          bool isPrivate = false;
+          if (state.extra is String) {
+            groupId = state.extra as String;
+          } else if (state.extra is Map<String, dynamic>) {
+            final map = state.extra as Map<String, dynamic>;
+            groupId = map['groupId'] as String? ?? '';
+            isPrivate = map['isPrivate'] as bool? ?? false;
+          }
+          return GroupInfoScreen(
+            groupId: groupId,
+            isPrivate: isPrivate,
+          );
+        },
       ),
       GoRoute(
         path: '/groupDetailsScreen',
@@ -453,6 +475,53 @@ class CustomRoutes {
         ),
       ),
       GoRoute(
+        path: '/therapistProfileScreen',
+        name: PageUrl.therapistProfileScreen,
+        pageBuilder: (context, state) => NoTransitionPage(
+          child: TherapistProfileScreen(
+            therapist: state.extra as TherapistModel,
+          ),
+        ),
+      ),
+      GoRoute(
+        path: '/bookingStepOneScreen',
+        name: PageUrl.bookingStepOneScreen,
+        pageBuilder: (context, state) => NoTransitionPage(
+          child: BookingStepOneScreen(
+            therapist: state.extra as TherapistModel,
+          ),
+        ),
+      ),
+      GoRoute(
+        path: '/bookingReviewScreen',
+        name: PageUrl.bookingReviewScreen,
+        pageBuilder: (context, state) {
+          final args = state.extra as Map<String, dynamic>;
+          return NoTransitionPage(
+            child: BookingReviewScreen(
+              therapist: args['therapist'] as TherapistModel,
+              bloc: args['bloc'] as TherapistBookingBloc,
+            ),
+          );
+        },
+      ),
+      GoRoute(
+        path: '/bookingConfirmedScreen',
+        name: PageUrl.bookingConfirmedScreen,
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: BookingConfirmedScreen(),
+        ),
+      ),
+      GoRoute(
+        path: '/bookingFailedScreen',
+        name: PageUrl.bookingFailedScreen,
+        pageBuilder: (context, state) => NoTransitionPage(
+          child: BookingFailedScreen(
+            errorMessage: state.extra as String,
+          ),
+        ),
+      ),
+      GoRoute(
         path: '/createAdsScreen',
         name: PageUrl.createAdsScreen,
         pageBuilder: (context, state) => const NoTransitionPage(
@@ -501,9 +570,9 @@ class CustomRoutes {
             routes: [
               GoRoute(
                 path: '/wellnessScreen',
-                name: PageUrl.wellnessScreen,
+                name: PageUrl.therapistListScreen, // Use this as the route name for the tab
                 pageBuilder: (context, state) => const NoTransitionPage(
-                  child: WellnessScreen(),
+                  child: TherapistsListScreen(),
                 ),
               ),
             ],

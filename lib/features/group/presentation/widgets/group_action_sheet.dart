@@ -20,9 +20,11 @@ class GroupActionSheet extends StatefulWidget {
   const GroupActionSheet({
     super.key,
     required this.group,
+    this.isPrivate = false,
   });
 
   final TalkamGroup group;
+  final bool isPrivate;
 
   @override
   State<GroupActionSheet> createState() => _GroupActionSheetState();
@@ -65,7 +67,7 @@ class _GroupActionSheetState extends State<GroupActionSheet> {
               },
             ),
             AppActionItem(
-              title: "Share ${widget.group.isPublic ? 'Public' : 'Private'} Group",
+              title: "Share ${widget.isPrivate || !widget.group.isPublic ? 'Private' : 'Public'} Group",
               onTap: () {
                 context.pop();
                 CustomDialogs.showToast("Coming soon");
@@ -73,7 +75,7 @@ class _GroupActionSheetState extends State<GroupActionSheet> {
             ),
             if (!(widget.group.isReported ?? false))
               AppActionItem(
-                title: "Report ${widget.group.isPublic ? 'Public' : 'Private'} Group",
+                title: "Report ${widget.isPrivate || !widget.group.isPublic ? 'Private' : 'Public'} Group",
                 onTap: () async {
                   var reason = await CustomDialogs.showCustomDialog(BlockReasonSheet(), context);
                   if (reason != null) {

@@ -85,4 +85,12 @@ class PageUrl {
 
   static const subscriptionScreen = 'subscriptionScreen';
   static const createAdsScreen = 'createAdsScreen';
+
+  // Therapist
+  static const therapistListScreen = 'therapistListScreen';
+  static const therapistProfileScreen = 'therapistProfileScreen';
+  static const bookingStepOneScreen = 'bookingStepOneScreen';
+  static const bookingReviewScreen = 'bookingReviewScreen';
+  static const bookingConfirmedScreen = 'bookingConfirmedScreen';
+  static const bookingFailedScreen = 'bookingFailedScreen';
 }
