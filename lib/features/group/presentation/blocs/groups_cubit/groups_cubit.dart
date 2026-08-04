@@ -24,9 +24,17 @@ class GroupsCubit extends Cubit<GroupsState> {
     try {
       final GetGroupsResponse response = await groupRepository.getGroups(page: 1, filter: filter, isFollowing: isFollowing);
 
+      List<TalkamGroup> fetchedGroups = response.groups ?? [];
+      if (fetchedGroups.isEmpty) {
+        fetchedGroups = MockHomeData.groups
+            .map((c) => MockHomeData.getTalkamGroup(c.id.toString()))
+            .whereType<TalkamGroup>()
+            .toList();
+      }
+
       emit(GroupsState.getGroupsSuccess(
-        groups: response.groups!,
-        paginationData: response.paginationMeta!,
+        groups: fetchedGroups,
+        paginationData: response.paginationMeta ?? GroupPaginationMeta(currentPage: 1, lastPage: 1),
       ));
     } catch (e, stack) {
       logger.e(e.toString(), stackTrace: stack);
@@ -40,7 +48,20 @@ class GroupsCubit extends Cubit<GroupsState> {
     try {
       final GetGroupsResponse response = await groupRepository.getGroups(page: 1, filter: GroupsFilterModel.recommended());
 
-      emit(GroupsState.getRecommendedSuccess(response));
+      List<TalkamGroup> fetchedGroups = response.groups ?? [];
+      if (fetchedGroups.isEmpty) {
+        fetchedGroups = MockHomeData.groups
+            .map((c) => MockHomeData.getTalkamGroup(c.id.toString()))
+            .whereType<TalkamGroup>()
+            .toList();
+      }
+      
+      final GetGroupsResponse fallbackResponse = GetGroupsResponse(
+        groups: fetchedGroups,
+        paginationMeta: response.paginationMeta ?? GroupPaginationMeta(currentPage: 1, lastPage: 1),
+      );
+
+      emit(GroupsState.getRecommendedSuccess(fallbackResponse));
     } catch (e, stack) {
       logger.e(e.toString(), stackTrace: stack);
       emit(GroupsState.getRecommendedFailure(e.toString()));
@@ -100,17 +121,16 @@ class GroupsCubit extends Cubit<GroupsState> {
 
     try {
       final response = await groupRepository.getGroup(groupId);
-
       emit(GroupsState.getGroupSuccess(response));
     } catch (e, stack) {
-      final mockGroup = MockHomeData.getTalkamGroup(groupId);
-      if (mockGroup != null) {
-        emit(GroupsState.getGroupSuccess(mockGroup));
-        return;
-      }
-
       logger.e(e.toString(), stackTrace: stack);
-      emit(GroupsState.getGroupFailure(e.toString()));
+      // Fallback to mock data if it exists
+      final fallbackGroup = MockHomeData.getTalkamGroup(groupId);
+      if (fallbackGroup != null) {
+        emit(GroupsState.getGroupSuccess(fallbackGroup));
+      } else {
+        emit(GroupsState.getGroupFailure(e.toString()));
+      }
     }
   }
 

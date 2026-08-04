@@ -37,7 +37,7 @@ class _GroupDetailsHeaderState extends State<GroupDetailsHeader> {
                   child: Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      ImageWidget(imageUrl: widget.group.category?.iconImage),
+                      ImageWidget(imageUrl: widget.group.category?.iconImage ?? widget.group.image ?? ''),
                       10.horizontalSpace,
                       TextView(
                         text: widget.group.category?.name,

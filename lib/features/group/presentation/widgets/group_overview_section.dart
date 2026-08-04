@@ -30,7 +30,7 @@ class GroupOverViewSection extends StatelessWidget {
         Row(
           children: [
             ImageWidget(
-              imageUrl: data.category?.iconImage,
+              imageUrl: data.category?.iconImage ?? data.image ?? '',
               size: 40,
               fit: BoxFit.cover,
             ),
@@ -141,7 +141,7 @@ class GroupOverViewSection extends StatelessWidget {
 
 formatFollowersCount(totalMembers) {
   if (totalMembers >= 1000) {
-    return '${(totalMembers / 1000).toFixed(1)}k';
+    return '${(totalMembers / 1000).toStringAsFixed(1)}k';
   } else if (totalMembers <= 1) {
     return "${totalMembers.toString()} Follower";
   } else {

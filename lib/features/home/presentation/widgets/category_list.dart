@@ -7,12 +7,12 @@ import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/mock/mock_home_data.dart';
-import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
 import 'package:talkam/features/home/presentation/widgets/app_drawer.dart';
 import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 
-class GroupList extends StatefulWidget {
-  GroupList({
+class CategoryList extends StatefulWidget {
+  CategoryList({
     super.key,
     this.searchQuery = '',
   });
@@ -20,10 +20,10 @@ class GroupList extends StatefulWidget {
   final String searchQuery;
 
   @override
-  State<GroupList> createState() => _GroupListState();
+  State<CategoryList> createState() => _CategoryListState();
 }
 
-class _GroupListState extends State<GroupList> {
+class _CategoryListState extends State<CategoryList> {
   @override
   void initState() {
     injector.get<PostBloc>().add(const PostEvent.getCategories(refresh: false));
@@ -38,55 +38,14 @@ class _GroupListState extends State<GroupList> {
         floatHeaderSlivers: true,
         clipBehavior: Clip.none,
         headerSliverBuilder: (context, innerBoxIsScrolled) {
-          return [
-            // SliverToBoxAdapter(
-            //   child: Column(
-            //     children: [
-            //       Row(
-            //         children: [
-            //           const Expanded(
-            //             child: TextView(
-            //               text: "Following",
-            //               fontSize: 16,
-            //               fontWeight: FontWeight.w600,
-            //             ),
-            //           ),
-            //           IconButton(
-            //               onPressed: () {
-            //                 Navigator.pop(context);
-            //                 // context.read<DrawerCubit>().closeDrawer();
-            //                 // context.read<DrawerCubit>().closeDrawer();
-            //               },
-            //               icon: Icon(
-            //                   color: context.colorScheme.onSurface,
-            //                   Icons.close))
-            //         ],
-            //       ),
-            //       8.verticalSpace,
-            //       Builder(builder: (context) {
-            //         return ListView.builder(
-            //           itemCount: 3,
-            //           shrinkWrap: true,
-            //           // physics: const BouncingScrollPhysics(),
-            //           itemBuilder: (context, index) => const NavCategoryItem(),
-            //         );
-            //       }),
-            //       24.verticalSpace,
-            //       const Divider(
-            //         thickness: 1,
-            //       ),
-            //     ],
-            //   ),
-            // )
-          ];
+          return [];
         },
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          // mainAxisSize: MainAxisSize.min,
           children: [
             24.verticalSpace,
             const TextView(
-              text: "Groups",
+              text: "Categories",
               fontSize: 16,
               fontWeight: FontWeight.w600,
             ),
@@ -100,7 +59,7 @@ class _GroupListState extends State<GroupList> {
                     orElse: () {
                       final response = injector.get<PostBloc>();
                       final source = response.categories.isEmpty
-                          ? MockHomeData.groups
+                          ? MockHomeData.groups // It contains mock categories
                           : response.categories;
                       final categories = widget.searchQuery.isEmpty
                           ? source
@@ -115,8 +74,8 @@ class _GroupListState extends State<GroupList> {
                         return Center(
                           child: TextView(
                             text: widget.searchQuery.isEmpty
-                                ? "There are no groups yet"
-                                : "No groups match \"${widget.searchQuery}\"",
+                                ? "There are no categories yet"
+                                : "No categories match \"${widget.searchQuery}\"",
                           ),
                         );
                       }
@@ -124,15 +83,12 @@ class _GroupListState extends State<GroupList> {
                       return ListView.builder(
                         itemCount: categories.length,
                         shrinkWrap: true,
-                        // physics: const BouncingScrollPhysics(),
                         itemBuilder: (context, index) => Padding(
                           padding: const EdgeInsets.symmetric(vertical: 2.0),
                           child: NavCategoryItem(
                             category: categories[index],
                             onTap: () {
-                              Navigator.of(context).pop();
-                              context.pushNamed(PageUrl.groupsInfoScreen,
-                                  extra: categories[index].id.toString());
+                              context.read<DrawerCubit>().switchView(DrawerView.subCategory, subCategory: categories[index]);
                             },
                           ),
                         ),

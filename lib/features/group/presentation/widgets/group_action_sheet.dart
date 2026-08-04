@@ -14,17 +14,14 @@ import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cub
 import 'package:talkam/features/post/presentation/widgets/confirm_report_dialog.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
-import 'package:talkam/common/widgets/app_action_sheet.dart';
 
 class GroupActionSheet extends StatefulWidget {
   const GroupActionSheet({
     super.key,
     required this.group,
-    this.isPrivate = false,
   });
 
   final TalkamGroup group;
-  final bool isPrivate;
 
   @override
   State<GroupActionSheet> createState() => _GroupActionSheetState();
@@ -35,47 +32,44 @@ class _GroupActionSheetState extends State<GroupActionSheet> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<GroupsCubit, GroupsState>(
-      bloc: bloc,
-      listener: (context, state) {
-        state.maybeWhen(
-          orElse: () => null,
-          reportGroupFailureState: (error) {
-            context.pop();
-            CustomDialogs.error(error);
-          },
-          reportGroupLoading: () {
-            CustomDialogs.showLoading(context);
-          },
-          reportGroupSuccess: (response) {
-            injector.get<GroupsCubit>().refreshGroups();
-            context.pop();
-            context.pop();
-            context.pop();
-            CustomDialogs.success("Group Reported");
-          },
-        );
-      },
-      builder: (context, state) {
-        return AppActionSheet(
-          actions: [
-            AppActionItem(
-              title: "Follow Group",
-              onTap: () {
-                context.pop();
-                CustomDialogs.showToast("Coming soon");
-              },
-            ),
-            AppActionItem(
-              title: "Share ${widget.isPrivate || !widget.group.isPublic ? 'Private' : 'Public'} Group",
-              onTap: () {
-                context.pop();
-                CustomDialogs.showToast("Coming soon");
-              },
-            ),
-            if (!(widget.group.isReported ?? false))
-              AppActionItem(
-                title: "Report ${widget.isPrivate || !widget.group.isPublic ? 'Private' : 'Public'} Group",
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 20.h),
+      decoration: BoxDecoration(
+          color: context.theme.cardColor,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(8.r),
+            topRight: Radius.circular(8.r),
+          )),
+      child: BlocConsumer<GroupsCubit, GroupsState>(
+        bloc: bloc,
+        listener: (context, state) {
+
+          state.maybeWhen(
+            orElse: () => null,
+            reportGroupFailureState: (error) {
+              context.pop();
+              CustomDialogs.error(error);
+            },
+            reportGroupLoading: () {
+              CustomDialogs.showLoading(context);
+            },
+            reportGroupSuccess: (response) {
+              injector.get<GroupsCubit>().refreshGroups();
+              context.pop();
+              context.pop();
+              context.pop();
+              CustomDialogs.success("Group Reported");
+            },
+          );
+        },
+        builder: (context, state) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if(!(widget.group.isReported??false))
+              _ActionItem(
+                imagePath: Assets.images.svgs.flag02,
+                tittle: "Report Group",
                 onTap: () async {
                   var reason = await CustomDialogs.showCustomDialog(BlockReasonSheet(), context);
                   if (reason != null) {
@@ -91,33 +85,63 @@ class _GroupActionSheetState extends State<GroupActionSheet> {
                   }
                 },
               ),
-            if (groupIsFromLoggedInUser && widget.group.isPromoted)
-              AppActionItem(
-                title: "View analytics",
-                onTap: () async {
-                  context.pop();
-                  await CustomDialogs.showBottomSheet(
-                    context,
-                    ViewAnalyticsBottomSheet(
-                      isPost: false,
-                      postId: widget.group.id.toString(),
-                    ),
-                  );
-                },
-              ),
-            AppActionItem(
-              title: "Leave group",
-              textColor: Colors.red,
-              onTap: () {
-                context.pop();
-                CustomDialogs.showToast("Coming soon");
-              },
-            ),
-          ],
-        );
-      },
+              if (groupIsFromLoggedInUser && widget.group.isPromoted)
+                _ActionItem(
+                  imagePath: Assets.images.svgs.analytics,
+                  tittle: "View analytics",
+                  onTap: () async {
+                    context.pop();
+                    await CustomDialogs.showBottomSheet(
+                      context,
+                      ViewAnalyticsBottomSheet(
+                        isPost: false,
+                        postId: widget.group.id.toString(),
+                      ),
+                    );
+                  },
+                ),
+            ],
+          );
+        },
+      ),
     );
   }
-
   bool get groupIsFromLoggedInUser => widget.group.isOwner;
+
+}
+
+class _ActionItem extends StatelessWidget {
+  const _ActionItem({super.key, required this.imagePath, required this.tittle, required this.onTap});
+
+  final String imagePath;
+  final String tittle;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 10),
+            child: Row(
+              children: [
+                ImageWidget(imageUrl: imagePath),
+                18.horizontalSpace,
+                TextView(
+                  text: tittle,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                )
+              ],
+            ),
+          ),
+          const Divider(
+              // thickness: 1,
+              )
+        ],
+      ),
+    );
+  }
 }

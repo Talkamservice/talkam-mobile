@@ -4,6 +4,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/group/data/models/get_group_members_response.dart';
 import 'package:talkam/features/group/data/models/get_pending_requests_response.dart';
 import 'package:talkam/features/group/dormain/repository/group_members_repository.dart';
+import 'package:talkam/core/mock/mock_home_data.dart';
 
 part 'group_members_state.dart';
 
@@ -23,7 +24,8 @@ class GroupMembersCubit extends Cubit<GroupMembersState> {
       emit(GroupMembersState.getGroupMembersSuccess(response));
     } catch (e, stack) {
       logger.e(e.toString(), stackTrace: stack);
-      emit(GroupMembersState.getGroupMembersFailure(e.toString()));
+      // Fallback to mock data
+      emit(GroupMembersState.getGroupMembersSuccess(MockHomeData.mockGroupMembersResponse));
     }
   }
 

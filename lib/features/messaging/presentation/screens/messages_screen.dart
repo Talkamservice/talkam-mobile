@@ -41,42 +41,8 @@ class _MessagesScreenState extends State<MessagesScreen> {
     return Scaffold(
       backgroundColor: Pallets.white,
       appBar: CustomAppBar(
+        centerTile: false,
         tittleText: "Messages",
-        showDivider: true,
-        actions: [
-          GuestUserHelper.guestUserWidget(
-            widget: BlocBuilder<NotificationsBloc, NotificationsState>(
-              bloc: injector.get<NotificationsBloc>(),
-              builder: (context, state) {
-                final stat = injector.get<NotificationsBloc>().stats;
-                return Stack(
-                  clipBehavior: Clip.none,
-                  children: [
-                    IconButton(
-                      onPressed: () =>
-                          context.pushNamed(PageUrl.new_requestScreen),
-                      icon: const Icon(Icons.person_add_alt_outlined),
-                    ),
-                    if (stat.totalRequests != 0)
-                      Positioned(
-                        top: 4,
-                        right: 4,
-                        child: CircleAvatar(
-                          radius: 8,
-                          backgroundColor: Colors.red,
-                          foregroundColor: Colors.white,
-                          child: TextView(
-                              text: stat.totalRequests.toString(), fontSize: 8),
-                        ),
-                      ),
-                  ],
-                );
-              },
-            ),
-            guestWidget: const SizedBox.shrink(),
-          ),
-          8.horizontalSpace,
-        ],
       ),
       body: Column(
         children: [

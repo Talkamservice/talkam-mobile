@@ -16,7 +16,7 @@ import 'package:talkam/features/notifications/presentation/bloc/notification_blo
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
-import 'group_list.dart';
+import 'category_list.dart';
 
 class AppDrawer extends StatefulWidget {
   const AppDrawer({
@@ -32,7 +32,7 @@ class AppDrawer extends StatefulWidget {
 }
 
 class _AppDrawerState extends State<AppDrawer> {
-  String _groupSearchQuery = '';
+  String _categorySearchQuery = '';
 
   @override
   Widget build(BuildContext context) {
@@ -59,10 +59,12 @@ class _AppDrawerState extends State<AppDrawer> {
                       16.verticalSpace,
                       const _DrawerFollowingSection(),
                       12.verticalSpace,
+                      const _DrawerGroupsSection(),
+                      12.verticalSpace,
                       _DrawerPrivateGroupsSection(onGroupsTap: widget.onGroupsTap),
                       Divider(height: 24.h, color: Pallets.grey90),
-                      _DrawerGroupSearchField(
-                        onChanged: (value) => setState(() => _groupSearchQuery = value),
+                      _DrawerCategorySearchField(
+                        onChanged: (value) => setState(() => _categorySearchQuery = value),
                       ),
                       8.verticalSpace,
                       Expanded(
@@ -72,9 +74,9 @@ class _AppDrawerState extends State<AppDrawer> {
                           builder: (context, state) {
                             return state.maybeWhen(
                               orElse: () =>
-                                  GroupList(searchQuery: _groupSearchQuery),
+                                  CategoryList(searchQuery: _categorySearchQuery),
                               categoryView: () =>
-                                  GroupList(searchQuery: _groupSearchQuery),
+                                  CategoryList(searchQuery: _categorySearchQuery),
                               subCategoryView: (subCategory) => CategoryGroupList(
                                 category: subCategory,
                               ),
@@ -108,9 +110,9 @@ class _AppDrawerState extends State<AppDrawer> {
   }
 }
 
-/// Live-filters the Groups list below it as the user types.
-class _DrawerGroupSearchField extends StatelessWidget {
-  const _DrawerGroupSearchField({required this.onChanged});
+/// Live-filters the Categories list below it as the user types.
+class _DrawerCategorySearchField extends StatelessWidget {
+  const _DrawerCategorySearchField({required this.onChanged});
 
   final ValueChanged<String> onChanged;
 
@@ -312,6 +314,56 @@ class _DrawerFollowingSection extends StatelessWidget {
       onItemTap: (category) => context
           .read<DrawerCubit>()
           .switchView(DrawerView.subCategory, subCategory: category),
+    );
+  }
+}
+
+class _DrawerGroupsSection extends StatelessWidget {
+  const _DrawerGroupsSection();
+
+  @override
+  Widget build(BuildContext context) {
+    final items = MockHomeData.groups;
+    
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const TextView(text: "Groups", fontSize: 15, fontWeight: FontWeight.w700),
+        6.verticalSpace,
+        if (items.isEmpty)
+          const TextView(text: "No groups yet", fontSize: 13, color: Pallets.grey400)
+        else
+          ...items.take(3).map(
+                (category) => NavCategoryItem(
+                  category: category,
+                  onTap: () {
+                    context.pushNamed(
+                      PageUrl.groupsInfoScreen,
+                      extra: {
+                        'groupId': category.id.toString(),
+                        'isPrivate': false,
+                      },
+                    );
+                  },
+                ),
+              ),
+        InkWell(
+          onTap: () {
+            Navigator.of(context).pop();
+            context.pushNamed(PageUrl.createGroupScreen);
+          },
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+            child: Row(
+              children: [
+                const Icon(Icons.add_circle_outline, color: Pallets.blueBubbleColor, size: 26),
+                8.horizontalSpace,
+                const TextView(text: "Create group", fontSize: 16, color: Pallets.blueBubbleColor),
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

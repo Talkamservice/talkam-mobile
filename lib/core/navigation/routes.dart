@@ -359,17 +359,14 @@ class CustomRoutes {
         name: PageUrl.groupsInfoScreen,
         builder: (context, state) {
           String groupId = '';
-          bool isPrivate = false;
           if (state.extra is String) {
             groupId = state.extra as String;
           } else if (state.extra is Map<String, dynamic>) {
             final map = state.extra as Map<String, dynamic>;
             groupId = map['groupId'] as String? ?? '';
-            isPrivate = map['isPrivate'] as bool? ?? false;
           }
           return GroupInfoScreen(
             groupId: groupId,
-            isPrivate: isPrivate,
           );
         },
       ),

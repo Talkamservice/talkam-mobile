@@ -24,24 +24,17 @@ class GroupPostCubit extends Cubit<GroupPostState> {
         PostFilterModel.groupPost(groupId: groupId, page: 1),
       );
 
-      if (response.data.data.isEmpty) {
-        emit(GroupPostState.postsLoaded(
-          posts: MockHomeData.postsResponse.data.data,
-          paginationData: MockHomeData.postsResponse.data.paginationMeta,
-        ));
-      } else {
-        emit(GroupPostState.postsLoaded(
-          posts: response.data.data,
-          paginationData: response.data.paginationMeta,
-        ));
-      }
+      emit(GroupPostState.postsLoaded(
+        posts: response.data.data,
+        paginationData: response.data.paginationMeta,
+      ));
     } catch (e, stack) {
       logger.e(e.toString(), stackTrace: stack);
-      
-      // Fallback to mock data for now
+      // Fallback to mock data
+      final mockResponse = MockHomeData.postsResponse;
       emit(GroupPostState.postsLoaded(
-        posts: MockHomeData.postsResponse.data.data,
-        paginationData: MockHomeData.postsResponse.data.paginationMeta,
+        posts: mockResponse.data.data,
+        paginationData: mockResponse.data.paginationMeta,
       ));
     }
   }
@@ -80,24 +73,18 @@ class GroupPostCubit extends Cubit<GroupPostState> {
         PostFilterModel.groupPost(groupId: groupId, page: 1, isMedia: true),
       );
 
-      if (response.data.data.isEmpty) {
-        emit(GroupPostState.mediaLoaded(
-          media: MockHomeData.postsResponse.data.data.where((p) => p.attachments.isNotEmpty).toList(),
-          paginationData: MockHomeData.postsResponse.data.paginationMeta,
-        ));
-      } else {
-        emit(GroupPostState.mediaLoaded(
-          media: response.data.data,
-          paginationData: response.data.paginationMeta,
-        ));
-      }
+      emit(GroupPostState.mediaLoaded(
+        media: response.data.data,
+        paginationData: response.data.paginationMeta,
+      ));
     } catch (e, stack) {
       logger.e(e.toString(), stackTrace: stack);
-      
-      // Fallback to mock data for now
+      // Fallback to mock data
+      final mockResponse = MockHomeData.postsResponse;
+      final mediaPosts = mockResponse.data.data.where((post) => post.attachments.isNotEmpty).toList();
       emit(GroupPostState.mediaLoaded(
-        media: MockHomeData.postsResponse.data.data.where((p) => p.attachments.isNotEmpty).toList(),
-        paginationData: MockHomeData.postsResponse.data.paginationMeta,
+        media: mediaPosts,
+        paginationData: mockResponse.data.paginationMeta,
       ));
     }
   }

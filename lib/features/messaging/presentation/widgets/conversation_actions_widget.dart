@@ -123,81 +123,120 @@ class _ConversationActionsWidgetState extends State<ConversationActionsWidget> {
   }
 
   Widget _buildMessageInputArea(BuildContext context) {
-// Assuming pickedFile is managed elsewhere
     return Column(
       children: [
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
-          decoration: BoxDecoration(
-            color: pickedFile != null ? const Color(0xFFEEEEEE) : Colors.transparent,
-            borderRadius: BorderRadius.circular(20),
+        if (pickedFile != null)
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+            child: PreviewMediaMessage(
+              pickedFile: pickedFile!,
+              onRemove: () {
+                pickedFile = null;
+                setState(() {});
+              },
+            ),
           ),
-          child: Column(
-            children: [
-              if (pickedFile != null)
-                PreviewMediaMessage(
-                  pickedFile: pickedFile!,
-                  onRemove: () {
-                    pickedFile = null;
-                    setState(() {
-
-                    });
-                  },
-                ),
-              const SizedBox(height: 8),
-              FilledTextField(
-                focusNode: _focusNode,
-                suffix: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    GestureDetector(
-                      onTap: () => sendImage(),
-                      child: ImageWidget(
-                        imageUrl: Assets.images.svgV2.attachment02,
-                        size: 22,
-                      ),
+        SafeArea(
+          top: false,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 2.h),
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Pallets.grey90),
+                      borderRadius: BorderRadius.circular(28.r),
+                      color: pickedFile != null ? const Color(0xFFEEEEEE) : Colors.transparent,
                     ),
-                    const SizedBox(width: 8),
-                    GestureDetector(
-                      onTap: () {
-                        logger.w(pickedFile?.path);
-                        widget.onSendMessage(controller.text, file: pickedFile?.path);
-                        pickedFile = null;
-                        controller.clear();
-                      },
-                      child: ImageWidget(
-                        imageUrl: Assets.images.svgV2.sent,
-                        size: 22,
-                      ),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 14.h),
+                          child: GestureDetector(
+                            onTap: switchEmojiView,
+                            child: Icon(
+                              _emojiShowing ? Icons.keyboard : Icons.emoji_emotions_outlined,
+                              size: 20,
+                              color: Pallets.grey,
+                            ),
+                          ),
+                        ),
+                        10.horizontalSpace,
+                        Expanded(
+                          child: TextField(
+                            controller: controller,
+                            focusNode: _focusNode,
+                            minLines: 1,
+                            maxLines: 4,
+                            textCapitalization: TextCapitalization.sentences,
+                            decoration: const InputDecoration(
+                              hintText: "Type your message here",
+                              border: InputBorder.none,
+                            ),
+                            onSubmitted: (text) {
+                              if (text.isNotEmpty || pickedFile != null) {
+                                widget.onSendMessage(text, file: pickedFile?.path);
+                                pickedFile = null;
+                                controller.clear();
+                              }
+                            },
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 14.h),
+                          child: InkWell(
+                            onTap: sendImage,
+                            child: ImageWidget(imageUrl: Assets.images.svgV2.addImageIcon, size: 20),
+                          ),
+                        ),
+                        10.horizontalSpace,
+                        Padding(
+                          padding: EdgeInsets.only(bottom: 14.h),
+                          child: InkWell(
+                            onTap: sendImage,
+                            child: ImageWidget(
+                              imageUrl: Assets.images.svgV2.attachment02,
+                              size: 20,
+                              color: Pallets.grey60,
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(width: 16),
-                  ],
-                ),
-                hint: 'Type your message here ...',
-                onFieldSubmitted: (text) {
-                  if (text != null) {
-                    widget.onSendMessage(text);
-                    pickedFile = null;
-                    controller.clear();
-                  }
-                },
-                preffix: Padding(
-                  padding: const EdgeInsets.all(13.0),
-                  child: GestureDetector(
-                    onTap: () {
-                      switchEmojiView();
-                    },
-                    child: Icon(_emojiShowing ? Icons.keyboard : Icons.emoji_emotions_outlined, size: 20, color: Pallets.grey),
                   ),
                 ),
-                controller: controller,
-                hasBorder: true,
-                radius: 30,
-                minLine: 1,
-                maxLine: 5,
-              ),
-
-            ],
+                10.horizontalSpace,
+                InkWell(
+                  onTap: () {
+                    final text = controller.text.trim();
+                    if (text.isNotEmpty || pickedFile != null) {
+                      widget.onSendMessage(text, file: pickedFile?.path);
+                      pickedFile = null;
+                      controller.clear();
+                    }
+                  },
+                  customBorder: const CircleBorder(),
+                  child: Container(
+                    width: 44.w,
+                    height: 44.w,
+                    alignment: Alignment.center,
+                    decoration: const BoxDecoration(
+                      color: Pallets.blueBubbleColor,
+                      shape: BoxShape.circle,
+                    ),
+                    child: ImageWidget(
+                      imageUrl: Assets.images.svgV2.sent,
+                      size: 18,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         Offstage(

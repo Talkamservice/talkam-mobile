@@ -100,7 +100,6 @@ class _MockChatScreenState extends State<MockChatScreen> {
           ],
         ),
         centerTile: false,
-        showDivider: true,
         actions: [
           IconButton(
             onPressed: () => CustomDialogs.showToast("Coming soon"),

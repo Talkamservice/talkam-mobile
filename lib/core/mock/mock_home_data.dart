@@ -10,6 +10,7 @@ import 'package:talkam/features/post/data/models/get_comments_response.dart';
 import 'package:talkam/features/post/data/models/get_guidlines_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/data/models/post_test_models.dart';
+import 'package:talkam/features/group/data/models/get_group_members_response.dart' as gm;
 
 /// Hardcoded placeholder content for the home shell (feed, drawer profile,
 /// following/private groups) while the staging backend has no seed data.
@@ -195,8 +196,9 @@ class MockHomeData {
       name: info.name,
       uuid: "group-$intId",
       description: info.description,
-      about: info.description,
+      about: "${info.description}\n\nThis group is a dedicated community for members to share experiences, ask questions, and offer advice. We welcome everyone to participate and grow together. Make sure to check the rules and respect fellow members. Feel free to start a new discussion or join an existing one!",
       image: info.backgroundImage,
+      category: _category(intId, info.name),
       totalMembers: info.memberCount,
       isFollowing: true,
       hasRequested: false,
@@ -211,6 +213,26 @@ class MockHomeData {
         avatar: "https://i.pravatar.cc/150?img=${info.creatorAvatarSeed}",
         email: "${info.creatorUsername}@example.com",
       ),
+      guidelines: [
+        GroupGuideline(
+          id: 1,
+          title: "Be Kind and Respectful",
+          description: "Treat everyone with respect. Healthy debates are natural, but kindness is required.",
+          status: "active",
+        ),
+        GroupGuideline(
+          id: 2,
+          title: "No Hate Speech or Bullying",
+          description: "Make sure everyone feels safe. Bullying of any kind isn't allowed, and degrading comments about things like race, religion, culture, sexual orientation, gender or identity will not be tolerated.",
+          status: "active",
+        ),
+        GroupGuideline(
+          id: 3,
+          title: "Respect Privacy",
+          description: "Being part of this group requires mutual trust. Authentic, expressive discussions make groups great, but may also be sensitive and private.",
+          status: "active",
+        ),
+      ],
       createdAt: DateTime(2022, 2, 15),
       updatedAt: DateTime(2022, 2, 15),
     );
@@ -627,7 +649,7 @@ class MockHomeData {
   /// always resolves to the other, non-me member).
   static final ConversationUser _me = ConversationUser(
     id: -1,
-    name: user.name,
+    name: user.name, 
     username: user.username,
     email: user.email,
     avatar: user.avatar,
@@ -815,6 +837,49 @@ class MockHomeData {
         conversationId: conversation.id.toString(),
       ),
     ];
+  }
+
+  static gm.GetGroupMembersResponse get mockGroupMembersResponse {
+    final now = DateTime.now();
+    
+    gm.GroupMemberDetails createMockMember(int id, String role, String name, String username, int avatarSeed) {
+      return gm.GroupMemberDetails(
+        id: id,
+        role: role,
+        status: "active",
+        isSuspended: false,
+        isBanned: false,
+        user: gm.GroupUser(
+          id: id + 1000,
+          name: name,
+          username: username,
+          avatar: "https://i.pravatar.cc/150?img=$avatarSeed",
+          email: "$username@example.com",
+        ),
+        createdAt: now.subtract(const Duration(days: 30)),
+        updatedAt: now,
+      );
+    }
+    
+    return gm.GetGroupMembersResponse(
+      message: "Members fetched successfully",
+      success: true,
+      code: 200,
+      data: gm.Data(
+        owner: [
+          createMockMember(1, "Owner", "Dr Adebayo", "dr_adebayo", 51),
+        ],
+        admin: [
+          createMockMember(2, "Admin", "Dr. Chioma", "dr_chioma", 47),
+        ],
+        member: [
+          createMockMember(3, "Member", "Alice", "alice_w", 12),
+          createMockMember(4, "Member", "Bob", "bob_b", 15),
+          createMockMember(5, "Member", "Charlie", "charlie_d", 32),
+          createMockMember(6, "Member", "Diana", "diana_s", 41),
+        ],
+      )
+    );
   }
 
   /// The Notification screen's unified feed — staging has no seed data, so
