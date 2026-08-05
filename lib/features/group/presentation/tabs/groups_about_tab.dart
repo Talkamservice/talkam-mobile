@@ -35,63 +35,66 @@ class _GroupsAboutTabState extends State<GroupsAboutTab> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            14.verticalSpace,
-            const TextView(
-              text: groupRuleIntro,
+            24.verticalSpace,
+            TextView(
+              text: "Group Info",
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+              color: context.colorScheme.onSurface,
+            ),
+            12.verticalSpace,
+            TextView(
+              text: widget.data.about.toString(),
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+              color: context.colorScheme.onSurface,
+              lineHeight: 1.4,
+            ),
+            24.verticalSpace,
+            AboutGroupItem(
+              icon: Assets.images.svgV2.userMultiple,
+              description: "Only Community members can post.",
             ),
             16.verticalSpace,
-            TextView(text: widget.data.about.toString()),
-            18.verticalSpace,
             AboutGroupItem(
-              icon: Assets.images.svgs.calender,
-              tittle: "Inception",
+              icon: Assets.images.svgV2.global,
+              description: widget.data.isPublic
+                  ? "All Communities are publicly visible. Anyone can join this Community"
+                  : "Private groups are not publicly visible.",
+            ),
+            16.verticalSpace,
+            AboutGroupItem(
+              icon: Assets.images.svgV2.calendarInActive,
               descriptionWidget: RichText(
                   text: TextSpan(
                       style: GoogleFonts.nunito(
-                          color: context.colorScheme.onSurface),
+                          color: context.colorScheme.onSurface,
+                          fontSize: 14.sp),
                       children: [
                     TextSpan(
                         text:
-                            "The group was created on ${TimeUtil.formatDate((widget.data.createdAt ?? DateTime.now()).toIso8601String())} by "),
+                            "Created ${TimeUtil.formatDate((widget.data.createdAt ?? DateTime.now()).toIso8601String())} by "),
                     TextSpan(
-                        text: widget.data.owner?.username,
+                        text: "@${widget.data.owner?.username ?? ''}",
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-
-
-                          GuestUserHelper.handleGuestUserAction(action: () {
-                            if (SessionManager()
-                                .isMe(widget.data.owner!.id.toString())) {
-                              context.pushNamed(PageUrl.profileScreen);
-                            } else {
-                              context.pushNamed(PageUrl.userProfileScreen,
-                                  extra: widget.data.owner?.id.toString());
-                            }
-                          },);
-
+                            GuestUserHelper.handleGuestUserAction(action: () {
+                              if (SessionManager()
+                                  .isMe(widget.data.owner!.id.toString())) {
+                                context.pushNamed(PageUrl.profileScreen);
+                              } else {
+                                context.pushNamed(PageUrl.userProfileScreen,
+                                    extra: widget.data.owner?.id.toString());
+                              }
+                            });
                           },
-
-                        style:  GoogleFonts.nunito(
-                            color: Pallets.primary,
-                            fontWeight: FontWeight.w700)),
+                        style: GoogleFonts.nunito(
+                            color: Pallets.blueBubbleColor,
+                            fontSize: 14.sp,
+                            fontWeight: FontWeight.w600)),
                   ])),
             ),
-            16.verticalSpace,
-            AboutGroupItem(
-              icon: Assets.images.svgs.keylock,
-              tittle: "Discoverability",
-              description: widget.data.isPublic
-                  ? publicGroupDiscoverText
-                  : privateGroupDiscoverText,
-            ),
-            16.verticalSpace,
-            AboutGroupItem(
-              icon: Assets.images.svgs.add,
-              tittle: "Posts",
-              description:
-                  "Only members who have joined can post to this group.",
-            ),
-            16.verticalSpace
+            24.verticalSpace
           ],
         ),
       ),

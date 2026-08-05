@@ -112,7 +112,7 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
           ),
           child: const Icon(Icons.add, color: Colors.white),
         ),
-        bottomNavigationBar: WillPopScope(
+        bottomNavigationBar: widget.navigationShell.currentIndex == _kGroupsBranch ? null : WillPopScope(
           onWillPop: () async {
             CustomDialogs.showConfirmDialog(
               context,

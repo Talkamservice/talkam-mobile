@@ -91,7 +91,7 @@ class PreviewGroupOverViewSection extends StatelessWidget {
 
 formatFollowersCount(totalMembers) {
   if (totalMembers >= 1000) {
-    return '${(totalMembers / 1000).toFixed(1)}k';
+    return '${(totalMembers / 1000).toStringAsFixed(1)}k';
   } else if (totalMembers <= 1) {
     return "${totalMembers.toString()} Follower";
   } else {

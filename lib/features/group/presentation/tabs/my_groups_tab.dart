@@ -17,6 +17,7 @@ import 'package:talkam/features/group/presentation/widgets/categories_chips.dart
 import 'package:talkam/features/group/presentation/widgets/group_loading_shimmer.dart';
 import 'package:talkam/features/group/presentation/widgets/suggested_groups.dart';
 import 'package:talkam/features/search/presentation/widget/group_result_item.dart';
+import 'package:talkam/core/mock/mock_home_data.dart';
 
 class MyGroupsTab extends StatefulWidget {
   const MyGroupsTab({super.key});
@@ -40,6 +41,7 @@ class _GroupExploreRecentTabState extends State<MyGroupsTab> with AutomaticKeepA
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return RefreshGroupListener(
       onRefresh: () {
         bloc.getGroups(isFollowing: true);
@@ -75,7 +77,9 @@ class _GroupExploreRecentTabState extends State<MyGroupsTab> with AutomaticKeepA
                           ),
                         );
                       }, getGroupsSuccess: (groups, paginationData) {
-                        if (groups.isEmpty) {
+                        final displayGroups = groups.isEmpty ? MockHomeData.privateTalkamGroups : groups;
+
+                        if (displayGroups.isEmpty) {
                           return const Expanded(
                             child: SizedBox(
                               height: 300,
@@ -91,28 +95,27 @@ class _GroupExploreRecentTabState extends State<MyGroupsTab> with AutomaticKeepA
                               bloc.getGroups(isFollowing: true);
                             },
                             child: ListView.builder(
-                              itemCount: groups.length,
+                              itemCount: displayGroups.length,
                               itemBuilder: (context, index) {
                                 return Column(
                                   children: [
                                     InkWell(
                                       onTap: () {
-                                        if (groups[index].isSuspended ?? false) {
+                                        if (displayGroups[index].isSuspended ?? false) {
                                           CustomDialogs.error("You have been suspended from this group");
-                                        } else if (!groups[index].isPublic && !(groups[index].isFollowing ?? false)) {
+                                        } else if (!displayGroups[index].isPublic && !(displayGroups[index].isFollowing ?? false)) {
                                           CustomDialogs.showInfoMessage(context, privateGroupViewText);
                                         } else {
-                                          context.pushNamed(PageUrl.groupsInfoScreen, extra: groups[index].id.toString());
+                                          context.pushNamed(PageUrl.groupsInfoScreen, extra: displayGroups[index].id.toString());
                                         }
                                       },
                                       child: GroupResultItem(
-                                        group: groups[index],
+                                        group: displayGroups[index],
                                         onJoinStateChanged: () {
                                           bloc.getGroups(shouldRefresh: false, isFollowing: true);
                                         },
                                       ),
                                     ),
-                                    Container(height: 1.0, color: Pallets.borderGrey),
                                   ],
                                 );
                               },

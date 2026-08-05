@@ -79,10 +79,7 @@ class GroupResultItem extends StatelessWidget {
               ),
               12.verticalSpace,
               if ( group.isPromoted) 16.verticalSpace,
-              Padding(
-                padding: EdgeInsets.only(top: 6.0.h),
-                child: Container(height: 1, color: Pallets.borderGrey),
-              ),
+              // Divider removed
 
 
             ],
@@ -123,7 +120,7 @@ class GroupResultItem extends StatelessWidget {
 
 formatMemberCount(totalMembers) {
   if (totalMembers >= 1000) {
-    return '${(totalMembers / 1000).toFixed(1)}k';
+    return '${(totalMembers / 1000).toStringAsFixed(1)}k';
   } else if (totalMembers <= 1) {
     return "${totalMembers.toString()} Member";
   } else {

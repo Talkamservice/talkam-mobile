@@ -13,13 +13,22 @@ import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/group/data/models/get_group_members_response.dart';
 import 'package:talkam/features/group/presentation/widgets/groupmember_action_sheet.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
+import 'package:talkam/common/widgets/subscribe_button.dart';
+import 'package:talkam/gen/assets.gen.dart';
 
 class GroupMemberItem extends StatelessWidget {
-  const GroupMemberItem({super.key, required this.member, required this.group, required this.onActionSuccess});
+  const GroupMemberItem({
+    super.key,
+    required this.member,
+    required this.group,
+    required this.onActionSuccess,
+    this.isFollowing = false,
+  });
 
   final GroupMemberDetails member;
   final TalkamGroup group;
   final VoidCallback onActionSuccess;
+  final bool isFollowing;
 
   @override
   Widget build(BuildContext context) {
@@ -35,77 +44,90 @@ class GroupMemberItem extends StatelessWidget {
           },
         );
       },
-      child: Row(
-        children: [
-          ImageWidget(
-            imageUrl: member.user.avatar.toString(),
-            height: 40,
-            width: 40,
-          ),
-          10.horizontalSpace,
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextView(
-                  text: getDisplayName,
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                ),
-                TextView(
-                  text: "Member since ${TimeUtil.formatDate((member.createdAt ?? DateTime.now()).toIso8601String())}",
-                  fontSize: 12,
-                ),
-              ],
+      child: Padding(
+        padding: EdgeInsets.symmetric(vertical: 12.h, horizontal: 16.w),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ImageWidget(
+              imageUrl: member.user.avatar?.toString() ?? Assets.images.svgs.user,
+              size: 50,
+              shape: BoxShape.circle,
             ),
-          ),
-          if (member.isSuspended && !(member.isBanned))
-            Container(
-              decoration: BoxDecoration(border: Border.all(color: Pallets.red), borderRadius: BorderRadius.circular(100)),
-              child: const Padding(
-                padding: EdgeInsets.all(4.0),
-                child: TextView(
-                  text: "Suspended",
-                  color: Pallets.red,
-                  fontSize: 13,
-                ),
+            12.horizontalSpace,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              children: [
+                                Flexible(
+                                  child: TextView(
+                                    text: getDisplayName,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.w700,
+                                    color: context.colorScheme.onSurface,
+                                    maxLines: 1,
+                                    textOverflow: TextOverflow.ellipsis,
+                                  ),
+                                ),
+                                4.horizontalSpace,
+                                const Icon(
+                                  Icons.verified,
+                                  color: Colors.orange,
+                                  size: 16,
+                                ),
+                              ],
+                            ),
+                            TextView(
+                              text: "@${member.user.username ?? getDisplayName.replaceAll(' ', '')}",
+                              fontSize: 13,
+                              fontWeight: FontWeight.w400,
+                              color: Pallets.darkGrey,
+                            ),
+                          ],
+                        ),
+                      ),
+                      SubscribeButton(
+                        color: isFollowing ? Pallets.grey60 : Pallets.blueBubbleColor,
+                        onTap: () {}, // Visual mock
+                        child: TextView(
+                          text: isFollowing ? "Following" : "Follow",
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  ),
+                  8.verticalSpace,
+                  TextView(
+                    text: "I am a licensed therapist dedicated to helping individuals navigate life's challenges...",
+                    fontSize: 13,
+                    fontWeight: FontWeight.w400,
+                    color: Pallets.darkGrey,
+                    maxLines: 3,
+                    textOverflow: TextOverflow.ellipsis,
+                  ),
+                ],
               ),
             ),
-          if (member.isBanned)
-            Container(
-              decoration: BoxDecoration(border: Border.all(color: Pallets.red), borderRadius: BorderRadius.circular(100)),
-              child: const Padding(
-                padding: EdgeInsets.all(4.0),
-                child: TextView(
-                  text: "Banned",
-                  color: Pallets.red,
-                  fontSize: 13,
-                ),
-              ),
-            ),
-          IconButton(
-              onPressed: () {
-                CustomDialogs.showBottomSheet(
-                    context,
-                    GroupmemberActionSheet(
-                      currentUserIsAdmin: group.isAdmin,
-                      member: member,
-                      group: group,
-                      onActionSuccess: onActionSuccess,
-                    ));
-              },
-              icon: Icon(
-                Icons.more_vert,
-                color: context.colorScheme.onSurface,
-              ))
-        ],
+          ],
+        ),
       ),
     );
   }
 
-  String get getDisplayName => (member.user.username ?? "").isNotEmpty
-      ? member.user.username!
-      : (member.user.name ?? "").isNotEmpty
-          ? member.user.name!
-          : member.user.email!;
+  String get getDisplayName => (member.user.name ?? "").isNotEmpty
+      ? member.user.name!
+      : (member.user.username ?? "").isNotEmpty
+          ? member.user.username!
+          : member.user.email ?? "Anonymous";
 }

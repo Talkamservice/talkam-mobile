@@ -380,8 +380,8 @@ class CustomRoutes {
       GoRoute(
         path: '/groupMembersScreen',
         name: PageUrl.groupMembersScreen,
-        builder: (context, state) => const GroupMembersScreen(
-            // query: state.extra as String,
+        builder: (context, state) => GroupMembersScreen(
+              group: state.extra as TalkamGroup,
             ),
       ),
       GoRoute(

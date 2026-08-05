@@ -8,17 +8,17 @@ import 'package:talkam/core/constants/dialog_texts.dart';
 import 'package:talkam/features/group/presentation/tabs/group_rules_tab.dart';
 
 class AboutGroupItem extends StatelessWidget {
-  const AboutGroupItem({super.key, required this.icon, this.descriptionWidget, this.description, required this.tittle});
+  const AboutGroupItem({super.key, required this.icon, this.descriptionWidget, this.description, this.tittle});
 
   final String icon;
   final Widget? descriptionWidget;
   final String? description;
-  final String tittle;
+  final String? tittle;
 
   @override
   Widget build(BuildContext context) {
     return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
       children: [
         CircularBorder(padding: 4, child: ImageWidget(imageUrl: icon)),
         12.horizontalSpace,
@@ -26,15 +26,18 @@ class AboutGroupItem extends StatelessWidget {
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            TextView(
-              text: tittle,
-              fontWeight: FontWeight.w700,
-            ),
-            4.verticalSpace,
+            if (tittle != null) ...[
+              TextView(
+                text: tittle!,
+                fontWeight: FontWeight.w700,
+              ),
+              4.verticalSpace,
+            ],
             descriptionWidget ??
                 TextView(
                   text: description.toString(),
-                  fontSize: 16,
+                  fontSize: 14,
+                  lineHeight: 1.35,
                 )
           ],
         ))

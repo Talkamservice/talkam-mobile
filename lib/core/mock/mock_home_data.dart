@@ -238,6 +238,9 @@ class MockHomeData {
     );
   }
 
+  static List<TalkamGroup> get talkamGroups => groups.map((g) => getTalkamGroup(g.id.toString())).whereType<TalkamGroup>().toList();
+  static List<TalkamGroup> get privateTalkamGroups => privateGroups.map((g) => getTalkamGroup(g.id.toString())).whereType<TalkamGroup>().toList();
+
   /// Member avatars for a category's or group's screen — falls back to the
   /// Anxiety group's set for any category not in [_groupInfoById].
   static List<String> groupMemberAvatars(dynamic item) {

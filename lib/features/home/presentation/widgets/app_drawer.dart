@@ -59,9 +59,7 @@ class _AppDrawerState extends State<AppDrawer> {
                       16.verticalSpace,
                       const _DrawerFollowingSection(),
                       12.verticalSpace,
-                      const _DrawerGroupsSection(),
-                      12.verticalSpace,
-                      _DrawerPrivateGroupsSection(onGroupsTap: widget.onGroupsTap),
+                      _DrawerGroupsSection(onGroupsTap: widget.onGroupsTap),
                       Divider(height: 24.h, color: Pallets.grey90),
                       _DrawerCategorySearchField(
                         onChanged: (value) => setState(() => _categorySearchQuery = value),
@@ -319,7 +317,8 @@ class _DrawerFollowingSection extends StatelessWidget {
 }
 
 class _DrawerGroupsSection extends StatelessWidget {
-  const _DrawerGroupsSection();
+  const _DrawerGroupsSection({required this.onGroupsTap});
+  final VoidCallback onGroupsTap;
 
   @override
   Widget build(BuildContext context) {
@@ -330,6 +329,19 @@ class _DrawerGroupsSection extends StatelessWidget {
       children: [
         const TextView(text: "Groups", fontSize: 15, fontWeight: FontWeight.w700),
         6.verticalSpace,
+        InkWell(
+          onTap: onGroupsTap,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
+            child: Row(
+              children: [
+                const Icon(Icons.group, color: Pallets.blueBubbleColor, size: 26),
+                8.horizontalSpace,
+                const TextView(text: "All", fontSize: 16, color: Pallets.blueBubbleColor),
+              ],
+            ),
+          ),
+        ),
         if (items.isEmpty)
           const TextView(text: "No groups yet", fontSize: 13, color: Pallets.grey400)
         else
@@ -347,6 +359,7 @@ class _DrawerGroupsSection extends StatelessWidget {
                   },
                 ),
               ),
+
         InkWell(
           onTap: () {
             Navigator.of(context).pop();
