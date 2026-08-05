@@ -256,10 +256,31 @@ class _LoginScreenState extends State<LoginScreen> with ReturningUserMixin {
 
   void login(BuildContext context) {
     if (formKey.currentState?.validate() ?? false) {
-      bloc.add(LoginEvent(
-          emailController.text.trim(), passwordController.text.trim()));
-
-      // context.goNamed(PageUrl.homeScreen);
+      showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Select Role (Mock)"),
+            content: const Text("Which role would you like to log in as?"),
+            actions: [
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  bloc.add(LoginEvent(emailController.text.trim(), "user"));
+                },
+                child: const Text("User"),
+              ),
+              TextButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  bloc.add(LoginEvent(emailController.text.trim(), "therapist"));
+                },
+                child: const Text("Therapist"),
+              ),
+            ],
+          );
+        },
+      );
     }
   }
 

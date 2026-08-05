@@ -8,7 +8,10 @@ import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/mock/mock_home_data.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/gen/assets.gen.dart';
+import 'package:talkam/features/notifications/presentation/widgets/therapist_action_dialogs.dart';
+import 'package:talkam/common/widgets/custom_outlined_button.dart';
 
 /// Purely mock-data screen — staging has no notifications backend seeded
 /// yet, so this intentionally never touches NotificationsBloc.
@@ -40,7 +43,7 @@ class NotificationsScreen extends StatelessWidget {
         child: ListView(
           padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 12.h),
           children: [
-            for (final group in MockHomeData.notificationGroups) ...[
+            for (final group in SessionManager.instance.isTherapistAccount ? MockHomeData.therapistNotificationGroups : MockHomeData.notificationGroups) ...[
               Align(
                 alignment: Alignment.centerLeft,
                 child: _DayChip(label: group.label),
@@ -130,20 +133,47 @@ class _NotificationCard extends StatelessWidget {
                   maxLines: 1,
                   textOverflow: TextOverflow.ellipsis,
                 ),
-                if (item.actionLabel != null) ...[
+                if (item.actionLabel != null || item.secondaryActionLabel != null) ...[
                   10.verticalSpace,
-                  CustomButton(
-                    isExpanded: false,
-                    elevation: 0,
-                    bgColor: Pallets.blueBubbleColor,
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
-                    onPressed: () => CustomDialogs.showToast("Coming soon"),
-                    child: TextView(
-                        text: item.actionLabel!,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 13),
+                  Row(
+                    children: [
+                      if (item.actionLabel != null)
+                        CustomButton(
+                          isExpanded: false,
+                          elevation: 0,
+                          bgColor: Pallets.blueBubbleColor,
+                          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
+                          onPressed: () {
+                            if (item.actionLabel == "Open Session") {
+                              TherapistActionDialogs.showSessionRequestBottomSheet(context);
+                            } else {
+                              CustomDialogs.showToast("Coming soon");
+                            }
+                          },
+                          child: TextView(
+                              text: item.actionLabel!,
+                              color: Colors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 13),
+                        ),
+                      if (item.secondaryActionLabel != null) ...[
+                        8.horizontalSpace,
+                        CustomOutlinedButton(
+                          isExpanded: false,
+                          text: item.secondaryActionLabel!,
+                          foregroundColor: Pallets.boldBlackV2,
+                          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
+                          borderColor: Pallets.grey90,
+                          onPressed: () {
+                            if (item.secondaryActionLabel == "Decline") {
+                              TherapistActionDialogs.showDeclineReasonBottomSheet(context);
+                            } else {
+                              CustomDialogs.showToast("Coming soon");
+                            }
+                          },
+                        ),
+                      ],
+                    ],
                   ),
                 ],
               ],
@@ -159,7 +189,10 @@ class _NotificationCard extends StatelessWidget {
   String get _iconUrl {
     switch (item.type) {
       case MockNotificationType.session:
+      case MockNotificationType.bookingRequest:
         return Assets.images.svgV2.calendarInActive;
+      case MockNotificationType.payout:
+        return Assets.images.svgV2.user2;
       case MockNotificationType.comment:
         return Assets.images.svgV2.commentIcon;
       case MockNotificationType.like:
@@ -173,7 +206,10 @@ class _NotificationCard extends StatelessWidget {
   Color get _bgColor {
     switch (item.type) {
       case MockNotificationType.session:
+      case MockNotificationType.bookingRequest:
         return Pallets.blueBubbleColor;
+      case MockNotificationType.payout:
+        return const Color(0xFF0F9C5B);
       case MockNotificationType.comment:
         return Colors.orange;
       case MockNotificationType.like:

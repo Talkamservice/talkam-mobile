@@ -924,6 +924,39 @@ class MockHomeData {
           ),
         ]),
       ];
+
+  static List<MockNotificationGroup> get therapistNotificationGroups => [
+        MockNotificationGroup(label: "Today", items: [
+          MockNotificationItem(
+            type: MockNotificationType.bookingRequest,
+            title: "New booking request",
+            body: "Ngozi A. wants to book a 50-min video session\nWed Jul 16 at 10:00AM",
+            timeAgo: "30m",
+            actionLabel: "Open Session",
+            secondaryActionLabel: "Decline",
+          ),
+          MockNotificationItem(
+            type: MockNotificationType.payout,
+            title: "Payout received",
+            body: "80,000 was transferred to your first Bank account ending in 5678",
+            timeAgo: "1h",
+          ),
+          MockNotificationItem(
+            type: MockNotificationType.session,
+            title: "Session in 30 minutes",
+            body: "Emeka O. • 2:00 PM • Video • 50 min",
+            timeAgo: "2h",
+          ),
+        ]),
+        MockNotificationGroup(label: "Yesterday", items: [
+          MockNotificationItem(
+            type: MockNotificationType.wellness,
+            title: "TalkAM Wellness check-in",
+            body: '"You haven\'t logged your moo...',
+            timeAgo: "3h",
+          ),
+        ]),
+      ];
 }
 
 /// Simple data holder for People search results (mock only).
@@ -1026,7 +1059,7 @@ class MockGroupSearchEntry {
 }
 
 
-enum MockNotificationType { session, comment, like, message, wellness }
+enum MockNotificationType { session, comment, like, message, wellness, bookingRequest, payout }
 
 class MockNotificationGroup {
   const MockNotificationGroup({required this.label, required this.items});
@@ -1036,21 +1069,21 @@ class MockNotificationGroup {
 }
 
 class MockNotificationItem {
-  const MockNotificationItem({
+  MockNotificationItem({
     required this.type,
     required this.title,
     required this.body,
     required this.timeAgo,
     this.actionLabel,
+    this.secondaryActionLabel,
   });
 
   final MockNotificationType type;
   final String title;
   final String body;
   final String timeAgo;
-
-  /// e.g. "Open Session" — only the session-reminder card has one.
   final String? actionLabel;
+  final String? secondaryActionLabel;
 }
 
 /// Backing content for one entry in [MockHomeData._groupInfoById].

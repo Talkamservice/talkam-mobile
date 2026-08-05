@@ -11,6 +11,7 @@ import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/authentication/dormain/repository/auth_repository.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:tiktok_login_flutter/tiktok_login_flutter.dart';
+import 'package:talkam/core/services/data/session_manager.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
   final NetworkService _networkService;
@@ -144,13 +145,22 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future<AuthSuccessResponse> login(String email, String password) async {
-    final response = await _networkService.call(UrlConfig.login, RequestMethod.post, data: {
-      "input": email,
-      "password": password,
-      "fcm_token": await NotificationService().deviceToken,
-    });
+    // MOCK LOGIN FOR ROLE SELECTION
+    await Future.delayed(const Duration(seconds: 1)); // Simulate network latency
+    
+    final isTherapist = password == "therapist";
+    SessionManager.instance.isTherapistAccount = isTherapist;
 
-    return AuthSuccessResponse.fromJson(response.data);
+    final mockUser = TalkamUser.forTest();
+    mockUser.role = isTherapist ? "Therapist" : "User"; 
+    
+    final data = Data(token: "mock_token_123", user: mockUser);
+    return AuthSuccessResponse(
+      message: "Mock Login Successful", 
+      data: data, 
+      success: true, 
+      code: 200
+    );
   }
 
   @override
