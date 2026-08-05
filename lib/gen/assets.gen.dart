@@ -179,8 +179,12 @@ class $AssetsImagesSvgsGenV2 {
   /// File path: assets/images/svg_v2/shield.svg
   String get shield => 'assets/images/svg_v2/shield.svg';
 
+  /// File path: assets/images/svg_v2/note.svg
+  String get note => 'assets/images/svg_v2/note.svg';
+
   /// List of all assets
   List<String> get values => [
+    note,
     gear,
     card,
     shield,

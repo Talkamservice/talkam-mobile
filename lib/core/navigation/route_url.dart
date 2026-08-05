@@ -97,6 +97,9 @@ class PageUrl {
 
   // Sessions
   static const sessionRoomScreen = 'sessionRoomScreen';
+  static const sessionPrepScreen = 'sessionPrepScreen';
   static const sessionCallScreen = 'sessionCallScreen';
   static const sessionCompleteScreen = 'sessionCompleteScreen';
+  static const clientNotesListScreen = 'clientNotesListScreen';
+  static const clientNoteDetailScreen = 'clientNoteDetailScreen';
 }

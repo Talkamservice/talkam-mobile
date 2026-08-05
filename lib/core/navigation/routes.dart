@@ -39,7 +39,7 @@ import 'package:talkam/features/group/presentation/screens/groups_screen.dart';
 import 'package:talkam/features/group/presentation/screens/create_group/preview_group_screen.dart';
 import 'package:talkam/features/group/presentation/screens/pending_requests_screen.dart';
 import 'package:talkam/features/home/presentation/screens/base_page.dart';
-import 'package:talkam/features/calendar/presentation/screens/calendar_screen.dart';
+import 'package:talkam/features/session/presentation/screens/sessions_screen.dart';
 import 'package:talkam/features/earnings/presentation/screens/earnings_screen.dart';
 import 'package:talkam/features/home/presentation/screens/home_screen.dart';
 import 'package:talkam/features/wellness/presentation/screens/wellness_screen.dart';
@@ -75,9 +75,12 @@ import 'package:talkam/features/therapist/presentation/screens/booking_failed_sc
 import 'package:talkam/features/therapist/data/models/therapist_model.dart';
 import 'package:talkam/features/therapist/presentation/bloc/therapist_booking_bloc.dart';
 
-import 'package:talkam/features/session/presentation/screens/session_room_screen.dart';
 import 'package:talkam/features/session/presentation/screens/session_call_screen.dart';
 import 'package:talkam/features/session/presentation/screens/session_complete_screen.dart';
+import 'package:talkam/features/session/presentation/screens/session_prep_screen.dart';
+import 'package:talkam/features/session/presentation/screens/client_notes_list_screen.dart';
+import 'package:talkam/features/session/presentation/screens/client_note_detail_screen.dart';
+import 'package:talkam/features/session/presentation/screens/session_room_screen.dart';
 import 'package:talkam/features/session/data/models/session_model.dart';
 
 
@@ -539,6 +542,31 @@ class CustomRoutes {
         ),
       ),
       GoRoute(
+        path: '/sessionPrepScreen',
+        name: PageUrl.sessionPrepScreen,
+        pageBuilder: (context, state) => NoTransitionPage(
+          child: SessionPrepScreen(
+            session: state.extra as SessionModel?,
+          ),
+        ),
+      ),
+      GoRoute(
+        path: '/clientNotesListScreen',
+        name: PageUrl.clientNotesListScreen,
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: ClientNotesListScreen(),
+        ),
+      ),
+      GoRoute(
+        path: '/clientNoteDetailScreen',
+        name: PageUrl.clientNoteDetailScreen,
+        pageBuilder: (context, state) => NoTransitionPage(
+          child: ClientNoteDetailScreen(
+            note: state.extra as Map<String, String>?,
+          ),
+        ),
+      ),
+      GoRoute(
         path: '/sessionCallScreen',
         name: PageUrl.sessionCallScreen,
         pageBuilder: (context, state) => NoTransitionPage(
@@ -619,7 +647,7 @@ class CustomRoutes {
                 path: '/calendarScreen',
                 name: PageUrl.calendarScreen,
                 pageBuilder: (context, state) => const NoTransitionPage(
-                  child: CalendarScreen(),
+                  child: SessionsScreen(),
                 ),
               ),
             ],
