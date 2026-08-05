@@ -30,7 +30,7 @@ class _SessionCompleteScreenState extends State<SessionCompleteScreen> {
   }
 
   void _finish() {
-    context.goNamed(PageUrl.calendarScreen);
+    context.goNamed(PageUrl.sessionScreen);
   }
 
   @override

@@ -22,8 +22,8 @@ import 'package:talkam/gen/assets.gen.dart';
 /// it's a standalone top-level route, pushed separately from the drawer.
 const int _kHomeBranch = 0;
 const int _kGroupsBranch = 1;
-const int _kWellnessBranch = 2;
-const int _kCalendarBranch = 3;
+const int _kTherapistBranch = 2;
+const int _kSessionBranch = 3;
 const int _kEarningsBranch = 4;
 const int _kProfileBranch = 5;
 
@@ -149,22 +149,26 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
                       onTap: () => _goBranch(_kHomeBranch),
                     ),
                     _NavIcon(
-                      selectedIconPath: Assets.images.svgV2.brainActive,
-                      unselectedIconPath: Assets.images.svgV2.brainInActive,
+                      selectedIconPath: _isTherapist
+                          ? Assets.images.svgV2.userActive
+                          : Assets.images.svgV2.brainActive,
+                      unselectedIconPath: _isTherapist
+                          ? Assets.images.svgV2.userInActive
+                          : Assets.images.svgV2.brainInActive,
                       selected: widget.navigationShell.currentIndex ==
-                          _kWellnessBranch,
-                      onTap: () => _goBranch(_kWellnessBranch),
+                          _kTherapistBranch,
+                      onTap: () => _goBranch(_kTherapistBranch),
                     ),
                     _NavIcon(
                       selectedIconPath: Assets.images.svgV2.calendarActive,
                       unselectedIconPath: Assets.images.svgV2.calendarInActive,
                       selected: widget.navigationShell.currentIndex ==
-                          _kCalendarBranch,
-                      onTap: () => _goBranch(_kCalendarBranch),
+                          _kSessionBranch,
+                      onTap: () => _goBranch(_kSessionBranch),
                     ),
                     if (_isTherapist)
                       _NavIcon(
-                        selectedIconPath: Assets.images.svgV2.dollar2,
+                        selectedIconPath: Assets.images.svgV2.dollarSelected,
                         unselectedIconPath: Assets.images.svgV2.dollar2,
                         selected: widget.navigationShell.currentIndex ==
                             _kEarningsBranch,
