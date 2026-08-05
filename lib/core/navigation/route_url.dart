@@ -51,6 +51,7 @@ class PageUrl {
   static const userProfileScreen = 'userProfileScreen';
   static const userScheduledPosts = 'userScheduledPosts';
   static const editProfileScreen = 'editProfileScreen';
+  static const therapistEditProfileScreen = 'therapistEditProfileScreen';
   static const settingsScreen = 'settingsScreen';
   static const searchResultScreen = 'searchResultScreen';
 

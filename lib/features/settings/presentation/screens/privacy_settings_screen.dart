@@ -6,6 +6,7 @@ import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_switch.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 
 class _PrivacyPrefs {
@@ -94,13 +95,15 @@ class _PrivacySettingsScreenState extends State<PrivacySettingsScreen> {
                     // ── COMMUNITY ──────────────────────────────────────────────
                     const _SectionHeader(title: "COMMUNITY"),
                     12.verticalSpace,
-                    _ToggleRow(
-                      title: "Anonymous mode",
-                      subtitle: "When a session is booked or cancelled",
-                      value: _draft.anonymousMode,
-                      onChanged: (v) => _update(_draft.copyWith(anonymousMode: v)),
-                    ),
-                    12.verticalSpace,
+                    if (!SessionManager.instance.isTherapistAccount) ...[
+                      _ToggleRow(
+                        title: "Anonymous mode",
+                        subtitle: "When a session is booked or cancelled",
+                        value: _draft.anonymousMode,
+                        onChanged: (v) => _update(_draft.copyWith(anonymousMode: v)),
+                      ),
+                      12.verticalSpace,
+                    ],
                     _ToggleRow(
                       title: "Read receipts",
                       subtitle: "Let others see when you've read their replies",

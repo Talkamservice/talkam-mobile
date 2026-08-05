@@ -51,6 +51,7 @@ import 'package:talkam/features/notifications/presentation/screens/notifications
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/presentation/screens/post_details_screen.dart';
 import 'package:talkam/features/profile/presentation/screens/edit_profile_screen.dart';
+import 'package:talkam/features/therapist/presentation/screens/therapist_edit_profile_screen.dart';
 import 'package:talkam/features/profile/presentation/screens/profile_screen.dart';
 import 'package:talkam/features/profile/presentation/screens/sceduled_posts_screen.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
@@ -262,6 +263,11 @@ class CustomRoutes {
         path: '/editProfileScreen',
         name: PageUrl.editProfileScreen,
         builder: (context, state) => const EditProfileScreen(),
+      ),
+      GoRoute(
+        path: '/therapistEditProfileScreen',
+        name: PageUrl.therapistEditProfileScreen,
+        builder: (context, state) => const TherapistEditProfileScreen(),
       ),
       GoRoute(
         path: '/userScheduledPosts',
