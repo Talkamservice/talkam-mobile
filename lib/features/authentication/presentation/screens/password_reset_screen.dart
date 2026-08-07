@@ -258,8 +258,11 @@ class _PassWordResetScreenState extends State<PassWordResetScreen> {
 
   void _resetPassword() {
     if (_formKey.currentState?.validate() ?? false) {
-      bloc.add(
-          PasswordResetEvent(widget.otp, _passwordController.text.trim()));
+      bloc.add(PasswordResetEvent(
+        widget.otp,
+        _passwordController.text.trim(),
+        _confirmPasswordController.text.trim(),
+      ));
     }
   }
 

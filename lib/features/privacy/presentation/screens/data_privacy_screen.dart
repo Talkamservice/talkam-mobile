@@ -7,12 +7,13 @@ import 'package:talkam/common/widgets/custom_outlined_button.dart';
 import 'package:talkam/common/widgets/custom_switch.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
-import 'package:talkam/core/utils/helper_utils.dart';
 import 'package:talkam/features/privacy/data/models/consent_settings.dart';
 import 'package:talkam/features/privacy/presentation/bloc/privacy_bloc.dart';
+import 'package:talkam/features/profile/dormain/repository/profile_repository.dart';
 
 class DataPrivacyScreen extends StatefulWidget {
   const DataPrivacyScreen({super.key});
@@ -22,10 +23,7 @@ class DataPrivacyScreen extends StatefulWidget {
 }
 
 class _DataPrivacyScreenState extends State<DataPrivacyScreen> {
-  static const String _privacyPolicyUrl =
-      'https://web.talkam.prodevs.io/help&info/privacy-policy';
-
-  final privacyBloc = PrivacyBloc();
+  final privacyBloc = PrivacyBloc(injector.get());
 
   @override
   void initState() {
@@ -45,9 +43,8 @@ class _DataPrivacyScreenState extends State<DataPrivacyScreen> {
       bloc: privacyBloc,
       listener: _listenToPrivacyBloc,
       builder: (context, state) {
-        final settings = state is ConsentsLoaded
-            ? state.settings
-            : privacyBloc.settings;
+        final settings =
+            state is ConsentsLoaded ? state.settings : privacyBloc.settings;
 
         return Scaffold(
           backgroundColor: Colors.white,
@@ -89,16 +86,17 @@ class _DataPrivacyScreenState extends State<DataPrivacyScreen> {
 
                 // ── Consent cards ──────────────────────────────────────
                 ...ConsentType.values
-                    .where((type) => !(SessionManager.instance.isTherapistAccount &&
-                        type == ConsentType.anonymousCommunity))
+                    .where((type) =>
+                        !(SessionManager.instance.isTherapistAccount &&
+                            type == ConsentType.anonymousCommunity))
                     .map(
                       (type) => Padding(
                         padding: EdgeInsets.only(bottom: 12.h),
                         child: _ConsentCard(
                           type: type,
                           value: settings.valueOf(type),
-                          onChanged: (value) => privacyBloc
-                              .add(ToggleConsentEvent(type, value)),
+                          onChanged: (value) =>
+                              privacyBloc.add(ToggleConsentEvent(type, value)),
                         ),
                       ),
                     ),
@@ -124,7 +122,8 @@ class _DataPrivacyScreenState extends State<DataPrivacyScreen> {
                 // ── Privacy policy ─────────────────────────────────────
                 CustomOutlinedButton(
                   borderColor: Pallets.grey90,
-                  onPressed: () => Helpers.launchRawUrl(_privacyPolicyUrl),
+                  onPressed: () =>
+                      context.pushNamed(PageUrl.privacyPolicyScreen),
                   child: const TextView(
                     text: "Privacy Policy",
                     fontSize: 15,
@@ -142,11 +141,18 @@ class _DataPrivacyScreenState extends State<DataPrivacyScreen> {
     );
   }
 
-  void _listenToPrivacyBloc(BuildContext context, PrivacyState state) {
+  void _listenToPrivacyBloc(BuildContext context, PrivacyState state) async {
     if (state is ConsentsFailure) {
       CustomDialogs.error(state.error);
     }
     if (state is ConsentsSaved) {
+      // Best-effort — the user has finished every in-app step regardless of
+      // whether this stamp succeeds, so it never blocks navigation.
+      try {
+        await injector.get<ProfileRepository>().completeOnboarding();
+      } catch (_) {}
+
+      if (!context.mounted) return;
       SessionManager().hasOnboarded = true;
       context.goNamed(PageUrl.welcomeScreen);
     }
@@ -220,7 +226,9 @@ class _ConsentCard extends StatelessWidget {
               ],
             ),
           ),
-          SizedBox(width: 24.w,),
+          SizedBox(
+            width: 24.w,
+          ),
           12.horizontalSpace,
           CustomSwitch(
             value: value,

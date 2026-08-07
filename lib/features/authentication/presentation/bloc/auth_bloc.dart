@@ -138,8 +138,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   Future<void> _onRegister(RegisterEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
     try {
-      final response =
-          await _authRepository.register(event.email, event.password);
+      final response = await _authRepository.register(
+        fullName: event.fullName,
+        email: event.email,
+        phoneNumber: event.phoneNumber,
+        username: event.username,
+        password: event.password,
+        countryId: event.countryId,
+        gender: event.gender,
+        dateOfBirth: event.dateOfBirth,
+      );
       AuthSuccessUsecase().execute(response);
       emit(RegisterSuccess(response));
     } catch (error) {
@@ -162,8 +170,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       PasswordResetEvent event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
     try {
-      final response =
-          await _authRepository.passwordReset(event.code, event.password);
+      final response = await _authRepository.passwordReset(
+          event.code, event.password, event.passwordConfirmation);
       emit(PasswordResetSuccess(response));
     } catch (error) {
       emit(AuthFailure(error.toString()));

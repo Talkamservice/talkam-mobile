@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -6,13 +8,16 @@ import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_text_field.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/validators.dart';
+import 'package:talkam/features/authentication/dormain/repository/auth_repository.dart';
 
-/// Guest entry point — picks a device-local alias. No account is created and
-/// nothing is sent to the backend.
+/// Guest entry point — picks a device-local alias. No account is created,
+/// but the alias is checked against the same username-availability endpoint
+/// Create Account uses, so a guest can't collide with a real account.
 class AnonymousSignInScreen extends StatefulWidget {
   const AnonymousSignInScreen({super.key});
 
@@ -27,16 +32,41 @@ class _AnonymousSignInScreenState extends State<AnonymousSignInScreen> {
   final _formKey = GlobalKey<FormState>();
 
   String _username = '';
+  Timer? _availabilityDebounce;
 
-  /// Local validity only — the alias is never checked against the backend,
-  /// because guests have no server-side account to collide with.
-  bool get _isUsernameValid =>
+  /// null = not checked yet / currently checking.
+  bool? _usernameAvailable;
+
+  bool get _isLocallyValid =>
       _username.length >= _minLength && !_username.contains(' ');
+
+  bool get _isUsernameValid => _isLocallyValid && (_usernameAvailable ?? false);
 
   @override
   void dispose() {
     _usernameController.dispose();
+    _availabilityDebounce?.cancel();
     super.dispose();
+  }
+
+  void _onUsernameChanged(String value) {
+    _availabilityDebounce?.cancel();
+    setState(() {
+      _username = value.trim();
+      _usernameAvailable = null;
+    });
+
+    if (!_isLocallyValid) return;
+
+    _availabilityDebounce = Timer(const Duration(milliseconds: 500), () async {
+      try {
+        final available =
+            await injector.get<AuthRepository>().isUsernameAvailable(_username);
+        if (mounted) setState(() => _usernameAvailable = available);
+      } catch (_) {
+        // Silently ignore — availability just stays unresolved.
+      }
+    });
   }
 
   @override
@@ -79,8 +109,7 @@ class _AnonymousSignInScreenState extends State<AnonymousSignInScreen> {
                   label: "Username",
                   hint: "Enter your alias name",
                   controller: _usernameController,
-                  onChanged: (value) =>
-                      setState(() => _username = value.trim()),
+                  onChanged: _onUsernameChanged,
                   validator: MultiValidator([
                     RequiredValidator(errorText: "Username is required"),
                     MinLengthValidator(_minLength,
@@ -91,14 +120,26 @@ class _AnonymousSignInScreenState extends State<AnonymousSignInScreen> {
                   ]).call,
                 ),
 
-                if (_isUsernameValid) ...[
+                if (_isLocallyValid) ...[
                   8.verticalSpace,
-                  const TextView(
-                    text: "Username is available",
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Pallets.successGreen,
-                  ),
+                  if (_usernameAvailable == null)
+                    const TextView(
+                      text: "Checking availability…",
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: Pallets.grey400,
+                    )
+                  else
+                    TextView(
+                      text: _usernameAvailable!
+                          ? "Username is available"
+                          : "Username is taken",
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      color: _usernameAvailable!
+                          ? Pallets.successGreen
+                          : Pallets.errorRed,
+                    ),
                 ],
 
                 20.verticalSpace,

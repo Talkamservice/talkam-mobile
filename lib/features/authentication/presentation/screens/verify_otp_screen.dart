@@ -37,7 +37,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> with RefreshAppMixin 
   // final TextEditingController emailController = TextEditingController();
   final otpCtrl = TextEditingController();
   bool isSent = true;
-  final otpLength = 4;
+  final otpLength = 6;
   DateTime _countDownEndTime = DateTime.now().add(const Duration(minutes: 1));
   bool isCounting = true;
   bool hasOtpError = false;

@@ -8,27 +8,43 @@ import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/authentication/presentation/screens/verify_otp_screen.dart';
 
 mixin AuthSuccessMixin<T extends StatefulWidget> on State<T> {
-
   void handleLoginSuccess(BuildContext context, TalkamUser state) {
     if (state.emailVerifiedAt == null) {
       context.pushNamed(PageUrl.verifyOtpScreen, queryParameters: {
         PathParam.email: state.email,
         PathParam.otpType: VerifyOtpType.auth.name
       });
+      return;
+    }
 
+    // Prefer the v2 `/user/me` server-computed onboarding summary when
+    // available, resuming at its first false step; login/register responses
+    // don't include it, so fall back to the old field-based heuristic.
+    final onboarding = state.onboarding;
+    if (onboarding != null) {
+      if (onboarding.userType == null ||
+          (!kSkipInterestsGate && !onboarding.interests)) {
+        context.goNamed(PageUrl.userTypeSelectionScreen);
+        return;
+      }
+      if (!onboarding.avatar) {
+        context.goNamed(PageUrl.userNameScreen);
+        return;
+      }
+      if (!onboarding.consents) {
+        context.goNamed(PageUrl.dataPrivacyScreen);
+        return;
+      }
     } else if (!kSkipInterestsGate && state.interests.isEmpty) {
-
       // Onboarding isn't finished — pick the account type before interests.
       context.goNamed(PageUrl.userTypeSelectionScreen);
-
+      return;
     } else if (state.username.isEmpty || state.avatar == null) {
-
       context.goNamed(PageUrl.userNameScreen);
-
-    } else {
-
-      SessionManager().hasOnboarded = true;
-      context.goNamed(PageUrl.homeScreen);
+      return;
     }
+
+    SessionManager().hasOnboarded = true;
+    context.goNamed(PageUrl.homeScreen);
   }
 }

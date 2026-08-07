@@ -86,10 +86,10 @@ import 'package:talkam/features/session/presentation/screens/client_note_detail_
 import 'package:talkam/features/session/presentation/screens/session_room_screen.dart';
 import 'package:talkam/features/session/data/models/session_model.dart';
 
-
 import '../../features/authentication/presentation/screens/onboarding.dart';
 import '../../features/authentication/presentation/screens/welcome_screen.dart';
 import '../../features/privacy/presentation/screens/data_privacy_screen.dart';
+import '../../features/privacy/presentation/screens/privacy_policy_screen.dart';
 import '../services/data/session_manager.dart';
 
 final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'rootNavigator');
@@ -258,6 +258,11 @@ class CustomRoutes {
         builder: (context, state) => const DataPrivacyScreen(),
       ),
       GoRoute(
+        path: '/privacyPolicyScreen',
+        name: PageUrl.privacyPolicyScreen,
+        builder: (context, state) => const PrivacyPolicyScreen(),
+      ),
+      GoRoute(
         path: '/welcomeScreen',
         name: PageUrl.welcomeScreen,
         builder: (context, state) => const WelcomeScreen(),
@@ -391,8 +396,8 @@ class CustomRoutes {
         path: '/groupMembersScreen',
         name: PageUrl.groupMembersScreen,
         builder: (context, state) => GroupMembersScreen(
-              group: state.extra as TalkamGroup,
-            ),
+          group: state.extra as TalkamGroup,
+        ),
       ),
       GoRoute(
         path: '/groupRequestsScreen',
@@ -661,9 +666,11 @@ class CustomRoutes {
             routes: [
               GoRoute(
                 path: '/therapistListScreen',
-                name: PageUrl.therapistListScreen, // Use this as the route name for the tab
+                name: PageUrl
+                    .therapistListScreen, // Use this as the route name for the tab
                 pageBuilder: (context, state) {
-                  final isTherapist = SessionManager.instance.isTherapistAccount;
+                  final isTherapist =
+                      SessionManager.instance.isTherapistAccount;
                   return NoTransitionPage(
                     child: isTherapist
                         ? const ClientsScreen()

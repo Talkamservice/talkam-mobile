@@ -10,6 +10,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/avatar_fallback.dart';
+import 'package:talkam/features/authentication/data/models/get_avatars_response.dart';
 import 'package:talkam/features/profile/data/models/update_profile_payload.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/profile/presentation/widgets/select_avater_sheet.dart';
@@ -26,8 +27,13 @@ class _UsernameScreenState extends State<UsernameScreen> {
   final profileBloc = ProfileBloc(injector.get());
 
   /// Remote avatar url, or one of [kFallbackAvatarEmojis] while the avatars
-  /// endpoint is returning nothing.
+  /// endpoint is returning nothing. Used purely for the preview.
   String? selectedAvatar;
+
+  /// The chosen preset's id — the value the backend actually wants for
+  /// `avatar`. Null when a fallback emoji was picked (can't be persisted) or
+  /// nothing was picked yet.
+  String? selectedAvatarId;
 
   @override
   Widget build(BuildContext context) {
@@ -103,8 +109,8 @@ class _UsernameScreenState extends State<UsernameScreen> {
                   child: GestureDetector(
                     onTap: _selectAvatar,
                     child: Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: 15.w, vertical: 8.h),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 15.w, vertical: 8.h),
                       decoration: BoxDecoration(
                         color: Pallets.bgLight,
                         borderRadius: BorderRadius.circular(100),
@@ -187,28 +193,42 @@ class _UsernameScreenState extends State<UsernameScreen> {
   }
 
   Future<void> _selectAvatar() async {
+    // SelectAvatarSheet's popped value stays a plain image-url/emoji String
+    // (other screens depend on that contract) — this callback is the only
+    // place the full TalkamAvatar (and therefore its preset id) is exposed.
+    TalkamAvatar? tappedAvatar;
+
     final result = await CustomDialogs.showBottomSheet(
       context,
       SelectAvatarSheet(
-        onAvatarSelected: (_) {},
+        onAvatarSelected: (value) {
+          if (value is TalkamAvatar) tappedAvatar = value;
+        },
         onBackgroundSelector: (_) {},
       ),
     );
 
     if (result is String && result.isNotEmpty) {
-      setState(() => selectedAvatar = result);
+      setState(() {
+        selectedAvatar = result;
+        selectedAvatarId =
+            (tappedAvatar != null && tappedAvatar!.image == result)
+                ? tappedAvatar!.id.toString()
+                : null;
+      });
     }
   }
 
   void _saveAndContinue() {
-    // Emoji placeholders are local only — don't try to persist them.
-    if (selectedAvatar == null || isFallbackAvatar(selectedAvatar)) {
+    // Emoji placeholders (and anything without a resolved preset id) are
+    // local only — don't try to persist them.
+    if (selectedAvatarId == null) {
       _skip();
       return;
     }
 
     profileBloc.add(UpdateProfileEvent(
-      UpdateProfilePayload(avatar: selectedAvatar),
+      UpdateProfilePayload(avatar: selectedAvatarId),
     ));
   }
 

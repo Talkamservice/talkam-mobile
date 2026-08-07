@@ -5,8 +5,11 @@ import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/features/profile/dormain/repository/profile_repository.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class UserTypeSelectionScreen extends StatefulWidget {
@@ -21,8 +24,27 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
   static const int _typeUser = 0;
   static const int _typeTherapist = 1;
 
+  static const String _supportSeeker = "support_seeker";
+  static const String _mentalHealthPro = "mental_health_pro";
+
   /// Null until the user picks — the Continue button stays disabled.
+  /// Pre-filled from the server's onboarding summary when a returning user
+  /// lands back here (e.g. they picked a type but never finished interests),
+  /// so they don't lose their earlier choice.
   int? _selectedType;
+
+  bool _submitting = false;
+
+  @override
+  void initState() {
+    super.initState();
+    final userType = injector.get<ProfileBloc>().appUser?.onboarding?.userType;
+    if (userType == _mentalHealthPro) {
+      _selectedType = _typeTherapist;
+    } else if (userType == _supportSeeker) {
+      _selectedType = _typeUser;
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,7 +104,8 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
               // Continue Button
               CustomButton(
                 elevation: 0,
-                onPressed: _selectedType == null ? null : _continue,
+                onPressed:
+                    (_selectedType == null || _submitting) ? null : _continue,
                 child: TextView(
                   text: _selectedType == _typeTherapist
                       ? "Continue as Therapist"
@@ -101,7 +124,18 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
     );
   }
 
-  void _continue() {
+  Future<void> _continue() async {
+    setState(() => _submitting = true);
+    try {
+      await injector.get<ProfileRepository>().setUserType(
+          _selectedType == _typeTherapist ? _mentalHealthPro : _supportSeeker);
+    } catch (_) {
+      // Best-effort — this only records onboarding intent, so a failed
+      // request shouldn't trap the user on this screen.
+    }
+    if (!mounted) return;
+    setState(() => _submitting = false);
+
     if (_selectedType == _typeUser) {
       context.pushNamed(PageUrl.interestsScreen);
       return;

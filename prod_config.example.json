@@ -1,6 +1,8 @@
 {
   "PROD_BASE_URL": "https://api.talkam.net/api/v1",
   "DEV_BASE_URL": "https://api.talkam.net/api/v1",
+  "PROD_BASE_URL_V2": "https://api.talkam.net/api/v2",
+  "DEV_BASE_URL_V2": "https://api.talkam.net/api/v2",
   "WEB_PROD_BASE_URL": "https://api.talkam.net/api/v1",
   "WEB_DEV_BASE_URL": "https://web.talkam.prodevs.io/",
   "MESSAGE_USER_EMAIL": "",

@@ -7,7 +7,8 @@ import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 abstract class AuthRepository {
   Future sendOtp(String email, String type);
 
-  Future verifyOtp({required String email, required String code, required String type});
+  Future verifyOtp(
+      {required String email, required String code, required String type});
 
   Future<GoogleSignInAuthentication?> googleAuth();
 
@@ -19,11 +20,23 @@ abstract class AuthRepository {
 
   Future<AuthSuccessResponse> oauthSignIn(OauthReqDto data);
 
-  Future<AuthSuccessResponse> login(String email, String password);
+  Future<AuthSuccessResponse> login(String input, String password);
 
-  Future<AuthSuccessResponse> register(String email, String password);
+  Future<AuthSuccessResponse> register({
+    required String fullName,
+    required String email,
+    required String phoneNumber,
+    required String username,
+    required String password,
+    int? countryId,
+    String? gender,
+    DateTime? dateOfBirth,
+  });
 
   Future<dynamic> forgotPassword(String email);
 
-  Future<dynamic> passwordReset(String code, String password);
+  Future<dynamic> passwordReset(
+      String code, String password, String passwordConfirmation);
+
+  Future<bool> isUsernameAvailable(String username);
 }

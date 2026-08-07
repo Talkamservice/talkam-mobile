@@ -34,80 +34,83 @@ class _CategoryListState extends State<CategoryList> {
 
   @override
   Widget build(BuildContext context) {
-    return NestedScrollView(
-        floatHeaderSlivers: true,
-        clipBehavior: Clip.none,
-        headerSliverBuilder: (context, innerBoxIsScrolled) {
-          return [];
-        },
-        body: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            24.verticalSpace,
-            const TextView(
-              text: "Categories",
-              fontSize: 16,
-              fontWeight: FontWeight.w600,
-            ),
-            12.verticalSpace,
-            Expanded(
-              child: BlocConsumer<PostBloc, PostState>(
-                bloc: injector.get<PostBloc>(),
-                listener: (context, state) {},
-                builder: (context, state) {
-                  return state.maybeWhen(
-                    orElse: () {
-                      final response = injector.get<PostBloc>();
-                      final source = response.categories.isEmpty
-                          ? MockHomeData.groups // It contains mock categories
-                          : response.categories;
-                      final categories = widget.searchQuery.isEmpty
-                          ? source
-                          : source
-                              .where((category) => category.name
-                                  .toString()
-                                  .toLowerCase()
-                                  .contains(widget.searchQuery.toLowerCase()))
-                              .toList();
+    // No scrolling of its own — this is embedded inside the drawer's single
+    // outer SingleChildScrollView, which handles scrolling for everything
+    // from "Following" down.
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        24.verticalSpace,
+        const TextView(
+          text: "Categories",
+          fontSize: 16,
+          fontWeight: FontWeight.w600,
+        ),
+        12.verticalSpace,
+        BlocConsumer<PostBloc, PostState>(
+          bloc: injector.get<PostBloc>(),
+          listener: (context, state) {},
+          builder: (context, state) {
+            return state.maybeWhen(
+              orElse: () {
+                final response = injector.get<PostBloc>();
+                final source = response.categories.isEmpty
+                    ? MockHomeData.groups // It contains mock categories
+                    : response.categories;
+                final categories = widget.searchQuery.isEmpty
+                    ? source
+                    : source
+                        .where((category) => category.name
+                            .toString()
+                            .toLowerCase()
+                            .contains(widget.searchQuery.toLowerCase()))
+                        .toList();
 
-                      if (categories.isEmpty) {
-                        return Center(
-                          child: TextView(
-                            text: widget.searchQuery.isEmpty
-                                ? "There are no categories yet"
-                                : "No categories match \"${widget.searchQuery}\"",
-                          ),
-                        );
-                      }
+                if (categories.isEmpty) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(vertical: 24.h),
+                    child: Center(
+                      child: TextView(
+                        text: widget.searchQuery.isEmpty
+                            ? "There are no categories yet"
+                            : "No categories match \"${widget.searchQuery}\"",
+                      ),
+                    ),
+                  );
+                }
 
-                      return ListView.builder(
-                        itemCount: categories.length,
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) => Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 2.0),
-                          child: NavCategoryItem(
-                            category: categories[index],
-                            onTap: () {
-                              context.read<DrawerCubit>().switchView(DrawerView.subCategory, subCategory: categories[index]);
-                            },
-                          ),
-                        ),
-                      );
-                    },
-                    getCategoriesFailure: (error) => AppErrorWidget(
+                return ListView.builder(
+                  itemCount: categories.length,
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (context, index) => Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 2.0),
+                    child: NavCategoryItem(
+                      category: categories[index],
                       onTap: () {
-                        injector
-                            .get<PostBloc>()
-                            .add(const PostEvent.getCategories(refresh: false));
+                        context.read<DrawerCubit>().switchView(
+                            DrawerView.subCategory,
+                            subCategory: categories[index]);
                       },
                     ),
-                    getCategoriesLoading: () =>
-                        CustomDialogs.getLoading(size: 50),
-                  );
+                  ),
+                );
+              },
+              getCategoriesFailure: (error) => AppErrorWidget(
+                onTap: () {
+                  injector
+                      .get<PostBloc>()
+                      .add(const PostEvent.getCategories(refresh: false));
                 },
               ),
-            ),
-          ],
-        ));
+              getCategoriesLoading: () => Padding(
+                padding: EdgeInsets.symmetric(vertical: 24.h),
+                child: Center(child: CustomDialogs.getLoading(size: 50)),
+              ),
+            );
+          },
+        ),
+      ],
+    );
   }
 }

@@ -10,9 +10,11 @@ import 'package:talkam/common/models/get_states_response.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/subscription/data/models/get_plans_response.dart';
 
-AuthSuccessResponse authSuccessResponseFromJson(String str) => AuthSuccessResponse.fromJson(json.decode(str));
+AuthSuccessResponse authSuccessResponseFromJson(String str) =>
+    AuthSuccessResponse.fromJson(json.decode(str));
 
-String authSuccessResponseToJson(AuthSuccessResponse data) => json.encode(data.toJson());
+String authSuccessResponseToJson(AuthSuccessResponse data) =>
+    json.encode(data.toJson());
 
 class AuthSuccessResponse {
   String message;
@@ -40,7 +42,8 @@ class AuthSuccessResponse {
         code: code ?? this.code,
       );
 
-  factory AuthSuccessResponse.fromJson(Map<String, dynamic> json) => AuthSuccessResponse(
+  factory AuthSuccessResponse.fromJson(Map<String, dynamic> json) =>
+      AuthSuccessResponse(
         message: json["message"],
         data: Data.fromJson(json["data"]),
         success: json["success"],
@@ -58,30 +61,114 @@ class AuthSuccessResponse {
 class Data {
   String token;
   TalkamUser user;
+  Business? business;
 
   Data({
     required this.token,
     required this.user,
+    this.business,
   });
 
   Data copyWith({
     String? token,
     TalkamUser? user,
+    Business? business,
   }) =>
       Data(
         token: token ?? this.token,
         user: user ?? this.user,
+        business: business ?? this.business,
       );
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         token: json["token"],
         user: TalkamUser.fromJson(json["user"]),
+        business: json["business"] == null
+            ? null
+            : Business.fromJson(json["business"]),
       );
 
   Map<String, dynamic> toJson() => {
         "token": token,
         "user": user.toJson(),
+        "business": business?.toJson(),
       };
+}
+
+/// Present on the login response and the v2 `/user/me` response — describes
+/// the account's organization membership (e.g. whether it's a therapist
+/// account).
+class Business {
+  bool isMember;
+  dynamic role;
+  bool isTherapist;
+  dynamic organization;
+  dynamic dashboard;
+
+  Business({
+    required this.isMember,
+    required this.role,
+    required this.isTherapist,
+    required this.organization,
+    required this.dashboard,
+  });
+
+  factory Business.fromJson(Map<String, dynamic> json) => Business(
+        isMember: json["is_member"] ?? false,
+        role: json["role"],
+        isTherapist: json["is_therapist"] ?? false,
+        organization: json["organization"],
+        dashboard: json["dashboard"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "is_member": isMember,
+        "role": role,
+        "is_therapist": isTherapist,
+        "organization": organization,
+        "dashboard": dashboard,
+      };
+}
+
+/// Only present on the v2 `/user/me` response — a server-computed summary of
+/// which onboarding steps are done, so the client doesn't have to re-derive
+/// "what's left" from raw profile fields. The app resumes onboarding at the
+/// first false step: [userType] unset, then [interests], then [avatar],
+/// then [consents].
+class Onboarding {
+  dynamic userType;
+  bool interests;
+  bool avatar;
+  bool consents;
+  DateTime? completedAt;
+
+  Onboarding({
+    required this.userType,
+    required this.interests,
+    required this.avatar,
+    required this.consents,
+    required this.completedAt,
+  });
+
+  factory Onboarding.fromJson(Map<String, dynamic> json) => Onboarding(
+        userType: json["user_type"],
+        interests: json["interests"] ?? false,
+        avatar: json["avatar"] ?? false,
+        consents: json["consents"] ?? false,
+        completedAt: json["completed_at"] == null
+            ? null
+            : DateTime.parse(json["completed_at"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "user_type": userType,
+        "interests": interests,
+        "avatar": avatar,
+        "consents": consents,
+        "completed_at": completedAt?.toIso8601String(),
+      };
+
+  bool get isComplete => completedAt != null;
 }
 
 class TalkamUser {
@@ -114,6 +201,14 @@ class TalkamUser {
   DateTime? emailVerifiedAt;
   DateTime updatedAt;
 
+  /// Only present on the v2 `/user/me` response — a server-computed summary
+  /// of which onboarding steps are done. Null everywhere else (register,
+  /// login, `/user/profile/fetch`), so callers must fall back when absent.
+  Onboarding? onboarding;
+
+  /// Only present on the v2 `/user/me` response, same as [onboarding].
+  Business? business;
+
   TalkamUser({
     required this.id,
     required this.avatar,
@@ -143,6 +238,8 @@ class TalkamUser {
     this.anonymousPost,
     this.anonymousComment,
     this.publicGroupCount,
+    this.onboarding,
+    this.business,
   });
 
   TalkamUser copyWith(
@@ -173,7 +270,9 @@ class TalkamUser {
           DateTime? createdAt,
           DateTime? emailVerifiedAt,
           DateTime? updatedAt,
-          ActiveSubscription? activeSubscription}) =>
+          ActiveSubscription? activeSubscription,
+          Onboarding? onboarding,
+          Business? business}) =>
       TalkamUser(
         id: id ?? this.id,
         avatar: avatar ?? this.avatar,
@@ -203,6 +302,8 @@ class TalkamUser {
         publicGroupCount: publicGroupCount ?? this.publicGroupCount,
         anonymousPost: anonymousPost ?? this.anonymousPost,
         activeSubscription: activeSubscription ?? this.activeSubscription,
+        onboarding: onboarding ?? this.onboarding,
+        business: business ?? this.business,
       );
 
   factory TalkamUser.fromJson(Map<String, dynamic> json) => TalkamUser(
@@ -212,12 +313,17 @@ class TalkamUser {
         email: json["email"],
         role: json["role"],
         age: json["age"],
-    currency: json["pricing_currency"],
+        currency: json["pricing_currency"],
         shouldDisplayAd: json["should_display_ads"],
         gender: json["gender"],
-        dob: json["date_of_birth"] == null ? null : DateTime.tryParse(json["date_of_birth"]),
-        state: json["state"] == null ? null : TalkamState.fromJson(json["state"]),
-        country: json["country"] == null ? null : TalkamCountry.fromJson(json["country"]),
+        dob: json["date_of_birth"] == null
+            ? null
+            : DateTime.tryParse(json["date_of_birth"]),
+        state:
+            json["state"] == null ? null : TalkamState.fromJson(json["state"]),
+        country: json["country"] == null
+            ? null
+            : TalkamCountry.fromJson(json["country"]),
         facebookId: json["facebook_id"],
         googleId: json["google_id"],
         tiktokId: json["tiktok_id"],
@@ -229,11 +335,22 @@ class TalkamUser {
         anonymousPost: json["anonymous_post"],
         publicGroupCount: json["public_group_count"],
         anonymousComment: json["anonymous_comment"],
-        interests: List<PostCategory>.from(json["interests"].map((x) => PostCategory.fromJson(x))),
+        interests: List<PostCategory>.from(
+            json["interests"].map((x) => PostCategory.fromJson(x))),
         createdAt: DateTime.parse(json["created_at"]),
-        emailVerifiedAt: json["email_verified_at"] == null ? null : DateTime.parse(json["email_verified_at"]),
+        emailVerifiedAt: json["email_verified_at"] == null
+            ? null
+            : DateTime.parse(json["email_verified_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
-        activeSubscription: json["active_subscription"] == null ? null : ActiveSubscription?.fromJson(json["active_subscription"]),
+        activeSubscription: json["active_subscription"] == null
+            ? null
+            : ActiveSubscription?.fromJson(json["active_subscription"]),
+        onboarding: json["onboarding"] == null
+            ? null
+            : Onboarding.fromJson(json["onboarding"]),
+        business: json["business"] == null
+            ? null
+            : Business.fromJson(json["business"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -264,12 +381,15 @@ class TalkamUser {
         "email_verified_at": emailVerifiedAt?.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
         "active_subscription": activeSubscription?.toJson(),
+        "onboarding": onboarding?.toJson(),
+        "business": business?.toJson(),
       };
 
   factory TalkamUser.forTest() {
     return TalkamUser(
       id: -1,
-      avatar: "https://talkam.prodevs.io/file/YXBwL21lZGlhL3VzZXIvYXZhdGFycy82NjlmYjVjNGM4ZTBlLnBuZw==",
+      avatar:
+          "https://talkam.prodevs.io/file/YXBwL21lZGlhL3VzZXIvYXZhdGFycy82NjlmYjVjNGM4ZTBlLnBuZw==",
       email: "bardakhaev@shopshiba.site",
       role: "User",
       age: null,
@@ -296,9 +416,11 @@ class TalkamUser {
   }
 }
 
-ActiveSubscription activeSubscriptionFromJson(String str) => ActiveSubscription.fromJson(json.decode(str));
+ActiveSubscription activeSubscriptionFromJson(String str) =>
+    ActiveSubscription.fromJson(json.decode(str));
 
-String activeSubscriptionToJson(ActiveSubscription data) => json.encode(data.toJson());
+String activeSubscriptionToJson(ActiveSubscription data) =>
+    json.encode(data.toJson());
 
 class ActiveSubscription {
   int id;
@@ -334,7 +456,8 @@ class ActiveSubscription {
       ActiveSubscription(
         id: id ?? this.id,
         plan: plan ?? this.plan,
-        flutterwaveSubscriptionId: flutterwaveSubscriptionId ?? this.flutterwaveSubscriptionId,
+        flutterwaveSubscriptionId:
+            flutterwaveSubscriptionId ?? this.flutterwaveSubscriptionId,
         status: status ?? this.status,
         expiresAt: expiresAt ?? this.expiresAt,
         renewalCancelledAt: renewalCancelledAt ?? this.renewalCancelledAt,
@@ -342,7 +465,8 @@ class ActiveSubscription {
         updatedAt: updatedAt ?? this.updatedAt,
       );
 
-  factory ActiveSubscription.fromJson(Map<String, dynamic> json) => ActiveSubscription(
+  factory ActiveSubscription.fromJson(Map<String, dynamic> json) =>
+      ActiveSubscription(
         id: json["id"],
         plan: TalkamPlan.fromJson(json["plan"]),
         flutterwaveSubscriptionId: json["flutterwave_subscription_id"],

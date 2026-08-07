@@ -1,11 +1,13 @@
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:intl/intl.dart';
 import 'package:talkam/common/models/success_response.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/firebase/notifiactions.dart';
 import 'package:talkam/core/services/network/network_service.dart';
-import 'package:talkam/core/services/network/url_config.dart';
+import 'package:talkam/core/services/network/url_config_v2.dart';
 import 'package:talkam/features/authentication/data/models/oauth_req_dto.dart';
 import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/authentication/dormain/repository/auth_repository.dart';
@@ -14,9 +16,13 @@ import 'package:tiktok_login_flutter/tiktok_login_flutter.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
-  final NetworkService _networkService;
+  /// Authentication has migrated to the v2 API — every call in this
+  /// repository hits [UrlConfigV2.coreBaseUrl] rather than the v1 base
+  /// used by the rest of the app.
+  final NetworkService _v2 = NetworkService(baseUrl: UrlConfigV2.coreBaseUrl);
 
-  AuthRepositoryImpl(this._networkService);
+  static Options get _formOptions =>
+      Options(headers: {"Accept": "application/json"});
 
   GoogleSignIn googleAuthService = GoogleSignIn(
     scopes: [
@@ -35,20 +41,40 @@ class AuthRepositoryImpl extends AuthRepository {
 
   @override
   Future sendOtp(String email, String type) async {
-    final response = await _networkService.call(UrlConfig.sendOtp, RequestMethod.post, data: {
-      "email": email,
-      "type": type,
-    });
+    final response = await _v2.call(
+      UrlConfigV2.sendOtp,
+      RequestMethod.post,
+      formData: FormData.fromMap({"email": email, "type": type}),
+      options: _formOptions,
+    );
 
     return response.data;
   }
 
   @override
-  Future<SuccessResponse> verifyOtp({required String email, required String code, required String type}) async {
-
-    final response = await _networkService.call(UrlConfig.verifyOtp, RequestMethod.post, data: {"email": email, "code": code, "type": type});
+  Future<SuccessResponse> verifyOtp(
+      {required String email,
+      required String code,
+      required String type}) async {
+    final response = await _v2.call(
+      UrlConfigV2.verifyOtp,
+      RequestMethod.post,
+      formData: FormData.fromMap({"email": email, "code": code}),
+      options: _formOptions,
+    );
 
     return SuccessResponse.fromJson(response.data);
+  }
+
+  @override
+  Future<bool> isUsernameAvailable(String username) async {
+    final response = await _v2.call(
+      UrlConfigV2.usernameAvailable,
+      RequestMethod.get,
+      queryParams: {"username": username},
+    );
+
+    return response.data["data"]["available"] == true;
   }
 
   @override
@@ -72,7 +98,10 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<AuthorizationCredentialAppleID?> appleAuth() async {
     try {
-      final response = await SignInWithApple.getAppleIDCredential(scopes: [AppleIDAuthorizationScopes.email, AppleIDAuthorizationScopes.fullName]);
+      final response = await SignInWithApple.getAppleIDCredential(scopes: [
+        AppleIDAuthorizationScopes.email,
+        AppleIDAuthorizationScopes.fullName
+      ]);
 
       return response;
     } catch (e) {
@@ -83,20 +112,16 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<AuthSuccessResponse> oauthSignIn(OauthReqDto data) async {
     var token = await NotificationService().deviceToken;
-    logger.w("FCM TOKEN$token");
-    logger.w("BODY RESPONSE ${data.copyWith(
-          fcmToken: token,
-        ).toJson()}");
 
     try {
-      final response = await _networkService(
-        UrlConfig.oauthLogin,
+      final response = await _v2.call(
+        UrlConfigV2.oauthLogin,
         RequestMethod.post,
-        data: data
-            .copyWith(
-              fcmToken: token,
-            )
-            .toJson(),
+        formData: FormData.fromMap(
+          data.copyWith(fcmToken: token).toJson()
+            ..removeWhere((key, value) => value == null),
+        ),
+        options: _formOptions,
       );
 
       return AuthSuccessResponse.fromJson(response.data);
@@ -127,8 +152,11 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<AccessToken?> facebookAuth() async {
     try {
-      final LoginResult result =
-          await FacebookAuth.instance.login(permissions: ['email', 'public_profile']); // by default we request the email and the public profile
+      final LoginResult result = await FacebookAuth.instance.login(
+          permissions: [
+            'email',
+            'public_profile'
+          ]); // by default we request the email and the public profile
       if (result.status == LoginStatus.success) {
         final AccessToken accessToken = result.accessToken!;
         logger.i(accessToken);
@@ -144,33 +172,57 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<AuthSuccessResponse> login(String email, String password) async {
-    // MOCK LOGIN FOR ROLE SELECTION
-    await Future.delayed(const Duration(seconds: 1)); // Simulate network latency
-    
-    final isTherapist = password == "therapist";
-    SessionManager.instance.isTherapistAccount = isTherapist;
+  Future<AuthSuccessResponse> login(String input, String password) async {
+    try {
+      final response = await _v2.call(
+        UrlConfigV2.login,
+        RequestMethod.post,
+        formData: FormData.fromMap({
+          "input": input,
+          "password": password,
+          "fcm_token": await NotificationService().deviceToken,
+        }),
+        options: _formOptions,
+      );
 
-    final mockUser = TalkamUser.forTest();
-    mockUser.role = isTherapist ? "Therapist" : "User"; 
-    
-    final data = Data(token: "mock_token_123", user: mockUser);
-    return AuthSuccessResponse(
-      message: "Mock Login Successful", 
-      data: data, 
-      success: true, 
-      code: 200
-    );
+      final authResponse = AuthSuccessResponse.fromJson(response.data);
+      SessionManager.instance.isTherapistAccount =
+          authResponse.data.business?.isTherapist ?? false;
+      return authResponse;
+    } catch (e, stack) {
+      logger.e(e, stackTrace: stack);
+      rethrow;
+    }
   }
 
   @override
-  Future<AuthSuccessResponse> register(String email, String password) async {
+  Future<AuthSuccessResponse> register({
+    required String fullName,
+    required String email,
+    required String phoneNumber,
+    required String username,
+    required String password,
+    int? countryId,
+    String? gender,
+    DateTime? dateOfBirth,
+  }) async {
     try {
-      final response = await _networkService.call(UrlConfig.register, RequestMethod.post, data: {
-        "email": email,
-        "password": password,
-        "fcm_token": await NotificationService().deviceToken,
-      });
+      final response = await _v2.call(
+        UrlConfigV2.register,
+        RequestMethod.post,
+        formData: FormData.fromMap({
+          "full_name": fullName,
+          "email": email,
+          "phone_number": phoneNumber,
+          "username": username,
+          "password": password,
+          if (countryId != null) "country_id": countryId,
+          if (gender != null) "gender": gender,
+          if (dateOfBirth != null)
+            "date_of_birth": DateFormat('yyyy-MM-dd').format(dateOfBirth),
+        }),
+        options: _formOptions,
+      );
 
       return AuthSuccessResponse.fromJson(response.data);
     } catch (e, stack) {
@@ -183,7 +235,12 @@ class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<dynamic> forgotPassword(String email) async {
     try {
-      final response = await _networkService.call(UrlConfig.forgotPassword, RequestMethod.post, data: {"email": email});
+      final response = await _v2.call(
+        UrlConfigV2.forgotPassword,
+        RequestMethod.post,
+        formData: FormData.fromMap({"email": email}),
+        options: _formOptions,
+      );
 
       return response.data;
     } catch (e) {
@@ -192,9 +249,19 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<dynamic> passwordReset(String code, String password) async {
+  Future<dynamic> passwordReset(
+      String code, String password, String passwordConfirmation) async {
     try {
-      final response = await _networkService.call(UrlConfig.passwordReset, RequestMethod.post, data: {"code": code, "password": password});
+      final response = await _v2.call(
+        UrlConfigV2.passwordReset,
+        RequestMethod.post,
+        formData: FormData.fromMap({
+          "code": code,
+          "password": password,
+          "password_confirmation": passwordConfirmation,
+        }),
+        options: _formOptions,
+      );
 
       return response.data;
     } catch (e) {

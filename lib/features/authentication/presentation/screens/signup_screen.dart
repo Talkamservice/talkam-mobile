@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:go_router/go_router.dart';
+import 'package:talkam/common/models/get_countries_response.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
@@ -16,8 +19,10 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/path_params.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/features/authentication/dormain/repository/auth_repository.dart';
 import 'package:talkam/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:talkam/features/authentication/presentation/screens/verify_otp_screen.dart';
+import 'package:talkam/features/post/presentation/widgets/country_picker_sheet.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -37,22 +42,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final authBloc = AuthBloc(injector.get());
 
   bool _passwordObscured = true;
-  String? _selectedCountry;
+  TalkamCountry? _selectedCountry;
   String? _selectedGender;
   DateTime? _selectedDob;
   final _scrollController = ScrollController();
   double _scrollOffset = 0;
 
-  static const List<String> _countries = [
-    'Nigeria',
-    'Ghana',
-    'Kenya',
-    'South Africa',
-    'United States',
-    'United Kingdom',
-    'Canada',
-    'Australia',
-  ];
+  Timer? _usernameDebounce;
+  bool? _usernameAvailable;
 
   static const List<String> _genders = [
     'Male',
@@ -76,7 +73,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
     _usernameController.dispose();
     _passwordController.dispose();
     _scrollController.dispose();
+    _usernameDebounce?.cancel();
     super.dispose();
+  }
+
+  void _onUsernameChanged(String value) {
+    _usernameDebounce?.cancel();
+    setState(() => _usernameAvailable = null);
+
+    final username = value.trim();
+    if (username.length < 3) return;
+
+    _usernameDebounce = Timer(const Duration(milliseconds: 500), () async {
+      try {
+        final available =
+            await injector.get<AuthRepository>().isUsernameAvailable(username);
+        if (mounted) setState(() => _usernameAvailable = available);
+      } catch (_) {
+        // Silently ignore — the real check still runs server-side on submit.
+      }
+    });
+  }
+
+  Future<TalkamCountry?> _pickCountry(BuildContext context) {
+    return CustomDialogs.showBottomSheet(
+      context,
+      Padding(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: const CountryPickerSheet(),
+      ),
+    );
   }
 
   @override
@@ -190,6 +217,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             label: "Username",
                             hint: "Use a unique name",
                             controller: _usernameController,
+                            onChanged: _onUsernameChanged,
                             validator: MultiValidator([
                               RequiredValidator(
                                   errorText: "Username is required"),
@@ -198,22 +226,92 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                       "Username must be at least 3 characters"),
                             ]).call,
                           ),
+                          if (_usernameAvailable != null) ...[
+                            6.verticalSpace,
+                            TextView(
+                              text: _usernameAvailable!
+                                  ? "Username is available"
+                                  : "Username is taken",
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                              color: _usernameAvailable!
+                                  ? Pallets.successGreen
+                                  : Pallets.errorRed,
+                            ),
+                          ],
 
                           16.verticalSpace,
 
                           // Country
-                          CustomDropdown<String>(
-                            label: "Country",
-                            hint: "Select your country",
-                            value: _selectedCountry,
-                            items: _countries
-                                .map((c) =>
-                                    DropdownMenuItem(value: c, child: Text(c)))
-                                .toList(),
-                            onChanged: (val) =>
-                                setState(() => _selectedCountry = val),
+                          FormField<TalkamCountry>(
+                            initialValue: _selectedCountry,
                             validator: (val) =>
                                 val == null ? "Please select a country" : null,
+                            builder: (state) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const TextView(
+                                    text: "Country",
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: Pallets.boldBlackV2,
+                                  ),
+                                  8.verticalSpace,
+                                  InkWell(
+                                    borderRadius: BorderRadius.circular(14.r),
+                                    onTap: () async {
+                                      final country =
+                                          await _pickCountry(context);
+                                      if (country != null) {
+                                        setState(
+                                            () => _selectedCountry = country);
+                                        state.didChange(country);
+                                      }
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 16.w, vertical: 14.h),
+                                      decoration: BoxDecoration(
+                                        border: Border.all(
+                                          color: state.hasError
+                                              ? Pallets.errorRed
+                                              : Pallets.grey90,
+                                        ),
+                                        borderRadius:
+                                            BorderRadius.circular(14.r),
+                                      ),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            child: TextView(
+                                              text: _selectedCountry?.name ??
+                                                  "Select your country",
+                                              fontSize: 14,
+                                              color: _selectedCountry == null
+                                                  ? Pallets.grey75
+                                                  : Pallets.boldBlack,
+                                            ),
+                                          ),
+                                          const Icon(
+                                            Icons.keyboard_arrow_down_rounded,
+                                            color: Pallets.grey400,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                  if (state.hasError) ...[
+                                    4.verticalSpace,
+                                    TextView(
+                                      text: state.errorText ?? '',
+                                      fontSize: 12,
+                                      color: Pallets.errorRed,
+                                    ),
+                                  ],
+                                ],
+                              );
+                            },
                           ),
 
                           16.verticalSpace,
@@ -405,7 +503,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
   void signUp(BuildContext context) {
     if (_formKey.currentState?.validate() ?? false) {
       authBloc.add(RegisterEvent(
-          email: _emailController.text, password: _passwordController.text));
+        fullName: _fullNameController.text.trim(),
+        email: _emailController.text.trim(),
+        phoneNumber: _phoneController.text.trim(),
+        username: _usernameController.text.trim(),
+        password: _passwordController.text,
+        countryId: _selectedCountry?.id,
+        gender: _selectedGender,
+        dateOfBirth: _selectedDob,
+      ));
     }
   }
 

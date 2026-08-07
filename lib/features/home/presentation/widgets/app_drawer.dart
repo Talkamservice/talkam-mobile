@@ -8,12 +8,14 @@ import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/mock/mock_home_data.dart';
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
 import 'package:talkam/features/home/presentation/widgets/category_group_list.dart';
 import 'package:talkam/features/notifications/presentation/bloc/notification_bloc.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 import 'category_list.dart';
@@ -57,29 +59,42 @@ class _AppDrawerState extends State<AppDrawer> {
                       12.verticalSpace,
                       const _DrawerQuickLinks(),
                       16.verticalSpace,
-                      const _DrawerFollowingSection(),
-                      12.verticalSpace,
-                      _DrawerGroupsSection(onGroupsTap: widget.onGroupsTap),
-                      Divider(height: 24.h, color: Pallets.grey90),
-                      _DrawerCategorySearchField(
-                        onChanged: (value) => setState(() => _categorySearchQuery = value),
-                      ),
-                      8.verticalSpace,
+                      // Everything from "Following" down scrolls together as
+                      // one region, instead of the category list below it
+                      // being the only scrollable piece.
                       Expanded(
-                        child: BlocConsumer<DrawerCubit, DrawerState>(
-                          buildWhen: _buildWhen,
-                          listener: (context, state) {},
-                          builder: (context, state) {
-                            return state.maybeWhen(
-                              orElse: () =>
-                                  CategoryList(searchQuery: _categorySearchQuery),
-                              categoryView: () =>
-                                  CategoryList(searchQuery: _categorySearchQuery),
-                              subCategoryView: (subCategory) => CategoryGroupList(
-                                category: subCategory,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const _DrawerFollowingSection(),
+                              12.verticalSpace,
+                              _DrawerGroupsSection(
+                                  onGroupsTap: widget.onGroupsTap),
+                              Divider(height: 24.h, color: Pallets.grey90),
+                              _DrawerCategorySearchField(
+                                onChanged: (value) => setState(
+                                    () => _categorySearchQuery = value),
                               ),
-                            );
-                          },
+                              8.verticalSpace,
+                              BlocConsumer<DrawerCubit, DrawerState>(
+                                buildWhen: _buildWhen,
+                                listener: (context, state) {},
+                                builder: (context, state) {
+                                  return state.maybeWhen(
+                                    orElse: () => CategoryList(
+                                        searchQuery: _categorySearchQuery),
+                                    categoryView: () => CategoryList(
+                                        searchQuery: _categorySearchQuery),
+                                    subCategoryView: (subCategory) =>
+                                        CategoryGroupList(
+                                      category: subCategory,
+                                    ),
+                                  );
+                                },
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ],
@@ -134,83 +149,103 @@ class _DrawerCategorySearchField extends StatelessWidget {
 
 /// Avatar, name/username, follow counts, and the drawer's own close button.
 ///
-/// Renders [MockHomeData.user] unconditionally — staging has no seed data
-/// yet, so the real ProfileBloc.appUser is not used here for now.
+/// Renders the real signed-in user (`ProfileBloc.appUser`), falling back to
+/// the device-local guest alias for anonymous sessions.
 class _DrawerProfileHeader extends StatelessWidget {
   const _DrawerProfileHeader();
 
   @override
   Widget build(BuildContext context) {
-    final user = MockHomeData.user;
+    return BlocBuilder<ProfileBloc, ProfileState>(
+      bloc: injector.get<ProfileBloc>(),
+      builder: (context, state) {
+        final user = injector.get<ProfileBloc>().appUser;
+        final anonymousUsername = SessionManager.instance.anonymousUsername;
+        final isAnonymous =
+            !SessionManager.instance.isLoggedIn || anonymousUsername.isNotEmpty;
 
-    return Padding(
-      padding: EdgeInsets.only(top: 12.h),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
+        final name = isAnonymous
+            ? (anonymousUsername.isNotEmpty
+                ? anonymousUsername
+                : (user?.name ?? "Guest"))
+            : (user?.name ?? "");
+        final username =
+            isAnonymous ? anonymousUsername : (user?.username ?? "");
+        // No "who follows me" field exists on TalkamUser yet — "Following"
+        // is real (the categories/topics the user follows); "Followers"
+        // stays 0 until the backend adds one.
+        final followingCount = user?.interests.length ?? 0;
+
+        return Padding(
+          padding: EdgeInsets.only(top: 12.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Row(
+                children: [
+                  InkWell(
+                    customBorder: const CircleBorder(),
+                    onTap: () {
+                      Navigator.of(context).pop();
+                      context.pushNamed(PageUrl.profileTabScreen);
+                    },
+                    child: ImageWidget(
+                      imageUrl: user?.avatar ?? Assets.images.svgs.user,
+                      shape: BoxShape.circle,
+                      size: 56,
+                    ),
+                  ),
+                  const Spacer(),
+                  IconButton(
+                    onPressed: () => Navigator.of(context).pop(),
+                    icon:
+                        Icon(Icons.close, color: context.colorScheme.onSurface),
+                  ),
+                ],
+              ),
+              4.verticalSpace,
               InkWell(
-                customBorder: const CircleBorder(),
                 onTap: () {
                   Navigator.of(context).pop();
                   context.pushNamed(PageUrl.profileTabScreen);
                 },
-                child: ImageWidget(
-                  imageUrl: user.avatar ?? Assets.images.svgs.user,
-                  shape: BoxShape.circle,
-                  size: 56,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextView(
+                      text: name,
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    if (username.isNotEmpty)
+                      TextView(
+                        text: "@$username",
+                        fontSize: 14,
+                        color: Pallets.grey400,
+                      ),
+                  ],
                 ),
               ),
-              const Spacer(),
-              IconButton(
-                onPressed: () => Navigator.of(context).pop(),
-                icon: Icon(Icons.close, color: context.colorScheme.onSurface),
+              10.verticalSpace,
+              Row(
+                children: [
+                  TextView(
+                      text: "$followingCount ",
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700),
+                  const TextView(
+                      text: "Following", fontSize: 14, color: Pallets.grey400),
+                  12.horizontalSpace,
+                  const TextView(
+                      text: "0 ", fontSize: 14, fontWeight: FontWeight.w700),
+                  const TextView(
+                      text: "Followers", fontSize: 14, color: Pallets.grey400),
+                ],
               ),
             ],
           ),
-          4.verticalSpace,
-          InkWell(
-            onTap: () {
-              Navigator.of(context).pop();
-              context.pushNamed(PageUrl.profileTabScreen);
-            },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                TextView(
-                  text: user.name,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w700,
-                ),
-                TextView(
-                  text: user.username,
-                  fontSize: 14,
-                  color: Pallets.grey400,
-                ),
-              ],
-            ),
-          ),
-          10.verticalSpace,
-          Row(
-            children: [
-              TextView(
-                  text: "${MockHomeData.followingCount} ",
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700),
-              const TextView(
-                  text: "Following", fontSize: 14, color: Pallets.grey400),
-              12.horizontalSpace,
-              TextView(
-                  text: "${MockHomeData.followersCount} ",
-                  fontSize: 14,
-                  fontWeight: FontWeight.w700),
-              const TextView(
-                  text: "Followers", fontSize: 14, color: Pallets.grey400),
-            ],
-          ),
-        ],
-      ),
+        );
+      },
     );
   }
 }
@@ -296,22 +331,26 @@ class _QuickLinkRow extends StatelessWidget {
   }
 }
 
-/// "Following" — the categories the signed-in user follows. Sourced from
-/// TalkamUser.interests — rendered from [MockHomeData.followingTopics]
-/// unconditionally for now (staging has no seed data). Tapping one opens
-/// that category's subcategory browser, same as the Groups list below.
+/// "Following" — the categories the signed-in user follows, sourced from
+/// the real `TalkamUser.interests`. Tapping one opens that category's
+/// subcategory browser, same as the Groups list below.
 class _DrawerFollowingSection extends StatelessWidget {
   const _DrawerFollowingSection();
 
   @override
   Widget build(BuildContext context) {
-    return _DrawerListSection(
-      title: "Following",
-      items: MockHomeData.followingTopics,
-      emptyLabel: "You're not following any topics yet",
-      onItemTap: (category) => context
-          .read<DrawerCubit>()
-          .switchView(DrawerView.subCategory, subCategory: category),
+    return BlocBuilder<ProfileBloc, ProfileState>(
+      bloc: injector.get<ProfileBloc>(),
+      builder: (context, state) {
+        return _DrawerListSection(
+          title: "Following",
+          items: injector.get<ProfileBloc>().appUser?.interests ?? const [],
+          emptyLabel: "You're not following any topics yet",
+          onItemTap: (category) => context
+              .read<DrawerCubit>()
+              .switchView(DrawerView.subCategory, subCategory: category),
+        );
+      },
     );
   }
 }
@@ -323,11 +362,12 @@ class _DrawerGroupsSection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final items = MockHomeData.groups;
-    
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const TextView(text: "Groups", fontSize: 15, fontWeight: FontWeight.w700),
+        const TextView(
+            text: "Groups", fontSize: 15, fontWeight: FontWeight.w700),
         6.verticalSpace,
         InkWell(
           onTap: onGroupsTap,
@@ -335,15 +375,18 @@ class _DrawerGroupsSection extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
             child: Row(
               children: [
-                const Icon(Icons.group, color: Pallets.blueBubbleColor, size: 26),
+                const Icon(Icons.group,
+                    color: Pallets.blueBubbleColor, size: 26),
                 8.horizontalSpace,
-                const TextView(text: "All", fontSize: 16, color: Pallets.blueBubbleColor),
+                const TextView(
+                    text: "All", fontSize: 16, color: Pallets.blueBubbleColor),
               ],
             ),
           ),
         ),
         if (items.isEmpty)
-          const TextView(text: "No groups yet", fontSize: 13, color: Pallets.grey400)
+          const TextView(
+              text: "No groups yet", fontSize: 13, color: Pallets.grey400)
         else
           ...items.take(3).map(
                 (category) => NavCategoryItem(
@@ -359,7 +402,6 @@ class _DrawerGroupsSection extends StatelessWidget {
                   },
                 ),
               ),
-
         InkWell(
           onTap: () {
             Navigator.of(context).pop();
@@ -369,9 +411,13 @@ class _DrawerGroupsSection extends StatelessWidget {
             padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 8.0),
             child: Row(
               children: [
-                const Icon(Icons.add_circle_outline, color: Pallets.blueBubbleColor, size: 26),
+                const Icon(Icons.add_circle_outline,
+                    color: Pallets.blueBubbleColor, size: 26),
                 8.horizontalSpace,
-                const TextView(text: "Create group", fontSize: 16, color: Pallets.blueBubbleColor),
+                const TextView(
+                    text: "Create group",
+                    fontSize: 16,
+                    color: Pallets.blueBubbleColor),
               ],
             ),
           ),

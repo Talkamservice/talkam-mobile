@@ -22,6 +22,7 @@ class PageUrl {
   static const interestsScreen = 'interestsScreen';
   static const userNameScreen = 'userNameScreen';
   static const dataPrivacyScreen = 'dataPrivacyScreen';
+  static const privacyPolicyScreen = 'privacyPolicyScreen';
   static const welcomeScreen = 'welcomeScreen';
   static const onboardingScreen = 'onboardingScreen';
   static const getStartedScreen = 'getStartedScreen';

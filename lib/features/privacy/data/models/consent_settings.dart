@@ -92,6 +92,17 @@ class ConsentSettings {
         anonymisedResearch: json['anonymised_research'] ?? false,
       );
 
+  /// Parses the `/user/consents` GET/POST response shape, where each key
+  /// maps to `{key, required, granted, granted_at, revoked_at,
+  /// policy_version}` rather than a flat boolean.
+  factory ConsentSettings.fromApiJson(Map<String, dynamic> json) =>
+      ConsentSettings(
+        accountOperation: json['account_operation']?['granted'] ?? false,
+        sessionDelivery: json['session_delivery']?['granted'] ?? false,
+        anonymousCommunity: json['anonymous_community']?['granted'] ?? false,
+        anonymisedResearch: json['anonymised_research']?['granted'] ?? false,
+      );
+
   String encode() => jsonEncode(toJson());
 
   factory ConsentSettings.decode(String raw) =>

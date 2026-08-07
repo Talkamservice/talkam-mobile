@@ -15,6 +15,8 @@ import 'package:talkam/features/notifications/data/repository/notifications_repo
 import 'package:talkam/features/notifications/dormain/repository/notifications_repository.dart';
 import 'package:talkam/features/post/data/repository/post_repository_impl.dart';
 import 'package:talkam/features/post/dormain/repository/post_repository.dart';
+import 'package:talkam/features/privacy/data/repository/privacy_repository_impl.dart';
+import 'package:talkam/features/privacy/dormain/repository/privacy_repository.dart';
 import 'package:talkam/features/profile/data/repository/profile_repository_impl.dart';
 import 'package:talkam/features/profile/dormain/repository/profile_repository.dart';
 import 'package:talkam/features/search/data/repository/search_repository.dart';
@@ -26,7 +28,7 @@ import 'package:talkam/features/subscription/dormain/repository/subscriptions_re
 
 void setup(GetIt getIt) {
   getIt.registerLazySingleton<AuthRepository>(
-    () => AuthRepositoryImpl(getIt.get()),
+    () => AuthRepositoryImpl(),
   );
 
   getIt.registerLazySingleton<ProfileRepository>(
@@ -58,5 +60,8 @@ void setup(GetIt getIt) {
   );
   getIt.registerLazySingleton<AdsRepository>(
     () => AdsRepositoryImpl(getIt.get()),
+  );
+  getIt.registerLazySingleton<PrivacyRepository>(
+    () => PrivacyRepositoryImpl(),
   );
 }

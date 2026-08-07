@@ -43,13 +43,37 @@ class LoginEvent extends AuthEvent {
 }
 
 class RegisterEvent extends AuthEvent {
+  final String fullName;
   final String email;
+  final String phoneNumber;
+  final String username;
   final String password;
+  final int? countryId;
+  final String? gender;
+  final DateTime? dateOfBirth;
 
-  const RegisterEvent({required this.email, required this.password});
+  const RegisterEvent({
+    required this.fullName,
+    required this.email,
+    required this.phoneNumber,
+    required this.username,
+    required this.password,
+    this.countryId,
+    this.gender,
+    this.dateOfBirth,
+  });
 
   @override
-  List<Object> get props => [email, password];
+  List<Object?> get props => [
+        fullName,
+        email,
+        phoneNumber,
+        username,
+        password,
+        countryId,
+        gender,
+        dateOfBirth,
+      ];
 }
 
 class ForgotPasswordEvent extends AuthEvent {
@@ -76,11 +100,12 @@ class VerifyOtpEvent extends AuthEvent {
 class PasswordResetEvent extends AuthEvent {
   final String code;
   final String password;
+  final String passwordConfirmation;
 
-  const PasswordResetEvent(this.code, this.password);
+  const PasswordResetEvent(this.code, this.password, this.passwordConfirmation);
 
   @override
-  List<Object> get props => [code, password];
+  List<Object> get props => [code, password, passwordConfirmation];
 }
 
 class UploadAvatarEvent extends AuthEvent {
