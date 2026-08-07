@@ -1,7 +1,7 @@
 //GENERATED BARREL FILE
 
 export 'currency_util.dart';
-export 'custom_currency_input_formatter.dart';
+export 'thousands_input_formatter.dart';
 export 'custom_debouncer.dart';
 export 'helper_utils.dart';
 export 'string_extension.dart';

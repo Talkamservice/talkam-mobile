@@ -229,7 +229,7 @@ class _SessionRoomScreenState extends State<SessionRoomScreen> {
                         _StatBox(
                           value: "4.9",
                           label: "Ratings",
-                          icon: Assets.images.svgV2.star,
+                          icon: Assets.images.svgV2.starFilled,
                         ),
                         const VerticalDivider(
                           thickness: 1,
