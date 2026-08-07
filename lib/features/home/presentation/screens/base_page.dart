@@ -190,8 +190,8 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
                           onTap: () => _goBranch(_kEarningsBranch),
                         ),
                       _NavIcon(
-                        selectedIconPath: Assets.images.svgV2.userActive,
-                        unselectedIconPath: Assets.images.svgV2.userInActive,
+                        selectedIconPath: Assets.images.svgV2.profileSelected,
+                        unselectedIconPath: Assets.images.svgV2.profileUnselected,
                         selected: widget.navigationShell.currentIndex ==
                             _kProfileBranch,
                         onTap: () => _goBranch(_kProfileBranch),

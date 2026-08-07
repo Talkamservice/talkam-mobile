@@ -6,6 +6,7 @@ import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/gen/assets.gen.dart';
+import 'package:talkam/features/session/data/models/session_model.dart';
 
 class TherapistActionDialogs {
   static void showSessionAcceptedDialog(BuildContext context) {
@@ -129,23 +130,27 @@ class TherapistActionDialogs {
     );
   }
 
-  static void showDeclineReasonBottomSheet(BuildContext context) {
+  static void showDeclineReasonBottomSheet(BuildContext context, {SessionModel? session}) {
     showModalBottomSheet(
       context: context,
+      useRootNavigator: true,
+      useSafeArea: true,
       isScrollControlled: true,
       backgroundColor: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(32.r)),
       ),
       builder: (context) {
-        return const _DeclineReasonSheet();
+        return _DeclineReasonSheet(session: session);
       },
     );
   }
 }
 
 class _DeclineReasonSheet extends StatefulWidget {
-  const _DeclineReasonSheet();
+  final SessionModel? session;
+
+  const _DeclineReasonSheet({this.session});
 
   @override
   State<_DeclineReasonSheet> createState() => _DeclineReasonSheetState();
@@ -191,8 +196,10 @@ class _DeclineReasonSheetState extends State<_DeclineReasonSheet> {
             color: Pallets.boldBlack,
           ),
           8.verticalSpace,
-          const TextView(
-            text: "Ngozi A. • Wed Jul 16 • 10:00AM",
+          TextView(
+            text: widget.session != null
+                ? "${widget.session!.therapistName} • ${widget.session!.displayDate} • ${widget.session!.displayTime}"
+                : "Ngozi A. • Wed Jul 16 • 10:00AM",
             fontSize: 12,
             fontWeight: FontWeight.w400,
             color: Pallets.grey400,

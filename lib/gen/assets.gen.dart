@@ -185,8 +185,16 @@ class $AssetsImagesSvgsGenV2 {
   /// File path: assets/images/svg_v2/dollar-selected.svg
   String get dollarSelected => 'assets/images/svg_v2/dollar-selected.svg';
 
+  /// File path: assets/images/svg_v2/profile-unselected.svg
+  String get profileUnselected => 'assets/images/svg_v2/profile-unselected.svg';
+
+  /// File path: assets/images/svg_v2/profile-selected.svg
+  String get profileSelected => 'assets/images/svg_v2/profile-selected.svg';
+
   /// List of all assets
   List<String> get values => [
+    profileSelected,
+    profileUnselected,
     dollarSelected,
     note,
     gear,

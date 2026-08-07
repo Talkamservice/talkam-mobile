@@ -5,6 +5,7 @@ import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/session/data/models/session_model.dart';
+import 'package:talkam/features/notifications/presentation/widgets/therapist_action_dialogs.dart';
 
 class SessionActionSheets {
   static void showRescheduleSheet(BuildContext context, SessionModel session) {
@@ -19,14 +20,7 @@ class SessionActionSheets {
   }
 
   static void showCancelSheet(BuildContext context, SessionModel session) {
-    showModalBottomSheet(
-      context: context,
-      useRootNavigator: true,
-      useSafeArea: true,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) => _RescheduleReasonSheet(session: session),
-    );
+    TherapistActionDialogs.showDeclineReasonBottomSheet(context, session: session);
   }
 
   static void showStatusDialog(BuildContext context, {required bool isSuccess}) {
@@ -95,10 +89,11 @@ class _RescheduleStepOneSheetState extends State<_RescheduleStepOneSheet> {
         color: Pallets.white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(28.r)),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
           Center(
             child: Container(
               width: 40.w,
@@ -285,6 +280,7 @@ class _RescheduleStepOneSheetState extends State<_RescheduleStepOneSheet> {
           SizedBox(height: MediaQuery.of(context).padding.bottom),
         ],
       ),
+    ),
     );
   }
 }
@@ -314,6 +310,7 @@ class _TimePickerSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      constraints: BoxConstraints(maxHeight: 0.7.sh),
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
       decoration: BoxDecoration(
         color: Pallets.white,
@@ -342,34 +339,41 @@ class _TimePickerSheet extends StatelessWidget {
               ),
             ],
           ),
-          24.verticalSpace,
-          ..._times.map((t) {
-            final isSelected = t == initialTime;
-            return GestureDetector(
-              onTap: () {
-                onSelected(t);
-                Navigator.pop(context);
-              },
-              child: Container(
-                width: double.infinity,
-                margin: EdgeInsets.only(bottom: 8.h),
-                padding: EdgeInsets.symmetric(vertical: 14.h),
-                decoration: BoxDecoration(
-                  color: isSelected ? Pallets.blueBubbleColor : Colors.transparent,
-                  borderRadius: BorderRadius.circular(14.r),
-                ),
-                child: Center(
-                  child: TextView(
-                    text: t,
-                    fontSize: 15,
-                    fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                    color: isSelected ? Pallets.white : Pallets.boldBlack,
-                  ),
-                ),
+          16.verticalSpace,
+          Flexible(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: _times.map((t) {
+                  final isSelected = t == initialTime;
+                  return GestureDetector(
+                    onTap: () {
+                      onSelected(t);
+                      Navigator.pop(context);
+                    },
+                    child: Container(
+                      width: double.infinity,
+                      margin: EdgeInsets.only(bottom: 8.h),
+                      padding: EdgeInsets.symmetric(vertical: 14.h),
+                      decoration: BoxDecoration(
+                        color: isSelected ? Pallets.blueBubbleColor : Colors.transparent,
+                        borderRadius: BorderRadius.circular(14.r),
+                      ),
+                      child: Center(
+                        child: TextView(
+                          text: t,
+                          fontSize: 15,
+                          fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                          color: isSelected ? Pallets.white : Pallets.boldBlack,
+                        ),
+                      ),
+                    ),
+                  );
+                }).toList(),
               ),
-            );
-          }),
-          20.verticalSpace,
+            ),
+          ),
+          16.verticalSpace,
           SizedBox(height: MediaQuery.of(context).padding.bottom),
         ],
       ),
@@ -403,10 +407,11 @@ class _RescheduleReasonSheetState extends State<_RescheduleReasonSheet> {
         color: Pallets.white,
         borderRadius: BorderRadius.vertical(top: Radius.circular(28.r)),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
           Center(
             child: Container(
               width: 40.w,
@@ -529,6 +534,7 @@ class _RescheduleReasonSheetState extends State<_RescheduleReasonSheet> {
           SizedBox(height: MediaQuery.of(context).padding.bottom),
         ],
       ),
+    ),
     );
   }
 }
@@ -630,10 +636,11 @@ class _InSessionNotesSheetState extends State<_InSessionNotesSheet> {
         left: 20.w,
         right: 20.w,
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
           Center(
             child: Container(
               width: 44.w,
@@ -743,6 +750,7 @@ class _InSessionNotesSheetState extends State<_InSessionNotesSheet> {
           12.verticalSpace,
         ],
       ),
+    )
     );
   }
 }
