@@ -51,7 +51,6 @@ class PageUrl {
   static const userProfileScreen = 'userProfileScreen';
   static const userScheduledPosts = 'userScheduledPosts';
   static const editProfileScreen = 'editProfileScreen';
-  static const therapistEditProfileScreen = 'therapistEditProfileScreen';
   static const settingsScreen = 'settingsScreen';
   static const searchResultScreen = 'searchResultScreen';
 
@@ -92,6 +91,14 @@ class PageUrl {
   // Therapist
   static const therapistListScreen = 'therapistListScreen';
   static const therapistProfileScreen = 'therapistProfileScreen';
+
+  /// The signed-in therapist's own profile, as opposed to
+  /// [therapistProfileScreen], which is a client viewing someone else's.
+  static const myTherapistProfileScreen = 'myTherapistProfileScreen';
+
+  /// Therapist-specific Edit Profile. The member [editProfileScreen] has no
+  /// experience, availability or rate fields.
+  static const therapistEditProfileScreen = 'therapistEditProfileScreen';
   static const bookingStepOneScreen = 'bookingStepOneScreen';
   static const bookingReviewScreen = 'bookingReviewScreen';
   static const bookingConfirmedScreen = 'bookingConfirmedScreen';

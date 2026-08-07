@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talkam/common/widgets/document_upload_tile.dart';
+import 'package:talkam/features/therapist/data/models/session_rate.dart';
 
 /// Step 1 — Personal Information.
 class PersonalInfo {
@@ -204,8 +205,11 @@ class PayoutInfo {
     this.sessionRate = '',
   });
 
-  static const int minSessionRate = 0;
-  static const int maxSessionRate = 20000;
+  /// Delegated so onboarding and the therapist Edit Profile screen cannot
+  /// drift apart. The previous local ceiling of ₦20,000 rejected the
+  /// ₦25,000–₦30,000 the seeded therapists charge.
+  static const int minSessionRate = SessionRate.min;
+  static const int maxSessionRate = SessionRate.max;
 
   final String? bankName;
   final String accountNumber;

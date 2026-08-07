@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
@@ -13,6 +12,8 @@ import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/string_extension.dart';
+import 'package:talkam/core/utils/thousands_input_formatter.dart';
+import 'package:talkam/features/therapist/data/models/session_rate.dart';
 import 'package:talkam/features/authentication/presentation/screens/therapist/therapist_availability_screen.dart'
     show kSessionDurations;
 import 'package:talkam/features/therapist_application/data/models/therapist_application_data.dart';
@@ -62,13 +63,13 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
     return match.isEmpty ? "$minutes min" : "${match.first.label} (${minutes}min)";
   }
 
-  /// "₦0" while the rate isn't valid yet, otherwise 85% of it, comma-formatted.
+  /// "₦0" while the rate isn't valid yet, otherwise the therapist's share
+  /// (or the gross amount when [full]), comma-formatted.
   String _earnings(PayoutInfo payout, {bool full = false}) {
-    if (!payout.isSessionRateValid) return "₦0";
+    final rate = SessionRate(payout.sessionRate);
+    if (!rate.isValid) return "₦0";
 
-    final rate = double.tryParse(payout.sessionRate ?? '') ?? 0.0;
-    final earnings = (full ? rate : rate * 0.85).round();
-
+    final earnings = full ? rate.amount! : rate.therapistEarnings;
     return "₦${earnings.toString().formatNumber()}";
   }
 
@@ -195,7 +196,9 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
                             "Min: ₦${PayoutInfo.minSessionRate.toString().formatNumber()} - Max: ₦${PayoutInfo.maxSessionRate.toString().formatNumber()}",
                         controller: _rateController,
                         keyboardType: TextInputType.number,
-                        inputFormatters: [_ThousandsInputFormatter()],
+                        inputFormatters: const [
+                          ThousandsInputFormatter(maxDigits: 7)
+                        ],
                         forceError:
                             rateTouched && !payout.isSessionRateValid,
                         onChanged: (v) => widget.bloc
@@ -357,23 +360,3 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
   }
 }
 
-/// Formats digits with thousand separators as they're typed (e.g. "20000" →
-/// "20,000"). The comma-free digits still reach the bloc — see the Amount
-/// field's `onChanged`, which strips them back out before dispatching.
-class _ThousandsInputFormatter extends TextInputFormatter {
-  @override
-  TextEditingValue formatEditUpdate(
-      TextEditingValue oldValue, TextEditingValue newValue) {
-    final digits = newValue.text.removeCommas();
-    if (digits.isEmpty) {
-      return const TextEditingValue(text: '');
-    }
-    if (int.tryParse(digits) == null) return oldValue;
-
-    final formatted = digits.formatNumber();
-    return TextEditingValue(
-      text: formatted,
-      selection: TextSelection.collapsed(offset: formatted.length),
-    );
-  }
-}

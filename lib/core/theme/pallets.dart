@@ -83,6 +83,21 @@ abstract class Pallets {
   static const textGrey = Color(0xff858585);
   static const lightBlue = Color(0xff8AC9EF);
 
+  /// Shared surfaces for the therapist profile and grouped settings lists.
+  /// Kept here rather than inline so the therapist-facing and client-facing
+  /// profiles cannot drift apart.
+  static const slate500 = Color(0xFF475569);
+  static const slate700 = Color(0xFF334155);
+  static const starAmber = Color(0xFFFFA800);
+  static const hairline = Color(0xFFE5E7EB);
+  static const surfaceMuted = Color(0xFFFAFAFA);
+  static const infoSurface = Color(0xFFF4FBFF);
+  static const infoBorder = Color(0xFFD0EBFB);
+  static const iconSurface = Color(0xFFE8F1FF);
+  static const dangerSurface = Color(0xFFFFF0F0);
+  static const dangerText = Color(0xFFFF4D4D);
+  static const avatarSurface = Color(0xFFEBF5FB);
+
   // static const secondary = Color(0xFFCC9933);
   static const avatarBackgrounds = [
     Colors.amber,

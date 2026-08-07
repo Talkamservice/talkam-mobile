@@ -1,349 +1,343 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:form_field_validator/form_field_validator.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
-import 'package:talkam/common/widgets/image_widget.dart';
-import 'package:talkam/common/widgets/outlined_form_field.dart';
+import 'package:talkam/common/widgets/custom_text_field.dart';
+import 'package:talkam/common/widgets/edit_avatar.dart';
+import 'package:talkam/common/widgets/inline_select_field.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/core/utils/string_extension.dart';
+import 'package:talkam/features/authentication/presentation/screens/therapist/therapist_specialties_screen.dart'
+    show kSpecialtyOptions;
 import 'package:talkam/features/profile/presentation/widgets/select_avater_sheet.dart';
-import 'package:talkam/gen/assets.gen.dart';
-import 'package:go_router/go_router.dart';
+import 'package:talkam/features/therapist/data/models/availability_slot.dart';
+import 'package:talkam/features/therapist/data/models/therapist_editable_profile.dart';
+import 'package:talkam/features/therapist/presentation/bloc/therapist_profile_edit/therapist_profile_edit_bloc.dart';
+import 'package:talkam/features/therapist/presentation/widgets/availability_section.dart';
+import 'package:talkam/features/therapist/presentation/widgets/availability_slot_sheet.dart';
+import 'package:talkam/features/therapist/presentation/widgets/session_rate_field.dart';
 
+final List<int> _yearsOfExperienceOptions = [
+  for (var y = kMinYearsExperience; y <= kMaxYearsExperience; y++) y,
+];
+
+/// The signed-in therapist's Edit Profile screen.
+///
+/// Distinct from the member `EditProfileScreen`, which has no experience,
+/// availability or rate fields — the therapist settings tile used to point
+/// there despite promising "Edit name, experience, and bio".
 class TherapistEditProfileScreen extends StatefulWidget {
   const TherapistEditProfileScreen({super.key});
 
   @override
-  State<TherapistEditProfileScreen> createState() => _TherapistEditProfileScreenState();
+  State<TherapistEditProfileScreen> createState() =>
+      _TherapistEditProfileScreenState();
 }
 
-class _TherapistEditProfileScreenState extends State<TherapistEditProfileScreen> {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController titleController = TextEditingController();
-  final TextEditingController bioController = TextEditingController();
-  final TextEditingController rateController = TextEditingController();
+class _TherapistEditProfileScreenState
+    extends State<TherapistEditProfileScreen> {
+  // Screen-scoped: a GetIt singleton would leak this draft into the next open.
+  final TherapistProfileEditBloc _bloc = TherapistProfileEditBloc();
 
-  final formkey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+  final _titleController = TextEditingController();
+  final _bioController = TextEditingController();
+  final _rateController = TextEditingController();
 
-  dynamic selectedImage;
-  String _selectedExperience = '8 years';
+  @override
+  void initState() {
+    super.initState();
 
-  static const int _bioMaxLength = 300;
+    // Seeded once from the bloc's synchronously-loaded draft and never
+    // re-synced from state — rewriting a controller mid-edit jumps the caret.
+    final draft = _bloc.state.draft;
+    _nameController.text = draft.fullName;
+    _titleController.text = draft.title;
+    _bioController.text = draft.bio;
+    _rateController.text =
+        draft.sessionRate.isEmpty ? '' : draft.sessionRate.formatNumber();
 
-  final List<String> experienceOptions = [
-    '1 year',
-    '2 years',
-    '3 years',
-    '4 years',
-    '5 years',
-    '6 years',
-    '7 years',
-    '8 years',
-    '9 years',
-    '10+ years'
-  ];
+    // The bio counter is the only field whose UI depends on its own text.
+    _bioController.addListener(_onBioChanged);
+  }
 
-  final List<String> availableSlots = [
-    'Today 4:00 PM',
-    'Tomorrow 10:00 AM',
-    'Monday 1:30 PM',
-    'Tuesday 3:15 PM',
-    'Wednesday 11:45 AM',
-    'Thursday 2:00 PM',
-  ];
-  
-  final List<String> selectedSlots = ['Today 4:00 PM', 'Tomorrow 10:00 AM'];
+  void _onBioChanged() => setState(() {});
 
   @override
   void dispose() {
-    nameController.dispose();
-    titleController.dispose();
-    bioController.dispose();
-    rateController.dispose();
+    _bioController.removeListener(_onBioChanged);
+    _nameController.dispose();
+    _titleController.dispose();
+    _bioController.dispose();
+    _rateController.dispose();
+    _bloc.close();
     super.dispose();
+  }
+
+  Future<void> _changePhoto() async {
+    final avatar = await CustomDialogs.showBottomSheet<String>(
+      context,
+      SelectAvatarSheet(
+        onAvatarSelected: (_) {},
+        onBackgroundSelector: (_) {},
+      ),
+    );
+    if (avatar != null && avatar.isNotEmpty) {
+      _bloc.add(SetAvatarEvent(avatar));
+    }
+  }
+
+  Future<void> _addSlot(WeeklyAvailability availability) async {
+    final slot = await AvailabilitySlotSheet.show(
+      context,
+      availability: availability,
+    );
+    if (slot != null) _bloc.add(UpsertAvailabilitySlotEvent(slot));
+  }
+
+  Future<void> _editSlot(
+    WeeklyAvailability availability,
+    AvailabilitySlot slot,
+  ) async {
+    final updated = await AvailabilitySlotSheet.show(
+      context,
+      availability: availability,
+      editing: slot,
+    );
+    if (updated != null) _bloc.add(UpsertAvailabilitySlotEvent(updated));
+  }
+
+  /// Confirms before throwing away unsaved edits.
+  ///
+  /// Routed through PopScope rather than WillPopScope because the iOS
+  /// edge-swipe bypasses the latter; PopScope is honoured by both that and
+  /// Android predictive back. `Navigator.pop` is imperative and does not
+  /// re-consult PopScope, so the confirm path can leave cleanly.
+  void _confirmDiscard() {
+    if (!_bloc.state.hasChanges) {
+      Navigator.of(context).pop();
+      return;
+    }
+    CustomDialogs.showConfirmDialog(
+      context,
+      tittle: "Discard changes?",
+      message: "Your unsaved edits will be lost.",
+      confirmButtonBgColor: Pallets.errorRed,
+      onYes: () {
+        Navigator.of(context).pop(); // the dialog
+        Navigator.of(context).pop(); // the screen
+      },
+      onCancel: () => Navigator.of(context).pop(),
+    );
+  }
+
+  void _onStateChanged(BuildContext context, TherapistProfileEditState state) {
+    switch (state.status) {
+      case TherapistProfileEditStatus.saved:
+        CustomDialogs.success("Profile updated");
+        Navigator.of(context).pop();
+      case TherapistProfileEditStatus.failure:
+        CustomDialogs.error(state.errorMessage ?? "Something went wrong.");
+      case _:
+        break;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: const CustomAppBar(
-        padding: EdgeInsets.all(0.0),
-        tittleText: "Edit Profile",
-        centerTile: false,
-        actions: [],
-      ),
-      body: SafeArea(
-        child: Padding(
-          padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: Form(
-            key: formkey,
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  24.verticalSpace,
+    return BlocConsumer<TherapistProfileEditBloc, TherapistProfileEditState>(
+      bloc: _bloc,
+      listener: _onStateChanged,
+      builder: (context, state) {
+        final draft = state.draft;
+        final saving = state.status == TherapistProfileEditStatus.saving;
 
-                  // ── Avatar + Change Photo ─────────────────────────
-                  Center(
-                    child: Column(
-                      children: [
-                        GestureDetector(
-                          onTap: () => selectImage(context),
-                          child: Stack(
-                            clipBehavior: Clip.none,
-                            children: [
-                              ImageWidget(
-                                size: 100,
-                                shape: BoxShape.circle,
-                                imageUrl: selectedImage ?? Assets.images.svgs.user,
-                              ),
-                              Positioned(
-                                right: 0,
-                                bottom: 0,
-                                child: Container(
-                                  padding: EdgeInsets.all(6.r),
-                                  decoration: const BoxDecoration(
-                                    color: Pallets.blueBubbleColor,
-                                    shape: BoxShape.circle,
-                                    border: Border.fromBorderSide(
-                                      BorderSide(color: Colors.white, width: 2),
-                                    ),
-                                  ),
-                                  child: Icon(
-                                    Icons.edit,
-                                    size: 14.r,
-                                    color: Colors.white,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        8.verticalSpace,
-                        InkWell(
-                          onTap: () => selectImage(context),
-                          child: const TextView(
-                            text: "Change Photo",
-                            fontSize: 15,
-                            fontWeight: FontWeight.w700,
-                            color: Pallets.grey400,
-                          ),
+        return PopScope(
+          // Only intercept when there is something to lose — a clean form
+          // should just close.
+          canPop: !state.hasChanges,
+          onPopInvokedWithResult: (didPop, _) {
+            if (didPop) return;
+            _confirmDiscard();
+          },
+          child: Scaffold(
+            backgroundColor: Colors.white,
+            appBar: CustomAppBar(
+              tittleText: "Edit Profile",
+              centerTile: false,
+              onBackPressed: _confirmDiscard,
+            ),
+            body: SafeArea(
+              // iOS number keypads have no Done key, so give the user two ways
+              // out: drag the list, or tap anywhere off the field.
+              child: GestureDetector(
+                behavior: HitTestBehavior.opaque,
+                onTap: () => FocusScope.of(context).unfocus(),
+                child: SingleChildScrollView(
+                  keyboardDismissBehavior:
+                      ScrollViewKeyboardDismissBehavior.onDrag,
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      24.verticalSpace,
+                      EditAvatar(
+                        imageUrl: draft.avatarUrl,
+                        onTap: _changePhoto,
+                      ),
+                      28.verticalSpace,
+                      CustomTextField(
+                        label: "Full Name",
+                        hint: "Dr. Adewale Kehinde",
+                        controller: _nameController,
+                        textInputAction: TextInputAction.next,
+                        forceError:
+                            state.saveAttempted && !draft.isFullNameValid,
+                        onChanged: (v) => _bloc.add(SetFullNameEvent(v)),
+                      ),
+                      16.verticalSpace,
+                      CustomTextField(
+                        label: "Title/Credential",
+                        hint: "Clinical Psychologist - PhD",
+                        controller: _titleController,
+                        textInputAction: TextInputAction.next,
+                        forceError: state.saveAttempted && !draft.isTitleValid,
+                        onChanged: (v) => _bloc.add(SetTitleEvent(v)),
+                      ),
+                      16.verticalSpace,
+                      InlineSelectField<int>(
+                        label: "Years of Experience",
+                        hint: "Select years",
+                        options: _yearsOfExperienceOptions,
+                        labelBuilder: (y) => y == 1 ? "1 year" : "$y years",
+                        value: draft.yearsExperience,
+                        onSingleChanged: (v) =>
+                            _bloc.add(SetYearsExperienceEvent(v)),
+                      ),
+                      24.verticalSpace,
+                      AvailabilitySection(
+                        availability: draft.availability,
+                        showRequiredError:
+                            state.saveAttempted && !draft.hasAvailability,
+                        onAdd: () => _addSlot(draft.availability),
+                        onEdit: (slot) => _editSlot(draft.availability, slot),
+                        onRemove: (slot) =>
+                            _bloc.add(RemoveAvailabilitySlotEvent(slot.id)),
+                      ),
+                      24.verticalSpace,
+                      InlineSelectField<String>(
+                        label: "Specialties",
+                        hint: "Select your specialties",
+                        options: kSpecialtyOptions,
+                        labelBuilder: (s) => s,
+                        multiple: true,
+                        values: draft.specialties,
+                        onMultipleChanged: (v) =>
+                            _bloc.add(SetSpecialtiesEvent(v)),
+                      ),
+                      if (state.saveAttempted && !draft.hasSpecialties) ...[
+                        6.verticalSpace,
+                        TextView(
+                          text: "Pick at least one specialty.",
+                          fontSize: 12,
+                          fontWeight: FontWeight.w600,
+                          color: Pallets.errorRed,
                         ),
                       ],
-                    ),
-                  ),
-
-                  28.verticalSpace,
-
-                  // ── Full Name ─────────────────────────────────────
-                  TextView(
-                    text: "Full Name",
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Pallets.boldBlackV2,
-                  ),
-                  8.verticalSpace,
-                  OutlinedFormField(
-                    placeHolder: "Dr. Adewale Kehinde",
-                    hint: "Dr. Adewale Kehinde",
-                    controller: nameController,
-                    validator: MultiValidator([
-                      RequiredValidator(errorText: "Field is required"),
-                    ]).call,
-                  ),
-                  16.verticalSpace,
-
-                  // ── Title/Credential ─────────────────────────────
-                  TextView(
-                    text: "Title/Credential",
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Pallets.boldBlackV2,
-                  ),
-                  8.verticalSpace,
-                  OutlinedFormField(
-                    placeHolder: "Clinical Psychologist - PhD",
-                    hint: "Clinical Psychologist - PhD",
-                    controller: titleController,
-                  ),
-                  16.verticalSpace,
-
-                  // ── Years of Experience ──────────────────────────────────
-                  TextView(
-                    text: "Years of Experience",
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Pallets.boldBlackV2,
-                  ),
-                  8.verticalSpace,
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Pallets.grey75.withValues(alpha: 0.3)),
-                      borderRadius: BorderRadius.circular(16.r),
-                    ),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        isExpanded: true,
-                        value: _selectedExperience,
-                        icon: const Icon(Icons.keyboard_arrow_down, color: Pallets.boldBlackV2),
-                        style: const TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w400,
-                          color: Pallets.boldBlackV2,
-                        ),
-                        onChanged: (String? newValue) {
-                          if (newValue != null) {
-                            setState(() {
-                              _selectedExperience = newValue;
-                            });
-                          }
-                        },
-                        items: experienceOptions.map<DropdownMenuItem<String>>((String value) {
-                          return DropdownMenuItem<String>(
-                            value: value,
-                            child: Text(value),
-                          );
-                        }).toList(),
+                      24.verticalSpace,
+                      _BioField(
+                        controller: _bioController,
+                        showError: state.saveAttempted && !draft.isBioValid,
+                        onChanged: (v) => _bloc.add(SetBioEvent(v)),
                       ),
-                    ),
-                  ),
-                  16.verticalSpace,
-                  
-                  // ── AVAILABLE SLOTS ──────────────────────────────────
-                  TextView(
-                    text: "AVAILABLE SLOTS",
-                    fontSize: 12,
-                    fontWeight: FontWeight.w700,
-                    color: Pallets.grey400,
-                  ),
-                  12.verticalSpace,
-                  Wrap(
-                    spacing: 8.w,
-                    runSpacing: 8.h,
-                    children: availableSlots.map((slot) {
-                      final isSelected = selectedSlots.contains(slot);
-                      return GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            if (isSelected) {
-                              selectedSlots.remove(slot);
-                            } else {
-                              selectedSlots.add(slot);
-                            }
-                          });
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
-                          decoration: BoxDecoration(
-                            color: isSelected ? Pallets.blueBubbleColor : const Color(0xFFF3F4F6),
-                            borderRadius: BorderRadius.circular(20.r),
-                          ),
-                          child: TextView(
-                            text: slot,
-                            fontSize: 13,
-                            fontWeight: FontWeight.w500,
-                            color: isSelected ? Colors.white : Pallets.boldBlackV2,
-                          ),
+                      24.verticalSpace,
+                      SessionRateField(
+                        controller: _rateController,
+                        rate: draft.rate,
+                        sessionDurationMinutes: draft.sessionDurationMinutes,
+                        showError: state.saveAttempted,
+                        onChanged: (digits) =>
+                            _bloc.add(SetSessionRateEvent(digits)),
+                      ),
+                      32.verticalSpace,
+                      CustomButton(
+                        elevation: 0,
+                        // CustomButton's disabled styling is broken
+                        // (withAlpha(-200)); every V2 screen swaps bgColor.
+                        bgColor: state.hasChanges && !saving
+                            ? Pallets.blueBubbleColor
+                            : Pallets.lightBlue,
+                        onPressed: state.hasChanges && !saving
+                            ? () => _bloc.add(const SaveTherapistProfileEvent())
+                            : null,
+                        child: TextView(
+                          text: saving ? "Saving..." : "Save Changes",
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
                         ),
-                      );
-                    }).toList(),
-                  ),
-                  16.verticalSpace,
-
-                  // ── Bio ───────────────────────────────────────────
-                  TextView(
-                    text: "Bio",
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Pallets.boldBlackV2,
-                  ),
-                  8.verticalSpace,
-                  OutlinedFormField(
-                    placeHolder: "Bio",
-                    hint: "Finding my way through life, one day at a time.",
-                    controller: bioController,
-                    maxLine: 5,
-                    minLine: 5,
-                    inputFormatters: [
-                      LengthLimitingTextInputFormatter(_bioMaxLength),
+                      ),
+                      32.verticalSpace,
                     ],
                   ),
-                  6.verticalSpace,
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: TextView(
-                      text: "${bioController.text.length}/$_bioMaxLength",
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: Pallets.grey400,
-                    ),
-                  ),
-                  16.verticalSpace,
-                  
-                  // ── Session Rate ───────────────────────────────────────────
-                  TextView(
-                    text: "Session Rate (per 50 min)",
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Pallets.boldBlackV2,
-                  ),
-                  8.verticalSpace,
-                  OutlinedFormField(
-                    placeHolder: "e.g. 15000",
-                    hint: "e.g. 15000",
-                    controller: rateController,
-                    inputType: TextInputType.number,
-                  ),
-
-                  32.verticalSpace,
-
-                  // ── Save ──────────────────────────────────────────
-                  CustomButton(
-                    elevation: 0,
-                    bgColor: Pallets.blueBubbleColor,
-                    onPressed: _onSave,
-                    child: const TextView(
-                      text: "Save Changes",
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                      color: Colors.white,
-                    ),
-                  ),
-                  24.verticalSpace,
-                ],
+                ),
               ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
+}
 
-  void _onSave() {
-    if (formkey.currentState?.validate() ?? false) {
-      // TODO: Handle save functionality for therapist profile
-      CustomDialogs.success("Therapist profile updated");
-      if (mounted) {
-        context.pop();
-      }
-    }
-  }
+/// Multiline bio with a live character counter.
+///
+/// `CustomTextField` has no maxLength/counter of its own, so the limit is
+/// enforced by a formatter and the count drawn alongside the label — the same
+/// approach the member Edit Profile screen takes.
+class _BioField extends StatelessWidget {
+  const _BioField({
+    required this.controller,
+    required this.onChanged,
+    required this.showError,
+  });
 
-  Future<void> selectImage(BuildContext context) async {
-    var image = await CustomDialogs.showBottomSheet(
-        context,
-        SelectAvatarSheet(
-          onAvatarSelected: (p0) {},
-          onBackgroundSelector: (p0) {},
-        ));
-    if (image != null) {
-      selectedImage = image;
-    }
-    setState(() {});
+  final TextEditingController controller;
+  final ValueChanged<String> onChanged;
+  final bool showError;
+
+  @override
+  Widget build(BuildContext context) {
+    final used = controller.text.length;
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        CustomTextField(
+          label: "Bio",
+          hint: "Finding my way through life, one day at a time.",
+          controller: controller,
+          maxLines: 5,
+          minLines: 5,
+          forceError: showError,
+          inputFormatters: [LengthLimitingTextInputFormatter(kBioMaxLength)],
+          onChanged: onChanged,
+        ),
+        6.verticalSpace,
+        Align(
+          alignment: Alignment.centerRight,
+          child: TextView(
+            text: "$used/$kBioMaxLength",
+            fontSize: 12,
+            fontWeight: FontWeight.w500,
+            color: showError ? Pallets.errorRed : Pallets.grey400,
+          ),
+        ),
+      ],
+    );
   }
 }

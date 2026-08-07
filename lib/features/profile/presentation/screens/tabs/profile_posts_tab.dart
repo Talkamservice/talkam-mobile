@@ -13,7 +13,11 @@ import 'package:talkam/features/profile/presentation/bloc/profile_posts_tab_cubi
 import 'package:talkam/features/profile/presentation/widgets/profile_post_item_tile.dart';
 
 class ProfilePostTab extends StatefulWidget {
-  const ProfilePostTab({super.key});
+  const ProfilePostTab({super.key, this.bottomPadding = 0});
+
+  /// Extra scroll padding below the last post. Used where the tab sits behind
+  /// the shell's bottom nav so the final post can be scrolled clear of it.
+  final double bottomPadding;
 
   @override
   State<ProfilePostTab> createState() => _ProfilePostTabState();
@@ -77,7 +81,10 @@ class _ProfilePostTabState extends State<ProfilePostTab> with AutomaticKeepAlive
                 child: ListView(
                   controller: _scrollController,
                   physics: const AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.only(top: 10.0.h),
+                  padding: EdgeInsets.only(
+                    top: 10.0.h,
+                    bottom: widget.bottomPadding,
+                  ),
                   children: [
                     for (int i = 0; i < _posts.length; i++) ...[
                       PostItem(post: _posts[i],showScheduledPost: true,),
