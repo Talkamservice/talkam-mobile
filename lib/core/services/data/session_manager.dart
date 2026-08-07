@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talkam/core/di/injector.dart';
@@ -59,6 +60,7 @@ class SessionManager {
   static const String KEY_ANONYMOUS_USERNAME = 'anonymous_username';
   static const String KEY_CONSENT_SETTINGS = 'consent_settings';
   static const String KEY_IS_THERAPIST_ACCOUNT = 'is_therapist_account';
+  static const String KEY_THERAPIST_PROFILE = 'therapist_profile';
   static const String KEY_LAST_MOOD_CHECK_DATE = 'last_mood_check_date';
 
 
@@ -126,14 +128,36 @@ class SessionManager {
   set consentSettings(String encoded) =>
       sharedPreferences!.setString(KEY_CONSENT_SETTINGS, encoded);
 
+  /// The signed-in therapist's self-edited profile, stored as the JSON
+  /// encoding of TherapistEditableProfile. Device-local until a therapist
+  /// endpoint exists — see TherapistProfileStore.
+  String get therapistProfile =>
+      sharedPreferences!.getString(KEY_THERAPIST_PROFILE) ?? '';
+
+  set therapistProfile(String encoded) =>
+      sharedPreferences!.setString(KEY_THERAPIST_PROFILE, encoded);
+
   /// True once a therapist application has been submitted. Device-local
   /// stand-in until the backend returns a real account-type field on the
   /// user object (TalkamUser.role exists but nothing currently populates it).
   bool get isTherapistAccount =>
       sharedPreferences!.getBool(KEY_IS_THERAPIST_ACCOUNT) ?? false;
 
-  set isTherapistAccount(bool value) =>
-      sharedPreferences!.setBool(KEY_IS_THERAPIST_ACCOUNT, value);
+  set isTherapistAccount(bool value) {
+    sharedPreferences!.setBool(KEY_IS_THERAPIST_ACCOUNT, value);
+    isTherapistAccountListenable.value = value;
+  }
+
+  /// Observable mirror of [isTherapistAccount].
+  ///
+  /// The app shell is a `StatefulShellRoute.indexedStack`, so a branch that has
+  /// already been visited stays alive and will not rebuild on its own. Reading
+  /// the flag once during build therefore strands a user on the member profile
+  /// after they become a therapist mid-session. Surfaces that switch on account
+  /// type listen to this instead. SharedPreferences remains the source of
+  /// truth; this is initialised from it on first access.
+  late final ValueNotifier<bool> isTherapistAccountListenable =
+      ValueNotifier<bool>(isTherapistAccount);
 
   /// ISO date (yyyy-MM-dd) the mood check-in dialog was last shown/dismissed.
   /// Empty until the first time it's shown.

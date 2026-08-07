@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,7 +47,11 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
   final GlobalKey<FormState> dialogKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> baseScaffoldKey = GlobalKey<ScaffoldState>();
 
-  bool get _isTherapist => SessionManager.instance.isTherapistAccount;
+  /// Rebuilds the bar when the account type changes, so the Earnings
+  /// destination appears as soon as an application is approved rather than
+  /// after the next unrelated setState.
+  ValueListenable<bool> get _isTherapistListenable =>
+      SessionManager.instance.isTherapistAccountListenable;
 
   @override
   void dispose() {
@@ -162,14 +167,18 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
                           _kCalendarBranch,
                       onTap: () => _goBranch(_kCalendarBranch),
                     ),
-                    if (_isTherapist)
-                      _NavIcon(
-                        selectedIconPath: Assets.images.svgV2.dollar2,
-                        unselectedIconPath: Assets.images.svgV2.dollar2,
-                        selected: widget.navigationShell.currentIndex ==
-                            _kEarningsBranch,
-                        onTap: () => _goBranch(_kEarningsBranch),
-                      ),
+                    ValueListenableBuilder<bool>(
+                      valueListenable: _isTherapistListenable,
+                      builder: (context, isTherapist, _) => isTherapist
+                          ? _NavIcon(
+                              selectedIconPath: Assets.images.svgV2.dollar2,
+                              unselectedIconPath: Assets.images.svgV2.dollar2,
+                              selected: widget.navigationShell.currentIndex ==
+                                  _kEarningsBranch,
+                              onTap: () => _goBranch(_kEarningsBranch),
+                            )
+                          : const SizedBox.shrink(),
+                    ),
                     _NavIcon(
                       selectedIconPath: Assets.images.svgV2.userActive,
                       unselectedIconPath: Assets.images.svgV2.userInActive,

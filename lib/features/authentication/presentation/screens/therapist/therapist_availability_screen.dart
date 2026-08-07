@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_switch.dart';
+import 'package:talkam/common/widgets/selectable_pill.dart';
 import 'package:talkam/common/widgets/step_progress_bar.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/common/widgets/time_select_sheet.dart';
@@ -16,6 +17,7 @@ const List<({int minutes, String label})> kSessionDurations = [
   (minutes: 15, label: "Standard"),
   (minutes: 20, label: "Express"),
   (minutes: 30, label: "Extended"),
+  (minutes: 50, label: "Full hour"),
 ];
 
 const List<int> kBufferOptions = [0, 10, 15];
@@ -95,9 +97,9 @@ class TherapistAvailabilityScreen extends StatelessWidget {
                   children: [
                     for (final option in kSessionDurations) ...[
                       Expanded(
-                        child: _DurationChip(
-                          minutes: option.minutes,
-                          label: option.label,
+                        child: SelectablePill(
+                          label: "${option.minutes} min",
+                          caption: option.label,
                           selected: state.availability.sessionDurationMinutes ==
                               option.minutes,
                           onTap: () => bloc
@@ -123,8 +125,15 @@ class TherapistAvailabilityScreen extends StatelessWidget {
                   runSpacing: 8.h,
                   children: [
                     for (final day in state.availability.days)
-                      _DayChip(
-                        day: day,
+                      SelectablePill(
+                        label: day.day.substring(0, 3).toUpperCase(),
+                        selected: day.active,
+                        style: SelectablePillStyle.solid,
+                        labelSize: 11,
+                        radius: 8,
+                        width: 44.w,
+                        height: 30.h,
+                        padding: EdgeInsets.zero,
                         onTap: () => bloc.add(ToggleWorkingDayEvent(day.day)),
                       ),
                   ],
@@ -196,9 +205,8 @@ class TherapistAvailabilityScreen extends StatelessWidget {
                   children: [
                     for (final minutes in kBufferOptions) ...[
                       Expanded(
-                        child: _DurationChip(
-                          minutes: minutes,
-                          label: null,
+                        child: SelectablePill(
+                          label: "$minutes min",
                           selected: state.availability.bufferMinutes == minutes,
                           onTap: () => bloc.add(SetBufferEvent(minutes)),
                         ),
@@ -230,94 +238,6 @@ class TherapistAvailabilityScreen extends StatelessWidget {
             ),
           );
         },
-      ),
-    );
-  }
-}
-
-class _DurationChip extends StatelessWidget {
-  const _DurationChip({
-    required this.minutes,
-    required this.label,
-    required this.selected,
-    required this.onTap,
-  });
-
-  final int minutes;
-  final String? label;
-  final bool selected;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 12.h),
-        decoration: BoxDecoration(
-          color: selected
-              ? Pallets.blueBubbleColor.withValues(alpha: 0.08)
-              : Pallets.grey95.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(12.r),
-          border: Border.all(
-            color: selected ? Pallets.blueBubbleColor : Pallets.grey90,
-            width: 1,
-          ),
-        ),
-        child: Column(
-          children: [
-            TextView(
-              text: "$minutes min",
-              align: TextAlign.center,
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-              color:
-                  selected ? Pallets.blueBubbleColor : Pallets.boldBlackV2,
-            ),
-            if (label != null) ...[
-              2.verticalSpace,
-              TextView(
-                text: label!,
-                align: TextAlign.center,
-                fontSize: 11,
-                fontWeight: FontWeight.w500,
-                color: Pallets.grey400,
-              ),
-            ],
-          ],
-        ),
-      ),
-    );
-  }
-}
-
-class _DayChip extends StatelessWidget {
-  const _DayChip({required this.day, required this.onTap});
-
-  final DayAvailability day;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 44.w,
-        height: 30.h,
-        alignment: Alignment.center,
-        decoration: BoxDecoration(
-          color: day.active ? Pallets.blueBubbleColor : Pallets.grey95.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(8.r),
-          border: Border.all(
-            color: day.active ? Pallets.blueBubbleColor : Pallets.grey90,
-          ),
-        ),
-        child: TextView(
-          text: day.day.substring(0, 3).toUpperCase(),
-          fontSize: 11,
-          fontWeight: FontWeight.w700,
-          color: day.active ? Colors.white : Pallets.boldBlackV2,
-        ),
       ),
     );
   }
@@ -361,8 +281,15 @@ class _WorkingHoursRow extends StatelessWidget {
                 ),
               ),
               Expanded(
-                child: _TimePill(
+                child: SelectablePill(
                   label: _format(context, day.start),
+                  caption: "Start",
+                  selected: false,
+                  labelSize: 13,
+                  labelWeight: FontWeight.w600,
+                  radius: 10,
+                  padding:
+                      EdgeInsets.symmetric(vertical: 10.h, horizontal: 12.w),
                   onTap: onTapStart,
                 ),
               ),
@@ -372,8 +299,15 @@ class _WorkingHoursRow extends StatelessWidget {
                     size: 18.sp, color: Pallets.grey400),
               ),
               Expanded(
-                child: _TimePill(
+                child: SelectablePill(
                   label: _format(context, day.end),
+                  caption: "End",
+                  selected: false,
+                  labelSize: 13,
+                  labelWeight: FontWeight.w600,
+                  radius: 10,
+                  padding:
+                      EdgeInsets.symmetric(vertical: 10.h, horizontal: 12.w),
                   onTap: onTapEnd,
                 ),
               ),
@@ -399,43 +333,3 @@ class _WorkingHoursRow extends StatelessWidget {
   }
 }
 
-class _TimePill extends StatelessWidget {
-  const _TimePill({required this.label, required this.onTap});
-
-  final String label;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.symmetric(vertical: 10.h, horizontal: 12.w),
-        decoration: BoxDecoration(
-          color: Pallets.grey95.withValues(alpha: 0.1),
-          borderRadius: BorderRadius.circular(10.r),
-          border: Border.all(color: Pallets.grey90),
-        ),
-        child: Column(
-          children: [
-            TextView(
-              text: label,
-              align: TextAlign.center,
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: Pallets.boldBlackV2,
-            ),
-            2.verticalSpace,
-            TextView(
-              text: "Start",
-              align: TextAlign.center,
-              fontSize: 11,
-              fontWeight: FontWeight.w500,
-              color: Pallets.grey400,
-            ),
-          ],
-        )
-      ),
-    );
-  }
-}

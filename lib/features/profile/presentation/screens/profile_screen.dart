@@ -4,6 +4,7 @@ import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
+import 'package:talkam/common/widgets/settings_section.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
@@ -241,176 +242,58 @@ class _SettingsTab extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // ACCOUNT MANAGEMENT
-          const _SectionTitle(title: "ACCOUNT MANAGEMENT"),
-          12.verticalSpace,
-          Container(
-            decoration: BoxDecoration(
-              color: Pallets.bgLight.withValues(alpha: 0.5),
-              borderRadius: BorderRadius.circular(16.r),
-            ),
-            child: Column(
-              children: [
-                _SettingsTile(
-                  svgPath: Assets.images.svgV2.userInActive,
-                  iconBgColor: const Color(0xFFE8F1FF),
-                  title: "Edit Profile",
-                  subtitle: "Edit name, email, and billing address",
-                  onTap: () => context.pushNamed(PageUrl.editProfileScreen),
-                ),
-                _SettingsTile(
-                  svgPath: Assets.images.svgV2.notificationIcon,
-                  iconBgColor: const Color(0xFFE8F1FF),
-                  title: "Notification Settings",
-                  subtitle: "Edit name, email, and billing address",
-                  onTap: () => context.pushNamed(PageUrl.notificationSettingsScreen),
-                ),
-              ],
-            ),
+          SettingsSection(
+            title: "Account management",
+            tiles: [
+              SettingsTile(
+                iconPath: Assets.images.svgV2.userInActive,
+                title: "Edit Profile",
+                subtitle: "Edit name, email, and billing address",
+                onTap: () => context.pushNamed(PageUrl.editProfileScreen),
+              ),
+              SettingsTile(
+                iconPath: Assets.images.svgV2.notificationIcon,
+                title: "Notification Settings",
+                subtitle: "Edit name, email, and billing address",
+                onTap: () =>
+                    context.pushNamed(PageUrl.notificationSettingsScreen),
+              ),
+            ],
           ),
-
           24.verticalSpace,
-
-          // PRIVACY & PAYMENTS
-          const _SectionTitle(title: "PRIVACY & PAYMENTS"),
-          12.verticalSpace,
-          Container(
-            decoration: BoxDecoration(
-              color: Pallets.bgLight.withValues(alpha: 0.5),
-              borderRadius: BorderRadius.circular(16.r),
-            ),
-            child: Column(
-              children: [
-                _SettingsTile(
-                  svgPath: Assets.images.svgV2.card,
-                  iconBgColor: const Color(0xFFE8F1FF),
-                  title: "Payment Methods",
-                  subtitle: "2 saved cards",
-                  onTap: () {},
-                ),
-                _SettingsTile(
-                  svgPath: Assets.images.svgV2.shield,
-                  iconBgColor: const Color(0xFFE8F1FF),
-                  title: "Privacy Settings",
-                  subtitle: "Manage privacy",
-                  onTap: () => context.pushNamed(PageUrl.privacySettingsScreen),
-                ),
-                _SettingsTile(
-                  svgPath: Assets.images.svgV2.gear,
-                  iconBgColor: const Color(0xFFE8F1FF),
-                  title: "Data & Content",
-                  subtitle: "Control your data and consent usage.",
-                  onTap: () => context.pushNamed(PageUrl.dataPrivacyScreen),
-                ),
-                _SettingsTile(
-                  svgPath: Assets.images.svgV2.delete,
-                  iconBgColor: const Color(0xFFFFF0F0),
-                  title: "Delete Account",
-                  titleColor: const Color(0xFFFF4D4D),
-                  showChevron: false,
-                  onTap: () => DeleteAccountDialog.show(context),
-                ),
-              ],
-            ),
+          SettingsSection(
+            title: "Privacy & payments",
+            tiles: [
+              SettingsTile(
+                iconPath: Assets.images.svgV2.card,
+                title: "Payment Methods",
+                subtitle: "2 saved cards",
+                onTap: () {},
+              ),
+              SettingsTile(
+                iconPath: Assets.images.svgV2.shield,
+                title: "Privacy Settings",
+                subtitle: "Manage privacy",
+                onTap: () => context.pushNamed(PageUrl.privacySettingsScreen),
+              ),
+              SettingsTile(
+                iconPath: Assets.images.svgV2.gear,
+                title: "Data & Content",
+                subtitle: "Control your data and consent usage.",
+                onTap: () => context.pushNamed(PageUrl.dataPrivacyScreen),
+              ),
+              SettingsTile(
+                iconPath: Assets.images.svgV2.delete,
+                iconBackground: Pallets.dangerSurface,
+                title: "Delete Account",
+                titleColor: Pallets.dangerText,
+                showChevron: false,
+                onTap: () => DeleteAccountDialog.show(context),
+              ),
+            ],
           ),
-
           32.verticalSpace,
         ],
-      ),
-    );
-  }
-}
-
-class _SectionTitle extends StatelessWidget {
-  const _SectionTitle({required this.title});
-
-  final String title;
-
-  @override
-  Widget build(BuildContext context) {
-    return TextView(
-      text: title,
-      fontSize: 12,
-      fontWeight: FontWeight.w700,
-      color: Pallets.grey400,
-      wordSpacing: 1,
-    );
-  }
-}
-
-class _SettingsTile extends StatelessWidget {
-  const _SettingsTile({
-    required this.svgPath,
-    required this.iconBgColor,
-    required this.title,
-    this.subtitle,
-    this.titleColor,
-    this.showChevron = true,
-    required this.onTap,
-  });
-
-  final String svgPath;
-  final Color iconBgColor;
-  final String title;
-  final String? subtitle;
-  final Color? titleColor;
-  final bool showChevron;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(16.r),
-      child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
-        child: Row(
-          children: [
-            Container(
-              width: 42.w,
-              height: 42.w,
-              alignment: Alignment.center,
-              decoration: BoxDecoration(
-                color: iconBgColor,
-                shape: BoxShape.circle,
-              ),
-              child: ImageWidget(
-                imageUrl: svgPath,
-                width: 22.w,
-                height: 22.w,
-              ),
-            ),
-            14.horizontalSpace,
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  TextView(
-                    text: title,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w700,
-                    color: titleColor ?? Pallets.boldBlackV2,
-                  ),
-                  if (subtitle != null) ...[
-                    4.verticalSpace,
-                    TextView(
-                      text: subtitle!,
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: Pallets.grey400,
-                    ),
-                  ],
-                ],
-              ),
-            ),
-            if (showChevron)
-              const Icon(
-                Icons.arrow_forward_ios_rounded,
-                size: 16,
-                color: Pallets.grey400,
-              ),
-          ],
-        ),
       ),
     );
   }

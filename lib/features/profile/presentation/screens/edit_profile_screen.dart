@@ -5,7 +5,7 @@ import 'package:form_field_validator/form_field_validator.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
-import 'package:talkam/common/widgets/image_widget.dart';
+import 'package:talkam/common/widgets/edit_avatar.dart';
 import 'package:talkam/common/widgets/outlined_form_field.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
@@ -15,7 +15,6 @@ import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
 import 'package:talkam/features/profile/data/models/update_profile_payload.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/profile/presentation/widgets/select_avater_sheet.dart';
-import 'package:talkam/gen/assets.gen.dart';
 
 class EditProfileScreen extends StatefulWidget {
   const EditProfileScreen({
@@ -108,55 +107,9 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                       24.verticalSpace,
 
                       // ── Avatar + Change Photo ─────────────────────────
-                      Center(
-                        child: Column(
-                          children: [
-                            GestureDetector(
-                              onTap: () => selectImage(context),
-                              child: Stack(
-                                clipBehavior: Clip.none,
-                                children: [
-                                  ImageWidget(
-                                    size: 100,
-                                    shape: BoxShape.circle,
-                                    imageUrl:
-                                        selectedImage ?? Assets.images.svgs.user,
-                                  ),
-                                  Positioned(
-                                    right: 0,
-                                    bottom: 0,
-                                    child: Container(
-                                      padding: EdgeInsets.all(6.r),
-                                      decoration: const BoxDecoration(
-                                        color: Pallets.blueBubbleColor,
-                                        shape: BoxShape.circle,
-                                        border: Border.fromBorderSide(
-                                          BorderSide(
-                                              color: Colors.white, width: 2),
-                                        ),
-                                      ),
-                                      child: Icon(
-                                        Icons.edit,
-                                        size: 14.r,
-                                        color: Colors.white,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            8.verticalSpace,
-                            InkWell(
-                              onTap: () => selectImage(context),
-                              child: const TextView(
-                                text: "Change Photo",
-                                fontSize: 15,
-                                fontWeight: FontWeight.w700,
-                                color: Pallets.grey400,
-                              ),
-                            ),
-                          ],
-                        ),
+                      EditAvatar(
+                        imageUrl: selectedImage,
+                        onTap: () => selectImage(context),
                       ),
 
                       28.verticalSpace,

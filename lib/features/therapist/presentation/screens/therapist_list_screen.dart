@@ -222,7 +222,7 @@ class _TherapistCard extends StatelessWidget {
               Row(
                 children: [
                   SvgPicture.asset(
-                    Assets.images.svgV2.star,
+                    Assets.images.svgV2.starFilled,
                     width: 14.w,
                     colorFilter: const ColorFilter.mode(Pallets.yellow, BlendMode.srcIn),
                   ),
