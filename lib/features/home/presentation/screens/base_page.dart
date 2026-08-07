@@ -23,8 +23,8 @@ import 'package:talkam/gen/assets.gen.dart';
 /// it's a standalone top-level route, pushed separately from the drawer.
 const int _kHomeBranch = 0;
 const int _kGroupsBranch = 1;
-const int _kWellnessBranch = 2;
-const int _kCalendarBranch = 3;
+const int _kTherapistBranch = 2;
+const int _kSessionBranch = 3;
 const int _kEarningsBranch = 4;
 const int _kProfileBranch = 5;
 
@@ -143,50 +143,61 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
               top: false,
               child: Padding(
                 padding: EdgeInsets.symmetric(vertical: 10.h),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    _NavIcon(
-                      selectedIconPath: Assets.images.svgV2.userMultipleActive,
-                      unselectedIconPath: Assets.images.svgV2.userMultipleInActive,
-                      selected:
-                          widget.navigationShell.currentIndex == _kHomeBranch,
-                      onTap: () => _goBranch(_kHomeBranch),
-                    ),
-                    _NavIcon(
-                      selectedIconPath: Assets.images.svgV2.brainActive,
-                      unselectedIconPath: Assets.images.svgV2.brainInActive,
-                      selected: widget.navigationShell.currentIndex ==
-                          _kWellnessBranch,
-                      onTap: () => _goBranch(_kWellnessBranch),
-                    ),
-                    _NavIcon(
-                      selectedIconPath: Assets.images.svgV2.calendarActive,
-                      unselectedIconPath: Assets.images.svgV2.calendarInActive,
-                      selected: widget.navigationShell.currentIndex ==
-                          _kCalendarBranch,
-                      onTap: () => _goBranch(_kCalendarBranch),
-                    ),
-                    ValueListenableBuilder<bool>(
-                      valueListenable: _isTherapistListenable,
-                      builder: (context, isTherapist, _) => isTherapist
-                          ? _NavIcon(
-                              selectedIconPath: Assets.images.svgV2.dollar2,
-                              unselectedIconPath: Assets.images.svgV2.dollar2,
-                              selected: widget.navigationShell.currentIndex ==
-                                  _kEarningsBranch,
-                              onTap: () => _goBranch(_kEarningsBranch),
-                            )
-                          : const SizedBox.shrink(),
-                    ),
-                    _NavIcon(
-                      selectedIconPath: Assets.images.svgV2.userActive,
-                      unselectedIconPath: Assets.images.svgV2.userInActive,
-                      selected: widget.navigationShell.currentIndex ==
-                          _kProfileBranch,
-                      onTap: () => _goBranch(_kProfileBranch),
-                    ),
-                  ],
+                child: ValueListenableBuilder<bool>(
+                  // Wraps the whole bar rather than a single destination: the
+                  // shell is a StatefulShellRoute.indexedStack, so a visited
+                  // branch stays alive and will not rebuild on its own.
+                  // Reading the flag once during build would leave both the
+                  // therapist/wellness icon and the Earnings destination stale
+                  // after an application is approved mid-session.
+                  valueListenable: _isTherapistListenable,
+                  builder: (context, isTherapist, _) => Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      _NavIcon(
+                        selectedIconPath: Assets.images.svgV2.userMultipleActive,
+                        unselectedIconPath:
+                            Assets.images.svgV2.userMultipleInActive,
+                        selected:
+                            widget.navigationShell.currentIndex == _kHomeBranch,
+                        onTap: () => _goBranch(_kHomeBranch),
+                      ),
+                      _NavIcon(
+                        selectedIconPath: isTherapist
+                            ? Assets.images.svgV2.userActive
+                            : Assets.images.svgV2.brainActive,
+                        unselectedIconPath: isTherapist
+                            ? Assets.images.svgV2.userInActive
+                            : Assets.images.svgV2.brainInActive,
+                        selected: widget.navigationShell.currentIndex ==
+                            _kTherapistBranch,
+                        onTap: () => _goBranch(_kTherapistBranch),
+                      ),
+                      _NavIcon(
+                        selectedIconPath: Assets.images.svgV2.calendarActive,
+                        unselectedIconPath:
+                            Assets.images.svgV2.calendarInActive,
+                        selected: widget.navigationShell.currentIndex ==
+                            _kSessionBranch,
+                        onTap: () => _goBranch(_kSessionBranch),
+                      ),
+                      if (isTherapist)
+                        _NavIcon(
+                          selectedIconPath: Assets.images.svgV2.dollarSelected,
+                          unselectedIconPath: Assets.images.svgV2.dollar2,
+                          selected: widget.navigationShell.currentIndex ==
+                              _kEarningsBranch,
+                          onTap: () => _goBranch(_kEarningsBranch),
+                        ),
+                      _NavIcon(
+                        selectedIconPath: Assets.images.svgV2.userActive,
+                        unselectedIconPath: Assets.images.svgV2.userInActive,
+                        selected: widget.navigationShell.currentIndex ==
+                            _kProfileBranch,
+                        onTap: () => _goBranch(_kProfileBranch),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),

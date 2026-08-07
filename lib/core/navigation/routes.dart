@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talkam/core/navigation/path_params.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/features/ads/presentation/screens/ads_flow.dart';
 import 'package:talkam/features/ads/presentation/screens/ads_review_screen.dart';
-import 'package:talkam/features/ads/presentation/screens/empty_ad_page.dart';
 import 'package:talkam/features/authentication/presentation/screens/email_sent_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/interests_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/intro_screen.dart';
@@ -28,7 +26,6 @@ import 'package:talkam/features/therapist_application/presentation/bloc/therapis
 import 'package:talkam/features/authentication/presentation/screens/user_type_selection_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/username_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/verify_otp_screen.dart';
-import 'package:talkam/features/group/data/models/create_group_payload.dart';
 import 'package:talkam/features/group/presentation/screens/create_group/add_group_rules_screen.dart';
 import 'package:talkam/features/group/presentation/screens/create_group/create_group_screen.dart';
 import 'package:talkam/features/group/presentation/screens/create_group/create_group_success_screen.dart';
@@ -38,17 +35,19 @@ import 'package:talkam/features/group/presentation/screens/group_members_screen.
 import 'package:talkam/features/group/presentation/screens/groups_screen.dart';
 import 'package:talkam/features/group/presentation/screens/create_group/preview_group_screen.dart';
 import 'package:talkam/features/group/presentation/screens/pending_requests_screen.dart';
+import 'package:talkam/features/therapist/data/models/client_model.dart';
+import 'package:talkam/features/therapist/presentation/screens/clients_screen.dart';
+import 'package:talkam/features/therapist/presentation/screens/client_details_screen.dart';
 import 'package:talkam/features/home/presentation/screens/base_page.dart';
-import 'package:talkam/features/calendar/presentation/screens/calendar_screen.dart';
+import 'package:talkam/features/session/presentation/screens/sessions_screen.dart';
 import 'package:talkam/features/earnings/presentation/screens/earnings_screen.dart';
+import 'package:talkam/features/earnings/presentation/screens/payout_screen.dart';
 import 'package:talkam/features/home/presentation/screens/home_screen.dart';
-import 'package:talkam/features/wellness/presentation/screens/wellness_screen.dart';
 import 'package:talkam/features/messaging/presentation/screens/chat_screen.dart';
 import 'package:talkam/features/messaging/presentation/screens/messages_screen.dart';
 import 'package:talkam/features/messaging/presentation/screens/new_message_screen.dart';
 import 'package:talkam/features/messaging/presentation/screens/new_request_screen.dart';
 import 'package:talkam/features/notifications/presentation/screens/notifications_screen.dart';
-import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/presentation/screens/post_details_screen.dart';
 import 'package:talkam/features/profile/presentation/screens/edit_profile_screen.dart';
@@ -78,13 +77,15 @@ import 'package:talkam/features/therapist/presentation/screens/booking_failed_sc
 import 'package:talkam/features/therapist/data/models/therapist_model.dart';
 import 'package:talkam/features/therapist/presentation/bloc/therapist_booking_bloc.dart';
 
-import 'package:talkam/features/session/presentation/screens/session_room_screen.dart';
 import 'package:talkam/features/session/presentation/screens/session_call_screen.dart';
 import 'package:talkam/features/session/presentation/screens/session_complete_screen.dart';
+import 'package:talkam/features/session/presentation/screens/session_prep_screen.dart';
+import 'package:talkam/features/session/presentation/screens/client_notes_list_screen.dart';
+import 'package:talkam/features/session/presentation/screens/client_note_detail_screen.dart';
+import 'package:talkam/features/session/presentation/screens/session_room_screen.dart';
 import 'package:talkam/features/session/data/models/session_model.dart';
 
 
-import '../../common/widgets/custom_dialogs.dart';
 import '../../features/authentication/presentation/screens/onboarding.dart';
 import '../../features/authentication/presentation/screens/welcome_screen.dart';
 import '../../features/privacy/presentation/screens/data_privacy_screen.dart';
@@ -229,6 +230,11 @@ class CustomRoutes {
         builder: (context, state) => TherapistPayoutScreen(
           bloc: state.extra as TherapistApplicationBloc,
         ),
+      ),
+      GoRoute(
+        path: '/payoutScreen',
+        name: PageUrl.payoutScreen,
+        builder: (context, state) => const PayoutScreen(),
       ),
       GoRoute(
         path: '/therapistVerificationPendingScreen',
@@ -554,6 +560,31 @@ class CustomRoutes {
         ),
       ),
       GoRoute(
+        path: '/sessionPrepScreen',
+        name: PageUrl.sessionPrepScreen,
+        pageBuilder: (context, state) => NoTransitionPage(
+          child: SessionPrepScreen(
+            session: state.extra as SessionModel?,
+          ),
+        ),
+      ),
+      GoRoute(
+        path: '/clientNotesListScreen',
+        name: PageUrl.clientNotesListScreen,
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: ClientNotesListScreen(),
+        ),
+      ),
+      GoRoute(
+        path: '/clientNoteDetailScreen',
+        name: PageUrl.clientNoteDetailScreen,
+        pageBuilder: (context, state) => NoTransitionPage(
+          child: ClientNoteDetailScreen(
+            note: state.extra as Map<String, String>?,
+          ),
+        ),
+      ),
+      GoRoute(
         path: '/sessionCallScreen',
         name: PageUrl.sessionCallScreen,
         pageBuilder: (context, state) => NoTransitionPage(
@@ -583,6 +614,15 @@ class CustomRoutes {
         name: PageUrl.onboardingScreen,
         pageBuilder: (context, state) => const NoTransitionPage(
           child: OnboardingScreen(),
+        ),
+      ),
+      GoRoute(
+        path: '/clientDetailsScreen',
+        name: PageUrl.clientDetailsScreen,
+        pageBuilder: (context, state) => NoTransitionPage(
+          child: ClientDetailsScreen(
+            client: state.extra as ClientModel,
+          ),
         ),
       ),
       StatefulShellRoute.indexedStack(
@@ -619,11 +659,16 @@ class CustomRoutes {
             navigatorKey: _shellNavigatorEKey,
             routes: [
               GoRoute(
-                path: '/wellnessScreen',
+                path: '/therapistListScreen',
                 name: PageUrl.therapistListScreen, // Use this as the route name for the tab
-                pageBuilder: (context, state) => const NoTransitionPage(
-                  child: TherapistsListScreen(),
-                ),
+                pageBuilder: (context, state) {
+                  final isTherapist = SessionManager.instance.isTherapistAccount;
+                  return NoTransitionPage(
+                    child: isTherapist
+                        ? const ClientsScreen()
+                        : const TherapistsListScreen(),
+                  );
+                },
               ),
             ],
           ),
@@ -631,10 +676,10 @@ class CustomRoutes {
             navigatorKey: _shellNavigatorFKey,
             routes: [
               GoRoute(
-                path: '/calendarScreen',
-                name: PageUrl.calendarScreen,
+                path: '/sessionScreen',
+                name: PageUrl.sessionScreen,
                 pageBuilder: (context, state) => const NoTransitionPage(
-                  child: CalendarScreen(),
+                  child: SessionsScreen(),
                 ),
               ),
             ],

@@ -36,6 +36,18 @@ class SessionActionSheets {
       builder: (context) => _SessionStatusDialog(isSuccess: isSuccess),
     );
   }
+
+  static void showInSessionNotesSheet(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(28.r)),
+      ),
+      builder: (context) => const _InSessionNotesSheet(),
+    );
+  }
 }
 
 class _RescheduleStepOneSheet extends StatefulWidget {
@@ -583,6 +595,153 @@ class _SessionStatusDialog extends StatelessWidget {
             8.verticalSpace,
           ],
         ),
+      ),
+    );
+  }
+}
+
+class _InSessionNotesSheet extends StatefulWidget {
+  const _InSessionNotesSheet();
+
+  @override
+  State<_InSessionNotesSheet> createState() => _InSessionNotesSheetState();
+}
+
+class _InSessionNotesSheetState extends State<_InSessionNotesSheet> {
+  final TextEditingController _noteController =
+      TextEditingController(text: "Clients reports sleeping better this week");
+
+  final Set<String> _selectedChips = {"Anxiety", "Depression"};
+
+  final List<String> _chips = [
+    "Anxiety",
+    "Depression",
+    "Trauma & PTSD",
+    "Grief",
+    "Bipolar",
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.only(
+        bottom: MediaQuery.of(context).viewInsets.bottom + 24.h,
+        top: 16.h,
+        left: 20.w,
+        right: 20.w,
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Center(
+            child: Container(
+              width: 44.w,
+              height: 4.h,
+              decoration: BoxDecoration(
+                color: const Color(0xFFCBD5E1),
+                borderRadius: BorderRadius.circular(2.r),
+              ),
+            ),
+          ),
+          16.verticalSpace,
+          const TextView(
+            text: "Session Notes",
+            fontSize: 20,
+            fontWeight: FontWeight.w700,
+            color: Pallets.boldBlack,
+          ),
+          16.verticalSpace,
+
+          // Tag Chips
+          Wrap(
+            spacing: 8.w,
+            runSpacing: 8.h,
+            children: _chips.map((chip) {
+              final isSelected = _selectedChips.contains(chip);
+              return GestureDetector(
+                onTap: () {
+                  setState(() {
+                    if (isSelected) {
+                      _selectedChips.remove(chip);
+                    } else {
+                      _selectedChips.add(chip);
+                    }
+                  });
+                },
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+                  decoration: BoxDecoration(
+                    color: isSelected ? Pallets.blueBubbleColor : const Color(0xFFF1F5F9),
+                    borderRadius: BorderRadius.circular(100.r),
+                  ),
+                  child: TextView(
+                    text: chip,
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: isSelected ? Colors.white : const Color(0xFF475569),
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
+          20.verticalSpace,
+
+          // Notes Input Box
+          Container(
+            padding: EdgeInsets.all(16.w),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16.r),
+              border: Border.all(color: Pallets.blueBubbleColor, width: 1.5),
+            ),
+            child: TextField(
+              controller: _noteController,
+              maxLines: 4,
+              decoration: const InputDecoration(
+                border: InputBorder.none,
+                hintText: "Enter session notes...",
+              ),
+              style: TextStyle(
+                fontSize: 14.sp,
+                color: Pallets.boldBlack,
+              ),
+            ),
+          ),
+          24.verticalSpace,
+
+          // Action Buttons
+          Row(
+            children: [
+              Expanded(
+                child: CustomButton(
+                  onPressed: () => Navigator.pop(context),
+                  bgColor: const Color(0xFFF8FAFC),
+                  child: const TextView(
+                    text: "Save draft",
+                    fontSize: 15,
+                    fontWeight: FontWeight.w600,
+                    color: Pallets.boldBlack,
+                  ),
+                ),
+              ),
+              12.horizontalSpace,
+              Expanded(
+                child: CustomButton(
+                  onPressed: () => Navigator.pop(context),
+                  bgColor: Pallets.blueBubbleColor,
+                  child: const TextView(
+                    text: "Save & Close",
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
+              ),
+            ],
+          ),
+          12.verticalSpace,
+        ],
       ),
     );
   }

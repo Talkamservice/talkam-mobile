@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/navigation/route_url.dart';
-import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/utils/_utils.dart';
+import 'package:talkam/features/profile/presentation/widgets/logout_dialog.dart';
 
 class SettingsCategory {
   final String title;
@@ -65,18 +63,7 @@ SettingsCategory accountSettings = SettingsCategory(
       title: 'Log out',
       trailingWidget: 0.verticalSpace,
       onTap: (context) {
-        CustomDialogs.showConfirmDialog(
-          context,
-          tittle: "Logout",
-          message: "Are you sure you want to logout ?",
-          onYes: () {
-            SessionManager.instance.logOut();
-            context.goNamed(PageUrl.homeScreen);
-          },
-          confirmButtonBgColor: Colors.red
-
-        );
-
+        LogoutDialog.show(context);
       },
     ),
   ],

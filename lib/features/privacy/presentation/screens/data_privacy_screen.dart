@@ -88,17 +88,20 @@ class _DataPrivacyScreenState extends State<DataPrivacyScreen> {
                 24.verticalSpace,
 
                 // ── Consent cards ──────────────────────────────────────
-                ...ConsentType.values.map(
-                  (type) => Padding(
-                    padding: EdgeInsets.only(bottom: 12.h),
-                    child: _ConsentCard(
-                      type: type,
-                      value: settings.valueOf(type),
-                      onChanged: (value) => privacyBloc
-                          .add(ToggleConsentEvent(type, value)),
+                ...ConsentType.values
+                    .where((type) => !(SessionManager.instance.isTherapistAccount &&
+                        type == ConsentType.anonymousCommunity))
+                    .map(
+                      (type) => Padding(
+                        padding: EdgeInsets.only(bottom: 12.h),
+                        child: _ConsentCard(
+                          type: type,
+                          value: settings.valueOf(type),
+                          onChanged: (value) => privacyBloc
+                              .add(ToggleConsentEvent(type, value)),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
 
                 12.verticalSpace,
 

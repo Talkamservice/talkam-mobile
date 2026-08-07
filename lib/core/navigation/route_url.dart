@@ -34,10 +34,11 @@ class PageUrl {
 
   static const messagingScreen = 'messagingScreen';
 
-  static const wellnessScreen = 'wellnessScreen';
-  static const calendarScreen = 'calendarScreen';
+  static const sessionScreen = 'sessionScreen';
   static const earningsScreen = 'earningsScreen';
+  static const payoutScreen = 'payoutScreen';
   static const profileTabScreen = 'profileTabScreen';
+  static const clientDetailsScreen = 'clientDetailsScreen';
 
   static const passWordResetScreen = 'passWordResetScreen';
 
@@ -105,6 +106,9 @@ class PageUrl {
 
   // Sessions
   static const sessionRoomScreen = 'sessionRoomScreen';
+  static const sessionPrepScreen = 'sessionPrepScreen';
   static const sessionCallScreen = 'sessionCallScreen';
   static const sessionCompleteScreen = 'sessionCompleteScreen';
+  static const clientNotesListScreen = 'clientNotesListScreen';
+  static const clientNoteDetailScreen = 'clientNoteDetailScreen';
 }

@@ -16,17 +16,22 @@ import 'package:talkam/features/components/talkam_tab_bar.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_screen_cubit/profile_screen_cubit.dart';
 import 'package:talkam/features/profile/presentation/screens/tabs/profile_posts_tab.dart';
+import 'package:talkam/features/profile/presentation/screens/tabs/therapist_profile_info_tab.dart';
 import 'package:talkam/features/profile/presentation/widgets/delete_account_dialog.dart';
+import 'package:talkam/features/profile/presentation/widgets/logout_dialog.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 enum _ProfileTabOptions {
+  profile,
   posts,
   settings;
 
   String get title {
     switch (this) {
+      case profile:
+        return "Profile";
       case posts:
-        return "Posts";
+        return "Post";
       case settings:
         return "Settings";
     }
@@ -41,9 +46,15 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  _ProfileTabOptions _selectedTab = _ProfileTabOptions.settings;
-  final PageController _pageController = PageController(initialPage: 1);
+  _ProfileTabOptions? _selectedTab;
+  final PageController _pageController = PageController(initialPage: 0);
   TalkamUser _talkamUser = TalkamUser.forTest();
+
+  List<_ProfileTabOptions> get _availableTabs {
+    return SessionManager.instance.isTherapistAccount
+        ? [_ProfileTabOptions.profile, _ProfileTabOptions.posts, _ProfileTabOptions.settings]
+        : [_ProfileTabOptions.posts, _ProfileTabOptions.settings];
+  }
 
   @override
   void initState() {
@@ -98,89 +109,30 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 final handle = "@${(userHandle != null && userHandle.isNotEmpty) ? userHandle : (_talkamUser.username.isNotEmpty ? _talkamUser.username : 'dippsdavid')}";
                 final avatarUrl = user?.avatar ?? _talkamUser.avatar;
 
+                final isTherapist = SessionManager.instance.isTherapistAccount;
+                _selectedTab ??= _availableTabs.first;
+
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     // Top User Header
                     Padding(
                       padding: EdgeInsets.only(top: 20.h, right: 16.w, left: 16.w),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          ImageWidget(
-                            width: 80.w,
-                            height: 80.w,
-                            canPreview: true,
-                            fit: BoxFit.cover,
-                            shape: BoxShape.circle,
-                            imageUrl: avatarUrl ?? Assets.images.svgs.user,
-                          ),
-                          12.verticalSpace,
-                          if (!isAnonymous) ...[
-                            Row(
-                              children: [
-                                TextView(
-                                  text: displayName,
-                                  fontWeight: FontWeight.w700,
-                                  fontSize: 20,
-                                  color: Pallets.boldBlackV2,
-                                ),
-                                6.horizontalSpace,
-                                ImageWidget(
-                                  size: 20,
-                                  canPreview: false,
-                                  imageUrl: Assets.images.svgs.blueThick,
-                                ),
-                              ],
-                            ),
-                            4.verticalSpace,
-                          ],
-                          TextView(
-                            text: handle,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w500,
-                            color: Pallets.grey400,
-                          ),
-
-                          if (isAnonymous) ...[
-                            8.verticalSpace,
-                            Container(
-                              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
-                              decoration: BoxDecoration(
-                                color: const Color(0xFFFFF6E5),
-                                borderRadius: BorderRadius.circular(100.r),
-                              ),
-                              child: const TextView(
-                                text: "Anonymous",
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                                color: Color(0xFFD97706),
-                              ),
-                            ),
-                            16.verticalSpace,
-                            CustomButton(
-                              onPressed: () {
-                                context.pushNamed(PageUrl.signUp);
-                              },
-                              text: "Create account",
-                              bgColor: Pallets.blueBubbleColor,
-                              elevation: 0,
-                            ),
-                          ],
-                        ],
-                      ),
+                      child: isTherapist
+                          ? _buildTherapistHeader(displayName, handle, avatarUrl)
+                          : _buildRegularHeader(isAnonymous, displayName, handle, avatarUrl),
                     ),
 
                     24.verticalSpace,
 
-                    // Tab Bar: Posts | Settings
+                    // Tab Bar: Profile | Post | Settings
                     Padding(
                       padding: EdgeInsets.symmetric(horizontal: 16.w),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: _ProfileTabOptions.values.map((tabOption) {
+                        children: _availableTabs.map((tabOption) {
                           return Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 24.w),
+                            padding: EdgeInsets.symmetric(horizontal: 16.w),
                             child: TalkamTabBar(
                               key: Key(tabOption.title),
                               useExpandedAsParent: false,
@@ -190,7 +142,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 setState(() {
                                   _selectedTab = tabOption;
                                 });
-                                _pageController.jumpToPage(tabOption.index);
+                                _pageController.jumpToPage(_availableTabs.indexOf(tabOption));
                               },
                             ),
                           );
@@ -208,17 +160,25 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         controller: _pageController,
                         onPageChanged: (int index) {
                           setState(() {
-                            _selectedTab = _ProfileTabOptions.values[index];
+                            _selectedTab = _availableTabs[index];
                           });
                         },
-                        children: [
-                          const ProfilePostTab(
-                            key: PageStorageKey(_ProfileTabOptions.posts),
-                          ),
-                          _SettingsTab(
-                            key: const PageStorageKey(_ProfileTabOptions.settings),
-                          ),
-                        ],
+                        children: _availableTabs.map((tab) {
+                          switch (tab) {
+                            case _ProfileTabOptions.profile:
+                              return TherapistProfileInfoTab(
+                                key: PageStorageKey(_ProfileTabOptions.profile),
+                              );
+                            case _ProfileTabOptions.posts:
+                              return ProfilePostTab(
+                                key: PageStorageKey(_ProfileTabOptions.posts),
+                              );
+                            case _ProfileTabOptions.settings:
+                              return _SettingsTab(
+                                key: PageStorageKey(_ProfileTabOptions.settings),
+                              );
+                          }
+                        }).toList(),
                       ),
                     ),
                   ],
@@ -228,6 +188,158 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         );
       },
+    );
+  }
+  Widget _buildRegularHeader(bool isAnonymous, String displayName, String handle, String? avatarUrl) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        ImageWidget(
+          width: 80.w,
+          height: 80.w,
+          canPreview: true,
+          fit: BoxFit.cover,
+          shape: BoxShape.circle,
+          imageUrl: avatarUrl ?? Assets.images.svgs.user,
+        ),
+        12.verticalSpace,
+        if (!isAnonymous) ...[
+          Row(
+            children: [
+              TextView(
+                text: displayName,
+                fontWeight: FontWeight.w700,
+                fontSize: 20,
+                color: Pallets.boldBlackV2,
+              ),
+              6.horizontalSpace,
+              ImageWidget(
+                size: 20,
+                canPreview: false,
+                imageUrl: Assets.images.svgs.blueThick,
+              ),
+            ],
+          ),
+          4.verticalSpace,
+        ],
+        TextView(
+          text: handle,
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          color: Pallets.grey400,
+        ),
+
+        if (isAnonymous) ...[
+          8.verticalSpace,
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+            decoration: BoxDecoration(
+              color: const Color(0xFFFFF6E5),
+              borderRadius: BorderRadius.circular(100.r),
+            ),
+            child: const TextView(
+              text: "Anonymous",
+              fontSize: 12,
+              fontWeight: FontWeight.w600,
+              color: Color(0xFFD97706),
+            ),
+          ),
+          16.verticalSpace,
+          CustomButton(
+            onPressed: () {
+              context.pushNamed(PageUrl.signUp);
+            },
+            text: "Create account",
+            bgColor: Pallets.blueBubbleColor,
+            elevation: 0,
+          ),
+        ],
+      ],
+    );
+  }
+
+  Widget _buildTherapistHeader(String displayName, String handle, String? avatarUrl) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Center(
+          child: ImageWidget(
+            width: 80.w,
+            height: 80.w,
+            canPreview: true,
+            fit: BoxFit.cover,
+            shape: BoxShape.circle,
+            imageUrl: avatarUrl ?? Assets.images.svgs.user,
+          ),
+        ),
+        12.verticalSpace,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            TextView(
+              text: displayName,
+              fontWeight: FontWeight.w700,
+              fontSize: 20,
+              color: Pallets.boldBlackV2,
+            ),
+            6.horizontalSpace,
+            const Icon(
+              Icons.verified,
+              color: Color(0xFFF59E0B),
+              size: 20,
+            ),
+          ],
+        ),
+        4.verticalSpace,
+        const TextView(
+          text: "Anxiety • CBT • 9 yrs experience",
+          fontSize: 14,
+          fontWeight: FontWeight.w400,
+          color: Color(0xFF9CA3AF),
+        ),
+        24.verticalSpace,
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            _buildStatItem("132", "Sessions"),
+            Container(width: 1, height: 32.h, color: const Color(0xFFE5E7EB)),
+            _buildStatItem("4.9", "Ratings", showStar: true),
+            Container(width: 1, height: 32.h, color: const Color(0xFFE5E7EB)),
+            _buildStatItem("4pm", "next slot", valueColor: const Color(0xFF3B82F6)),
+            Container(width: 1, height: 32.h, color: const Color(0xFFE5E7EB)),
+            _buildStatItem("2 hrs", "avg"),
+          ],
+        ),
+      ],
+    );
+  }
+
+  Widget _buildStatItem(String value, String label, {bool showStar = false, Color? valueColor}) {
+    return Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (showStar) ...[
+              const Icon(Icons.star, color: Color(0xFFF59E0B), size: 16),
+              4.horizontalSpace,
+            ],
+            TextView(
+              text: value,
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+              color: valueColor ?? Pallets.boldBlackV2,
+            ),
+          ],
+        ),
+        4.verticalSpace,
+        TextView(
+          text: label,
+          fontSize: 12,
+          fontWeight: FontWeight.w400,
+          color: const Color(0xFF9CA3AF),
+        ),
+      ],
     );
   }
 }
@@ -249,7 +361,13 @@ class _SettingsTab extends StatelessWidget {
                 iconPath: Assets.images.svgV2.userInActive,
                 title: "Edit Profile",
                 subtitle: "Edit name, email, and billing address",
-                onTap: () => context.pushNamed(PageUrl.editProfileScreen),
+                // Therapists get their own editor — availability, specialties
+                // and session rate have no equivalent on the member screen.
+                onTap: () => context.pushNamed(
+                  SessionManager.instance.isTherapistAccount
+                      ? PageUrl.therapistEditProfileScreen
+                      : PageUrl.editProfileScreen,
+                ),
               ),
               SettingsTile(
                 iconPath: Assets.images.svgV2.notificationIcon,
@@ -289,6 +407,14 @@ class _SettingsTab extends StatelessWidget {
                 titleColor: Pallets.dangerText,
                 showChevron: false,
                 onTap: () => DeleteAccountDialog.show(context),
+              ),
+              SettingsTile(
+                iconPath: Assets.images.svgV2.userInActive,
+                iconBackground: Pallets.dangerSurface,
+                title: "Logout",
+                titleColor: Pallets.dangerText,
+                showChevron: false,
+                onTap: () => LogoutDialog.show(context),
               ),
             ],
           ),

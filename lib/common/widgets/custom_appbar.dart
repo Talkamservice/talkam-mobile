@@ -23,6 +23,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
     this.padding,
     this.showDivider = false,
     this.titleAlign,
+    this.titleSpacing,
   });
 
   final List<Widget>? actions;
@@ -40,6 +41,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final EdgeInsets? padding;
   final bool showDivider;
   final TextAlign? titleAlign;
+  final double? titleSpacing;
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +55,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             toolbarHeight: height,
             elevation: elevation ?? 0,
             centerTitle: centerTile,
+            automaticallyImplyLeading: false,
+            titleSpacing: titleSpacing ?? (canGoBack == false ? 20.w : null),
             iconTheme:
                 IconThemeData(color: fgColor ?? context.colorScheme.onSurface),
             surfaceTintColor: bgColor ?? Colors.transparent,
@@ -60,16 +64,16 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                 fontWeight: FontWeight.w600,
                 fontSize: 16,
                 color: Theme.of(context).colorScheme.onSurface),
-            leadingWidth: leadingWidth,
+            leadingWidth: leadingWidth ?? (canGoBack == false && leading == null ? 0 : null),
             leading: leading ??
-                (canGoBack!
+                (canGoBack == true
                     ? IconButton(
                         icon: Icon(Icons.arrow_back_ios_new,
                             color: fgColor ?? context.colorScheme.onSurface),
                         onPressed:
                             onBackPressed ?? () => Navigator.pop(context),
                       )
-                    : 0.verticalSpace),
+                    : null),
             title: tittle ??
                 TextView(
                   text: tittleText ?? '',
