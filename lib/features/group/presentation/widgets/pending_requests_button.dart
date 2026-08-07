@@ -48,10 +48,8 @@ class _PendingRequestsButtonState extends State<PendingRequestsButton> {
                   fontSize: 12,
                 ),
 
-                if (widget.group.pendingCount != 0)
+                if ((widget.group.pendingCount ?? 0) != 0) ...[
                   3.horizontalSpace,
-                if (widget.group.pendingCount != 0)
-
                   CircleAvatar(
                     radius: 8,
                     backgroundColor: Colors.white,
@@ -61,6 +59,7 @@ class _PendingRequestsButtonState extends State<PendingRequestsButton> {
                       fontSize: 8,
                     ),
                   ),
+                ],
               ],
             ));
       },

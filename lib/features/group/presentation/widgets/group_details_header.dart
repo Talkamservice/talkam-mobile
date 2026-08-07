@@ -93,10 +93,36 @@ class _GroupDetailsHeaderState extends State<GroupDetailsHeader> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              TextView(
-                text: widget.group.name ?? "",
-                fontSize: 24,
-                fontWeight: FontWeight.w700,
+              Row(
+                children: [
+                  Expanded(
+                    child: TextView(
+                      text: widget.group.name ?? "",
+                      fontSize: 24,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  ),
+                  if (widget.group.isAdmin)
+                    TextButton.icon(
+                      onPressed: () {
+                        context.pushNamed(
+                          PageUrl.createGroupScreen,
+                          extra: widget.group,
+                        );
+                      },
+                      icon: Icon(
+                        Icons.edit_outlined,
+                        size: 18.sp,
+                        color: Pallets.blueBubbleColor,
+                      ),
+                      label: const TextView(
+                        text: "Edit",
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Pallets.blueBubbleColor,
+                      ),
+                    ),
+                ],
               ),
               10.verticalSpace,
               Row(

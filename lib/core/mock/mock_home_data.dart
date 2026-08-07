@@ -206,6 +206,7 @@ class MockHomeData {
       isSuspended: false,
       groupAccess: intId == 2 ? "Closed" : "Opened",
       status: "Active",
+      userRole: "Owner",
       owner: GroupOwner(
         id: info.creatorId,
         name: info.creatorName,

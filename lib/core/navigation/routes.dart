@@ -35,6 +35,7 @@ import 'package:talkam/features/group/presentation/screens/group_members_screen.
 import 'package:talkam/features/group/presentation/screens/groups_screen.dart';
 import 'package:talkam/features/group/presentation/screens/create_group/preview_group_screen.dart';
 import 'package:talkam/features/group/presentation/screens/pending_requests_screen.dart';
+import 'package:talkam/features/group/presentation/screens/group_requests_screen.dart';
 import 'package:talkam/features/therapist/data/models/client_model.dart';
 import 'package:talkam/features/therapist/presentation/screens/clients_screen.dart';
 import 'package:talkam/features/therapist/presentation/screens/client_details_screen.dart';
@@ -399,9 +400,9 @@ class CustomRoutes {
       GoRoute(
         path: '/groupRequestsScreen',
         name: PageUrl.groupRequestsScreen,
-        builder: (context, state) => Container(
-            // query: state.extra as String,
-            ),
+        builder: (context, state) => GroupRequestsScreen(
+          groupId: (state.extra as String?) ?? '',
+        ),
       ),
       GoRoute(
         path: '/createGroupScreen',

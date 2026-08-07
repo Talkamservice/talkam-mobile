@@ -23,20 +23,25 @@ class GroupMemberItem extends StatelessWidget {
     required this.group,
     required this.onActionSuccess,
     this.isFollowing = false,
+    this.currentUserIsAdmin = false,
   });
 
   final GroupMemberDetails member;
   final TalkamGroup group;
   final VoidCallback onActionSuccess;
   final bool isFollowing;
+  final bool currentUserIsAdmin;
 
   @override
   Widget build(BuildContext context) {
+    final isMe = SessionManager().isMe(member.user.id.toString());
+    final isAdmin = currentUserIsAdmin || group.isAdmin;
+
     return InkWell(
       onTap: () {
         GuestUserHelper.handleGuestUserAction(
           action: () {
-            if (SessionManager().isMe(member.user.id.toString())) {
+            if (isMe) {
               context.pushNamed(PageUrl.profileScreen, extra: member.user.id.toString());
             } else {
               context.pushNamed(PageUrl.userProfileScreen, extra: member.user.id.toString());
@@ -84,6 +89,23 @@ class GroupMemberItem extends StatelessWidget {
                                   color: Colors.orange,
                                   size: 16,
                                 ),
+                                if (member.isSuspended == true || member.isBanned == true) ...[
+                                  6.horizontalSpace,
+                                  Container(
+                                    padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
+                                    decoration: BoxDecoration(
+                                      color: Pallets.red.withOpacity(0.1),
+                                      borderRadius: BorderRadius.circular(4.r),
+                                      border: Border.all(color: Pallets.red, width: 0.5),
+                                    ),
+                                    child: TextView(
+                                      text: member.isBanned == true ? "Banned" : "Suspended",
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.w600,
+                                      color: Pallets.red,
+                                    ),
+                                  ),
+                                ],
                               ],
                             ),
                             TextView(
@@ -95,25 +117,43 @@ class GroupMemberItem extends StatelessWidget {
                           ],
                         ),
                       ),
-                      SubscribeButton(
-                        color: isFollowing ? Pallets.grey60 : Pallets.blueBubbleColor,
-                        onTap: () {}, // Visual mock
-                        child: TextView(
-                          text: isFollowing ? "Following" : "Follow",
-                          fontSize: 13,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
+                      if (!isMe)
+                        SubscribeButton(
+                          color: isFollowing ? Pallets.grey60 : Pallets.blueBubbleColor,
+                          onTap: () {}, // Visual mock
+                          child: TextView(
+                            text: isFollowing ? "Following" : "Follow",
+                            fontSize: 13,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
                         ),
-                      ),
+                      if (isAdmin && !isMe) ...[
+                        4.horizontalSpace,
+                        IconButton(
+                          icon: const Icon(Icons.more_vert),
+                          onPressed: () {
+                            CustomDialogs.showBottomSheet(
+                              context,
+                              GroupmemberActionSheet(
+                                currentUserIsAdmin: isAdmin,
+                                member: member,
+                                group: group,
+                                onActionSuccess: onActionSuccess,
+                              ),
+                            );
+                          },
+                        ),
+                      ],
                     ],
                   ),
                   8.verticalSpace,
                   TextView(
-                    text: "I am a licensed therapist dedicated to helping individuals navigate life's challenges...",
+                    text: "Member of ${group.name ?? 'Group'}",
                     fontSize: 13,
                     fontWeight: FontWeight.w400,
                     color: Pallets.darkGrey,
-                    maxLines: 3,
+                    maxLines: 2,
                     textOverflow: TextOverflow.ellipsis,
                   ),
                 ],

@@ -328,7 +328,7 @@ class TalkamGroup extends Codec<TalkamGroup, String> {
   bool get isPublic => groupAccess == null || groupAccess == "Opened";
 
   bool get isAdmin => (userRole == "Owner" || userRole == "Admin");
-  bool get isOwner => (owner?.email == injector.get<ProfileBloc>().appUser?.email);
+  bool get isOwner => (userRole == "Owner" || (owner?.email != null && owner?.email == injector.get<ProfileBloc>().appUser?.email));
 
   @override
   // TODO: implement decoder
