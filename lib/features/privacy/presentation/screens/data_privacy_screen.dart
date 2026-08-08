@@ -14,6 +14,7 @@ import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/privacy/data/models/consent_settings.dart';
 import 'package:talkam/features/privacy/presentation/bloc/privacy_bloc.dart';
 import 'package:talkam/features/profile/dormain/repository/profile_repository.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 
 class DataPrivacyScreen extends StatefulWidget {
   const DataPrivacyScreen({super.key});
@@ -147,9 +148,20 @@ class _DataPrivacyScreenState extends State<DataPrivacyScreen> {
     }
     if (state is ConsentsSaved) {
       // Best-effort — the user has finished every in-app step regardless of
-      // whether this stamp succeeds, so it never blocks navigation.
+      // whether this stamp succeeds, so it never blocks navigation. But when
+      // it DOES succeed, its response is the authoritative final onboarding
+      // state — cache it, otherwise a restart before any other /user/me
+      // refresh happens would still show stale (incomplete) progress and
+      // bounce the user back into onboarding.
       try {
-        await injector.get<ProfileRepository>().completeOnboarding();
+        final onboarding =
+            await injector.get<ProfileRepository>().completeOnboarding();
+        final currentUser = injector.get<ProfileBloc>().appUser;
+        if (onboarding != null && currentUser != null) {
+          injector.get<ProfileBloc>().add(SaveUserLocallyEvent(
+                currentUser.copyWith(onboarding: onboarding),
+              ));
+        }
       } catch (_) {}
 
       if (!context.mounted) return;

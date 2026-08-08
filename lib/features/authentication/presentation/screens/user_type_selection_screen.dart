@@ -8,6 +8,7 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/profile/dormain/repository/profile_repository.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
@@ -126,9 +127,30 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
 
   Future<void> _continue() async {
     setState(() => _submitting = true);
+    final userType =
+        _selectedType == _typeTherapist ? _mentalHealthPro : _supportSeeker;
     try {
-      await injector.get<ProfileRepository>().setUserType(
-          _selectedType == _typeTherapist ? _mentalHealthPro : _supportSeeker);
+      await injector.get<ProfileRepository>().setUserType(userType);
+
+      // The endpoint only echoes back {user_type}, not the full onboarding
+      // summary — merge just that field locally so a restart before the
+      // rest of onboarding finishes still remembers this choice, instead of
+      // relying solely on a later /user/me refresh.
+      final currentUser = injector.get<ProfileBloc>().appUser;
+      if (currentUser != null) {
+        final priorOnboarding = currentUser.onboarding;
+        injector.get<ProfileBloc>().add(SaveUserLocallyEvent(
+              currentUser.copyWith(
+                onboarding: Onboarding(
+                  userType: userType,
+                  interests: priorOnboarding?.interests ?? false,
+                  avatar: priorOnboarding?.avatar ?? false,
+                  consents: priorOnboarding?.consents ?? false,
+                  completedAt: priorOnboarding?.completedAt,
+                ),
+              ),
+            ));
+      }
     } catch (_) {
       // Best-effort — this only records onboarding intent, so a failed
       // request shouldn't trap the user on this screen.

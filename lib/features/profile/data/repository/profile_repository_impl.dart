@@ -93,10 +93,11 @@ class ProfileRepositoryImpl extends ProfileRepository {
   }
 
   @override
-  Future<dynamic> completeOnboarding() async {
+  Future<Onboarding?> completeOnboarding() async {
     final response =
         await _v2.call(UrlConfigV2.completeOnboarding, RequestMethod.post);
-    return response.data;
+    final onboardingJson = response.data['data']?['onboarding'];
+    return onboardingJson == null ? null : Onboarding.fromJson(onboardingJson);
   }
 
   @override

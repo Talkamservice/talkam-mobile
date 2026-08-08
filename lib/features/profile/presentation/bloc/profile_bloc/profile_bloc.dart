@@ -73,7 +73,14 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>
     try {
       final response = await _profileRepository.updateProfile(event.payload);
       emit(UpdateProfileSuccess(response));
-      injector.get<ProfileBloc>().add(SaveUserLocallyEvent(response.data));
+      // /user/profile/update doesn't return onboarding/business — carry
+      // forward whatever we already know locally instead of wiping it back
+      // to null on every interests/avatar save during onboarding.
+      final mergedUser = response.data.copyWith(
+        onboarding: appUser?.onboarding,
+        business: appUser?.business,
+      );
+      injector.get<ProfileBloc>().add(SaveUserLocallyEvent(mergedUser));
       refreshPost(reload: false);
     } catch (error, stack) {
       logger.e(error, stackTrace: stack);

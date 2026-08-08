@@ -45,6 +45,7 @@ abstract class ProfileRepository {
   /// Records onboarding intent — role stays "User" server-side either way.
   Future<dynamic> setUserType(String userType);
 
-  /// Stamps the account's onboarding as complete server-side.
-  Future<dynamic> completeOnboarding();
+  /// Stamps the account's onboarding as complete server-side and returns the
+  /// resulting onboarding summary.
+  Future<Onboarding?> completeOnboarding();
 }

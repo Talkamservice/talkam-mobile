@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -155,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> with ReturningUserMixin {
 
                     // Google Button
                     CustomOutlinedButton(
-                      onPressed: () {},
+                      onPressed: () => bloc.add(const GoogleAuthEvent()),
                       borderColor: Pallets.grey90,
                       borderRadius: BorderRadius.circular(14.r),
                       padding: EdgeInsets.symmetric(vertical: 14.h),
@@ -175,29 +177,32 @@ class _LoginScreenState extends State<LoginScreen> with ReturningUserMixin {
                       ),
                     ),
 
-                    8.verticalSpace,
-
-                    // Apple Button
-                    CustomOutlinedButton(
-                      onPressed: () {},
-                      borderColor: Pallets.grey90,
-                      borderRadius: BorderRadius.circular(14.r),
-                      padding: EdgeInsets.symmetric(vertical: 14.h),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          SvgPicture.asset(Assets.images.svgs.appleDark,
-                              height: 20.w),
-                          12.horizontalSpace,
-                          const TextView(
-                            text: "Continue with Apple",
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600,
-                            color: Pallets.boldBlack,
-                          ),
-                        ],
+                    // Apple only ever completes on iOS — same policy as
+                    // IntroScreen, where this button is the one place OAuth
+                    // is (was) actually wired up.
+                    if (Platform.isIOS) ...[
+                      8.verticalSpace,
+                      CustomOutlinedButton(
+                        onPressed: () => bloc.add(const AppleAuthEvent()),
+                        borderColor: Pallets.grey90,
+                        borderRadius: BorderRadius.circular(14.r),
+                        padding: EdgeInsets.symmetric(vertical: 14.h),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SvgPicture.asset(Assets.images.svgs.appleDark,
+                                height: 20.w),
+                            12.horizontalSpace,
+                            const TextView(
+                              text: "Continue with Apple",
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                              color: Pallets.boldBlack,
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
+                    ],
 
                     24.verticalSpace,
 
@@ -262,10 +267,14 @@ class _LoginScreenState extends State<LoginScreen> with ReturningUserMixin {
   }
 
   void _listenToAuthBloc(BuildContext context, AuthState state) {
-    if (state is AuthLoading) {
+    if (state is AuthLoading || state is OauthLoadingState) {
       CustomDialogs.showLoading(context);
     }
     if (state is AuthFailure) {
+      context.pop();
+      CustomDialogs.error(state.error);
+    }
+    if (state is OauthFailureState) {
       context.pop();
       CustomDialogs.error(state.error);
     }
@@ -273,6 +282,10 @@ class _LoginScreenState extends State<LoginScreen> with ReturningUserMixin {
     if (state is LoginSuccess) {
       context.pop();
       CustomDialogs.success("Login successful.");
+      gotoNextScreen(context, state.response.data.user);
+    }
+    if (state is OauthSuccessState) {
+      context.pop();
       gotoNextScreen(context, state.response.data.user);
     }
   }

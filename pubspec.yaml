@@ -153,6 +153,7 @@ dependencies:
   hive_ce: ^2.10.1
   hive_ce_flutter: ^2.1.0
   fl_chart: ^1.2.0
+  phone_numbers_parser: ^9.0.25
   # flutter_background: ^1.2.0
 #  audio_manager: ^0.8.2
 
