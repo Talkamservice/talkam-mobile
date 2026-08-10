@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
+import 'package:talkam/features/profile/presentation/screens/my_therapist_profile_screen.dart';
 import 'package:talkam/features/profile/presentation/screens/profile_screen.dart';
-import 'package:talkam/features/therapist/presentation/screens/my_therapist_profile_screen.dart';
 
 /// Profile tab of the app shell.
 ///
