@@ -268,4 +268,15 @@ class AuthRepositoryImpl extends AuthRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<dynamic> logout({required bool allDevices}) async {
+    final response = await _v2.call(
+      UrlConfigV2.logout,
+      RequestMethod.post,
+      data: {"all_devices": allDevices},
+    );
+
+    return response.data;
+  }
 }

@@ -113,6 +113,10 @@ String _setCustomErrorMessage(Response error) {
     return 'Unauthorized';
   }
 
+  if (error.data is! Map) {
+    return error.statusMessage ?? 'Something went wrong';
+  }
+
   final errorMessageList = <String>[];
 
   if (error.data['msg'] is String) {

@@ -117,3 +117,10 @@ class OtpSentState extends AuthState {
   @override
   List<Object> get props => [response];
 }
+
+/// The session has been cleared, server-side (best-effort) and locally —
+/// always emitted regardless of whether the server call succeeded.
+class LogoutCompleted extends AuthState {
+  @override
+  List<Object?> get props => [];
+}

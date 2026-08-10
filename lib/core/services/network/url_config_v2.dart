@@ -20,6 +20,7 @@ class UrlConfigV2 {
   // Authentication
   static const String register = '/auth/register';
   static const String login = '/auth/login';
+  static const String logout = '/auth/logout';
   static const String oauthLogin = '/auth/oauth-login';
   static const String usernameAvailable = '/auth/username/available';
   static const String forgotPassword = '/auth/password/forgot';

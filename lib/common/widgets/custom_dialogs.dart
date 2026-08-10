@@ -84,7 +84,6 @@ class CustomDialogs {
     bool? useRootNavigator,
     ShapeBorder? shape,
   }) {
-
     return mbs.showCupertinoModalBottomSheet(
       expand: true,
       context: context,
@@ -119,7 +118,7 @@ class CustomDialogs {
         });
   }
 
-  static void showConfirmDialog(
+  static Future<void> showConfirmDialog(
     BuildContext context, {
     String message = 'Please confirm if you wish to proceed ?',
     String tittle = 'Confirm',
@@ -525,7 +524,6 @@ class CustomDialogs {
     }
   }
 
-
   static void showInfoMessage(BuildContext context, String message,
       {bool isError = false}) async {
     if (isError) {
@@ -542,7 +540,7 @@ class CustomDialogs {
               const Icon(
                 Icons.info_outline_rounded,
                 size: 24.0,
-                color:Colors.orange,
+                color: Colors.orange,
               ),
               SizedBox(width: 12.w),
               Expanded(
@@ -574,14 +572,12 @@ class CustomDialogs {
           color: Pallets.white,
         ),
         shouldIconPulse: false,
-
         borderWidth: .5,
         borderColor: Colors.transparent,
         backgroundColor: Pallets.primary,
         margin: const EdgeInsets.all(8),
         flushbarPosition: FlushbarPosition.TOP,
         borderRadius: BorderRadius.circular(8),
-
         duration: const Duration(seconds: 3),
       ).show(context);
     }

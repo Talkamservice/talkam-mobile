@@ -58,20 +58,6 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                   onPressed: () => context.pushNamed(PageUrl.login),
                 ),
 
-                20.verticalSpace,
-
-                // "Browse anonymously" text link
-                GestureDetector(
-                  onTap: () =>
-                      context.pushNamed(PageUrl.anonymousSignInScreen),
-                  child: const TextView(
-                    text: 'Browse anonymously',
-                    color: Pallets.grey60,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
-                  ),
-                ),
-
                 32.verticalSpace,
               ],
             ),

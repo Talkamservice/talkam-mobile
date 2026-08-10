@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/features/authentication/data/models/oauth_req_dto.dart';
 import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/authentication/dormain/repository/auth_repository.dart';
@@ -27,6 +28,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<VerifyOtpEvent>(_onVerifyOtpEvent);
     on<PasswordResetEvent>(_onPasswordReset);
     on<SendOtpEvent>(_onSendOtpEvent);
+    on<LogoutEvent>(_onLogout);
   }
 
   FutureOr<void> _mapGoogleAuthEventToState(
@@ -199,5 +201,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     } catch (error) {
       emit(AuthFailure(error.toString()));
     }
+  }
+
+  FutureOr<void> _onLogout(LogoutEvent event, Emitter<AuthState> emit) async {
+    logger.i('Logout: requested (allDevices: ${event.allDevices})');
+    emit(AuthLoading());
+    try {
+      await _authRepository.logout(allDevices: event.allDevices);
+      logger.i('Logout: server call succeeded');
+    } catch (error) {
+      // Best-effort — the session is cleared locally regardless of whether
+      // the server round-trip succeeds.
+      logger.e('Logout: server call failed, clearing session locally anyway',
+          error: error);
+    }
+    await SessionManager.instance.logOut();
+    logger.i('Logout: local session cleared, emitting LogoutCompleted');
+    emit(LogoutCompleted());
   }
 }

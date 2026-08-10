@@ -2,22 +2,43 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
+import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
-import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class LogoutDialog extends StatelessWidget {
   const LogoutDialog({super.key});
 
-  static Future<void> show(BuildContext context) {
-    return showDialog(
+  /// Shows the confirmation dialog and, if confirmed, performs the logout.
+  ///
+  /// The actual logout work runs against [context] — the caller's context —
+  /// rather than the dialog's own. The dialog's context belongs to the route
+  /// this method pops as soon as it's confirmed, so using it for anything
+  /// after that (showing a loading dialog, navigating once logout finishes)
+  /// would be operating on an already-unmounted context.
+  static Future<void> show(BuildContext context) async {
+    final confirmed = await showDialog<bool>(
       context: context,
       barrierDismissible: true,
       builder: (context) => const LogoutDialog(),
     );
+    if (confirmed != true || !context.mounted) return;
+
+    CustomDialogs.showLoading(context);
+    // LogoutEvent's handler always ends in LogoutCompleted — the server
+    // round-trip is best-effort internally, so the device logs out locally
+    // either way.
+    final bloc = AuthBloc(injector.get())..add(const LogoutEvent());
+    await bloc.stream.firstWhere((state) => state is LogoutCompleted);
+    await bloc.close();
+    if (!context.mounted) return;
+    CustomDialogs.hideLoading(context);
+    context.goNamed(PageUrl.login);
   }
 
   @override
@@ -105,11 +126,7 @@ class LogoutDialog extends StatelessWidget {
                 16.horizontalSpace,
                 Expanded(
                   child: CustomButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                      SessionManager.instance.logOut();
-                      context.goNamed(PageUrl.login);
-                    },
+                    onPressed: () => Navigator.pop(context, true),
                     bgColor: const Color(0xFFFF4D4D),
                     elevation: 0,
                     child: const TextView(

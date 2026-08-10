@@ -39,4 +39,8 @@ abstract class AuthRepository {
       String code, String password, String passwordConfirmation);
 
   Future<bool> isUsernameAvailable(String username);
+
+  /// Invalidates the current session's token server-side. [allDevices]
+  /// requests logging out every session for this account, not just this one.
+  Future<dynamic> logout({required bool allDevices});
 }

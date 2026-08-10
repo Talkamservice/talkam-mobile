@@ -44,6 +44,7 @@ class _LoginScreenState extends State<LoginScreen> with ReturningUserMixin {
           appBar: const CustomAppBar(
             bgColor: Colors.transparent,
             elevation: 0,
+            canGoBack: false,
           ),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 24.w),

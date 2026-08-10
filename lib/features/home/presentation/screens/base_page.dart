@@ -47,6 +47,16 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
   final GlobalKey<FormState> dialogKey = GlobalKey<FormState>();
   final GlobalKey<ScaffoldState> baseScaffoldKey = GlobalKey<ScaffoldState>();
 
+  /// The exit-confirmation dialog is pushed on the root navigator — the same
+  /// one every top-level route (e.g. /login) uses, since this page doesn't
+  /// sit behind a navigator boundary of its own. If it's left open (user
+  /// backs out but never taps Yes/Cancel) and this page then goes away some
+  /// other way — e.g. logging out — GoRouter's page swap doesn't touch this
+  /// imperatively-pushed dialog, so it just keeps floating over whatever
+  /// screen comes next. Track it so dispose() can close it explicitly.
+  bool _isExitDialogShowing = false;
+  NavigatorState? _rootNavigator;
+
   /// Rebuilds the bar when the account type changes, so the Earnings
   /// destination appears as soon as an application is approved rather than
   /// after the next unrelated setState.
@@ -56,7 +66,28 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
   @override
   void dispose() {
     dialogKey.currentState?.dispose();
+    if (_isExitDialogShowing) {
+      _rootNavigator?.pop();
+    }
     super.dispose();
+  }
+
+  void _confirmExit(BuildContext context) {
+    if (_isExitDialogShowing) return;
+    _isExitDialogShowing = true;
+    _rootNavigator = Navigator.of(context, rootNavigator: true);
+    CustomDialogs.showConfirmDialog(
+      context,
+      tittle: "Exit",
+      message: "Are you sure you want to exit",
+      onYes: () {
+        Navigator.pop(context);
+        SystemNavigator.pop();
+      },
+      onCancel: () {
+        Navigator.pop(context);
+      },
+    ).whenComplete(() => _isExitDialogShowing = false);
   }
 
   void _goBranch(int index) {
@@ -77,18 +108,9 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
   Widget build(BuildContext context) {
     return PopScope(
       canPop: false,
-      onPopInvoked: (val) {
-        CustomDialogs.showConfirmDialog(
-          context,
-          tittle: "Exit",
-          message: "Are you sure you want to exit",
-          onYes: () {
-            SystemNavigator.pop();
-          },
-          onCancel: () {
-            Navigator.pop(context);
-          },
-        );
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
+        _confirmExit(context);
       },
       child: Scaffold(
         key: baseScaffoldKey,
@@ -117,92 +139,84 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
           ),
           child: const Icon(Icons.add, color: Colors.white),
         ),
-        bottomNavigationBar: widget.navigationShell.currentIndex == _kGroupsBranch ? null : WillPopScope(
-          onWillPop: () async {
-            CustomDialogs.showConfirmDialog(
-              context,
-              tittle: "Exit",
-              message: "Are you sure you want to exit",
-              onYes: () {
-                SystemNavigator.pop();
-              },
-              onCancel: () {
-                Navigator.pop(context);
-              },
-            );
-
-            return false;
-          },
-          child: Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border(top: BorderSide(color: Pallets.grey90, width: 1)),
-            ),
-            child: SafeArea(
-              top: false,
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 10.h),
-                child: ValueListenableBuilder<bool>(
-                  // Wraps the whole bar rather than a single destination: the
-                  // shell is a StatefulShellRoute.indexedStack, so a visited
-                  // branch stays alive and will not rebuild on its own.
-                  // Reading the flag once during build would leave both the
-                  // therapist/wellness icon and the Earnings destination stale
-                  // after an application is approved mid-session.
-                  valueListenable: _isTherapistListenable,
-                  builder: (context, isTherapist, _) => Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      _NavIcon(
-                        selectedIconPath: Assets.images.svgV2.userMultipleActive,
-                        unselectedIconPath:
-                            Assets.images.svgV2.userMultipleInActive,
-                        selected:
-                            widget.navigationShell.currentIndex == _kHomeBranch,
-                        onTap: () => _goBranch(_kHomeBranch),
+        bottomNavigationBar: widget.navigationShell.currentIndex ==
+                _kGroupsBranch
+            ? null
+            : Container(
+                width: double.infinity,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  border:
+                      Border(top: BorderSide(color: Pallets.grey90, width: 1)),
+                ),
+                child: SafeArea(
+                  top: false,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(vertical: 10.h),
+                    child: ValueListenableBuilder<bool>(
+                      // Wraps the whole bar rather than a single destination: the
+                      // shell is a StatefulShellRoute.indexedStack, so a visited
+                      // branch stays alive and will not rebuild on its own.
+                      // Reading the flag once during build would leave both the
+                      // therapist/wellness icon and the Earnings destination stale
+                      // after an application is approved mid-session.
+                      valueListenable: _isTherapistListenable,
+                      builder: (context, isTherapist, _) => Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          _NavIcon(
+                            selectedIconPath:
+                                Assets.images.svgV2.userMultipleActive,
+                            unselectedIconPath:
+                                Assets.images.svgV2.userMultipleInActive,
+                            selected: widget.navigationShell.currentIndex ==
+                                _kHomeBranch,
+                            onTap: () => _goBranch(_kHomeBranch),
+                          ),
+                          _NavIcon(
+                            selectedIconPath: isTherapist
+                                ? Assets.images.svgV2.userActive
+                                : Assets.images.svgV2.brainActive,
+                            unselectedIconPath: isTherapist
+                                ? Assets.images.svgV2.userInActive
+                                : Assets.images.svgV2.brainInActive,
+                            selected: widget.navigationShell.currentIndex ==
+                                _kTherapistBranch,
+                            onTap: () => _goBranch(_kTherapistBranch),
+                          ),
+                          _NavIcon(
+                            selectedIconPath:
+                                Assets.images.svgV2.calendarActive,
+                            unselectedIconPath:
+                                Assets.images.svgV2.calendarInActive,
+                            selected: widget.navigationShell.currentIndex ==
+                                _kSessionBranch,
+                            onTap: () => _goBranch(_kSessionBranch),
+                          ),
+                          if (isTherapist)
+                            _NavIcon(
+                              selectedIconPath:
+                                  Assets.images.svgV2.dollarSelected,
+                              unselectedIconPath: Assets.images.svgV2.dollar2,
+                              selected: widget.navigationShell.currentIndex ==
+                                  _kEarningsBranch,
+                              onTap: () => _goBranch(_kEarningsBranch),
+                            ),
+                          _NavIcon(
+                            selectedIconPath:
+                                Assets.images.svgV2.profileSelected,
+                            unselectedIconPath:
+                                Assets.images.svgV2.profileUnselected,
+                            selected: widget.navigationShell.currentIndex ==
+                                _kProfileBranch,
+                            onTap: () => _goBranch(_kProfileBranch),
+                          ),
+                        ],
                       ),
-                      _NavIcon(
-                        selectedIconPath: isTherapist
-                            ? Assets.images.svgV2.userActive
-                            : Assets.images.svgV2.brainActive,
-                        unselectedIconPath: isTherapist
-                            ? Assets.images.svgV2.userInActive
-                            : Assets.images.svgV2.brainInActive,
-                        selected: widget.navigationShell.currentIndex ==
-                            _kTherapistBranch,
-                        onTap: () => _goBranch(_kTherapistBranch),
-                      ),
-                      _NavIcon(
-                        selectedIconPath: Assets.images.svgV2.calendarActive,
-                        unselectedIconPath:
-                            Assets.images.svgV2.calendarInActive,
-                        selected: widget.navigationShell.currentIndex ==
-                            _kSessionBranch,
-                        onTap: () => _goBranch(_kSessionBranch),
-                      ),
-                      if (isTherapist)
-                        _NavIcon(
-                          selectedIconPath: Assets.images.svgV2.dollarSelected,
-                          unselectedIconPath: Assets.images.svgV2.dollar2,
-                          selected: widget.navigationShell.currentIndex ==
-                              _kEarningsBranch,
-                          onTap: () => _goBranch(_kEarningsBranch),
-                        ),
-                      _NavIcon(
-                        selectedIconPath: Assets.images.svgV2.profileSelected,
-                        unselectedIconPath: Assets.images.svgV2.profileUnselected,
-                        selected: widget.navigationShell.currentIndex ==
-                            _kProfileBranch,
-                        onTap: () => _goBranch(_kProfileBranch),
-                      ),
-                    ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
-        ),
       ),
     );
   }

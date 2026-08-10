@@ -23,7 +23,8 @@ enum VerifyOtpType {
 }
 
 class VerifyOtpScreen extends StatefulWidget {
-  const VerifyOtpScreen({super.key, required this.email, required this.verifyOtpType});
+  const VerifyOtpScreen(
+      {super.key, required this.email, required this.verifyOtpType});
 
   final VerifyOtpType verifyOtpType;
 
@@ -33,7 +34,8 @@ class VerifyOtpScreen extends StatefulWidget {
   State<VerifyOtpScreen> createState() => _VerifyOtpScreenState();
 }
 
-class _VerifyOtpScreenState extends State<VerifyOtpScreen> with RefreshAppMixin {
+class _VerifyOtpScreenState extends State<VerifyOtpScreen>
+    with RefreshAppMixin {
   // final TextEditingController emailController = TextEditingController();
   final otpCtrl = TextEditingController();
   bool isSent = true;
@@ -58,7 +60,8 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> with RefreshAppMixin 
         builder: (context, state) {
           return SingleChildScrollView(
             padding: EdgeInsets.symmetric(horizontal: 24.w),
-            child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            child:
+                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
               // ── Header ─────────────────────────────────────────────
               TextView(
                 text: tittle,
@@ -78,7 +81,8 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> with RefreshAppMixin 
                     lineHeight: 1.4,
                   ),
                   TextView(
-                    text: " ${widget.email[0]}*********${widget.email.substring(4)} ",
+                    text:
+                        " ${widget.email[0]}*********${widget.email.substring(4)} ",
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
                     color: Pallets.boldBlackV2,
@@ -142,58 +146,74 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> with RefreshAppMixin 
 
               // ── Resend ─────────────────────────────────────────────
               Center(
-                child: Column(
-                  children: [
-                    // Disabled until the countdown finishes.
-                    TextView(
-                      text: 'Resend Code',
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700,
-                      color: isCounting
-                          ? Pallets.grey75
-                          : Pallets.blueBubbleColor,
-                      onTap: isCounting ? null : _resendOtp,
-                    ),
-                    8.verticalSpace,
-                    Wrap(
-                      crossAxisAlignment: WrapCrossAlignment.center,
-                      children: [
+                  child: Column(
+                children: [
+                  // Disabled until the countdown finishes.
+                  TextView(
+                    text: 'Resend Code',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    color:
+                        isCounting ? Pallets.grey75 : Pallets.blueBubbleColor,
+                    onTap: isCounting ? null : _resendOtp,
+                  ),
+                  8.verticalSpace,
+                  Wrap(
+                    crossAxisAlignment: WrapCrossAlignment.center,
+                    children: [
+                      const TextView(
+                        text: "Haven’t received the Code yet? ",
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Pallets.grey500,
+                      ),
+                      if (isCounting == true) ...[
                         const TextView(
-                          text: "Haven’t received the Code yet? ",
+                          text: "Resend code ",
                           fontSize: 14,
-                          fontWeight: FontWeight.w500,
-                          color: Pallets.grey500,
+                          fontWeight: FontWeight.w700,
+                          color: Pallets.blueBubbleColor,
                         ),
-                        if (isCounting == true) ...[
-                          const TextView(
-                            text: "Resend code ",
-                            fontSize: 14,
+                        CustomCountDown(
+                          endTime: _countDownEndTime,
+                          onEnd: () {
+                            isCounting = false;
+                            setState(() {});
+                          },
+                          style: TextStyle(
+                            fontSize: 14.sp,
                             fontWeight: FontWeight.w700,
                             color: Pallets.blueBubbleColor,
                           ),
-                          CustomCountDown(
-                            endTime: _countDownEndTime,
-                            onEnd: () {
-                              isCounting = false;
-                              setState(() {});
-                            },
-                            style: TextStyle(
-                              fontSize: 14.sp,
-                              fontWeight: FontWeight.w700,
-                              color: Pallets.blueBubbleColor,
-                            ),
-                          ),
-                          const TextView(
-                            text: "s",
-                            fontSize: 14,
-                            fontWeight: FontWeight.w700,
-                            color: Pallets.blueBubbleColor,
-                          ),
-                        ]
-                      ],
-                    ),
-                  ],
-                )
+                        ),
+                        const TextView(
+                          text: "s",
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                          color: Pallets.blueBubbleColor,
+                        ),
+                      ]
+                    ],
+                  ),
+                ],
+              )),
+
+              20.verticalSpace,
+
+              // ── Escape hatch ───────────────────────────────────────
+              // A pending registration/login already holds a real session
+              // (token + cached user) even though the email isn't verified
+              // yet — without this, restarting the app always resumes
+              // straight back into this screen for that same address, with
+              // no way to abandon it and try a different one.
+              Center(
+                child: TextView(
+                  text: "Wrong email? Start over",
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  color: Pallets.grey500,
+                  onTap: _startOver,
+                ),
               ),
 
               32.verticalSpace,
@@ -205,22 +225,37 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> with RefreshAppMixin 
   }
 
   String get tittle {
-    return widget.verifyOtpType == VerifyOtpType.auth ? "Verify Account" : "Verify Email";
+    return widget.verifyOtpType == VerifyOtpType.auth
+        ? "Verify Account"
+        : "Verify Email";
   }
 
   void _resendOtp() {
     _authBloc.add(SendOtpEvent(widget.email, otpType));
   }
 
+  /// Abandons whatever pending registration/login is stuck behind this
+  /// screen, so the app doesn't just resume straight back here for the
+  /// same email on next launch.
+  void _startOver() {
+    _authBloc.add(const LogoutEvent());
+  }
+
   void _verifyOtp() {
-    _authBloc.add(VerifyOtpEvent(code: otpCtrl.text, email: widget.email, type: otpType));
+    _authBloc.add(
+        VerifyOtpEvent(code: otpCtrl.text, email: widget.email, type: otpType));
   }
 
   String get otpType {
-    return widget.verifyOtpType == VerifyOtpType.passwordReset ? "password_reset" : "verify_email";
+    return widget.verifyOtpType == VerifyOtpType.passwordReset
+        ? "password_reset"
+        : "verify_email";
   }
 
   void _listenToOtpBloc(BuildContext context, AuthState state) {
+    logger.i('VerifyOtpScreen: listener received ${state.runtimeType} '
+        '(context.mounted: ${context.mounted})');
+
     if (state is AuthLoading) {
       CustomDialogs.showLoading(context);
     }
@@ -258,6 +293,12 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen> with RefreshAppMixin 
       CustomDialogs.hideLoading(context);
       setState(() => hasOtpError = true);
       CustomDialogs.error(state.error);
+    }
+
+    if (state is LogoutCompleted) {
+      if (!context.mounted) return;
+      CustomDialogs.hideLoading(context);
+      context.goNamed(PageUrl.getStartedScreen);
     }
   }
 }

@@ -22,26 +22,37 @@ mixin AuthSuccessMixin<T extends StatefulWidget> on State<T> {
     // don't include it, so fall back to the old field-based heuristic.
     final onboarding = state.onboarding;
     if (onboarding != null) {
-      if (onboarding.userType == null ||
-          (!kSkipInterestsGate && !onboarding.interests)) {
+      // `completedAt` is the authoritative signal — some steps (avatar) are
+      // optional, so the server can mark onboarding complete while that
+      // flag is still false. Only walk the granular per-step checks when
+      // it genuinely isn't done yet, otherwise a user who deliberately
+      // skipped their avatar gets sent back to that screen on every login.
+      if (!onboarding.isComplete) {
+        if (onboarding.userType == null ||
+            (!kSkipInterestsGate && !onboarding.interests)) {
+          context.goNamed(PageUrl.userTypeSelectionScreen);
+          return;
+        }
+        if (!onboarding.avatar) {
+          context.goNamed(PageUrl.userNameScreen);
+          return;
+        }
+        if (!onboarding.consents) {
+          context.goNamed(PageUrl.dataPrivacyScreen);
+          return;
+        }
+      }
+    } else {
+      // No onboarding summary yet — fall back to the old field-based
+      // heuristic.
+      if (!kSkipInterestsGate && state.interests.isEmpty) {
         context.goNamed(PageUrl.userTypeSelectionScreen);
         return;
       }
-      if (!onboarding.avatar) {
+      if (state.username.isEmpty || state.avatar == null) {
         context.goNamed(PageUrl.userNameScreen);
         return;
       }
-      if (!onboarding.consents) {
-        context.goNamed(PageUrl.dataPrivacyScreen);
-        return;
-      }
-    } else if (!kSkipInterestsGate && state.interests.isEmpty) {
-      // Onboarding isn't finished — pick the account type before interests.
-      context.goNamed(PageUrl.userTypeSelectionScreen);
-      return;
-    } else if (state.username.isEmpty || state.avatar == null) {
-      context.goNamed(PageUrl.userNameScreen);
-      return;
     }
 
     SessionManager().hasOnboarded = true;

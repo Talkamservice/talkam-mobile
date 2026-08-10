@@ -16,11 +16,9 @@ import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_b
 ///
 // Sesion
 class SessionManager {
-
   SessionManager._internal();
   SharedPreferences? sharedPreferences;
   FlutterSecureStorage? secureStorage;
-
 
   static final SessionManager _instance = SessionManager._internal();
 
@@ -28,15 +26,7 @@ class SessionManager {
 
   static SessionManager get instance => _instance;
 
-
-
-
   Future<void> init() async {
-
-
-
-
-
     try {
       sharedPreferences = await SharedPreferences.getInstance();
       secureStorage = const FlutterSecureStorage();
@@ -62,7 +52,6 @@ class SessionManager {
   static const String KEY_IS_THERAPIST_ACCOUNT = 'is_therapist_account';
   static const String KEY_THERAPIST_PROFILE = 'therapist_profile';
   static const String KEY_LAST_MOOD_CHECK_DATE = 'last_mood_check_date';
-
 
   Map<String, dynamic> get usersData =>
       json.decode(sharedPreferences!.getString(KEY_USERS_DATA) ?? '{}');
@@ -200,16 +189,25 @@ class SessionManager {
       sharedPreferences!.getBool(SOUND_ENABLED) ?? false;
 
   Future<bool> logOut() async {
+    logger.i('SessionManager: clearing local session');
 
+    // Preserve device-level flags that should survive a logout.
     final holdUseBio = sharedPreferences?.getBool(KEY_USE_BIO);
+    final holdHasOnboarded = sharedPreferences?.getBool(HAS_ONBOARDED);
+
     await sharedPreferences!.clear();
-    // sharedPreferences?.setString(KEY_USER_EMAIL, holdEmail ?? '')
+
+    // Restore preserved flags so the user isn't treated as a brand-new
+    // install on the next launch.
     sharedPreferences?.setBool(KEY_USE_BIO, holdUseBio ?? false);
+    sharedPreferences?.setBool(HAS_ONBOARDED, holdHasOnboarded ?? false);
 
     instance.isLoggedIn = false;
-    instance.hasOnboarded = false;
+    // Do NOT reset hasOnboarded — it's a device flag, not a session flag.
 
     injector.get<ProfileBloc>().add(const Logout());
+    logger.i('SessionManager: local session cleared, Logout dispatched to '
+        'ProfileBloc');
 
     // await secureStorage?.deleteAll();
     // await sharedPreferences?.clear();

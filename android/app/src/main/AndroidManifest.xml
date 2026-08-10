@@ -22,7 +22,8 @@
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
-        android:label="TalKAM Tech">
+        android:label="TalKAM Tech"
+        android:enableOnBackInvokedCallback="true">
         <meta-data
             android:name="com.facebook.sdk.ApplicationId"
             android:value="@string/facebook_app_id" />

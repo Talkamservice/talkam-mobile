@@ -135,3 +135,13 @@ class UpdateProfileEvent extends AuthEvent {
   @override
   List<Object> get props => [payload];
 }
+
+/// Invalidates the session server-side (best-effort) and clears it locally.
+class LogoutEvent extends AuthEvent {
+  final bool allDevices;
+
+  const LogoutEvent({this.allDevices = false});
+
+  @override
+  List<Object> get props => [allDevices];
+}
