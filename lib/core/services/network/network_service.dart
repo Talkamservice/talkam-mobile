@@ -9,6 +9,18 @@ import '../data/session_manager.dart';
 import 'api_error.dart';
 import 'url_config.dart';
 
+class _AuthInterceptor extends Interceptor {
+  @override
+  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+    final authToken = SessionManager.instance.authToken;
+    if (authToken != null && authToken.isNotEmpty) {
+      options.headers[HttpHeaders.authorizationHeader] = 'Bearer $authToken';
+    }
+    options.headers['timezone'] = TimezoneService().currentTimeZone;
+    super.onRequest(options, handler);
+  }
+}
+
 /// description: A network provider class which manages network connections
 /// between the app and external services. This is a wrapper around [Dio].
 ///
@@ -47,20 +59,18 @@ class NetworkService {
       baseUrl: baseUrl ?? UrlConfig.coreBaseUrl,
     ));
     authToken ??= SessionManager.instance.authToken;
-    // logger.i("authToken is ${SessionManager.instance.usersData}");
+    dio!.interceptors.add(_AuthInterceptor());
     dio!.interceptors.add(LogInterceptor(
       requestBody: true,
       responseBody: true,
       logPrint: printDioLogs,
     ));
-    // dio!.interceptors.add(AppInterceptor(authToken ?? ''));
   }
 
   /// Factory constructor used mainly for injecting an instance of [Dio] mock
   NetworkService.test(this.dio);
 
-  Future<Response> call(
-      String path, RequestMethod method,
+  Future<Response> call(String path, RequestMethod method,
       {Map<String, dynamic>? queryParams,
       data,
       FormData? formData,
@@ -107,9 +117,7 @@ class NetworkService {
               data: formData,
               queryParameters: params,
               options: Options(headers: {
-                "Authorization": "Bearer ${SessionManager.instance.authToken}",
                 "Content-Disposition": "form-data",
-                "Content-Type": "multipart/form-data",
               }),
               onSendProgress: (sent, total) {});
           break;
@@ -117,23 +125,12 @@ class NetworkService {
           response = await dio!.put(path,
               data: formData,
               queryParameters: params,
-              options: Options(headers: {
-                "Authorization": "Bearer ${SessionManager.instance.authToken}",
-                // "Content-Disposition": "form-data",
-                // "Content-Type": "multipart/form-data",
-              }),
               onSendProgress: (sent, total) {});
           break;
 
         case RequestMethod.putSecond:
           response = await dio!.put(path,
-              data: data,
-              queryParameters: params,
-              options: Options(headers: {
-                "Authorization": "Bearer ${SessionManager.instance.authToken}",
-                "Content-Type": "application/json",
-              }),
-              onSendProgress: (sent, total) {});
+              data: data, queryParameters: params, options: _getOptions());
           break;
       }
 
@@ -186,16 +183,11 @@ class NetworkService {
     }
   }
 
-
-
   _getOptions() {
-    return Options(contentType: Headers.jsonContentType, headers: {
-      HttpHeaders.authorizationHeader:
-          "Bearer ${SessionManager.instance.authToken}",
-      'Accept': 'application/json',
-      'Content-Type': 'application/json',
-      "timezone": TimezoneService().currentTimeZone
-    });
+    return Options(
+      contentType: Headers.jsonContentType,
+      headers: {'Accept': 'application/json'},
+    );
   }
 }
 

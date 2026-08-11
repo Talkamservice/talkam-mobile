@@ -100,10 +100,18 @@ class AdsCubit extends Cubit<AdsState> {
   }
 
   // Get Pricing
-  Future<void> getCalculation({required double amount, required double dailyBudget, required double duration, required double impressions}) async {
+  Future<void> getCalculation(
+      {required double amount,
+      required double dailyBudget,
+      required double duration,
+      required double impressions}) async {
     try {
       emit(const AdsState.getCalculationLoading());
-      final calculationResponse = await adsRepository.calculateAdsCost(amount: amount, dailyBudget: dailyBudget, duration: duration, impressions: impressions);
+      final calculationResponse = await adsRepository.calculateAdsCost(
+          amount: amount,
+          dailyBudget: dailyBudget,
+          duration: duration,
+          impressions: impressions);
       emit(AdsState.getCalculationSuccess(calculationResponse));
     } catch (e, stack) {
       logger.e(e, stackTrace: stack);
@@ -155,6 +163,17 @@ class AdsCubit extends Cubit<AdsState> {
       emit(AdsState.updateStatsSuccess(true));
     } catch (e) {
       emit(AdsState.updateStatsFailed(e.toString()));
+    }
+  }
+
+  // Save Post Share Stat (v2) — best-effort, matching how callers already
+  // treat the share action as fire-and-forget alongside the native share
+  // sheet.
+  Future<void> savePostShareStat(String postId) async {
+    try {
+      await adsRepository.savePostShareStat(postId);
+    } catch (e) {
+      logger.e(e);
     }
   }
 

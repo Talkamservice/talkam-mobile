@@ -12,37 +12,26 @@ part 'featured_post_cubit.freezed.dart';
 class FeaturedPostCubit extends Cubit<FeaturedPostState> {
   final PostRepository postRepository;
 
-  List<TalkamPost> _promotedPosts = []; // Track promoted posts
-  int _promotedIndex = 0; // Current index of promoted posts
+  bool _isLoadingMore = false;
 
-  FeaturedPostCubit(this.postRepository) : super(const FeaturedPostState.initial());
+  FeaturedPostCubit(this.postRepository)
+      : super(const FeaturedPostState.initial());
 
+  /// Backs the "For You" tab — v2's `tab=for_you` feed. Promoted posts are
+  /// already interleaved server-side (each post carries its own `promotion`
+  /// flag), unlike the old v1 flow which fetched and merged them separately.
   void getFeaturedPosts(PostFilterModel filter, {bool? reload}) async {
     if (reload ?? true) {
       emit(const FeaturedPostState.getFeaturedPostsLoading());
     }
     try {
-      // Fetch featured and promoted posts simultaneously
-      var response;
-      var promotedResponse;
-      var allResponse = await Future.wait([postRepository.getPosts(filter), postRepository.getPromotedPosts()]);
-
-      response = allResponse.first;
-      promotedResponse = allResponse.last;
-
-      // Save promoted posts and reset index
-      _promotedPosts = promotedResponse.data.data;
-      _promotedIndex = 0;
-
-      // Merge posts
-      final mergedPosts = response.data.data.isEmpty ? <TalkamPost>[]: _mergePosts(response.data.data, _promotedPosts);
-
-      // Emit success state with merged posts
-      final mergedResponse = response.copyWith(
-        data: response.data.copyWith(data: mergedPosts),
+      final response = await postRepository.getFeed(
+        tab: "for_you",
+        categoryId: filter.category,
+        page: filter.page,
       );
 
-      emit(FeaturedPostState.getFeaturedPostsSuccess(mergedResponse));
+      emit(FeaturedPostState.getFeaturedPostsSuccess(response));
     } catch (error, stack) {
       logger.e(error);
       logger.e(stack);
@@ -50,64 +39,36 @@ class FeaturedPostCubit extends Cubit<FeaturedPostState> {
     }
   }
 
-  void loadMore(GetPostsResponse previousPosts) async {
+  /// Fetches the next page and appends it to whatever's currently shown.
+  /// No-ops if nothing's loaded yet, a fetch is already in flight, or the
+  /// current page is already the last one.
+  Future<void> loadMore() async {
+    final previous =
+        state.whenOrNull(getFeaturedPostsSuccess: (response) => response);
+    if (_isLoadingMore || previous == null) return;
+    if (previous.data.paginationMeta.canLoadMore != true) return;
+
+    _isLoadingMore = true;
     try {
-      // Fetch more featured posts
-      final featuredPostsResponse = await postRepository.getPosts(
-        PostFilterModel(
-          page: previousPosts.data.paginationMeta.currentPage + 1,
-          tab: "featured",
+      final response = await postRepository.getFeed(
+        tab: "for_you",
+        page: previous.data.paginationMeta.currentPage + 1,
+      );
+
+      final mergedResponse = response.copyWith(
+        data: response.data.copyWith(
+          data: [...previous.data.data, ...response.data.data],
         ),
       );
 
-      // Check if promoted posts are exhausted
-      if (_promotedIndex >= _promotedPosts.length) {
-        final promotedResponse = await postRepository.getPromotedPosts();
-        _promotedPosts = promotedResponse.data.data;
-        _promotedIndex = 0;
-      }
-
-      // Merge new featured posts with remaining/promoted posts
-      final mergedPosts = featuredPostsResponse.data.data.isEmpty ? <TalkamPost>[]: _mergePosts(
-        [...previousPosts.data.data, ...featuredPostsResponse.data.data],
-        _promotedPosts,
-      );
-
-      // Emit success state with updated posts
-      final updatedResponse = featuredPostsResponse.copyWith(
-        data: featuredPostsResponse.data.copyWith(data: mergedPosts),
-      );
-
-      emit(FeaturedPostState.getFeaturedPostsSuccess(updatedResponse));
-    } catch (error) {
-      emit(FeaturedPostState.getFeaturedPostsFailed(error.toString()));
+      emit(FeaturedPostState.getFeaturedPostsSuccess(mergedResponse));
+    } catch (error, stack) {
+      logger.e(error);
+      logger.e(stack);
+      // Keep showing what's already loaded — a failed "load more" shouldn't
+      // wipe the list or replace it with a full error screen.
+    } finally {
+      _isLoadingMore = false;
     }
-  }
-
-  List<TalkamPost> _mergePosts(List<TalkamPost> featuredPosts, List<TalkamPost> promotedPosts) {
-    final List<TalkamPost> mergedPosts = [];
-    int featuredIndex = 0;
-    int count = 0;
-
-    // Merge featured and promoted posts
-    while (featuredIndex < featuredPosts.length) {
-      mergedPosts.add(featuredPosts[featuredIndex]);
-      featuredIndex++;
-      count++;
-
-      if (count == 5 && _promotedIndex < promotedPosts.length) {
-        mergedPosts.add(promotedPosts[_promotedIndex]);
-        _promotedIndex++;
-        count = 0;
-      }
-    }
-
-    // Add remaining promoted posts if any
-    while (_promotedIndex < promotedPosts.length) {
-      mergedPosts.add(promotedPosts[_promotedIndex]);
-      _promotedIndex++;
-    }
-
-    return mergedPosts;
   }
 }

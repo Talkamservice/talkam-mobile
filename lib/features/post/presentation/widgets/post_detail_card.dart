@@ -4,6 +4,7 @@ import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/subscribe_button.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/core/theme/pallets.dart';
@@ -18,7 +19,7 @@ import 'package:talkam/features/post/presentation/widgets/post_content.dart';
 import 'package:talkam/features/post/presentation/widgets/post_reaction_button.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
-class PostDetailCard extends StatelessWidget {
+class PostDetailCard extends StatefulWidget {
   const PostDetailCard(
       {super.key, required this.post, required this.onCommentTap});
 
@@ -26,7 +27,13 @@ class PostDetailCard extends StatelessWidget {
   final VoidCallback onCommentTap;
 
   @override
+  State<PostDetailCard> createState() => _PostDetailCardState();
+}
+
+class _PostDetailCardState extends State<PostDetailCard> {
+  @override
   Widget build(BuildContext context) {
+    final post = widget.post;
     return Container(
       color: context.theme.cardColor,
       child: Padding(
@@ -34,7 +41,7 @@ class PostDetailCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _PostDetailHeader(post: post, userName: userName),
+            _PostDetailHeader(post: widget.post, userName: userName),
             10.verticalSpace,
             PostContent(post: post),
             12.verticalSpace,
@@ -60,20 +67,26 @@ class PostDetailCard extends StatelessWidget {
                   id: post.id.toString(),
                   reaction: post.reaction,
                   onLikeAdded: () {
-                    post.reaction = PostReaction.like();
-                    post.likesCount += 1;
+                    setState(() {
+                      post.reaction = PostReaction.like();
+                      post.likesCount += 1;
+                    });
                   },
                   onCountReduced: () {
-                    post.likesCount -= 1;
+                    setState(() {
+                      post.likesCount -= 1;
+                    });
                   },
                   onDisliked: () {},
                   onReactionRemoved: () {
-                    post.reaction = null;
+                    setState(() {
+                      post.reaction = null;
+                    });
                   },
                 ),
                 24.horizontalSpace,
                 InkWell(
-                  onTap: onCommentTap,
+                  onTap: widget.onCommentTap,
                   child: ImageWidget(
                       imageUrl: Assets.images.svgV2.commentIcon, size: 22),
                 ),
@@ -94,7 +107,7 @@ class PostDetailCard extends StatelessWidget {
   }
 
   String get userName =>
-      post.isAnonymous.toBool ? "Anonymous" : post.user.usersName;
+      widget.post.isAnonymous.toBool ? "Anonymous" : widget.post.user.usersName;
 }
 
 /// Avatar, poster name, "Posted in {category}", a Subscribe pill (visual

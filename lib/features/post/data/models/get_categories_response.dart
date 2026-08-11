@@ -4,9 +4,11 @@
 
 import 'dart:convert';
 
-GetCategoriesResponse getCategoriesResponseFromJson(String str) => GetCategoriesResponse.fromJson(json.decode(str));
+GetCategoriesResponse getCategoriesResponseFromJson(String str) =>
+    GetCategoriesResponse.fromJson(json.decode(str));
 
-String getCategoriesResponseToJson(GetCategoriesResponse data) => json.encode(data.toJson());
+String getCategoriesResponseToJson(GetCategoriesResponse data) =>
+    json.encode(data.toJson());
 
 class GetCategoriesResponse {
   String message;
@@ -34,9 +36,11 @@ class GetCategoriesResponse {
         code: code ?? this.code,
       );
 
-  factory GetCategoriesResponse.fromJson(Map<String, dynamic> json) => GetCategoriesResponse(
+  factory GetCategoriesResponse.fromJson(Map<String, dynamic> json) =>
+      GetCategoriesResponse(
         message: json["message"],
-        data: List<PostCategory>.from(json["data"].map((x) => PostCategory.fromJson(x))),
+        data: List<PostCategory>.from(
+            json["data"].map((x) => PostCategory.fromJson(x))),
         success: json["success"],
         code: json["code"],
       );
@@ -64,6 +68,7 @@ class PostCategory {
   DateTime? createdAt;
   DateTime? updatedAt;
   ParentCategory? parentCategory;
+  List<TrendingTag> trendingTags;
 
   String get postCategoryImage => iconImage ?? backgroundImage;
 
@@ -82,6 +87,7 @@ class PostCategory {
     required this.isFollowing,
     required this.isSuspended,
     required this.groupAccess,
+    this.trendingTags = const [],
   });
 
   PostCategory copyWith({
@@ -99,6 +105,7 @@ class PostCategory {
     bool? isSuspended,
     DateTime? updatedAt,
     ParentCategory? parentCategory,
+    List<TrendingTag>? trendingTags,
   }) =>
       PostCategory(
         id: id ?? this.id,
@@ -115,6 +122,7 @@ class PostCategory {
         type: type ?? this.type,
         parentCategory: parentCategory ?? this.parentCategory,
         updatedAt: updatedAt ?? this.updatedAt,
+        trendingTags: trendingTags ?? this.trendingTags,
       );
 
   factory PostCategory.fromJson(Map<String, dynamic> json) => PostCategory(
@@ -129,9 +137,19 @@ class PostCategory {
         type: json["type"],
         iconImage: json["icon_image"],
         isFollowing: json["is_following"],
-        parentCategory: json["parent_category"] == null ? null : ParentCategory.fromJson(json["parent_category"]),
-        createdAt: json["created_at"] == null ? null : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null ? null : DateTime.parse(json["updated_at"]),
+        parentCategory: json["parent_category"] == null
+            ? null
+            : ParentCategory.fromJson(json["parent_category"]),
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
+        trendingTags: json["trending_tags"] == null
+            ? []
+            : List<TrendingTag>.from(
+                json["trending_tags"].map((x) => TrendingTag.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -149,6 +167,8 @@ class PostCategory {
         "parent_category": parentCategory?.toJson(),
         "created_at": createdAt?.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
+        "trending_tags":
+            List<dynamic>.from(trendingTags.map((x) => x.toJson())),
       };
 
   bool get isPublic => groupAccess == null || groupAccess == "Opened";
@@ -157,6 +177,49 @@ class PostCategory {
   String toString() {
     return name;
   }
+}
+
+class TrendingTag {
+  int id;
+  String tag;
+  int count;
+  DateTime? createdAt;
+
+  TrendingTag({
+    required this.id,
+    required this.tag,
+    required this.count,
+    required this.createdAt,
+  });
+
+  TrendingTag copyWith({
+    int? id,
+    String? tag,
+    int? count,
+    DateTime? createdAt,
+  }) =>
+      TrendingTag(
+        id: id ?? this.id,
+        tag: tag ?? this.tag,
+        count: count ?? this.count,
+        createdAt: createdAt ?? this.createdAt,
+      );
+
+  factory TrendingTag.fromJson(Map<String, dynamic> json) => TrendingTag(
+        id: json["id"],
+        tag: json["tag"],
+        count: json["count"],
+        createdAt: json["created_at"] == null
+            ? null
+            : DateTime.parse(json["created_at"]),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "tag": tag,
+        "count": count,
+        "created_at": createdAt?.toIso8601String(),
+      };
 }
 
 class ParentCategory {

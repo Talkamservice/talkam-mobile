@@ -11,6 +11,8 @@ import 'package:talkam/features/group/dormain/repository/group_members_repositor
 import 'package:talkam/features/group/dormain/repository/group_repository.dart';
 import 'package:talkam/features/messaging/data/repository/messaging_repository_impl.dart';
 import 'package:talkam/features/messaging/dormain/repository/messaging_repository.dart';
+import 'package:talkam/features/mood_check/data/repository/mood_repository_impl.dart';
+import 'package:talkam/features/mood_check/dormain/repository/mood_repository.dart';
 import 'package:talkam/features/notifications/data/repository/notifications_repository_impl.dart';
 import 'package:talkam/features/notifications/dormain/repository/notifications_repository.dart';
 import 'package:talkam/features/post/data/repository/post_repository_impl.dart';
@@ -63,5 +65,8 @@ void setup(GetIt getIt) {
   );
   getIt.registerLazySingleton<PrivacyRepository>(
     () => PrivacyRepositoryImpl(),
+  );
+  getIt.registerLazySingleton<MoodRepository>(
+    () => MoodRepositoryImpl(),
   );
 }

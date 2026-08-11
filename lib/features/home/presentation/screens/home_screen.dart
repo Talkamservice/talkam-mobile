@@ -42,7 +42,7 @@ class _HomeScreenState extends State<HomeScreen>
   int selecteIndex = 0;
 
   late TabController _tabController;
-  final _moodCheckCubit = MoodCheckCubit();
+  final _moodCheckCubit = injector.get<MoodCheckCubit>();
 
   @override
   void initState() {
@@ -132,7 +132,6 @@ class _HomeScreenState extends State<HomeScreen>
                   ),
                 ),
               ),
-
               Expanded(
                 child: Padding(
                   padding: EdgeInsets.zero,

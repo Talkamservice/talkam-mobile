@@ -11,12 +11,22 @@ import 'package:talkam/features/post/data/models/save_comment_payload.dart';
 import 'package:talkam/features/post/data/models/trends_response.dart';
 
 abstract class PostRepository {
-  Future<GetCategoriesResponse> getCategories({String? categoryId, bool? mergeGroups});
+  Future<GetCategoriesResponse> getCategories(
+      {String? categoryId, bool? mergeGroups});
 
-  Future<PostCategory> getCategoryById({String? categoryId,});
+  Future<PostCategory> getCategoryById({
+    String? categoryId,
+  });
 
   Future<GetPostsResponse> getPosts(PostFilterModel model);
   Future<GetPostsResponse> getPromotedPosts();
+
+  /// v2 home feed — `tab` is `for_you` or `trending`. Unlike the v1
+  /// [getPosts]/[getPromotedPosts] pair, promoted posts are already
+  /// interleaved server-side and marked via `TalkamPost.promotion`, so there
+  /// is no separate promoted-posts call or client-side merge to do.
+  Future<GetPostsResponse> getFeed(
+      {required String tab, String? categoryId, int? page});
 
   // Future<TalkamPost> getAPosts(String id);
 

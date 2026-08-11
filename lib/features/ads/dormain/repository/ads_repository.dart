@@ -13,9 +13,15 @@ abstract class AdsRepository {
 
   Future<AdAnalyticsResponse> getAnalytics(bool isPost, String id);
 
-  Future<InitiatePaymentResponse> initiatePromotion(CreatePromotionPayload promotionData);
+  Future<InitiatePaymentResponse> initiatePromotion(
+      CreatePromotionPayload promotionData);
 
   Future<void> updateStatPayload(UpdateStatPayLoad payload);
+
+  /// v2 share-stat endpoint — post_id + shares only, per the spec. The
+  /// broader [updateStatPayload] stays on v1 since it's also used for
+  /// non-share stats (time spent) and group shares, which v2 doesn't cover.
+  Future<void> savePostShareStat(String postId);
 
   Future<dynamic> deletePromotion(String promotionId);
 
@@ -23,7 +29,11 @@ abstract class AdsRepository {
 
   Future<dynamic> paymentCallback(String reference);
 
-  Future<GetCalculationResponse> calculateAdsCost({required double amount, required double dailyBudget, required double duration, required double impressions});
+  Future<GetCalculationResponse> calculateAdsCost(
+      {required double amount,
+      required double dailyBudget,
+      required double duration,
+      required double impressions});
 
   Future<GetPricingResponse> getAdsPricing();
 

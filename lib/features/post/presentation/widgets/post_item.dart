@@ -8,7 +8,6 @@ import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/extensions/int_extension.dart';
-import 'package:talkam/features/ads/data/models/update_stat_payload.dart';
 import 'package:talkam/features/ads/presentation/blocs/ads/ads_cubit.dart';
 import 'package:talkam/features/ads/presentation/widgets/ad_indicator.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
@@ -58,6 +57,7 @@ class PostItem extends StatelessWidget {
                     Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.w),
                         child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             PostHeader(
                               showGroupAndCategory: showGroupAndCategory,
@@ -86,8 +86,7 @@ class PostItem extends StatelessWidget {
                               onCommentTap: () {},
                               onLikeTap: () {},
                               onShareTap: () {
-                                adsCubit.updateStats(UpdateStatPayLoad(
-                                    postId: post.id, shares: true));
+                                adsCubit.savePostShareStat(post.id.toString());
                                 Helpers.share(
                                     "${UrlConfig.webUrl}comment/${post.id}");
                               },

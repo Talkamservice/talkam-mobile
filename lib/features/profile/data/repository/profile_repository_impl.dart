@@ -27,12 +27,10 @@ class ProfileRepositoryImpl extends ProfileRepository {
   ProfileRepositoryImpl(this._networkService);
 
   /// Form-data requests must build their own [Options] so Dio can infer the
-  /// multipart content type (the default options force `application/json`),
-  /// but that means the default Authorization header is lost too unless we
-  /// add it back here explicitly.
+  /// multipart content type (the default options force `application/json`).
+  /// The Authorization header is automatically injected by [_AuthInterceptor].
   Options get _authedFormOptions => Options(headers: {
         "Accept": "application/json",
-        "Authorization": "Bearer ${SessionManager.instance.authToken}",
       });
 
   @override

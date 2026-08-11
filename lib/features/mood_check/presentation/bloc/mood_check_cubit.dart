@@ -1,7 +1,9 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/features/mood_check/data/models/mood.dart';
+import 'package:talkam/features/mood_check/dormain/repository/mood_repository.dart';
 
 abstract class MoodCheckState extends Equatable {
   const MoodCheckState();
@@ -34,7 +36,9 @@ class MoodCheckDismissed extends MoodCheckState {
 /// one via SessionManager.lastMoodCheckDate (a plain ISO date string,
 /// compared against today's date).
 class MoodCheckCubit extends Cubit<MoodCheckState> {
-  MoodCheckCubit() : super(const MoodCheckIdle());
+  final MoodRepository _moodRepository;
+
+  MoodCheckCubit(this._moodRepository) : super(const MoodCheckIdle());
 
   static String _todayIso() {
     final now = DateTime.now();
@@ -48,8 +52,18 @@ class MoodCheckCubit extends Cubit<MoodCheckState> {
     emit(shown ? const MoodCheckIdle() : const MoodCheckShouldShow());
   }
 
-  void dismiss([Mood? mood]) {
+  /// Marks today's check-in as done locally right away (so the dialog won't
+  /// reappear even if the request below fails) and submits the picked mood
+  /// server-side, best-effort — closing the dialog isn't blocked on it.
+  Future<void> dismiss([Mood? mood]) async {
     SessionManager.instance.lastMoodCheckDate = _todayIso();
     emit(MoodCheckDismissed(mood));
+
+    if (mood == null) return;
+    try {
+      await _moodRepository.recordMoodCheckin(mood.index + 1);
+    } catch (error) {
+      logger.e(error);
+    }
   }
 }

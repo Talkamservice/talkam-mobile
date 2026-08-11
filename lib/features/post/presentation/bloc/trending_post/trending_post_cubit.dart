@@ -12,37 +12,26 @@ part 'trending_post_cubit.freezed.dart';
 class TrendingPostCubit extends Cubit<TrendingPostState> {
   final PostRepository postRepository;
 
-  List<TalkamPost> _promotedPosts = []; // Track promoted posts
-  int _promotedIndex = 0; // Current index of promoted posts
+  bool _isLoadingMore = false;
 
-  TrendingPostCubit(this.postRepository) : super(const TrendingPostState.initial());
+  TrendingPostCubit(this.postRepository)
+      : super(const TrendingPostState.initial());
 
+  /// Backs the "Trending" tab — v2's `tab=trending` feed. Promoted posts are
+  /// already interleaved server-side (each post carries its own `promotion`
+  /// flag), unlike the old v1 flow which fetched and merged them separately.
   void getTrendingPosts(PostFilterModel filter, {bool? reload}) async {
     if (reload ?? true) {
       emit(const TrendingPostState.getTrendingPostsLoading());
     }
     try {
-      // Fetch trending and promoted posts simultaneously
-      var response;
-      var promotedResponse;
-      var allResponse = await Future.wait([postRepository.getPosts(filter), postRepository.getPromotedPosts()]);
-
-      response = allResponse.first;
-      promotedResponse = allResponse.last;
-
-      // Save promoted posts and reset index
-      _promotedPosts = promotedResponse.data.data;
-      _promotedIndex = 0;
-
-      // Merge posts
-      final mergedPosts = response.data.data.isEmpty ? <TalkamPost>[] : _mergePosts(response.data.data, _promotedPosts);
-
-      // Emit success state with merged posts
-      final mergedResponse = response.copyWith(
-        data: response.data.copyWith(data: mergedPosts),
+      final response = await postRepository.getFeed(
+        tab: "trending",
+        categoryId: filter.category,
+        page: filter.page,
       );
 
-      emit(TrendingPostState.getTrendingPostsSuccess(mergedResponse));
+      emit(TrendingPostState.getTrendingPostsSuccess(response));
     } catch (error, stack) {
       logger.e(error);
       logger.e(stack);
@@ -50,66 +39,36 @@ class TrendingPostCubit extends Cubit<TrendingPostState> {
     }
   }
 
-  void loadMore(GetPostsResponse previousPosts) async {
+  /// Fetches the next page and appends it to whatever's currently shown.
+  /// No-ops if nothing's loaded yet, a fetch is already in flight, or the
+  /// current page is already the last one.
+  Future<void> loadMore() async {
+    final previous =
+        state.whenOrNull(getTrendingPostsSuccess: (response) => response);
+    if (_isLoadingMore || previous == null) return;
+    if (previous.data.paginationMeta.canLoadMore != true) return;
+
+    _isLoadingMore = true;
     try {
-      // Fetch more trending posts
-      final trendingPostsResponse = await postRepository.getPosts(
-        PostFilterModel(
-          page: previousPosts.data.paginationMeta.currentPage + 1,
-          tab: "trending",
+      final response = await postRepository.getFeed(
+        tab: "trending",
+        page: previous.data.paginationMeta.currentPage + 1,
+      );
+
+      final mergedResponse = response.copyWith(
+        data: response.data.copyWith(
+          data: [...previous.data.data, ...response.data.data],
         ),
       );
 
-      // Check if promoted posts are exhausted
-      if (_promotedIndex >= _promotedPosts.length) {
-        final promotedResponse = await postRepository.getPromotedPosts();
-        _promotedPosts = promotedResponse.data.data;
-        _promotedIndex = 0;
-      }
-
-      // Merge new trending posts with remaining/promoted posts
-      final mergedPosts = trendingPostsResponse.data.data.isEmpty
-          ? <TalkamPost>[]
-          : _mergePosts(
-              [...previousPosts.data.data, ...trendingPostsResponse.data.data],
-              _promotedPosts,
-            );
-
-      // Emit success state with updated posts
-      final updatedResponse = trendingPostsResponse.copyWith(
-        data: trendingPostsResponse.data.copyWith(data: mergedPosts),
-      );
-
-      emit(TrendingPostState.getTrendingPostsSuccess(updatedResponse));
-    } catch (error) {
-      emit(TrendingPostState.getTrendingPostsFailed(error.toString()));
+      emit(TrendingPostState.getTrendingPostsSuccess(mergedResponse));
+    } catch (error, stack) {
+      logger.e(error);
+      logger.e(stack);
+      // Keep showing what's already loaded — a failed "load more" shouldn't
+      // wipe the list or replace it with a full error screen.
+    } finally {
+      _isLoadingMore = false;
     }
-  }
-
-  List<TalkamPost> _mergePosts(List<TalkamPost> trendingPosts, List<TalkamPost> promotedPosts) {
-    final List<TalkamPost> mergedPosts = [];
-    int trendingIndex = 0;
-    int count = 0;
-
-    // Merge trending and promoted posts
-    while (trendingIndex < trendingPosts.length) {
-      mergedPosts.add(trendingPosts[trendingIndex]);
-      trendingIndex++;
-      count++;
-
-      if (count == 5 && _promotedIndex < promotedPosts.length) {
-        mergedPosts.add(promotedPosts[_promotedIndex]);
-        _promotedIndex++;
-        count = 0;
-      }
-    }
-
-    // Add remaining promoted posts if any
-    while (_promotedIndex < promotedPosts.length) {
-      mergedPosts.add(promotedPosts[_promotedIndex]);
-      _promotedIndex++;
-    }
-
-    return mergedPosts;
   }
 }

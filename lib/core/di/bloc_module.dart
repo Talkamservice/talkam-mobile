@@ -6,6 +6,7 @@ import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cub
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
 import 'package:talkam/features/messaging/presentation/blocs/conversations/conversations_cubit.dart';
 import 'package:talkam/features/messaging/presentation/blocs/messaging/messaging_cubit.dart';
+import 'package:talkam/features/mood_check/presentation/bloc/mood_check_cubit.dart';
 import 'package:talkam/features/notifications/presentation/bloc/notification_bloc.dart';
 import 'package:talkam/features/notifications/presentation/bloc/push_notifications_navigator_bloc/deep_link_bloc.dart';
 import 'package:talkam/features/post/presentation/bloc/create_post/create_post_cubit.dart';
@@ -61,31 +62,48 @@ void setup(GetIt getIt) {
     () => PushNotificationNavigatorBloc(),
   );
 
-  getIt.registerLazySingleton<ProfileScreenCubit>(() => ProfileScreenCubit(injector.get()));
-  getIt.registerLazySingleton<ProfileUpvotesCubit>(() => ProfileUpvotesCubit(injector.get()));
+  getIt.registerLazySingleton<ProfileScreenCubit>(
+      () => ProfileScreenCubit(injector.get()));
+  getIt.registerLazySingleton<ProfileUpvotesCubit>(
+      () => ProfileUpvotesCubit(injector.get()));
 
-  getIt.registerLazySingleton<ProfilePostsTabCubit>(() => ProfilePostsTabCubit(injector.get()));
+  getIt.registerLazySingleton<ProfilePostsTabCubit>(
+      () => ProfilePostsTabCubit(injector.get()));
 
-  getIt.registerFactory<ProfileCommentTabCubit>(() => ProfileCommentTabCubit(injector.get()));
+  getIt.registerFactory<ProfileCommentTabCubit>(
+      () => ProfileCommentTabCubit(injector.get()));
 
-  getIt.registerLazySingleton<UserProfileCubit>(() => UserProfileCubit(injector.get()));
-  getIt.registerLazySingleton<UserProfileUpvotesCubit>(() => UserProfileUpvotesCubit(injector.get()));
+  // Factory, not lazy singleton — screen-scoped like ProfileCommentTabCubit
+  // above: HomeScreen owns and closes its own instance per its lifecycle.
+  getIt.registerFactory<MoodCheckCubit>(() => MoodCheckCubit(injector.get()));
 
-  getIt.registerLazySingleton<UserProfilePostsCubit>(() => UserProfilePostsCubit(injector.get()));
+  getIt.registerLazySingleton<UserProfileCubit>(
+      () => UserProfileCubit(injector.get()));
+  getIt.registerLazySingleton<UserProfileUpvotesCubit>(
+      () => UserProfileUpvotesCubit(injector.get()));
 
-  getIt.registerLazySingleton<UserProfileCommentsCubit>(() => UserProfileCommentsCubit(injector.get()));
+  getIt.registerLazySingleton<UserProfilePostsCubit>(
+      () => UserProfilePostsCubit(injector.get()));
+
+  getIt.registerLazySingleton<UserProfileCommentsCubit>(
+      () => UserProfileCommentsCubit(injector.get()));
   getIt.registerLazySingleton<SearchCubit>(() => SearchCubit(injector.get()));
   getIt.registerLazySingleton<GroupsCubit>(() => GroupsCubit(injector.get()));
 
-  getIt.registerLazySingleton<CreateGroupCubit>(() => CreateGroupCubit(injector.get()));
+  getIt.registerLazySingleton<CreateGroupCubit>(
+      () => CreateGroupCubit(injector.get()));
 
-  getIt.registerLazySingleton<ConversationsCubit>(() => ConversationsCubit(injector.get()));
-  getIt.registerLazySingleton<MessagingCubit>(() => MessagingCubit(injector.get()));
-  getIt.registerLazySingleton<NotificationsBloc>(() => NotificationsBloc(injector.get(), injector.get()));
+  getIt.registerLazySingleton<ConversationsCubit>(
+      () => ConversationsCubit(injector.get()));
+  getIt.registerLazySingleton<MessagingCubit>(
+      () => MessagingCubit(injector.get()));
+  getIt.registerLazySingleton<NotificationsBloc>(
+      () => NotificationsBloc(injector.get(), injector.get()));
 
-  getIt.registerLazySingleton<UserProfileMediaTabCubit>(() => UserProfileMediaTabCubit(
-        injector.get(),
-      ));
+  getIt.registerLazySingleton<UserProfileMediaTabCubit>(
+      () => UserProfileMediaTabCubit(
+            injector.get(),
+          ));
   getIt.registerLazySingleton<FeaturedGroupsCubit>(() => FeaturedGroupsCubit(
         injector.get(),
       ));

@@ -31,20 +31,24 @@ class PostContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      if (post.title?.isNotEmpty ?? false)
-        TextView(
-          text: post.title,
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
-        ),
-      if (post.body?.isNotEmpty ?? false)4.verticalSpace,
-      if (post.body?.isNotEmpty ?? false)
-        CustomReadMoreText(
-          text: post.body ?? '',
-          fontSize: 14,
-          fontWeight: FontWeight.w400,
-        ),
+    return SizedBox(
+      width: double.infinity,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          if (post.title?.isNotEmpty ?? false)
+            TextView(
+              text: post.title,
+              fontSize: 16,
+              fontWeight: FontWeight.w600,
+            ),
+          if (post.body?.isNotEmpty ?? false) 4.verticalSpace,
+          if (post.body?.isNotEmpty ?? false)
+            CustomReadMoreText(
+              text: post.body ?? '',
+              fontSize: 14,
+              fontWeight: FontWeight.w400,
+            ),
       if (post.tags.isNotEmpty ?? false)
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,7 +79,9 @@ class PostContent extends StatelessWidget {
           ],
         ),
       PostMedia(post: post,mediaHeight: mediaHeight,),
-    ]);
+    ],
+    ),
+    );
   }
 }
 

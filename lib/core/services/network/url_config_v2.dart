@@ -41,4 +41,14 @@ class UrlConfigV2 {
   static const String getConsents = '/user/consents';
   static const String updateConsents = '/user/consents';
   static const String privacyPolicies = '/user/privacy-policies';
+
+  // Feed / Posts
+  static const String posts = '/user/posts';
+  static String postDetail(String id) => '$posts/$id';
+  static const String postReaction = '$posts/reaction';
+  static const String postStatsSave = '$posts/stats/save';
+  static const String postStatsFetch = '$posts/stats/fetch';
+
+  // Mood
+  static const String moodCheckins = '/user/mood-checkins';
 }

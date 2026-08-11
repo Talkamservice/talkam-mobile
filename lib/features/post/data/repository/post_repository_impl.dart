@@ -1,8 +1,10 @@
 import 'dart:io';
+import 'package:dio/dio.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/firebase_storage/firebase_storage_service.dart';
 import 'package:talkam/core/services/network/network_service.dart';
 import 'package:talkam/core/services/network/url_config.dart';
+import 'package:talkam/core/services/network/url_config_v2.dart';
 import 'package:talkam/features/post/data/models/create_post_payload.dart';
 import 'package:talkam/features/post/data/models/create_post_response.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
@@ -19,12 +21,53 @@ import 'package:talkam/features/post/dormain/repository/post_repository.dart';
 class PostRepositoryImpl extends PostRepository {
   final NetworkService _networkService;
 
+  /// Feed, post detail, and reaction have migrated to /api/v2 — everything
+  /// else in this repository (comments, polls, create/report post, etc.)
+  /// still uses the v1 [_networkService] until it migrates too.
+  final NetworkService _v2 = NetworkService(baseUrl: UrlConfigV2.coreBaseUrl);
+
+  /// Form-data requests must build their own [Options] so Dio can infer the
+  /// multipart content type (the default options force `application/json`).
+  /// The Authorization header is automatically injected by [_AuthInterceptor].
+  Options get _formOptions => Options(headers: {
+        "Accept": "application/json",
+      });
+
   PostRepositoryImpl(this._networkService);
 
   @override
-  Future<GetCategoriesResponse> getCategories({String? categoryId, bool? mergeGroups}) async {
+  Future<GetPostsResponse> getFeed(
+      {required String tab, String? categoryId, int? page}) async {
     try {
-      final response = await _networkService.call(!(mergeGroups ?? false) ? UrlConfig.getCategories : UrlConfig.getCategoriesWithGroup, RequestMethod.get,
+      final response = await _v2.call(
+        UrlConfigV2.posts,
+        RequestMethod.get,
+        queryParams: {
+          "tab": tab,
+          if (categoryId != null && categoryId.isNotEmpty)
+            "category_id": categoryId,
+          if (page != null) "page": page,
+        },
+      );
+
+      return GetPostsResponse.fromJson(response.data);
+    } catch (e, stack) {
+      logger.e(e);
+      logger.e(stack);
+
+      rethrow;
+    }
+  }
+
+  @override
+  Future<GetCategoriesResponse> getCategories(
+      {String? categoryId, bool? mergeGroups}) async {
+    try {
+      final response = await _networkService.call(
+          !(mergeGroups ?? false)
+              ? UrlConfig.getCategories
+              : UrlConfig.getCategoriesWithGroup,
+          RequestMethod.get,
           queryParams: {"category_id": categoryId});
 
       return GetCategoriesResponse.fromJson(response.data);
@@ -39,7 +82,9 @@ class PostRepositoryImpl extends PostRepository {
   @override
   Future<GetPostsResponse> getPosts(PostFilterModel filters) async {
     try {
-      final response = await _networkService.call(UrlConfig.getPosts, RequestMethod.get, queryParams: filters.toJson());
+      final response = await _networkService.call(
+          UrlConfig.getPosts, RequestMethod.get,
+          queryParams: filters.toJson());
 
       return GetPostsResponse.fromJson(response.data);
     } catch (e, stack) {
@@ -59,7 +104,9 @@ class PostRepositoryImpl extends PostRepository {
     try {
       imageUrls = await FirebaseStorageService().uploadMultipleFiles(
           FirebaseStoragePaths.posts,
-          postData.type! == "File" || postData.type! == "Image" || postData.type! == "Video"
+          postData.type! == "File" ||
+                  postData.type! == "Image" ||
+                  postData.type! == "Video"
               ? postData.attachments?.map(
                     (e) {
                       return File(e.url);
@@ -68,10 +115,18 @@ class PostRepositoryImpl extends PostRepository {
                   []
               : []);
 
-      logger.w(postData.copyWith(attachments: imageUrls.map((e) => Attachment.image(e)).toList()).toJson());
+      logger.w(postData
+          .copyWith(
+              attachments: imageUrls.map((e) => Attachment.image(e)).toList())
+          .toJson());
 
-      final response = await _networkService.call(UrlConfig.createPost, RequestMethod.post,
-          data: postData.copyWith(attachments: imageUrls.map((e) => Attachment.image(e)).toList()).toJson());
+      final response = await _networkService.call(
+          UrlConfig.createPost, RequestMethod.post,
+          data: postData
+              .copyWith(
+                  attachments:
+                      imageUrls.map((e) => Attachment.image(e)).toList())
+              .toJson());
 
       return CreatePostResponse.fromJson(response.data);
     } catch (e) {
@@ -82,8 +137,8 @@ class PostRepositoryImpl extends PostRepository {
   @override
   Future<PostDetailsResponse> getPostDetails(String postId) async {
     try {
-      final response = await _networkService.call(
-        UrlConfig.getPostDetails(postId),
+      final response = await _v2.call(
+        UrlConfigV2.postDetail(postId),
         RequestMethod.get,
       );
 
@@ -96,7 +151,9 @@ class PostRepositoryImpl extends PostRepository {
   @override
   Future<dynamic> deletePost(String postId) async {
     try {
-      final response = await _networkService.call(UrlConfig.deletePosts(postId), RequestMethod.delete, queryParams: {"post_id": postId});
+      final response = await _networkService.call(
+          UrlConfig.deletePosts(postId), RequestMethod.delete,
+          queryParams: {"post_id": postId});
 
       return response.data;
     } catch (e) {
@@ -107,7 +164,12 @@ class PostRepositoryImpl extends PostRepository {
   @override
   Future<dynamic> postReaction(String postId, String action) async {
     try {
-      final response = await _networkService.call(UrlConfig.postReaction, RequestMethod.post, data: {"post_id": postId, "action": action});
+      final response = await _v2.call(
+        UrlConfigV2.postReaction,
+        RequestMethod.post,
+        formData: FormData.fromMap({"post_id": postId, "action": action}),
+        options: _formOptions,
+      );
 
       return response.data;
     } catch (e) {
@@ -118,7 +180,9 @@ class PostRepositoryImpl extends PostRepository {
   @override
   Future<dynamic> reportPost(String postId, String reason) async {
     try {
-      final response = await _networkService.call(UrlConfig.reportPost, RequestMethod.post, data: {"post_id": postId, "reason": reason});
+      final response = await _networkService.call(
+          UrlConfig.reportPost, RequestMethod.post,
+          data: {"post_id": postId, "reason": reason});
 
       return response.data;
     } catch (e) {
@@ -129,7 +193,8 @@ class PostRepositoryImpl extends PostRepository {
   @override
   Future<GetPollsResponse> getPolls() async {
     try {
-      final response = await _networkService.call(UrlConfig.getPolls, RequestMethod.get);
+      final response =
+          await _networkService.call(UrlConfig.getPolls, RequestMethod.get);
 
       return GetPollsResponse.fromJson(response.data);
     } catch (e) {
@@ -140,7 +205,9 @@ class PostRepositoryImpl extends PostRepository {
   @override
   Future<GetCommentsResponse> getComments(String postId) async {
     try {
-      final response = await _networkService.call(UrlConfig.getComments, RequestMethod.get, queryParams: {"post_id": postId});
+      final response = await _networkService.call(
+          UrlConfig.getComments, RequestMethod.get,
+          queryParams: {"post_id": postId});
       return GetCommentsResponse.fromJson(response.data);
     } catch (e, stack) {
       logger.e(e.toString());
@@ -153,7 +220,9 @@ class PostRepositoryImpl extends PostRepository {
   @override
   Future<dynamic> getAComment(String commentId) async {
     try {
-      final response = await _networkService.call(UrlConfig.getAComment, RequestMethod.get, data: {"commentId": commentId});
+      final response = await _networkService.call(
+          UrlConfig.getAComment, RequestMethod.get,
+          data: {"commentId": commentId});
       return response.data;
     } catch (e) {
       rethrow;
@@ -162,14 +231,20 @@ class PostRepositoryImpl extends PostRepository {
 
   @override
   Future<dynamic> saveAComment(SaveCommentPayload payload) async {
-    var imageUrl =
-        payload.attachment != null ? await FirebaseStorageService().uploadMultipleFiles(FirebaseStoragePaths.posts, [File(payload.attachment!)]) : null;
+    var imageUrl = payload.attachment != null
+        ? await FirebaseStorageService().uploadMultipleFiles(
+            FirebaseStoragePaths.posts, [File(payload.attachment!)])
+        : null;
 
     try {
       final response = await _networkService.call(
         UrlConfig.saveAComment,
         RequestMethod.post,
-        data: payload.copyWith(attachment: imageUrl?.firstOrNull, comment: updateMentions(payload.comment)).toJson(),
+        data: payload
+            .copyWith(
+                attachment: imageUrl?.firstOrNull,
+                comment: updateMentions(payload.comment))
+            .toJson(),
       );
       return response.data;
     } catch (e, stack) {
@@ -182,7 +257,9 @@ class PostRepositoryImpl extends PostRepository {
   @override
   Future<dynamic> deleteComment(String commentId) async {
     try {
-      final response = await _networkService.call(UrlConfig.deleteComment(commentId), RequestMethod.delete, data: {"post_comment_id": commentId});
+      final response = await _networkService.call(
+          UrlConfig.deleteComment(commentId), RequestMethod.delete,
+          data: {"post_comment_id": commentId});
       return response.data;
     } catch (e) {
       rethrow;
@@ -192,7 +269,9 @@ class PostRepositoryImpl extends PostRepository {
   @override
   Future<dynamic> commentReaction(String commentId, String action) async {
     try {
-      final response = await _networkService.call(UrlConfig.commentReaction, RequestMethod.post, data: {"comment_id": commentId, "action": action});
+      final response = await _networkService.call(
+          UrlConfig.commentReaction, RequestMethod.post,
+          data: {"comment_id": commentId, "action": action});
 
       return response.data;
     } catch (e) {
@@ -203,7 +282,9 @@ class PostRepositoryImpl extends PostRepository {
   @override
   Future deletePoll(String pollId) async {
     try {
-      final response = await _networkService.call(UrlConfig.commentReaction, RequestMethod.delete, queryParams: {"id": pollId});
+      final response = await _networkService.call(
+          UrlConfig.commentReaction, RequestMethod.delete,
+          queryParams: {"id": pollId});
 
       return response.data;
     } catch (e) {
@@ -214,7 +295,9 @@ class PostRepositoryImpl extends PostRepository {
   @override
   Future selectPoll(String pollId) async {
     try {
-      final response = await _networkService.call(UrlConfig.selectPoll, RequestMethod.post, data: {"poll_id": pollId});
+      final response = await _networkService.call(
+          UrlConfig.selectPoll, RequestMethod.post,
+          data: {"poll_id": pollId});
 
       return response.data;
     } catch (e) {
@@ -239,8 +322,9 @@ class PostRepositoryImpl extends PostRepository {
   @override
   Future reportComment(String postId, String commentId, String reason) async {
     try {
-      final response =
-          await _networkService.call(UrlConfig.reportComment, RequestMethod.post, data: {"post_id": postId, "comment_id": commentId, "reason": reason});
+      final response = await _networkService.call(
+          UrlConfig.reportComment, RequestMethod.post,
+          data: {"post_id": postId, "comment_id": commentId, "reason": reason});
 
       return response.data;
     } catch (e) {

@@ -1,8 +1,9 @@
 import 'package:talkam/gen/assets.gen.dart';
 
-/// Five-point mood scale for the daily check-in dialog. There's no backend
-/// endpoint for this yet — selecting one just marks the check-in as done for
-/// today (see SessionManager.lastMoodCheckDate).
+/// Five-point mood scale for the daily check-in dialog. `index + 1` is the
+/// 1-5 value the backend expects (POST /user/mood-checkins). Selecting one
+/// always marks the check-in as done for today locally too, regardless of
+/// whether the submit succeeds (see SessionManager.lastMoodCheckDate).
 enum Mood {
   angry,
   sad,

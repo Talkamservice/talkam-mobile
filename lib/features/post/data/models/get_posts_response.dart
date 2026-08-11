@@ -13,9 +13,11 @@ import 'package:talkam/features/post/data/models/post_test_models.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 
-GetPostsResponse getPostsResponseFromJson(String str) => GetPostsResponse.fromJson(json.decode(str));
+GetPostsResponse getPostsResponseFromJson(String str) =>
+    GetPostsResponse.fromJson(json.decode(str));
 
-String getPostsResponseToJson(GetPostsResponse data) => json.encode(data.toJson());
+String getPostsResponseToJson(GetPostsResponse data) =>
+    json.encode(data.toJson());
 
 class GetPostsResponse {
   String message;
@@ -43,7 +45,8 @@ class GetPostsResponse {
         code: code ?? this.code,
       );
 
-  factory GetPostsResponse.fromJson(Map<String, dynamic> json) => GetPostsResponse(
+  factory GetPostsResponse.fromJson(Map<String, dynamic> json) =>
+      GetPostsResponse(
         message: json["message"],
         data: Data.fromJson(json["data"]),
         success: json["success"],
@@ -78,7 +81,8 @@ class Data {
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         paginationMeta: PostsPaginationData.fromJson(json["pagination_meta"]),
-        data: List<TalkamPost>.from(json["data"].map((x) => TalkamPost.fromJson(x))),
+        data: List<TalkamPost>.from(
+            json["data"].map((x) => TalkamPost.fromJson(x))),
       );
 
   Map<String, dynamic> toJson() => {
@@ -109,12 +113,14 @@ class TalkamPost {
   List<TalkamPoll> polls;
   PostReaction? reaction;
   bool? promotion;
+  bool enabledNotification;
   DateTime createdAt;
   DateTime updatedAt;
 
   bool get isSchedulePost => publishAt != null;
 
-  bool get postIsFromLoggedInUser => user.id == injector.get<ProfileBloc>().appUser?.id;
+  bool get postIsFromLoggedInUser =>
+      user.id == injector.get<ProfileBloc>().appUser?.id;
 
   TalkamPost({
     required this.id,
@@ -138,6 +144,7 @@ class TalkamPost {
     required this.group,
     required this.reaction,
     required this.promotion,
+    this.enabledNotification = false,
     required this.createdAt,
     required this.updatedAt,
   });
@@ -164,6 +171,7 @@ class TalkamPost {
     List<TalkamPoll>? polls,
     PostReaction? reaction,
     bool? promotion,
+    bool? enabledNotification,
     DateTime? createdAt,
     DateTime? updatedAt,
   }) =>
@@ -188,6 +196,7 @@ class TalkamPost {
         polls: polls ?? this.polls,
         reaction: reaction ?? this.reaction,
         promotion: promotion ?? this.promotion,
+        enabledNotification: enabledNotification ?? this.enabledNotification,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
         group: group ?? this.group,
@@ -200,9 +209,14 @@ class TalkamPost {
         type: json["type"],
         uuid: json["uuid"],
         isReported: json["is_reported"],
-        category: json["category"] == null ? TestFactories.createPostCategory() : PostCategory.fromJson(json["category"]),
-        group: json["group"] == null ? null : TalkamGroup.fromJson(json["group"]),
-        user: json["user"] == null ? PostCreator.anonymous() : PostCreator.fromJson(json["user"]),
+        category: json["category"] == null
+            ? TestFactories.createPostCategory()
+            : PostCategory.fromJson(json["category"]),
+        group:
+            json["group"] == null ? null : TalkamGroup.fromJson(json["group"]),
+        user: json["user"] == null
+            ? PostCreator.anonymous()
+            : PostCreator.fromJson(json["user"]),
         canComment: json["can_comment"],
         isAnonymous: json["is_anonymous"],
         tags: json["tags"] is String
@@ -214,13 +228,28 @@ class TalkamPost {
         commentsCount: json["comments_count"],
         likesCount: json["likes_count"],
         status: json["status"],
-        publishAt: json["publish_at"] != null ? DateTime.parse(json["publish_at"]) : null,
-        attachments: json["attachments"] == null ? [] : List<Attachment>.from(json["attachments"].map((x) => Attachment.fromJson(x))),
-        polls: json["polls"] == null ? [] : List<TalkamPoll>.from(json["polls"].map((x) => TalkamPoll.fromJson(x))),
-        reaction: json["reaction"] == null ? null : PostReaction.fromJson(json["reaction"]),
+        publishAt: json["publish_at"] != null
+            ? DateTime.parse(json["publish_at"])
+            : null,
+        attachments: json["attachments"] == null
+            ? []
+            : List<Attachment>.from(
+                json["attachments"].map((x) => Attachment.fromJson(x))),
+        polls: json["polls"] == null
+            ? []
+            : List<TalkamPoll>.from(
+                json["polls"].map((x) => TalkamPoll.fromJson(x))),
+        reaction: json["reaction"] == null
+            ? null
+            : PostReaction.fromJson(json["reaction"]),
         promotion: json["promotion"] == null ? null : json["promotion"],
-        createdAt: json["created_at"] == null ? DateTime.now() : DateTime.parse(json["created_at"]),
-        updatedAt: json["updated_at"] == null ? DateTime.now() : DateTime.parse(json["updated_at"]),
+        enabledNotification: json["enabled_notification"] ?? false,
+        createdAt: json["created_at"] == null
+            ? DateTime.now()
+            : DateTime.parse(json["created_at"]),
+        updatedAt: json["updated_at"] == null
+            ? DateTime.now()
+            : DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -244,6 +273,7 @@ class TalkamPost {
         "polls": List<dynamic>.from(polls.map((x) => x.toJson())),
         "reaction": reaction?.toJson(),
         "promotion": promotion,
+        "enabled_notification": enabledNotification,
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
       };
@@ -310,7 +340,9 @@ class TalkamPoll {
         count: json["count"],
         percentage: json["percentage"],
         anonymous: json["anonymous"],
-        expiresAt: json["expires_at"] == null ? DateTime.now() : DateTime.parse(json["expires_at"]),
+        expiresAt: json["expires_at"] == null
+            ? DateTime.now()
+            : DateTime.parse(json["expires_at"]),
         createdAt: DateTime.parse(json["created_at"]),
       );
 
@@ -367,11 +399,14 @@ class PostReaction {
 
   bool get isDisLike => action == 'Dislike' && status;
 
-  factory PostReaction.like() => PostReaction(id: 0, action: "Like", createdAt: DateTime.now(), status: true);
+  factory PostReaction.like() => PostReaction(
+      id: 0, action: "Like", createdAt: DateTime.now(), status: true);
 
-  factory PostReaction.removed() => PostReaction(id: 0, action: "Like", createdAt: DateTime.now(), status: false);
+  factory PostReaction.removed() => PostReaction(
+      id: 0, action: "Like", createdAt: DateTime.now(), status: false);
 
-  factory PostReaction.dislike() => PostReaction(id: 0, action: "Dislike", createdAt: DateTime.now(), status: true);
+  factory PostReaction.dislike() => PostReaction(
+      id: 0, action: "Dislike", createdAt: DateTime.now(), status: true);
 
   Map<String, dynamic> toJson() => {
         "id": id,
@@ -397,7 +432,14 @@ class PostCreator {
     this.activeSubscription,
   });
 
-  PostCreator copyWith({int? id, String? avatar, String? name, String? username, String? email, ActiveSubscription? activeSubscription}) => PostCreator(
+  PostCreator copyWith(
+          {int? id,
+          String? avatar,
+          String? name,
+          String? username,
+          String? email,
+          ActiveSubscription? activeSubscription}) =>
+      PostCreator(
         id: id ?? this.id,
         avatar: avatar ?? this.avatar,
         name: name ?? this.name,
@@ -412,7 +454,9 @@ class PostCreator {
         name: json["name"],
         username: json["username"],
         email: json["email"],
-        activeSubscription: json["active_subscription"] == null ? null : ActiveSubscription?.fromJson(json["active_subscription"]),
+        activeSubscription: json["active_subscription"] == null
+            ? null
+            : ActiveSubscription?.fromJson(json["active_subscription"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -432,8 +476,12 @@ class PostCreator {
           ? name
           : email;
 
-
-  factory PostCreator.anonymous() => PostCreator(id: 0, avatar: "anonymous", name: "anonymous", username: "anonymous", email: "anonymous");
+  factory PostCreator.anonymous() => PostCreator(
+      id: 0,
+      avatar: "anonymous",
+      name: "anonymous",
+      username: "anonymous",
+      email: "anonymous");
 }
 
 class PostsPaginationData {
@@ -494,7 +542,8 @@ class PostsPaginationData {
         canLoadMore: canLoadMore ?? this.canLoadMore,
       );
 
-  factory PostsPaginationData.fromJson(Map<String, dynamic> json) => PostsPaginationData(
+  factory PostsPaginationData.fromJson(Map<String, dynamic> json) =>
+      PostsPaginationData(
         currentPage: json["current_page"],
         firstPageUrl: json["first_page_url"],
         from: json["from"],

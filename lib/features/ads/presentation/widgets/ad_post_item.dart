@@ -21,7 +21,7 @@ class AdPostItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return      InkWell(
+    return InkWell(
       onTap: () {
         context.pushNamed(PageUrl.postDetailsScreen, extra: promotion.post?.id.toString());
       },
