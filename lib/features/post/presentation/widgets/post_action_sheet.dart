@@ -8,6 +8,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/extensions/int_extension.dart';
 import 'package:talkam/core/utils/guest_user_helper.dart';
+import 'package:talkam/features/ads/presentation/widgets/view_analytics_bottomsheet.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
 import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
@@ -48,6 +49,19 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
             widget: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
+                if (postIsFromLoggedInUser)
+                  _PostAction(
+                    title: "View analytics",
+                    onTap: () async {
+                      context.pop();
+                      await CustomDialogs.showBottomSheet(
+                        context,
+                        ViewAnalyticsBottomSheet(
+                          postId: post.id.toString(),
+                        ),
+                      );
+                    },
+                  ),
                 _PostAction(
                   title: "Mute ${post.user.usersName}",
                   onTap: () {

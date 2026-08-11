@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -38,10 +39,12 @@ class CustomDialogs {
     await showDialog(
       context: context,
       useRootNavigator: useRootNavigator!,
-      builder: (BuildContext context) => dialog,
+      builder: (BuildContext context) => BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+        child: dialog,
+      ),
       barrierDismissible: true,
-      barrierColor: barrierColor ?? Pallets.black80.withOpacity(0.2),
-      // barrierColor: barrierColor,
+      barrierColor: barrierColor ?? Colors.transparent,
     );
   }
 
@@ -54,7 +57,7 @@ class CustomDialogs {
     return showModalBottomSheet<T>(
         backgroundColor: Colors.transparent,
         context: context,
-        barrierColor: barrierColor ?? Pallets.black80.withOpacity(0.4),
+        barrierColor: barrierColor ?? Colors.transparent,
         useRootNavigator: true,
         isScrollControlled: true,
         shape: shape,
@@ -62,15 +65,18 @@ class CustomDialogs {
         enableDrag: enableDrag!,
         transitionAnimationController: transitionAnimationController,
         builder: (context) {
-          return ClipRRect(
-            borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(16),
-              topRight: Radius.circular(16),
-            ),
-            child: Padding(
-              padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom),
-              child: child,
+          return BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+            child: ClipRRect(
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(16),
+                topRight: Radius.circular(16),
+              ),
+              child: Padding(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: child,
+              ),
             ),
           );
         });
@@ -98,7 +104,7 @@ class CustomDialogs {
     return showModalBottomSheet<T>(
         backgroundColor: Colors.transparent,
         context: context,
-        barrierColor: barrierColor ?? Pallets.primary.withOpacity(0.3),
+        barrierColor: barrierColor ?? Colors.transparent,
         useRootNavigator: true,
         isScrollControlled: true,
         shape: shape,
@@ -202,10 +208,14 @@ class CustomDialogs {
 
     await showDialog(
       context: context,
-      builder: (BuildContext context) => Builder(builder: (context) {
-        return dialog;
-      }),
+      builder: (BuildContext context) => BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+        child: Builder(builder: (context) {
+          return dialog;
+        }),
+      ),
       barrierDismissible: true,
+      barrierColor: Colors.black.withValues(alpha: 0.35),
     );
   }
 
@@ -227,9 +237,12 @@ class CustomDialogs {
     return await showDialog(
       context: context,
       useRootNavigator: useRootNavigator!,
-      builder: (BuildContext context) => dialog,
+      builder: (BuildContext context) => BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+        child: dialog,
+      ),
       barrierDismissible: barrierDismissible!,
-      barrierColor: Pallets.black.withOpacity(0.4),
+      barrierColor: Colors.black.withValues(alpha: 0.35),
     );
   }
 
@@ -237,25 +250,28 @@ class CustomDialogs {
     BuildContext context, {
     required Widget? child,
     bool? dissmisable = true,
-    double? opacity = 0.8,
+    double? opacity,
   }) {
     showDialog(
         context: context,
         barrierDismissible: dissmisable!,
-        barrierColor: Colors.black.withOpacity(opacity!),
+        barrierColor: Colors.black.withValues(alpha: opacity ?? 0.35),
         builder: (context) {
-          return Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                if ((child != null)) ...[child],
-                if ((child == null)) ...[
-                  CupertinoActivityIndicator(
-                    color: Theme.of(context).colorScheme.onPrimary,
-                    radius: 15,
-                  ),
-                ]
-              ],
+          return BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+            child: Center(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if ((child != null)) ...[child],
+                  if ((child == null)) ...[
+                    CupertinoActivityIndicator(
+                      color: Theme.of(context).colorScheme.onPrimary,
+                      radius: 15,
+                    ),
+                  ]
+                ],
+              ),
             ),
           );
         });
@@ -266,6 +282,7 @@ class CustomDialogs {
       {DateTime? minDate, String? text = ""}) {
     return showDialog(
       context: context,
+      barrierColor: Colors.black.withValues(alpha: 0.35),
       builder: (BuildContext context) {
         DateTime? _selectedDate;
         return Dialog(

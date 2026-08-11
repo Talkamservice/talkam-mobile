@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
@@ -13,7 +14,11 @@ class DeleteAccountDialog extends StatelessWidget {
     return showDialog(
       context: context,
       barrierDismissible: true,
-      builder: (context) => const DeleteAccountDialog(),
+      barrierColor: Colors.black.withValues(alpha: 0.35),
+      builder: (context) => BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+        child: const DeleteAccountDialog(),
+      ),
     );
   }
 

@@ -1,3 +1,4 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
@@ -25,7 +26,10 @@ class DeleteAccountDialog extends StatefulWidget {
       context: context,
       barrierDismissible: true,
       barrierColor: Pallets.black.withValues(alpha: 0.35),
-      builder: (_) => const DeleteAccountDialog(),
+      builder: (_) => BackdropFilter(
+        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+        child: const DeleteAccountDialog(),
+      ),
     );
   }
 
