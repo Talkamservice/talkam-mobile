@@ -21,14 +21,15 @@ class SearchCubit extends Cubit<SearchState> {
       emit(const SearchState.fetchRecentSearchesLoading());
     }
     try {
-      final response = await _searchRepository.fetchRecentSearches(injector.get<ProfileBloc>().appUser!.id);
+      final response = await _searchRepository.fetchRecentSearches();
       emit(SearchState.fetchRecentSearchesSuccess(response));
     } catch (e) {
       emit(SearchState.fetchRecentSearchesFailure(e.toString()));
     }
   }
 
-  Future<void> search(String query, {SearchSort sort = SearchSort.post, bool? reload = true}) async {
+  Future<void> search(String query,
+      {SearchSort sort = SearchSort.post, bool? reload = true}) async {
     emit(const SearchState.searchLoading());
     try {
       final response = await _searchRepository.search(query, sort: sort);
@@ -50,7 +51,7 @@ class SearchCubit extends Cubit<SearchState> {
     }
   }
 
-  Future<void> deleteSearch(int searchId) async {
+  Future<void> deleteSearch(String searchId) async {
     emit(const SearchState.deleteSearchLoading());
     try {
       final response = await _searchRepository.deleteSearch(searchId);
@@ -68,8 +69,10 @@ class SearchCubit extends Cubit<SearchState> {
       final result = await _searchRepository.searUserByName(search);
       emit(SearchState.searchUserSuccess(searchResults: result));
     } catch (exception, stackTrace) {
-      logger.e("performSearch error is ${exception.toString()}", stackTrace: stackTrace);
-      emit(const SearchState.searchUserError(errorMessage: "Something went wrong please try again"));
+      logger.e("performSearch error is ${exception.toString()}",
+          stackTrace: stackTrace);
+      emit(const SearchState.searchUserError(
+          errorMessage: "Something went wrong please try again"));
     }
   }
 
@@ -87,7 +90,8 @@ class SearchCubit extends Cubit<SearchState> {
     emit(const SearchState.deleteSearchLoading());
     var user = injector.get<ProfileBloc>().appUser;
     try {
-      final response = await _searchRepository.clearSearchHistory(int.parse(user?.id.toString() ?? '1'));
+      final response = await _searchRepository
+          .clearSearchHistory(int.parse(user?.id.toString() ?? '1'));
       emit(SearchState.deleteSearchSuccess(response));
     } catch (e) {
       emit(SearchState.deleteSearchFailure(e.toString()));

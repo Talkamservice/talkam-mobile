@@ -3,7 +3,15 @@ import 'package:talkam/features/group/data/models/groups_filter_model.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 
 abstract class GroupsRepository {
-  Future<GetGroupsResponse> getGroups({required int? page, GroupsFilterModel? filter, bool? isFollowing = false});
+  /// v2 browse/discovery — filters by [categoryId]/[search] only, no `tab`.
+  /// Use [getFollowedGroups]/[getSuggestedGroups] for those specific lists.
+  Future<GetGroupsResponse> getGroups(
+      {int? page, String? categoryId, String? search});
+
+  Future<GetGroupsResponse> getFollowedGroups({int? page});
+
+  Future<GetGroupsResponse> getSuggestedGroups({int? page});
+
   Future<GetGroupsResponse> getPromotedGroups();
 
   Future<dynamic> getFollowingGroupMembers();
@@ -18,13 +26,24 @@ abstract class GroupsRepository {
 
   Future<dynamic> join({required String groupId, required String userId});
 
-  Future<dynamic> reportGroup({required String groupId, required String reason});
+  /// Lighter follow relationship — updates without membership (Follow !=
+  /// Join). Returns the new `following` state.
+  Future<bool> toggleFollowGroup(String groupId);
+
+  Future<dynamic> inviteToGroup(
+      {required String groupId, required String email});
+
+  Future<dynamic> acceptGroupInvite(String uuid);
+
+  Future<dynamic> reportGroup(
+      {required String groupId, required String reason});
 
   Future<dynamic> getGroupRules({
     required String groupId,
   });
 
-  Future<GroupGuideline> addGroupRule({required String groupId, required GuidelinePayload rule});
+  Future<GroupGuideline> addGroupRule(
+      {required String groupId, required GuidelinePayload rule});
 
   Future<dynamic> deleteGroupRule({
     required String guidelineId,

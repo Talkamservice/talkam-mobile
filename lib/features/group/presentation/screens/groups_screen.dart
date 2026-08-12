@@ -15,13 +15,13 @@ import 'package:talkam/features/group/presentation/tabs/my_groups_tab.dart';
 import 'package:talkam/features/group/presentation/widgets/categories_chips.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
 import 'package:talkam/features/home/presentation/screens/home_screen.dart';
+import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 enum _GroupsTabOptions {
   recent,
   explore,
   myGroups;
-
 
   String get title {
     switch (this) {
@@ -30,7 +30,7 @@ enum _GroupsTabOptions {
 
       case explore:
         return "Explore";
-        case myGroups:
+      case myGroups:
         return "My Groups";
 
       default:
@@ -46,8 +46,8 @@ class GroupsScreen extends StatefulWidget {
   State<GroupsScreen> createState() => _GroupsScreenState();
 }
 
-class _GroupsScreenState extends State<GroupsScreen>  with SingleTickerProviderStateMixin {
-
+class _GroupsScreenState extends State<GroupsScreen>
+    with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
   @override
@@ -63,91 +63,91 @@ class _GroupsScreenState extends State<GroupsScreen>  with SingleTickerProviderS
   ];
   int selecteIndex = 0;
   final PageController _pageController = PageController();
+  PostCategory? _selectedCategory;
 
   final bloc = GroupsCubit(injector.get());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: context.colorScheme.surface,
-      body: SafeArea(
-        child: Column(
-          children: [
-
-            const GroupsAppBar(),
-            CategoriesChips(onSelected: (val) {}),
-            16.verticalSpace,
-            Container(
-              color: context.colorScheme.surface,
-              width: 1.sw,
-              child: Center(
-                child: TabBar(
-                    tabAlignment: TabAlignment.center,
-                    indicatorColor: context.colorScheme.primary,
-                    indicatorSize: TabBarIndicatorSize.label,
-                    controller: _tabController,
-                    indicatorWeight: 3,
-                    onTap: (value) {
-                      selecteIndex = value;
-                      _pageController.jumpToPage(value);
-                      setState(() {});
-                    },
-                    tabs: List.generate(
-                      tabItems.length,
-                          (index) => Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Tab(
-                          child: Row(
-                            children: [
-                              TextView(
-                                fontSize: 15,
-                                fontWeight: FontWeight.w600,
-                                text: tabItems[index].tittle,
-                                color: selecteIndex == index
-                                    ? context.colorScheme.onSurface
-                                    : Pallets.grey60,
-                                // fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
-                              ),
-                            ],
+        backgroundColor: context.colorScheme.surface,
+        body: SafeArea(
+          child: Column(
+            children: [
+              const GroupsAppBar(),
+              16.verticalSpace,
+              CategoriesChips(
+                onSelected: (category) =>
+                    setState(() => _selectedCategory = category),
+              ),
+              Container(
+                color: context.colorScheme.surface,
+                width: 1.sw,
+                child: Center(
+                  child: TabBar(
+                      tabAlignment: TabAlignment.center,
+                      indicatorColor: context.colorScheme.primary,
+                      indicatorSize: TabBarIndicatorSize.label,
+                      controller: _tabController,
+                      indicatorWeight: 3,
+                      onTap: (value) {
+                        selecteIndex = value;
+                        _pageController.jumpToPage(value);
+                        setState(() {});
+                      },
+                      tabs: List.generate(
+                        tabItems.length,
+                        (index) => Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                          child: Tab(
+                            child: Row(
+                              children: [
+                                TextView(
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w600,
+                                  text: tabItems[index].tittle,
+                                  color: selecteIndex == index
+                                      ? context.colorScheme.onSurface
+                                      : Pallets.grey60,
+                                  // fontWeight: isSelected ? FontWeight.w500 : FontWeight.w400,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ).toList()),
-              ),
-            ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(top: 5),
-                child: BlocConsumer<GroupsCubit, GroupsState>(
-                  bloc: bloc,
-                  listener: (context, state) {},
-                  builder: (context, state) {
-
-                    return PageView(
-                      controller: _pageController,
-                      // physics: const NeverScrollableScrollPhysics(),
-                      onPageChanged: (int index) {
-
-                        _tabController.animateTo(index);
-                        selecteIndex = index;
-                        setState(() {});
-
-                        // setState(() {});
-                      },
-                      children: const [
-                        GroupRecentTab(),
-                        GroupExploreTab(),
-                        MyGroupsTab(),
-                      ],
-                    );
-                  },
+                      ).toList()),
                 ),
               ),
-            )
-          ],
-        ),
-      )
-    );
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 5),
+                  child: BlocConsumer<GroupsCubit, GroupsState>(
+                    bloc: bloc,
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      return PageView(
+                        controller: _pageController,
+                        // physics: const NeverScrollableScrollPhysics(),
+                        onPageChanged: (int index) {
+                          _tabController.animateTo(index);
+                          selecteIndex = index;
+                          setState(() {});
+
+                          // setState(() {});
+                        },
+                        children: [
+                          GroupRecentTab(selectedCategory: _selectedCategory),
+                          GroupExploreTab(selectedCategory: _selectedCategory),
+                          MyGroupsTab(selectedCategory: _selectedCategory),
+                        ],
+                      );
+                    },
+                  ),
+                ),
+              )
+            ],
+          ),
+        ));
   }
 }
 

@@ -10,7 +10,6 @@ import 'package:talkam/core/mock/mock_home_data.dart';
 import 'package:talkam/common/widgets/subscribe_button.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/guest_user_helper.dart';
-import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
 import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/core/utils/helper_utils.dart';
@@ -19,6 +18,7 @@ import 'package:talkam/features/group/presentation/widgets/group_action_sheet.da
 
 import '../../../../core/utils/extensions/context_extension.dart';
 import '../../../search/data/models/get_group_response.dart';
+import '../blocs/group_follow_cubit/group_follow_cubit.dart';
 
 class GroupDetailsHeader extends StatefulWidget {
   const GroupDetailsHeader(
@@ -154,7 +154,8 @@ class _GroupDetailsHeaderState extends State<GroupDetailsHeader> {
                   8.horizontalSpace,
                   InkWell(
                     onTap: () {
-                      Helpers.share("${UrlConfig.webUrl}group/${widget.group.id}");
+                      Helpers.share(
+                          "${UrlConfig.webUrl}group/${widget.group.id}");
                     },
                     customBorder: const CircleBorder(),
                     child: Container(
@@ -277,33 +278,36 @@ class FollowGroupButton extends StatefulWidget {
 }
 
 class _FollowGroupButtonState extends State<FollowGroupButton> {
-  final bloc = ProfileBloc(injector.get());
+  final _followCubit = injector.get<GroupFollowCubit>();
+  late bool _isFollowing = widget.group.isFollowing ?? false;
+
+  @override
+  void dispose() {
+    _followCubit.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // Determine following status (using isPublic or similar logic if isFollowing doesn't exist)
-    bool isFollowing = widget.group.isFollowing ?? false;
-
     return GuestUserHelper.guestUserWidget(
-        widget: BlocConsumer<ProfileBloc, ProfileState>(
-          bloc: bloc,
+        widget: BlocConsumer<GroupFollowCubit, GroupFollowState>(
+          bloc: _followCubit,
           listener: (context, state) {
-            if (state is UpdateInterestFailureState) {
-              CustomDialogs.error(state.error);
-            }
-
-            if (state is UpdateInterestSuccessState) {
-              // Update state
-              widget.onFollowUpdated?.call();
-            }
+            state.maybeWhen(
+              orElse: () {},
+              failure: (error) => CustomDialogs.error(error),
+              success: (following) {
+                setState(() => _isFollowing = following);
+                widget.onFollowUpdated?.call();
+              },
+            );
           },
           builder: (context, state) {
             return SubscribeButton(
-              color: isFollowing ? Pallets.grey60 : Pallets.blueBubbleColor,
-              onTap: () {
-                bloc.add(UpdateInterestEvent(widget.group.id.toString()));
-              },
-              child: state is UpdateInterestLoadingState
+              color: _isFollowing ? Pallets.grey60 : Pallets.blueBubbleColor,
+              onTap: () =>
+                  _followCubit.toggleFollow(widget.group.id.toString()),
+              child: state is GroupFollowLoading
                   ? const SizedBox(
                       height: 16,
                       width: 16,
@@ -313,7 +317,7 @@ class _FollowGroupButtonState extends State<FollowGroupButton> {
                       ),
                     )
                   : TextView(
-                      text: isFollowing ? "Subscribed" : "Subscribe",
+                      text: _isFollowing ? "Subscribed" : "Subscribe",
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
                       color: Colors.white,

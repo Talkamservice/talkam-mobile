@@ -11,9 +11,11 @@ import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_b
 
 class SubscriptionHelper {
   // Check if the user is subscribed
-  static bool get isSubscribed => SessionManager.instance.isLoggedIn && _userIsSubscribed;
+  static bool get isSubscribed =>
+      SessionManager.instance.isLoggedIn && _userIsSubscribed;
 
-  static int get usedAnonymousCount => injector.get<ProfileBloc>().appUser?.anonymousPost;
+  static int get usedAnonymousCount =>
+      injector.get<ProfileBloc>().appUser?.anonymousPost;
 
   static bool get canPostAnonymously {
     if (SessionManager.instance.isLoggedIn) {
@@ -32,14 +34,16 @@ class SubscriptionHelper {
       if (_userIsSubscribed) {
         return true;
       } else {
-        return injector.get<ProfileBloc>().appUser?.anonymousPost + injector.get<ProfileBloc>().appUser?.anonymousComment < 5;
+        return injector.get<ProfileBloc>().appUser?.publicGroupCount < 5;
       }
     } else {
       return false;
     }
   }
 
-  static bool get _userIsSubscribed => injector.get<ProfileBloc>().appUser?.activeSubscription?.plan.isPaid ?? false;
+  static bool get _userIsSubscribed =>
+      injector.get<ProfileBloc>().appUser?.activeSubscription?.plan.isPaid ??
+      false;
 
   static bool get canCommentAnonymously {
     if (SessionManager.instance.isLoggedIn) {
@@ -78,21 +82,27 @@ class SubscriptionHelper {
 }
 
 class TalkamSubscriptionWidget extends StatelessWidget {
-  const TalkamSubscriptionWidget({super.key, required this.subscribedUserWidget, this.freemiumUserWidget});
+  const TalkamSubscriptionWidget(
+      {super.key, required this.subscribedUserWidget, this.freemiumUserWidget});
 
   final Widget subscribedUserWidget;
   final Widget? freemiumUserWidget;
 
-  static bool get userIsSubscribed => injector.get<ProfileBloc>().appUser?.activeSubscription?.plan.isPaid ?? false;
+  static bool get userIsSubscribed =>
+      injector.get<ProfileBloc>().appUser?.activeSubscription?.plan.isPaid ??
+      false;
 
-  static bool isSubscribed() => SessionManager.instance.isLoggedIn && userIsSubscribed;
+  static bool isSubscribed() =>
+      SessionManager.instance.isLoggedIn && userIsSubscribed;
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileBloc, ProfileState>(
       bloc: injector.get(),
       builder: (context, state) {
-        return isSubscribed() ? subscribedUserWidget : freemiumUserWidget ?? 0.verticalSpace;
+        return isSubscribed()
+            ? subscribedUserWidget
+            : freemiumUserWidget ?? 0.verticalSpace;
       },
     );
   }

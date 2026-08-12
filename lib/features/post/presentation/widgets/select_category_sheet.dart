@@ -22,7 +22,7 @@ class SelectCategorySheet extends StatefulWidget {
 class _SelectCategorySheetState extends State<SelectCategorySheet> {
   @override
   void initState() {
-    postBloc.add(const PostEvent.getCategories());
+    postBloc.add(const PostEvent.getInterestTopics());
     super.initState();
   }
 
@@ -56,7 +56,7 @@ class _SelectCategorySheetState extends State<SelectCategorySheet> {
               listener: (context, state) {
                 state.maybeWhen(
                   orElse: () => null,
-                  getCategoriesSuccess: (response) {
+                  getInterestTopicsSuccess: (response) {
                     allLists = response.data;
                     filteredList = response.data;
                     setState(() {});
@@ -66,14 +66,14 @@ class _SelectCategorySheetState extends State<SelectCategorySheet> {
               builder: (context, state) {
                 return state.maybeWhen(
                   orElse: () => 0.verticalSpace,
-                  getCategoriesFailure: (error) => AppErrorWidget(
+                  getInterestTopicsFailure: (error) => AppErrorWidget(
                     onTap: () {
-                      postBloc.add(const PostEvent.getCategories());
+                      postBloc.add(const PostEvent.getInterestTopics());
                     },
                   ),
-                  getCategoriesLoading: () =>
+                  getInterestTopicsLoading: () =>
                       CustomDialogs.getLoading(size: 50),
-                  getCategoriesSuccess: (response) {
+                  getInterestTopicsSuccess: (response) {
                     if (filteredList.isEmpty) {
                       return const Center(
                         child: TextView(text: "There are no categories yet"),
@@ -87,7 +87,6 @@ class _SelectCategorySheetState extends State<SelectCategorySheet> {
                       itemBuilder: (context, index) => Padding(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         child: CategoryItem(
-
                           showArrow: false,
                           postCategory: filteredList[index],
                         ),
@@ -148,8 +147,8 @@ class CategoryItem extends StatelessWidget {
               ),
             ),
             8.horizontalSpace,
-            if(showArrow!)
-            ImageWidget(imageUrl: Assets.images.svgs.chevronRight)
+            if (showArrow!)
+              ImageWidget(imageUrl: Assets.images.svgs.chevronRight)
           ],
         ),
       ),

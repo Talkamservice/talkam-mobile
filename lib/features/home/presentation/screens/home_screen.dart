@@ -11,6 +11,7 @@ import 'package:talkam/core/services/firebase/remote_config_service.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/guest_user_helper.dart';
+import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
 import 'package:talkam/features/home/presentation/screens/for_you_screen.dart';
 import 'package:talkam/features/home/presentation/screens/trending_screen.dart';
@@ -50,9 +51,12 @@ class _HomeScreenState extends State<HomeScreen>
     injector.get<NotificationsBloc>().add(GetNotificationsStatsEvent());
     injector.get<NotificationsBloc>().add(const GetAnnouncementsEvent());
     injector.get<PostBloc>().add(const PostEvent.getCategories(refresh: true));
-    // Prefetched here so the follow counts are already available by the
-    // time the drawer is opened, instead of fetching on every open.
+    // Prefetched here so the follow counts, groups list, and interest-topic
+    // categories are already available by the time the drawer is opened,
+    // instead of fetching (and flashing a loading state) on every open.
     injector.get<ConnectionsSummaryCubit>().fetchCounts();
+    injector.get<GroupsCubit>().getGroups(isFollowing: true);
+    injector.get<PostBloc>().add(const PostEvent.getInterestTopics());
 
     _tabController = TabController(length: 2, vsync: this);
     WidgetsBinding.instance

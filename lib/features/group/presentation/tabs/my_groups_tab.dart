@@ -13,23 +13,23 @@ import 'package:talkam/features/group/data/models/groups_filter_model.dart';
 import 'package:talkam/features/group/presentation/blocs/featured_groups/featured_groups_cubit.dart';
 import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
 import 'package:talkam/features/group/presentation/screens/refresh_group_listener.dart';
-import 'package:talkam/features/group/presentation/widgets/categories_chips.dart';
 import 'package:talkam/features/group/presentation/widgets/group_loading_shimmer.dart';
 import 'package:talkam/features/group/presentation/widgets/suggested_groups.dart';
+import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/search/presentation/widget/group_result_item.dart';
 import 'package:talkam/core/mock/mock_home_data.dart';
 
 class MyGroupsTab extends StatefulWidget {
-  const MyGroupsTab({super.key});
+  const MyGroupsTab({super.key, this.selectedCategory});
+
+  final PostCategory? selectedCategory;
 
   @override
   State<MyGroupsTab> createState() => _GroupExploreRecentTabState();
 }
 
-class _GroupExploreRecentTabState extends State<MyGroupsTab> with AutomaticKeepAliveClientMixin {
-  final List<String> _groupCategories = ["Sports", "Technology", "Food & Drinks", "Health", "Politicians"];
-  String _selectedTile = '';
-
+class _GroupExploreRecentTabState extends State<MyGroupsTab>
+    with AutomaticKeepAliveClientMixin {
   final bloc = GroupsCubit(injector.get());
 
   @override
@@ -77,14 +77,24 @@ class _GroupExploreRecentTabState extends State<MyGroupsTab> with AutomaticKeepA
                           ),
                         );
                       }, getGroupsSuccess: (groups, paginationData) {
-                        final displayGroups = groups.isEmpty ? MockHomeData.privateTalkamGroups : groups;
+                        final allGroups = groups.isEmpty
+                            ? MockHomeData.privateTalkamGroups
+                            : groups;
+                        final displayGroups = widget.selectedCategory == null
+                            ? allGroups
+                            : allGroups
+                                .where((group) =>
+                                    group.category?.id ==
+                                    widget.selectedCategory!.id)
+                                .toList();
 
                         if (displayGroups.isEmpty) {
                           return const Expanded(
                             child: SizedBox(
                               height: 300,
                               child: Center(
-                                child: TextView(text: "No groups in this category"),
+                                child: TextView(
+                                    text: "No groups in this category"),
                               ),
                             ),
                           );
@@ -101,18 +111,31 @@ class _GroupExploreRecentTabState extends State<MyGroupsTab> with AutomaticKeepA
                                   children: [
                                     InkWell(
                                       onTap: () {
-                                        if (displayGroups[index].isSuspended ?? false) {
-                                          CustomDialogs.error("You have been suspended from this group");
-                                        } else if (!displayGroups[index].isPublic && !(displayGroups[index].isFollowing ?? false)) {
-                                          CustomDialogs.showInfoMessage(context, privateGroupViewText);
+                                        if (displayGroups[index].isSuspended ??
+                                            false) {
+                                          CustomDialogs.error(
+                                              "You have been suspended from this group");
+                                        } else if (!displayGroups[index]
+                                                .isPublic &&
+                                            !(displayGroups[index]
+                                                    .isFollowing ??
+                                                false)) {
+                                          CustomDialogs.showInfoMessage(
+                                              context, privateGroupViewText);
                                         } else {
-                                          context.pushNamed(PageUrl.groupsInfoScreen, extra: displayGroups[index].id.toString());
+                                          context.pushNamed(
+                                              PageUrl.groupsInfoScreen,
+                                              extra: displayGroups[index]
+                                                  .id
+                                                  .toString());
                                         }
                                       },
                                       child: GroupResultItem(
                                         group: displayGroups[index],
                                         onJoinStateChanged: () {
-                                          bloc.getGroups(shouldRefresh: false, isFollowing: true);
+                                          bloc.getGroups(
+                                              shouldRefresh: false,
+                                              isFollowing: true);
                                         },
                                       ),
                                     ),

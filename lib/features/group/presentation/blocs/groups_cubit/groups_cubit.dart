@@ -16,13 +16,22 @@ class GroupsCubit extends Cubit<GroupsState> {
 
   final GroupsRepository groupRepository;
 
-  Future<void> getGroups({GroupsFilterModel? filter, bool? shouldRefresh = true, bool? isFollowing}) async {
+  Future<void> getGroups(
+      {GroupsFilterModel? filter,
+      bool? shouldRefresh = true,
+      bool? isFollowing}) async {
     if (shouldRefresh!) {
       emit(const GroupsState.getGroupsLoading());
     }
 
     try {
-      final GetGroupsResponse response = await groupRepository.getGroups(page: 1, filter: filter, isFollowing: isFollowing);
+      final GetGroupsResponse response = (isFollowing ?? false)
+          ? await groupRepository.getFollowedGroups(page: 1)
+          : await groupRepository.getGroups(
+              page: 1,
+              categoryId: filter?.category,
+              search: filter?.search,
+            );
 
       List<TalkamGroup> fetchedGroups = response.groups ?? [];
       if (fetchedGroups.isEmpty) {
@@ -34,7 +43,8 @@ class GroupsCubit extends Cubit<GroupsState> {
 
       emit(GroupsState.getGroupsSuccess(
         groups: fetchedGroups,
-        paginationData: response.paginationMeta ?? GroupPaginationMeta(currentPage: 1, lastPage: 1),
+        paginationData: response.paginationMeta ??
+            GroupPaginationMeta(currentPage: 1, lastPage: 1),
       ));
     } catch (e, stack) {
       logger.e(e.toString(), stackTrace: stack);
@@ -46,7 +56,8 @@ class GroupsCubit extends Cubit<GroupsState> {
     emit(const GroupsState.getRecommendedLoading());
 
     try {
-      final GetGroupsResponse response = await groupRepository.getGroups(page: 1, filter: GroupsFilterModel.recommended());
+      final GetGroupsResponse response =
+          await groupRepository.getSuggestedGroups(page: 1);
 
       List<TalkamGroup> fetchedGroups = response.groups ?? [];
       if (fetchedGroups.isEmpty) {
@@ -55,10 +66,11 @@ class GroupsCubit extends Cubit<GroupsState> {
             .whereType<TalkamGroup>()
             .toList();
       }
-      
+
       final GetGroupsResponse fallbackResponse = GetGroupsResponse(
         groups: fetchedGroups,
-        paginationMeta: response.paginationMeta ?? GroupPaginationMeta(currentPage: 1, lastPage: 1),
+        paginationMeta: response.paginationMeta ??
+            GroupPaginationMeta(currentPage: 1, lastPage: 1),
       );
 
       emit(GroupsState.getRecommendedSuccess(fallbackResponse));
@@ -68,12 +80,16 @@ class GroupsCubit extends Cubit<GroupsState> {
     }
   }
 
-  Future<void> fetchNextPage(List<TalkamGroup> groups, GroupPaginationMeta paginationData) async {
+  Future<void> fetchNextPage(
+      List<TalkamGroup> groups, GroupPaginationMeta paginationData,
+      {GroupsFilterModel? filter}) async {
     if (!paginationData.canLoadMore!) return;
 
     try {
       final GetGroupsResponse response = await groupRepository.getGroups(
         page: paginationData.currentPage! + 1,
+        categoryId: filter?.category,
+        search: filter?.search,
       );
 
       emit(GroupsState.getGroupsSuccess(
@@ -147,7 +163,8 @@ class GroupsCubit extends Cubit<GroupsState> {
     }
   }
 
-  Future<void> joinGroup({required String groupId, required String userId}) async {
+  Future<void> joinGroup(
+      {required String groupId, required String userId}) async {
     emit(const GroupsState.joinGroupLoading());
 
     try {
@@ -175,11 +192,13 @@ class GroupsCubit extends Cubit<GroupsState> {
     }
   }
 
-  Future<void> addGroupRule({required String groupId, required GuidelinePayload rule}) async {
+  Future<void> addGroupRule(
+      {required String groupId, required GuidelinePayload rule}) async {
     emit(const GroupsState.addGroupRuleLoading());
 
     try {
-      final response = await groupRepository.addGroupRule(groupId: groupId, rule: rule);
+      final response =
+          await groupRepository.addGroupRule(groupId: groupId, rule: rule);
 
       emit(GroupsState.addGroupRuleSuccess(response));
     } catch (e, stack) {
@@ -195,7 +214,8 @@ class GroupsCubit extends Cubit<GroupsState> {
     emit(const GroupsState.deleteGroupRuleLoading());
 
     try {
-      final response = await groupRepository.deleteGroupRule(guidelineId: guidelineId);
+      final response =
+          await groupRepository.deleteGroupRule(guidelineId: guidelineId);
 
       emit(GroupsState.deleteGroupRuleSuccess(response));
     } catch (e, stack) {
@@ -205,11 +225,13 @@ class GroupsCubit extends Cubit<GroupsState> {
     }
   }
 
-  Future<void> reportGroup({required String groupId, required String reason}) async {
+  Future<void> reportGroup(
+      {required String groupId, required String reason}) async {
     emit(const GroupsState.reportGroupLoading());
 
     try {
-      final dynamic response = await groupRepository.reportGroup(groupId: groupId, reason: reason);
+      final dynamic response =
+          await groupRepository.reportGroup(groupId: groupId, reason: reason);
 
       emit(GroupsState.reportGroupSuccess(response));
     } catch (e, stack) {
@@ -217,7 +239,8 @@ class GroupsCubit extends Cubit<GroupsState> {
       emit(GroupsState.reportGroupFailureState(e.toString()));
     }
   }
-  void refreshGroups(){
+
+  void refreshGroups() {
     emit(const GroupsState.refreshGroups());
   }
 }

@@ -104,8 +104,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen>
               },
               getGroupSuccess: (response) {
                 return NestedScrollView(
-                  headerSliverBuilder: (context, innerBoxIsScrolled) =>
-                  [
+                  headerSliverBuilder: (context, innerBoxIsScrolled) => [
                     SliverToBoxAdapter(
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
@@ -114,7 +113,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen>
                           GroupDetailsHeader(
                             group: response,
                             onFollowUpdated: () {
-                              bloc.getGroup(widget.groupId);
+                              bloc.getGroup(widget.groupId, refresh: false);
                             },
                           ),
                         ],
@@ -146,26 +145,24 @@ class _GroupInfoScreenState extends State<GroupInfoScreen>
                                 },
                                 tabs: List.generate(
                                   tabItems.length,
-                                      (index) =>
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 16.0),
-                                        child: Tab(
-                                          child: Row(
-                                            children: [
-                                              TextView(
-                                                fontSize: 15,
-                                                fontWeight: FontWeight.w600,
-                                                text: tabItems[index].tittle,
-                                                color: selecteIndex == index
-                                                    ? context.colorScheme
-                                                    .onSurface
-                                                    : Pallets.grey60,
-                                              ),
-                                            ],
+                                  (index) => Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 16.0),
+                                    child: Tab(
+                                      child: Row(
+                                        children: [
+                                          TextView(
+                                            fontSize: 15,
+                                            fontWeight: FontWeight.w600,
+                                            text: tabItems[index].tittle,
+                                            color: selecteIndex == index
+                                                ? context.colorScheme.onSurface
+                                                : Pallets.grey60,
                                           ),
-                                        ),
+                                        ],
                                       ),
+                                    ),
+                                  ),
                                 ).toList()),
                           ),
                         ),

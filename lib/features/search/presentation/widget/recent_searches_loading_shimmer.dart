@@ -13,6 +13,9 @@ class RecentSearchesLoadingShimmer extends StatelessWidget {
       // color: Pallets.white,
       padding: const EdgeInsets.symmetric(vertical: 8),
       child: ListView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: 3,
         padding: padding ?? const EdgeInsets.symmetric(horizontal: 5),
         itemBuilder: (c, i) => Padding(
           padding: const EdgeInsets.only(bottom: 16),

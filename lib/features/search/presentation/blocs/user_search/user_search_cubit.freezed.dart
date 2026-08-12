@@ -19,8 +19,8 @@ mixin _$UserSearchState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<UserSearchResult> postResults,
-            UserPaginationMeta paginationData)
+    required TResult Function(
+            List<PostCreator> postResults, PostsPaginationData paginationData)
         userSearchLoaded,
     required TResult Function() getUserSearchLoading,
     required TResult Function(String error) getUserSearchFailed,
@@ -29,8 +29,8 @@ mixin _$UserSearchState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<UserSearchResult> postResults,
-            UserPaginationMeta paginationData)?
+    TResult? Function(
+            List<PostCreator> postResults, PostsPaginationData paginationData)?
         userSearchLoaded,
     TResult? Function()? getUserSearchLoading,
     TResult? Function(String error)? getUserSearchFailed,
@@ -39,8 +39,8 @@ mixin _$UserSearchState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<UserSearchResult> postResults,
-            UserPaginationMeta paginationData)?
+    TResult Function(
+            List<PostCreator> postResults, PostsPaginationData paginationData)?
         userSearchLoaded,
     TResult Function()? getUserSearchLoading,
     TResult Function(String error)? getUserSearchFailed,
@@ -131,8 +131,8 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<UserSearchResult> postResults,
-            UserPaginationMeta paginationData)
+    required TResult Function(
+            List<PostCreator> postResults, PostsPaginationData paginationData)
         userSearchLoaded,
     required TResult Function() getUserSearchLoading,
     required TResult Function(String error) getUserSearchFailed,
@@ -144,8 +144,8 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<UserSearchResult> postResults,
-            UserPaginationMeta paginationData)?
+    TResult? Function(
+            List<PostCreator> postResults, PostsPaginationData paginationData)?
         userSearchLoaded,
     TResult? Function()? getUserSearchLoading,
     TResult? Function(String error)? getUserSearchFailed,
@@ -157,8 +157,8 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<UserSearchResult> postResults,
-            UserPaginationMeta paginationData)?
+    TResult Function(
+            List<PostCreator> postResults, PostsPaginationData paginationData)?
         userSearchLoaded,
     TResult Function()? getUserSearchLoading,
     TResult Function(String error)? getUserSearchFailed,
@@ -219,7 +219,7 @@ abstract class _$$UserSearcLoadedImplCopyWith<$Res> {
       __$$UserSearcLoadedImplCopyWithImpl<$Res>;
   @useResult
   $Res call(
-      {List<UserSearchResult> postResults, UserPaginationMeta paginationData});
+      {List<PostCreator> postResults, PostsPaginationData paginationData});
 }
 
 /// @nodoc
@@ -240,11 +240,11 @@ class __$$UserSearcLoadedImplCopyWithImpl<$Res>
       postResults: null == postResults
           ? _value._postResults
           : postResults // ignore: cast_nullable_to_non_nullable
-              as List<UserSearchResult>,
+              as List<PostCreator>,
       paginationData: null == paginationData
           ? _value.paginationData
           : paginationData // ignore: cast_nullable_to_non_nullable
-              as UserPaginationMeta,
+              as PostsPaginationData,
     ));
   }
 }
@@ -253,20 +253,20 @@ class __$$UserSearcLoadedImplCopyWithImpl<$Res>
 
 class _$UserSearcLoadedImpl implements _UserSearcLoaded {
   const _$UserSearcLoadedImpl(
-      {required final List<UserSearchResult> postResults,
+      {required final List<PostCreator> postResults,
       required this.paginationData})
       : _postResults = postResults;
 
-  final List<UserSearchResult> _postResults;
+  final List<PostCreator> _postResults;
   @override
-  List<UserSearchResult> get postResults {
+  List<PostCreator> get postResults {
     if (_postResults is EqualUnmodifiableListView) return _postResults;
     // ignore: implicit_dynamic_type
     return EqualUnmodifiableListView(_postResults);
   }
 
   @override
-  final UserPaginationMeta paginationData;
+  final PostsPaginationData paginationData;
 
   @override
   String toString() {
@@ -299,8 +299,8 @@ class _$UserSearcLoadedImpl implements _UserSearcLoaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<UserSearchResult> postResults,
-            UserPaginationMeta paginationData)
+    required TResult Function(
+            List<PostCreator> postResults, PostsPaginationData paginationData)
         userSearchLoaded,
     required TResult Function() getUserSearchLoading,
     required TResult Function(String error) getUserSearchFailed,
@@ -312,8 +312,8 @@ class _$UserSearcLoadedImpl implements _UserSearcLoaded {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<UserSearchResult> postResults,
-            UserPaginationMeta paginationData)?
+    TResult? Function(
+            List<PostCreator> postResults, PostsPaginationData paginationData)?
         userSearchLoaded,
     TResult? Function()? getUserSearchLoading,
     TResult? Function(String error)? getUserSearchFailed,
@@ -325,8 +325,8 @@ class _$UserSearcLoadedImpl implements _UserSearcLoaded {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<UserSearchResult> postResults,
-            UserPaginationMeta paginationData)?
+    TResult Function(
+            List<PostCreator> postResults, PostsPaginationData paginationData)?
         userSearchLoaded,
     TResult Function()? getUserSearchLoading,
     TResult Function(String error)? getUserSearchFailed,
@@ -378,12 +378,12 @@ class _$UserSearcLoadedImpl implements _UserSearcLoaded {
 
 abstract class _UserSearcLoaded implements UserSearchState {
   const factory _UserSearcLoaded(
-          {required final List<UserSearchResult> postResults,
-          required final UserPaginationMeta paginationData}) =
+          {required final List<PostCreator> postResults,
+          required final PostsPaginationData paginationData}) =
       _$UserSearcLoadedImpl;
 
-  List<UserSearchResult> get postResults;
-  UserPaginationMeta get paginationData;
+  List<PostCreator> get postResults;
+  PostsPaginationData get paginationData;
   @JsonKey(ignore: true)
   _$$UserSearcLoadedImplCopyWith<_$UserSearcLoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -428,8 +428,8 @@ class _$UserSearchLoadingImpl implements _UserSearchLoading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<UserSearchResult> postResults,
-            UserPaginationMeta paginationData)
+    required TResult Function(
+            List<PostCreator> postResults, PostsPaginationData paginationData)
         userSearchLoaded,
     required TResult Function() getUserSearchLoading,
     required TResult Function(String error) getUserSearchFailed,
@@ -441,8 +441,8 @@ class _$UserSearchLoadingImpl implements _UserSearchLoading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<UserSearchResult> postResults,
-            UserPaginationMeta paginationData)?
+    TResult? Function(
+            List<PostCreator> postResults, PostsPaginationData paginationData)?
         userSearchLoaded,
     TResult? Function()? getUserSearchLoading,
     TResult? Function(String error)? getUserSearchFailed,
@@ -454,8 +454,8 @@ class _$UserSearchLoadingImpl implements _UserSearchLoading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<UserSearchResult> postResults,
-            UserPaginationMeta paginationData)?
+    TResult Function(
+            List<PostCreator> postResults, PostsPaginationData paginationData)?
         userSearchLoaded,
     TResult Function()? getUserSearchLoading,
     TResult Function(String error)? getUserSearchFailed,
@@ -575,8 +575,8 @@ class _$UserSearchFailedImpl implements _UserSearchFailed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(List<UserSearchResult> postResults,
-            UserPaginationMeta paginationData)
+    required TResult Function(
+            List<PostCreator> postResults, PostsPaginationData paginationData)
         userSearchLoaded,
     required TResult Function() getUserSearchLoading,
     required TResult Function(String error) getUserSearchFailed,
@@ -588,8 +588,8 @@ class _$UserSearchFailedImpl implements _UserSearchFailed {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(List<UserSearchResult> postResults,
-            UserPaginationMeta paginationData)?
+    TResult? Function(
+            List<PostCreator> postResults, PostsPaginationData paginationData)?
         userSearchLoaded,
     TResult? Function()? getUserSearchLoading,
     TResult? Function(String error)? getUserSearchFailed,
@@ -601,8 +601,8 @@ class _$UserSearchFailedImpl implements _UserSearchFailed {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(List<UserSearchResult> postResults,
-            UserPaginationMeta paginationData)?
+    TResult Function(
+            List<PostCreator> postResults, PostsPaginationData paginationData)?
         userSearchLoaded,
     TResult Function()? getUserSearchLoading,
     TResult Function(String error)? getUserSearchFailed,

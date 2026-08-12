@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:go_router/go_router.dart';
-import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
@@ -11,8 +9,8 @@ import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart'
 import 'package:talkam/features/home/presentation/widgets/app_drawer.dart';
 import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 
-class CategoryList extends StatefulWidget {
-  CategoryList({
+class CategoryList extends StatelessWidget {
+  const CategoryList({
     super.key,
     this.searchQuery = '',
   });
@@ -20,20 +18,11 @@ class CategoryList extends StatefulWidget {
   final String searchQuery;
 
   @override
-  State<CategoryList> createState() => _CategoryListState();
-}
-
-class _CategoryListState extends State<CategoryList> {
-  @override
-  void initState() {
-    injector.get<PostBloc>().add(const PostEvent.getCategories(refresh: false));
-    super.initState();
-  }
-
-  final postBloc = injector.get<PostBloc>();
-
-  @override
   Widget build(BuildContext context) {
+    // Interest topics are prefetched once on HomeScreen launch, so this just
+    // reads the shared PostBloc's state — no fetch dispatched here, so
+    // opening the drawer never re-triggers a loading flash.
+    //
     // No scrolling of its own — this is embedded inside the drawer's single
     // outer SingleChildScrollView, which handles scrolling for everything
     // from "Following" down.
@@ -47,23 +36,28 @@ class _CategoryListState extends State<CategoryList> {
           fontWeight: FontWeight.w600,
         ),
         12.verticalSpace,
-        BlocConsumer<PostBloc, PostState>(
+        BlocBuilder<PostBloc, PostState>(
           bloc: injector.get<PostBloc>(),
-          listener: (context, state) {},
           builder: (context, state) {
             return state.maybeWhen(
-              orElse: () {
-                final response = injector.get<PostBloc>();
-                final source = response.categories.isEmpty
-                    ? MockHomeData.groups // It contains mock categories
-                    : response.categories;
-                final categories = widget.searchQuery.isEmpty
+              orElse: () => const SizedBox.shrink(),
+              getInterestTopicsFailure: (error) => AppErrorWidget(
+                onTap: () {
+                  injector
+                      .get<PostBloc>()
+                      .add(const PostEvent.getInterestTopics());
+                },
+              ),
+              getInterestTopicsSuccess: (response) {
+                final source =
+                    response.data.isEmpty ? MockHomeData.groups : response.data;
+                final categories = searchQuery.isEmpty
                     ? source
                     : source
                         .where((category) => category.name
                             .toString()
                             .toLowerCase()
-                            .contains(widget.searchQuery.toLowerCase()))
+                            .contains(searchQuery.toLowerCase()))
                         .toList();
 
                 if (categories.isEmpty) {
@@ -71,9 +65,9 @@ class _CategoryListState extends State<CategoryList> {
                     padding: EdgeInsets.symmetric(vertical: 24.h),
                     child: Center(
                       child: TextView(
-                        text: widget.searchQuery.isEmpty
+                        text: searchQuery.isEmpty
                             ? "There are no categories yet"
-                            : "No categories match \"${widget.searchQuery}\"",
+                            : "No categories match \"$searchQuery\"",
                       ),
                     ),
                   );
@@ -96,17 +90,6 @@ class _CategoryListState extends State<CategoryList> {
                   ),
                 );
               },
-              getCategoriesFailure: (error) => AppErrorWidget(
-                onTap: () {
-                  injector
-                      .get<PostBloc>()
-                      .add(const PostEvent.getCategories(refresh: false));
-                },
-              ),
-              getCategoriesLoading: () => Padding(
-                padding: EdgeInsets.symmetric(vertical: 24.h),
-                child: Center(child: CustomDialogs.getLoading(size: 50)),
-              ),
             );
           },
         ),

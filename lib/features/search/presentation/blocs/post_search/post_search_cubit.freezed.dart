@@ -19,8 +19,8 @@ mixin _$PostSearchState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(
-            List<TalkamPost> postResults, PostsPaginationData paginationData)
+    required TResult Function(List<TalkamPost> postResults,
+            PostsPaginationData paginationData, List<String> relatedTopics)
         postSearchLoaded,
     required TResult Function() getPostSearchLoading,
     required TResult Function(String error) getPostSearchFailed,
@@ -29,8 +29,8 @@ mixin _$PostSearchState {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(
-            List<TalkamPost> postResults, PostsPaginationData paginationData)?
+    TResult? Function(List<TalkamPost> postResults,
+            PostsPaginationData paginationData, List<String> relatedTopics)?
         postSearchLoaded,
     TResult? Function()? getPostSearchLoading,
     TResult? Function(String error)? getPostSearchFailed,
@@ -39,8 +39,8 @@ mixin _$PostSearchState {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(
-            List<TalkamPost> postResults, PostsPaginationData paginationData)?
+    TResult Function(List<TalkamPost> postResults,
+            PostsPaginationData paginationData, List<String> relatedTopics)?
         postSearchLoaded,
     TResult Function()? getPostSearchLoading,
     TResult Function(String error)? getPostSearchFailed,
@@ -131,8 +131,8 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(
-            List<TalkamPost> postResults, PostsPaginationData paginationData)
+    required TResult Function(List<TalkamPost> postResults,
+            PostsPaginationData paginationData, List<String> relatedTopics)
         postSearchLoaded,
     required TResult Function() getPostSearchLoading,
     required TResult Function(String error) getPostSearchFailed,
@@ -144,8 +144,8 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(
-            List<TalkamPost> postResults, PostsPaginationData paginationData)?
+    TResult? Function(List<TalkamPost> postResults,
+            PostsPaginationData paginationData, List<String> relatedTopics)?
         postSearchLoaded,
     TResult? Function()? getPostSearchLoading,
     TResult? Function(String error)? getPostSearchFailed,
@@ -157,8 +157,8 @@ class _$InitialImpl implements _Initial {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(
-            List<TalkamPost> postResults, PostsPaginationData paginationData)?
+    TResult Function(List<TalkamPost> postResults,
+            PostsPaginationData paginationData, List<String> relatedTopics)?
         postSearchLoaded,
     TResult Function()? getPostSearchLoading,
     TResult Function(String error)? getPostSearchFailed,
@@ -218,7 +218,10 @@ abstract class _$$PostSearcLoadedImplCopyWith<$Res> {
           $Res Function(_$PostSearcLoadedImpl) then) =
       __$$PostSearcLoadedImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({List<TalkamPost> postResults, PostsPaginationData paginationData});
+  $Res call(
+      {List<TalkamPost> postResults,
+      PostsPaginationData paginationData,
+      List<String> relatedTopics});
 }
 
 /// @nodoc
@@ -234,6 +237,7 @@ class __$$PostSearcLoadedImplCopyWithImpl<$Res>
   $Res call({
     Object? postResults = null,
     Object? paginationData = null,
+    Object? relatedTopics = null,
   }) {
     return _then(_$PostSearcLoadedImpl(
       postResults: null == postResults
@@ -244,6 +248,10 @@ class __$$PostSearcLoadedImplCopyWithImpl<$Res>
           ? _value.paginationData
           : paginationData // ignore: cast_nullable_to_non_nullable
               as PostsPaginationData,
+      relatedTopics: null == relatedTopics
+          ? _value._relatedTopics
+          : relatedTopics // ignore: cast_nullable_to_non_nullable
+              as List<String>,
     ));
   }
 }
@@ -253,8 +261,10 @@ class __$$PostSearcLoadedImplCopyWithImpl<$Res>
 class _$PostSearcLoadedImpl implements _PostSearcLoaded {
   const _$PostSearcLoadedImpl(
       {required final List<TalkamPost> postResults,
-      required this.paginationData})
-      : _postResults = postResults;
+      required this.paginationData,
+      final List<String> relatedTopics = const []})
+      : _postResults = postResults,
+        _relatedTopics = relatedTopics;
 
   final List<TalkamPost> _postResults;
   @override
@@ -266,10 +276,18 @@ class _$PostSearcLoadedImpl implements _PostSearcLoaded {
 
   @override
   final PostsPaginationData paginationData;
+  final List<String> _relatedTopics;
+  @override
+  @JsonKey()
+  List<String> get relatedTopics {
+    if (_relatedTopics is EqualUnmodifiableListView) return _relatedTopics;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_relatedTopics);
+  }
 
   @override
   String toString() {
-    return 'PostSearchState.postSearchLoaded(postResults: $postResults, paginationData: $paginationData)';
+    return 'PostSearchState.postSearchLoaded(postResults: $postResults, paginationData: $paginationData, relatedTopics: $relatedTopics)';
   }
 
   @override
@@ -280,12 +298,17 @@ class _$PostSearcLoadedImpl implements _PostSearcLoaded {
             const DeepCollectionEquality()
                 .equals(other._postResults, _postResults) &&
             (identical(other.paginationData, paginationData) ||
-                other.paginationData == paginationData));
+                other.paginationData == paginationData) &&
+            const DeepCollectionEquality()
+                .equals(other._relatedTopics, _relatedTopics));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType,
-      const DeepCollectionEquality().hash(_postResults), paginationData);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(_postResults),
+      paginationData,
+      const DeepCollectionEquality().hash(_relatedTopics));
 
   @JsonKey(ignore: true)
   @override
@@ -298,41 +321,41 @@ class _$PostSearcLoadedImpl implements _PostSearcLoaded {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(
-            List<TalkamPost> postResults, PostsPaginationData paginationData)
+    required TResult Function(List<TalkamPost> postResults,
+            PostsPaginationData paginationData, List<String> relatedTopics)
         postSearchLoaded,
     required TResult Function() getPostSearchLoading,
     required TResult Function(String error) getPostSearchFailed,
   }) {
-    return postSearchLoaded(postResults, paginationData);
+    return postSearchLoaded(postResults, paginationData, relatedTopics);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(
-            List<TalkamPost> postResults, PostsPaginationData paginationData)?
+    TResult? Function(List<TalkamPost> postResults,
+            PostsPaginationData paginationData, List<String> relatedTopics)?
         postSearchLoaded,
     TResult? Function()? getPostSearchLoading,
     TResult? Function(String error)? getPostSearchFailed,
   }) {
-    return postSearchLoaded?.call(postResults, paginationData);
+    return postSearchLoaded?.call(postResults, paginationData, relatedTopics);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(
-            List<TalkamPost> postResults, PostsPaginationData paginationData)?
+    TResult Function(List<TalkamPost> postResults,
+            PostsPaginationData paginationData, List<String> relatedTopics)?
         postSearchLoaded,
     TResult Function()? getPostSearchLoading,
     TResult Function(String error)? getPostSearchFailed,
     required TResult orElse(),
   }) {
     if (postSearchLoaded != null) {
-      return postSearchLoaded(postResults, paginationData);
+      return postSearchLoaded(postResults, paginationData, relatedTopics);
     }
     return orElse();
   }
@@ -377,12 +400,13 @@ class _$PostSearcLoadedImpl implements _PostSearcLoaded {
 
 abstract class _PostSearcLoaded implements PostSearchState {
   const factory _PostSearcLoaded(
-          {required final List<TalkamPost> postResults,
-          required final PostsPaginationData paginationData}) =
-      _$PostSearcLoadedImpl;
+      {required final List<TalkamPost> postResults,
+      required final PostsPaginationData paginationData,
+      final List<String> relatedTopics}) = _$PostSearcLoadedImpl;
 
   List<TalkamPost> get postResults;
   PostsPaginationData get paginationData;
+  List<String> get relatedTopics;
   @JsonKey(ignore: true)
   _$$PostSearcLoadedImplCopyWith<_$PostSearcLoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -427,8 +451,8 @@ class _$PostSearchLoadingImpl implements _PostSearchLoading {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(
-            List<TalkamPost> postResults, PostsPaginationData paginationData)
+    required TResult Function(List<TalkamPost> postResults,
+            PostsPaginationData paginationData, List<String> relatedTopics)
         postSearchLoaded,
     required TResult Function() getPostSearchLoading,
     required TResult Function(String error) getPostSearchFailed,
@@ -440,8 +464,8 @@ class _$PostSearchLoadingImpl implements _PostSearchLoading {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(
-            List<TalkamPost> postResults, PostsPaginationData paginationData)?
+    TResult? Function(List<TalkamPost> postResults,
+            PostsPaginationData paginationData, List<String> relatedTopics)?
         postSearchLoaded,
     TResult? Function()? getPostSearchLoading,
     TResult? Function(String error)? getPostSearchFailed,
@@ -453,8 +477,8 @@ class _$PostSearchLoadingImpl implements _PostSearchLoading {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(
-            List<TalkamPost> postResults, PostsPaginationData paginationData)?
+    TResult Function(List<TalkamPost> postResults,
+            PostsPaginationData paginationData, List<String> relatedTopics)?
         postSearchLoaded,
     TResult Function()? getPostSearchLoading,
     TResult Function(String error)? getPostSearchFailed,
@@ -574,8 +598,8 @@ class _$PostSearchFailedImpl implements _PostSearchFailed {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
-    required TResult Function(
-            List<TalkamPost> postResults, PostsPaginationData paginationData)
+    required TResult Function(List<TalkamPost> postResults,
+            PostsPaginationData paginationData, List<String> relatedTopics)
         postSearchLoaded,
     required TResult Function() getPostSearchLoading,
     required TResult Function(String error) getPostSearchFailed,
@@ -587,8 +611,8 @@ class _$PostSearchFailedImpl implements _PostSearchFailed {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
-    TResult? Function(
-            List<TalkamPost> postResults, PostsPaginationData paginationData)?
+    TResult? Function(List<TalkamPost> postResults,
+            PostsPaginationData paginationData, List<String> relatedTopics)?
         postSearchLoaded,
     TResult? Function()? getPostSearchLoading,
     TResult? Function(String error)? getPostSearchFailed,
@@ -600,8 +624,8 @@ class _$PostSearchFailedImpl implements _PostSearchFailed {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
-    TResult Function(
-            List<TalkamPost> postResults, PostsPaginationData paginationData)?
+    TResult Function(List<TalkamPost> postResults,
+            PostsPaginationData paginationData, List<String> relatedTopics)?
         postSearchLoaded,
     TResult Function()? getPostSearchLoading,
     TResult Function(String error)? getPostSearchFailed,

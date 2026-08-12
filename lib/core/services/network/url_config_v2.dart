@@ -79,4 +79,23 @@ class UrlConfigV2 {
 
   // Mood
   static const String moodCheckins = '/user/mood-checkins';
+
+  // Groups
+  static const String groups = '/user/groups';
+  static String groupDetail(String id) => '$groups/$id';
+  static const String groupMembers = '/user/group-members';
+  static const String unfollowGroup = '$groups/unfollow-group';
+  static const String groupFollowToggle = '$groups/follow';
+  static const String followedGroups = '$groups/members/following';
+  static const String suggestedGroups = '$groups/suggested';
+  static String inviteToGroup(String id) => '$groups/$id/invite';
+  static const String acceptGroupInvite = '$groups/invites/accept';
+  static String requestGroupAccess(String id) => '$groups/$id/request-access';
+  static const String reportGroup = '$groups/reports/create';
+
+  // Search
+  static const String search = '/user/search';
+  static const String recentSearches = '/user/search/recent';
+  static const String trendingSearches = '/user/search/trending';
+  static String deleteSearch(String id) => '/user/search/$id/delete';
 }

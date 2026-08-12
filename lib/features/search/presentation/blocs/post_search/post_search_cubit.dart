@@ -26,6 +26,7 @@ class PostSearchCubit extends Cubit<PostSearchState> {
       emit(PostSearchState.postSearchLoaded(
         postResults: response.result.data.data,
         paginationData: response.result.data.paginationMeta,
+        relatedTopics: response.result.data.relatedTopics,
       ));
     } catch (e, stack) {
       logger.e(e.toString(), stackTrace: stack);

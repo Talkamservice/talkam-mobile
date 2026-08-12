@@ -211,11 +211,14 @@ class _PostAction extends StatelessWidget {
       onTap: onTap,
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 20.h),
-        child: TextView(
-          text: title,
-          fontSize: 18,
-          fontWeight: FontWeight.w400,
-          color: Colors.black87,
+        child: SizedBox(
+          width: double.infinity,
+          child: TextView(
+            text: title,
+            fontSize: 18,
+            fontWeight: FontWeight.w400,
+            color: Colors.black87,
+          ),
         ),
       ),
     );

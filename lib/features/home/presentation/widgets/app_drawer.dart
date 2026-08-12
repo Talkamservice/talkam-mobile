@@ -1,9 +1,11 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/custom_text_field.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/constants/dialog_texts.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/mock/mock_home_data.dart';
@@ -11,12 +13,14 @@ import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
 import 'package:talkam/features/home/presentation/widgets/category_group_list.dart';
 import 'package:talkam/features/notifications/presentation/bloc/notification_bloc.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/profile/presentation/bloc/connections_summary_cubit/connections_summary_cubit.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
+import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 import 'category_list.dart';
@@ -390,8 +394,6 @@ class _DrawerGroupsSection extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final items = MockHomeData.groups;
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -413,24 +415,38 @@ class _DrawerGroupsSection extends StatelessWidget {
             ),
           ),
         ),
-        if (items.isEmpty)
-          const TextView(
-              text: "No groups yet", fontSize: 13, color: Pallets.grey400)
-        else
-          ...items.take(3).map(
-                (category) => NavCategoryItem(
-                  category: category,
-                  onTap: () {
-                    context.pushNamed(
-                      PageUrl.groupsInfoScreen,
-                      extra: {
-                        'groupId': category.id.toString(),
-                        'isPrivate': false,
-                      },
-                    );
-                  },
+        BlocBuilder<GroupsCubit, GroupsState>(
+          bloc: injector.get<GroupsCubit>(),
+          builder: (context, state) {
+            return state.maybeWhen(
+              orElse: () => const SizedBox.shrink(),
+              getGroupsLoading: () => const Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.0),
+                child: SizedBox(
+                  height: 18,
+                  width: 18,
+                  child: CircularProgressIndicator(strokeWidth: 2),
                 ),
               ),
+              getGroupsFailure: (_) => const TextView(
+                  text: "No groups yet", fontSize: 13, color: Pallets.grey400),
+              getGroupsSuccess: (groups, _) {
+                if (groups.isEmpty) {
+                  return const TextView(
+                      text: "No groups yet",
+                      fontSize: 13,
+                      color: Pallets.grey400);
+                }
+                return Column(
+                  children: groups
+                      .take(3)
+                      .map((group) => _DrawerGroupItem(group: group))
+                      .toList(),
+                );
+              },
+            );
+          },
+        ),
         InkWell(
           onTap: () {
             Navigator.of(context).pop();
@@ -452,6 +468,50 @@ class _DrawerGroupsSection extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class _DrawerGroupItem extends StatelessWidget {
+  const _DrawerGroupItem({required this.group});
+
+  final TalkamGroup group;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Navigator.of(context).pop();
+        if (group.isSuspended ?? false) {
+          CustomDialogs.error("You have been suspended from this group");
+        } else if (!group.isPublic && !(group.isFollowing ?? false)) {
+          CustomDialogs.showInfoMessage(context, privateGroupViewText);
+        } else {
+          context.pushNamed(PageUrl.groupsInfoScreen,
+              extra: group.id.toString());
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          children: [
+            ImageWidget(
+              imageUrl: group.image ?? Assets.images.png.sports.path,
+              size: 26,
+              shape: BoxShape.circle,
+            ),
+            8.horizontalSpace,
+            Expanded(
+              child: TextView(
+                text: group.name ?? "",
+                fontSize: 16,
+              ),
+            ),
+            8.horizontalSpace,
+            ImageWidget(imageUrl: Assets.images.svgs.chevronRight),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/ads/data/models/promotion_data.dart';
+import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/group/data/models/get_group_members_response.dart';
 import 'package:talkam/features/group/dormain/model/group_overview_data.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
@@ -23,7 +24,7 @@ class GetGroupsResponse {
   factory GetGroupsResponse.fromJson(Map<String, dynamic> json) {
     var groupList = json['data']["data"] as List?;
     List<TalkamGroup>? groups =
-    groupList?.map((i) => TalkamGroup.fromJson(i)).toList();
+        groupList?.map((i) => TalkamGroup.fromJson(i)).toList();
 
     return GetGroupsResponse(
       paginationMeta: json['data']['pagination_meta'] != null
@@ -137,6 +138,7 @@ class TalkamGroup extends Codec<TalkamGroup, String> {
   final int? id;
   final String? name;
   final String? uuid;
+  final String? type;
   final String? userRole;
   final String? status;
   final String? groupAccess;
@@ -145,7 +147,13 @@ class TalkamGroup extends Codec<TalkamGroup, String> {
   bool? hasRequested;
   bool? isReported;
   bool? isSuspended;
+  bool? isBanned;
+
+  /// Only present on search results (`sort=groups`) — whether the caller is
+  /// a member. Not part of the group listing/detail endpoints.
+  bool? isMember;
   int? pendingCount;
+  final String? groupMemberStatus;
   final int? totalMembers;
   final PostCategory? category;
   final bool? promotion;
@@ -160,6 +168,7 @@ class TalkamGroup extends Codec<TalkamGroup, String> {
     this.id,
     this.name,
     this.uuid,
+    this.type,
     this.status,
     this.groupAccess,
     this.image,
@@ -167,6 +176,8 @@ class TalkamGroup extends Codec<TalkamGroup, String> {
     this.hasRequested,
     this.isReported,
     this.isSuspended,
+    this.isBanned,
+    this.isMember,
     this.totalMembers,
     this.category,
     this.promotion,
@@ -176,6 +187,7 @@ class TalkamGroup extends Codec<TalkamGroup, String> {
     this.about,
     this.userRole,
     this.pendingCount,
+    this.groupMemberStatus,
     this.createdAt,
     this.updatedAt,
   });
@@ -183,19 +195,23 @@ class TalkamGroup extends Codec<TalkamGroup, String> {
   factory TalkamGroup.fromJson(Map<String, dynamic> json) {
     var guidelinesList = json['guidelines'] as List?;
     List<GroupGuideline>? guidelines =
-    guidelinesList?.map((i) => GroupGuideline.fromJson(i)).toList();
+        guidelinesList?.map((i) => GroupGuideline.fromJson(i)).toList();
 
     return TalkamGroup(
       id: json['id'],
       name: json['name'],
       uuid: json['uuid'],
+      type: json['type'],
       userRole: json['user_role'],
       status: json['status'],
       groupAccess: json['group_access'],
       pendingCount: json['pending_count'],
+      groupMemberStatus: json['group_member_status'],
       image: json['image'],
       isFollowing: json['is_following'],
       isSuspended: json['is_suspended'],
+      isBanned: json['is_banned'],
+      isMember: json['is_member'],
       isReported: json['is_reported'],
       hasRequested: json['has_requested'],
       totalMembers: json['total_members'],
@@ -216,8 +232,7 @@ class TalkamGroup extends Codec<TalkamGroup, String> {
     );
   }
 
-  bool get isPromoted => promotion??false;
-
+  bool get isPromoted => promotion ?? false;
 
   // TalkamGroupMemberInfo toTalkamGroupMemberInfo() {
   //   return TalkamGroupMemberInfo(
@@ -243,7 +258,6 @@ class TalkamGroup extends Codec<TalkamGroup, String> {
   // }
 
   GroupAppBarData toGroupAppBarData() {
-
     return GroupAppBarData(
       id: uuid ?? "",
       // Use uuid if available, otherwise an empty string
@@ -321,14 +335,16 @@ class TalkamGroup extends Codec<TalkamGroup, String> {
       about: about ?? "",
       // Use about if available, otherwise an empty string
       totalMembers:
-      totalMembers ?? 0, // Use totalMembers if available, otherwise 0
+          totalMembers ?? 0, // Use totalMembers if available, otherwise 0
     );
   }
 
   bool get isPublic => groupAccess == null || groupAccess == "Opened";
 
   bool get isAdmin => (userRole == "Owner" || userRole == "Admin");
-  bool get isOwner => (userRole == "Owner" || (owner?.email != null && owner?.email == injector.get<ProfileBloc>().appUser?.email));
+  bool get isOwner => (userRole == "Owner" ||
+      (owner?.email != null &&
+          owner?.email == injector.get<ProfileBloc>().appUser?.email));
 
   @override
   // TODO: implement decoder
@@ -345,6 +361,7 @@ class GroupOwner {
   final String? name;
   final String? username;
   final String? email;
+  final ActiveSubscription? activeSubscription;
 
   GroupOwner({
     this.id,
@@ -352,6 +369,7 @@ class GroupOwner {
     this.name,
     this.username,
     this.email,
+    this.activeSubscription,
   });
 
   factory GroupOwner.fromJson(Map<String, dynamic> json) {
@@ -361,17 +379,27 @@ class GroupOwner {
       name: json['name'],
       username: json['username'],
       email: json['email'],
+      activeSubscription: json['active_subscription'] != null
+          ? ActiveSubscription.fromJson(json['active_subscription'])
+          : null,
     );
   }
 
   GroupMemberDetails toGroupMemberDetail() {
-    return GroupMemberDetails(id: id!,
+    return GroupMemberDetails(
+        id: id!,
         role: "Owner",
         status: "Active",
         isSuspended: false,
         isBanned: false,
         createdAt: DateTime.now(),
-        updatedAt: DateTime.now(), user: GroupUser(id: id,username: username,email: email,avatar: avatar,name: name));
+        updatedAt: DateTime.now(),
+        user: GroupUser(
+            id: id,
+            username: username,
+            email: email,
+            avatar: avatar,
+            name: name));
   }
 }
 

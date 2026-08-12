@@ -16,6 +16,7 @@ import 'package:talkam/features/components/talkam_tab_bar.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_screen_cubit/profile_screen_cubit.dart';
 import 'package:talkam/features/profile/presentation/screens/tabs/connections_tab.dart';
+import 'package:talkam/features/profile/presentation/screens/tabs/profile_comments_tab.dart';
 import 'package:talkam/features/profile/presentation/screens/tabs/profile_posts_tab.dart';
 import 'package:talkam/features/profile/presentation/screens/tabs/therapist_profile_info_tab.dart';
 import 'package:talkam/features/profile/presentation/widgets/delete_account_dialog.dart';
@@ -25,6 +26,7 @@ import 'package:talkam/gen/assets.gen.dart';
 enum _ProfileTabOptions {
   profile,
   posts,
+  comments,
   following,
   followers,
   settings;
@@ -35,6 +37,8 @@ enum _ProfileTabOptions {
         return "Profile";
       case posts:
         return "Post";
+      case comments:
+        return "Comments";
       case following:
         return "Following";
       case followers:
@@ -62,12 +66,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ? [
             _ProfileTabOptions.profile,
             _ProfileTabOptions.posts,
+            _ProfileTabOptions.comments,
             _ProfileTabOptions.following,
             _ProfileTabOptions.followers,
             _ProfileTabOptions.settings,
           ]
         : [
             _ProfileTabOptions.posts,
+            _ProfileTabOptions.comments,
             _ProfileTabOptions.following,
             _ProfileTabOptions.followers,
             _ProfileTabOptions.settings,
@@ -159,8 +165,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
                     // Top User Header
                     Padding(
-                      padding:
-                          EdgeInsets.only(top: canPop ? 4.h : 20.h, right: 16.w, left: 16.w),
+                      padding: EdgeInsets.only(
+                          top: canPop ? 4.h : 20.h, right: 16.w, left: 16.w),
                       child: isTherapist
                           ? _buildTherapistHeader(
                               displayName, handle, avatarUrl)
@@ -221,6 +227,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             case _ProfileTabOptions.posts:
                               return ProfilePostTab(
                                 key: PageStorageKey(_ProfileTabOptions.posts),
+                              );
+                            case _ProfileTabOptions.comments:
+                              return const ProfileCommentsTab(
+                                key:
+                                    PageStorageKey(_ProfileTabOptions.comments),
                               );
                             case _ProfileTabOptions.following:
                               return const ConnectionsTab(

@@ -65,29 +65,45 @@ class Data {
   PostsPaginationData paginationMeta;
   List<TalkamPost> data;
 
+  /// Only present on search results — interest-topic name matches for the
+  /// query. Absent (defaults empty) on the regular feed endpoints.
+  List<String> relatedTopics;
+
   Data({
     required this.paginationMeta,
     required this.data,
+    this.relatedTopics = const [],
   });
 
   Data copyWith({
     PostsPaginationData? paginationMeta,
     List<TalkamPost>? data,
+    List<String>? relatedTopics,
   }) =>
       Data(
         paginationMeta: paginationMeta ?? this.paginationMeta,
         data: data ?? this.data,
+        relatedTopics: relatedTopics ?? this.relatedTopics,
       );
 
   factory Data.fromJson(Map<String, dynamic> json) => Data(
         paginationMeta: PostsPaginationData.fromJson(json["pagination_meta"]),
         data: List<TalkamPost>.from(
             json["data"].map((x) => TalkamPost.fromJson(x))),
+        relatedTopics: json["related_topics"] == null
+            ? []
+            : (json["related_topics"] as List).map<String>((x) {
+                if (x is Map) {
+                  return x["name"]?.toString() ?? x["title"]?.toString() ?? "";
+                }
+                return x?.toString() ?? "";
+              }).where((String s) => s.isNotEmpty).toList(),
       );
 
   Map<String, dynamic> toJson() => {
         "pagination_meta": paginationMeta.toJson(),
         "data": List<dynamic>.from(data.map((x) => x.toJson())),
+        "related_topics": List<dynamic>.from(relatedTopics.map((x) => x)),
       };
 }
 
@@ -423,6 +439,10 @@ class PostCreator {
   String email;
   ActiveSubscription? activeSubscription;
 
+  /// Only present on people-search results (`sort=people`) — whether the
+  /// caller already follows this user. Absent elsewhere.
+  bool? isFollowing;
+
   PostCreator({
     required this.id,
     required this.avatar,
@@ -430,6 +450,7 @@ class PostCreator {
     required this.username,
     required this.email,
     this.activeSubscription,
+    this.isFollowing,
   });
 
   PostCreator copyWith(
@@ -438,7 +459,8 @@ class PostCreator {
           String? name,
           String? username,
           String? email,
-          ActiveSubscription? activeSubscription}) =>
+          ActiveSubscription? activeSubscription,
+          bool? isFollowing}) =>
       PostCreator(
         id: id ?? this.id,
         avatar: avatar ?? this.avatar,
@@ -446,6 +468,7 @@ class PostCreator {
         username: username ?? this.username,
         email: email ?? this.email,
         activeSubscription: activeSubscription ?? this.activeSubscription,
+        isFollowing: isFollowing ?? this.isFollowing,
       );
 
   factory PostCreator.fromJson(Map<String, dynamic> json) => PostCreator(
@@ -457,6 +480,7 @@ class PostCreator {
         activeSubscription: json["active_subscription"] == null
             ? null
             : ActiveSubscription?.fromJson(json["active_subscription"]),
+        isFollowing: json["is_following"],
       );
 
   Map<String, dynamic> toJson() => {
@@ -466,6 +490,7 @@ class PostCreator {
         "username": username,
         "email": email,
         "active_subscription": activeSubscription?.toJson(),
+        "is_following": isFollowing,
       };
 
   bool get isSubscribed => activeSubscription != null;

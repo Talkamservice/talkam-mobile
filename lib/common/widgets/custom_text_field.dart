@@ -32,6 +32,7 @@ class CustomTextField extends StatefulWidget {
   final FocusNode? focusNode;
   final TextInputAction? textInputAction;
   final void Function(String)? onFieldSubmitted;
+  final VoidCallback? onTap;
 
   const CustomTextField({
     super.key,
@@ -53,6 +54,7 @@ class CustomTextField extends StatefulWidget {
     this.focusNode,
     this.textInputAction,
     this.onFieldSubmitted,
+    this.onTap,
   });
 
   @override
@@ -86,6 +88,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           focusNode: widget.focusNode,
           textInputAction: widget.textInputAction,
           onFieldSubmitted: widget.onFieldSubmitted,
+          onTap: widget.onTap,
           obscureText: widget.obscureText,
           keyboardType: widget.keyboardType,
           onChanged: widget.onChanged,

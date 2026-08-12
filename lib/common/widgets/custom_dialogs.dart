@@ -56,6 +56,7 @@ class CustomDialogs {
       AnimationController? transitionAnimationController}) {
     return showModalBottomSheet<T>(
         backgroundColor: Colors.transparent,
+        elevation: 0,
         context: context,
         barrierColor: barrierColor ?? Colors.transparent,
         useRootNavigator: true,
@@ -226,7 +227,7 @@ class CustomDialogs {
       bool? barrierDismissible = true}) async {
     final dialog = Dialog(
       backgroundColor: Pallets.white,
-      elevation: 5,
+      elevation: 0,
       insetPadding: const EdgeInsets.symmetric(horizontal: 16),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(25.r),

@@ -22,11 +22,10 @@ abstract class GroupMembersRepository {
     required String groupId,
   });
 
-  Future<dynamic> suspendOrCancelSuspension({
-    required String memberId,
-    required  String reason,
-    required DateTime endDate
-  });
+  Future<dynamic> suspendOrCancelSuspension(
+      {required String memberId,
+      required String reason,
+      required DateTime endDate});
 
   Future<GetPendingRequestsResponse> getPendingRequests(
       {required String groupId});
