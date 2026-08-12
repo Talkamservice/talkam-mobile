@@ -9,6 +9,7 @@ class PersonalInfo {
     this.email = '',
     this.phone = '',
     this.credentialType,
+    this.yearsExperience = '',
   });
 
   final String fullName;
@@ -16,23 +17,31 @@ class PersonalInfo {
   final String phone;
   final String? credentialType;
 
+  /// Kept as text (matches [PayoutInfo.sessionRate]'s convention) since it's
+  /// bound directly to a [TextEditingController]; parsed to `int` only when
+  /// building the network payload.
+  final String yearsExperience;
+
   bool get isValid =>
       fullName.trim().isNotEmpty &&
       email.trim().isNotEmpty &&
       phone.trim().isNotEmpty &&
-      credentialType != null;
+      credentialType != null &&
+      int.tryParse(yearsExperience) != null;
 
   PersonalInfo copyWith({
     String? fullName,
     String? email,
     String? phone,
     String? credentialType,
+    String? yearsExperience,
   }) =>
       PersonalInfo(
         fullName: fullName ?? this.fullName,
         email: email ?? this.email,
         phone: phone ?? this.phone,
         credentialType: credentialType ?? this.credentialType,
+        yearsExperience: yearsExperience ?? this.yearsExperience,
       );
 }
 
@@ -47,6 +56,19 @@ enum DocumentId {
 }
 
 extension DocumentIdX on DocumentId {
+  /// The `type` value the v2 documents endpoint expects — distinct from the
+  /// Dart enum member names above, which predate the real API contract.
+  String get apiValue => switch (this) {
+        DocumentId.degreeCertificate => "degree_certificate",
+        DocumentId.npaOrMdcnRegistration => "licence",
+        DocumentId.governmentId => "government_id",
+        DocumentId.professionalIndemnityInsurance => "indemnity_insurance",
+        DocumentId.professionalHeadshot => "headshot",
+      };
+
+  /// Only the licence document accepts an expiry date server-side.
+  bool get supportsExpiry => this == DocumentId.npaOrMdcnRegistration;
+
   String get title => switch (this) {
         DocumentId.degreeCertificate => "Degree certificate",
         DocumentId.npaOrMdcnRegistration => "NPA or MDCN registration",
@@ -57,7 +79,8 @@ extension DocumentIdX on DocumentId {
       };
 
   String get subtitle => switch (this) {
-        DocumentId.degreeCertificate => "BSc or MSc Psychology or related field",
+        DocumentId.degreeCertificate =>
+          "BSc or MSc Psychology or related field",
         DocumentId.npaOrMdcnRegistration =>
           "Current year licence — must not be expired",
         DocumentId.governmentId => "NIN slip, passport, or driver's licence",
@@ -89,6 +112,8 @@ class DocumentUpload {
     this.status = DocumentUploadStatus.idle,
     this.progress = 0,
     this.fileName,
+    this.serverId,
+    this.expiresAt,
   });
 
   final DocumentId id;
@@ -98,29 +123,41 @@ class DocumentUpload {
   final double progress;
   final String? fileName;
 
+  /// The id the server assigned this upload — needed for
+  /// `DELETE /therapist/application/documents/{id}`. Null until uploaded.
+  final dynamic serverId;
+
+  /// Licence expiry (Y-m-d), only meaningful for [DocumentIdX.supportsExpiry].
+  final String? expiresAt;
+
   DocumentUpload copyWith({
     DocumentUploadStatus? status,
     double? progress,
     String? fileName,
+    dynamic serverId,
+    String? expiresAt,
   }) =>
       DocumentUpload(
         id: id,
         status: status ?? this.status,
         progress: progress ?? this.progress,
         fileName: fileName ?? this.fileName,
+        serverId: serverId ?? this.serverId,
+        expiresAt: expiresAt ?? this.expiresAt,
       );
 }
 
-/// Step 3 — Specialties.
+/// Step 3 — Specialties. [specialties] holds interest-topic ids (see
+/// `GET /user/interest-topics`), not display labels.
 class SpecialtiesInfo {
   const SpecialtiesInfo({this.bio = '', this.specialties = const []});
 
   final String bio;
-  final List<String> specialties;
+  final List<int> specialties;
 
   bool get isValid => bio.trim().isNotEmpty && specialties.isNotEmpty;
 
-  SpecialtiesInfo copyWith({String? bio, List<String>? specialties}) =>
+  SpecialtiesInfo copyWith({String? bio, List<int>? specialties}) =>
       SpecialtiesInfo(
         bio: bio ?? this.bio,
         specialties: specialties ?? this.specialties,
@@ -195,14 +232,15 @@ class AvailabilityInfo {
       );
 }
 
-/// Step 5 — Payout. There is no bank-resolution endpoint yet, so account
-/// verification below is a local length check, not a real lookup.
+/// Step 5 — Payout.
 class PayoutInfo {
   const PayoutInfo({
+    this.bankCode,
     this.bankName,
     this.accountNumber = '',
     this.resolvedAccountName,
     this.sessionRate = '',
+    this.verifiedAt,
   });
 
   /// Delegated so onboarding and the therapist Edit Profile screen cannot
@@ -211,10 +249,18 @@ class PayoutInfo {
   static const int minSessionRate = SessionRate.min;
   static const int maxSessionRate = SessionRate.max;
 
+  /// Flutterwave bank code — what the API actually keys on. [bankName] is
+  /// kept alongside purely for display and because the payout-save endpoint
+  /// wants both.
+  final String? bankCode;
   final String? bankName;
   final String accountNumber;
+
+  /// Populated by `POST /therapist/payout-account/verify` once [bankCode]
+  /// and a well-formed [accountNumber] are both present.
   final String? resolvedAccountName;
   final String sessionRate;
+  final String? verifiedAt;
 
   bool get isAccountValid =>
       accountNumber.length == 10 && int.tryParse(accountNumber) != null;
@@ -227,21 +273,28 @@ class PayoutInfo {
   }
 
   bool get isValid =>
-      bankName != null && isAccountValid && isSessionRateValid;
+      bankCode != null &&
+      isAccountValid &&
+      isSessionRateValid &&
+      resolvedAccountName != null;
 
   PayoutInfo copyWith({
+    String? bankCode,
     String? bankName,
     String? accountNumber,
     String? resolvedAccountName,
     bool clearResolvedAccountName = false,
     String? sessionRate,
+    String? verifiedAt,
   }) =>
       PayoutInfo(
+        bankCode: bankCode ?? this.bankCode,
         bankName: bankName ?? this.bankName,
         accountNumber: accountNumber ?? this.accountNumber,
         resolvedAccountName: clearResolvedAccountName
             ? null
             : (resolvedAccountName ?? this.resolvedAccountName),
         sessionRate: sessionRate ?? this.sessionRate,
+        verifiedAt: verifiedAt ?? this.verifiedAt,
       );
 }

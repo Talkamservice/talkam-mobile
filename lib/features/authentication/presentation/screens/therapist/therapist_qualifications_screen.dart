@@ -18,16 +18,32 @@ class TherapistQualificationsScreen extends StatelessWidget {
 
   final TherapistApplicationBloc bloc;
 
-  Future<void> _pickFile(DocumentId id) async {
+  Future<void> _pickFile(BuildContext context, DocumentId id) async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: const ['pdf', 'jpg', 'jpeg', 'png'],
       withData: false,
     );
     final file = result?.files.firstOrNull;
-    if (file != null) {
-      bloc.add(StartDocumentUploadEvent(id, file.name));
+    if (file == null || file.path == null) return;
+
+    String? expiresAt;
+    if (id.supportsExpiry && context.mounted) {
+      final picked = await showDatePicker(
+        context: context,
+        initialDate: DateTime.now(),
+        firstDate: DateTime.now(),
+        lastDate: DateTime.now().add(const Duration(days: 365 * 10)),
+        helpText: "Licence expiry date",
+      );
+      if (picked != null) {
+        expiresAt =
+            "${picked.year.toString().padLeft(4, '0')}-${picked.month.toString().padLeft(2, '0')}-${picked.day.toString().padLeft(2, '0')}";
+      }
     }
+
+    bloc.add(
+        UploadDocumentEvent(id, file.path!, file.name, expiresAt: expiresAt));
   }
 
   @override
@@ -88,11 +104,10 @@ class TherapistQualificationsScreen extends StatelessWidget {
                       status: doc.status,
                       progress: doc.progress,
                       fileName: doc.fileName,
-                      onBrowse: () => _pickFile(id),
-                      onCancel: () =>
-                          bloc.add(CancelDocumentUploadEvent(id)),
+                      onBrowse: () => _pickFile(context, id),
+                      onCancel: () => bloc.add(RemoveDocumentEvent(id)),
                       onRemove: () => bloc.add(RemoveDocumentEvent(id)),
-                      onRetry: () => _pickFile(id),
+                      onRetry: () => _pickFile(context, id),
                     );
                   },
                 ),

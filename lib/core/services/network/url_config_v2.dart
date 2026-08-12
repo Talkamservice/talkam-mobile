@@ -98,4 +98,23 @@ class UrlConfigV2 {
   static const String recentSearches = '/user/search/recent';
   static const String trendingSearches = '/user/search/trending';
   static String deleteSearch(String id) => '/user/search/$id/delete';
+
+  // Therapist application (5-step onboarding wizard)
+  static const String therapistApplicationPersonal =
+      '/therapist/application/personal';
+  static const String therapistApplicationDocuments =
+      '/therapist/application/documents';
+  static String therapistApplicationDocument(String id) =>
+      '$therapistApplicationDocuments/$id';
+  static const String therapistApplicationSpecialties =
+      '/therapist/application/specialties';
+  static const String therapistApplicationAvailability =
+      '/therapist/application/availability';
+  static const String therapistBanks = '/therapist/banks';
+  static const String therapistVerifyAccount =
+      '/therapist/payout-account/verify';
+  static const String therapistApplicationPayout =
+      '/therapist/application/payout';
+  static const String therapistApplicationSubmit =
+      '/therapist/application/submit';
 }

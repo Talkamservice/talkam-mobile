@@ -23,26 +23,30 @@ class TherapistVerificationPendingScreen extends StatelessWidget {
             children: [
               Center(child: _buildCheckMark()),
               32.verticalSpace,
-              Padding(padding: EdgeInsetsGeometry.symmetric(horizontal: 24.w),
-              child: const TextView(
-                text: "Your verification process is ongoing",
-                align: TextAlign.center,
-                fontSize: 32,
-                fontWeight: FontWeight.w800,
-                color: Pallets.boldBlackV2,
-                lineHeight: 1.2,
-              ),),
+              Padding(
+                padding: EdgeInsetsGeometry.symmetric(horizontal: 24.w),
+                child: const TextView(
+                  text: "Your verification process is ongoing",
+                  align: TextAlign.center,
+                  fontSize: 32,
+                  fontWeight: FontWeight.w800,
+                  color: Pallets.boldBlackV2,
+                  lineHeight: 1.2,
+                ),
+              ),
               12.verticalSpace,
-              Padding(padding: EdgeInsetsGeometry.symmetric(horizontal: 28.w),
-              child: const TextView(
-                text:
-                "It takes 3–5 business days to verify your account. You can browse the app while you wait — we'll notify you the moment you're approved.",
-                align: TextAlign.center,
-                fontSize: 15,
-                fontWeight: FontWeight.w500,
-                color: Pallets.grey400,
-                lineHeight: 1.5,
-              ),),
+              Padding(
+                padding: EdgeInsetsGeometry.symmetric(horizontal: 28.w),
+                child: const TextView(
+                  text:
+                      "It takes 3–5 business days to verify your account. You can browse the app while you wait — we'll notify you the moment you're approved.",
+                  align: TextAlign.center,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w500,
+                  color: Pallets.grey400,
+                  lineHeight: 1.5,
+                ),
+              ),
               32.verticalSpace,
               CustomButton(
                 elevation: 0,

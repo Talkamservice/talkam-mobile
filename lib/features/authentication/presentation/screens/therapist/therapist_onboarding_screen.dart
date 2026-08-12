@@ -4,17 +4,20 @@ import 'package:talkam/common/widgets/custom_outlined_button.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/features/therapist_application/dormain/repository/therapist_application_repository.dart';
 import 'package:talkam/features/therapist_application/presentation/bloc/therapist_application_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 /// Landing screen for the therapist sign-up flow — shown when a user picks
 /// "I'm a mental health pro" on [UserTypeSelectionScreen].
 ///
-/// This is the pitch/intro step only. The actual multi-step application
-/// (credentials, verification documents, availability, etc.) doesn't exist
-/// yet, so both CTAs are stubbed below.
+/// This is the pitch/intro step only; starting the application hands off to
+/// the real 5-step wizard (personal info → documents → specialties →
+/// availability → payout), each step sharing one [TherapistApplicationBloc]
+/// instance via `state.extra`.
 class TherapistOnboardingScreen extends StatelessWidget {
   const TherapistOnboardingScreen({super.key});
 
@@ -73,7 +76,7 @@ class TherapistOnboardingScreen extends StatelessWidget {
                   ),
 
                   const Spacer(),
- 
+
                   const TextView(
                     text: "Be the support to someone.",
                     fontSize: 28,
@@ -153,7 +156,8 @@ class TherapistOnboardingScreen extends StatelessWidget {
   void _startApplication(BuildContext context) {
     context.pushNamed(
       PageUrl.therapistRequirementsScreen,
-      extra: TherapistApplicationBloc(),
+      extra: TherapistApplicationBloc(
+          injector.get<TherapistApplicationRepository>()),
     );
   }
 

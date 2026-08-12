@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
+import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/custom_switch.dart';
 import 'package:talkam/common/widgets/selectable_pill.dart';
 import 'package:talkam/common/widgets/step_progress_bar.dart';
@@ -28,8 +29,8 @@ class TherapistAvailabilityScreen extends StatelessWidget {
 
   final TherapistApplicationBloc bloc;
 
-  Future<void> _pickTime(
-      BuildContext context, DayAvailability day, {required bool isStart}) async {
+  Future<void> _pickTime(BuildContext context, DayAvailability day,
+      {required bool isStart}) async {
     final picked = await TimeSelectSheet.show(
       context,
       initialTime: isStart ? day.start : day.end,
@@ -51,8 +52,26 @@ class TherapistAvailabilityScreen extends StatelessWidget {
         bgColor: Colors.transparent,
         elevation: 0,
       ),
-      body: BlocBuilder<TherapistApplicationBloc, TherapistApplicationState>(
+      body: BlocConsumer<TherapistApplicationBloc, TherapistApplicationState>(
         bloc: bloc,
+        listener: (context, state) {
+          if (state.availabilitySaveStatus == StepSaveStatus.saving) {
+            CustomDialogs.showLoading(context);
+          }
+          if (state.availabilitySaveStatus == StepSaveStatus.success) {
+            context.pop();
+            bloc.add(const ResetSaveStatusesEvent());
+            context.pushNamed(
+              PageUrl.therapistPayoutScreen,
+              extra: bloc,
+            );
+          }
+          if (state.availabilitySaveStatus == StepSaveStatus.error) {
+            context.pop();
+            CustomDialogs.error(
+                state.availabilitySaveError ?? "Something went wrong");
+          }
+        },
         builder: (context, state) {
           final activeDays =
               state.availability.days.where((d) => d.active).toList();
@@ -102,8 +121,8 @@ class TherapistAvailabilityScreen extends StatelessWidget {
                           caption: option.label,
                           selected: state.availability.sessionDurationMinutes ==
                               option.minutes,
-                          onTap: () => bloc
-                              .add(SetSessionDurationEvent(option.minutes)),
+                          onTap: () =>
+                              bloc.add(SetSessionDurationEvent(option.minutes)),
                         ),
                       ),
                       if (option != kSessionDurations.last) 8.horizontalSpace,
@@ -175,8 +194,8 @@ class TherapistAvailabilityScreen extends StatelessWidget {
                                           onTapEnd: () => _pickTime(
                                               context, day,
                                               isStart: false),
-                                          onTogglePaid: () => bloc.add(
-                                              ToggleDayPaidEvent(day.day)),
+                                          onTogglePaid: () => bloc
+                                              .add(ToggleDayPaidEvent(day.day)),
                                         )
                                       : const SizedBox(width: double.infinity),
                                 ),
@@ -220,10 +239,7 @@ class TherapistAvailabilityScreen extends StatelessWidget {
                 CustomButton(
                   elevation: 0,
                   onPressed: state.availability.isValid
-                      ? () => context.pushNamed(
-                            PageUrl.therapistPayoutScreen,
-                            extra: bloc,
-                          )
+                      ? () => bloc.add(const SaveAvailabilityEvent())
                       : null,
                   bgColor: Pallets.blueBubbleColor,
                   child: const TextView(
@@ -317,7 +333,9 @@ class _WorkingHoursRow extends StatelessWidget {
           Row(
             children: [
               CustomSwitch(value: day.paid, onChanged: (_) => onTogglePaid()),
-              SizedBox(width: 8.w,),
+              SizedBox(
+                width: 8.w,
+              ),
               const TextView(
                 text: "Paid",
                 fontSize: 13,
@@ -332,4 +350,3 @@ class _WorkingHoursRow extends StatelessWidget {
     );
   }
 }
-

@@ -13,6 +13,7 @@ import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/custom_dropdown.dart';
+import 'package:talkam/common/widgets/inline_select_field.dart';
 import 'package:talkam/common/widgets/custom_outlined_button.dart';
 import 'package:talkam/common/widgets/custom_text_field.dart';
 import 'package:talkam/common/widgets/date_picker_field.dart';
@@ -406,18 +407,40 @@ class _SignUpScreenState extends State<SignUpScreen> with AuthSuccessMixin {
                           16.verticalSpace,
 
                           // Gender
-                          CustomDropdown<String>(
-                            label: "Gender",
-                            hint: "Select gender",
-                            value: _selectedGender,
-                            items: _genders
-                                .map((g) =>
-                                    DropdownMenuItem(value: g, child: Text(g)))
-                                .toList(),
-                            onChanged: (val) =>
-                                setState(() => _selectedGender = val),
-                            validator: (val) =>
-                                val == null ? "Please select a gender" : null,
+                          FormField<String>(
+                            initialValue: _selectedGender,
+                            validator: (_) => _selectedGender == null
+                                ? "Please select a gender"
+                                : null,
+                            builder: (state) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  InlineSelectField<String>(
+                                    label: "Gender",
+                                    hint: "Select gender",
+                                    options: _genders,
+                                    labelBuilder: (g) => g,
+                                    value: _selectedGender,
+                                    onSingleChanged: (val) {
+                                      setState(() => _selectedGender = val);
+                                      state.didChange(val);
+                                    },
+                                  ),
+                                  if (state.hasError) ...[
+                                    4.verticalSpace,
+                                    Padding(
+                                      padding: EdgeInsets.only(left: 12.w),
+                                      child: TextView(
+                                        text: state.errorText ?? '',
+                                        fontSize: 12,
+                                        color: Pallets.errorRed,
+                                      ),
+                                    ),
+                                  ],
+                                ],
+                              );
+                            },
                           ),
 
                           16.verticalSpace,

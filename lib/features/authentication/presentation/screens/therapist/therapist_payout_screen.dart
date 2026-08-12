@@ -1,10 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/custom_text_field.dart';
-import 'package:talkam/common/widgets/inline_select_field.dart';
 import 'package:talkam/common/widgets/step_progress_bar.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
@@ -17,17 +18,9 @@ import 'package:talkam/features/therapist/data/models/session_rate.dart';
 import 'package:talkam/features/authentication/presentation/screens/therapist/therapist_availability_screen.dart'
     show kSessionDurations;
 import 'package:talkam/features/therapist_application/data/models/therapist_application_data.dart';
+import 'package:talkam/features/therapist_application/data/models/therapist_application_response.dart';
 import 'package:talkam/features/therapist_application/presentation/bloc/therapist_application_bloc.dart';
-
-const List<String> kNigerianBanks = [
-  "Access Bank",
-  "First Bank Nigeria",
-  "Guaranty Trust Bank",
-  "United Bank for Africa",
-  "Zenith Bank",
-  "Fidelity Bank",
-  "Union Bank",
-];
+import 'package:talkam/features/therapist_application/presentation/widgets/select_bank_sheet.dart';
 
 /// Step 5 of 5 — Payout.
 class TherapistPayoutScreen extends StatefulWidget {
@@ -42,6 +35,7 @@ class TherapistPayoutScreen extends StatefulWidget {
 class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
   final _accountController = TextEditingController();
   final _rateController = TextEditingController();
+  Timer? _verifyDebounce;
 
   @override
   void initState() {
@@ -49,18 +43,45 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
     _accountController.text = widget.bloc.state.payout.accountNumber;
     final rate = widget.bloc.state.payout.sessionRate;
     _rateController.text = rate.isEmpty ? '' : rate.formatNumber();
+    // Prefetched here so the bank picker sheet opens instantly instead of
+    // fetching (and flashing a loading state) on every open.
+    widget.bloc.add(const LoadBanksEvent());
   }
 
   @override
   void dispose() {
     _accountController.dispose();
     _rateController.dispose();
+    _verifyDebounce?.cancel();
     super.dispose();
+  }
+
+  void _maybeVerifyAccount() {
+    _verifyDebounce?.cancel();
+    _verifyDebounce = Timer(const Duration(milliseconds: 500), () {
+      final payout = widget.bloc.state.payout;
+      if (payout.bankCode != null && payout.isAccountValid) {
+        widget.bloc.add(const VerifyAccountEvent());
+      }
+    });
+  }
+
+  Future<void> _selectBank(BuildContext context) async {
+    final bank = await CustomDialogs.showBottomSheet(
+      context,
+      SelectBankSheet(bloc: widget.bloc),
+    );
+    if (bank is TherapistBank) {
+      widget.bloc.add(SetBankEvent(code: bank.code, name: bank.name));
+      _maybeVerifyAccount();
+    }
   }
 
   String _durationLabel(int minutes) {
     final match = kSessionDurations.where((d) => d.minutes == minutes);
-    return match.isEmpty ? "$minutes min" : "${match.first.label} (${minutes}min)";
+    return match.isEmpty
+        ? "$minutes min"
+        : "${match.first.label} (${minutes}min)";
   }
 
   /// "₦0" while the rate isn't valid yet, otherwise the therapist's share
@@ -92,6 +113,10 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
             context.pop();
             widget.bloc.close();
             context.goNamed(PageUrl.therapistVerificationPendingScreen);
+          }
+          if (state.submitStatus == SubmitStatus.error) {
+            context.pop();
+            CustomDialogs.error(state.submitError ?? "Something went wrong");
           }
         },
         builder: (context, state) {
@@ -129,13 +154,15 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
                   color: Pallets.grey400,
                 ),
                 10.verticalSpace,
-                InlineSelectField<String>(
-                  hint: "Select your bank",
-                  options: kNigerianBanks,
-                  labelBuilder: (v) => v,
-                  value: payout.bankName,
-                  onSingleChanged: (v) =>
-                      widget.bloc.add(SetBankNameEvent(v)),
+                InkWell(
+                  onTap: () => _selectBank(context),
+                  child: AbsorbPointer(
+                    child: CustomTextField(
+                      hint: "Select your bank",
+                      controller: TextEditingController(text: payout.bankName),
+                      suffixIcon: const Icon(Icons.keyboard_arrow_down_rounded),
+                    ),
+                  ),
                 ),
                 16.verticalSpace,
                 const TextView(
@@ -150,21 +177,44 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
                   controller: _accountController,
                   keyboardType: TextInputType.number,
                   forceError: accountTouched && !payout.isAccountValid,
-                  forceValid: accountTouched && payout.isAccountValid,
-                  onChanged: (v) => widget.bloc.add(SetAccountNumberEvent(v)),
+                  forceValid: accountTouched &&
+                      payout.isAccountValid &&
+                      payout.resolvedAccountName != null,
+                  onChanged: (v) {
+                    widget.bloc.add(SetAccountNumberEvent(v));
+                    _maybeVerifyAccount();
+                  },
                 ),
                 if (accountTouched) ...[
                   6.verticalSpace,
-                  TextView(
-                    text: payout.isAccountValid
-                        ? (payout.resolvedAccountName ?? '')
-                        : "Invalid Account No.",
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: payout.isAccountValid
-                        ? Pallets.successGreen
-                        : Pallets.errorRed,
-                  ),
+                  if (!payout.isAccountValid)
+                    const TextView(
+                      text: "Invalid Account No.",
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: Pallets.errorRed,
+                    )
+                  else if (state.verifyingAccount)
+                    const TextView(
+                      text: "Verifying account...",
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: Pallets.grey400,
+                    )
+                  else if (payout.resolvedAccountName != null)
+                    TextView(
+                      text: payout.resolvedAccountName!,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: Pallets.successGreen,
+                    )
+                  else if (state.verifyError != null)
+                    TextView(
+                      text: state.verifyError!,
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: Pallets.errorRed,
+                    ),
                 ],
                 24.verticalSpace,
                 const TextView(
@@ -199,8 +249,7 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
                         inputFormatters: const [
                           ThousandsInputFormatter(maxDigits: 7)
                         ],
-                        forceError:
-                            rateTouched && !payout.isSessionRateValid,
+                        forceError: rateTouched && !payout.isSessionRateValid,
                         onChanged: (v) => widget.bloc
                             .add(SetSessionRateEvent(v.removeCommas())),
                       ),
@@ -226,12 +275,12 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
                             color: Pallets.boldBlackV2,
                           ),
                           Container(
-                            padding: EdgeInsetsGeometry.symmetric(vertical: 4, horizontal: 8),
+                            padding: EdgeInsetsGeometry.symmetric(
+                                vertical: 4, horizontal: 8),
                             decoration: BoxDecoration(
-                              border: Border.all(color: Pallets.grey75),
-                              borderRadius: BorderRadius.circular(8.r),
-                              color: Pallets.white
-                            ),
+                                border: Border.all(color: Pallets.grey75),
+                                borderRadius: BorderRadius.circular(8.r),
+                                color: Pallets.white),
                             child: TextView(
                               text: _earnings(payout, full: true),
                               fontSize: 15,
@@ -339,8 +388,7 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
                 CustomButton(
                   elevation: 0,
                   onPressed: payout.isValid
-                      ? () =>
-                          widget.bloc.add(const SubmitApplicationEvent())
+                      ? () => widget.bloc.add(const SubmitApplicationEvent())
                       : null,
                   bgColor: Pallets.blueBubbleColor,
                   child: const TextView(
@@ -359,4 +407,3 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
     );
   }
 }
-

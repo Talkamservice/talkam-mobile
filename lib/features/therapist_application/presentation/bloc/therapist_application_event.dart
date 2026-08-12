@@ -7,6 +7,10 @@ abstract class TherapistApplicationEvent extends Equatable {
   List<Object?> get props => [];
 }
 
+class ResetSaveStatusesEvent extends TherapistApplicationEvent {
+  const ResetSaveStatusesEvent();
+}
+
 // ── Step 1 — Personal information ─────────────────────────────────────────
 
 class UpdateFullNameEvent extends TherapistApplicationEvent {
@@ -37,40 +41,51 @@ class UpdateCredentialTypeEvent extends TherapistApplicationEvent {
   List<Object?> get props => [value];
 }
 
+class UpdateYearsExperienceEvent extends TherapistApplicationEvent {
+  const UpdateYearsExperienceEvent(this.value);
+  final String value;
+  @override
+  List<Object?> get props => [value];
+}
+
+/// Persists Step 1 via `POST /therapist/application/personal`.
+class SavePersonalInfoEvent extends TherapistApplicationEvent {
+  const SavePersonalInfoEvent();
+}
+
 // ── Step 2 — Documents ─────────────────────────────────────────────────────
 
-/// Kicks off a simulated upload for [id]. There is no upload endpoint yet, so
-/// progress and pass/fail are generated locally — see the bloc for details.
-class StartDocumentUploadEvent extends TherapistApplicationEvent {
-  const StartDocumentUploadEvent(this.id, this.fileName);
+/// Uploads [filePath] for [id] via `POST /therapist/application/documents`.
+/// [expiresAt] (Y-m-d) is only sent for the licence document.
+class UploadDocumentEvent extends TherapistApplicationEvent {
+  const UploadDocumentEvent(this.id, this.filePath, this.fileName,
+      {this.expiresAt});
   final DocumentId id;
+  final String filePath;
   final String fileName;
+  final String? expiresAt;
   @override
-  List<Object?> get props => [id, fileName];
+  List<Object?> get props => [id, filePath, fileName, expiresAt];
 }
 
-class CancelDocumentUploadEvent extends TherapistApplicationEvent {
-  const CancelDocumentUploadEvent(this.id);
+/// Internal — dispatched by the bloc's own upload call as progress arrives.
+class DocumentProgressTickEvent extends TherapistApplicationEvent {
+  const DocumentProgressTickEvent(this.id, this.progress);
   final DocumentId id;
+  final double progress;
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [id, progress];
 }
 
+/// Removes an uploaded document. Calls
+/// `DELETE /therapist/application/documents/{id}` when the document has a
+/// server id (i.e. it was actually uploaded), otherwise just clears local
+/// state (nothing to delete server-side).
 class RemoveDocumentEvent extends TherapistApplicationEvent {
   const RemoveDocumentEvent(this.id);
   final DocumentId id;
   @override
   List<Object?> get props => [id];
-}
-
-/// Internal — dispatched by the bloc's own upload timer, not by the UI.
-class DocumentProgressTickEvent extends TherapistApplicationEvent {
-  const DocumentProgressTickEvent(this.id, this.progress, {this.failed = false});
-  final DocumentId id;
-  final double progress;
-  final bool failed;
-  @override
-  List<Object?> get props => [id, progress, failed];
 }
 
 // ── Step 3 — Specialties ───────────────────────────────────────────────────
@@ -83,10 +98,15 @@ class UpdateBioEvent extends TherapistApplicationEvent {
 }
 
 class ToggleSpecialtyEvent extends TherapistApplicationEvent {
-  const ToggleSpecialtyEvent(this.specialty);
-  final String specialty;
+  const ToggleSpecialtyEvent(this.specialtyId);
+  final int specialtyId;
   @override
-  List<Object?> get props => [specialty];
+  List<Object?> get props => [specialtyId];
+}
+
+/// Persists Step 3 via `POST /therapist/application/specialties`.
+class SaveSpecialtiesEvent extends TherapistApplicationEvent {
+  const SaveSpecialtiesEvent();
 }
 
 // ── Step 4 — Availability ──────────────────────────────────────────────────
@@ -128,13 +148,25 @@ class SetBufferEvent extends TherapistApplicationEvent {
   List<Object?> get props => [minutes];
 }
 
+/// Persists Step 4 via `POST /therapist/application/availability`.
+class SaveAvailabilityEvent extends TherapistApplicationEvent {
+  const SaveAvailabilityEvent();
+}
+
 // ── Step 5 — Payout ─────────────────────────────────────────────────────────
 
-class SetBankNameEvent extends TherapistApplicationEvent {
-  const SetBankNameEvent(this.value);
-  final String value;
+/// Fetches the Flutterwave bank list — cheap to re-fetch since it's cached
+/// 6h server-side, but the bloc only calls the repository once per instance.
+class LoadBanksEvent extends TherapistApplicationEvent {
+  const LoadBanksEvent();
+}
+
+class SetBankEvent extends TherapistApplicationEvent {
+  const SetBankEvent({required this.code, required this.name});
+  final String code;
+  final String name;
   @override
-  List<Object?> get props => [value];
+  List<Object?> get props => [code, name];
 }
 
 class SetAccountNumberEvent extends TherapistApplicationEvent {
@@ -142,6 +174,13 @@ class SetAccountNumberEvent extends TherapistApplicationEvent {
   final String value;
   @override
   List<Object?> get props => [value];
+}
+
+/// Resolves the account name via `POST /therapist/payout-account/verify`.
+/// Dispatched once a bank and a well-formed account number are both set —
+/// see [TherapistPayoutScreen]'s debounce.
+class VerifyAccountEvent extends TherapistApplicationEvent {
+  const VerifyAccountEvent();
 }
 
 class SetSessionRateEvent extends TherapistApplicationEvent {
@@ -153,6 +192,8 @@ class SetSessionRateEvent extends TherapistApplicationEvent {
 
 // ── Submission ──────────────────────────────────────────────────────────────
 
+/// Saves Step 5 (`POST /therapist/application/payout`) then, on success,
+/// submits the whole application (`POST /therapist/application/submit`).
 class SubmitApplicationEvent extends TherapistApplicationEvent {
   const SubmitApplicationEvent();
 }

@@ -76,7 +76,8 @@ class NetworkService {
       FormData? formData,
       ResponseType responseType = ResponseType.json,
       classTag = '',
-      Options? options}) async {
+      Options? options,
+      void Function(int sent, int total)? onSendProgress}) async {
     Response response;
 
     var params = queryParams ?? {};
@@ -116,10 +117,11 @@ class NetworkService {
           response = await dio!.post(path,
               data: formData,
               queryParameters: params,
-              options: Options(headers: {
-                "Content-Disposition": "form-data",
-              }),
-              onSendProgress: (sent, total) {});
+              options: options ??
+                  Options(headers: {
+                    "Content-Disposition": "form-data",
+                  }),
+              onSendProgress: onSendProgress ?? (sent, total) {});
           break;
         case RequestMethod.uploadPut:
           response = await dio!.put(path,
