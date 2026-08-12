@@ -71,7 +71,12 @@ class _InterestsScreenState extends State<InterestsScreen> {
   List<PostCategory> selectedInterests = [];
 
   final postBloc = PostBloc(injector.get());
-  final profileBloc = ProfileBloc(injector.get());
+
+  // The shared singleton, not a fresh instance — ProfileBloc._onUpdateProfile
+  // carries forward `appUser?.onboarding`/`business` from whichever instance
+  // handles the event, so a throwaway instance here would wipe those fields
+  // back to null on the real singleton it re-emits into.
+  ProfileBloc get profileBloc => injector.get<ProfileBloc>();
 
   @override
   void initState() {

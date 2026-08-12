@@ -4,6 +4,7 @@ import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/profile/presentation/widgets/delete_account_dialog.dart';
+import 'package:talkam/features/profile/presentation/widgets/logout_dialog.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 /// "Settings" tab of the therapist's own profile.
@@ -68,6 +69,14 @@ class TherapistSettingsTab extends StatelessWidget {
                 titleColor: Pallets.dangerText,
                 showChevron: false,
                 onTap: () => DeleteAccountDialog.show(context),
+              ),
+              SettingsTile(
+                iconPath: Assets.images.svgV2.userInActive,
+                iconBackground: Pallets.dangerSurface,
+                title: "Logout",
+                titleColor: Pallets.dangerText,
+                showChevron: false,
+                onTap: () => LogoutDialog.show(context),
               ),
             ],
           ),

@@ -11,6 +11,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/features/authentication/data/models/onboarding_user_type.dart';
 import 'package:talkam/features/privacy/data/models/consent_settings.dart';
 import 'package:talkam/features/privacy/presentation/bloc/privacy_bloc.dart';
 import 'package:talkam/features/profile/dormain/repository/profile_repository.dart';
@@ -166,6 +167,16 @@ class _DataPrivacyScreenState extends State<DataPrivacyScreen> {
 
       if (!context.mounted) return;
       SessionManager().hasOnboarded = true;
+
+      // Consent is the last shared onboarding step — therapists still need
+      // to complete the application wizard, everyone else is done.
+      final userType =
+          injector.get<ProfileBloc>().appUser?.onboarding?.userType;
+      if (userType == kMentalHealthProUserType) {
+        context.goNamed(PageUrl.therapistOnboardingScreen);
+        return;
+      }
+
       context.goNamed(PageUrl.welcomeScreen);
     }
   }

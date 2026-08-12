@@ -263,7 +263,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen>
     if (state is VerifyOtpSuccessState) {
       switch (widget.verifyOtpType) {
         case VerifyOtpType.auth:
-          context.goNamed(PageUrl.userTypeSelectionScreen);
+          context.goNamed(PageUrl.interestsScreen);
           break;
         case VerifyOtpType.passwordReset:
           context.pushNamed(PageUrl.passWordResetScreen, queryParameters: {
@@ -272,7 +272,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen>
           });
         case VerifyOtpType.returningUser:
           refreshApp();
-          context.goNamed(PageUrl.userTypeSelectionScreen);
+          context.goNamed(PageUrl.interestsScreen);
       }
       CustomDialogs.success('Otp verified successfully');
       // context.goNamed(PageUrl.createNewPassword,

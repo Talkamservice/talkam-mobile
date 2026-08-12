@@ -9,6 +9,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/authentication/data/models/auth_response.dart';
+import 'package:talkam/features/authentication/data/models/onboarding_user_type.dart';
 import 'package:talkam/features/profile/dormain/repository/profile_repository.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
@@ -25,9 +26,6 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
   static const int _typeUser = 0;
   static const int _typeTherapist = 1;
 
-  static const String _supportSeeker = "support_seeker";
-  static const String _mentalHealthPro = "mental_health_pro";
-
   /// Null until the user picks — the Continue button stays disabled.
   /// Pre-filled from the server's onboarding summary when a returning user
   /// lands back here (e.g. they picked a type but never finished interests),
@@ -40,9 +38,9 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
   void initState() {
     super.initState();
     final userType = injector.get<ProfileBloc>().appUser?.onboarding?.userType;
-    if (userType == _mentalHealthPro) {
+    if (userType == kMentalHealthProUserType) {
       _selectedType = _typeTherapist;
-    } else if (userType == _supportSeeker) {
+    } else if (userType == kSupportSeekerUserType) {
       _selectedType = _typeUser;
     }
   }
@@ -127,8 +125,9 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
 
   Future<void> _continue() async {
     setState(() => _submitting = true);
-    final userType =
-        _selectedType == _typeTherapist ? _mentalHealthPro : _supportSeeker;
+    final userType = _selectedType == _typeTherapist
+        ? kMentalHealthProUserType
+        : kSupportSeekerUserType;
     try {
       await injector.get<ProfileRepository>().setUserType(userType);
 
@@ -158,12 +157,10 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
     if (!mounted) return;
     setState(() => _submitting = false);
 
-    if (_selectedType == _typeUser) {
-      context.pushNamed(PageUrl.interestsScreen);
-      return;
-    }
-
-    context.pushNamed(PageUrl.therapistOnboardingScreen);
+    // Both user types finish onboarding through consent — DataPrivacyScreen
+    // branches into the therapist wizard afterwards for therapists, since
+    // consent must be confirmed either way.
+    context.pushNamed(PageUrl.dataPrivacyScreen);
   }
 
   Widget _buildSelectionCard({

@@ -28,13 +28,16 @@ mixin AuthSuccessMixin<T extends StatefulWidget> on State<T> {
       // it genuinely isn't done yet, otherwise a user who deliberately
       // skipped their avatar gets sent back to that screen on every login.
       if (!onboarding.isComplete) {
-        if (onboarding.userType == null ||
-            (!kSkipInterestsGate && !onboarding.interests)) {
-          context.goNamed(PageUrl.userTypeSelectionScreen);
+        if (!kSkipInterestsGate && !onboarding.interests) {
+          context.goNamed(PageUrl.interestsScreen);
           return;
         }
         if (!onboarding.avatar) {
           context.goNamed(PageUrl.userNameScreen);
+          return;
+        }
+        if (onboarding.userType == null) {
+          context.goNamed(PageUrl.userTypeSelectionScreen);
           return;
         }
         if (!onboarding.consents) {
@@ -46,7 +49,7 @@ mixin AuthSuccessMixin<T extends StatefulWidget> on State<T> {
       // No onboarding summary yet — fall back to the old field-based
       // heuristic.
       if (!kSkipInterestsGate && state.interests.isEmpty) {
-        context.goNamed(PageUrl.userTypeSelectionScreen);
+        context.goNamed(PageUrl.interestsScreen);
         return;
       }
       if (state.username.isEmpty || state.avatar == null) {

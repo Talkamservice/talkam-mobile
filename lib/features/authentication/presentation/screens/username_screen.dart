@@ -24,7 +24,11 @@ class UsernameScreen extends StatefulWidget {
 }
 
 class _UsernameScreenState extends State<UsernameScreen> {
-  final profileBloc = ProfileBloc(injector.get());
+  // The shared singleton, not a fresh instance — ProfileBloc._onUpdateProfile
+  // carries forward `appUser?.onboarding`/`business` from whichever instance
+  // handles the event, so a throwaway instance here would wipe those fields
+  // back to null on the real singleton it re-emits into.
+  ProfileBloc get profileBloc => injector.get<ProfileBloc>();
 
   /// Remote avatar url, or one of [kFallbackAvatarEmojis] while the avatars
   /// endpoint is returning nothing. Used purely for the preview.
@@ -232,10 +236,10 @@ class _UsernameScreenState extends State<UsernameScreen> {
     ));
   }
 
-  /// Both Skip and Next continue into the consent step — onboarding isn't
-  /// finished until Data & Privacy is confirmed.
+  /// Both Skip and Next continue into user-type selection — onboarding isn't
+  /// finished until that (and consent, after it) is confirmed.
   void _skip() {
-    context.pushNamed(PageUrl.dataPrivacyScreen);
+    context.pushNamed(PageUrl.userTypeSelectionScreen);
   }
 
   void _listenToProfileBloc(BuildContext context, ProfileState state) {
@@ -249,7 +253,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
     if (state is UpdateProfileSuccess) {
       context.pop();
       CustomDialogs.success("Profile updated");
-      context.pushNamed(PageUrl.dataPrivacyScreen);
+      context.pushNamed(PageUrl.userTypeSelectionScreen);
     }
   }
 }
