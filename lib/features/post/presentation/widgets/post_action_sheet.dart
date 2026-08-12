@@ -41,9 +41,29 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _PostAction(
-            title: "Not Interested in the post",
-            onTap: () => context.pop(),
+          BlocListener<PostBloc, PostState>(
+            bloc: postBloc,
+            listener: (context, state) {
+              state.maybeWhen(
+                orElse: () => null,
+                notInterestedLoading: () => CustomDialogs.showLoading(context),
+                notInterestedFailure: (error) {
+                  context.pop();
+                  CustomDialogs.error(error);
+                },
+                notInterestedSuccess: (notInterested) {
+                  refreshPost(reload: false);
+                  context.pop();
+                  context.pop();
+                  CustomDialogs.success("Marked as not interested");
+                },
+              );
+            },
+            child: _PostAction(
+              title: "Not Interested in the post",
+              onTap: () =>
+                  postBloc.add(PostEvent.notInterested(post.id.toString())),
+            ),
           ),
           GuestUserHelper.guestUserWidget(
             widget: Column(
@@ -62,12 +82,29 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
                       );
                     },
                   ),
-                _PostAction(
-                  title: "Mute ${post.user.usersName}",
-                  onTap: () {
-                    context.pop();
-                    CustomDialogs.success("${post.user.usersName} muted");
+                BlocListener<ProfileBloc, ProfileState>(
+                  bloc: profileBloc,
+                  listener: (context, state) {
+                    if (state is MuteUserLoadingState) {
+                      CustomDialogs.showLoading(context);
+                    }
+
+                    if (state is MuteUserFailureState) {
+                      context.pop();
+                      CustomDialogs.error(state.error);
+                    }
+
+                    if (state is MuteUserSuccessState) {
+                      context.pop();
+                      context.pop();
+                      CustomDialogs.success("${post.user.usersName} muted");
+                    }
                   },
+                  child: _PostAction(
+                    title: "Mute ${post.user.usersName}",
+                    onTap: () =>
+                        profileBloc.add(MuteUserEvent(post.user.id.toString())),
+                  ),
                 ),
                 if (!post.isAnonymous.toBool && !postIsFromLoggedInUser)
                   BlocListener<ProfileBloc, ProfileState>(

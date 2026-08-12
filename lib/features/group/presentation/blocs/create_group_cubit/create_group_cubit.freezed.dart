@@ -102,9 +102,6 @@ class _$CreateGroupStateCopyWithImpl<$Res, $Val extends CreateGroupState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of CreateGroupState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -121,9 +118,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of CreateGroupState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -256,9 +250,6 @@ class __$$CreateGroupLoadingImplCopyWithImpl<$Res>
   __$$CreateGroupLoadingImplCopyWithImpl(_$CreateGroupLoadingImpl _value,
       $Res Function(_$CreateGroupLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of CreateGroupState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -394,8 +385,6 @@ class __$$CreateGroupSuccessImplCopyWithImpl<$Res>
       $Res Function(_$CreateGroupSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of CreateGroupState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -435,9 +424,7 @@ class _$CreateGroupSuccessImpl implements _CreateGroupSuccess {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  /// Create a copy of CreateGroupState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$CreateGroupSuccessImplCopyWith<_$CreateGroupSuccessImpl> get copyWith =>
@@ -542,10 +529,7 @@ abstract class _CreateGroupSuccess implements CreateGroupState {
       _$CreateGroupSuccessImpl;
 
   TalkamGroup get response;
-
-  /// Create a copy of CreateGroupState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$CreateGroupSuccessImplCopyWith<_$CreateGroupSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -567,8 +551,6 @@ class __$$CreateGroupFailureImplCopyWithImpl<$Res>
       $Res Function(_$CreateGroupFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of CreateGroupState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -607,9 +589,7 @@ class _$CreateGroupFailureImpl implements _CreateGroupFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of CreateGroupState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$CreateGroupFailureImplCopyWith<_$CreateGroupFailureImpl> get copyWith =>
@@ -714,10 +694,7 @@ abstract class _CreateGroupFailure implements CreateGroupState {
       _$CreateGroupFailureImpl;
 
   String get error;
-
-  /// Create a copy of CreateGroupState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$CreateGroupFailureImplCopyWith<_$CreateGroupFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -736,9 +713,6 @@ class __$$UpdateGroupLoadingImplCopyWithImpl<$Res>
   __$$UpdateGroupLoadingImplCopyWithImpl(_$UpdateGroupLoadingImpl _value,
       $Res Function(_$UpdateGroupLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of CreateGroupState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -874,8 +848,6 @@ class __$$UpdateGroupSuccessImplCopyWithImpl<$Res>
       $Res Function(_$UpdateGroupSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of CreateGroupState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -915,9 +887,7 @@ class _$UpdateGroupSuccessImpl implements _UpdateGroupSuccess {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  /// Create a copy of CreateGroupState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$UpdateGroupSuccessImplCopyWith<_$UpdateGroupSuccessImpl> get copyWith =>
@@ -1022,10 +992,7 @@ abstract class _UpdateGroupSuccess implements CreateGroupState {
       _$UpdateGroupSuccessImpl;
 
   TalkamGroup get response;
-
-  /// Create a copy of CreateGroupState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$UpdateGroupSuccessImplCopyWith<_$UpdateGroupSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1047,8 +1014,6 @@ class __$$UpdateGroupFailureImplCopyWithImpl<$Res>
       $Res Function(_$UpdateGroupFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of CreateGroupState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1087,9 +1052,7 @@ class _$UpdateGroupFailureImpl implements _UpdateGroupFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of CreateGroupState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$UpdateGroupFailureImplCopyWith<_$UpdateGroupFailureImpl> get copyWith =>
@@ -1194,10 +1157,7 @@ abstract class _UpdateGroupFailure implements CreateGroupState {
       _$UpdateGroupFailureImpl;
 
   String get error;
-
-  /// Create a copy of CreateGroupState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$UpdateGroupFailureImplCopyWith<_$UpdateGroupFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

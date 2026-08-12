@@ -22,12 +22,27 @@ class AddTagsSheet2 extends StatefulWidget {
 }
 
 class _AddTagsSheet2State extends State<AddTagsSheet2> {
+  /// Used only when the trends endpoint returns nothing or fails, so the
+  /// user is never trapped in this sheet with no suggested tags to pick.
+  static const List<String> _fallbackTags = [
+    'anxiety',
+    'depression',
+    'selfcare',
+    'mentalhealth',
+    'therapy',
+    'mindfulness',
+    'grief',
+    'burnout',
+    'relationships',
+    'stress',
+    'sleep',
+    'motivation',
+  ];
+
   final TextEditingController searchController = TextEditingController();
   List<String> selectedTags = [];
   List<String> allTrends = []; // Full list of trends from BLoC
   List<String> filteredTrends = [];
-
-  // final PostBloc bloc = PostBloc(injector.get());
 
   @override
   void initState() {
@@ -61,7 +76,8 @@ class _AddTagsSheet2State extends State<AddTagsSheet2> {
             ],
           ),
           const TextView(
-            text: "Select or add tags to categorize your post. Press Enter to add a new tag if not found.",
+            text:
+                "Select or add tags to categorize your post. Press Enter to add a new tag if not found.",
             fontSize: 14,
             color: Colors.grey,
           ),
@@ -71,93 +87,33 @@ class _AddTagsSheet2State extends State<AddTagsSheet2> {
             bloc: injector.get(),
             builder: (context, state) {
               return state.maybeWhen(
-                getTrendsLoading: () => SizedBox(width: 1.sw, height: 200, child: Center(child: CustomDialogs.getLoading(size: 30))),
+                getTrendsLoading: () => SizedBox(
+                    width: 1.sw,
+                    height: 200,
+                    child: Center(child: CustomDialogs.getLoading(size: 30))),
                 getTrendsSuccess: () {
-                  allTrends = injector
+                  final serverTrends = injector
                       .get<PostBloc>()
                       .trends
                       .map(
                         (e) => e.tag.toString(),
                       )
-                      .toList(); // Populate with data from BLoC
+                      .toList();
+                  allTrends =
+                      serverTrends.isEmpty ? _fallbackTags : serverTrends;
 
                   _filterTrends();
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Wrap(
-                        spacing: 8.0,
-                        runSpacing: 4.0,
-                        alignment: WrapAlignment.start,
-                        crossAxisAlignment: WrapCrossAlignment.start,
-                        runAlignment: WrapAlignment.start,
-                        children: selectedTags
-                            .map((tag) => Chip(
-                                  label: Text(tag),
-                                  onDeleted: () {
-                                    selectedTags.remove(tag);
-                                    setState(() {});
-                                  },
-                                ))
-                            .toList(),
-                      ),
-                      OutlinedFormField(
-                        hint: "Search ",
-                        controller: searchController,
-                        radius: 100.r,
-                        onChange: (d) {
-                          // filterList(d);
-                          _filterTrends();
-                        },
-                        preffix: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: ImageWidget(imageUrl: Assets.images.svgs.searchMd),
-                        ),
-                        onFieldSubmitted: (value) {
-                          if (value.isNotEmpty && !selectedTags.contains(value)) {
-                            selectedTags.add(value);
-                            searchController.clear();
-                            setState(() {});
-                          }
-                        },
-                      ),
-                      10.verticalSpace,
-                      filteredTrends.isEmpty
-                          ? Padding(
-                              padding: const EdgeInsets.symmetric(vertical: 8.0),
-                              child: TextView(
-                                text: 'No matching tags found. Press Enter to add "${searchController.text}".',
-                                fontSize: 14,
-                              ),
-                            )
-                          : SizedBox(
-                              height: 0.4.sh, // Adjust as needed
-                              child: ListView.builder(
-                                itemCount: filteredTrends.length,
-                                itemBuilder: (context, index) {
-                                  final trend = allTrends[index];
-                                  return ListTile(
-                                    contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 16),
-                                    dense: true,
-                                    title: TextView(text: trend),
-                                    trailing: selectedTags.contains(trend) ? const Icon(Icons.check_circle, color: Pallets.primary) : null,
-                                    onTap: () {
-                                      if (!selectedTags.contains(trend)) {
-                                        selectedTags.add(trend);
-                                        setState(() {});
-                                      } else {
-                                        selectedTags.remove(trend);
-                                        setState(() {});
-                                      }
-                                    },
-                                  );
-                                },
-                              ),
-                            ),
-                    ],
+                  return _buildTagSelector(
+                    fallbackReason: serverTrends.isEmpty
+                        ? 'The server returned an empty tag list.'
+                        : null,
                   );
                 },
-                getTrendsFailure: (error) => Text("Error: $error"),
+                getTrendsFailure: (error) {
+                  allTrends = _fallbackTags;
+                  _filterTrends();
+                  return _buildTagSelector(fallbackReason: error);
+                },
                 orElse: () => const SizedBox.shrink(),
               );
             },
@@ -171,10 +127,13 @@ class _AddTagsSheet2State extends State<AddTagsSheet2> {
                   style: TextButton.styleFrom(
                       backgroundColor: Pallets.primary,
                       foregroundColor: Pallets.white,
-                      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 10, horizontal: 16),
                       shape: const StadiumBorder()),
                   onPressed: () {
-                    if (filteredTrends.isEmpty && searchController.text.isNotEmpty && !selectedTags.contains(searchController.text)) {
+                    if (filteredTrends.isEmpty &&
+                        searchController.text.isNotEmpty &&
+                        !selectedTags.contains(searchController.text)) {
                       selectedTags.add(searchController.text);
                       searchController.clear();
                       setState(() {});
@@ -183,13 +142,139 @@ class _AddTagsSheet2State extends State<AddTagsSheet2> {
                     }
                   },
                   child: TextView(
-                    text: filteredTrends.isEmpty && searchController.text.isNotEmpty ? "Add tag" : "Save",
+                    text: filteredTrends.isEmpty &&
+                            searchController.text.isNotEmpty
+                        ? "Add tag"
+                        : "Save",
                     fontWeight: FontWeight.w700,
                   )),
             ],
           ),
         ],
       ),
+    );
+  }
+
+  /// Tag chips + search field + suggested-tags list. When [fallbackReason] is
+  /// non-null, [allTrends] is local fallback data and a banner explaining why
+  /// is shown above the search field.
+  Widget _buildTagSelector({String? fallbackReason}) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        if (fallbackReason != null) ...[
+          Container(
+            width: double.infinity,
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+            decoration: BoxDecoration(
+              color: Pallets.borderGrey.withOpacity(0.15),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Icon(Icons.info_outline_rounded,
+                    size: 18, color: Pallets.boldBlackV2),
+                10.horizontalSpace,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const TextView(
+                        text: 'Showing default tags',
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color: Pallets.boldBlackV2,
+                      ),
+                      2.verticalSpace,
+                      TextView(
+                        text: fallbackReason,
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: Pallets.grey500,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          10.verticalSpace,
+        ],
+        Wrap(
+          spacing: 8.0,
+          runSpacing: 4.0,
+          alignment: WrapAlignment.start,
+          crossAxisAlignment: WrapCrossAlignment.start,
+          runAlignment: WrapAlignment.start,
+          children: selectedTags
+              .map((tag) => Chip(
+                    label: Text(tag),
+                    onDeleted: () {
+                      selectedTags.remove(tag);
+                      setState(() {});
+                    },
+                  ))
+              .toList(),
+        ),
+        OutlinedFormField(
+          hint: "Search ",
+          controller: searchController,
+          radius: 100.r,
+          onChange: (d) {
+            _filterTrends();
+          },
+          preffix: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ImageWidget(imageUrl: Assets.images.svgs.searchMd),
+          ),
+          onFieldSubmitted: (value) {
+            if (value.isNotEmpty && !selectedTags.contains(value)) {
+              selectedTags.add(value);
+              searchController.clear();
+              setState(() {});
+            }
+          },
+        ),
+        10.verticalSpace,
+        filteredTrends.isEmpty
+            ? Padding(
+                padding: const EdgeInsets.symmetric(vertical: 8.0),
+                child: TextView(
+                  text:
+                      'No matching tags found. Press Enter to add "${searchController.text}".',
+                  fontSize: 14,
+                ),
+              )
+            : SizedBox(
+                height: 0.4.sh, // Adjust as needed
+                child: ListView.builder(
+                  itemCount: filteredTrends.length,
+                  itemBuilder: (context, index) {
+                    final trend = filteredTrends[index];
+                    return ListTile(
+                      contentPadding:
+                          EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+                      dense: true,
+                      title: TextView(text: trend),
+                      trailing: selectedTags.contains(trend)
+                          ? const Icon(Icons.check_circle,
+                              color: Pallets.primary)
+                          : null,
+                      onTap: () {
+                        if (!selectedTags.contains(trend)) {
+                          selectedTags.add(trend);
+                          setState(() {});
+                        } else {
+                          selectedTags.remove(trend);
+                          setState(() {});
+                        }
+                      },
+                    );
+                  },
+                ),
+              ),
+      ],
     );
   }
 
@@ -202,7 +287,9 @@ class _AddTagsSheet2State extends State<AddTagsSheet2> {
           if (query.isEmpty) {
             filteredTrends = allTrends;
           } else {
-            filteredTrends = allTrends.where((tag) => tag.toLowerCase().contains(query)).toList();
+            filteredTrends = allTrends
+                .where((tag) => tag.toLowerCase().contains(query))
+                .toList();
           }
         });
       },

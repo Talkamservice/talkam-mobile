@@ -4,16 +4,18 @@ part of 'create_post_cubit.dart';
 class CreatePostState with _$CreatePostState, NoEquality {
   const factory CreatePostState.initial() = _Initial;
 
-
-
   const factory CreatePostState.validateFormsState() = ValidateFormsState;
-  const factory CreatePostState.validateFormsSuccessState() = ValidateFormsSuccessState;
+  const factory CreatePostState.validateFormsSuccessState() =
+      ValidateFormsSuccessState;
   const factory CreatePostState.createPostLoading() = CreatePostLoadingState;
-  const factory CreatePostState.createPostSuccess(CreatePostResponse response) = CreatePostSuccessState;
-  const factory CreatePostState.createPostFailure(String error) = CreatePostFailureState;
+  const factory CreatePostState.createPostSuccess(CreatePostResponse response) =
+      CreatePostSuccessState;
+  const factory CreatePostState.createPostFailure(String error) =
+      CreatePostFailureState;
 
-
-
-
-
+  const factory CreatePostState.saveDraftLoading() = SaveDraftLoadingState;
+  const factory CreatePostState.saveDraftSuccess(CreatePostResponse response) =
+      SaveDraftSuccessState;
+  const factory CreatePostState.saveDraftFailure(String error) =
+      SaveDraftFailureState;
 }

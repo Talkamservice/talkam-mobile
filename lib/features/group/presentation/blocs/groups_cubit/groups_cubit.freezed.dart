@@ -296,9 +296,6 @@ class _$GroupsStateCopyWithImpl<$Res, $Val extends GroupsState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -315,9 +312,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -644,9 +638,6 @@ class __$$GetGroupsLoadingImplCopyWithImpl<$Res>
   __$$GetGroupsLoadingImplCopyWithImpl(_$GetGroupsLoadingImpl _value,
       $Res Function(_$GetGroupsLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -976,8 +967,6 @@ class __$$GetGroupsSuccessImplCopyWithImpl<$Res>
       $Res Function(_$GetGroupsSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1034,9 +1023,7 @@ class _$GetGroupsSuccessImpl implements _GetGroupsSuccess {
   int get hashCode => Object.hash(runtimeType,
       const DeepCollectionEquality().hash(_groups), paginationData);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetGroupsSuccessImplCopyWith<_$GetGroupsSuccessImpl> get copyWith =>
@@ -1338,10 +1325,7 @@ abstract class _GetGroupsSuccess implements GroupsState {
 
   List<TalkamGroup> get groups;
   GroupPaginationMeta get paginationData;
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetGroupsSuccessImplCopyWith<_$GetGroupsSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1363,8 +1347,6 @@ class __$$GetGroupsFailureImplCopyWithImpl<$Res>
       $Res Function(_$GetGroupsFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1403,9 +1385,7 @@ class _$GetGroupsFailureImpl implements _GetGroupsFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetGroupsFailureImplCopyWith<_$GetGroupsFailureImpl> get copyWith =>
@@ -1703,10 +1683,7 @@ abstract class _GetGroupsFailure implements GroupsState {
   const factory _GetGroupsFailure(final String error) = _$GetGroupsFailureImpl;
 
   String get error;
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetGroupsFailureImplCopyWith<_$GetGroupsFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1728,9 +1705,6 @@ class __$$GetFollowingGroupMembersLoadingImplCopyWithImpl<$Res>
       _$GetFollowingGroupMembersLoadingImpl _value,
       $Res Function(_$GetFollowingGroupMembersLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -2066,8 +2040,6 @@ class __$$GetFollowingGroupMembersSuccessImplCopyWithImpl<$Res>
       $Res Function(_$GetFollowingGroupMembersSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2108,9 +2080,7 @@ class _$GetFollowingGroupMembersSuccessImpl
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetFollowingGroupMembersSuccessImplCopyWith<
@@ -2410,10 +2380,7 @@ abstract class _GetFollowingGroupMembersSuccess implements GroupsState {
       _$GetFollowingGroupMembersSuccessImpl;
 
   dynamic get response;
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetFollowingGroupMembersSuccessImplCopyWith<
           _$GetFollowingGroupMembersSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -2439,8 +2406,6 @@ class __$$GetFollowingGroupMembersFailureImplCopyWithImpl<$Res>
       $Res Function(_$GetFollowingGroupMembersFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2480,9 +2445,7 @@ class _$GetFollowingGroupMembersFailureImpl
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetFollowingGroupMembersFailureImplCopyWith<
@@ -2782,10 +2745,7 @@ abstract class _GetFollowingGroupMembersFailure implements GroupsState {
       _$GetFollowingGroupMembersFailureImpl;
 
   String get error;
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetFollowingGroupMembersFailureImplCopyWith<
           _$GetFollowingGroupMembersFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -2805,9 +2765,6 @@ class __$$UpdateGroupLoadingImplCopyWithImpl<$Res>
   __$$UpdateGroupLoadingImplCopyWithImpl(_$UpdateGroupLoadingImpl _value,
       $Res Function(_$UpdateGroupLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -3137,8 +3094,6 @@ class __$$UpdateGroupSuccessImplCopyWithImpl<$Res>
       $Res Function(_$UpdateGroupSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3178,9 +3133,7 @@ class _$UpdateGroupSuccessImpl implements _UpdateGroupSuccess {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$UpdateGroupSuccessImplCopyWith<_$UpdateGroupSuccessImpl> get copyWith =>
@@ -3479,10 +3432,7 @@ abstract class _UpdateGroupSuccess implements GroupsState {
       _$UpdateGroupSuccessImpl;
 
   dynamic get response;
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$UpdateGroupSuccessImplCopyWith<_$UpdateGroupSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3504,8 +3454,6 @@ class __$$UpdateGroupFailureImplCopyWithImpl<$Res>
       $Res Function(_$UpdateGroupFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3544,9 +3492,7 @@ class _$UpdateGroupFailureImpl implements _UpdateGroupFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$UpdateGroupFailureImplCopyWith<_$UpdateGroupFailureImpl> get copyWith =>
@@ -3845,10 +3791,7 @@ abstract class _UpdateGroupFailure implements GroupsState {
       _$UpdateGroupFailureImpl;
 
   String get error;
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$UpdateGroupFailureImplCopyWith<_$UpdateGroupFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3867,9 +3810,6 @@ class __$$GetGroupLoadingImplCopyWithImpl<$Res>
   __$$GetGroupLoadingImplCopyWithImpl(
       _$GetGroupLoadingImpl _value, $Res Function(_$GetGroupLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -4199,8 +4139,6 @@ class __$$GetGroupSuccessImplCopyWithImpl<$Res>
       _$GetGroupSuccessImpl _value, $Res Function(_$GetGroupSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4240,9 +4178,7 @@ class _$GetGroupSuccessImpl implements _GetGroupSuccess {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetGroupSuccessImplCopyWith<_$GetGroupSuccessImpl> get copyWith =>
@@ -4541,10 +4477,7 @@ abstract class _GetGroupSuccess implements GroupsState {
       _$GetGroupSuccessImpl;
 
   TalkamGroup get response;
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetGroupSuccessImplCopyWith<_$GetGroupSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -4566,8 +4499,6 @@ class __$$GetGroupFailureImplCopyWithImpl<$Res>
       _$GetGroupFailureImpl _value, $Res Function(_$GetGroupFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4606,9 +4537,7 @@ class _$GetGroupFailureImpl implements _GetGroupFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetGroupFailureImplCopyWith<_$GetGroupFailureImpl> get copyWith =>
@@ -4906,10 +4835,7 @@ abstract class _GetGroupFailure implements GroupsState {
   const factory _GetGroupFailure(final String error) = _$GetGroupFailureImpl;
 
   String get error;
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetGroupFailureImplCopyWith<_$GetGroupFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -4928,9 +4854,6 @@ class __$$DeleteGroupLoadingImplCopyWithImpl<$Res>
   __$$DeleteGroupLoadingImplCopyWithImpl(_$DeleteGroupLoadingImpl _value,
       $Res Function(_$DeleteGroupLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -5260,8 +5183,6 @@ class __$$DeleteGroupSuccessImplCopyWithImpl<$Res>
       $Res Function(_$DeleteGroupSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -5301,9 +5222,7 @@ class _$DeleteGroupSuccessImpl implements _DeleteGroupSuccess {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$DeleteGroupSuccessImplCopyWith<_$DeleteGroupSuccessImpl> get copyWith =>
@@ -5602,10 +5521,7 @@ abstract class _DeleteGroupSuccess implements GroupsState {
       _$DeleteGroupSuccessImpl;
 
   dynamic get response;
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$DeleteGroupSuccessImplCopyWith<_$DeleteGroupSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -5627,8 +5543,6 @@ class __$$DeleteGroupFailureImplCopyWithImpl<$Res>
       $Res Function(_$DeleteGroupFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -5667,9 +5581,7 @@ class _$DeleteGroupFailureImpl implements _DeleteGroupFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$DeleteGroupFailureImplCopyWith<_$DeleteGroupFailureImpl> get copyWith =>
@@ -5968,10 +5880,7 @@ abstract class _DeleteGroupFailure implements GroupsState {
       _$DeleteGroupFailureImpl;
 
   String get error;
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$DeleteGroupFailureImplCopyWith<_$DeleteGroupFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -5991,9 +5900,6 @@ class __$$GetRecommendedLoadingImplCopyWithImpl<$Res>
   __$$GetRecommendedLoadingImplCopyWithImpl(_$GetRecommendedLoadingImpl _value,
       $Res Function(_$GetRecommendedLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -6325,8 +6231,6 @@ class __$$GetRecommendedSuccessImplCopyWithImpl<$Res>
       $Res Function(_$GetRecommendedSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -6366,9 +6270,7 @@ class _$GetRecommendedSuccessImpl implements _GetRecommendedSuccess {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetRecommendedSuccessImplCopyWith<_$GetRecommendedSuccessImpl>
@@ -6667,10 +6569,7 @@ abstract class _GetRecommendedSuccess implements GroupsState {
       _$GetRecommendedSuccessImpl;
 
   GetGroupsResponse get response;
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetRecommendedSuccessImplCopyWith<_$GetRecommendedSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -6693,8 +6592,6 @@ class __$$GetRecommendedFailureImplCopyWithImpl<$Res>
       $Res Function(_$GetRecommendedFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -6733,9 +6630,7 @@ class _$GetRecommendedFailureImpl implements _GetRecommendedFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetRecommendedFailureImplCopyWith<_$GetRecommendedFailureImpl>
@@ -7034,10 +6929,7 @@ abstract class _GetRecommendedFailure implements GroupsState {
       _$GetRecommendedFailureImpl;
 
   String get error;
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetRecommendedFailureImplCopyWith<_$GetRecommendedFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -7056,9 +6948,6 @@ class __$$JoinGroupLoadingImplCopyWithImpl<$Res>
   __$$JoinGroupLoadingImplCopyWithImpl(_$JoinGroupLoadingImpl _value,
       $Res Function(_$JoinGroupLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -7388,8 +7277,6 @@ class __$$JoinGroupSuccessImplCopyWithImpl<$Res>
       $Res Function(_$JoinGroupSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -7429,9 +7316,7 @@ class _$JoinGroupSuccessImpl implements _JoinGroupSuccess {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$JoinGroupSuccessImplCopyWith<_$JoinGroupSuccessImpl> get copyWith =>
@@ -7730,10 +7615,7 @@ abstract class _JoinGroupSuccess implements GroupsState {
       _$JoinGroupSuccessImpl;
 
   dynamic get response;
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$JoinGroupSuccessImplCopyWith<_$JoinGroupSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -7755,8 +7637,6 @@ class __$$JoinGroupFailureImplCopyWithImpl<$Res>
       $Res Function(_$JoinGroupFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -7795,9 +7675,7 @@ class _$JoinGroupFailureImpl implements _JoinGroupFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$JoinGroupFailureImplCopyWith<_$JoinGroupFailureImpl> get copyWith =>
@@ -8095,10 +7973,7 @@ abstract class _JoinGroupFailure implements GroupsState {
   const factory _JoinGroupFailure(final String error) = _$JoinGroupFailureImpl;
 
   String get error;
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$JoinGroupFailureImplCopyWith<_$JoinGroupFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -8117,9 +7992,6 @@ class __$$AddGroupRuleLoadingImplCopyWithImpl<$Res>
   __$$AddGroupRuleLoadingImplCopyWithImpl(_$AddGroupRuleLoadingImpl _value,
       $Res Function(_$AddGroupRuleLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -8450,8 +8322,6 @@ class __$$AddGroupRuleSuccessImplCopyWithImpl<$Res>
       $Res Function(_$AddGroupRuleSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -8491,9 +8361,7 @@ class _$AddGroupRuleSuccessImpl implements _AddGroupRuleSuccess {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$AddGroupRuleSuccessImplCopyWith<_$AddGroupRuleSuccessImpl> get copyWith =>
@@ -8792,10 +8660,7 @@ abstract class _AddGroupRuleSuccess implements GroupsState {
       _$AddGroupRuleSuccessImpl;
 
   GroupGuideline get response;
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$AddGroupRuleSuccessImplCopyWith<_$AddGroupRuleSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -8817,8 +8682,6 @@ class __$$AddGroupRuleFailureImplCopyWithImpl<$Res>
       $Res Function(_$AddGroupRuleFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -8857,9 +8720,7 @@ class _$AddGroupRuleFailureImpl implements _AddGroupRuleFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$AddGroupRuleFailureImplCopyWith<_$AddGroupRuleFailureImpl> get copyWith =>
@@ -9158,10 +9019,7 @@ abstract class _AddGroupRuleFailure implements GroupsState {
       _$AddGroupRuleFailureImpl;
 
   String get error;
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$AddGroupRuleFailureImplCopyWith<_$AddGroupRuleFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -9180,9 +9038,6 @@ class __$$GetGroupRuleLoadingImplCopyWithImpl<$Res>
   __$$GetGroupRuleLoadingImplCopyWithImpl(_$GetGroupRuleLoadingImpl _value,
       $Res Function(_$GetGroupRuleLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -9513,8 +9368,6 @@ class __$$GetGroupRuleSuccessImplCopyWithImpl<$Res>
       $Res Function(_$GetGroupRuleSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -9554,9 +9407,7 @@ class _$GetGroupRuleSuccessImpl implements _GetGroupRuleSuccess {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetGroupRuleSuccessImplCopyWith<_$GetGroupRuleSuccessImpl> get copyWith =>
@@ -9855,10 +9706,7 @@ abstract class _GetGroupRuleSuccess implements GroupsState {
       _$GetGroupRuleSuccessImpl;
 
   dynamic get response;
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetGroupRuleSuccessImplCopyWith<_$GetGroupRuleSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -9880,8 +9728,6 @@ class __$$GetGroupRuleFailureImplCopyWithImpl<$Res>
       $Res Function(_$GetGroupRuleFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -9920,9 +9766,7 @@ class _$GetGroupRuleFailureImpl implements _GetGroupRuleFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetGroupRuleFailureImplCopyWith<_$GetGroupRuleFailureImpl> get copyWith =>
@@ -10221,10 +10065,7 @@ abstract class _GetGroupRuleFailure implements GroupsState {
       _$GetGroupRuleFailureImpl;
 
   String get error;
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetGroupRuleFailureImplCopyWith<_$GetGroupRuleFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -10245,9 +10086,6 @@ class __$$DeleteGroupRuleLoadingImplCopyWithImpl<$Res>
       _$DeleteGroupRuleLoadingImpl _value,
       $Res Function(_$DeleteGroupRuleLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -10580,8 +10418,6 @@ class __$$DeleteGroupRuleSuccessImplCopyWithImpl<$Res>
       $Res Function(_$DeleteGroupRuleSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -10621,9 +10457,7 @@ class _$DeleteGroupRuleSuccessImpl implements _DeleteGroupRuleSuccess {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$DeleteGroupRuleSuccessImplCopyWith<_$DeleteGroupRuleSuccessImpl>
@@ -10922,10 +10756,7 @@ abstract class _DeleteGroupRuleSuccess implements GroupsState {
       _$DeleteGroupRuleSuccessImpl;
 
   dynamic get response;
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$DeleteGroupRuleSuccessImplCopyWith<_$DeleteGroupRuleSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -10949,8 +10780,6 @@ class __$$DeleteGroupRuleFailureImplCopyWithImpl<$Res>
       $Res Function(_$DeleteGroupRuleFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -10989,9 +10818,7 @@ class _$DeleteGroupRuleFailureImpl implements _DeleteGroupRuleFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$DeleteGroupRuleFailureImplCopyWith<_$DeleteGroupRuleFailureImpl>
@@ -11290,10 +11117,7 @@ abstract class _DeleteGroupRuleFailure implements GroupsState {
       _$DeleteGroupRuleFailureImpl;
 
   String get error;
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$DeleteGroupRuleFailureImplCopyWith<_$DeleteGroupRuleFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -11312,9 +11136,6 @@ class __$$ReportGroupLoadingImplCopyWithImpl<$Res>
   __$$ReportGroupLoadingImplCopyWithImpl(_$ReportGroupLoadingImpl _value,
       $Res Function(_$ReportGroupLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -11644,8 +11465,6 @@ class __$$ReportGroupSuccessImplCopyWithImpl<$Res>
       $Res Function(_$ReportGroupSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -11685,9 +11504,7 @@ class _$ReportGroupSuccessImpl implements _ReportGroupSuccess {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ReportGroupSuccessImplCopyWith<_$ReportGroupSuccessImpl> get copyWith =>
@@ -11986,10 +11803,7 @@ abstract class _ReportGroupSuccess implements GroupsState {
       _$ReportGroupSuccessImpl;
 
   dynamic get response;
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$ReportGroupSuccessImplCopyWith<_$ReportGroupSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -12011,8 +11825,6 @@ class __$$ReportGroupFailureImplCopyWithImpl<$Res>
       $Res Function(_$ReportGroupFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -12051,9 +11863,7 @@ class _$ReportGroupFailureImpl implements _ReportGroupFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ReportGroupFailureImplCopyWith<_$ReportGroupFailureImpl> get copyWith =>
@@ -12352,10 +12162,7 @@ abstract class _ReportGroupFailure implements GroupsState {
       _$ReportGroupFailureImpl;
 
   String get error;
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$ReportGroupFailureImplCopyWith<_$ReportGroupFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -12374,9 +12181,6 @@ class __$$RefreshGroupsStateImplCopyWithImpl<$Res>
   __$$RefreshGroupsStateImplCopyWithImpl(_$RefreshGroupsStateImpl _value,
       $Res Function(_$RefreshGroupsStateImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of GroupsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc

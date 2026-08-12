@@ -48,6 +48,34 @@ class UrlConfigV2 {
   static const String postReaction = '$posts/reaction';
   static const String postStatsSave = '$posts/stats/save';
   static const String postStatsFetch = '$posts/stats/fetch';
+  static const String reportPost = '$posts/report';
+  static const String reportComment = '$posts/report-comment';
+  static const String notInterested = '$posts/not-interested';
+  static const String postDrafts = '/user/post-drafts';
+
+  // Comments
+  static const String postComments = '/user/post-comments';
+  static const String postCommentReaction = '$postComments/reaction';
+
+  // Guidelines
+  static const String guidelines = '/user/guidelines';
+
+  // Interest topics — the onboarding interest chips (post_categories rows
+  // marked type=interest_topic).
+  static const String interestTopics = '/user/interest-topics';
+
+  // Follows
+  static const String followToggle = '/user/follows/toggle';
+  static const String following = '/user/follows/following';
+  static const String followers = '/user/follows/followers';
+
+  // Mutes
+  static const String muteToggle = '/user/mutes/toggle';
+  static const String mutedUsers = '/user/mutes';
+
+  // Blocked users
+  static const String blockedUsersAdd = '/user/blocked-users/add';
+  static const String blockedUsers = '/user/blocked-users';
 
   // Mood
   static const String moodCheckins = '/user/mood-checkins';

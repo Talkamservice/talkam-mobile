@@ -90,9 +90,6 @@ class _$PostSearchStateCopyWithImpl<$Res, $Val extends PostSearchState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of PostSearchState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -109,9 +106,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of PostSearchState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -235,8 +229,6 @@ class __$$PostSearcLoadedImplCopyWithImpl<$Res>
       _$PostSearcLoadedImpl _value, $Res Function(_$PostSearcLoadedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of PostSearchState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -295,9 +287,7 @@ class _$PostSearcLoadedImpl implements _PostSearcLoaded {
   int get hashCode => Object.hash(runtimeType,
       const DeepCollectionEquality().hash(_postResults), paginationData);
 
-  /// Create a copy of PostSearchState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$PostSearcLoadedImplCopyWith<_$PostSearcLoadedImpl> get copyWith =>
@@ -393,10 +383,7 @@ abstract class _PostSearcLoaded implements PostSearchState {
 
   List<TalkamPost> get postResults;
   PostsPaginationData get paginationData;
-
-  /// Create a copy of PostSearchState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$PostSearcLoadedImplCopyWith<_$PostSearcLoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -415,9 +402,6 @@ class __$$PostSearchLoadingImplCopyWithImpl<$Res>
   __$$PostSearchLoadingImplCopyWithImpl(_$PostSearchLoadingImpl _value,
       $Res Function(_$PostSearchLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of PostSearchState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -541,8 +525,6 @@ class __$$PostSearchFailedImplCopyWithImpl<$Res>
       $Res Function(_$PostSearchFailedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of PostSearchState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -581,9 +563,7 @@ class _$PostSearchFailedImpl implements _PostSearchFailed {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of PostSearchState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$PostSearchFailedImplCopyWith<_$PostSearchFailedImpl> get copyWith =>
@@ -675,10 +655,7 @@ abstract class _PostSearchFailed implements PostSearchState {
   const factory _PostSearchFailed(final String error) = _$PostSearchFailedImpl;
 
   String get error;
-
-  /// Create a copy of PostSearchState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$PostSearchFailedImplCopyWith<_$PostSearchFailedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

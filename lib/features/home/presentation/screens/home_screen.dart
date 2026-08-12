@@ -20,6 +20,7 @@ import 'package:talkam/features/notifications/presentation/bloc/notification_blo
 import 'package:talkam/features/notifications/presentation/widgets/announcements_carousel.dart';
 import 'package:talkam/features/notifications/presentation/widgets/notification_icon.dart';
 import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
+import 'package:talkam/features/profile/presentation/bloc/connections_summary_cubit/connections_summary_cubit.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/subscription/utils/subscription_helper.dart';
 import 'package:talkam/gen/assets.gen.dart';
@@ -49,6 +50,9 @@ class _HomeScreenState extends State<HomeScreen>
     injector.get<NotificationsBloc>().add(GetNotificationsStatsEvent());
     injector.get<NotificationsBloc>().add(const GetAnnouncementsEvent());
     injector.get<PostBloc>().add(const PostEvent.getCategories(refresh: true));
+    // Prefetched here so the follow counts are already available by the
+    // time the drawer is opened, instead of fetching on every open.
+    injector.get<ConnectionsSummaryCubit>().fetchCounts();
 
     _tabController = TabController(length: 2, vsync: this);
     WidgetsBinding.instance

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
@@ -6,6 +7,7 @@ import 'package:talkam/common/widgets/subscribe_button.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/constants/package_exports.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
@@ -17,6 +19,8 @@ import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/presentation/widgets/post_action_sheet.dart';
 import 'package:talkam/features/post/presentation/widgets/post_content.dart';
 import 'package:talkam/features/post/presentation/widgets/post_reaction_button.dart';
+import 'package:talkam/features/profile/presentation/bloc/follow_cubit/follow_cubit.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class PostDetailCard extends StatefulWidget {
@@ -110,16 +114,35 @@ class _PostDetailCardState extends State<PostDetailCard> {
       widget.post.isAnonymous.toBool ? "Anonymous" : widget.post.user.usersName;
 }
 
-/// Avatar, poster name, "Posted in {category}", a Subscribe pill (visual
-/// only — no subscribe-to-user feature exists yet), and the "⋮" menu.
-class _PostDetailHeader extends StatelessWidget {
+/// Avatar, poster name, "Posted in {category}", a Subscribe/Follow pill,
+/// and the "⋮" menu.
+class _PostDetailHeader extends StatefulWidget {
   const _PostDetailHeader({required this.post, required this.userName});
 
   final TalkamPost post;
   final String userName;
 
   @override
+  State<_PostDetailHeader> createState() => _PostDetailHeaderState();
+}
+
+class _PostDetailHeaderState extends State<_PostDetailHeader> {
+  final _followCubit = injector.get<FollowCubit>();
+  bool _isFollowing = false;
+
+  bool get _postIsFromLoggedInUser =>
+      widget.post.user.id == injector.get<ProfileBloc>().appUser?.id;
+
+  @override
+  void dispose() {
+    _followCubit.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final post = widget.post;
+    final userName = widget.userName;
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -166,9 +189,26 @@ class _PostDetailHeader extends StatelessWidget {
             ],
           ),
         ),
-        SubscribeButton(
-          onTap: () => CustomDialogs.showToast("Coming soon"),
-        ),
+        if (!post.isAnonymous.toBool && !_postIsFromLoggedInUser)
+          BlocListener<FollowCubit, FollowState>(
+            bloc: _followCubit,
+            listener: (context, state) {
+              state.maybeWhen(
+                orElse: () {},
+                success: (following) =>
+                    setState(() => _isFollowing = following),
+                failure: (error) => CustomDialogs.error(error),
+              );
+            },
+            child: SubscribeButton(
+              text: _isFollowing ? "Following" : "Subscribe",
+              color: _isFollowing ? Pallets.grey60 : null,
+              onTap: () => GuestUserHelper.handleGuestUserAction(
+                action: () =>
+                    _followCubit.toggleFollow(post.user.id.toString()),
+              ),
+            ),
+          ),
         GuestUserHelper.guestUserWidget(
           widget: IconButton(
             icon: Icon(Icons.more_vert_rounded,

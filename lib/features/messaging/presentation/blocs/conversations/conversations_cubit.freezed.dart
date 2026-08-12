@@ -309,9 +309,6 @@ class _$ConversationsStateCopyWithImpl<$Res, $Val extends ConversationsState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -328,9 +325,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -673,9 +667,6 @@ class __$$GetConversationsLoadingImplCopyWithImpl<$Res>
       _$GetConversationsLoadingImpl _value,
       $Res Function(_$GetConversationsLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -1022,8 +1013,6 @@ class __$$GetConversationsSuccessImplCopyWithImpl<$Res>
       $Res Function(_$GetConversationsSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1063,9 +1052,7 @@ class _$GetConversationsSuccessImpl implements _GetConversationsSuccess {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetConversationsSuccessImplCopyWith<_$GetConversationsSuccessImpl>
@@ -1377,10 +1364,7 @@ abstract class _GetConversationsSuccess implements ConversationsState {
       final GetConversationsResponse response) = _$GetConversationsSuccessImpl;
 
   GetConversationsResponse get response;
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetConversationsSuccessImplCopyWith<_$GetConversationsSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -1405,8 +1389,6 @@ class __$$GetConversationsFailureImplCopyWithImpl<$Res>
       $Res Function(_$GetConversationsFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1445,9 +1427,7 @@ class _$GetConversationsFailureImpl implements _GetConversationsFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetConversationsFailureImplCopyWith<_$GetConversationsFailureImpl>
@@ -1759,10 +1739,7 @@ abstract class _GetConversationsFailure implements ConversationsState {
       _$GetConversationsFailureImpl;
 
   String get error;
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetConversationsFailureImplCopyWith<_$GetConversationsFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -1784,9 +1761,6 @@ class __$$GetConversationByIdLoadingImplCopyWithImpl<$Res>
       _$GetConversationByIdLoadingImpl _value,
       $Res Function(_$GetConversationByIdLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -2134,8 +2108,6 @@ class __$$GetConversationByIdSuccessImplCopyWithImpl<$Res>
       $Res Function(_$GetConversationByIdSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2175,9 +2147,7 @@ class _$GetConversationByIdSuccessImpl implements _GetConversationByIdSuccess {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetConversationByIdSuccessImplCopyWith<_$GetConversationByIdSuccessImpl>
@@ -2489,10 +2459,7 @@ abstract class _GetConversationByIdSuccess implements ConversationsState {
       _$GetConversationByIdSuccessImpl;
 
   dynamic get response;
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetConversationByIdSuccessImplCopyWith<_$GetConversationByIdSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -2517,8 +2484,6 @@ class __$$GetConversationByIdFailureImplCopyWithImpl<$Res>
       $Res Function(_$GetConversationByIdFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2557,9 +2522,7 @@ class _$GetConversationByIdFailureImpl implements _GetConversationByIdFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetConversationByIdFailureImplCopyWith<_$GetConversationByIdFailureImpl>
@@ -2871,10 +2834,7 @@ abstract class _GetConversationByIdFailure implements ConversationsState {
       _$GetConversationByIdFailureImpl;
 
   String get error;
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetConversationByIdFailureImplCopyWith<_$GetConversationByIdFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -2896,9 +2856,6 @@ class __$$DeleteConversationByIdLoadingImplCopyWithImpl<$Res>
       _$DeleteConversationByIdLoadingImpl _value,
       $Res Function(_$DeleteConversationByIdLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -3244,9 +3201,6 @@ class __$$DeleteConversationByIdSuccessImplCopyWithImpl<$Res>
       _$DeleteConversationByIdSuccessImpl _value,
       $Res Function(_$DeleteConversationByIdSuccessImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -3595,8 +3549,6 @@ class __$$DeleteConversationByIdFailureImplCopyWithImpl<$Res>
       $Res Function(_$DeleteConversationByIdFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3636,9 +3588,7 @@ class _$DeleteConversationByIdFailureImpl
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$DeleteConversationByIdFailureImplCopyWith<
@@ -3951,10 +3901,7 @@ abstract class _DeleteConversationByIdFailure implements ConversationsState {
       _$DeleteConversationByIdFailureImpl;
 
   String get error;
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$DeleteConversationByIdFailureImplCopyWith<
           _$DeleteConversationByIdFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -3977,9 +3924,6 @@ class __$$CreateConversationLoadingImplCopyWithImpl<$Res>
       _$CreateConversationLoadingImpl _value,
       $Res Function(_$CreateConversationLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -4326,8 +4270,6 @@ class __$$CreateConversationSuccessImplCopyWithImpl<$Res>
       $Res Function(_$CreateConversationSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4367,9 +4309,7 @@ class _$CreateConversationSuccessImpl implements _CreateConversationSuccess {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$CreateConversationSuccessImplCopyWith<_$CreateConversationSuccessImpl>
@@ -4681,10 +4621,7 @@ abstract class _CreateConversationSuccess implements ConversationsState {
       _$CreateConversationSuccessImpl;
 
   dynamic get response;
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$CreateConversationSuccessImplCopyWith<_$CreateConversationSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -4709,8 +4646,6 @@ class __$$CreateConversationFailureImplCopyWithImpl<$Res>
       $Res Function(_$CreateConversationFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4749,9 +4684,7 @@ class _$CreateConversationFailureImpl implements _CreateConversationFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$CreateConversationFailureImplCopyWith<_$CreateConversationFailureImpl>
@@ -5063,10 +4996,7 @@ abstract class _CreateConversationFailure implements ConversationsState {
       _$CreateConversationFailureImpl;
 
   String get error;
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$CreateConversationFailureImplCopyWith<_$CreateConversationFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -5088,9 +5018,6 @@ class __$$FetchCurrentConversationLoadingImplCopyWithImpl<$Res>
       _$FetchCurrentConversationLoadingImpl _value,
       $Res Function(_$FetchCurrentConversationLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -5439,8 +5366,6 @@ class __$$FetchCurrentConversationSuccessImplCopyWithImpl<$Res>
       $Res Function(_$FetchCurrentConversationSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -5481,9 +5406,7 @@ class _$FetchCurrentConversationSuccessImpl
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$FetchCurrentConversationSuccessImplCopyWith<
@@ -5796,10 +5719,7 @@ abstract class _FetchCurrentConversationSuccess implements ConversationsState {
       _$FetchCurrentConversationSuccessImpl;
 
   dynamic get response;
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$FetchCurrentConversationSuccessImplCopyWith<
           _$FetchCurrentConversationSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -5825,8 +5745,6 @@ class __$$FetchCurrentConversationFailureImplCopyWithImpl<$Res>
       $Res Function(_$FetchCurrentConversationFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -5866,9 +5784,7 @@ class _$FetchCurrentConversationFailureImpl
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$FetchCurrentConversationFailureImplCopyWith<
@@ -6181,10 +6097,7 @@ abstract class _FetchCurrentConversationFailure implements ConversationsState {
       _$FetchCurrentConversationFailureImpl;
 
   String get error;
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$FetchCurrentConversationFailureImplCopyWith<
           _$FetchCurrentConversationFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -6207,9 +6120,6 @@ class __$$UpdateConversationByIdLoadingImplCopyWithImpl<$Res>
       _$UpdateConversationByIdLoadingImpl _value,
       $Res Function(_$UpdateConversationByIdLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -6558,8 +6468,6 @@ class __$$UpdateConversationByIdSuccessImplCopyWithImpl<$Res>
       $Res Function(_$UpdateConversationByIdSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -6600,9 +6508,7 @@ class _$UpdateConversationByIdSuccessImpl
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$UpdateConversationByIdSuccessImplCopyWith<
@@ -6915,10 +6821,7 @@ abstract class _UpdateConversationByIdSuccess implements ConversationsState {
       _$UpdateConversationByIdSuccessImpl;
 
   dynamic get response;
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$UpdateConversationByIdSuccessImplCopyWith<
           _$UpdateConversationByIdSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -6944,8 +6847,6 @@ class __$$UpdateConversationByIdFailureImplCopyWithImpl<$Res>
       $Res Function(_$UpdateConversationByIdFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -6985,9 +6886,7 @@ class _$UpdateConversationByIdFailureImpl
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$UpdateConversationByIdFailureImplCopyWith<
@@ -7300,10 +7199,7 @@ abstract class _UpdateConversationByIdFailure implements ConversationsState {
       _$UpdateConversationByIdFailureImpl;
 
   String get error;
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$UpdateConversationByIdFailureImplCopyWith<
           _$UpdateConversationByIdFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -7326,9 +7222,6 @@ class __$$UpdateConversationStatusLoadingImplCopyWithImpl<$Res>
       _$UpdateConversationStatusLoadingImpl _value,
       $Res Function(_$UpdateConversationStatusLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -7677,8 +7570,6 @@ class __$$UpdateConversationStatusSuccessImplCopyWithImpl<$Res>
       $Res Function(_$UpdateConversationStatusSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -7719,9 +7610,7 @@ class _$UpdateConversationStatusSuccessImpl
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$UpdateConversationStatusSuccessImplCopyWith<
@@ -8034,10 +7923,7 @@ abstract class _UpdateConversationStatusSuccess implements ConversationsState {
       _$UpdateConversationStatusSuccessImpl;
 
   dynamic get response;
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$UpdateConversationStatusSuccessImplCopyWith<
           _$UpdateConversationStatusSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -8063,8 +7949,6 @@ class __$$UpdateConversationStatusFailureImplCopyWithImpl<$Res>
       $Res Function(_$UpdateConversationStatusFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -8104,9 +7988,7 @@ class _$UpdateConversationStatusFailureImpl
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$UpdateConversationStatusFailureImplCopyWith<
@@ -8419,10 +8301,7 @@ abstract class _UpdateConversationStatusFailure implements ConversationsState {
       _$UpdateConversationStatusFailureImpl;
 
   String get error;
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$UpdateConversationStatusFailureImplCopyWith<
           _$UpdateConversationStatusFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
@@ -8445,9 +8324,6 @@ class __$$ReportConversationLoadingImplCopyWithImpl<$Res>
       _$ReportConversationLoadingImpl _value,
       $Res Function(_$ReportConversationLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -8794,8 +8670,6 @@ class __$$ReportConversationSuccessImplCopyWithImpl<$Res>
       $Res Function(_$ReportConversationSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -8835,9 +8709,7 @@ class _$ReportConversationSuccessImpl implements _ReportConversationSuccess {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ReportConversationSuccessImplCopyWith<_$ReportConversationSuccessImpl>
@@ -9149,10 +9021,7 @@ abstract class _ReportConversationSuccess implements ConversationsState {
       _$ReportConversationSuccessImpl;
 
   dynamic get response;
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$ReportConversationSuccessImplCopyWith<_$ReportConversationSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -9177,8 +9046,6 @@ class __$$ReportConversationFailureImplCopyWithImpl<$Res>
       $Res Function(_$ReportConversationFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -9217,9 +9084,7 @@ class _$ReportConversationFailureImpl implements _ReportConversationFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$ReportConversationFailureImplCopyWith<_$ReportConversationFailureImpl>
@@ -9531,10 +9396,7 @@ abstract class _ReportConversationFailure implements ConversationsState {
       _$ReportConversationFailureImpl;
 
   String get error;
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$ReportConversationFailureImplCopyWith<_$ReportConversationFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -9556,9 +9418,6 @@ class __$$GetPendingRequestsLoadingImplCopyWithImpl<$Res>
       _$GetPendingRequestsLoadingImpl _value,
       $Res Function(_$GetPendingRequestsLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -9905,8 +9764,6 @@ class __$$GetPendingRequestsSuccessImplCopyWithImpl<$Res>
       $Res Function(_$GetPendingRequestsSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -9946,9 +9803,7 @@ class _$GetPendingRequestsSuccessImpl implements _GetPendingRequestsSuccess {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetPendingRequestsSuccessImplCopyWith<_$GetPendingRequestsSuccessImpl>
@@ -10261,10 +10116,7 @@ abstract class _GetPendingRequestsSuccess implements ConversationsState {
       _$GetPendingRequestsSuccessImpl;
 
   GetConversationsResponse get response;
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetPendingRequestsSuccessImplCopyWith<_$GetPendingRequestsSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -10289,8 +10141,6 @@ class __$$GetPendingRequestsFailureImplCopyWithImpl<$Res>
       $Res Function(_$GetPendingRequestsFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -10329,9 +10179,7 @@ class _$GetPendingRequestsFailureImpl implements _GetPendingRequestsFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetPendingRequestsFailureImplCopyWith<_$GetPendingRequestsFailureImpl>
@@ -10643,10 +10491,7 @@ abstract class _GetPendingRequestsFailure implements ConversationsState {
       _$GetPendingRequestsFailureImpl;
 
   String get error;
-
-  /// Create a copy of ConversationsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetPendingRequestsFailureImplCopyWith<_$GetPendingRequestsFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

@@ -76,7 +76,7 @@ class _InterestsScreenState extends State<InterestsScreen> {
   @override
   void initState() {
     super.initState();
-    postBloc.add(const PostEvent.getCategories());
+    postBloc.add(const PostEvent.getInterestTopics());
   }
 
   @override
@@ -168,15 +168,15 @@ class _InterestsScreenState extends State<InterestsScreen> {
               bloc: postBloc,
               builder: (context, state) {
                 return state.maybeWhen(
-                  getCategoriesSuccess: (response) => response.data.isEmpty
+                  getInterestTopicsSuccess: (response) => response.data.isEmpty
                       ? _buildChips(_fallbackInterests,
                           fallbackReason:
                               'The server returned an empty interest list.')
                       : _buildChips(response.data),
-                  getCategoriesLoading: () => Center(
+                  getInterestTopicsLoading: () => Center(
                     child: CustomDialogs.getLoading(size: 40),
                   ),
-                  getCategoriesFailure: (error) =>
+                  getInterestTopicsFailure: (error) =>
                       _buildChips(_fallbackInterests, fallbackReason: error),
                   orElse: () => 0.verticalSpace,
                 );
@@ -260,7 +260,8 @@ class _InterestsScreenState extends State<InterestsScreen> {
                   fontSize: 13,
                   fontWeight: FontWeight.w700,
                   color: Pallets.blueBubbleColor,
-                  onTap: () => postBloc.add(const PostEvent.getCategories()),
+                  onTap: () =>
+                      postBloc.add(const PostEvent.getInterestTopics()),
                 ),
               ],
             ),

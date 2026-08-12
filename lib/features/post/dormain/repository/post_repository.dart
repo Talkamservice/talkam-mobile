@@ -14,6 +14,10 @@ abstract class PostRepository {
   Future<GetCategoriesResponse> getCategories(
       {String? categoryId, bool? mergeGroups});
 
+  /// The onboarding interest chips — post_categories rows marked
+  /// `type=interest_topic`.
+  Future<GetCategoriesResponse> getInterestTopics();
+
   Future<PostCategory> getCategoryById({
     String? categoryId,
   });
@@ -31,6 +35,8 @@ abstract class PostRepository {
   // Future<TalkamPost> getAPosts(String id);
 
   Future<CreatePostResponse> createPost(CreatePostPayload postData);
+
+  Future<CreatePostResponse> saveDraft(CreatePostPayload postData);
 
   Future<GetGuidlinesResponse> getRules();
 
@@ -63,4 +69,8 @@ abstract class PostRepository {
   Future<dynamic> deletePoll(String pollId);
 
   Future<dynamic> reportComment(String postId, String commentId, String reason);
+
+  /// Hides the post from the caller's v2 feeds. Returns the new
+  /// `not_interested` state.
+  Future<bool> toggleNotInterested(String postId);
 }

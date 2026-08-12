@@ -211,9 +211,6 @@ class _$SubscriptionsStateCopyWithImpl<$Res, $Val extends SubscriptionsState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -230,9 +227,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -474,9 +468,6 @@ class __$$GetPlansLoadingImplCopyWithImpl<$Res>
   __$$GetPlansLoadingImplCopyWithImpl(
       _$GetPlansLoadingImpl _value, $Res Function(_$GetPlansLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -721,8 +712,6 @@ class __$$GetPlansSuccessImplCopyWithImpl<$Res>
       _$GetPlansSuccessImpl _value, $Res Function(_$GetPlansSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -762,9 +751,7 @@ class _$GetPlansSuccessImpl implements _GetPlansSuccess {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetPlansSuccessImplCopyWith<_$GetPlansSuccessImpl> get copyWith =>
@@ -978,10 +965,7 @@ abstract class _GetPlansSuccess implements SubscriptionsState {
       _$GetPlansSuccessImpl;
 
   GetPlansResponse get response;
-
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetPlansSuccessImplCopyWith<_$GetPlansSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1003,8 +987,6 @@ class __$$GetPlansFailureImplCopyWithImpl<$Res>
       _$GetPlansFailureImpl _value, $Res Function(_$GetPlansFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1043,9 +1025,7 @@ class _$GetPlansFailureImpl implements _GetPlansFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetPlansFailureImplCopyWith<_$GetPlansFailureImpl> get copyWith =>
@@ -1258,10 +1238,7 @@ abstract class _GetPlansFailure implements SubscriptionsState {
   const factory _GetPlansFailure(final String error) = _$GetPlansFailureImpl;
 
   String get error;
-
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetPlansFailureImplCopyWith<_$GetPlansFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1280,9 +1257,6 @@ class __$$GetPlanByIdLoadingImplCopyWithImpl<$Res>
   __$$GetPlanByIdLoadingImplCopyWithImpl(_$GetPlanByIdLoadingImpl _value,
       $Res Function(_$GetPlanByIdLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -1527,8 +1501,6 @@ class __$$GetPlanByIdSuccessImplCopyWithImpl<$Res>
       $Res Function(_$GetPlanByIdSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1568,9 +1540,7 @@ class _$GetPlanByIdSuccessImpl implements _GetPlanByIdSuccess {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetPlanByIdSuccessImplCopyWith<_$GetPlanByIdSuccessImpl> get copyWith =>
@@ -1784,10 +1754,7 @@ abstract class _GetPlanByIdSuccess implements SubscriptionsState {
       _$GetPlanByIdSuccessImpl;
 
   TalkamPlan get response;
-
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetPlanByIdSuccessImplCopyWith<_$GetPlanByIdSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1809,8 +1776,6 @@ class __$$GetPlanByIdFailureImplCopyWithImpl<$Res>
       $Res Function(_$GetPlanByIdFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1849,9 +1814,7 @@ class _$GetPlanByIdFailureImpl implements _GetPlanByIdFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetPlanByIdFailureImplCopyWith<_$GetPlanByIdFailureImpl> get copyWith =>
@@ -2065,10 +2028,7 @@ abstract class _GetPlanByIdFailure implements SubscriptionsState {
       _$GetPlanByIdFailureImpl;
 
   String get error;
-
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetPlanByIdFailureImplCopyWith<_$GetPlanByIdFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2090,9 +2050,6 @@ class __$$GetSubscriptionsLoadingImplCopyWithImpl<$Res>
       _$GetSubscriptionsLoadingImpl _value,
       $Res Function(_$GetSubscriptionsLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -2341,8 +2298,6 @@ class __$$GetSubscriptionsSuccessImplCopyWithImpl<$Res>
       $Res Function(_$GetSubscriptionsSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2382,9 +2337,7 @@ class _$GetSubscriptionsSuccessImpl implements _GetSubscriptionsSuccess {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetSubscriptionsSuccessImplCopyWith<_$GetSubscriptionsSuccessImpl>
@@ -2598,10 +2551,7 @@ abstract class _GetSubscriptionsSuccess implements SubscriptionsState {
       final GetSubscriptionsResponse response) = _$GetSubscriptionsSuccessImpl;
 
   GetSubscriptionsResponse get response;
-
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetSubscriptionsSuccessImplCopyWith<_$GetSubscriptionsSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -2626,8 +2576,6 @@ class __$$GetSubscriptionsFailureImplCopyWithImpl<$Res>
       $Res Function(_$GetSubscriptionsFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2666,9 +2614,7 @@ class _$GetSubscriptionsFailureImpl implements _GetSubscriptionsFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetSubscriptionsFailureImplCopyWith<_$GetSubscriptionsFailureImpl>
@@ -2882,10 +2828,7 @@ abstract class _GetSubscriptionsFailure implements SubscriptionsState {
       _$GetSubscriptionsFailureImpl;
 
   String get error;
-
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetSubscriptionsFailureImplCopyWith<_$GetSubscriptionsFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -2907,9 +2850,6 @@ class __$$GetSubscriptionByIdLoadingImplCopyWithImpl<$Res>
       _$GetSubscriptionByIdLoadingImpl _value,
       $Res Function(_$GetSubscriptionByIdLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -3159,8 +3099,6 @@ class __$$GetSubscriptionByIdSuccessImplCopyWithImpl<$Res>
       $Res Function(_$GetSubscriptionByIdSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3200,9 +3138,7 @@ class _$GetSubscriptionByIdSuccessImpl implements _GetSubscriptionByIdSuccess {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetSubscriptionByIdSuccessImplCopyWith<_$GetSubscriptionByIdSuccessImpl>
@@ -3416,10 +3352,7 @@ abstract class _GetSubscriptionByIdSuccess implements SubscriptionsState {
       _$GetSubscriptionByIdSuccessImpl;
 
   TalkamSubscription get response;
-
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetSubscriptionByIdSuccessImplCopyWith<_$GetSubscriptionByIdSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -3444,8 +3377,6 @@ class __$$GetSubscriptionByIdFailureImplCopyWithImpl<$Res>
       $Res Function(_$GetSubscriptionByIdFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3484,9 +3415,7 @@ class _$GetSubscriptionByIdFailureImpl implements _GetSubscriptionByIdFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetSubscriptionByIdFailureImplCopyWith<_$GetSubscriptionByIdFailureImpl>
@@ -3700,10 +3629,7 @@ abstract class _GetSubscriptionByIdFailure implements SubscriptionsState {
       _$GetSubscriptionByIdFailureImpl;
 
   String get error;
-
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetSubscriptionByIdFailureImplCopyWith<_$GetSubscriptionByIdFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -3725,9 +3651,6 @@ class __$$InitiateSubscriptionLoadingImplCopyWithImpl<$Res>
       _$InitiateSubscriptionLoadingImpl _value,
       $Res Function(_$InitiateSubscriptionLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -3978,8 +3901,6 @@ class __$$InitiateSubscriptionSuccessImplCopyWithImpl<$Res>
       $Res Function(_$InitiateSubscriptionSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4020,9 +3941,7 @@ class _$InitiateSubscriptionSuccessImpl
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$InitiateSubscriptionSuccessImplCopyWith<_$InitiateSubscriptionSuccessImpl>
@@ -4237,10 +4156,7 @@ abstract class _InitiateSubscriptionSuccess implements SubscriptionsState {
       _$InitiateSubscriptionSuccessImpl;
 
   InitiateSubscriptionResponse get response;
-
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$InitiateSubscriptionSuccessImplCopyWith<_$InitiateSubscriptionSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -4265,8 +4181,6 @@ class __$$InitiateSubscriptionFailureImplCopyWithImpl<$Res>
       $Res Function(_$InitiateSubscriptionFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4306,9 +4220,7 @@ class _$InitiateSubscriptionFailureImpl
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$InitiateSubscriptionFailureImplCopyWith<_$InitiateSubscriptionFailureImpl>
@@ -4522,10 +4434,7 @@ abstract class _InitiateSubscriptionFailure implements SubscriptionsState {
       _$InitiateSubscriptionFailureImpl;
 
   String get error;
-
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$InitiateSubscriptionFailureImplCopyWith<_$InitiateSubscriptionFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -4547,9 +4456,6 @@ class __$$CancelSubscriptionLoadingImplCopyWithImpl<$Res>
       _$CancelSubscriptionLoadingImpl _value,
       $Res Function(_$CancelSubscriptionLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -4795,9 +4701,6 @@ class __$$CancelSubscriptionSuccessImplCopyWithImpl<$Res>
       _$CancelSubscriptionSuccessImpl _value,
       $Res Function(_$CancelSubscriptionSuccessImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -5046,8 +4949,6 @@ class __$$CancelSubscriptionFailureImplCopyWithImpl<$Res>
       $Res Function(_$CancelSubscriptionFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -5086,9 +4987,7 @@ class _$CancelSubscriptionFailureImpl implements _CancelSubscriptionFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$CancelSubscriptionFailureImplCopyWith<_$CancelSubscriptionFailureImpl>
@@ -5302,10 +5201,7 @@ abstract class _CancelSubscriptionFailure implements SubscriptionsState {
       _$CancelSubscriptionFailureImpl;
 
   String get error;
-
-  /// Create a copy of SubscriptionsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$CancelSubscriptionFailureImplCopyWith<_$CancelSubscriptionFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

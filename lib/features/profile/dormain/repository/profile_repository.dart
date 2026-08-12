@@ -48,4 +48,18 @@ abstract class ProfileRepository {
   /// Stamps the account's onboarding as complete server-side and returns the
   /// resulting onboarding summary.
   Future<Onboarding?> completeOnboarding();
+
+  /// Subscribe to / unsubscribe from an author — followers are notified of
+  /// their new non-anonymous posts. Returns the new `following` state.
+  Future<bool> toggleFollow(String userId);
+
+  Future<List<PostCreator>> fetchFollowing();
+
+  Future<List<PostCreator>> fetchFollowers();
+
+  /// Feeds-only: hides the user's posts/comments from the caller's v2 feeds.
+  /// DMs unaffected — that's [blockUser]. Returns the new `muted` state.
+  Future<bool> toggleMute(String userId);
+
+  Future<List<PostCreator>> fetchMutedUsers();
 }

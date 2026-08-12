@@ -48,7 +48,16 @@ class BlockUerEvent extends ProfileEvent {
   const BlockUerEvent(this.userId, {this.reload = true});
 
   @override
-  List<Object?> get props => [userId,reload];
+  List<Object?> get props => [userId, reload];
+}
+
+class MuteUserEvent extends ProfileEvent {
+  final String userId;
+
+  const MuteUserEvent(this.userId);
+
+  @override
+  List<Object?> get props => [userId];
 }
 
 class GetRemoteUser extends ProfileEvent {
@@ -67,10 +76,7 @@ class UpdateInterestEvent extends ProfileEvent {
   List<Object?> get props => [];
 }
 
-
 class Logout extends ProfileEvent {
-
-
   const Logout();
 
   @override

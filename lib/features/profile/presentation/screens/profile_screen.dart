@@ -15,6 +15,7 @@ import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/components/talkam_tab_bar.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_screen_cubit/profile_screen_cubit.dart';
+import 'package:talkam/features/profile/presentation/screens/tabs/connections_tab.dart';
 import 'package:talkam/features/profile/presentation/screens/tabs/profile_posts_tab.dart';
 import 'package:talkam/features/profile/presentation/screens/tabs/therapist_profile_info_tab.dart';
 import 'package:talkam/features/profile/presentation/widgets/delete_account_dialog.dart';
@@ -24,6 +25,8 @@ import 'package:talkam/gen/assets.gen.dart';
 enum _ProfileTabOptions {
   profile,
   posts,
+  following,
+  followers,
   settings;
 
   String get title {
@@ -32,6 +35,10 @@ enum _ProfileTabOptions {
         return "Profile";
       case posts:
         return "Post";
+      case following:
+        return "Following";
+      case followers:
+        return "Followers";
       case settings:
         return "Settings";
     }
@@ -52,8 +59,19 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   List<_ProfileTabOptions> get _availableTabs {
     return SessionManager.instance.isTherapistAccount
-        ? [_ProfileTabOptions.profile, _ProfileTabOptions.posts, _ProfileTabOptions.settings]
-        : [_ProfileTabOptions.posts, _ProfileTabOptions.settings];
+        ? [
+            _ProfileTabOptions.profile,
+            _ProfileTabOptions.posts,
+            _ProfileTabOptions.following,
+            _ProfileTabOptions.followers,
+            _ProfileTabOptions.settings,
+          ]
+        : [
+            _ProfileTabOptions.posts,
+            _ProfileTabOptions.following,
+            _ProfileTabOptions.followers,
+            _ProfileTabOptions.settings,
+          ];
   }
 
   @override
@@ -97,52 +115,82 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 final sessionManager = SessionManager.instance;
                 final isAnonymous = !sessionManager.isLoggedIn ||
                     sessionManager.anonymousUsername.isNotEmpty ||
-                    (user?.role?.toString().toLowerCase().contains('anonymous') ?? false);
+                    (user?.role
+                            ?.toString()
+                            .toLowerCase()
+                            .contains('anonymous') ??
+                        false);
 
                 final userName = user?.name;
                 final userHandle = isAnonymous
-                    ? (sessionManager.anonymousUsername.isNotEmpty ? sessionManager.anonymousUsername : (user?.username ?? 'dippsdavid'))
+                    ? (sessionManager.anonymousUsername.isNotEmpty
+                        ? sessionManager.anonymousUsername
+                        : (user?.username ?? 'dippsdavid'))
                     : user?.username;
                 final displayName = (userName != null && userName.isNotEmpty)
                     ? userName
-                    : (_talkamUser.name.isNotEmpty ? _talkamUser.name : "Femi Adebayo");
-                final handle = "@${(userHandle != null && userHandle.isNotEmpty) ? userHandle : (_talkamUser.username.isNotEmpty ? _talkamUser.username : 'dippsdavid')}";
+                    : (_talkamUser.name.isNotEmpty
+                        ? _talkamUser.name
+                        : "Femi Adebayo");
+                final handle =
+                    "@${(userHandle != null && userHandle.isNotEmpty) ? userHandle : (_talkamUser.username.isNotEmpty ? _talkamUser.username : 'dippsdavid')}";
                 final avatarUrl = user?.avatar ?? _talkamUser.avatar;
 
                 final isTherapist = SessionManager.instance.isTherapistAccount;
                 _selectedTab ??= _availableTabs.first;
 
+                final canPop = Navigator.canPop(context);
+
                 return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    if (canPop)
+                      Padding(
+                        padding: EdgeInsets.only(left: 4.w, top: 4.h),
+                        child: IconButton(
+                          icon: Icon(
+                            Icons.arrow_back_ios_new,
+                            color: Pallets.boldBlackV2,
+                            size: 20.r,
+                          ),
+                          onPressed: () => Navigator.pop(context),
+                        ),
+                      ),
+
                     // Top User Header
                     Padding(
-                      padding: EdgeInsets.only(top: 20.h, right: 16.w, left: 16.w),
+                      padding:
+                          EdgeInsets.only(top: canPop ? 4.h : 20.h, right: 16.w, left: 16.w),
                       child: isTherapist
-                          ? _buildTherapistHeader(displayName, handle, avatarUrl)
-                          : _buildRegularHeader(isAnonymous, displayName, handle, avatarUrl),
+                          ? _buildTherapistHeader(
+                              displayName, handle, avatarUrl)
+                          : _buildRegularHeader(
+                              isAnonymous, displayName, handle, avatarUrl),
                     ),
 
                     24.verticalSpace,
 
                     // Tab Bar: Profile | Post | Settings
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
+                    SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      physics: const BouncingScrollPhysics(),
+                      padding: EdgeInsets.symmetric(horizontal: 8.w),
                       child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: _availableTabs.map((tabOption) {
                           return Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 16.w),
+                            padding: EdgeInsets.symmetric(horizontal: 12.w),
                             child: TalkamTabBar(
                               key: Key(tabOption.title),
                               useExpandedAsParent: false,
                               title: tabOption.title,
+                              indicatorWidth: null,
                               isSelected: tabOption == _selectedTab,
                               onTap: () {
                                 setState(() {
                                   _selectedTab = tabOption;
                                 });
-                                _pageController.jumpToPage(_availableTabs.indexOf(tabOption));
+                                _pageController.jumpToPage(
+                                    _availableTabs.indexOf(tabOption));
                               },
                             ),
                           );
@@ -151,7 +199,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     Padding(
                       padding: EdgeInsets.only(top: 6.h),
-                      child: const Divider(height: 1, color: Pallets.borderGrey),
+                      child:
+                          const Divider(height: 1, color: Pallets.borderGrey),
                     ),
 
                     // Tab Views
@@ -173,9 +222,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               return ProfilePostTab(
                                 key: PageStorageKey(_ProfileTabOptions.posts),
                               );
+                            case _ProfileTabOptions.following:
+                              return const ConnectionsTab(
+                                key: PageStorageKey(
+                                    _ProfileTabOptions.following),
+                                type: ConnectionsListType.following,
+                              );
+                            case _ProfileTabOptions.followers:
+                              return const ConnectionsTab(
+                                key: PageStorageKey(
+                                    _ProfileTabOptions.followers),
+                                type: ConnectionsListType.followers,
+                              );
                             case _ProfileTabOptions.settings:
                               return _SettingsTab(
-                                key: PageStorageKey(_ProfileTabOptions.settings),
+                                key:
+                                    PageStorageKey(_ProfileTabOptions.settings),
                               );
                           }
                         }).toList(),
@@ -190,7 +252,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
       },
     );
   }
-  Widget _buildRegularHeader(bool isAnonymous, String displayName, String handle, String? avatarUrl) {
+
+  Widget _buildRegularHeader(
+      bool isAnonymous, String displayName, String handle, String? avatarUrl) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -228,7 +292,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
           fontWeight: FontWeight.w500,
           color: Pallets.grey400,
         ),
-
         if (isAnonymous) ...[
           8.verticalSpace,
           Container(
@@ -258,7 +321,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildTherapistHeader(String displayName, String handle, String? avatarUrl) {
+  Widget _buildTherapistHeader(
+      String displayName, String handle, String? avatarUrl) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -305,7 +369,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Container(width: 1, height: 32.h, color: const Color(0xFFE5E7EB)),
             _buildStatItem("4.9", "Ratings", showStar: true),
             Container(width: 1, height: 32.h, color: const Color(0xFFE5E7EB)),
-            _buildStatItem("4pm", "next slot", valueColor: const Color(0xFF3B82F6)),
+            _buildStatItem("4pm", "next slot",
+                valueColor: const Color(0xFF3B82F6)),
             Container(width: 1, height: 32.h, color: const Color(0xFFE5E7EB)),
             _buildStatItem("2 hrs", "avg"),
           ],
@@ -314,7 +379,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Widget _buildStatItem(String value, String label, {bool showStar = false, Color? valueColor}) {
+  Widget _buildStatItem(String value, String label,
+      {bool showStar = false, Color? valueColor}) {
     return Column(
       children: [
         Row(

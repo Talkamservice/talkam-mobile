@@ -8,7 +8,6 @@ import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
-import 'package:talkam/core/mock/mock_home_data.dart';
 import 'package:talkam/core/services/image_manipulation/image_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
@@ -19,6 +18,7 @@ import 'package:talkam/features/post/data/models/create_post_payload.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
 import 'package:talkam/features/post/presentation/bloc/create_post/create_post_cubit.dart';
+import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 import 'package:talkam/features/post/presentation/widgets/rules_sheet.dart';
 import 'package:talkam/features/post/presentation/widgets/tags_picker_widget.dart';
 import 'package:talkam/gen/assets.gen.dart';
@@ -44,6 +44,7 @@ class CreatePostSheet extends StatefulWidget {
 class _CreatePostSheetState extends State<CreatePostSheet>
     with RefreshPostsMixin {
   final bloc = CreatePostCubit(injector.get());
+  final _postBloc = PostBloc(injector.get());
   final _titleController = TextEditingController();
   final _bodyController = TextEditingController();
 
@@ -55,9 +56,16 @@ class _CreatePostSheetState extends State<CreatePostSheet>
   File? _stagedImage;
 
   @override
+  void initState() {
+    _postBloc.add(const PostEvent.getInterestTopics());
+    super.initState();
+  }
+
+  @override
   void dispose() {
     _titleController.dispose();
     _bodyController.dispose();
+    _postBloc.close();
     super.dispose();
   }
 
@@ -119,10 +127,34 @@ class _CreatePostSheetState extends State<CreatePostSheet>
       type: _stagedImage != null ? "Image" : "Text",
       attachments:
           _stagedImage != null ? [Attachment.image(_stagedImage!.path)] : [],
+      status: _schedulePost ? "Scheduled" : "Active",
       publishAt: _schedulePost ? _scheduleDate : null,
       isAnonymous: _isAnonymous.toInt,
     ));
     bloc.createPost();
+  }
+
+  void _saveDraft() {
+    if (_titleController.text.trim().isEmpty) {
+      CustomDialogs.error("Please add a title for your post");
+      return;
+    }
+    if (_selectedCategory == null) {
+      CustomDialogs.error("Please select an interest");
+      return;
+    }
+
+    bloc.updatePayload(CreatePostPayload(
+      categoryId: _selectedCategory!.id,
+      title: _titleController.text.trim(),
+      body: _bodyController.text.trim(),
+      tags: _tags,
+      type: _stagedImage != null ? "Image" : "Text",
+      attachments:
+          _stagedImage != null ? [Attachment.image(_stagedImage!.path)] : [],
+      isAnonymous: _isAnonymous.toInt,
+    ));
+    bloc.saveDraft();
   }
 
   @override
@@ -142,6 +174,16 @@ class _CreatePostSheetState extends State<CreatePostSheet>
               refreshPost();
               context.pop();
               CustomDialogs.success("Post created");
+            },
+            saveDraftLoading: () => CustomDialogs.showLoading(context),
+            saveDraftFailure: (error) {
+              context.pop();
+              CustomDialogs.error(error.toString());
+            },
+            saveDraftSuccess: (response) {
+              context.pop();
+              context.pop();
+              CustomDialogs.success("Saved as draft");
             },
           );
         },
@@ -190,10 +232,20 @@ class _CreatePostSheetState extends State<CreatePostSheet>
                       ],
                     ),
                     16.verticalSpace,
-                    _CategoryChips(
-                      selected: _selectedCategory,
-                      onSelected: (category) =>
-                          setState(() => _selectedCategory = category),
+                    BlocBuilder<PostBloc, PostState>(
+                      bloc: _postBloc,
+                      builder: (context, state) {
+                        final categories = state.maybeWhen(
+                          orElse: () => const <PostCategory>[],
+                          getInterestTopicsSuccess: (response) => response.data,
+                        );
+                        return _CategoryChips(
+                          categories: categories,
+                          selected: _selectedCategory,
+                          onSelected: (category) =>
+                              setState(() => _selectedCategory = category),
+                        );
+                      },
                     ),
                     8.verticalSpace,
                     const Align(
@@ -378,7 +430,7 @@ class _CreatePostSheetState extends State<CreatePostSheet>
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         InkWell(
-                          onTap: _comingSoon,
+                          onTap: _saveDraft,
                           child: const TextView(
                             text: "Save as Draft",
                             color: Pallets.blueBubbleColor,
@@ -521,21 +573,33 @@ class _OutlinedBox extends StatelessWidget {
 }
 
 class _CategoryChips extends StatelessWidget {
-  const _CategoryChips({required this.selected, required this.onSelected});
+  const _CategoryChips({
+    required this.categories,
+    required this.selected,
+    required this.onSelected,
+  });
 
+  final List<PostCategory> categories;
   final PostCategory? selected;
   final ValueChanged<PostCategory> onSelected;
 
   @override
   Widget build(BuildContext context) {
+    if (categories.isEmpty) {
+      return SizedBox(
+        height: 40.h,
+        child: Center(child: CustomDialogs.getLoading(size: 24)),
+      );
+    }
+
     return SizedBox(
       height: 40.h,
       child: ListView.separated(
         scrollDirection: Axis.horizontal,
-        itemCount: MockHomeData.feedCategories.length,
+        itemCount: categories.length,
         separatorBuilder: (context, index) => 8.horizontalSpace,
         itemBuilder: (context, index) {
-          final category = MockHomeData.feedCategories[index];
+          final category = categories[index];
           final isSelected = selected?.id == category.id;
           return GestureDetector(
             onTap: () => onSelected(category),

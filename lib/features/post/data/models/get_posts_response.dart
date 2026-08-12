@@ -217,8 +217,8 @@ class TalkamPost {
         user: json["user"] == null
             ? PostCreator.anonymous()
             : PostCreator.fromJson(json["user"]),
-        canComment: json["can_comment"],
-        isAnonymous: json["is_anonymous"],
+        canComment: json["can_comment"] ?? 1,
+        isAnonymous: json["is_anonymous"] ?? 0,
         tags: json["tags"] is String
             ? List<String>.from(jsonDecode(json["tags"])!.map((x) => x))
             : json["tags"] == null

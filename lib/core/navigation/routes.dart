@@ -295,6 +295,7 @@ class CustomRoutes {
       GoRoute(
         path: '/${PageUrl.profileScreen}',
         name: PageUrl.profileScreen,
+        parentNavigatorKey: rootNavigatorKey,
         builder: (context, state) => const ProfileScreen(),
       ),
       GoRoute(

@@ -83,9 +83,6 @@ class _$PollEventCopyWithImpl<$Res, $Val extends PollEvent>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of PollEvent
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -105,8 +102,6 @@ class __$$SelectPollImplCopyWithImpl<$Res>
       _$SelectPollImpl _value, $Res Function(_$SelectPollImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of PollEvent
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -145,9 +140,7 @@ class _$SelectPollImpl implements _SelectPoll {
   @override
   int get hashCode => Object.hash(runtimeType, pollId);
 
-  /// Create a copy of PollEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$SelectPollImplCopyWith<_$SelectPollImpl> get copyWith =>
@@ -232,10 +225,7 @@ abstract class _SelectPoll implements PollEvent {
   const factory _SelectPoll(final String pollId) = _$SelectPollImpl;
 
   String get pollId;
-
-  /// Create a copy of PollEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$SelectPollImplCopyWith<_$SelectPollImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -257,8 +247,6 @@ class __$$DeletePollImplCopyWithImpl<$Res>
       _$DeletePollImpl _value, $Res Function(_$DeletePollImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of PollEvent
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -297,9 +285,7 @@ class _$DeletePollImpl implements _DeletePoll {
   @override
   int get hashCode => Object.hash(runtimeType, pollId);
 
-  /// Create a copy of PollEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$DeletePollImplCopyWith<_$DeletePollImpl> get copyWith =>
@@ -384,10 +370,7 @@ abstract class _DeletePoll implements PollEvent {
   const factory _DeletePoll(final String pollId) = _$DeletePollImpl;
 
   String get pollId;
-
-  /// Create a copy of PollEvent
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$DeletePollImplCopyWith<_$DeletePollImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -406,9 +389,6 @@ class __$$UpdatePercentageImplCopyWithImpl<$Res>
   __$$UpdatePercentageImplCopyWithImpl(_$UpdatePercentageImpl _value,
       $Res Function(_$UpdatePercentageImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of PollEvent
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -523,9 +503,6 @@ class __$$InitialEventImplCopyWithImpl<$Res>
   __$$InitialEventImplCopyWithImpl(
       _$InitialEventImpl _value, $Res Function(_$InitialEventImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of PollEvent
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -738,9 +715,6 @@ class _$PollStateCopyWithImpl<$Res, $Val extends PollState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of PollState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -757,9 +731,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of PollState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -917,9 +888,6 @@ class __$$FetchEFundsLoadingImplCopyWithImpl<$Res>
   __$$FetchEFundsLoadingImplCopyWithImpl(_$FetchEFundsLoadingImpl _value,
       $Res Function(_$FetchEFundsLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of PollState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -1080,8 +1048,6 @@ class __$$FetchEFundsSuccessImplCopyWithImpl<$Res>
       $Res Function(_$FetchEFundsSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of PollState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1121,9 +1087,7 @@ class _$FetchEFundsSuccessImpl implements _FetchEFundsSuccess {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
 
-  /// Create a copy of PollState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$FetchEFundsSuccessImplCopyWith<_$FetchEFundsSuccessImpl> get copyWith =>
@@ -1253,10 +1217,7 @@ abstract class _FetchEFundsSuccess implements PollState {
       _$FetchEFundsSuccessImpl;
 
   dynamic get response;
-
-  /// Create a copy of PollState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$FetchEFundsSuccessImplCopyWith<_$FetchEFundsSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1278,8 +1239,6 @@ class __$$FetchEFundsFailureImplCopyWithImpl<$Res>
       $Res Function(_$FetchEFundsFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of PollState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1318,9 +1277,7 @@ class _$FetchEFundsFailureImpl implements _FetchEFundsFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of PollState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$FetchEFundsFailureImplCopyWith<_$FetchEFundsFailureImpl> get copyWith =>
@@ -1450,10 +1407,7 @@ abstract class _FetchEFundsFailure implements PollState {
       _$FetchEFundsFailureImpl;
 
   String get error;
-
-  /// Create a copy of PollState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$FetchEFundsFailureImplCopyWith<_$FetchEFundsFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1472,9 +1426,6 @@ class __$$SelectPollLoadingImplCopyWithImpl<$Res>
   __$$SelectPollLoadingImplCopyWithImpl(_$SelectPollLoadingImpl _value,
       $Res Function(_$SelectPollLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of PollState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -1635,8 +1586,6 @@ class __$$SelectPollSuccessImplCopyWithImpl<$Res>
       $Res Function(_$SelectPollSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of PollState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1676,9 +1625,7 @@ class _$SelectPollSuccessImpl implements _SelectPollSuccess {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
 
-  /// Create a copy of PollState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$SelectPollSuccessImplCopyWith<_$SelectPollSuccessImpl> get copyWith =>
@@ -1808,10 +1755,7 @@ abstract class _SelectPollSuccess implements PollState {
       _$SelectPollSuccessImpl;
 
   dynamic get response;
-
-  /// Create a copy of PollState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$SelectPollSuccessImplCopyWith<_$SelectPollSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1833,8 +1777,6 @@ class __$$SelectPollFailureImplCopyWithImpl<$Res>
       $Res Function(_$SelectPollFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of PollState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1873,9 +1815,7 @@ class _$SelectPollFailureImpl implements _SelectPollFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of PollState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$SelectPollFailureImplCopyWith<_$SelectPollFailureImpl> get copyWith =>
@@ -2005,10 +1945,7 @@ abstract class _SelectPollFailure implements PollState {
       _$SelectPollFailureImpl;
 
   String get error;
-
-  /// Create a copy of PollState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$SelectPollFailureImplCopyWith<_$SelectPollFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2027,9 +1964,6 @@ class __$$DeletePollLoadingImplCopyWithImpl<$Res>
   __$$DeletePollLoadingImplCopyWithImpl(_$DeletePollLoadingImpl _value,
       $Res Function(_$DeletePollLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of PollState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -2190,8 +2124,6 @@ class __$$DeletePollSuccessImplCopyWithImpl<$Res>
       $Res Function(_$DeletePollSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of PollState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2231,9 +2163,7 @@ class _$DeletePollSuccessImpl implements _DeletePollSuccess {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
 
-  /// Create a copy of PollState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$DeletePollSuccessImplCopyWith<_$DeletePollSuccessImpl> get copyWith =>
@@ -2363,10 +2293,7 @@ abstract class _DeletePollSuccess implements PollState {
       _$DeletePollSuccessImpl;
 
   dynamic get response;
-
-  /// Create a copy of PollState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$DeletePollSuccessImplCopyWith<_$DeletePollSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2388,8 +2315,6 @@ class __$$DeletePollFailureImplCopyWithImpl<$Res>
       $Res Function(_$DeletePollFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of PollState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2428,9 +2353,7 @@ class _$DeletePollFailureImpl implements _DeletePollFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of PollState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$DeletePollFailureImplCopyWith<_$DeletePollFailureImpl> get copyWith =>
@@ -2560,10 +2483,7 @@ abstract class _DeletePollFailure implements PollState {
       _$DeletePollFailureImpl;
 
   String get error;
-
-  /// Create a copy of PollState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$DeletePollFailureImplCopyWith<_$DeletePollFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2583,9 +2503,6 @@ class __$$UpdatePercentageStateImplCopyWithImpl<$Res>
   __$$UpdatePercentageStateImplCopyWithImpl(_$UpdatePercentageStateImpl _value,
       $Res Function(_$UpdatePercentageStateImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of PollState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc

@@ -67,9 +67,6 @@ class _$GroupDetailsScreenStateCopyWithImpl<$Res,
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of GroupDetailsScreenState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -86,9 +83,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of GroupDetailsScreenState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc

@@ -283,9 +283,6 @@ class _$AdsStateCopyWithImpl<$Res, $Val extends AdsState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -302,9 +299,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -619,9 +613,6 @@ class __$$FetchingPromotionsImplCopyWithImpl<$Res>
   __$$FetchingPromotionsImplCopyWithImpl(_$FetchingPromotionsImpl _value,
       $Res Function(_$FetchingPromotionsImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -939,8 +930,6 @@ class __$$PromotionsLoadedImplCopyWithImpl<$Res>
       $Res Function(_$PromotionsLoadedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -981,9 +970,7 @@ class _$PromotionsLoadedImpl implements _PromotionsLoaded {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(promotions));
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$PromotionsLoadedImplCopyWith<_$PromotionsLoadedImpl> get copyWith =>
@@ -1270,10 +1257,7 @@ abstract class _PromotionsLoaded implements AdsState {
       _$PromotionsLoadedImpl;
 
   dynamic get promotions;
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$PromotionsLoadedImplCopyWith<_$PromotionsLoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1295,8 +1279,6 @@ class __$$PromotionsLoadFailedImplCopyWithImpl<$Res>
       $Res Function(_$PromotionsLoadFailedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1335,9 +1317,7 @@ class _$PromotionsLoadFailedImpl implements _PromotionsLoadFailed {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$PromotionsLoadFailedImplCopyWith<_$PromotionsLoadFailedImpl>
@@ -1625,10 +1605,7 @@ abstract class _PromotionsLoadFailed implements AdsState {
       _$PromotionsLoadFailedImpl;
 
   String get message;
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$PromotionsLoadFailedImplCopyWith<_$PromotionsLoadFailedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -1648,9 +1625,6 @@ class __$$FetchingPromotionByIdImplCopyWithImpl<$Res>
   __$$FetchingPromotionByIdImplCopyWithImpl(_$FetchingPromotionByIdImpl _value,
       $Res Function(_$FetchingPromotionByIdImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -1969,8 +1943,6 @@ class __$$PromotionByIdLoadedImplCopyWithImpl<$Res>
       $Res Function(_$PromotionByIdLoadedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2010,9 +1982,7 @@ class _$PromotionByIdLoadedImpl implements _PromotionByIdLoaded {
   @override
   int get hashCode => Object.hash(runtimeType, promotion);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$PromotionByIdLoadedImplCopyWith<_$PromotionByIdLoadedImpl> get copyWith =>
@@ -2299,10 +2269,7 @@ abstract class _PromotionByIdLoaded implements AdsState {
       _$PromotionByIdLoadedImpl;
 
   PromotionData get promotion;
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$PromotionByIdLoadedImplCopyWith<_$PromotionByIdLoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -2326,8 +2293,6 @@ class __$$PromotionByIdLoadFailedImplCopyWithImpl<$Res>
       $Res Function(_$PromotionByIdLoadFailedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -2366,9 +2331,7 @@ class _$PromotionByIdLoadFailedImpl implements _PromotionByIdLoadFailed {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$PromotionByIdLoadFailedImplCopyWith<_$PromotionByIdLoadFailedImpl>
@@ -2655,10 +2618,7 @@ abstract class _PromotionByIdLoadFailed implements AdsState {
       _$PromotionByIdLoadFailedImpl;
 
   String get message;
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$PromotionByIdLoadFailedImplCopyWith<_$PromotionByIdLoadFailedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -2677,9 +2637,6 @@ class __$$CreatingPromotionImplCopyWithImpl<$Res>
   __$$CreatingPromotionImplCopyWithImpl(_$CreatingPromotionImpl _value,
       $Res Function(_$CreatingPromotionImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -2997,8 +2954,6 @@ class __$$PromotionCreatedImplCopyWithImpl<$Res>
       $Res Function(_$PromotionCreatedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3038,9 +2993,7 @@ class _$PromotionCreatedImpl implements _PromotionCreated {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(result));
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$PromotionCreatedImplCopyWith<_$PromotionCreatedImpl> get copyWith =>
@@ -3327,10 +3280,7 @@ abstract class _PromotionCreated implements AdsState {
       _$PromotionCreatedImpl;
 
   dynamic get result;
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$PromotionCreatedImplCopyWith<_$PromotionCreatedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -3353,8 +3303,6 @@ class __$$PromotionCreateFailedImplCopyWithImpl<$Res>
       $Res Function(_$PromotionCreateFailedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -3393,9 +3341,7 @@ class _$PromotionCreateFailedImpl implements _PromotionCreateFailed {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$PromotionCreateFailedImplCopyWith<_$PromotionCreateFailedImpl>
@@ -3682,10 +3628,7 @@ abstract class _PromotionCreateFailed implements AdsState {
       _$PromotionCreateFailedImpl;
 
   String get message;
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$PromotionCreateFailedImplCopyWith<_$PromotionCreateFailedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -3704,9 +3647,6 @@ class __$$RemovingPromotionImplCopyWithImpl<$Res>
   __$$RemovingPromotionImplCopyWithImpl(_$RemovingPromotionImpl _value,
       $Res Function(_$RemovingPromotionImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -4024,8 +3964,6 @@ class __$$PromotionRemovedImplCopyWithImpl<$Res>
       $Res Function(_$PromotionRemovedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4065,9 +4003,7 @@ class _$PromotionRemovedImpl implements _PromotionRemoved {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(result));
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$PromotionRemovedImplCopyWith<_$PromotionRemovedImpl> get copyWith =>
@@ -4354,10 +4290,7 @@ abstract class _PromotionRemoved implements AdsState {
       _$PromotionRemovedImpl;
 
   dynamic get result;
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$PromotionRemovedImplCopyWith<_$PromotionRemovedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -4380,8 +4313,6 @@ class __$$PromotionRemoveFailedImplCopyWithImpl<$Res>
       $Res Function(_$PromotionRemoveFailedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -4420,9 +4351,7 @@ class _$PromotionRemoveFailedImpl implements _PromotionRemoveFailed {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$PromotionRemoveFailedImplCopyWith<_$PromotionRemoveFailedImpl>
@@ -4709,10 +4638,7 @@ abstract class _PromotionRemoveFailed implements AdsState {
       _$PromotionRemoveFailedImpl;
 
   String get message;
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$PromotionRemoveFailedImplCopyWith<_$PromotionRemoveFailedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -4731,9 +4657,6 @@ class __$$ValidateStateImplCopyWithImpl<$Res>
   __$$ValidateStateImplCopyWithImpl(
       _$ValidateStateImpl _value, $Res Function(_$ValidateStateImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -5048,9 +4971,6 @@ class __$$ValidateSuccessImplCopyWithImpl<$Res>
   __$$ValidateSuccessImplCopyWithImpl(
       _$ValidateSuccessImpl _value, $Res Function(_$ValidateSuccessImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -5365,9 +5285,6 @@ class __$$PaymentLoadingImplCopyWithImpl<$Res>
   __$$PaymentLoadingImplCopyWithImpl(
       _$PaymentLoadingImpl _value, $Res Function(_$PaymentLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -5685,8 +5602,6 @@ class __$$PaymentSuccessImplCopyWithImpl<$Res>
       _$PaymentSuccessImpl _value, $Res Function(_$PaymentSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -5725,9 +5640,7 @@ class _$PaymentSuccessImpl implements _PaymentSuccess {
   @override
   int get hashCode => Object.hash(runtimeType, result);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$PaymentSuccessImplCopyWith<_$PaymentSuccessImpl> get copyWith =>
@@ -6014,10 +5927,7 @@ abstract class _PaymentSuccess implements AdsState {
       _$PaymentSuccessImpl;
 
   ChargeResponse get result;
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$PaymentSuccessImplCopyWith<_$PaymentSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -6039,8 +5949,6 @@ class __$$PaymentFailedImplCopyWithImpl<$Res>
       _$PaymentFailedImpl _value, $Res Function(_$PaymentFailedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -6079,9 +5987,7 @@ class _$PaymentFailedImpl implements _PaymentFailed {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$PaymentFailedImplCopyWith<_$PaymentFailedImpl> get copyWith =>
@@ -6366,10 +6272,7 @@ abstract class _PaymentFailed implements AdsState {
   const factory _PaymentFailed(final String message) = _$PaymentFailedImpl;
 
   String get message;
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$PaymentFailedImplCopyWith<_$PaymentFailedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -6388,9 +6291,6 @@ class __$$VerifyPaymentLoadingImplCopyWithImpl<$Res>
   __$$VerifyPaymentLoadingImplCopyWithImpl(_$VerifyPaymentLoadingImpl _value,
       $Res Function(_$VerifyPaymentLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -6709,8 +6609,6 @@ class __$$VerifyPaymentSuccessImplCopyWithImpl<$Res>
       $Res Function(_$VerifyPaymentSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -6750,9 +6648,7 @@ class _$VerifyPaymentSuccessImpl implements _VerifyPaymentSuccess {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(result));
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$VerifyPaymentSuccessImplCopyWith<_$VerifyPaymentSuccessImpl>
@@ -7040,10 +6936,7 @@ abstract class _VerifyPaymentSuccess implements AdsState {
       _$VerifyPaymentSuccessImpl;
 
   dynamic get result;
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$VerifyPaymentSuccessImplCopyWith<_$VerifyPaymentSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -7065,8 +6958,6 @@ class __$$VarifyPaymentFailedImplCopyWithImpl<$Res>
       $Res Function(_$VarifyPaymentFailedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -7105,9 +6996,7 @@ class _$VarifyPaymentFailedImpl implements _VarifyPaymentFailed {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$VarifyPaymentFailedImplCopyWith<_$VarifyPaymentFailedImpl> get copyWith =>
@@ -7394,10 +7283,7 @@ abstract class _VarifyPaymentFailed implements AdsState {
       _$VarifyPaymentFailedImpl;
 
   String get message;
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$VarifyPaymentFailedImplCopyWith<_$VarifyPaymentFailedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -7416,9 +7302,6 @@ class __$$UpdateAdLoadingImplCopyWithImpl<$Res>
   __$$UpdateAdLoadingImplCopyWithImpl(
       _$UpdateAdLoadingImpl _value, $Res Function(_$UpdateAdLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -7736,8 +7619,6 @@ class __$$UpdateAdSuccessImplCopyWithImpl<$Res>
       _$UpdateAdSuccessImpl _value, $Res Function(_$UpdateAdSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -7777,9 +7658,7 @@ class _$UpdateAdSuccessImpl implements _UpdateAdSuccess {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(result));
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$UpdateAdSuccessImplCopyWith<_$UpdateAdSuccessImpl> get copyWith =>
@@ -8065,10 +7944,7 @@ abstract class _UpdateAdSuccess implements AdsState {
   const factory _UpdateAdSuccess(final dynamic result) = _$UpdateAdSuccessImpl;
 
   dynamic get result;
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$UpdateAdSuccessImplCopyWith<_$UpdateAdSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -8090,8 +7966,6 @@ class __$$UpdateAdFailureImplCopyWithImpl<$Res>
       _$UpdateAdFailureImpl _value, $Res Function(_$UpdateAdFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -8130,9 +8004,7 @@ class _$UpdateAdFailureImpl implements _UpdateAdFailure {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$UpdateAdFailureImplCopyWith<_$UpdateAdFailureImpl> get copyWith =>
@@ -8418,10 +8290,7 @@ abstract class _UpdateAdFailure implements AdsState {
   const factory _UpdateAdFailure(final String message) = _$UpdateAdFailureImpl;
 
   String get message;
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$UpdateAdFailureImplCopyWith<_$UpdateAdFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -8440,9 +8309,6 @@ class __$$GetAnalyticsLoadingImplCopyWithImpl<$Res>
   __$$GetAnalyticsLoadingImplCopyWithImpl(_$GetAnalyticsLoadingImpl _value,
       $Res Function(_$GetAnalyticsLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -8761,8 +8627,6 @@ class __$$GetAnalyticsSuccessImplCopyWithImpl<$Res>
       $Res Function(_$GetAnalyticsSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -8801,9 +8665,7 @@ class _$GetAnalyticsSuccessImpl implements _GetAnalyticsSuccess {
   @override
   int get hashCode => Object.hash(runtimeType, result);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetAnalyticsSuccessImplCopyWith<_$GetAnalyticsSuccessImpl> get copyWith =>
@@ -9090,10 +8952,7 @@ abstract class _GetAnalyticsSuccess implements AdsState {
       _$GetAnalyticsSuccessImpl;
 
   AdAnalyticsResponse get result;
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetAnalyticsSuccessImplCopyWith<_$GetAnalyticsSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -9115,8 +8974,6 @@ class __$$GetAnalyticsFailedImplCopyWithImpl<$Res>
       $Res Function(_$GetAnalyticsFailedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -9155,9 +9012,7 @@ class _$GetAnalyticsFailedImpl implements _GetAnalyticsFailed {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetAnalyticsFailedImplCopyWith<_$GetAnalyticsFailedImpl> get copyWith =>
@@ -9444,10 +9299,7 @@ abstract class _GetAnalyticsFailed implements AdsState {
       _$GetAnalyticsFailedImpl;
 
   String get message;
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetAnalyticsFailedImplCopyWith<_$GetAnalyticsFailedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -9466,9 +9318,6 @@ class __$$UpdateStatLoadingImplCopyWithImpl<$Res>
   __$$UpdateStatLoadingImplCopyWithImpl(_$UpdateStatLoadingImpl _value,
       $Res Function(_$UpdateStatLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -9786,8 +9635,6 @@ class __$$UpdateStatsSuccessImplCopyWithImpl<$Res>
       $Res Function(_$UpdateStatsSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -9827,9 +9674,7 @@ class _$UpdateStatsSuccessImpl implements _UpdateStatsSuccess {
   int get hashCode =>
       Object.hash(runtimeType, const DeepCollectionEquality().hash(result));
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$UpdateStatsSuccessImplCopyWith<_$UpdateStatsSuccessImpl> get copyWith =>
@@ -10116,10 +9961,7 @@ abstract class _UpdateStatsSuccess implements AdsState {
       _$UpdateStatsSuccessImpl;
 
   dynamic get result;
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$UpdateStatsSuccessImplCopyWith<_$UpdateStatsSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -10141,8 +9983,6 @@ class __$$UpdateStatsFailureImplCopyWithImpl<$Res>
       $Res Function(_$UpdateStatsFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -10181,9 +10021,7 @@ class _$UpdateStatsFailureImpl implements _UpdateStatsFailure {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$UpdateStatsFailureImplCopyWith<_$UpdateStatsFailureImpl> get copyWith =>
@@ -10470,10 +10308,7 @@ abstract class _UpdateStatsFailure implements AdsState {
       _$UpdateStatsFailureImpl;
 
   String get message;
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$UpdateStatsFailureImplCopyWith<_$UpdateStatsFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -10492,9 +10327,6 @@ class __$$GetPricingLoadingImplCopyWithImpl<$Res>
   __$$GetPricingLoadingImplCopyWithImpl(_$GetPricingLoadingImpl _value,
       $Res Function(_$GetPricingLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -10812,8 +10644,6 @@ class __$$GetPricingSuccessImplCopyWithImpl<$Res>
       $Res Function(_$GetPricingSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -10852,9 +10682,7 @@ class _$GetPricingSuccessImpl implements _GetPricingSuccess {
   @override
   int get hashCode => Object.hash(runtimeType, result);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetPricingSuccessImplCopyWith<_$GetPricingSuccessImpl> get copyWith =>
@@ -11141,10 +10969,7 @@ abstract class _GetPricingSuccess implements AdsState {
       _$GetPricingSuccessImpl;
 
   GetPricingResponse get result;
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetPricingSuccessImplCopyWith<_$GetPricingSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -11166,8 +10991,6 @@ class __$$GetPricingFailureImplCopyWithImpl<$Res>
       $Res Function(_$GetPricingFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -11206,9 +11029,7 @@ class _$GetPricingFailureImpl implements _GetPricingFailure {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetPricingFailureImplCopyWith<_$GetPricingFailureImpl> get copyWith =>
@@ -11495,10 +11316,7 @@ abstract class _GetPricingFailure implements AdsState {
       _$GetPricingFailureImpl;
 
   String get message;
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetPricingFailureImplCopyWith<_$GetPricingFailureImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -11518,9 +11336,6 @@ class __$$GetCalculationLoadingImplCopyWithImpl<$Res>
   __$$GetCalculationLoadingImplCopyWithImpl(_$GetCalculationLoadingImpl _value,
       $Res Function(_$GetCalculationLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -11840,8 +11655,6 @@ class __$$GetCalculationSuccessImplCopyWithImpl<$Res>
       $Res Function(_$GetCalculationSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -11880,9 +11693,7 @@ class _$GetCalculationSuccessImpl implements _GetCalculationSuccess {
   @override
   int get hashCode => Object.hash(runtimeType, result);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetCalculationSuccessImplCopyWith<_$GetCalculationSuccessImpl>
@@ -12169,10 +11980,7 @@ abstract class _GetCalculationSuccess implements AdsState {
       _$GetCalculationSuccessImpl;
 
   GetCalculationResponse get result;
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetCalculationSuccessImplCopyWith<_$GetCalculationSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -12195,8 +12003,6 @@ class __$$GetCalculationFailureImplCopyWithImpl<$Res>
       $Res Function(_$GetCalculationFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -12235,9 +12041,7 @@ class _$GetCalculationFailureImpl implements _GetCalculationFailure {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetCalculationFailureImplCopyWith<_$GetCalculationFailureImpl>
@@ -12524,10 +12328,7 @@ abstract class _GetCalculationFailure implements AdsState {
       _$GetCalculationFailureImpl;
 
   String get message;
-
-  /// Create a copy of AdsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetCalculationFailureImplCopyWith<_$GetCalculationFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

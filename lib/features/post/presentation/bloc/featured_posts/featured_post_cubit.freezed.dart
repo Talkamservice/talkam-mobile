@@ -105,9 +105,6 @@ class _$FeaturedPostStateCopyWithImpl<$Res, $Val extends FeaturedPostState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of FeaturedPostState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -124,9 +121,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of FeaturedPostState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -267,8 +261,6 @@ class __$$GetFeaturedPostsSuccessImplCopyWithImpl<$Res>
       $Res Function(_$GetFeaturedPostsSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of FeaturedPostState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -307,9 +299,7 @@ class _$GetFeaturedPostsSuccessImpl implements _GetFeaturedPostsSuccess {
   @override
   int get hashCode => Object.hash(runtimeType, respone);
 
-  /// Create a copy of FeaturedPostState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetFeaturedPostsSuccessImplCopyWith<_$GetFeaturedPostsSuccessImpl>
@@ -417,10 +407,7 @@ abstract class _GetFeaturedPostsSuccess implements FeaturedPostState {
       _$GetFeaturedPostsSuccessImpl;
 
   GetPostsResponse get respone;
-
-  /// Create a copy of FeaturedPostState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetFeaturedPostsSuccessImplCopyWith<_$GetFeaturedPostsSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -441,9 +428,6 @@ class __$$GetFeaturedPostsLoadingImplCopyWithImpl<$Res>
       _$GetFeaturedPostsLoadingImpl _value,
       $Res Function(_$GetFeaturedPostsLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of FeaturedPostState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -585,8 +569,6 @@ class __$$GetFeaturedPostsFailedImplCopyWithImpl<$Res>
       $Res Function(_$GetFeaturedPostsFailedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of FeaturedPostState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -625,9 +607,7 @@ class _$GetFeaturedPostsFailedImpl implements _GetFeaturedPostsFailed {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of FeaturedPostState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetFeaturedPostsFailedImplCopyWith<_$GetFeaturedPostsFailedImpl>
@@ -735,10 +715,7 @@ abstract class _GetFeaturedPostsFailed implements FeaturedPostState {
       _$GetFeaturedPostsFailedImpl;
 
   String get error;
-
-  /// Create a copy of FeaturedPostState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetFeaturedPostsFailedImplCopyWith<_$GetFeaturedPostsFailedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -757,9 +734,6 @@ class __$$LoadingMoreImplCopyWithImpl<$Res>
   __$$LoadingMoreImplCopyWithImpl(
       _$LoadingMoreImpl _value, $Res Function(_$LoadingMoreImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of FeaturedPostState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -895,9 +869,6 @@ class __$$MoreLoadedImplCopyWithImpl<$Res>
   __$$MoreLoadedImplCopyWithImpl(
       _$MoreLoadedImpl _value, $Res Function(_$MoreLoadedImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of FeaturedPostState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -1033,9 +1004,6 @@ class __$$MoreFailedImplCopyWithImpl<$Res>
   __$$MoreFailedImplCopyWithImpl(
       _$MoreFailedImpl _value, $Res Function(_$MoreFailedImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of FeaturedPostState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc

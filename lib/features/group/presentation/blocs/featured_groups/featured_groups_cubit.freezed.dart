@@ -87,9 +87,6 @@ class _$FeaturedGroupsStateCopyWithImpl<$Res, $Val extends FeaturedGroupsState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of FeaturedGroupsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -106,9 +103,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of FeaturedGroupsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -227,9 +221,6 @@ class __$$GetRecommendedLoadingImplCopyWithImpl<$Res>
   __$$GetRecommendedLoadingImplCopyWithImpl(_$GetRecommendedLoadingImpl _value,
       $Res Function(_$GetRecommendedLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of FeaturedGroupsState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -352,8 +343,6 @@ class __$$GetRecommendedSuccessImplCopyWithImpl<$Res>
       $Res Function(_$GetRecommendedSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of FeaturedGroupsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -393,9 +382,7 @@ class _$GetRecommendedSuccessImpl implements _GetRecommendedSuccess {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  /// Create a copy of FeaturedGroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetRecommendedSuccessImplCopyWith<_$GetRecommendedSuccessImpl>
@@ -485,10 +472,7 @@ abstract class _GetRecommendedSuccess implements FeaturedGroupsState {
       _$GetRecommendedSuccessImpl;
 
   GetGroupsResponse get response;
-
-  /// Create a copy of FeaturedGroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetRecommendedSuccessImplCopyWith<_$GetRecommendedSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -511,8 +495,6 @@ class __$$GetRecommendedFailureImplCopyWithImpl<$Res>
       $Res Function(_$GetRecommendedFailureImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of FeaturedGroupsState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -551,9 +533,7 @@ class _$GetRecommendedFailureImpl implements _GetRecommendedFailure {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of FeaturedGroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetRecommendedFailureImplCopyWith<_$GetRecommendedFailureImpl>
@@ -643,10 +623,7 @@ abstract class _GetRecommendedFailure implements FeaturedGroupsState {
       _$GetRecommendedFailureImpl;
 
   String get error;
-
-  /// Create a copy of FeaturedGroupsState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetRecommendedFailureImplCopyWith<_$GetRecommendedFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

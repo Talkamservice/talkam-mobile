@@ -35,6 +35,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>
     on<BlockUerEvent>(_mapBlockUerEventToState);
     on<UpdateInterestEvent>(_mapUpdateInterestEventToState);
     on<GetRemoteUser>(_mapGetRemoteUserEventToState);
+    on<MuteUserEvent>(_mapMuteUserEventToState);
   }
 
   FutureOr<void> _mapSaveUserEventToState(
@@ -141,6 +142,17 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>
       emit(UpdateInterestSuccessState(response: response));
     } catch (error) {
       emit(UpdateProfileFailure(error.toString()));
+    }
+  }
+
+  FutureOr<void> _mapMuteUserEventToState(
+      MuteUserEvent event, Emitter<ProfileState> emit) async {
+    emit(MuteUserLoadingState());
+    try {
+      final muted = await _profileRepository.toggleMute(event.userId);
+      emit(MuteUserSuccessState(muted: muted));
+    } catch (error) {
+      emit(MuteUserFailureState(error: error.toString()));
     }
   }
 

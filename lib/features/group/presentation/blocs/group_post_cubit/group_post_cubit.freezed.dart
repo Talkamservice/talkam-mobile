@@ -114,9 +114,6 @@ class _$GroupPostStateCopyWithImpl<$Res, $Val extends GroupPostState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of GroupPostState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -133,9 +130,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of GroupPostState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -280,9 +274,6 @@ class __$$PostsLoadingImplCopyWithImpl<$Res>
   __$$PostsLoadingImplCopyWithImpl(
       _$PostsLoadingImpl _value, $Res Function(_$PostsLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of GroupPostState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -430,8 +421,6 @@ class __$$PostsLoadedImplCopyWithImpl<$Res>
       _$PostsLoadedImpl _value, $Res Function(_$PostsLoadedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupPostState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -488,9 +477,7 @@ class _$PostsLoadedImpl implements _PostsLoaded {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_posts), paginationData);
 
-  /// Create a copy of GroupPostState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$PostsLoadedImplCopyWith<_$PostsLoadedImpl> get copyWith =>
@@ -608,10 +595,7 @@ abstract class _PostsLoaded implements GroupPostState {
 
   List<TalkamPost> get posts;
   PostsPaginationData get paginationData;
-
-  /// Create a copy of GroupPostState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$PostsLoadedImplCopyWith<_$PostsLoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -633,8 +617,6 @@ class __$$PostsFailedImplCopyWithImpl<$Res>
       _$PostsFailedImpl _value, $Res Function(_$PostsFailedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupPostState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -673,9 +655,7 @@ class _$PostsFailedImpl implements _PostsFailed {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  /// Create a copy of GroupPostState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$PostsFailedImplCopyWith<_$PostsFailedImpl> get copyWith =>
@@ -790,10 +770,7 @@ abstract class _PostsFailed implements GroupPostState {
   const factory _PostsFailed(final String message) = _$PostsFailedImpl;
 
   String get message;
-
-  /// Create a copy of GroupPostState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$PostsFailedImplCopyWith<_$PostsFailedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -812,9 +789,6 @@ class __$$MediaLoadingImplCopyWithImpl<$Res>
   __$$MediaLoadingImplCopyWithImpl(
       _$MediaLoadingImpl _value, $Res Function(_$MediaLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of GroupPostState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -962,8 +936,6 @@ class __$$MediaLoadedImplCopyWithImpl<$Res>
       _$MediaLoadedImpl _value, $Res Function(_$MediaLoadedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupPostState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1020,9 +992,7 @@ class _$MediaLoadedImpl implements _MediaLoaded {
   int get hashCode => Object.hash(
       runtimeType, const DeepCollectionEquality().hash(_media), paginationData);
 
-  /// Create a copy of GroupPostState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$MediaLoadedImplCopyWith<_$MediaLoadedImpl> get copyWith =>
@@ -1140,10 +1110,7 @@ abstract class _MediaLoaded implements GroupPostState {
 
   List<TalkamPost> get media;
   PostsPaginationData get paginationData;
-
-  /// Create a copy of GroupPostState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$MediaLoadedImplCopyWith<_$MediaLoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -1165,8 +1132,6 @@ class __$$MediaFailedImplCopyWithImpl<$Res>
       _$MediaFailedImpl _value, $Res Function(_$MediaFailedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupPostState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -1205,9 +1170,7 @@ class _$MediaFailedImpl implements _MediaFailed {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  /// Create a copy of GroupPostState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$MediaFailedImplCopyWith<_$MediaFailedImpl> get copyWith =>
@@ -1322,10 +1285,7 @@ abstract class _MediaFailed implements GroupPostState {
   const factory _MediaFailed(final String message) = _$MediaFailedImpl;
 
   String get message;
-
-  /// Create a copy of GroupPostState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$MediaFailedImplCopyWith<_$MediaFailedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

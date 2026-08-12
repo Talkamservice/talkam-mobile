@@ -15,6 +15,7 @@ import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart'
 import 'package:talkam/features/home/presentation/widgets/category_group_list.dart';
 import 'package:talkam/features/notifications/presentation/bloc/notification_bloc.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
+import 'package:talkam/features/profile/presentation/bloc/connections_summary_cubit/connections_summary_cubit.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
@@ -151,8 +152,25 @@ class _DrawerCategorySearchField extends StatelessWidget {
 ///
 /// Renders the real signed-in user (`ProfileBloc.appUser`), falling back to
 /// the device-local guest alias for anonymous sessions.
-class _DrawerProfileHeader extends StatelessWidget {
+class _DrawerProfileHeader extends StatefulWidget {
   const _DrawerProfileHeader();
+
+  @override
+  State<_DrawerProfileHeader> createState() => _DrawerProfileHeaderState();
+}
+
+class _DrawerProfileHeaderState extends State<_DrawerProfileHeader> {
+  // Singleton — HomeScreen kicks off the fetch on launch, so by the time the
+  // drawer opens the counts are (usually) already loaded. Calling
+  // fetchCounts() again here is a no-op unless nothing has loaded yet (e.g.
+  // the drawer somehow opens before HomeScreen's initState ran).
+  final _connectionsSummaryCubit = injector.get<ConnectionsSummaryCubit>();
+
+  @override
+  void initState() {
+    _connectionsSummaryCubit.fetchCounts();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -171,11 +189,6 @@ class _DrawerProfileHeader extends StatelessWidget {
             : (user?.name ?? "");
         final username =
             isAnonymous ? anonymousUsername : (user?.username ?? "");
-        // No "who follows me" field exists on TalkamUser yet — "Following"
-        // is real (the categories/topics the user follows); "Followers"
-        // stays 0 until the backend adds one.
-        final followingCount = user?.interests.length ?? 0;
-
         return Padding(
           padding: EdgeInsets.only(top: 12.h),
           child: Column(
@@ -227,20 +240,36 @@ class _DrawerProfileHeader extends StatelessWidget {
                 ),
               ),
               10.verticalSpace,
-              Row(
-                children: [
-                  TextView(
-                      text: "$followingCount ",
-                      fontSize: 14,
-                      fontWeight: FontWeight.w700),
-                  const TextView(
-                      text: "Following", fontSize: 14, color: Pallets.grey400),
-                  12.horizontalSpace,
-                  const TextView(
-                      text: "0 ", fontSize: 14, fontWeight: FontWeight.w700),
-                  const TextView(
-                      text: "Followers", fontSize: 14, color: Pallets.grey400),
-                ],
+              BlocBuilder<ConnectionsSummaryCubit, ConnectionsSummaryState>(
+                bloc: _connectionsSummaryCubit,
+                builder: (context, state) {
+                  final counts = state.maybeWhen(
+                    orElse: () => (following: 0, followers: 0),
+                    success: (followingCount, followersCount) =>
+                        (following: followingCount, followers: followersCount),
+                  );
+                  return Row(
+                    children: [
+                      TextView(
+                          text: "${counts.following} ",
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700),
+                      const TextView(
+                          text: "Following",
+                          fontSize: 14,
+                          color: Pallets.grey400),
+                      12.horizontalSpace,
+                      TextView(
+                          text: "${counts.followers} ",
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700),
+                      const TextView(
+                          text: "Followers",
+                          fontSize: 14,
+                          color: Pallets.grey400),
+                    ],
+                  );
+                },
               ),
             ],
           ),

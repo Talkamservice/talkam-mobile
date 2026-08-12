@@ -90,9 +90,6 @@ class _$UserSearchStateCopyWithImpl<$Res, $Val extends UserSearchState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of UserSearchState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -109,9 +106,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of UserSearchState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -236,8 +230,6 @@ class __$$UserSearcLoadedImplCopyWithImpl<$Res>
       _$UserSearcLoadedImpl _value, $Res Function(_$UserSearcLoadedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UserSearchState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -296,9 +288,7 @@ class _$UserSearcLoadedImpl implements _UserSearcLoaded {
   int get hashCode => Object.hash(runtimeType,
       const DeepCollectionEquality().hash(_postResults), paginationData);
 
-  /// Create a copy of UserSearchState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$UserSearcLoadedImplCopyWith<_$UserSearcLoadedImpl> get copyWith =>
@@ -394,10 +384,7 @@ abstract class _UserSearcLoaded implements UserSearchState {
 
   List<UserSearchResult> get postResults;
   UserPaginationMeta get paginationData;
-
-  /// Create a copy of UserSearchState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$UserSearcLoadedImplCopyWith<_$UserSearcLoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -416,9 +403,6 @@ class __$$UserSearchLoadingImplCopyWithImpl<$Res>
   __$$UserSearchLoadingImplCopyWithImpl(_$UserSearchLoadingImpl _value,
       $Res Function(_$UserSearchLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of UserSearchState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -542,8 +526,6 @@ class __$$UserSearchFailedImplCopyWithImpl<$Res>
       $Res Function(_$UserSearchFailedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of UserSearchState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -582,9 +564,7 @@ class _$UserSearchFailedImpl implements _UserSearchFailed {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of UserSearchState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$UserSearchFailedImplCopyWith<_$UserSearchFailedImpl> get copyWith =>
@@ -676,10 +656,7 @@ abstract class _UserSearchFailed implements UserSearchState {
   const factory _UserSearchFailed(final String error) = _$UserSearchFailedImpl;
 
   String get error;
-
-  /// Create a copy of UserSearchState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$UserSearchFailedImplCopyWith<_$UserSearchFailedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

@@ -8,6 +8,7 @@ class UserInitial extends ProfileState {
   @override
   List<Object> get props => [];
 }
+
 class ProfileInitial extends ProfileState {
   @override
   List<Object> get props => [];
@@ -104,6 +105,29 @@ class BlockUserSuccessState extends ProfileState {
 
   @override
   List<Object?> get props => [response];
+}
+
+class MuteUserLoadingState extends ProfileState {
+  @override
+  List<Object?> get props => [];
+}
+
+class MuteUserSuccessState extends ProfileState {
+  final bool muted;
+
+  const MuteUserSuccessState({required this.muted});
+
+  @override
+  List<Object?> get props => [muted];
+}
+
+class MuteUserFailureState extends ProfileState {
+  final String error;
+
+  const MuteUserFailureState({required this.error});
+
+  @override
+  List<Object?> get props => [error];
 }
 
 class GetProfileSuccessState extends ProfileState {

@@ -90,9 +90,6 @@ class _$GroupsSearchStateCopyWithImpl<$Res, $Val extends GroupsSearchState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of GroupsSearchState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -109,9 +106,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of GroupsSearchState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -232,9 +226,6 @@ class __$$GroupSearchLoadingImplCopyWithImpl<$Res>
   __$$GroupSearchLoadingImplCopyWithImpl(_$GroupSearchLoadingImpl _value,
       $Res Function(_$GroupSearchLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of GroupsSearchState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -359,8 +350,6 @@ class __$$GroupSearchLoadedImplCopyWithImpl<$Res>
       $Res Function(_$GroupSearchLoadedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupsSearchState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -419,9 +408,7 @@ class _$GroupSearchLoadedImpl implements _GroupSearchLoaded {
   int get hashCode => Object.hash(runtimeType,
       const DeepCollectionEquality().hash(_groupResults), paginationData);
 
-  /// Create a copy of GroupsSearchState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GroupSearchLoadedImplCopyWith<_$GroupSearchLoadedImpl> get copyWith =>
@@ -517,10 +504,7 @@ abstract class _GroupSearchLoaded implements GroupsSearchState {
 
   List<TalkamGroup> get groupResults;
   GroupPaginationMeta get paginationData;
-
-  /// Create a copy of GroupsSearchState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GroupSearchLoadedImplCopyWith<_$GroupSearchLoadedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
@@ -542,8 +526,6 @@ class __$$GroupSearchFailedImplCopyWithImpl<$Res>
       $Res Function(_$GroupSearchFailedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of GroupsSearchState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -582,9 +564,7 @@ class _$GroupSearchFailedImpl implements _GroupSearchFailed {
   @override
   int get hashCode => Object.hash(runtimeType, message);
 
-  /// Create a copy of GroupsSearchState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GroupSearchFailedImplCopyWith<_$GroupSearchFailedImpl> get copyWith =>
@@ -677,10 +657,7 @@ abstract class _GroupSearchFailed implements GroupsSearchState {
       _$GroupSearchFailedImpl;
 
   String get message;
-
-  /// Create a copy of GroupsSearchState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GroupSearchFailedImplCopyWith<_$GroupSearchFailedImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

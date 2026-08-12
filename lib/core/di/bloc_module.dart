@@ -8,6 +8,9 @@ import 'package:talkam/features/messaging/presentation/blocs/conversations/conve
 import 'package:talkam/features/messaging/presentation/blocs/messaging/messaging_cubit.dart';
 import 'package:talkam/features/mood_check/presentation/bloc/mood_check_cubit.dart';
 import 'package:talkam/features/notifications/presentation/bloc/notification_bloc.dart';
+import 'package:talkam/features/profile/presentation/bloc/connections_cubit/connections_cubit.dart';
+import 'package:talkam/features/profile/presentation/bloc/connections_summary_cubit/connections_summary_cubit.dart';
+import 'package:talkam/features/profile/presentation/bloc/follow_cubit/follow_cubit.dart';
 import 'package:talkam/features/notifications/presentation/bloc/push_notifications_navigator_bloc/deep_link_bloc.dart';
 import 'package:talkam/features/post/presentation/bloc/create_post/create_post_cubit.dart';
 import 'package:talkam/features/post/presentation/bloc/featured_posts/featured_post_cubit.dart';
@@ -76,6 +79,20 @@ void setup(GetIt getIt) {
   // Factory, not lazy singleton — screen-scoped like ProfileCommentTabCubit
   // above: HomeScreen owns and closes its own instance per its lifecycle.
   getIt.registerFactory<MoodCheckCubit>(() => MoodCheckCubit(injector.get()));
+
+  // Factory — each SubscribeButton usage owns its own instance, matching
+  // the per-item pattern used for post reactions.
+  getIt.registerFactory<FollowCubit>(() => FollowCubit(injector.get()));
+
+  // Factory — each Following/Followers tab owns its own instance.
+  getIt.registerFactory<ConnectionsCubit>(
+      () => ConnectionsCubit(injector.get()));
+
+  // Singleton — following/followers counts are fetched once (kicked off by
+  // HomeScreen) and shared by every place that displays them (e.g. the app
+  // drawer), rather than re-fetched on every open.
+  getIt.registerLazySingleton<ConnectionsSummaryCubit>(
+      () => ConnectionsSummaryCubit(injector.get()));
 
   getIt.registerLazySingleton<UserProfileCubit>(
       () => UserProfileCubit(injector.get()));

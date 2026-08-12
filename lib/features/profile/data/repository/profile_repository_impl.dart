@@ -101,11 +101,83 @@ class ProfileRepositoryImpl extends ProfileRepository {
   @override
   Future<BlockUserResponse> blockUser(String userId) async {
     try {
-      final response = await _networkService.call(
-          UrlConfig.blockUser, RequestMethod.post,
-          data: {"blocked_user_id": userId});
+      final response = await _v2.call(
+        UrlConfigV2.blockedUsersAdd,
+        RequestMethod.post,
+        formData: FormData.fromMap({"blocked_user_id": userId}),
+        options: _authedFormOptions,
+      );
 
       return BlockUserResponse.fromJson(response.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<bool> toggleFollow(String userId) async {
+    try {
+      final response = await _v2.call(
+        UrlConfigV2.followToggle,
+        RequestMethod.post,
+        formData: FormData.fromMap({"user_id": userId}),
+        options: _authedFormOptions,
+      );
+
+      return response.data["data"]["following"] as bool;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<PostCreator>> fetchFollowing() async {
+    try {
+      final response = await _v2.call(UrlConfigV2.following, RequestMethod.get);
+
+      return List<PostCreator>.from(
+          response.data["data"].map((x) => PostCreator.fromJson(x)));
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<PostCreator>> fetchFollowers() async {
+    try {
+      final response = await _v2.call(UrlConfigV2.followers, RequestMethod.get);
+
+      return List<PostCreator>.from(
+          response.data["data"].map((x) => PostCreator.fromJson(x)));
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<bool> toggleMute(String userId) async {
+    try {
+      final response = await _v2.call(
+        UrlConfigV2.muteToggle,
+        RequestMethod.post,
+        formData: FormData.fromMap({"user_id": userId}),
+        options: _authedFormOptions,
+      );
+
+      return response.data["data"]["muted"] as bool;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<PostCreator>> fetchMutedUsers() async {
+    try {
+      final response =
+          await _v2.call(UrlConfigV2.mutedUsers, RequestMethod.get);
+
+      return List<PostCreator>.from(
+          response.data["data"].map((x) => PostCreator.fromJson(x)));
     } catch (e) {
       rethrow;
     }

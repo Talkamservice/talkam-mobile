@@ -94,9 +94,6 @@ class _$TrendingPostStateCopyWithImpl<$Res, $Val extends TrendingPostState>
   final $Val _value;
   // ignore: unused_field
   final $Res Function($Val) _then;
-
-  /// Create a copy of TrendingPostState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -113,9 +110,6 @@ class __$$InitialImplCopyWithImpl<$Res>
   __$$InitialImplCopyWithImpl(
       _$InitialImpl _value, $Res Function(_$InitialImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of TrendingPostState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -242,9 +236,6 @@ class __$$GetTrendingPostsLoadingImplCopyWithImpl<$Res>
       _$GetTrendingPostsLoadingImpl _value,
       $Res Function(_$GetTrendingPostsLoadingImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of TrendingPostState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
@@ -375,8 +366,6 @@ class __$$GetTrendingPostsSuccessImplCopyWithImpl<$Res>
       $Res Function(_$GetTrendingPostsSuccessImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of TrendingPostState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -416,9 +405,7 @@ class _$GetTrendingPostsSuccessImpl implements _GetTrendingPostsSuccess {
   @override
   int get hashCode => Object.hash(runtimeType, response);
 
-  /// Create a copy of TrendingPostState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetTrendingPostsSuccessImplCopyWith<_$GetTrendingPostsSuccessImpl>
@@ -515,10 +502,7 @@ abstract class _GetTrendingPostsSuccess implements TrendingPostState {
       _$GetTrendingPostsSuccessImpl;
 
   GetPostsResponse get response;
-
-  /// Create a copy of TrendingPostState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetTrendingPostsSuccessImplCopyWith<_$GetTrendingPostsSuccessImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -542,8 +526,6 @@ class __$$GetTrendingPostsFailedImplCopyWithImpl<$Res>
       $Res Function(_$GetTrendingPostsFailedImpl) _then)
       : super(_value, _then);
 
-  /// Create a copy of TrendingPostState
-  /// with the given fields replaced by the non-null parameter values.
   @pragma('vm:prefer-inline')
   @override
   $Res call({
@@ -582,9 +564,7 @@ class _$GetTrendingPostsFailedImpl implements _GetTrendingPostsFailed {
   @override
   int get hashCode => Object.hash(runtimeType, error);
 
-  /// Create a copy of TrendingPostState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
   _$$GetTrendingPostsFailedImplCopyWith<_$GetTrendingPostsFailedImpl>
@@ -681,10 +661,7 @@ abstract class _GetTrendingPostsFailed implements TrendingPostState {
       _$GetTrendingPostsFailedImpl;
 
   String get error;
-
-  /// Create a copy of TrendingPostState
-  /// with the given fields replaced by the non-null parameter values.
-  @JsonKey(includeFromJson: false, includeToJson: false)
+  @JsonKey(ignore: true)
   _$$GetTrendingPostsFailedImplCopyWith<_$GetTrendingPostsFailedImpl>
       get copyWith => throw _privateConstructorUsedError;
 }
@@ -703,9 +680,6 @@ class __$$LoadingMoreImplCopyWithImpl<$Res>
   __$$LoadingMoreImplCopyWithImpl(
       _$LoadingMoreImpl _value, $Res Function(_$LoadingMoreImpl) _then)
       : super(_value, _then);
-
-  /// Create a copy of TrendingPostState
-  /// with the given fields replaced by the non-null parameter values.
 }
 
 /// @nodoc
