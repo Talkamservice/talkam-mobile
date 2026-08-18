@@ -50,7 +50,10 @@ class _ChatScreenState extends State<ChatScreen>
 
   @override
   void initState() {
-    messagingCubit.init(receiverId: widget.param.user.id.toString());
+    messagingCubit.init(
+      conversation: widget.param.conversation,
+      receiverId: widget.param.user.id.toString(),
+    );
     super.initState();
   }
 
@@ -144,6 +147,24 @@ class _ChatScreenState extends State<ChatScreen>
               Expanded(
                 child: Builder(builder: (context) {
                   return state.maybeWhen(
+                    fetchCurrentConversationLoading: () {
+                      if (messagingCubit.messages.isNotEmpty) {
+                        return ListView.builder(
+                          controller: messagingCubit.listController,
+                          itemCount: messagingCubit.messages.length,
+                          itemBuilder: (context, index) => ChatMessageBox(
+                            message: messagingCubit.messages[index],
+                            onRetryMessage: () {
+                              messagingCubit
+                                  .retryMessage(messagingCubit.messages[index]);
+                            },
+                          ),
+                        );
+                      }
+                      return Center(
+                        child: CustomDialogs.getLoading(size: 50),
+                      );
+                    },
                     orElse: () {
                       if (messagingCubit.messages.isEmpty) {
                         return const Center(
@@ -155,7 +176,6 @@ class _ChatScreenState extends State<ChatScreen>
                       }
                       return ListView.builder(
                         controller: messagingCubit.listController,
-                        reverse: true,
                         itemCount: messagingCubit.messages.length,
                         itemBuilder: (context, index) => ChatMessageBox(
                           message: messagingCubit.messages[index],
@@ -166,14 +186,7 @@ class _ChatScreenState extends State<ChatScreen>
                         ),
                       );
                     },
-                    fetchCurrentConversationLoading: () {
-                      return Center(
-                        child: CustomDialogs.getLoading(size: 50),
-                      );
-                    },
                   );
-
-                  // return ;
                 }),
               ),
               ConversationActionsWidget(

@@ -72,61 +72,54 @@ class _ConversationActionsWidgetState extends State<ConversationActionsWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Builder(
-      builder: (context) {
-        if (conversationIsNotYetFetched) {
-          return 0.verticalSpace;
-        } else {
-          if (widget.currentConversation?.userBlocked ?? false) {
-            return Column(
-              children: [
-                20.verticalSpace,
-                TextView(
-                  text:
-                      "@${widget.currentConversation?.otherUser.username} is Blocked",
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18,
-                ),
-                10.verticalSpace,
-                const TextView(text: "Unblock them to send them messages"),
-                60.verticalSpace
-              ],
-            );
-          }
+    if (widget.currentConversation?.userBlocked ?? false) {
+      return Column(
+        children: [
+          20.verticalSpace,
+          TextView(
+            text:
+                "@${widget.currentConversation?.otherUser.username} is Blocked",
+            fontWeight: FontWeight.w600,
+            fontSize: 18,
+          ),
+          10.verticalSpace,
+          const TextView(text: "Unblock them to send them messages"),
+          60.verticalSpace
+        ],
+      );
+    }
 
-          if (widget.currentConversation!.userBanned) {
-            return Column(
-              children: [
-                20.verticalSpace,
-                TextView(
-                  text:
-                      "@${widget.currentConversation?.otherUser.username} is Banned",
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18,
-                ),
-                10.verticalSpace,
-                const TextView(
-                    text:
-                        "You can view their profile when their account is re-activated"),
-                60.verticalSpace
-              ],
-            );
-          }
-          if (widget.isPendingRequest) {
-            return Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-              child: PendingConversationActions(
-                user: widget.user,
-                onAccept: widget.onAccept,
-                onReject: widget.onReject,
-              ),
-            );
-          }
-        }
+    if (widget.currentConversation?.userBanned ?? false) {
+      return Column(
+        children: [
+          20.verticalSpace,
+          TextView(
+            text:
+                "@${widget.currentConversation?.otherUser.username} is Banned",
+            fontWeight: FontWeight.w600,
+            fontSize: 18,
+          ),
+          10.verticalSpace,
+          const TextView(
+              text:
+                  "You can view their profile when their account is re-activated"),
+          60.verticalSpace
+        ],
+      );
+    }
 
-        return _buildMessageInputArea(context);
-      },
-    );
+    if (widget.isPendingRequest) {
+      return Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+        child: PendingConversationActions(
+          user: widget.user,
+          onAccept: widget.onAccept,
+          onReject: widget.onReject,
+        ),
+      );
+    }
+
+    return _buildMessageInputArea(context);
   }
 
   Widget _buildMessageInputArea(BuildContext context) {

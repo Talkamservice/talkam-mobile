@@ -68,7 +68,7 @@ class TherapistVerificationPendingScreen extends StatelessWidget {
           ),
         ),
       ),
-    );
+    ); 
   }
 
   Widget _buildCheckMark() {

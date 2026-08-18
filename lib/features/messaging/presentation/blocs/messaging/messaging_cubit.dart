@@ -33,27 +33,34 @@ class MessagingCubit extends Cubit<MessagingState>
     this.messagingRepository,
   ) : super(const MessagingState.initial());
 
-  Future<void> sendMessage(AppMessageModel message) async {
-    var newMessages = sortAndInsertDividers([
-      message,
-      ...messages,
-    ]);
-    messages.clear();
-    messages = sortAndInsertDividers(newMessages
-      ..removeWhere(
-        (element) => element.messageType == "divider",
-      ));
+  void _scrollToBottom({bool animate = true}) {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (listController.hasClients) {
+        if (animate) {
+          listController.animateTo(
+            listController.position.maxScrollExtent,
+            duration: const Duration(milliseconds: 250),
+            curve: Curves.easeOut,
+          );
+        } else {
+          listController.jumpTo(listController.position.maxScrollExtent);
+        }
+      }
+    });
+  }
 
-    logger.w("cjns");
+  Future<void> sendMessage(AppMessageModel message) async {
+    final rawList = [
+      ...messages.where((m) => m.messageType != "divider"),
+      message,
+    ];
+    messages = sortAndInsertDividers(rawList);
 
     emit(const MessagingState.sendMessageLoading());
-    // listController.jumpTo(0);
+    _scrollToBottom();
 
     try {
       final response = await messagingRepository.sendMessage(message);
-
-      logger.w("NO WAY MY ID IS ${injector.get<ProfileBloc>().appUser?.id}");
-      logger.w("NO CONVERSATION ID IS ${currentConversation!.id}");
 
       _listenForMessages(currentConversation!.id.toString());
 
@@ -108,6 +115,7 @@ class MessagingCubit extends Cubit<MessagingState>
       final messagesJson = fetchedMessages.map((e) => e.toJson()).toList();
       cacheBox.put(conversationId, messagesJson);
       emit(MessagingState.getMessagesSuccess(response));
+      _scrollToBottom(animate: false);
       _listenForMessages(currentConversation!.id.toString());
     } catch (e, stack) {
       log(stack.toString());
@@ -144,6 +152,7 @@ class MessagingCubit extends Cubit<MessagingState>
           final cachedMessages = rawCachedMessages;
           messages = cachedMessages;
           emit(MessagingState.getMessagesSuccess(cachedMessages));
+          _scrollToBottom(animate: false);
           if (!refresh) {
             return;
           }

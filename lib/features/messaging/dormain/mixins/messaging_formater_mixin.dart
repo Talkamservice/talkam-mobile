@@ -60,8 +60,8 @@ mixin MessagingFormatterMixin {
       previousDate = currentDate;
     }
 
-    // Reverse the list to display in reverse order on the ListView
-    return messagesWithDividers.reversed.toList();
+    // Return chronological list (oldest first, headers at top)
+    return messagesWithDividers;
   }
 
   // Helper function to check if two dates are the same day
