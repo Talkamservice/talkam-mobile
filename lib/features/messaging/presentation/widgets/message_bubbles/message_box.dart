@@ -10,7 +10,8 @@ class ChatMessageBox extends StatefulWidget {
   const ChatMessageBox({
     Key? key,
     required this.message,
-    this.child, required this.onRetryMessage,
+    this.child,
+    required this.onRetryMessage,
   }) : super(key: key);
 
   final AppMessageModel message;
@@ -33,20 +34,28 @@ class _ChatMessageBoxState extends State<ChatMessageBox> {
                 : Alignment.centerRight,
         child: widget.message.messageType == "divider"
             ? Padding(
-              padding: const EdgeInsets.symmetric(vertical: 16.0),
-              child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 15, vertical: 7),
                   decoration: BoxDecoration(
-                      border: Border.all(color: context.colorScheme.onSurface.withValues(alpha: 0.2)),
-                      borderRadius: BorderRadius.circular(100),
-                    color: context.colorScheme.onSurface.withValues(alpha: 0.05),
+                    border: Border.all(
+                        color: context.colorScheme.onSurface
+                            .withValues(alpha: 0.2)),
+                    borderRadius: BorderRadius.circular(100),
+                    color:
+                        context.colorScheme.onSurface.withValues(alpha: 0.05),
                   ),
-                  child: TextView(text: widget.message.content!,fontSize: 13,),
+                  child: TextView(
+                    text: widget.message.content!,
+                    fontSize: 13,
+                  ),
                 ),
-            )
+              )
             : widget.message.iAmSender
                 ? SenderMessageItem(
-                    message: widget.message, onRetryMessage: widget.onRetryMessage,
+                    message: widget.message,
+                    onRetryMessage: widget.onRetryMessage,
                   )
                 : ReceiverMessageItem(
                     message: widget.message,

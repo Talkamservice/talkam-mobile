@@ -3,7 +3,6 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/messaging/dormain/models/app_message_model.dart';
 
 mixin MessagingFormatterMixin {
-
   List<AppMessageModel> sortAndInsertDividers(List<AppMessageModel> messages) {
     // Sort messages in ascending order by time
     messages.sort((a, b) => a.time!.compareTo(b.time!));

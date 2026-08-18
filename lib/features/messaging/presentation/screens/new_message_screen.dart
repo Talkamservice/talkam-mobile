@@ -48,64 +48,50 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
         padding: const EdgeInsets.symmetric(horizontal: 16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
-
           children: [
             const Center(
               child: TextView(
                 color: Color(0xff212121),
                 text:
-                '     SolarFlare88 is sending you a message to\nconnect. Do you want to accept their request to\n                send and receive messages?',
+                    '     SolarFlare88 is sending you a message to\nconnect. Do you want to accept their request to\n                send and receive messages?',
                 fontSize: 16,
                 fontWeight: FontWeight.w400,
               ),
             ),
             33.verticalSpace,
-
             Row(
               children: [
-
-
-
                 Expanded(
                   child: CustomOutlinedButton(
                     radius: 8,
                     outlinedColr: Pallets.red,
                     foreGroundColor: Pallets.red,
-                    child:const TextView(
-                    color: Color(0xFFEE1414),
-                    text: 'Reject',
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                  ) , onPressed: () {
-
-                  },),
+                    child: const TextView(
+                      color: Color(0xFFEE1414),
+                      text: 'Reject',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                    ),
+                    onPressed: () {},
+                  ),
                 ),
-
-
-
-             11.horizontalSpace,
-
+                11.horizontalSpace,
                 Expanded(
                   child: CustomButton(
-
                     borderRadius: BorderRadius.circular(8),
                     bgColor: Pallets.buttonBlack,
-                    onPressed: () {
-
-                  },text: "Accept",),
+                    onPressed: () {},
+                    text: "Accept",
+                  ),
                 ),
-
               ],
             ),
-
-
             18.verticalSpace,
           ],
         ),
       ),
       appBar: CustomAppBar(
         leadingWidth: 25,
-
         tittle: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -250,8 +236,6 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
               time: "11:53 AM",
             ),
           ),
-
-
         ],
       ),
     );

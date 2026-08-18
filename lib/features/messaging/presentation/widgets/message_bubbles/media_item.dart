@@ -19,7 +19,9 @@ class MediaItem extends StatelessWidget {
         Helpers.openDocument(messageModel.assetUrl!, context);
       },
       child: Column(
-        crossAxisAlignment: messageModel.iAmSender ? CrossAxisAlignment.end : CrossAxisAlignment.start,
+        crossAxisAlignment: messageModel.iAmSender
+            ? CrossAxisAlignment.end
+            : CrossAxisAlignment.start,
         children: [
           if (messageModel.messageType.toLowerCase() == "media")
             ImageWidget(
@@ -27,7 +29,9 @@ class MediaItem extends StatelessWidget {
                 height: 150,
                 width: 1.sw,
                 borderRadius: BorderRadius.circular(6),
-                imageType: !messageModel.assetUrl!.isURL ? ImageWidgetType.file : ImageWidgetType.network,
+                imageType: !messageModel.assetUrl!.isURL
+                    ? ImageWidgetType.file
+                    : ImageWidgetType.network,
                 imageUrl: messageModel.assetUrl.toString()),
 
           if (messageModel.messageType.toLowerCase() == "file")
@@ -35,7 +39,9 @@ class MediaItem extends StatelessWidget {
               padding: const EdgeInsets.all(3.0),
               child: Container(
                 padding: const EdgeInsets.all(4),
-                decoration: BoxDecoration(color: Pallets.grey.withOpacity(0.3), borderRadius: BorderRadius.circular(6)),
+                decoration: BoxDecoration(
+                    color: Pallets.grey.withOpacity(0.3),
+                    borderRadius: BorderRadius.circular(6)),
                 child: Row(
                   children: [
                     const Icon(
@@ -45,7 +51,9 @@ class MediaItem extends StatelessWidget {
                     ),
                     5.horizontalSpace,
                     TextView(
-                      text: messageModel.assetUrl!.isURL ? "view file" : "file sent",
+                      text: messageModel.assetUrl!.isURL
+                          ? "view file"
+                          : "file sent",
                       color: Pallets.white,
                       fontWeight: FontWeight.w600,
                     )

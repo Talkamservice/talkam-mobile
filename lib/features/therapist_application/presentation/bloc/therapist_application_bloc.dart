@@ -20,15 +20,6 @@ class TherapistApplicationBloc
           specialtiesSaveStatus: StepSaveStatus.idle,
           availabilitySaveStatus: StepSaveStatus.idle,
         )));
-    on<UpdateFullNameEvent>((e, emit) => emit(state.copyWith(
-        personalSaveStatus: StepSaveStatus.idle,
-        personalInfo: state.personalInfo.copyWith(fullName: e.value))));
-    on<UpdateEmailEvent>((e, emit) => emit(state.copyWith(
-        personalSaveStatus: StepSaveStatus.idle,
-        personalInfo: state.personalInfo.copyWith(email: e.value))));
-    on<UpdatePhoneEvent>((e, emit) => emit(state.copyWith(
-        personalSaveStatus: StepSaveStatus.idle,
-        personalInfo: state.personalInfo.copyWith(phone: e.value))));
     on<UpdateCredentialTypeEvent>((e, emit) => emit(state.copyWith(
         personalSaveStatus: StepSaveStatus.idle,
         personalInfo: state.personalInfo.copyWith(credentialType: e.value))));
@@ -61,19 +52,24 @@ class TherapistApplicationBloc
 
     on<LoadBanksEvent>(_onLoadBanks);
     on<SetBankEvent>((e, emit) => emit(state.copyWith(
-            payout: state.payout.copyWith(
-          bankCode: e.code,
-          bankName: e.name,
-          clearResolvedAccountName: true,
-        ))));
+          submitStatus: SubmitStatus.idle,
+          payout: state.payout.copyWith(
+            bankCode: e.code,
+            bankName: e.name,
+            clearResolvedAccountName: true,
+          ),
+        )));
     on<SetAccountNumberEvent>((e, emit) => emit(state.copyWith(
-            payout: state.payout.copyWith(
-          accountNumber: e.value,
-          clearResolvedAccountName: true,
-        ))));
+          submitStatus: SubmitStatus.idle,
+          payout: state.payout.copyWith(
+            accountNumber: e.value,
+            clearResolvedAccountName: true,
+          ),
+        )));
     on<VerifyAccountEvent>(_onVerifyAccount);
-    on<SetSessionRateEvent>((e, emit) => emit(
-        state.copyWith(payout: state.payout.copyWith(sessionRate: e.value))));
+    on<SetSessionRateEvent>((e, emit) => emit(state.copyWith(
+        submitStatus: SubmitStatus.idle,
+        payout: state.payout.copyWith(sessionRate: e.value))));
 
     on<SubmitApplicationEvent>(_onSubmit);
   }

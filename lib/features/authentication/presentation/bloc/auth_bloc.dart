@@ -24,6 +24,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<TikTokAuthEvent>(_mapTikTokAuthEventToState);
     on<LoginEvent>(_onLogin);
     on<RegisterEvent>(_onRegister);
+    on<RegisterTherapistEvent>(_onRegisterTherapist);
     on<ForgotPasswordEvent>(_onForgotPassword);
     on<VerifyOtpEvent>(_onVerifyOtpEvent);
     on<PasswordResetEvent>(_onPasswordReset);
@@ -152,6 +153,24 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       );
       AuthSuccessUsecase().execute(response);
       emit(RegisterSuccess(response));
+    } catch (error) {
+      emit(AuthFailure(error.toString()));
+    }
+  }
+
+  Future<void> _onRegisterTherapist(
+      RegisterTherapistEvent event, Emitter<AuthState> emit) async {
+    emit(AuthLoading());
+    try {
+      final response = await _authRepository.registerTherapist(
+        fullName: event.fullName,
+        email: event.email,
+        phoneNumber: event.phoneNumber,
+        password: event.password,
+        passwordConfirmation: event.passwordConfirmation,
+      );
+      AuthSuccessUsecase().execute(response);
+      emit(RegisterTherapistSuccess(response));
     } catch (error) {
       emit(AuthFailure(error.toString()));
     }

@@ -8,7 +8,8 @@ import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/theme/pallets.dart';
 
 class PreviewMediaMessage extends StatefulWidget {
-  const PreviewMediaMessage({super.key, required this.pickedFile, required this.onRemove});
+  const PreviewMediaMessage(
+      {super.key, required this.pickedFile, required this.onRemove});
 
   final File pickedFile;
   final VoidCallback onRemove;
@@ -35,7 +36,9 @@ class _PreviewMediaMessageState extends State<PreviewMediaMessage> {
                 child: Container(
                   height: 70,
                   padding: const EdgeInsets.all(4),
-                  decoration: BoxDecoration(color: Pallets.primary, borderRadius: BorderRadius.circular(6)),
+                  decoration: BoxDecoration(
+                      color: Pallets.primary,
+                      borderRadius: BorderRadius.circular(6)),
                   child: Row(
                     children: [
                       const Icon(
@@ -58,7 +61,10 @@ class _PreviewMediaMessageState extends State<PreviewMediaMessage> {
             right: 10,
             child: TextButton(
                 style: TextButton.styleFrom(
-                    backgroundColor: Pallets.red, foregroundColor: Pallets.white, padding: const EdgeInsets.all(6), shape: const StadiumBorder()),
+                    backgroundColor: Pallets.red,
+                    foregroundColor: Pallets.white,
+                    padding: const EdgeInsets.all(6),
+                    shape: const StadiumBorder()),
                 onPressed: widget.onRemove,
                 child: const TextView(
                   text: 'Remove',
@@ -68,5 +74,3 @@ class _PreviewMediaMessageState extends State<PreviewMediaMessage> {
     );
   }
 }
-
-

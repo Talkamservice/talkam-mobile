@@ -5,6 +5,8 @@
 import 'dart:convert';
 
 import 'package:talkam/core/services/data/session_manager.dart';
+import 'package:talkam/features/messaging/data/models/get_messages_response.dart'
+    show PaginationMeta;
 
 GetConversationsResponse getConversationsResponseFromJson(String str) =>
     GetConversationsResponse.fromJson(json.decode(str));
@@ -55,29 +57,87 @@ class GetConversationsResponse {
       };
 }
 
+/// Response for `GET /user/messaging/conversations?archived=&starred=` (v2) —
+/// paginated, distinct from [GetConversationsResponse]'s flat `data` list
+/// (still used by the v1 pending-requests path, which this endpoint doesn't
+/// cover).
+class GetConversationsListResponse {
+  String message;
+  ConversationsListData data;
+  bool success;
+  int code;
+
+  GetConversationsListResponse({
+    required this.message,
+    required this.data,
+    required this.success,
+    required this.code,
+  });
+
+  factory GetConversationsListResponse.fromJson(Map<String, dynamic> json) =>
+      GetConversationsListResponse(
+        message: json["message"],
+        data: ConversationsListData.fromJson(json["data"]),
+        success: json["success"],
+        code: json["code"],
+      );
+}
+
+class ConversationsListData {
+  PaginationMeta paginationMeta;
+  List<TalkamConversation> data;
+
+  ConversationsListData({
+    required this.paginationMeta,
+    required this.data,
+  });
+
+  factory ConversationsListData.fromJson(Map<String, dynamic> json) =>
+      ConversationsListData(
+        paginationMeta: PaginationMeta.fromJson(json["pagination_meta"]),
+        data: List<TalkamConversation>.from(
+            json["data"].map((x) => TalkamConversation.fromJson(x))),
+      );
+}
+
 class TalkamConversation {
   int id;
-  List<ConversationUser> members;
+  // v1-only ("members" list + derived request/block bookkeeping) — the v2
+  // conversations-list endpoint doesn't return any of these, so they're
+  // nullable/defaulted rather than required.
+  List<ConversationUser>? members;
   LastMessage? lastMessage;
   int numberOfUnread;
   bool notificationStatus;
   bool isAnonymous;
-  ConversationUser requestedBy;
+  ConversationUser? requestedBy;
   bool userBlocked;
   bool userBanned;
   String status;
 
+  // v2-only fields.
+  final ConversationUser? otherMember;
+  final bool isMuted;
+  final String? mutedUntil;
+  final String? archivedAt;
+  final String? starredAt;
+
   TalkamConversation({
     required this.id,
-    required this.members,
+    this.members,
     required this.lastMessage,
     required this.numberOfUnread,
-    required this.notificationStatus,
+    this.notificationStatus = false,
     required this.isAnonymous,
-    required this.requestedBy,
-    required this.userBlocked,
-    required this.userBanned,
+    this.requestedBy,
+    this.userBlocked = false,
+    this.userBanned = false,
     required this.status,
+    this.otherMember,
+    this.isMuted = false,
+    this.mutedUntil,
+    this.archivedAt,
+    this.starredAt,
   });
 
   TalkamConversation copyWith({
@@ -91,6 +151,13 @@ class TalkamConversation {
     bool? userBlocked,
     bool? userBanned,
     String? status,
+    ConversationUser? otherMember,
+    bool? isMuted,
+    String? mutedUntil,
+    String? archivedAt,
+    bool clearArchivedAt = false,
+    String? starredAt,
+    bool clearStarredAt = false,
   }) =>
       TalkamConversation(
         id: id ?? this.id,
@@ -103,69 +170,97 @@ class TalkamConversation {
         userBlocked: userBlocked ?? this.userBlocked,
         userBanned: userBanned ?? this.userBanned,
         status: status ?? this.status,
+        otherMember: otherMember ?? this.otherMember,
+        isMuted: isMuted ?? this.isMuted,
+        mutedUntil: mutedUntil ?? this.mutedUntil,
+        archivedAt: clearArchivedAt ? null : (archivedAt ?? this.archivedAt),
+        starredAt: clearStarredAt ? null : (starredAt ?? this.starredAt),
       );
 
   factory TalkamConversation.fromJson(Map<String, dynamic> json) =>
       TalkamConversation(
         id: json["id"],
-        members: List<ConversationUser>.from(
-            json["members"].map((x) => ConversationUser.fromJson(x))),
+        members: json["members"] == null
+            ? null
+            : List<ConversationUser>.from(
+                json["members"].map((x) => ConversationUser.fromJson(x))),
         lastMessage: json["last_message"] == null
             ? null
             : LastMessage.fromJson(json["last_message"]),
-        numberOfUnread: json["number_of_unread"],
-        notificationStatus: json["notification_status"],
-        isAnonymous: json["is_anonymous"],
-
-        requestedBy: ConversationUser.fromJson(json["requested_by"]),
-        userBlocked: json["user_blocked"],
-        userBanned: json["user_is_banned"],
+        numberOfUnread: json["unread_count"] ?? json["number_of_unread"] ?? 0,
+        notificationStatus: json["notification_status"] ?? false,
+        isAnonymous: json["is_anonymous"] ?? false,
+        requestedBy: json["requested_by"] == null
+            ? null
+            : ConversationUser.fromJson(json["requested_by"]),
+        userBlocked: json["user_blocked"] ?? false,
+        userBanned: json["user_is_banned"] ?? false,
         status: json["status"],
+        otherMember: json["other_member"] == null
+            ? null
+            : ConversationUser.fromJson(json["other_member"]),
+        isMuted: json["is_muted"] ?? false,
+        mutedUntil: json["muted_until"],
+        archivedAt: json["archived_at"],
+        starredAt: json["starred_at"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "members": List<dynamic>.from(members.map((x) => x.toJson())),
+        "members": members == null
+            ? null
+            : List<dynamic>.from(members!.map((x) => x.toJson())),
         "last_message": lastMessage?.toJson(),
         "number_of_unread": numberOfUnread,
         "notification_status": notificationStatus,
         "is_anonymous": isAnonymous,
-        "requested_by": requestedBy.toJson(),
+        "requested_by": requestedBy?.toJson(),
         "user_blocked": userBlocked,
         "user_is_banned": userBanned,
         "status": status,
+        "other_member": otherMember?.toJson(),
+        "is_muted": isMuted,
+        "muted_until": mutedUntil,
+        "archived_at": archivedAt,
+        "starred_at": starredAt,
       };
 
+  /// The v2 conversations-list endpoint returns [otherMember] directly; the
+  /// v1 shape (pending-requests only, see [MessagingRepository]) instead
+  /// carries a `members` list this falls back to deriving it from.
   ConversationUser get otherUser =>
-      SessionManager().isMe(members.firstOrNull?.id.toString()??'0')
-          ? members.last
-          : members.first;
+      otherMember ??
+      (SessionManager().isMe(members?.firstOrNull?.id.toString() ?? '0')
+          ? members!.last
+          : members!.first);
 }
 
 class LastMessage {
   int id;
   int senderId;
-  int receiverId;
-  int conversationId;
+  // v1-only — the v2 conversations-list endpoint's `last_message` is a lean
+  // {id, message, sender_id, created_at} object, so everything below is
+  // nullable/defaulted rather than required.
+  int? receiverId;
+  int? conversationId;
   String message;
-  String messageType;
+  String? messageType;
   String assetUrl;
   bool read;
   DateTime createdAt;
-
-  DateTime updatedAt;
+  DateTime? updatedAt;
 
   LastMessage({
     required this.id,
     required this.senderId,
-    required this.receiverId,
-    required this.conversationId,
+    this.receiverId,
+    this.conversationId,
     required this.message,
-    required this.messageType,
+    this.messageType,
     required this.assetUrl,
-    required this.read,
+    this.read = false,
     required this.createdAt,
-    required this.updatedAt,
+    this.updatedAt,
   });
 
   LastMessage copyWith({
@@ -198,12 +293,14 @@ class LastMessage {
         senderId: json["sender_id"],
         receiverId: json["receiver_id"],
         conversationId: json["conversation_id"],
-        message: json["message"]??"",
+        message: json["message"] ?? "",
         messageType: json["message_type"],
-        assetUrl: json["asset_url"]??"",
-        read: json["read"],
+        assetUrl: json["asset_url"] ?? "",
+        read: json["read"] ?? false,
         createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -216,7 +313,7 @@ class LastMessage {
         "asset_url": assetUrl,
         "read": read,
         "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
       };
 }
 
@@ -259,7 +356,8 @@ class ConversationUser {
         id: json["id"],
         name: json["name"],
         username: json["username"],
-        email: json["email"],
+        // v2's `other_member` doesn't carry an email.
+        email: json["email"] ?? "",
         avatar: json["avatar"],
         status: json["status"],
       );

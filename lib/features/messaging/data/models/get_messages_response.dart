@@ -220,14 +220,16 @@ class PaginationMeta {
   factory PaginationMeta.fromJson(Map<String, dynamic> json) => PaginationMeta(
         currentPage: json["current_page"],
         firstPageUrl: json["first_page_url"],
-        from: json["from"],
+        // Laravel-style pagination returns "from"/"to" as null when the
+        // page has zero results (e.g. an empty conversations/messages list).
+        from: json["from"] ?? 0,
         lastPage: json["last_page"],
         lastPageUrl: json["last_page_url"],
         nextPageUrl: json["next_page_url"],
         path: json["path"],
         perPage: json["per_page"],
         prevPageUrl: json["prev_page_url"],
-        to: json["to"],
+        to: json["to"] ?? 0,
         total: json["total"],
         canLoadMore: json["can_load_more"],
       );

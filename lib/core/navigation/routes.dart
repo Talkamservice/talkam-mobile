@@ -22,6 +22,7 @@ import 'package:talkam/features/authentication/presentation/screens/therapist/th
 import 'package:talkam/features/authentication/presentation/screens/therapist/therapist_requirements_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/therapist/therapist_specialties_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/therapist/therapist_verification_pending_screen.dart';
+import 'package:talkam/features/authentication/presentation/screens/therapist/therapist_signup_screen.dart';
 import 'package:talkam/features/therapist_application/presentation/bloc/therapist_application_bloc.dart';
 import 'package:talkam/features/authentication/presentation/screens/user_type_selection_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/username_screen.dart';
@@ -159,11 +160,19 @@ class CustomRoutes {
       GoRoute(
         path: '/verifyOtpScreen',
         name: PageUrl.verifyOtpScreen,
-        builder: (context, state) => VerifyOtpScreen(
-            email: state.uri.queryParameters[PathParam.email] ?? '',
-            verifyOtpType: verifyOtpFromString(
-              state.uri.queryParameters[PathParam.otpType] ?? '',
-            )),
+        builder: (context, state) {
+          VoidCallback? onVerified;
+          if (state.extra is VerifyOtpCallbackExtra) {
+            onVerified = (state.extra as VerifyOtpCallbackExtra).onVerified;
+          }
+          return VerifyOtpScreen(
+              email: state.uri.queryParameters[PathParam.email] ?? '',
+              verifyOtpType: verifyOtpFromString(
+                state.uri.queryParameters[PathParam.otpType] ?? '',
+              ),
+              onVerified: onVerified,
+          );
+        }
       ),
       GoRoute(
         path: '/passwordRecoveryScreen',
@@ -194,6 +203,13 @@ class CustomRoutes {
         path: '/therapistRequirementsScreen',
         name: PageUrl.therapistRequirementsScreen,
         builder: (context, state) => TherapistRequirementsScreen(
+          bloc: state.extra as TherapistApplicationBloc,
+        ),
+      ),
+      GoRoute(
+        path: '/therapistSignupScreen',
+        name: PageUrl.therapistSignupScreen,
+        builder: (context, state) => TherapistSignupScreen(
           bloc: state.extra as TherapistApplicationBloc,
         ),
       ),
@@ -743,6 +759,8 @@ class CustomRoutes {
         return VerifyOtpType.passwordReset;
       case 'returninguser':
         return VerifyOtpType.returningUser;
+      case 'therapistauth':
+        return VerifyOtpType.therapistAuth;
       default:
         throw ArgumentError('Invalid VerifyOtpType string: $value');
     }

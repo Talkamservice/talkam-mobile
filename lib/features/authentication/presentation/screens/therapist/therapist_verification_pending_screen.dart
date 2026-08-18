@@ -5,6 +5,8 @@ import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 
+import '../../../../../core/services/data/session_manager.dart';
+
 /// Shown right after a therapist submits their application. Static — the
 /// wizard's bloc is closed by the payout screen before navigating here.
 class TherapistVerificationPendingScreen extends StatelessWidget {
@@ -50,7 +52,10 @@ class TherapistVerificationPendingScreen extends StatelessWidget {
               32.verticalSpace,
               CustomButton(
                 elevation: 0,
-                onPressed: () => context.goNamed(PageUrl.homeScreen),
+                onPressed: () {
+                  SessionManager().hasOnboarded = true;
+                  context.goNamed(PageUrl.homeScreen);
+                },
                 bgColor: Pallets.blueBubbleColor,
                 child: const TextView(
                   text: "Explore TalkAm",

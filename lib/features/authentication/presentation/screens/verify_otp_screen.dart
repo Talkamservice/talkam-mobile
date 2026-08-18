@@ -20,13 +20,15 @@ enum VerifyOtpType {
   auth,
   passwordReset,
   returningUser,
+  therapistAuth,
 }
 
 class VerifyOtpScreen extends StatefulWidget {
   const VerifyOtpScreen(
-      {super.key, required this.email, required this.verifyOtpType});
+      {super.key, required this.email, required this.verifyOtpType, this.onVerified});
 
   final VerifyOtpType verifyOtpType;
+  final VoidCallback? onVerified;
 
   final String email;
 
@@ -261,6 +263,11 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen>
     }
 
     if (state is VerifyOtpSuccessState) {
+      if (widget.onVerified != null) {
+        CustomDialogs.success('Otp verified successfully');
+        widget.onVerified!();
+        return;
+      }
       switch (widget.verifyOtpType) {
         case VerifyOtpType.auth:
           context.goNamed(PageUrl.interestsScreen);
@@ -270,9 +277,15 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen>
             PathParam.email: widget.email,
             PathParam.otp: otpCtrl.text,
           });
+          break;
         case VerifyOtpType.returningUser:
           refreshApp();
           context.goNamed(PageUrl.interestsScreen);
+          break;
+        case VerifyOtpType.therapistAuth:
+          // Handled by onVerified callback if provided,
+          // otherwise fallback (which shouldn't happen).
+          break;
       }
       CustomDialogs.success('Otp verified successfully');
       // context.goNamed(PageUrl.createNewPassword,

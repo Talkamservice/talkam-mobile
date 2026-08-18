@@ -1,6 +1,9 @@
 import 'package:talkam/features/therapist_application/data/models/therapist_application_response.dart';
 
 abstract class TherapistApplicationRepository {
+  /// Fetches the overall application status and 5-step completeness map.
+  Future<TherapistApplicationStepsResponse> getApplicationStatus();
+
   /// Step 1 — creates/updates the draft. Session rate is ignored here; it's
   /// collected on the Payout step.
   Future<TherapistApplicationStepsResponse> savePersonal({

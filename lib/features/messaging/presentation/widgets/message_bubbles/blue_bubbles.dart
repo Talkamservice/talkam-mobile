@@ -34,17 +34,14 @@ class BlueBubbles extends StatelessWidget {
             ),
             constraints: isShortMessage
                 ? const BoxConstraints(
-
-
                     minHeight: 20,
                     maxWidth: 280,
                   )
                 : const BoxConstraints(maxWidth: 280),
             child: isShortMessage
                 ? Column(
-              crossAxisAlignment: CrossAxisAlignment.start ,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-
                       TextView(
                         text: message,
                         color: const Color(0xffFFFFFF),

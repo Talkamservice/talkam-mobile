@@ -17,6 +17,20 @@ class TherapistApplicationRepositoryImpl
       });
 
   @override
+  Future<TherapistApplicationStepsResponse> getApplicationStatus() async {
+    try {
+      final response = await _v2.call(
+        UrlConfigV2.therapistApplicationStatus,
+        RequestMethod.get,
+      );
+
+      return TherapistApplicationStepsResponse.fromJson(response.data['data']);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<TherapistApplicationStepsResponse> savePersonal({
     required String credentialType,
     required int yearsExperience,

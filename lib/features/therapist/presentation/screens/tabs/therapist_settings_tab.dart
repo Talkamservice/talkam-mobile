@@ -65,6 +65,7 @@ class TherapistSettingsTab extends StatelessWidget {
               SettingsTile(
                 iconPath: Assets.images.svgV2.delete,
                 iconBackground: Pallets.dangerSurface,
+                iconColor: Pallets.dangerText,
                 title: "Delete Account",
                 titleColor: Pallets.dangerText,
                 showChevron: false,
@@ -73,6 +74,7 @@ class TherapistSettingsTab extends StatelessWidget {
               SettingsTile(
                 iconPath: Assets.images.svgV2.userInActive,
                 iconBackground: Pallets.dangerSurface,
+                iconColor: Pallets.dangerText,
                 title: "Logout",
                 titleColor: Pallets.dangerText,
                 showChevron: false,

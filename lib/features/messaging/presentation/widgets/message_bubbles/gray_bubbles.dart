@@ -15,7 +15,6 @@ class GrayBubbles extends StatelessWidget {
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.centerRight,
-      
       child: LayoutBuilder(
         builder: (context, constraints) {
           // Determine if the message is short or long

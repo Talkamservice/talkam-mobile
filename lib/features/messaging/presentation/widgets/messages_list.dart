@@ -13,10 +13,18 @@ import 'package:talkam/features/messaging/presentation/widgets/conversation_item
 
 class MessagesList extends StatefulWidget {
   final List<TalkamConversation> message;
+  final ScrollController? controller;
+  final bool isLoadingMore;
+  final VoidCallback? onRefresh;
+  final ValueChanged<TalkamConversation>? onLongPress;
 
   const MessagesList({
     super.key,
     required this.message,
+    this.controller,
+    this.isLoadingMore = false,
+    this.onRefresh,
+    this.onLongPress,
   });
 
   @override
@@ -28,11 +36,12 @@ class _MessagesListState extends State<MessagesList> {
 
   @override
   Widget build(BuildContext context) {
+    final onRefresh = widget.onRefresh ??
+        () => injector.get<ConversationsCubit>().getConversations();
+
     if (widget.message.isEmpty) {
       return RefreshIndicator(
-        onRefresh: () async {
-          injector.get<ConversationsCubit>().getConversations();
-        },
+        onRefresh: () async => onRefresh(),
         child: ListView(
           children: [
             100.verticalSpace,
@@ -47,13 +56,21 @@ class _MessagesListState extends State<MessagesList> {
     }
 
     return RefreshIndicator(
-      onRefresh: () async {
-        injector.get<ConversationsCubit>().getConversations();
-      },
+      onRefresh: () async => onRefresh(),
       child: ListView.separated(
+        controller: widget.controller,
         padding: const EdgeInsets.all(16.0),
-        itemCount: widget.message.length,
+        itemCount: widget.message.length + (widget.isLoadingMore ? 1 : 0),
         itemBuilder: (BuildContext context, index) {
+          if (index >= widget.message.length) {
+            return const Center(
+              child: Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.0),
+                child: CircularProgressIndicator(strokeWidth: 2),
+              ),
+            );
+          }
+
           final conversation = widget.message[index];
           return InkWell(
             onTap: () {
@@ -62,12 +79,18 @@ class _MessagesListState extends State<MessagesList> {
                   builder: (_) => MockChatScreen(conversation: conversation),
                 ));
               } else {
+                injector
+                    .get<ConversationsCubit>()
+                    .markConversationSeen(conversation.id.toString());
                 context.pushNamed(PageUrl.chatScreen,
                     extra: ChatScreenParam(
                         conversation: conversation,
                         user: conversation.otherUser));
               }
             },
+            onLongPress: widget.onLongPress == null
+                ? null
+                : () => widget.onLongPress!(conversation),
             child: ConversationItem(message: conversation),
           );
         },

@@ -49,6 +49,7 @@ class SettingsTile extends StatelessWidget {
     required this.onTap,
     this.subtitle,
     this.iconBackground = Pallets.iconSurface,
+    this.iconColor,
     this.titleColor,
     this.showChevron = true,
   });
@@ -58,6 +59,7 @@ class SettingsTile extends StatelessWidget {
   final VoidCallback onTap;
   final String? subtitle;
   final Color iconBackground;
+  final Color? iconColor;
   final Color? titleColor;
   final bool showChevron;
 
@@ -80,6 +82,7 @@ class SettingsTile extends StatelessWidget {
               child: ImageWidget(
                 imageUrl: iconPath,
                 size: 22.w,
+                color: iconColor,
               ),
             ),
             14.horizontalSpace,

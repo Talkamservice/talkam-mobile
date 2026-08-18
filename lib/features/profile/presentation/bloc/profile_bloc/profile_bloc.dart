@@ -72,16 +72,45 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>
       UpdateProfileEvent event, Emitter<ProfileState> emit) async {
     emit(UpdateProfileLoading());
     try {
-      final response = await _profileRepository.updateProfile(event.payload);
-      emit(UpdateProfileSuccess(response));
-      // /user/profile/update doesn't return onboarding/business — carry
-      // forward whatever we already know locally instead of wiping it back
-      // to null on every interests/avatar save during onboarding.
-      final mergedUser = response.data.copyWith(
-        onboarding: appUser?.onboarding,
-        business: appUser?.business,
-      );
-      injector.get<ProfileBloc>().add(SaveUserLocallyEvent(mergedUser));
+      if (event.payload.interests != null &&
+          event.payload.interests!.isNotEmpty) {
+        await _profileRepository.saveInterests(event.payload.interests!);
+        if (appUser?.onboarding != null) {
+          final updatedOnboarding = Onboarding(
+            userType: appUser!.onboarding!.userType,
+            interests: true,
+            avatar: appUser!.onboarding!.avatar,
+            consents: appUser!.onboarding!.consents,
+            completedAt: appUser!.onboarding!.completedAt,
+          );
+          appUser = appUser!.copyWith(onboarding: updatedOnboarding);
+          _userStorage.saveUser(appUser!);
+        }
+      }
+
+      if (event.payload.name != null ||
+          event.payload.avatar != null ||
+          event.payload.username != null ||
+          event.payload.gender != null ||
+          event.payload.dob != null) {
+        final response = await _profileRepository.updateProfile(event.payload);
+        final mergedUser = response.data.copyWith(
+          onboarding: appUser?.onboarding,
+          business: appUser?.business,
+        );
+        injector.get<ProfileBloc>().add(SaveUserLocallyEvent(mergedUser));
+        emit(UpdateProfileSuccess(response));
+      } else {
+        if (appUser != null) {
+          final dummyResponse = UpdateProfileResponse(
+            message: "Interests saved successfully",
+            data: appUser!,
+            success: true,
+            code: 200,
+          );
+          emit(UpdateProfileSuccess(dummyResponse));
+        }
+      }
       refreshPost(reload: false);
     } catch (error, stack) {
       logger.e(error, stackTrace: stack);

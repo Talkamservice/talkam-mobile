@@ -21,7 +21,8 @@ part 'messaging_state.dart';
 
 part 'messaging_cubit.freezed.dart';
 
-class MessagingCubit extends Cubit<MessagingState> with MessagingFormatterMixin {
+class MessagingCubit extends Cubit<MessagingState>
+    with MessagingFormatterMixin {
   final MessagingRepository messagingRepository;
 
   TalkamConversation? currentConversation;
@@ -56,11 +57,13 @@ class MessagingCubit extends Cubit<MessagingState> with MessagingFormatterMixin 
 
       _listenForMessages(currentConversation!.id.toString());
 
-      messages.where((element) => element.id == message.id).first.sendingState = SendingState.success;
+      messages.where((element) => element.id == message.id).first.sendingState =
+          SendingState.success;
 
       emit(MessagingState.sendMessageSuccess(response));
     } catch (e) {
-      messages.where((element) => element.id == message.id).first.sendingState = SendingState.failed;
+      messages.where((element) => element.id == message.id).first.sendingState =
+          SendingState.failed;
       emit(MessagingState.sendMessageFailure(e.toString()));
     }
   }
@@ -82,25 +85,24 @@ class MessagingCubit extends Cubit<MessagingState> with MessagingFormatterMixin 
       logger.w("NO CONVERSATION ID IS ${currentConversation!.id}");
 
       _listenForMessages(currentConversation!.id.toString());
-      messages.where((element) => element.id == message.id).first.sendingState = SendingState.success;
+      messages.where((element) => element.id == message.id).first.sendingState =
+          SendingState.success;
 
       emit(MessagingState.sendMessageSuccess(response));
     } catch (e) {
-      messages.where((element) => element.id == message.id).first.sendingState = SendingState.failed;
+      messages.where((element) => element.id == message.id).first.sendingState =
+          SendingState.failed;
       emit(MessagingState.sendMessageFailure(e.toString()));
     }
   }
 
   Future<void> getMessages(String conversationId, {bool refresh = true}) async {
-
     try {
       final response = await messagingRepository.getMessages(conversationId);
-      final fetchedMessages = sortAndInsertDividers(
-        response.data.data
-            .map((e) => AppMessageModel.fromResponse(e))
-            .where((msg) => msg.messageType != "divider")
-            .toList()
-      );
+      final fetchedMessages = sortAndInsertDividers(response.data.data
+          .map((e) => AppMessageModel.fromResponse(e))
+          .where((msg) => msg.messageType != "divider")
+          .toList());
       messages = fetchedMessages;
       final Box cacheBox = await Hive.openBox('chatCache');
       final messagesJson = fetchedMessages.map((e) => e.toJson()).toList();
@@ -123,19 +125,22 @@ class MessagingCubit extends Cubit<MessagingState> with MessagingFormatterMixin 
     }
   }
 
-  Future<void> fetchCurrentConversation(String receiverId, {bool refresh = true}) async {
+  Future<void> fetchCurrentConversation(String receiverId,
+      {bool refresh = true}) async {
     String? storedConversationId = await getStoredConversationId(receiverId);
     final Box cacheBox = await Hive.openBox('chatCache');
     log("Cache keys: ${cacheBox.keys.toList()}");
 
     if (storedConversationId != null) {
       if (cacheBox.containsKey(storedConversationId)) {
-        final cachedData = cacheBox.get(storedConversationId) as List<dynamic>? ?? [];
+        final cachedData =
+            cacheBox.get(storedConversationId) as List<dynamic>? ?? [];
         if (cachedData.isNotEmpty) {
           final rawCachedMessages = sortAndInsertDividers(cachedData
-          .map((e) => AppMessageModel.fromJson(Map<String, dynamic>.from(e)))
-          .where((msg) => msg.messageType.toLowerCase() != "divider")
-          .toList());
+              .map(
+                  (e) => AppMessageModel.fromJson(Map<String, dynamic>.from(e)))
+              .where((msg) => msg.messageType.toLowerCase() != "divider")
+              .toList());
           final cachedMessages = rawCachedMessages;
           messages = cachedMessages;
           emit(MessagingState.getMessagesSuccess(cachedMessages));
@@ -151,7 +156,8 @@ class MessagingCubit extends Cubit<MessagingState> with MessagingFormatterMixin 
 
     try {
       // Fetch conversation details from the API.
-      final response = await messagingRepository.fetchCurrentConversation(receiverId);
+      final response =
+          await messagingRepository.fetchCurrentConversation(receiverId);
       currentConversation = response;
       // Store the conversation ID persistently.
       await storeConversationId(receiverId, response.id.toString());
@@ -161,11 +167,10 @@ class MessagingCubit extends Cubit<MessagingState> with MessagingFormatterMixin 
     }
   }
 
-
   // Future<void> fetchCurrentConversation(String receiverId,  String conversationId, {bool? refresh = true}) async {
   //   final Box cacheBox = await Hive.openBox('chatCache');
   //   log("Cache keys: ${cacheBox.keys.toList()}");
-        
+
   //   log("Cache keys: $conversationId");
   //   log("cache: ${cacheBox.containsKey(conversationId)}");
   //   if (cacheBox.containsKey(conversationId)) {
@@ -185,7 +190,7 @@ class MessagingCubit extends Cubit<MessagingState> with MessagingFormatterMixin 
 
   //       messages = cachedMessages;
   //       emit(MessagingState.getMessagesSuccess(cachedMessages));
-        
+
   //       // If you don't want to refresh when cache exists, return early.
   //       if (!refresh!) {
   //         return;
@@ -197,7 +202,7 @@ class MessagingCubit extends Cubit<MessagingState> with MessagingFormatterMixin 
   //   }
 
   //   try {
-     
+
   //     final response = await messagingRepository.fetchCurrentConversation(receiverId);
 
   //     currentConversation = response;
@@ -209,12 +214,12 @@ class MessagingCubit extends Cubit<MessagingState> with MessagingFormatterMixin 
   //   }
   // }
 
-
-
-  Future<void> updateConversationStatus({required String conversationId, required String status}) async {
+  Future<void> updateConversationStatus(
+      {required String conversationId, required String status}) async {
     emit(const MessagingState.updateConversationStatusLoading());
     try {
-      final response = await messagingRepository.updateConversationStatus(conversationId: conversationId, status: status);
+      final response = await messagingRepository.updateConversationStatus(
+          conversationId: conversationId, status: status);
       currentConversation = null;
 
       emit(MessagingState.updateConversationStatusSuccess(response));
@@ -231,7 +236,7 @@ class MessagingCubit extends Cubit<MessagingState> with MessagingFormatterMixin 
   //     emit(MessagingState.fetchCurrentConversationSuccess(currentConversation!));
   //   }
   // }
-    void init({TalkamConversation? conversation, required String receiverId}) {
+  void init({TalkamConversation? conversation, required String receiverId}) {
     if (conversation == null) {
       // If conversation is null, call fetchCurrentConversation with only the receiverId.
       fetchCurrentConversation(receiverId, refresh: true);
@@ -240,7 +245,8 @@ class MessagingCubit extends Cubit<MessagingState> with MessagingFormatterMixin 
       currentConversation = conversation;
       storeConversationId(receiverId, conversation.id.toString());
       fetchCurrentConversation(receiverId);
-      emit(MessagingState.fetchCurrentConversationSuccess(currentConversation!));
+      emit(
+          MessagingState.fetchCurrentConversationSuccess(currentConversation!));
     }
   }
 
@@ -249,7 +255,8 @@ class MessagingCubit extends Cubit<MessagingState> with MessagingFormatterMixin 
     return conversationBox.get(receiverId) as String?;
   }
 
-  Future<void> storeConversationId(String receiverId, String conversationId) async {
+  Future<void> storeConversationId(
+      String receiverId, String conversationId) async {
     final Box conversationBox = await Hive.openBox('conversationCache');
     await conversationBox.put(receiverId, conversationId);
   }
@@ -262,12 +269,14 @@ class MessagingCubit extends Cubit<MessagingState> with MessagingFormatterMixin 
       if (pusher != null) {
         logger.w('connecting');
 
-        if (!pusher.channels.containsKey("private-conversation.$conversationId")) {
+        if (!pusher.channels
+            .containsKey("private-conversation.$conversationId")) {
           pusher.onAuthorizer = _authorize;
 
           PusherChannel channel = await pusher.subscribe(
             channelName: "private-conversation.$conversationId",
-            onSubscriptionError: (message, d) => onSubscriptionError(message, d),
+            onSubscriptionError: (message, d) =>
+                onSubscriptionError(message, d),
             onSubscriptionSucceeded: (data) {
               // log('subscribed');
               // AppUtils.showCustomToast("onSubscriptionSucceeded:  data: $data");
@@ -280,7 +289,9 @@ class MessagingCubit extends Cubit<MessagingState> with MessagingFormatterMixin 
           logger.w('connected2');
           pusher.onAuthorizer = _authorize;
 
-          pusher.getChannel("private-conversation.${currentConversation?.id}")?.onEvent = onEventReceived;
+          pusher
+              .getChannel("private-conversation.${currentConversation?.id}")
+              ?.onEvent = onEventReceived;
         }
         await pusher.connect();
       }
@@ -292,7 +303,8 @@ class MessagingCubit extends Cubit<MessagingState> with MessagingFormatterMixin 
 
   _authorize(String channelName, String socketId, options) async {
     return {
-      "auth": "1934aa1e05c3acfdfd3f:${getSignature("$socketId:private-conversation.${currentConversation!.id.toString()}")}",
+      "auth":
+          "1934aa1e05c3acfdfd3f:${getSignature("$socketId:private-conversation.${currentConversation!.id.toString()}")}",
     };
   }
 
@@ -314,11 +326,13 @@ class MessagingCubit extends Cubit<MessagingState> with MessagingFormatterMixin 
       var receivedEvent = (event as PusherEvent);
       logger.i('received chat message${receivedEvent.data}');
 
-      if (receivedEvent.eventName == 'receive-message.${injector.get<ProfileBloc>().appUser?.id}') {
+      if (receivedEvent.eventName ==
+          'receive-message.${injector.get<ProfileBloc>().appUser?.id}') {
         logger.i('received chat message${receivedEvent.data}');
         // var dataMap = jsonDecode(receivedEvent.data);
 
-        final newMessage = AppMessageModel.fromResponse(TalkamMessage.fromJson(jsonDecode(receivedEvent.data)["data"]));
+        final newMessage = AppMessageModel.fromResponse(
+            TalkamMessage.fromJson(jsonDecode(receivedEvent.data)["data"]));
 
         if (!newMessage.iAmSender) {
           logger.i('adding chat message');

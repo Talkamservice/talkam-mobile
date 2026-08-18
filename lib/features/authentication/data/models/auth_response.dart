@@ -7,6 +7,7 @@ import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:talkam/common/models/get_countries_response.dart';
 import 'package:talkam/common/models/get_states_response.dart';
+import 'package:talkam/features/authentication/data/models/onboarding_user_type.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/subscription/data/models/get_plans_response.dart';
 
@@ -208,6 +209,10 @@ class TalkamUser {
 
   /// Only present on the v2 `/user/me` response, same as [onboarding].
   Business? business;
+
+  bool get isTherapist =>
+      role?.toString().toLowerCase() == 'therapist' ||
+      onboarding?.userType == kMentalHealthProUserType;
 
   TalkamUser({
     required this.id,

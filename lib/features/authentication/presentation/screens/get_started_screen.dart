@@ -49,7 +49,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
 
                 // ── Buttons (bottom) ──────────────────────────────────────
                 _GetStartedButton(
-                  onPressed: () => context.pushNamed(PageUrl.signUp),
+                  onPressed: () => context.pushNamed(PageUrl.userTypeSelectionScreen),
                 ),
 
                 16.verticalSpace,

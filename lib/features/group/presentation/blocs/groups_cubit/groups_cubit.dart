@@ -19,7 +19,8 @@ class GroupsCubit extends Cubit<GroupsState> {
   Future<void> getGroups(
       {GroupsFilterModel? filter,
       bool? shouldRefresh = true,
-      bool? isFollowing}) async {
+      bool? isFollowing,
+      bool useMockFallback = true}) async {
     if (shouldRefresh!) {
       emit(const GroupsState.getGroupsLoading());
     }
@@ -34,7 +35,7 @@ class GroupsCubit extends Cubit<GroupsState> {
             );
 
       List<TalkamGroup> fetchedGroups = response.groups ?? [];
-      if (fetchedGroups.isEmpty) {
+      if (fetchedGroups.isEmpty && useMockFallback) {
         fetchedGroups = MockHomeData.groups
             .map((c) => MockHomeData.getTalkamGroup(c.id.toString()))
             .whereType<TalkamGroup>()

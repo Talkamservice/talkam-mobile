@@ -62,7 +62,7 @@ class TherapistRequirementsScreen extends StatelessWidget {
             CustomButton(
               elevation: 0,
               onPressed: () => context.pushNamed(
-                PageUrl.therapistPersonalInfoScreen,
+                PageUrl.therapistSignupScreen,
                 extra: bloc,
               ),
               bgColor: Pallets.blueBubbleColor,

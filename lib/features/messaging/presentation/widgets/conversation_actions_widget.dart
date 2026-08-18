@@ -37,7 +37,8 @@ class ConversationActionsWidget extends StatefulWidget {
   }) : super(key: key);
 
   @override
-  State<ConversationActionsWidget> createState() => _ConversationActionsWidgetState();
+  State<ConversationActionsWidget> createState() =>
+      _ConversationActionsWidgetState();
 }
 
 class _ConversationActionsWidgetState extends State<ConversationActionsWidget> {
@@ -50,7 +51,8 @@ class _ConversationActionsWidgetState extends State<ConversationActionsWidget> {
   late final ScrollController _scrollController;
   late final FocusNode _focusNode;
   late final TextStyle _textStyle;
-  final bool isApple = [TargetPlatform.iOS, TargetPlatform.macOS].contains(foundation.defaultTargetPlatform);
+  final bool isApple = [TargetPlatform.iOS, TargetPlatform.macOS]
+      .contains(foundation.defaultTargetPlatform);
 
   @override
   void initState() {
@@ -75,35 +77,40 @@ class _ConversationActionsWidgetState extends State<ConversationActionsWidget> {
         if (conversationIsNotYetFetched) {
           return 0.verticalSpace;
         } else {
-          if(widget.currentConversation?.userBlocked??false){
-            return Column(children: [
-              20.verticalSpace,
-              TextView(
-                text: "@${widget.currentConversation?.otherUser.username} is Blocked",
-                fontWeight: FontWeight.w600,
-                fontSize: 18,
-              ),
-              10.verticalSpace,
-              const TextView(text: "Unblock them to send them messages"),
-              60.verticalSpace
-
-            ],);
+          if (widget.currentConversation?.userBlocked ?? false) {
+            return Column(
+              children: [
+                20.verticalSpace,
+                TextView(
+                  text:
+                      "@${widget.currentConversation?.otherUser.username} is Blocked",
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                ),
+                10.verticalSpace,
+                const TextView(text: "Unblock them to send them messages"),
+                60.verticalSpace
+              ],
+            );
           }
 
-          if(widget.currentConversation!.userBanned){
-
-            return Column(children: [
-              20.verticalSpace,
-              TextView(
-                text: "@${widget.currentConversation?.otherUser.username} is Banned",
-                fontWeight: FontWeight.w600,
-                fontSize: 18,
-              ),
-              10.verticalSpace,
-              const TextView(text: "You can view their profile when their account is re-activated"),
-              60.verticalSpace
-
-            ],);
+          if (widget.currentConversation!.userBanned) {
+            return Column(
+              children: [
+                20.verticalSpace,
+                TextView(
+                  text:
+                      "@${widget.currentConversation?.otherUser.username} is Banned",
+                  fontWeight: FontWeight.w600,
+                  fontSize: 18,
+                ),
+                10.verticalSpace,
+                const TextView(
+                    text:
+                        "You can view their profile when their account is re-activated"),
+                60.verticalSpace
+              ],
+            );
           }
           if (widget.isPendingRequest) {
             return Padding(
@@ -145,11 +152,14 @@ class _ConversationActionsWidgetState extends State<ConversationActionsWidget> {
               children: [
                 Expanded(
                   child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 2.h),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 2.h),
                     decoration: BoxDecoration(
                       border: Border.all(color: Pallets.grey90),
                       borderRadius: BorderRadius.circular(28.r),
-                      color: pickedFile != null ? const Color(0xFFEEEEEE) : Colors.transparent,
+                      color: pickedFile != null
+                          ? const Color(0xFFEEEEEE)
+                          : Colors.transparent,
                     ),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.end,
@@ -159,7 +169,9 @@ class _ConversationActionsWidgetState extends State<ConversationActionsWidget> {
                           child: GestureDetector(
                             onTap: switchEmojiView,
                             child: Icon(
-                              _emojiShowing ? Icons.keyboard : Icons.emoji_emotions_outlined,
+                              _emojiShowing
+                                  ? Icons.keyboard
+                                  : Icons.emoji_emotions_outlined,
                               size: 20,
                               color: Pallets.grey,
                             ),
@@ -179,7 +191,8 @@ class _ConversationActionsWidgetState extends State<ConversationActionsWidget> {
                             ),
                             onSubmitted: (text) {
                               if (text.isNotEmpty || pickedFile != null) {
-                                widget.onSendMessage(text, file: pickedFile?.path);
+                                widget.onSendMessage(text,
+                                    file: pickedFile?.path);
                                 pickedFile = null;
                                 controller.clear();
                               }
@@ -190,7 +203,9 @@ class _ConversationActionsWidgetState extends State<ConversationActionsWidget> {
                           padding: EdgeInsets.only(bottom: 14.h),
                           child: InkWell(
                             onTap: sendImage,
-                            child: ImageWidget(imageUrl: Assets.images.svgV2.addImageIcon, size: 20),
+                            child: ImageWidget(
+                                imageUrl: Assets.images.svgV2.addImageIcon,
+                                size: 20),
                           ),
                         ),
                         10.horizontalSpace,
@@ -241,7 +256,9 @@ class _ConversationActionsWidgetState extends State<ConversationActionsWidget> {
         ),
         Offstage(
           offstage: !_emojiShowing,
-          child: CustomEmojiPicker(textEditingController: controller, scrollController: _scrollController),
+          child: CustomEmojiPicker(
+              textEditingController: controller,
+              scrollController: _scrollController),
         )
       ],
     );
@@ -261,8 +278,20 @@ class _ConversationActionsWidgetState extends State<ConversationActionsWidget> {
   }
 
   void sendImage() async {
-    var image = await ImageManager()
-        .fetchFiles(fileType: FileType.custom, allowedExtensions: ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'pdf', 'doc', 'docx'], checkSize: false);
+    var image = await ImageManager().fetchFiles(
+        fileType: FileType.custom,
+        allowedExtensions: [
+          'jpg',
+          'jpeg',
+          'png',
+          'gif',
+          'bmp',
+          'webp',
+          'pdf',
+          'doc',
+          'docx'
+        ],
+        checkSize: false);
     if (image.isNotEmpty) {
       pickedFile = File(image.first);
       setState(() {});
@@ -272,6 +301,8 @@ class _ConversationActionsWidgetState extends State<ConversationActionsWidget> {
   bool get conversationIsNotYetFetched => widget.currentConversation == null;
 
   bool get isAPendingRequest {
-    return widget.currentConversation?.status == "Awaiting_Response" && (!SessionManager().isMe(widget.currentConversation!.requestedBy.id.toString()));
+    return widget.currentConversation?.status == "Awaiting_Response" &&
+        (!SessionManager().isMe(
+            widget.currentConversation!.requestedBy?.id.toString() ?? ''));
   }
 }

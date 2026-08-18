@@ -48,6 +48,16 @@ class ConversationItem extends StatelessWidget {
                     6.horizontalSpace,
                     const Icon(Icons.verified, size: 16, color: Colors.orange),
                   ],
+                  if (message.starredAt != null) ...[
+                    6.horizontalSpace,
+                    const Icon(Icons.star_rounded,
+                        size: 16, color: Pallets.noticeAmber),
+                  ],
+                  if (message.isMuted) ...[
+                    6.horizontalSpace,
+                    const Icon(Icons.notifications_off_rounded,
+                        size: 14, color: Pallets.grey60),
+                  ],
                 ],
               ),
               if (lastMessage != null) ...[

@@ -53,11 +53,11 @@ class CustomEmojiPicker extends StatelessWidget {
           iconColorSelected: iconColorSelected ?? Colors.black,
           iconColor: iconColor ?? Colors.grey,
           customCategoryView: (
-              config,
-              state,
-              tabController,
-              pageController,
-              ) {
+            config,
+            state,
+            tabController,
+            pageController,
+          ) {
             return WhatsAppCategoryView(
               config,
               state,
@@ -85,10 +85,10 @@ class CustomEmojiPicker extends StatelessWidget {
         searchViewConfig: SearchViewConfig(
           backgroundColor: backgroundColor ?? Colors.white,
           customSearchView: (
-              config,
-              state,
-              showEmojiView,
-              ) {
+            config,
+            state,
+            showEmojiView,
+          ) {
             return WhatsAppSearchView(
               config,
               state,
@@ -101,16 +101,15 @@ class CustomEmojiPicker extends StatelessWidget {
   }
 }
 
-
 /// Customized Whatsapp category view
 class WhatsAppCategoryView extends CategoryView {
   const WhatsAppCategoryView(
-      super.config,
-      super.state,
-      super.tabController,
-      super.pageController, {
-        super.key,
-      });
+    super.config,
+    super.state,
+    super.tabController,
+    super.pageController, {
+    super.key,
+  });
 
   @override
   WhatsAppCategoryViewState createState() => WhatsAppCategoryViewState();
@@ -161,13 +160,13 @@ class WhatsAppCategoryViewState extends State<WhatsAppCategoryView>
 
 class WhatsAppTabBar extends StatelessWidget {
   const WhatsAppTabBar(
-      this.config,
-      this.tabController,
-      this.pageController,
-      this.categoryEmojis,
-      this.closeSkinToneOverlay, {
-        super.key,
-      });
+    this.config,
+    this.tabController,
+    this.pageController,
+    this.categoryEmojis,
+    this.closeSkinToneOverlay, {
+    super.key,
+  });
 
   final Config config;
 
@@ -239,9 +238,9 @@ class WhatsAppSearchViewState extends SearchViewState {
   Widget build(BuildContext context) {
     return LayoutBuilder(builder: (context, constraints) {
       final emojiSize =
-      widget.config.emojiViewConfig.getEmojiSize(constraints.maxWidth);
+          widget.config.emojiViewConfig.getEmojiSize(constraints.maxWidth);
       final emojiBoxSize =
-      widget.config.emojiViewConfig.getEmojiBoxSize(constraints.maxWidth);
+          widget.config.emojiViewConfig.getEmojiBoxSize(constraints.maxWidth);
       return Container(
         color: widget.config.searchViewConfig.backgroundColor,
         child: Column(

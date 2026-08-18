@@ -48,8 +48,15 @@ class _PassWordResetScreenState extends State<PassWordResetScreen> {
 
   bool get _isFormValid {
     final password = _passwordController.text.trim();
-    return password.length >= _minPasswordLength &&
+    return _otpController.text.trim().length == _otpLength &&
+        password.length >= _minPasswordLength &&
         password == _confirmPasswordController.text.trim();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _otpController.text = widget.otp;
   }
 
   @override
@@ -111,8 +118,6 @@ class _PassWordResetScreenState extends State<PassWordResetScreen> {
                   40.verticalSpace,
 
                   // ── Code boxes ─────────────────────────────────────────
-                  // Display only — the reset call still uses the code that was
-                  // already verified on the previous screen.
                   Center(
                     child: OtpField(
                       count: _otpLength,
@@ -259,7 +264,7 @@ class _PassWordResetScreenState extends State<PassWordResetScreen> {
   void _resetPassword() {
     if (_formKey.currentState?.validate() ?? false) {
       bloc.add(PasswordResetEvent(
-        widget.otp,
+        _otpController.text.trim(),
         _passwordController.text.trim(),
         _confirmPasswordController.text.trim(),
       ));

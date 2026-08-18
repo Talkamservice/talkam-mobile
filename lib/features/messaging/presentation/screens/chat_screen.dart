@@ -23,6 +23,7 @@ import 'package:talkam/features/messaging/presentation/widgets/conversation_acti
 import 'package:talkam/features/messaging/presentation/widgets/message_bubbles/message_box.dart';
 import 'package:talkam/core/mock/mock_home_data.dart';
 import 'package:uuid/uuid.dart';
+
 class ChatScreenParam {
   final TalkamConversation? conversation;
   final ConversationUser user;
@@ -39,7 +40,8 @@ class ChatScreen extends StatefulWidget {
   State<ChatScreen> createState() => _ChatScreenState();
 }
 
-class _ChatScreenState extends State<ChatScreen> with RefreshConversationsMixin {
+class _ChatScreenState extends State<ChatScreen>
+    with RefreshConversationsMixin {
   final messagingCubit = MessagingCubit(injector.get());
 
   final controller = TextEditingController();
@@ -54,7 +56,8 @@ class _ChatScreenState extends State<ChatScreen> with RefreshConversationsMixin 
 
   @override
   Widget build(BuildContext context) {
-    final isVerified = MockHomeData.verifiedContactIds.contains(widget.param.user.id);
+    final isVerified =
+        MockHomeData.verifiedContactIds.contains(widget.param.user.id);
     // String messageTime = "12:34 PM";
     return Scaffold(
       appBar: CustomAppBar(
@@ -88,14 +91,17 @@ class _ChatScreenState extends State<ChatScreen> with RefreshConversationsMixin 
                 var refresh = await CustomDialogs.showBottomSheet(
                     context,
                     shape: const RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(top: Radius.circular(15)),
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(15)),
                     ),
                     ChatScreenActions(
                       conversation: messagingCubit.currentConversation!,
                     ));
 
                 if (refresh ?? false) {
-                  messagingCubit.fetchCurrentConversation(widget.param.user.id.toString(), refresh: false);
+                  messagingCubit.fetchCurrentConversation(
+                      widget.param.user.id.toString(),
+                      refresh: false);
                 }
               },
               icon: const Icon(Icons.more_vert)),
@@ -118,7 +124,8 @@ class _ChatScreenState extends State<ChatScreen> with RefreshConversationsMixin 
               context.pop();
               refreshAllConversations();
               if (response.status == "Accepted") {
-                messagingCubit.fetchCurrentConversation(widget.param.user.id.toString());
+                messagingCubit
+                    .fetchCurrentConversation(widget.param.user.id.toString());
               } else {
                 context.pop();
               }
@@ -140,7 +147,10 @@ class _ChatScreenState extends State<ChatScreen> with RefreshConversationsMixin 
                     orElse: () {
                       if (messagingCubit.messages.isEmpty) {
                         return const Center(
-                          child: EmptyState(title: "No chats in this conversation yet", subtitle: "Chats would appear here when you have them"),
+                          child: EmptyState(
+                              title: "No chats in this conversation yet",
+                              subtitle:
+                                  "Chats would appear here when you have them"),
                         );
                       }
                       return ListView.builder(
@@ -150,7 +160,8 @@ class _ChatScreenState extends State<ChatScreen> with RefreshConversationsMixin 
                         itemBuilder: (context, index) => ChatMessageBox(
                           message: messagingCubit.messages[index],
                           onRetryMessage: () {
-                            messagingCubit.retryMessage(messagingCubit.messages[index]);
+                            messagingCubit
+                                .retryMessage(messagingCubit.messages[index]);
                           },
                         ),
                       );
@@ -168,10 +179,16 @@ class _ChatScreenState extends State<ChatScreen> with RefreshConversationsMixin 
               ConversationActionsWidget(
                 user: widget.param.user,
                 onAccept: () {
-                  messagingCubit.updateConversationStatus(conversationId: messagingCubit.currentConversation!.id.toString(), status: "Accepted");
+                  messagingCubit.updateConversationStatus(
+                      conversationId:
+                          messagingCubit.currentConversation!.id.toString(),
+                      status: "Accepted");
                 },
                 onReject: () {
-                  messagingCubit.updateConversationStatus(conversationId: messagingCubit.currentConversation!.id.toString(), status: "Declined");
+                  messagingCubit.updateConversationStatus(
+                      conversationId:
+                          messagingCubit.currentConversation!.id.toString(),
+                      status: "Declined");
                 },
                 onSendMessage: (message, {file}) {
                   sendMessage(message: message.trim(), file: file);
@@ -186,11 +203,14 @@ class _ChatScreenState extends State<ChatScreen> with RefreshConversationsMixin 
     );
   }
 
-  bool get conversationIsNotYetFetched => messagingCubit.currentConversation == null;
+  bool get conversationIsNotYetFetched =>
+      messagingCubit.currentConversation == null;
 
   bool get isAPendingRequest {
     return messagingCubit.currentConversation?.status == "Awaiting_Response" &&
-        (!SessionManager().isMe(messagingCubit.currentConversation!.requestedBy.id.toString()));
+        (!SessionManager().isMe(
+            messagingCubit.currentConversation!.requestedBy?.id.toString() ??
+                ''));
   }
 
   void sendMessage({String? message, String? file}) async {
@@ -220,8 +240,20 @@ class _ChatScreenState extends State<ChatScreen> with RefreshConversationsMixin 
   }
 
   void sendImage() async {
-    var image = await ImageManager()
-        .fetchFiles(fileType: FileType.custom, allowedExtensions: ['jpg', 'jpeg', 'png', 'gif', 'bmp', 'webp', 'pdf', 'doc', 'docx'], checkSize: false);
+    var image = await ImageManager().fetchFiles(
+        fileType: FileType.custom,
+        allowedExtensions: [
+          'jpg',
+          'jpeg',
+          'png',
+          'gif',
+          'bmp',
+          'webp',
+          'pdf',
+          'doc',
+          'docx'
+        ],
+        checkSize: false);
     if (image.isNotEmpty) {
       pickedFile = File(image.first);
       setState(() {});

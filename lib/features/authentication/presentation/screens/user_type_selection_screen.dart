@@ -157,10 +157,11 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
     if (!mounted) return;
     setState(() => _submitting = false);
 
-    // Both user types finish onboarding through consent — DataPrivacyScreen
-    // branches into the therapist wizard afterwards for therapists, since
-    // consent must be confirmed either way.
-    context.pushNamed(PageUrl.dataPrivacyScreen);
+    if (_selectedType == _typeTherapist) {
+      context.pushNamed(PageUrl.therapistOnboardingScreen);
+    } else {
+      context.pushNamed(PageUrl.signUp);
+    }
   }
 
   Widget _buildSelectionCard({

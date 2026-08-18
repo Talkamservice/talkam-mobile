@@ -48,6 +48,14 @@ mixin _$ConversationsState {
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -82,6 +90,14 @@ mixin _$ConversationsState {
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -116,6 +132,14 @@ mixin _$ConversationsState {
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -176,6 +200,18 @@ mixin _$ConversationsState {
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -232,6 +268,18 @@ mixin _$ConversationsState {
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -288,6 +336,15 @@ mixin _$ConversationsState {
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -379,6 +436,14 @@ class _$InitialImpl implements _Initial {
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return initial();
   }
@@ -416,6 +481,14 @@ class _$InitialImpl implements _Initial {
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return initial?.call();
   }
@@ -453,6 +526,14 @@ class _$InitialImpl implements _Initial {
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -519,6 +600,18 @@ class _$InitialImpl implements _Initial {
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return initial(this);
   }
@@ -578,6 +671,18 @@ class _$InitialImpl implements _Initial {
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return initial?.call(this);
   }
@@ -637,6 +742,15 @@ class _$InitialImpl implements _Initial {
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -722,6 +836,14 @@ class _$GetConversationsLoadingImpl implements _GetConversationsLoading {
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return getConversationsLoading();
   }
@@ -759,6 +881,14 @@ class _$GetConversationsLoadingImpl implements _GetConversationsLoading {
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return getConversationsLoading?.call();
   }
@@ -796,6 +926,14 @@ class _$GetConversationsLoadingImpl implements _GetConversationsLoading {
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (getConversationsLoading != null) {
@@ -862,6 +1000,18 @@ class _$GetConversationsLoadingImpl implements _GetConversationsLoading {
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return getConversationsLoading(this);
   }
@@ -921,6 +1071,18 @@ class _$GetConversationsLoadingImpl implements _GetConversationsLoading {
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return getConversationsLoading?.call(this);
   }
@@ -980,6 +1142,15 @@ class _$GetConversationsLoadingImpl implements _GetConversationsLoading {
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (getConversationsLoading != null) {
@@ -1092,6 +1263,14 @@ class _$GetConversationsSuccessImpl implements _GetConversationsSuccess {
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return getConversationsSuccess(response);
   }
@@ -1129,6 +1308,14 @@ class _$GetConversationsSuccessImpl implements _GetConversationsSuccess {
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return getConversationsSuccess?.call(response);
   }
@@ -1166,6 +1353,14 @@ class _$GetConversationsSuccessImpl implements _GetConversationsSuccess {
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (getConversationsSuccess != null) {
@@ -1232,6 +1427,18 @@ class _$GetConversationsSuccessImpl implements _GetConversationsSuccess {
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return getConversationsSuccess(this);
   }
@@ -1291,6 +1498,18 @@ class _$GetConversationsSuccessImpl implements _GetConversationsSuccess {
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return getConversationsSuccess?.call(this);
   }
@@ -1350,6 +1569,15 @@ class _$GetConversationsSuccessImpl implements _GetConversationsSuccess {
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (getConversationsSuccess != null) {
@@ -1467,6 +1695,14 @@ class _$GetConversationsFailureImpl implements _GetConversationsFailure {
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return getConversationsFailure(error);
   }
@@ -1504,6 +1740,14 @@ class _$GetConversationsFailureImpl implements _GetConversationsFailure {
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return getConversationsFailure?.call(error);
   }
@@ -1541,6 +1785,14 @@ class _$GetConversationsFailureImpl implements _GetConversationsFailure {
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (getConversationsFailure != null) {
@@ -1607,6 +1859,18 @@ class _$GetConversationsFailureImpl implements _GetConversationsFailure {
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return getConversationsFailure(this);
   }
@@ -1666,6 +1930,18 @@ class _$GetConversationsFailureImpl implements _GetConversationsFailure {
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return getConversationsFailure?.call(this);
   }
@@ -1725,6 +2001,15 @@ class _$GetConversationsFailureImpl implements _GetConversationsFailure {
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (getConversationsFailure != null) {
@@ -1816,6 +2101,14 @@ class _$GetConversationByIdLoadingImpl implements _GetConversationByIdLoading {
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return getConversationByIdLoading();
   }
@@ -1853,6 +2146,14 @@ class _$GetConversationByIdLoadingImpl implements _GetConversationByIdLoading {
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return getConversationByIdLoading?.call();
   }
@@ -1890,6 +2191,14 @@ class _$GetConversationByIdLoadingImpl implements _GetConversationByIdLoading {
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (getConversationByIdLoading != null) {
@@ -1956,6 +2265,18 @@ class _$GetConversationByIdLoadingImpl implements _GetConversationByIdLoading {
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return getConversationByIdLoading(this);
   }
@@ -2015,6 +2336,18 @@ class _$GetConversationByIdLoadingImpl implements _GetConversationByIdLoading {
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return getConversationByIdLoading?.call(this);
   }
@@ -2074,6 +2407,15 @@ class _$GetConversationByIdLoadingImpl implements _GetConversationByIdLoading {
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (getConversationByIdLoading != null) {
@@ -2187,6 +2529,14 @@ class _$GetConversationByIdSuccessImpl implements _GetConversationByIdSuccess {
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return getConversationByIdSuccess(response);
   }
@@ -2224,6 +2574,14 @@ class _$GetConversationByIdSuccessImpl implements _GetConversationByIdSuccess {
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return getConversationByIdSuccess?.call(response);
   }
@@ -2261,6 +2619,14 @@ class _$GetConversationByIdSuccessImpl implements _GetConversationByIdSuccess {
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (getConversationByIdSuccess != null) {
@@ -2327,6 +2693,18 @@ class _$GetConversationByIdSuccessImpl implements _GetConversationByIdSuccess {
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return getConversationByIdSuccess(this);
   }
@@ -2386,6 +2764,18 @@ class _$GetConversationByIdSuccessImpl implements _GetConversationByIdSuccess {
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return getConversationByIdSuccess?.call(this);
   }
@@ -2445,6 +2835,15 @@ class _$GetConversationByIdSuccessImpl implements _GetConversationByIdSuccess {
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (getConversationByIdSuccess != null) {
@@ -2562,6 +2961,14 @@ class _$GetConversationByIdFailureImpl implements _GetConversationByIdFailure {
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return getConversationByIdFailure(error);
   }
@@ -2599,6 +3006,14 @@ class _$GetConversationByIdFailureImpl implements _GetConversationByIdFailure {
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return getConversationByIdFailure?.call(error);
   }
@@ -2636,6 +3051,14 @@ class _$GetConversationByIdFailureImpl implements _GetConversationByIdFailure {
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (getConversationByIdFailure != null) {
@@ -2702,6 +3125,18 @@ class _$GetConversationByIdFailureImpl implements _GetConversationByIdFailure {
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return getConversationByIdFailure(this);
   }
@@ -2761,6 +3196,18 @@ class _$GetConversationByIdFailureImpl implements _GetConversationByIdFailure {
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return getConversationByIdFailure?.call(this);
   }
@@ -2820,6 +3267,15 @@ class _$GetConversationByIdFailureImpl implements _GetConversationByIdFailure {
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (getConversationByIdFailure != null) {
@@ -2912,6 +3368,14 @@ class _$DeleteConversationByIdLoadingImpl
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return deleteConversationByIdLoading();
   }
@@ -2949,6 +3413,14 @@ class _$DeleteConversationByIdLoadingImpl
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return deleteConversationByIdLoading?.call();
   }
@@ -2986,6 +3458,14 @@ class _$DeleteConversationByIdLoadingImpl
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (deleteConversationByIdLoading != null) {
@@ -3052,6 +3532,18 @@ class _$DeleteConversationByIdLoadingImpl
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return deleteConversationByIdLoading(this);
   }
@@ -3111,6 +3603,18 @@ class _$DeleteConversationByIdLoadingImpl
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return deleteConversationByIdLoading?.call(this);
   }
@@ -3170,6 +3674,15 @@ class _$DeleteConversationByIdLoadingImpl
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (deleteConversationByIdLoading != null) {
@@ -3257,6 +3770,14 @@ class _$DeleteConversationByIdSuccessImpl
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return deleteConversationByIdSuccess();
   }
@@ -3294,6 +3815,14 @@ class _$DeleteConversationByIdSuccessImpl
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return deleteConversationByIdSuccess?.call();
   }
@@ -3331,6 +3860,14 @@ class _$DeleteConversationByIdSuccessImpl
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (deleteConversationByIdSuccess != null) {
@@ -3397,6 +3934,18 @@ class _$DeleteConversationByIdSuccessImpl
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return deleteConversationByIdSuccess(this);
   }
@@ -3456,6 +4005,18 @@ class _$DeleteConversationByIdSuccessImpl
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return deleteConversationByIdSuccess?.call(this);
   }
@@ -3515,6 +4076,15 @@ class _$DeleteConversationByIdSuccessImpl
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (deleteConversationByIdSuccess != null) {
@@ -3629,6 +4199,14 @@ class _$DeleteConversationByIdFailureImpl
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return deleteConversationByIdFailure(error);
   }
@@ -3666,6 +4244,14 @@ class _$DeleteConversationByIdFailureImpl
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return deleteConversationByIdFailure?.call(error);
   }
@@ -3703,6 +4289,14 @@ class _$DeleteConversationByIdFailureImpl
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (deleteConversationByIdFailure != null) {
@@ -3769,6 +4363,18 @@ class _$DeleteConversationByIdFailureImpl
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return deleteConversationByIdFailure(this);
   }
@@ -3828,6 +4434,18 @@ class _$DeleteConversationByIdFailureImpl
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return deleteConversationByIdFailure?.call(this);
   }
@@ -3887,6 +4505,15 @@ class _$DeleteConversationByIdFailureImpl
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (deleteConversationByIdFailure != null) {
@@ -3979,6 +4606,14 @@ class _$CreateConversationLoadingImpl implements _CreateConversationLoading {
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return createConversationLoading();
   }
@@ -4016,6 +4651,14 @@ class _$CreateConversationLoadingImpl implements _CreateConversationLoading {
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return createConversationLoading?.call();
   }
@@ -4053,6 +4696,14 @@ class _$CreateConversationLoadingImpl implements _CreateConversationLoading {
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (createConversationLoading != null) {
@@ -4119,6 +4770,18 @@ class _$CreateConversationLoadingImpl implements _CreateConversationLoading {
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return createConversationLoading(this);
   }
@@ -4178,6 +4841,18 @@ class _$CreateConversationLoadingImpl implements _CreateConversationLoading {
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return createConversationLoading?.call(this);
   }
@@ -4237,6 +4912,15 @@ class _$CreateConversationLoadingImpl implements _CreateConversationLoading {
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (createConversationLoading != null) {
@@ -4349,6 +5033,14 @@ class _$CreateConversationSuccessImpl implements _CreateConversationSuccess {
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return createConversationSuccess(response);
   }
@@ -4386,6 +5078,14 @@ class _$CreateConversationSuccessImpl implements _CreateConversationSuccess {
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return createConversationSuccess?.call(response);
   }
@@ -4423,6 +5123,14 @@ class _$CreateConversationSuccessImpl implements _CreateConversationSuccess {
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (createConversationSuccess != null) {
@@ -4489,6 +5197,18 @@ class _$CreateConversationSuccessImpl implements _CreateConversationSuccess {
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return createConversationSuccess(this);
   }
@@ -4548,6 +5268,18 @@ class _$CreateConversationSuccessImpl implements _CreateConversationSuccess {
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return createConversationSuccess?.call(this);
   }
@@ -4607,6 +5339,15 @@ class _$CreateConversationSuccessImpl implements _CreateConversationSuccess {
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (createConversationSuccess != null) {
@@ -4724,6 +5465,14 @@ class _$CreateConversationFailureImpl implements _CreateConversationFailure {
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return createConversationFailure(error);
   }
@@ -4761,6 +5510,14 @@ class _$CreateConversationFailureImpl implements _CreateConversationFailure {
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return createConversationFailure?.call(error);
   }
@@ -4798,6 +5555,14 @@ class _$CreateConversationFailureImpl implements _CreateConversationFailure {
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (createConversationFailure != null) {
@@ -4864,6 +5629,18 @@ class _$CreateConversationFailureImpl implements _CreateConversationFailure {
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return createConversationFailure(this);
   }
@@ -4923,6 +5700,18 @@ class _$CreateConversationFailureImpl implements _CreateConversationFailure {
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return createConversationFailure?.call(this);
   }
@@ -4982,6 +5771,15 @@ class _$CreateConversationFailureImpl implements _CreateConversationFailure {
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (createConversationFailure != null) {
@@ -5074,6 +5872,14 @@ class _$FetchCurrentConversationLoadingImpl
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return fetchCurrentConversationLoading();
   }
@@ -5111,6 +5917,14 @@ class _$FetchCurrentConversationLoadingImpl
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return fetchCurrentConversationLoading?.call();
   }
@@ -5148,6 +5962,14 @@ class _$FetchCurrentConversationLoadingImpl
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (fetchCurrentConversationLoading != null) {
@@ -5214,6 +6036,18 @@ class _$FetchCurrentConversationLoadingImpl
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return fetchCurrentConversationLoading(this);
   }
@@ -5273,6 +6107,18 @@ class _$FetchCurrentConversationLoadingImpl
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return fetchCurrentConversationLoading?.call(this);
   }
@@ -5332,6 +6178,15 @@ class _$FetchCurrentConversationLoadingImpl
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (fetchCurrentConversationLoading != null) {
@@ -5447,6 +6302,14 @@ class _$FetchCurrentConversationSuccessImpl
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return fetchCurrentConversationSuccess(response);
   }
@@ -5484,6 +6347,14 @@ class _$FetchCurrentConversationSuccessImpl
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return fetchCurrentConversationSuccess?.call(response);
   }
@@ -5521,6 +6392,14 @@ class _$FetchCurrentConversationSuccessImpl
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (fetchCurrentConversationSuccess != null) {
@@ -5587,6 +6466,18 @@ class _$FetchCurrentConversationSuccessImpl
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return fetchCurrentConversationSuccess(this);
   }
@@ -5646,6 +6537,18 @@ class _$FetchCurrentConversationSuccessImpl
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return fetchCurrentConversationSuccess?.call(this);
   }
@@ -5705,6 +6608,15 @@ class _$FetchCurrentConversationSuccessImpl
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (fetchCurrentConversationSuccess != null) {
@@ -5825,6 +6737,14 @@ class _$FetchCurrentConversationFailureImpl
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return fetchCurrentConversationFailure(error);
   }
@@ -5862,6 +6782,14 @@ class _$FetchCurrentConversationFailureImpl
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return fetchCurrentConversationFailure?.call(error);
   }
@@ -5899,6 +6827,14 @@ class _$FetchCurrentConversationFailureImpl
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (fetchCurrentConversationFailure != null) {
@@ -5965,6 +6901,18 @@ class _$FetchCurrentConversationFailureImpl
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return fetchCurrentConversationFailure(this);
   }
@@ -6024,6 +6972,18 @@ class _$FetchCurrentConversationFailureImpl
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return fetchCurrentConversationFailure?.call(this);
   }
@@ -6083,6 +7043,15 @@ class _$FetchCurrentConversationFailureImpl
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (fetchCurrentConversationFailure != null) {
@@ -6176,6 +7145,14 @@ class _$UpdateConversationByIdLoadingImpl
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return updateConversationByIdLoading();
   }
@@ -6213,6 +7190,14 @@ class _$UpdateConversationByIdLoadingImpl
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return updateConversationByIdLoading?.call();
   }
@@ -6250,6 +7235,14 @@ class _$UpdateConversationByIdLoadingImpl
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (updateConversationByIdLoading != null) {
@@ -6316,6 +7309,18 @@ class _$UpdateConversationByIdLoadingImpl
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return updateConversationByIdLoading(this);
   }
@@ -6375,6 +7380,18 @@ class _$UpdateConversationByIdLoadingImpl
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return updateConversationByIdLoading?.call(this);
   }
@@ -6434,6 +7451,15 @@ class _$UpdateConversationByIdLoadingImpl
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (updateConversationByIdLoading != null) {
@@ -6549,6 +7575,14 @@ class _$UpdateConversationByIdSuccessImpl
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return updateConversationByIdSuccess(response);
   }
@@ -6586,6 +7620,14 @@ class _$UpdateConversationByIdSuccessImpl
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return updateConversationByIdSuccess?.call(response);
   }
@@ -6623,6 +7665,14 @@ class _$UpdateConversationByIdSuccessImpl
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (updateConversationByIdSuccess != null) {
@@ -6689,6 +7739,18 @@ class _$UpdateConversationByIdSuccessImpl
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return updateConversationByIdSuccess(this);
   }
@@ -6748,6 +7810,18 @@ class _$UpdateConversationByIdSuccessImpl
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return updateConversationByIdSuccess?.call(this);
   }
@@ -6807,6 +7881,15 @@ class _$UpdateConversationByIdSuccessImpl
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (updateConversationByIdSuccess != null) {
@@ -6927,6 +8010,14 @@ class _$UpdateConversationByIdFailureImpl
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return updateConversationByIdFailure(error);
   }
@@ -6964,6 +8055,14 @@ class _$UpdateConversationByIdFailureImpl
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return updateConversationByIdFailure?.call(error);
   }
@@ -7001,6 +8100,14 @@ class _$UpdateConversationByIdFailureImpl
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (updateConversationByIdFailure != null) {
@@ -7067,6 +8174,18 @@ class _$UpdateConversationByIdFailureImpl
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return updateConversationByIdFailure(this);
   }
@@ -7126,6 +8245,18 @@ class _$UpdateConversationByIdFailureImpl
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return updateConversationByIdFailure?.call(this);
   }
@@ -7185,6 +8316,15 @@ class _$UpdateConversationByIdFailureImpl
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (updateConversationByIdFailure != null) {
@@ -7278,6 +8418,14 @@ class _$UpdateConversationStatusLoadingImpl
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return updateConversationStatusLoading();
   }
@@ -7315,6 +8463,14 @@ class _$UpdateConversationStatusLoadingImpl
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return updateConversationStatusLoading?.call();
   }
@@ -7352,6 +8508,14 @@ class _$UpdateConversationStatusLoadingImpl
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (updateConversationStatusLoading != null) {
@@ -7418,6 +8582,18 @@ class _$UpdateConversationStatusLoadingImpl
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return updateConversationStatusLoading(this);
   }
@@ -7477,6 +8653,18 @@ class _$UpdateConversationStatusLoadingImpl
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return updateConversationStatusLoading?.call(this);
   }
@@ -7536,6 +8724,15 @@ class _$UpdateConversationStatusLoadingImpl
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (updateConversationStatusLoading != null) {
@@ -7651,6 +8848,14 @@ class _$UpdateConversationStatusSuccessImpl
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return updateConversationStatusSuccess(response);
   }
@@ -7688,6 +8893,14 @@ class _$UpdateConversationStatusSuccessImpl
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return updateConversationStatusSuccess?.call(response);
   }
@@ -7725,6 +8938,14 @@ class _$UpdateConversationStatusSuccessImpl
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (updateConversationStatusSuccess != null) {
@@ -7791,6 +9012,18 @@ class _$UpdateConversationStatusSuccessImpl
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return updateConversationStatusSuccess(this);
   }
@@ -7850,6 +9083,18 @@ class _$UpdateConversationStatusSuccessImpl
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return updateConversationStatusSuccess?.call(this);
   }
@@ -7909,6 +9154,15 @@ class _$UpdateConversationStatusSuccessImpl
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (updateConversationStatusSuccess != null) {
@@ -8029,6 +9283,14 @@ class _$UpdateConversationStatusFailureImpl
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return updateConversationStatusFailure(error);
   }
@@ -8066,6 +9328,14 @@ class _$UpdateConversationStatusFailureImpl
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return updateConversationStatusFailure?.call(error);
   }
@@ -8103,6 +9373,14 @@ class _$UpdateConversationStatusFailureImpl
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (updateConversationStatusFailure != null) {
@@ -8169,6 +9447,18 @@ class _$UpdateConversationStatusFailureImpl
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return updateConversationStatusFailure(this);
   }
@@ -8228,6 +9518,18 @@ class _$UpdateConversationStatusFailureImpl
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return updateConversationStatusFailure?.call(this);
   }
@@ -8287,6 +9589,15 @@ class _$UpdateConversationStatusFailureImpl
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (updateConversationStatusFailure != null) {
@@ -8379,6 +9690,14 @@ class _$ReportConversationLoadingImpl implements _ReportConversationLoading {
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return reportConversationLoading();
   }
@@ -8416,6 +9735,14 @@ class _$ReportConversationLoadingImpl implements _ReportConversationLoading {
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return reportConversationLoading?.call();
   }
@@ -8453,6 +9780,14 @@ class _$ReportConversationLoadingImpl implements _ReportConversationLoading {
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (reportConversationLoading != null) {
@@ -8519,6 +9854,18 @@ class _$ReportConversationLoadingImpl implements _ReportConversationLoading {
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return reportConversationLoading(this);
   }
@@ -8578,6 +9925,18 @@ class _$ReportConversationLoadingImpl implements _ReportConversationLoading {
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return reportConversationLoading?.call(this);
   }
@@ -8637,6 +9996,15 @@ class _$ReportConversationLoadingImpl implements _ReportConversationLoading {
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (reportConversationLoading != null) {
@@ -8749,6 +10117,14 @@ class _$ReportConversationSuccessImpl implements _ReportConversationSuccess {
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return reportConversationSuccess(response);
   }
@@ -8786,6 +10162,14 @@ class _$ReportConversationSuccessImpl implements _ReportConversationSuccess {
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return reportConversationSuccess?.call(response);
   }
@@ -8823,6 +10207,14 @@ class _$ReportConversationSuccessImpl implements _ReportConversationSuccess {
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (reportConversationSuccess != null) {
@@ -8889,6 +10281,18 @@ class _$ReportConversationSuccessImpl implements _ReportConversationSuccess {
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return reportConversationSuccess(this);
   }
@@ -8948,6 +10352,18 @@ class _$ReportConversationSuccessImpl implements _ReportConversationSuccess {
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return reportConversationSuccess?.call(this);
   }
@@ -9007,6 +10423,15 @@ class _$ReportConversationSuccessImpl implements _ReportConversationSuccess {
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (reportConversationSuccess != null) {
@@ -9124,6 +10549,14 @@ class _$ReportConversationFailureImpl implements _ReportConversationFailure {
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return reportConversationFailure(error);
   }
@@ -9161,6 +10594,14 @@ class _$ReportConversationFailureImpl implements _ReportConversationFailure {
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return reportConversationFailure?.call(error);
   }
@@ -9198,6 +10639,14 @@ class _$ReportConversationFailureImpl implements _ReportConversationFailure {
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (reportConversationFailure != null) {
@@ -9264,6 +10713,18 @@ class _$ReportConversationFailureImpl implements _ReportConversationFailure {
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return reportConversationFailure(this);
   }
@@ -9323,6 +10784,18 @@ class _$ReportConversationFailureImpl implements _ReportConversationFailure {
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return reportConversationFailure?.call(this);
   }
@@ -9382,6 +10855,15 @@ class _$ReportConversationFailureImpl implements _ReportConversationFailure {
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (reportConversationFailure != null) {
@@ -9473,6 +10955,14 @@ class _$GetPendingRequestsLoadingImpl implements _GetPendingRequestsLoading {
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return getPendingRequestsLoading();
   }
@@ -9510,6 +11000,14 @@ class _$GetPendingRequestsLoadingImpl implements _GetPendingRequestsLoading {
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return getPendingRequestsLoading?.call();
   }
@@ -9547,6 +11045,14 @@ class _$GetPendingRequestsLoadingImpl implements _GetPendingRequestsLoading {
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (getPendingRequestsLoading != null) {
@@ -9613,6 +11119,18 @@ class _$GetPendingRequestsLoadingImpl implements _GetPendingRequestsLoading {
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return getPendingRequestsLoading(this);
   }
@@ -9672,6 +11190,18 @@ class _$GetPendingRequestsLoadingImpl implements _GetPendingRequestsLoading {
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return getPendingRequestsLoading?.call(this);
   }
@@ -9731,6 +11261,15 @@ class _$GetPendingRequestsLoadingImpl implements _GetPendingRequestsLoading {
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (getPendingRequestsLoading != null) {
@@ -9843,6 +11382,14 @@ class _$GetPendingRequestsSuccessImpl implements _GetPendingRequestsSuccess {
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return getPendingRequestsSuccess(response);
   }
@@ -9880,6 +11427,14 @@ class _$GetPendingRequestsSuccessImpl implements _GetPendingRequestsSuccess {
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return getPendingRequestsSuccess?.call(response);
   }
@@ -9917,6 +11472,14 @@ class _$GetPendingRequestsSuccessImpl implements _GetPendingRequestsSuccess {
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (getPendingRequestsSuccess != null) {
@@ -9983,6 +11546,18 @@ class _$GetPendingRequestsSuccessImpl implements _GetPendingRequestsSuccess {
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return getPendingRequestsSuccess(this);
   }
@@ -10042,6 +11617,18 @@ class _$GetPendingRequestsSuccessImpl implements _GetPendingRequestsSuccess {
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return getPendingRequestsSuccess?.call(this);
   }
@@ -10101,6 +11688,15 @@ class _$GetPendingRequestsSuccessImpl implements _GetPendingRequestsSuccess {
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (getPendingRequestsSuccess != null) {
@@ -10219,6 +11815,14 @@ class _$GetPendingRequestsFailureImpl implements _GetPendingRequestsFailure {
     required TResult Function(GetConversationsResponse response)
         getPendingRequestsSuccess,
     required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
   }) {
     return getPendingRequestsFailure(error);
   }
@@ -10256,6 +11860,14 @@ class _$GetPendingRequestsFailureImpl implements _GetPendingRequestsFailure {
     TResult? Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
   }) {
     return getPendingRequestsFailure?.call(error);
   }
@@ -10293,6 +11905,14 @@ class _$GetPendingRequestsFailureImpl implements _GetPendingRequestsFailure {
     TResult Function(GetConversationsResponse response)?
         getPendingRequestsSuccess,
     TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (getPendingRequestsFailure != null) {
@@ -10359,6 +11979,18 @@ class _$GetPendingRequestsFailureImpl implements _GetPendingRequestsFailure {
         getPendingRequestsSuccess,
     required TResult Function(_GetPendingRequestsFailure value)
         getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
   }) {
     return getPendingRequestsFailure(this);
   }
@@ -10418,6 +12050,18 @@ class _$GetPendingRequestsFailureImpl implements _GetPendingRequestsFailure {
         getPendingRequestsSuccess,
     TResult? Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
   }) {
     return getPendingRequestsFailure?.call(this);
   }
@@ -10477,6 +12121,15 @@ class _$GetPendingRequestsFailureImpl implements _GetPendingRequestsFailure {
         getPendingRequestsSuccess,
     TResult Function(_GetPendingRequestsFailure value)?
         getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
     required TResult orElse(),
   }) {
     if (getPendingRequestsFailure != null) {
@@ -10493,5 +12146,2541 @@ abstract class _GetPendingRequestsFailure implements ConversationsState {
   String get error;
   @JsonKey(ignore: true)
   _$$GetPendingRequestsFailureImplCopyWith<_$GetPendingRequestsFailureImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GetConversationsListLoadingImplCopyWith<$Res> {
+  factory _$$GetConversationsListLoadingImplCopyWith(
+          _$GetConversationsListLoadingImpl value,
+          $Res Function(_$GetConversationsListLoadingImpl) then) =
+      __$$GetConversationsListLoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$GetConversationsListLoadingImplCopyWithImpl<$Res>
+    extends _$ConversationsStateCopyWithImpl<$Res,
+        _$GetConversationsListLoadingImpl>
+    implements _$$GetConversationsListLoadingImplCopyWith<$Res> {
+  __$$GetConversationsListLoadingImplCopyWithImpl(
+      _$GetConversationsListLoadingImpl _value,
+      $Res Function(_$GetConversationsListLoadingImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$GetConversationsListLoadingImpl
+    implements _GetConversationsListLoading {
+  const _$GetConversationsListLoadingImpl();
+
+  @override
+  String toString() {
+    return 'ConversationsState.getConversationsListLoading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetConversationsListLoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() getConversationsLoading,
+    required TResult Function(GetConversationsResponse response)
+        getConversationsSuccess,
+    required TResult Function(String error) getConversationsFailure,
+    required TResult Function() getConversationByIdLoading,
+    required TResult Function(dynamic response) getConversationByIdSuccess,
+    required TResult Function(String error) getConversationByIdFailure,
+    required TResult Function() deleteConversationByIdLoading,
+    required TResult Function() deleteConversationByIdSuccess,
+    required TResult Function(String error) deleteConversationByIdFailure,
+    required TResult Function() createConversationLoading,
+    required TResult Function(dynamic response) createConversationSuccess,
+    required TResult Function(String error) createConversationFailure,
+    required TResult Function() fetchCurrentConversationLoading,
+    required TResult Function(dynamic response) fetchCurrentConversationSuccess,
+    required TResult Function(String error) fetchCurrentConversationFailure,
+    required TResult Function() updateConversationByIdLoading,
+    required TResult Function(dynamic response) updateConversationByIdSuccess,
+    required TResult Function(String error) updateConversationByIdFailure,
+    required TResult Function() updateConversationStatusLoading,
+    required TResult Function(dynamic response) updateConversationStatusSuccess,
+    required TResult Function(String error) updateConversationStatusFailure,
+    required TResult Function() reportConversationLoading,
+    required TResult Function(dynamic response) reportConversationSuccess,
+    required TResult Function(String error) reportConversationFailure,
+    required TResult Function() getPendingRequestsLoading,
+    required TResult Function(GetConversationsResponse response)
+        getPendingRequestsSuccess,
+    required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
+  }) {
+    return getConversationsListLoading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? getConversationsLoading,
+    TResult? Function(GetConversationsResponse response)?
+        getConversationsSuccess,
+    TResult? Function(String error)? getConversationsFailure,
+    TResult? Function()? getConversationByIdLoading,
+    TResult? Function(dynamic response)? getConversationByIdSuccess,
+    TResult? Function(String error)? getConversationByIdFailure,
+    TResult? Function()? deleteConversationByIdLoading,
+    TResult? Function()? deleteConversationByIdSuccess,
+    TResult? Function(String error)? deleteConversationByIdFailure,
+    TResult? Function()? createConversationLoading,
+    TResult? Function(dynamic response)? createConversationSuccess,
+    TResult? Function(String error)? createConversationFailure,
+    TResult? Function()? fetchCurrentConversationLoading,
+    TResult? Function(dynamic response)? fetchCurrentConversationSuccess,
+    TResult? Function(String error)? fetchCurrentConversationFailure,
+    TResult? Function()? updateConversationByIdLoading,
+    TResult? Function(dynamic response)? updateConversationByIdSuccess,
+    TResult? Function(String error)? updateConversationByIdFailure,
+    TResult? Function()? updateConversationStatusLoading,
+    TResult? Function(dynamic response)? updateConversationStatusSuccess,
+    TResult? Function(String error)? updateConversationStatusFailure,
+    TResult? Function()? reportConversationLoading,
+    TResult? Function(dynamic response)? reportConversationSuccess,
+    TResult? Function(String error)? reportConversationFailure,
+    TResult? Function()? getPendingRequestsLoading,
+    TResult? Function(GetConversationsResponse response)?
+        getPendingRequestsSuccess,
+    TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
+  }) {
+    return getConversationsListLoading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? getConversationsLoading,
+    TResult Function(GetConversationsResponse response)?
+        getConversationsSuccess,
+    TResult Function(String error)? getConversationsFailure,
+    TResult Function()? getConversationByIdLoading,
+    TResult Function(dynamic response)? getConversationByIdSuccess,
+    TResult Function(String error)? getConversationByIdFailure,
+    TResult Function()? deleteConversationByIdLoading,
+    TResult Function()? deleteConversationByIdSuccess,
+    TResult Function(String error)? deleteConversationByIdFailure,
+    TResult Function()? createConversationLoading,
+    TResult Function(dynamic response)? createConversationSuccess,
+    TResult Function(String error)? createConversationFailure,
+    TResult Function()? fetchCurrentConversationLoading,
+    TResult Function(dynamic response)? fetchCurrentConversationSuccess,
+    TResult Function(String error)? fetchCurrentConversationFailure,
+    TResult Function()? updateConversationByIdLoading,
+    TResult Function(dynamic response)? updateConversationByIdSuccess,
+    TResult Function(String error)? updateConversationByIdFailure,
+    TResult Function()? updateConversationStatusLoading,
+    TResult Function(dynamic response)? updateConversationStatusSuccess,
+    TResult Function(String error)? updateConversationStatusFailure,
+    TResult Function()? reportConversationLoading,
+    TResult Function(dynamic response)? reportConversationSuccess,
+    TResult Function(String error)? reportConversationFailure,
+    TResult Function()? getPendingRequestsLoading,
+    TResult Function(GetConversationsResponse response)?
+        getPendingRequestsSuccess,
+    TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
+    required TResult orElse(),
+  }) {
+    if (getConversationsListLoading != null) {
+      return getConversationsListLoading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_GetConversationsLoading value)
+        getConversationsLoading,
+    required TResult Function(_GetConversationsSuccess value)
+        getConversationsSuccess,
+    required TResult Function(_GetConversationsFailure value)
+        getConversationsFailure,
+    required TResult Function(_GetConversationByIdLoading value)
+        getConversationByIdLoading,
+    required TResult Function(_GetConversationByIdSuccess value)
+        getConversationByIdSuccess,
+    required TResult Function(_GetConversationByIdFailure value)
+        getConversationByIdFailure,
+    required TResult Function(_DeleteConversationByIdLoading value)
+        deleteConversationByIdLoading,
+    required TResult Function(_DeleteConversationByIdSuccess value)
+        deleteConversationByIdSuccess,
+    required TResult Function(_DeleteConversationByIdFailure value)
+        deleteConversationByIdFailure,
+    required TResult Function(_CreateConversationLoading value)
+        createConversationLoading,
+    required TResult Function(_CreateConversationSuccess value)
+        createConversationSuccess,
+    required TResult Function(_CreateConversationFailure value)
+        createConversationFailure,
+    required TResult Function(_FetchCurrentConversationLoading value)
+        fetchCurrentConversationLoading,
+    required TResult Function(_FetchCurrentConversationSuccess value)
+        fetchCurrentConversationSuccess,
+    required TResult Function(_FetchCurrentConversationFailure value)
+        fetchCurrentConversationFailure,
+    required TResult Function(_UpdateConversationByIdLoading value)
+        updateConversationByIdLoading,
+    required TResult Function(_UpdateConversationByIdSuccess value)
+        updateConversationByIdSuccess,
+    required TResult Function(_UpdateConversationByIdFailure value)
+        updateConversationByIdFailure,
+    required TResult Function(_UpdateConversationStatusLoading value)
+        updateConversationStatusLoading,
+    required TResult Function(_UpdateConversationStatusSuccess value)
+        updateConversationStatusSuccess,
+    required TResult Function(_UpdateConversationStatusFailure value)
+        updateConversationStatusFailure,
+    required TResult Function(_ReportConversationLoading value)
+        reportConversationLoading,
+    required TResult Function(_ReportConversationSuccess value)
+        reportConversationSuccess,
+    required TResult Function(_ReportConversationFailure value)
+        reportConversationFailure,
+    required TResult Function(_GetPendingRequestsLoading value)
+        getPendingRequestsLoading,
+    required TResult Function(_GetPendingRequestsSuccess value)
+        getPendingRequestsSuccess,
+    required TResult Function(_GetPendingRequestsFailure value)
+        getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
+  }) {
+    return getConversationsListLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_GetConversationsLoading value)? getConversationsLoading,
+    TResult? Function(_GetConversationsSuccess value)? getConversationsSuccess,
+    TResult? Function(_GetConversationsFailure value)? getConversationsFailure,
+    TResult? Function(_GetConversationByIdLoading value)?
+        getConversationByIdLoading,
+    TResult? Function(_GetConversationByIdSuccess value)?
+        getConversationByIdSuccess,
+    TResult? Function(_GetConversationByIdFailure value)?
+        getConversationByIdFailure,
+    TResult? Function(_DeleteConversationByIdLoading value)?
+        deleteConversationByIdLoading,
+    TResult? Function(_DeleteConversationByIdSuccess value)?
+        deleteConversationByIdSuccess,
+    TResult? Function(_DeleteConversationByIdFailure value)?
+        deleteConversationByIdFailure,
+    TResult? Function(_CreateConversationLoading value)?
+        createConversationLoading,
+    TResult? Function(_CreateConversationSuccess value)?
+        createConversationSuccess,
+    TResult? Function(_CreateConversationFailure value)?
+        createConversationFailure,
+    TResult? Function(_FetchCurrentConversationLoading value)?
+        fetchCurrentConversationLoading,
+    TResult? Function(_FetchCurrentConversationSuccess value)?
+        fetchCurrentConversationSuccess,
+    TResult? Function(_FetchCurrentConversationFailure value)?
+        fetchCurrentConversationFailure,
+    TResult? Function(_UpdateConversationByIdLoading value)?
+        updateConversationByIdLoading,
+    TResult? Function(_UpdateConversationByIdSuccess value)?
+        updateConversationByIdSuccess,
+    TResult? Function(_UpdateConversationByIdFailure value)?
+        updateConversationByIdFailure,
+    TResult? Function(_UpdateConversationStatusLoading value)?
+        updateConversationStatusLoading,
+    TResult? Function(_UpdateConversationStatusSuccess value)?
+        updateConversationStatusSuccess,
+    TResult? Function(_UpdateConversationStatusFailure value)?
+        updateConversationStatusFailure,
+    TResult? Function(_ReportConversationLoading value)?
+        reportConversationLoading,
+    TResult? Function(_ReportConversationSuccess value)?
+        reportConversationSuccess,
+    TResult? Function(_ReportConversationFailure value)?
+        reportConversationFailure,
+    TResult? Function(_GetPendingRequestsLoading value)?
+        getPendingRequestsLoading,
+    TResult? Function(_GetPendingRequestsSuccess value)?
+        getPendingRequestsSuccess,
+    TResult? Function(_GetPendingRequestsFailure value)?
+        getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
+  }) {
+    return getConversationsListLoading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_GetConversationsLoading value)? getConversationsLoading,
+    TResult Function(_GetConversationsSuccess value)? getConversationsSuccess,
+    TResult Function(_GetConversationsFailure value)? getConversationsFailure,
+    TResult Function(_GetConversationByIdLoading value)?
+        getConversationByIdLoading,
+    TResult Function(_GetConversationByIdSuccess value)?
+        getConversationByIdSuccess,
+    TResult Function(_GetConversationByIdFailure value)?
+        getConversationByIdFailure,
+    TResult Function(_DeleteConversationByIdLoading value)?
+        deleteConversationByIdLoading,
+    TResult Function(_DeleteConversationByIdSuccess value)?
+        deleteConversationByIdSuccess,
+    TResult Function(_DeleteConversationByIdFailure value)?
+        deleteConversationByIdFailure,
+    TResult Function(_CreateConversationLoading value)?
+        createConversationLoading,
+    TResult Function(_CreateConversationSuccess value)?
+        createConversationSuccess,
+    TResult Function(_CreateConversationFailure value)?
+        createConversationFailure,
+    TResult Function(_FetchCurrentConversationLoading value)?
+        fetchCurrentConversationLoading,
+    TResult Function(_FetchCurrentConversationSuccess value)?
+        fetchCurrentConversationSuccess,
+    TResult Function(_FetchCurrentConversationFailure value)?
+        fetchCurrentConversationFailure,
+    TResult Function(_UpdateConversationByIdLoading value)?
+        updateConversationByIdLoading,
+    TResult Function(_UpdateConversationByIdSuccess value)?
+        updateConversationByIdSuccess,
+    TResult Function(_UpdateConversationByIdFailure value)?
+        updateConversationByIdFailure,
+    TResult Function(_UpdateConversationStatusLoading value)?
+        updateConversationStatusLoading,
+    TResult Function(_UpdateConversationStatusSuccess value)?
+        updateConversationStatusSuccess,
+    TResult Function(_UpdateConversationStatusFailure value)?
+        updateConversationStatusFailure,
+    TResult Function(_ReportConversationLoading value)?
+        reportConversationLoading,
+    TResult Function(_ReportConversationSuccess value)?
+        reportConversationSuccess,
+    TResult Function(_ReportConversationFailure value)?
+        reportConversationFailure,
+    TResult Function(_GetPendingRequestsLoading value)?
+        getPendingRequestsLoading,
+    TResult Function(_GetPendingRequestsSuccess value)?
+        getPendingRequestsSuccess,
+    TResult Function(_GetPendingRequestsFailure value)?
+        getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
+    required TResult orElse(),
+  }) {
+    if (getConversationsListLoading != null) {
+      return getConversationsListLoading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetConversationsListLoading implements ConversationsState {
+  const factory _GetConversationsListLoading() =
+      _$GetConversationsListLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$GetConversationsListSuccessImplCopyWith<$Res> {
+  factory _$$GetConversationsListSuccessImplCopyWith(
+          _$GetConversationsListSuccessImpl value,
+          $Res Function(_$GetConversationsListSuccessImpl) then) =
+      __$$GetConversationsListSuccessImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({GetConversationsListResponse response});
+}
+
+/// @nodoc
+class __$$GetConversationsListSuccessImplCopyWithImpl<$Res>
+    extends _$ConversationsStateCopyWithImpl<$Res,
+        _$GetConversationsListSuccessImpl>
+    implements _$$GetConversationsListSuccessImplCopyWith<$Res> {
+  __$$GetConversationsListSuccessImplCopyWithImpl(
+      _$GetConversationsListSuccessImpl _value,
+      $Res Function(_$GetConversationsListSuccessImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? response = null,
+  }) {
+    return _then(_$GetConversationsListSuccessImpl(
+      null == response
+          ? _value.response
+          : response // ignore: cast_nullable_to_non_nullable
+              as GetConversationsListResponse,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetConversationsListSuccessImpl
+    implements _GetConversationsListSuccess {
+  const _$GetConversationsListSuccessImpl(this.response);
+
+  @override
+  final GetConversationsListResponse response;
+
+  @override
+  String toString() {
+    return 'ConversationsState.getConversationsListSuccess(response: $response)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetConversationsListSuccessImpl &&
+            (identical(other.response, response) ||
+                other.response == response));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, response);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetConversationsListSuccessImplCopyWith<_$GetConversationsListSuccessImpl>
+      get copyWith => __$$GetConversationsListSuccessImplCopyWithImpl<
+          _$GetConversationsListSuccessImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() getConversationsLoading,
+    required TResult Function(GetConversationsResponse response)
+        getConversationsSuccess,
+    required TResult Function(String error) getConversationsFailure,
+    required TResult Function() getConversationByIdLoading,
+    required TResult Function(dynamic response) getConversationByIdSuccess,
+    required TResult Function(String error) getConversationByIdFailure,
+    required TResult Function() deleteConversationByIdLoading,
+    required TResult Function() deleteConversationByIdSuccess,
+    required TResult Function(String error) deleteConversationByIdFailure,
+    required TResult Function() createConversationLoading,
+    required TResult Function(dynamic response) createConversationSuccess,
+    required TResult Function(String error) createConversationFailure,
+    required TResult Function() fetchCurrentConversationLoading,
+    required TResult Function(dynamic response) fetchCurrentConversationSuccess,
+    required TResult Function(String error) fetchCurrentConversationFailure,
+    required TResult Function() updateConversationByIdLoading,
+    required TResult Function(dynamic response) updateConversationByIdSuccess,
+    required TResult Function(String error) updateConversationByIdFailure,
+    required TResult Function() updateConversationStatusLoading,
+    required TResult Function(dynamic response) updateConversationStatusSuccess,
+    required TResult Function(String error) updateConversationStatusFailure,
+    required TResult Function() reportConversationLoading,
+    required TResult Function(dynamic response) reportConversationSuccess,
+    required TResult Function(String error) reportConversationFailure,
+    required TResult Function() getPendingRequestsLoading,
+    required TResult Function(GetConversationsResponse response)
+        getPendingRequestsSuccess,
+    required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
+  }) {
+    return getConversationsListSuccess(response);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? getConversationsLoading,
+    TResult? Function(GetConversationsResponse response)?
+        getConversationsSuccess,
+    TResult? Function(String error)? getConversationsFailure,
+    TResult? Function()? getConversationByIdLoading,
+    TResult? Function(dynamic response)? getConversationByIdSuccess,
+    TResult? Function(String error)? getConversationByIdFailure,
+    TResult? Function()? deleteConversationByIdLoading,
+    TResult? Function()? deleteConversationByIdSuccess,
+    TResult? Function(String error)? deleteConversationByIdFailure,
+    TResult? Function()? createConversationLoading,
+    TResult? Function(dynamic response)? createConversationSuccess,
+    TResult? Function(String error)? createConversationFailure,
+    TResult? Function()? fetchCurrentConversationLoading,
+    TResult? Function(dynamic response)? fetchCurrentConversationSuccess,
+    TResult? Function(String error)? fetchCurrentConversationFailure,
+    TResult? Function()? updateConversationByIdLoading,
+    TResult? Function(dynamic response)? updateConversationByIdSuccess,
+    TResult? Function(String error)? updateConversationByIdFailure,
+    TResult? Function()? updateConversationStatusLoading,
+    TResult? Function(dynamic response)? updateConversationStatusSuccess,
+    TResult? Function(String error)? updateConversationStatusFailure,
+    TResult? Function()? reportConversationLoading,
+    TResult? Function(dynamic response)? reportConversationSuccess,
+    TResult? Function(String error)? reportConversationFailure,
+    TResult? Function()? getPendingRequestsLoading,
+    TResult? Function(GetConversationsResponse response)?
+        getPendingRequestsSuccess,
+    TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
+  }) {
+    return getConversationsListSuccess?.call(response);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? getConversationsLoading,
+    TResult Function(GetConversationsResponse response)?
+        getConversationsSuccess,
+    TResult Function(String error)? getConversationsFailure,
+    TResult Function()? getConversationByIdLoading,
+    TResult Function(dynamic response)? getConversationByIdSuccess,
+    TResult Function(String error)? getConversationByIdFailure,
+    TResult Function()? deleteConversationByIdLoading,
+    TResult Function()? deleteConversationByIdSuccess,
+    TResult Function(String error)? deleteConversationByIdFailure,
+    TResult Function()? createConversationLoading,
+    TResult Function(dynamic response)? createConversationSuccess,
+    TResult Function(String error)? createConversationFailure,
+    TResult Function()? fetchCurrentConversationLoading,
+    TResult Function(dynamic response)? fetchCurrentConversationSuccess,
+    TResult Function(String error)? fetchCurrentConversationFailure,
+    TResult Function()? updateConversationByIdLoading,
+    TResult Function(dynamic response)? updateConversationByIdSuccess,
+    TResult Function(String error)? updateConversationByIdFailure,
+    TResult Function()? updateConversationStatusLoading,
+    TResult Function(dynamic response)? updateConversationStatusSuccess,
+    TResult Function(String error)? updateConversationStatusFailure,
+    TResult Function()? reportConversationLoading,
+    TResult Function(dynamic response)? reportConversationSuccess,
+    TResult Function(String error)? reportConversationFailure,
+    TResult Function()? getPendingRequestsLoading,
+    TResult Function(GetConversationsResponse response)?
+        getPendingRequestsSuccess,
+    TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
+    required TResult orElse(),
+  }) {
+    if (getConversationsListSuccess != null) {
+      return getConversationsListSuccess(response);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_GetConversationsLoading value)
+        getConversationsLoading,
+    required TResult Function(_GetConversationsSuccess value)
+        getConversationsSuccess,
+    required TResult Function(_GetConversationsFailure value)
+        getConversationsFailure,
+    required TResult Function(_GetConversationByIdLoading value)
+        getConversationByIdLoading,
+    required TResult Function(_GetConversationByIdSuccess value)
+        getConversationByIdSuccess,
+    required TResult Function(_GetConversationByIdFailure value)
+        getConversationByIdFailure,
+    required TResult Function(_DeleteConversationByIdLoading value)
+        deleteConversationByIdLoading,
+    required TResult Function(_DeleteConversationByIdSuccess value)
+        deleteConversationByIdSuccess,
+    required TResult Function(_DeleteConversationByIdFailure value)
+        deleteConversationByIdFailure,
+    required TResult Function(_CreateConversationLoading value)
+        createConversationLoading,
+    required TResult Function(_CreateConversationSuccess value)
+        createConversationSuccess,
+    required TResult Function(_CreateConversationFailure value)
+        createConversationFailure,
+    required TResult Function(_FetchCurrentConversationLoading value)
+        fetchCurrentConversationLoading,
+    required TResult Function(_FetchCurrentConversationSuccess value)
+        fetchCurrentConversationSuccess,
+    required TResult Function(_FetchCurrentConversationFailure value)
+        fetchCurrentConversationFailure,
+    required TResult Function(_UpdateConversationByIdLoading value)
+        updateConversationByIdLoading,
+    required TResult Function(_UpdateConversationByIdSuccess value)
+        updateConversationByIdSuccess,
+    required TResult Function(_UpdateConversationByIdFailure value)
+        updateConversationByIdFailure,
+    required TResult Function(_UpdateConversationStatusLoading value)
+        updateConversationStatusLoading,
+    required TResult Function(_UpdateConversationStatusSuccess value)
+        updateConversationStatusSuccess,
+    required TResult Function(_UpdateConversationStatusFailure value)
+        updateConversationStatusFailure,
+    required TResult Function(_ReportConversationLoading value)
+        reportConversationLoading,
+    required TResult Function(_ReportConversationSuccess value)
+        reportConversationSuccess,
+    required TResult Function(_ReportConversationFailure value)
+        reportConversationFailure,
+    required TResult Function(_GetPendingRequestsLoading value)
+        getPendingRequestsLoading,
+    required TResult Function(_GetPendingRequestsSuccess value)
+        getPendingRequestsSuccess,
+    required TResult Function(_GetPendingRequestsFailure value)
+        getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
+  }) {
+    return getConversationsListSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_GetConversationsLoading value)? getConversationsLoading,
+    TResult? Function(_GetConversationsSuccess value)? getConversationsSuccess,
+    TResult? Function(_GetConversationsFailure value)? getConversationsFailure,
+    TResult? Function(_GetConversationByIdLoading value)?
+        getConversationByIdLoading,
+    TResult? Function(_GetConversationByIdSuccess value)?
+        getConversationByIdSuccess,
+    TResult? Function(_GetConversationByIdFailure value)?
+        getConversationByIdFailure,
+    TResult? Function(_DeleteConversationByIdLoading value)?
+        deleteConversationByIdLoading,
+    TResult? Function(_DeleteConversationByIdSuccess value)?
+        deleteConversationByIdSuccess,
+    TResult? Function(_DeleteConversationByIdFailure value)?
+        deleteConversationByIdFailure,
+    TResult? Function(_CreateConversationLoading value)?
+        createConversationLoading,
+    TResult? Function(_CreateConversationSuccess value)?
+        createConversationSuccess,
+    TResult? Function(_CreateConversationFailure value)?
+        createConversationFailure,
+    TResult? Function(_FetchCurrentConversationLoading value)?
+        fetchCurrentConversationLoading,
+    TResult? Function(_FetchCurrentConversationSuccess value)?
+        fetchCurrentConversationSuccess,
+    TResult? Function(_FetchCurrentConversationFailure value)?
+        fetchCurrentConversationFailure,
+    TResult? Function(_UpdateConversationByIdLoading value)?
+        updateConversationByIdLoading,
+    TResult? Function(_UpdateConversationByIdSuccess value)?
+        updateConversationByIdSuccess,
+    TResult? Function(_UpdateConversationByIdFailure value)?
+        updateConversationByIdFailure,
+    TResult? Function(_UpdateConversationStatusLoading value)?
+        updateConversationStatusLoading,
+    TResult? Function(_UpdateConversationStatusSuccess value)?
+        updateConversationStatusSuccess,
+    TResult? Function(_UpdateConversationStatusFailure value)?
+        updateConversationStatusFailure,
+    TResult? Function(_ReportConversationLoading value)?
+        reportConversationLoading,
+    TResult? Function(_ReportConversationSuccess value)?
+        reportConversationSuccess,
+    TResult? Function(_ReportConversationFailure value)?
+        reportConversationFailure,
+    TResult? Function(_GetPendingRequestsLoading value)?
+        getPendingRequestsLoading,
+    TResult? Function(_GetPendingRequestsSuccess value)?
+        getPendingRequestsSuccess,
+    TResult? Function(_GetPendingRequestsFailure value)?
+        getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
+  }) {
+    return getConversationsListSuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_GetConversationsLoading value)? getConversationsLoading,
+    TResult Function(_GetConversationsSuccess value)? getConversationsSuccess,
+    TResult Function(_GetConversationsFailure value)? getConversationsFailure,
+    TResult Function(_GetConversationByIdLoading value)?
+        getConversationByIdLoading,
+    TResult Function(_GetConversationByIdSuccess value)?
+        getConversationByIdSuccess,
+    TResult Function(_GetConversationByIdFailure value)?
+        getConversationByIdFailure,
+    TResult Function(_DeleteConversationByIdLoading value)?
+        deleteConversationByIdLoading,
+    TResult Function(_DeleteConversationByIdSuccess value)?
+        deleteConversationByIdSuccess,
+    TResult Function(_DeleteConversationByIdFailure value)?
+        deleteConversationByIdFailure,
+    TResult Function(_CreateConversationLoading value)?
+        createConversationLoading,
+    TResult Function(_CreateConversationSuccess value)?
+        createConversationSuccess,
+    TResult Function(_CreateConversationFailure value)?
+        createConversationFailure,
+    TResult Function(_FetchCurrentConversationLoading value)?
+        fetchCurrentConversationLoading,
+    TResult Function(_FetchCurrentConversationSuccess value)?
+        fetchCurrentConversationSuccess,
+    TResult Function(_FetchCurrentConversationFailure value)?
+        fetchCurrentConversationFailure,
+    TResult Function(_UpdateConversationByIdLoading value)?
+        updateConversationByIdLoading,
+    TResult Function(_UpdateConversationByIdSuccess value)?
+        updateConversationByIdSuccess,
+    TResult Function(_UpdateConversationByIdFailure value)?
+        updateConversationByIdFailure,
+    TResult Function(_UpdateConversationStatusLoading value)?
+        updateConversationStatusLoading,
+    TResult Function(_UpdateConversationStatusSuccess value)?
+        updateConversationStatusSuccess,
+    TResult Function(_UpdateConversationStatusFailure value)?
+        updateConversationStatusFailure,
+    TResult Function(_ReportConversationLoading value)?
+        reportConversationLoading,
+    TResult Function(_ReportConversationSuccess value)?
+        reportConversationSuccess,
+    TResult Function(_ReportConversationFailure value)?
+        reportConversationFailure,
+    TResult Function(_GetPendingRequestsLoading value)?
+        getPendingRequestsLoading,
+    TResult Function(_GetPendingRequestsSuccess value)?
+        getPendingRequestsSuccess,
+    TResult Function(_GetPendingRequestsFailure value)?
+        getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
+    required TResult orElse(),
+  }) {
+    if (getConversationsListSuccess != null) {
+      return getConversationsListSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetConversationsListSuccess implements ConversationsState {
+  const factory _GetConversationsListSuccess(
+          final GetConversationsListResponse response) =
+      _$GetConversationsListSuccessImpl;
+
+  GetConversationsListResponse get response;
+  @JsonKey(ignore: true)
+  _$$GetConversationsListSuccessImplCopyWith<_$GetConversationsListSuccessImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$GetConversationsListFailureImplCopyWith<$Res> {
+  factory _$$GetConversationsListFailureImplCopyWith(
+          _$GetConversationsListFailureImpl value,
+          $Res Function(_$GetConversationsListFailureImpl) then) =
+      __$$GetConversationsListFailureImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class __$$GetConversationsListFailureImplCopyWithImpl<$Res>
+    extends _$ConversationsStateCopyWithImpl<$Res,
+        _$GetConversationsListFailureImpl>
+    implements _$$GetConversationsListFailureImplCopyWith<$Res> {
+  __$$GetConversationsListFailureImplCopyWithImpl(
+      _$GetConversationsListFailureImpl _value,
+      $Res Function(_$GetConversationsListFailureImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$GetConversationsListFailureImpl(
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$GetConversationsListFailureImpl
+    implements _GetConversationsListFailure {
+  const _$GetConversationsListFailureImpl(this.error);
+
+  @override
+  final String error;
+
+  @override
+  String toString() {
+    return 'ConversationsState.getConversationsListFailure(error: $error)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$GetConversationsListFailureImpl &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetConversationsListFailureImplCopyWith<_$GetConversationsListFailureImpl>
+      get copyWith => __$$GetConversationsListFailureImplCopyWithImpl<
+          _$GetConversationsListFailureImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() getConversationsLoading,
+    required TResult Function(GetConversationsResponse response)
+        getConversationsSuccess,
+    required TResult Function(String error) getConversationsFailure,
+    required TResult Function() getConversationByIdLoading,
+    required TResult Function(dynamic response) getConversationByIdSuccess,
+    required TResult Function(String error) getConversationByIdFailure,
+    required TResult Function() deleteConversationByIdLoading,
+    required TResult Function() deleteConversationByIdSuccess,
+    required TResult Function(String error) deleteConversationByIdFailure,
+    required TResult Function() createConversationLoading,
+    required TResult Function(dynamic response) createConversationSuccess,
+    required TResult Function(String error) createConversationFailure,
+    required TResult Function() fetchCurrentConversationLoading,
+    required TResult Function(dynamic response) fetchCurrentConversationSuccess,
+    required TResult Function(String error) fetchCurrentConversationFailure,
+    required TResult Function() updateConversationByIdLoading,
+    required TResult Function(dynamic response) updateConversationByIdSuccess,
+    required TResult Function(String error) updateConversationByIdFailure,
+    required TResult Function() updateConversationStatusLoading,
+    required TResult Function(dynamic response) updateConversationStatusSuccess,
+    required TResult Function(String error) updateConversationStatusFailure,
+    required TResult Function() reportConversationLoading,
+    required TResult Function(dynamic response) reportConversationSuccess,
+    required TResult Function(String error) reportConversationFailure,
+    required TResult Function() getPendingRequestsLoading,
+    required TResult Function(GetConversationsResponse response)
+        getPendingRequestsSuccess,
+    required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
+  }) {
+    return getConversationsListFailure(error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? getConversationsLoading,
+    TResult? Function(GetConversationsResponse response)?
+        getConversationsSuccess,
+    TResult? Function(String error)? getConversationsFailure,
+    TResult? Function()? getConversationByIdLoading,
+    TResult? Function(dynamic response)? getConversationByIdSuccess,
+    TResult? Function(String error)? getConversationByIdFailure,
+    TResult? Function()? deleteConversationByIdLoading,
+    TResult? Function()? deleteConversationByIdSuccess,
+    TResult? Function(String error)? deleteConversationByIdFailure,
+    TResult? Function()? createConversationLoading,
+    TResult? Function(dynamic response)? createConversationSuccess,
+    TResult? Function(String error)? createConversationFailure,
+    TResult? Function()? fetchCurrentConversationLoading,
+    TResult? Function(dynamic response)? fetchCurrentConversationSuccess,
+    TResult? Function(String error)? fetchCurrentConversationFailure,
+    TResult? Function()? updateConversationByIdLoading,
+    TResult? Function(dynamic response)? updateConversationByIdSuccess,
+    TResult? Function(String error)? updateConversationByIdFailure,
+    TResult? Function()? updateConversationStatusLoading,
+    TResult? Function(dynamic response)? updateConversationStatusSuccess,
+    TResult? Function(String error)? updateConversationStatusFailure,
+    TResult? Function()? reportConversationLoading,
+    TResult? Function(dynamic response)? reportConversationSuccess,
+    TResult? Function(String error)? reportConversationFailure,
+    TResult? Function()? getPendingRequestsLoading,
+    TResult? Function(GetConversationsResponse response)?
+        getPendingRequestsSuccess,
+    TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
+  }) {
+    return getConversationsListFailure?.call(error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? getConversationsLoading,
+    TResult Function(GetConversationsResponse response)?
+        getConversationsSuccess,
+    TResult Function(String error)? getConversationsFailure,
+    TResult Function()? getConversationByIdLoading,
+    TResult Function(dynamic response)? getConversationByIdSuccess,
+    TResult Function(String error)? getConversationByIdFailure,
+    TResult Function()? deleteConversationByIdLoading,
+    TResult Function()? deleteConversationByIdSuccess,
+    TResult Function(String error)? deleteConversationByIdFailure,
+    TResult Function()? createConversationLoading,
+    TResult Function(dynamic response)? createConversationSuccess,
+    TResult Function(String error)? createConversationFailure,
+    TResult Function()? fetchCurrentConversationLoading,
+    TResult Function(dynamic response)? fetchCurrentConversationSuccess,
+    TResult Function(String error)? fetchCurrentConversationFailure,
+    TResult Function()? updateConversationByIdLoading,
+    TResult Function(dynamic response)? updateConversationByIdSuccess,
+    TResult Function(String error)? updateConversationByIdFailure,
+    TResult Function()? updateConversationStatusLoading,
+    TResult Function(dynamic response)? updateConversationStatusSuccess,
+    TResult Function(String error)? updateConversationStatusFailure,
+    TResult Function()? reportConversationLoading,
+    TResult Function(dynamic response)? reportConversationSuccess,
+    TResult Function(String error)? reportConversationFailure,
+    TResult Function()? getPendingRequestsLoading,
+    TResult Function(GetConversationsResponse response)?
+        getPendingRequestsSuccess,
+    TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
+    required TResult orElse(),
+  }) {
+    if (getConversationsListFailure != null) {
+      return getConversationsListFailure(error);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_GetConversationsLoading value)
+        getConversationsLoading,
+    required TResult Function(_GetConversationsSuccess value)
+        getConversationsSuccess,
+    required TResult Function(_GetConversationsFailure value)
+        getConversationsFailure,
+    required TResult Function(_GetConversationByIdLoading value)
+        getConversationByIdLoading,
+    required TResult Function(_GetConversationByIdSuccess value)
+        getConversationByIdSuccess,
+    required TResult Function(_GetConversationByIdFailure value)
+        getConversationByIdFailure,
+    required TResult Function(_DeleteConversationByIdLoading value)
+        deleteConversationByIdLoading,
+    required TResult Function(_DeleteConversationByIdSuccess value)
+        deleteConversationByIdSuccess,
+    required TResult Function(_DeleteConversationByIdFailure value)
+        deleteConversationByIdFailure,
+    required TResult Function(_CreateConversationLoading value)
+        createConversationLoading,
+    required TResult Function(_CreateConversationSuccess value)
+        createConversationSuccess,
+    required TResult Function(_CreateConversationFailure value)
+        createConversationFailure,
+    required TResult Function(_FetchCurrentConversationLoading value)
+        fetchCurrentConversationLoading,
+    required TResult Function(_FetchCurrentConversationSuccess value)
+        fetchCurrentConversationSuccess,
+    required TResult Function(_FetchCurrentConversationFailure value)
+        fetchCurrentConversationFailure,
+    required TResult Function(_UpdateConversationByIdLoading value)
+        updateConversationByIdLoading,
+    required TResult Function(_UpdateConversationByIdSuccess value)
+        updateConversationByIdSuccess,
+    required TResult Function(_UpdateConversationByIdFailure value)
+        updateConversationByIdFailure,
+    required TResult Function(_UpdateConversationStatusLoading value)
+        updateConversationStatusLoading,
+    required TResult Function(_UpdateConversationStatusSuccess value)
+        updateConversationStatusSuccess,
+    required TResult Function(_UpdateConversationStatusFailure value)
+        updateConversationStatusFailure,
+    required TResult Function(_ReportConversationLoading value)
+        reportConversationLoading,
+    required TResult Function(_ReportConversationSuccess value)
+        reportConversationSuccess,
+    required TResult Function(_ReportConversationFailure value)
+        reportConversationFailure,
+    required TResult Function(_GetPendingRequestsLoading value)
+        getPendingRequestsLoading,
+    required TResult Function(_GetPendingRequestsSuccess value)
+        getPendingRequestsSuccess,
+    required TResult Function(_GetPendingRequestsFailure value)
+        getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
+  }) {
+    return getConversationsListFailure(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_GetConversationsLoading value)? getConversationsLoading,
+    TResult? Function(_GetConversationsSuccess value)? getConversationsSuccess,
+    TResult? Function(_GetConversationsFailure value)? getConversationsFailure,
+    TResult? Function(_GetConversationByIdLoading value)?
+        getConversationByIdLoading,
+    TResult? Function(_GetConversationByIdSuccess value)?
+        getConversationByIdSuccess,
+    TResult? Function(_GetConversationByIdFailure value)?
+        getConversationByIdFailure,
+    TResult? Function(_DeleteConversationByIdLoading value)?
+        deleteConversationByIdLoading,
+    TResult? Function(_DeleteConversationByIdSuccess value)?
+        deleteConversationByIdSuccess,
+    TResult? Function(_DeleteConversationByIdFailure value)?
+        deleteConversationByIdFailure,
+    TResult? Function(_CreateConversationLoading value)?
+        createConversationLoading,
+    TResult? Function(_CreateConversationSuccess value)?
+        createConversationSuccess,
+    TResult? Function(_CreateConversationFailure value)?
+        createConversationFailure,
+    TResult? Function(_FetchCurrentConversationLoading value)?
+        fetchCurrentConversationLoading,
+    TResult? Function(_FetchCurrentConversationSuccess value)?
+        fetchCurrentConversationSuccess,
+    TResult? Function(_FetchCurrentConversationFailure value)?
+        fetchCurrentConversationFailure,
+    TResult? Function(_UpdateConversationByIdLoading value)?
+        updateConversationByIdLoading,
+    TResult? Function(_UpdateConversationByIdSuccess value)?
+        updateConversationByIdSuccess,
+    TResult? Function(_UpdateConversationByIdFailure value)?
+        updateConversationByIdFailure,
+    TResult? Function(_UpdateConversationStatusLoading value)?
+        updateConversationStatusLoading,
+    TResult? Function(_UpdateConversationStatusSuccess value)?
+        updateConversationStatusSuccess,
+    TResult? Function(_UpdateConversationStatusFailure value)?
+        updateConversationStatusFailure,
+    TResult? Function(_ReportConversationLoading value)?
+        reportConversationLoading,
+    TResult? Function(_ReportConversationSuccess value)?
+        reportConversationSuccess,
+    TResult? Function(_ReportConversationFailure value)?
+        reportConversationFailure,
+    TResult? Function(_GetPendingRequestsLoading value)?
+        getPendingRequestsLoading,
+    TResult? Function(_GetPendingRequestsSuccess value)?
+        getPendingRequestsSuccess,
+    TResult? Function(_GetPendingRequestsFailure value)?
+        getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
+  }) {
+    return getConversationsListFailure?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_GetConversationsLoading value)? getConversationsLoading,
+    TResult Function(_GetConversationsSuccess value)? getConversationsSuccess,
+    TResult Function(_GetConversationsFailure value)? getConversationsFailure,
+    TResult Function(_GetConversationByIdLoading value)?
+        getConversationByIdLoading,
+    TResult Function(_GetConversationByIdSuccess value)?
+        getConversationByIdSuccess,
+    TResult Function(_GetConversationByIdFailure value)?
+        getConversationByIdFailure,
+    TResult Function(_DeleteConversationByIdLoading value)?
+        deleteConversationByIdLoading,
+    TResult Function(_DeleteConversationByIdSuccess value)?
+        deleteConversationByIdSuccess,
+    TResult Function(_DeleteConversationByIdFailure value)?
+        deleteConversationByIdFailure,
+    TResult Function(_CreateConversationLoading value)?
+        createConversationLoading,
+    TResult Function(_CreateConversationSuccess value)?
+        createConversationSuccess,
+    TResult Function(_CreateConversationFailure value)?
+        createConversationFailure,
+    TResult Function(_FetchCurrentConversationLoading value)?
+        fetchCurrentConversationLoading,
+    TResult Function(_FetchCurrentConversationSuccess value)?
+        fetchCurrentConversationSuccess,
+    TResult Function(_FetchCurrentConversationFailure value)?
+        fetchCurrentConversationFailure,
+    TResult Function(_UpdateConversationByIdLoading value)?
+        updateConversationByIdLoading,
+    TResult Function(_UpdateConversationByIdSuccess value)?
+        updateConversationByIdSuccess,
+    TResult Function(_UpdateConversationByIdFailure value)?
+        updateConversationByIdFailure,
+    TResult Function(_UpdateConversationStatusLoading value)?
+        updateConversationStatusLoading,
+    TResult Function(_UpdateConversationStatusSuccess value)?
+        updateConversationStatusSuccess,
+    TResult Function(_UpdateConversationStatusFailure value)?
+        updateConversationStatusFailure,
+    TResult Function(_ReportConversationLoading value)?
+        reportConversationLoading,
+    TResult Function(_ReportConversationSuccess value)?
+        reportConversationSuccess,
+    TResult Function(_ReportConversationFailure value)?
+        reportConversationFailure,
+    TResult Function(_GetPendingRequestsLoading value)?
+        getPendingRequestsLoading,
+    TResult Function(_GetPendingRequestsSuccess value)?
+        getPendingRequestsSuccess,
+    TResult Function(_GetPendingRequestsFailure value)?
+        getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
+    required TResult orElse(),
+  }) {
+    if (getConversationsListFailure != null) {
+      return getConversationsListFailure(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _GetConversationsListFailure implements ConversationsState {
+  const factory _GetConversationsListFailure(final String error) =
+      _$GetConversationsListFailureImpl;
+
+  String get error;
+  @JsonKey(ignore: true)
+  _$$GetConversationsListFailureImplCopyWith<_$GetConversationsListFailureImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ConversationStateLoadingImplCopyWith<$Res> {
+  factory _$$ConversationStateLoadingImplCopyWith(
+          _$ConversationStateLoadingImpl value,
+          $Res Function(_$ConversationStateLoadingImpl) then) =
+      __$$ConversationStateLoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ConversationStateLoadingImplCopyWithImpl<$Res>
+    extends _$ConversationsStateCopyWithImpl<$Res,
+        _$ConversationStateLoadingImpl>
+    implements _$$ConversationStateLoadingImplCopyWith<$Res> {
+  __$$ConversationStateLoadingImplCopyWithImpl(
+      _$ConversationStateLoadingImpl _value,
+      $Res Function(_$ConversationStateLoadingImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ConversationStateLoadingImpl implements _ConversationStateLoading {
+  const _$ConversationStateLoadingImpl();
+
+  @override
+  String toString() {
+    return 'ConversationsState.conversationStateLoading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ConversationStateLoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() getConversationsLoading,
+    required TResult Function(GetConversationsResponse response)
+        getConversationsSuccess,
+    required TResult Function(String error) getConversationsFailure,
+    required TResult Function() getConversationByIdLoading,
+    required TResult Function(dynamic response) getConversationByIdSuccess,
+    required TResult Function(String error) getConversationByIdFailure,
+    required TResult Function() deleteConversationByIdLoading,
+    required TResult Function() deleteConversationByIdSuccess,
+    required TResult Function(String error) deleteConversationByIdFailure,
+    required TResult Function() createConversationLoading,
+    required TResult Function(dynamic response) createConversationSuccess,
+    required TResult Function(String error) createConversationFailure,
+    required TResult Function() fetchCurrentConversationLoading,
+    required TResult Function(dynamic response) fetchCurrentConversationSuccess,
+    required TResult Function(String error) fetchCurrentConversationFailure,
+    required TResult Function() updateConversationByIdLoading,
+    required TResult Function(dynamic response) updateConversationByIdSuccess,
+    required TResult Function(String error) updateConversationByIdFailure,
+    required TResult Function() updateConversationStatusLoading,
+    required TResult Function(dynamic response) updateConversationStatusSuccess,
+    required TResult Function(String error) updateConversationStatusFailure,
+    required TResult Function() reportConversationLoading,
+    required TResult Function(dynamic response) reportConversationSuccess,
+    required TResult Function(String error) reportConversationFailure,
+    required TResult Function() getPendingRequestsLoading,
+    required TResult Function(GetConversationsResponse response)
+        getPendingRequestsSuccess,
+    required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
+  }) {
+    return conversationStateLoading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? getConversationsLoading,
+    TResult? Function(GetConversationsResponse response)?
+        getConversationsSuccess,
+    TResult? Function(String error)? getConversationsFailure,
+    TResult? Function()? getConversationByIdLoading,
+    TResult? Function(dynamic response)? getConversationByIdSuccess,
+    TResult? Function(String error)? getConversationByIdFailure,
+    TResult? Function()? deleteConversationByIdLoading,
+    TResult? Function()? deleteConversationByIdSuccess,
+    TResult? Function(String error)? deleteConversationByIdFailure,
+    TResult? Function()? createConversationLoading,
+    TResult? Function(dynamic response)? createConversationSuccess,
+    TResult? Function(String error)? createConversationFailure,
+    TResult? Function()? fetchCurrentConversationLoading,
+    TResult? Function(dynamic response)? fetchCurrentConversationSuccess,
+    TResult? Function(String error)? fetchCurrentConversationFailure,
+    TResult? Function()? updateConversationByIdLoading,
+    TResult? Function(dynamic response)? updateConversationByIdSuccess,
+    TResult? Function(String error)? updateConversationByIdFailure,
+    TResult? Function()? updateConversationStatusLoading,
+    TResult? Function(dynamic response)? updateConversationStatusSuccess,
+    TResult? Function(String error)? updateConversationStatusFailure,
+    TResult? Function()? reportConversationLoading,
+    TResult? Function(dynamic response)? reportConversationSuccess,
+    TResult? Function(String error)? reportConversationFailure,
+    TResult? Function()? getPendingRequestsLoading,
+    TResult? Function(GetConversationsResponse response)?
+        getPendingRequestsSuccess,
+    TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
+  }) {
+    return conversationStateLoading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? getConversationsLoading,
+    TResult Function(GetConversationsResponse response)?
+        getConversationsSuccess,
+    TResult Function(String error)? getConversationsFailure,
+    TResult Function()? getConversationByIdLoading,
+    TResult Function(dynamic response)? getConversationByIdSuccess,
+    TResult Function(String error)? getConversationByIdFailure,
+    TResult Function()? deleteConversationByIdLoading,
+    TResult Function()? deleteConversationByIdSuccess,
+    TResult Function(String error)? deleteConversationByIdFailure,
+    TResult Function()? createConversationLoading,
+    TResult Function(dynamic response)? createConversationSuccess,
+    TResult Function(String error)? createConversationFailure,
+    TResult Function()? fetchCurrentConversationLoading,
+    TResult Function(dynamic response)? fetchCurrentConversationSuccess,
+    TResult Function(String error)? fetchCurrentConversationFailure,
+    TResult Function()? updateConversationByIdLoading,
+    TResult Function(dynamic response)? updateConversationByIdSuccess,
+    TResult Function(String error)? updateConversationByIdFailure,
+    TResult Function()? updateConversationStatusLoading,
+    TResult Function(dynamic response)? updateConversationStatusSuccess,
+    TResult Function(String error)? updateConversationStatusFailure,
+    TResult Function()? reportConversationLoading,
+    TResult Function(dynamic response)? reportConversationSuccess,
+    TResult Function(String error)? reportConversationFailure,
+    TResult Function()? getPendingRequestsLoading,
+    TResult Function(GetConversationsResponse response)?
+        getPendingRequestsSuccess,
+    TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
+    required TResult orElse(),
+  }) {
+    if (conversationStateLoading != null) {
+      return conversationStateLoading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_GetConversationsLoading value)
+        getConversationsLoading,
+    required TResult Function(_GetConversationsSuccess value)
+        getConversationsSuccess,
+    required TResult Function(_GetConversationsFailure value)
+        getConversationsFailure,
+    required TResult Function(_GetConversationByIdLoading value)
+        getConversationByIdLoading,
+    required TResult Function(_GetConversationByIdSuccess value)
+        getConversationByIdSuccess,
+    required TResult Function(_GetConversationByIdFailure value)
+        getConversationByIdFailure,
+    required TResult Function(_DeleteConversationByIdLoading value)
+        deleteConversationByIdLoading,
+    required TResult Function(_DeleteConversationByIdSuccess value)
+        deleteConversationByIdSuccess,
+    required TResult Function(_DeleteConversationByIdFailure value)
+        deleteConversationByIdFailure,
+    required TResult Function(_CreateConversationLoading value)
+        createConversationLoading,
+    required TResult Function(_CreateConversationSuccess value)
+        createConversationSuccess,
+    required TResult Function(_CreateConversationFailure value)
+        createConversationFailure,
+    required TResult Function(_FetchCurrentConversationLoading value)
+        fetchCurrentConversationLoading,
+    required TResult Function(_FetchCurrentConversationSuccess value)
+        fetchCurrentConversationSuccess,
+    required TResult Function(_FetchCurrentConversationFailure value)
+        fetchCurrentConversationFailure,
+    required TResult Function(_UpdateConversationByIdLoading value)
+        updateConversationByIdLoading,
+    required TResult Function(_UpdateConversationByIdSuccess value)
+        updateConversationByIdSuccess,
+    required TResult Function(_UpdateConversationByIdFailure value)
+        updateConversationByIdFailure,
+    required TResult Function(_UpdateConversationStatusLoading value)
+        updateConversationStatusLoading,
+    required TResult Function(_UpdateConversationStatusSuccess value)
+        updateConversationStatusSuccess,
+    required TResult Function(_UpdateConversationStatusFailure value)
+        updateConversationStatusFailure,
+    required TResult Function(_ReportConversationLoading value)
+        reportConversationLoading,
+    required TResult Function(_ReportConversationSuccess value)
+        reportConversationSuccess,
+    required TResult Function(_ReportConversationFailure value)
+        reportConversationFailure,
+    required TResult Function(_GetPendingRequestsLoading value)
+        getPendingRequestsLoading,
+    required TResult Function(_GetPendingRequestsSuccess value)
+        getPendingRequestsSuccess,
+    required TResult Function(_GetPendingRequestsFailure value)
+        getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
+  }) {
+    return conversationStateLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_GetConversationsLoading value)? getConversationsLoading,
+    TResult? Function(_GetConversationsSuccess value)? getConversationsSuccess,
+    TResult? Function(_GetConversationsFailure value)? getConversationsFailure,
+    TResult? Function(_GetConversationByIdLoading value)?
+        getConversationByIdLoading,
+    TResult? Function(_GetConversationByIdSuccess value)?
+        getConversationByIdSuccess,
+    TResult? Function(_GetConversationByIdFailure value)?
+        getConversationByIdFailure,
+    TResult? Function(_DeleteConversationByIdLoading value)?
+        deleteConversationByIdLoading,
+    TResult? Function(_DeleteConversationByIdSuccess value)?
+        deleteConversationByIdSuccess,
+    TResult? Function(_DeleteConversationByIdFailure value)?
+        deleteConversationByIdFailure,
+    TResult? Function(_CreateConversationLoading value)?
+        createConversationLoading,
+    TResult? Function(_CreateConversationSuccess value)?
+        createConversationSuccess,
+    TResult? Function(_CreateConversationFailure value)?
+        createConversationFailure,
+    TResult? Function(_FetchCurrentConversationLoading value)?
+        fetchCurrentConversationLoading,
+    TResult? Function(_FetchCurrentConversationSuccess value)?
+        fetchCurrentConversationSuccess,
+    TResult? Function(_FetchCurrentConversationFailure value)?
+        fetchCurrentConversationFailure,
+    TResult? Function(_UpdateConversationByIdLoading value)?
+        updateConversationByIdLoading,
+    TResult? Function(_UpdateConversationByIdSuccess value)?
+        updateConversationByIdSuccess,
+    TResult? Function(_UpdateConversationByIdFailure value)?
+        updateConversationByIdFailure,
+    TResult? Function(_UpdateConversationStatusLoading value)?
+        updateConversationStatusLoading,
+    TResult? Function(_UpdateConversationStatusSuccess value)?
+        updateConversationStatusSuccess,
+    TResult? Function(_UpdateConversationStatusFailure value)?
+        updateConversationStatusFailure,
+    TResult? Function(_ReportConversationLoading value)?
+        reportConversationLoading,
+    TResult? Function(_ReportConversationSuccess value)?
+        reportConversationSuccess,
+    TResult? Function(_ReportConversationFailure value)?
+        reportConversationFailure,
+    TResult? Function(_GetPendingRequestsLoading value)?
+        getPendingRequestsLoading,
+    TResult? Function(_GetPendingRequestsSuccess value)?
+        getPendingRequestsSuccess,
+    TResult? Function(_GetPendingRequestsFailure value)?
+        getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
+  }) {
+    return conversationStateLoading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_GetConversationsLoading value)? getConversationsLoading,
+    TResult Function(_GetConversationsSuccess value)? getConversationsSuccess,
+    TResult Function(_GetConversationsFailure value)? getConversationsFailure,
+    TResult Function(_GetConversationByIdLoading value)?
+        getConversationByIdLoading,
+    TResult Function(_GetConversationByIdSuccess value)?
+        getConversationByIdSuccess,
+    TResult Function(_GetConversationByIdFailure value)?
+        getConversationByIdFailure,
+    TResult Function(_DeleteConversationByIdLoading value)?
+        deleteConversationByIdLoading,
+    TResult Function(_DeleteConversationByIdSuccess value)?
+        deleteConversationByIdSuccess,
+    TResult Function(_DeleteConversationByIdFailure value)?
+        deleteConversationByIdFailure,
+    TResult Function(_CreateConversationLoading value)?
+        createConversationLoading,
+    TResult Function(_CreateConversationSuccess value)?
+        createConversationSuccess,
+    TResult Function(_CreateConversationFailure value)?
+        createConversationFailure,
+    TResult Function(_FetchCurrentConversationLoading value)?
+        fetchCurrentConversationLoading,
+    TResult Function(_FetchCurrentConversationSuccess value)?
+        fetchCurrentConversationSuccess,
+    TResult Function(_FetchCurrentConversationFailure value)?
+        fetchCurrentConversationFailure,
+    TResult Function(_UpdateConversationByIdLoading value)?
+        updateConversationByIdLoading,
+    TResult Function(_UpdateConversationByIdSuccess value)?
+        updateConversationByIdSuccess,
+    TResult Function(_UpdateConversationByIdFailure value)?
+        updateConversationByIdFailure,
+    TResult Function(_UpdateConversationStatusLoading value)?
+        updateConversationStatusLoading,
+    TResult Function(_UpdateConversationStatusSuccess value)?
+        updateConversationStatusSuccess,
+    TResult Function(_UpdateConversationStatusFailure value)?
+        updateConversationStatusFailure,
+    TResult Function(_ReportConversationLoading value)?
+        reportConversationLoading,
+    TResult Function(_ReportConversationSuccess value)?
+        reportConversationSuccess,
+    TResult Function(_ReportConversationFailure value)?
+        reportConversationFailure,
+    TResult Function(_GetPendingRequestsLoading value)?
+        getPendingRequestsLoading,
+    TResult Function(_GetPendingRequestsSuccess value)?
+        getPendingRequestsSuccess,
+    TResult Function(_GetPendingRequestsFailure value)?
+        getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
+    required TResult orElse(),
+  }) {
+    if (conversationStateLoading != null) {
+      return conversationStateLoading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ConversationStateLoading implements ConversationsState {
+  const factory _ConversationStateLoading() = _$ConversationStateLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$ConversationStateSuccessImplCopyWith<$Res> {
+  factory _$$ConversationStateSuccessImplCopyWith(
+          _$ConversationStateSuccessImpl value,
+          $Res Function(_$ConversationStateSuccessImpl) then) =
+      __$$ConversationStateSuccessImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({ConversationStateResponse response});
+}
+
+/// @nodoc
+class __$$ConversationStateSuccessImplCopyWithImpl<$Res>
+    extends _$ConversationsStateCopyWithImpl<$Res,
+        _$ConversationStateSuccessImpl>
+    implements _$$ConversationStateSuccessImplCopyWith<$Res> {
+  __$$ConversationStateSuccessImplCopyWithImpl(
+      _$ConversationStateSuccessImpl _value,
+      $Res Function(_$ConversationStateSuccessImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? response = null,
+  }) {
+    return _then(_$ConversationStateSuccessImpl(
+      null == response
+          ? _value.response
+          : response // ignore: cast_nullable_to_non_nullable
+              as ConversationStateResponse,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ConversationStateSuccessImpl implements _ConversationStateSuccess {
+  const _$ConversationStateSuccessImpl(this.response);
+
+  @override
+  final ConversationStateResponse response;
+
+  @override
+  String toString() {
+    return 'ConversationsState.conversationStateSuccess(response: $response)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ConversationStateSuccessImpl &&
+            (identical(other.response, response) ||
+                other.response == response));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, response);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ConversationStateSuccessImplCopyWith<_$ConversationStateSuccessImpl>
+      get copyWith => __$$ConversationStateSuccessImplCopyWithImpl<
+          _$ConversationStateSuccessImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() getConversationsLoading,
+    required TResult Function(GetConversationsResponse response)
+        getConversationsSuccess,
+    required TResult Function(String error) getConversationsFailure,
+    required TResult Function() getConversationByIdLoading,
+    required TResult Function(dynamic response) getConversationByIdSuccess,
+    required TResult Function(String error) getConversationByIdFailure,
+    required TResult Function() deleteConversationByIdLoading,
+    required TResult Function() deleteConversationByIdSuccess,
+    required TResult Function(String error) deleteConversationByIdFailure,
+    required TResult Function() createConversationLoading,
+    required TResult Function(dynamic response) createConversationSuccess,
+    required TResult Function(String error) createConversationFailure,
+    required TResult Function() fetchCurrentConversationLoading,
+    required TResult Function(dynamic response) fetchCurrentConversationSuccess,
+    required TResult Function(String error) fetchCurrentConversationFailure,
+    required TResult Function() updateConversationByIdLoading,
+    required TResult Function(dynamic response) updateConversationByIdSuccess,
+    required TResult Function(String error) updateConversationByIdFailure,
+    required TResult Function() updateConversationStatusLoading,
+    required TResult Function(dynamic response) updateConversationStatusSuccess,
+    required TResult Function(String error) updateConversationStatusFailure,
+    required TResult Function() reportConversationLoading,
+    required TResult Function(dynamic response) reportConversationSuccess,
+    required TResult Function(String error) reportConversationFailure,
+    required TResult Function() getPendingRequestsLoading,
+    required TResult Function(GetConversationsResponse response)
+        getPendingRequestsSuccess,
+    required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
+  }) {
+    return conversationStateSuccess(response);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? getConversationsLoading,
+    TResult? Function(GetConversationsResponse response)?
+        getConversationsSuccess,
+    TResult? Function(String error)? getConversationsFailure,
+    TResult? Function()? getConversationByIdLoading,
+    TResult? Function(dynamic response)? getConversationByIdSuccess,
+    TResult? Function(String error)? getConversationByIdFailure,
+    TResult? Function()? deleteConversationByIdLoading,
+    TResult? Function()? deleteConversationByIdSuccess,
+    TResult? Function(String error)? deleteConversationByIdFailure,
+    TResult? Function()? createConversationLoading,
+    TResult? Function(dynamic response)? createConversationSuccess,
+    TResult? Function(String error)? createConversationFailure,
+    TResult? Function()? fetchCurrentConversationLoading,
+    TResult? Function(dynamic response)? fetchCurrentConversationSuccess,
+    TResult? Function(String error)? fetchCurrentConversationFailure,
+    TResult? Function()? updateConversationByIdLoading,
+    TResult? Function(dynamic response)? updateConversationByIdSuccess,
+    TResult? Function(String error)? updateConversationByIdFailure,
+    TResult? Function()? updateConversationStatusLoading,
+    TResult? Function(dynamic response)? updateConversationStatusSuccess,
+    TResult? Function(String error)? updateConversationStatusFailure,
+    TResult? Function()? reportConversationLoading,
+    TResult? Function(dynamic response)? reportConversationSuccess,
+    TResult? Function(String error)? reportConversationFailure,
+    TResult? Function()? getPendingRequestsLoading,
+    TResult? Function(GetConversationsResponse response)?
+        getPendingRequestsSuccess,
+    TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
+  }) {
+    return conversationStateSuccess?.call(response);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? getConversationsLoading,
+    TResult Function(GetConversationsResponse response)?
+        getConversationsSuccess,
+    TResult Function(String error)? getConversationsFailure,
+    TResult Function()? getConversationByIdLoading,
+    TResult Function(dynamic response)? getConversationByIdSuccess,
+    TResult Function(String error)? getConversationByIdFailure,
+    TResult Function()? deleteConversationByIdLoading,
+    TResult Function()? deleteConversationByIdSuccess,
+    TResult Function(String error)? deleteConversationByIdFailure,
+    TResult Function()? createConversationLoading,
+    TResult Function(dynamic response)? createConversationSuccess,
+    TResult Function(String error)? createConversationFailure,
+    TResult Function()? fetchCurrentConversationLoading,
+    TResult Function(dynamic response)? fetchCurrentConversationSuccess,
+    TResult Function(String error)? fetchCurrentConversationFailure,
+    TResult Function()? updateConversationByIdLoading,
+    TResult Function(dynamic response)? updateConversationByIdSuccess,
+    TResult Function(String error)? updateConversationByIdFailure,
+    TResult Function()? updateConversationStatusLoading,
+    TResult Function(dynamic response)? updateConversationStatusSuccess,
+    TResult Function(String error)? updateConversationStatusFailure,
+    TResult Function()? reportConversationLoading,
+    TResult Function(dynamic response)? reportConversationSuccess,
+    TResult Function(String error)? reportConversationFailure,
+    TResult Function()? getPendingRequestsLoading,
+    TResult Function(GetConversationsResponse response)?
+        getPendingRequestsSuccess,
+    TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
+    required TResult orElse(),
+  }) {
+    if (conversationStateSuccess != null) {
+      return conversationStateSuccess(response);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_GetConversationsLoading value)
+        getConversationsLoading,
+    required TResult Function(_GetConversationsSuccess value)
+        getConversationsSuccess,
+    required TResult Function(_GetConversationsFailure value)
+        getConversationsFailure,
+    required TResult Function(_GetConversationByIdLoading value)
+        getConversationByIdLoading,
+    required TResult Function(_GetConversationByIdSuccess value)
+        getConversationByIdSuccess,
+    required TResult Function(_GetConversationByIdFailure value)
+        getConversationByIdFailure,
+    required TResult Function(_DeleteConversationByIdLoading value)
+        deleteConversationByIdLoading,
+    required TResult Function(_DeleteConversationByIdSuccess value)
+        deleteConversationByIdSuccess,
+    required TResult Function(_DeleteConversationByIdFailure value)
+        deleteConversationByIdFailure,
+    required TResult Function(_CreateConversationLoading value)
+        createConversationLoading,
+    required TResult Function(_CreateConversationSuccess value)
+        createConversationSuccess,
+    required TResult Function(_CreateConversationFailure value)
+        createConversationFailure,
+    required TResult Function(_FetchCurrentConversationLoading value)
+        fetchCurrentConversationLoading,
+    required TResult Function(_FetchCurrentConversationSuccess value)
+        fetchCurrentConversationSuccess,
+    required TResult Function(_FetchCurrentConversationFailure value)
+        fetchCurrentConversationFailure,
+    required TResult Function(_UpdateConversationByIdLoading value)
+        updateConversationByIdLoading,
+    required TResult Function(_UpdateConversationByIdSuccess value)
+        updateConversationByIdSuccess,
+    required TResult Function(_UpdateConversationByIdFailure value)
+        updateConversationByIdFailure,
+    required TResult Function(_UpdateConversationStatusLoading value)
+        updateConversationStatusLoading,
+    required TResult Function(_UpdateConversationStatusSuccess value)
+        updateConversationStatusSuccess,
+    required TResult Function(_UpdateConversationStatusFailure value)
+        updateConversationStatusFailure,
+    required TResult Function(_ReportConversationLoading value)
+        reportConversationLoading,
+    required TResult Function(_ReportConversationSuccess value)
+        reportConversationSuccess,
+    required TResult Function(_ReportConversationFailure value)
+        reportConversationFailure,
+    required TResult Function(_GetPendingRequestsLoading value)
+        getPendingRequestsLoading,
+    required TResult Function(_GetPendingRequestsSuccess value)
+        getPendingRequestsSuccess,
+    required TResult Function(_GetPendingRequestsFailure value)
+        getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
+  }) {
+    return conversationStateSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_GetConversationsLoading value)? getConversationsLoading,
+    TResult? Function(_GetConversationsSuccess value)? getConversationsSuccess,
+    TResult? Function(_GetConversationsFailure value)? getConversationsFailure,
+    TResult? Function(_GetConversationByIdLoading value)?
+        getConversationByIdLoading,
+    TResult? Function(_GetConversationByIdSuccess value)?
+        getConversationByIdSuccess,
+    TResult? Function(_GetConversationByIdFailure value)?
+        getConversationByIdFailure,
+    TResult? Function(_DeleteConversationByIdLoading value)?
+        deleteConversationByIdLoading,
+    TResult? Function(_DeleteConversationByIdSuccess value)?
+        deleteConversationByIdSuccess,
+    TResult? Function(_DeleteConversationByIdFailure value)?
+        deleteConversationByIdFailure,
+    TResult? Function(_CreateConversationLoading value)?
+        createConversationLoading,
+    TResult? Function(_CreateConversationSuccess value)?
+        createConversationSuccess,
+    TResult? Function(_CreateConversationFailure value)?
+        createConversationFailure,
+    TResult? Function(_FetchCurrentConversationLoading value)?
+        fetchCurrentConversationLoading,
+    TResult? Function(_FetchCurrentConversationSuccess value)?
+        fetchCurrentConversationSuccess,
+    TResult? Function(_FetchCurrentConversationFailure value)?
+        fetchCurrentConversationFailure,
+    TResult? Function(_UpdateConversationByIdLoading value)?
+        updateConversationByIdLoading,
+    TResult? Function(_UpdateConversationByIdSuccess value)?
+        updateConversationByIdSuccess,
+    TResult? Function(_UpdateConversationByIdFailure value)?
+        updateConversationByIdFailure,
+    TResult? Function(_UpdateConversationStatusLoading value)?
+        updateConversationStatusLoading,
+    TResult? Function(_UpdateConversationStatusSuccess value)?
+        updateConversationStatusSuccess,
+    TResult? Function(_UpdateConversationStatusFailure value)?
+        updateConversationStatusFailure,
+    TResult? Function(_ReportConversationLoading value)?
+        reportConversationLoading,
+    TResult? Function(_ReportConversationSuccess value)?
+        reportConversationSuccess,
+    TResult? Function(_ReportConversationFailure value)?
+        reportConversationFailure,
+    TResult? Function(_GetPendingRequestsLoading value)?
+        getPendingRequestsLoading,
+    TResult? Function(_GetPendingRequestsSuccess value)?
+        getPendingRequestsSuccess,
+    TResult? Function(_GetPendingRequestsFailure value)?
+        getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
+  }) {
+    return conversationStateSuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_GetConversationsLoading value)? getConversationsLoading,
+    TResult Function(_GetConversationsSuccess value)? getConversationsSuccess,
+    TResult Function(_GetConversationsFailure value)? getConversationsFailure,
+    TResult Function(_GetConversationByIdLoading value)?
+        getConversationByIdLoading,
+    TResult Function(_GetConversationByIdSuccess value)?
+        getConversationByIdSuccess,
+    TResult Function(_GetConversationByIdFailure value)?
+        getConversationByIdFailure,
+    TResult Function(_DeleteConversationByIdLoading value)?
+        deleteConversationByIdLoading,
+    TResult Function(_DeleteConversationByIdSuccess value)?
+        deleteConversationByIdSuccess,
+    TResult Function(_DeleteConversationByIdFailure value)?
+        deleteConversationByIdFailure,
+    TResult Function(_CreateConversationLoading value)?
+        createConversationLoading,
+    TResult Function(_CreateConversationSuccess value)?
+        createConversationSuccess,
+    TResult Function(_CreateConversationFailure value)?
+        createConversationFailure,
+    TResult Function(_FetchCurrentConversationLoading value)?
+        fetchCurrentConversationLoading,
+    TResult Function(_FetchCurrentConversationSuccess value)?
+        fetchCurrentConversationSuccess,
+    TResult Function(_FetchCurrentConversationFailure value)?
+        fetchCurrentConversationFailure,
+    TResult Function(_UpdateConversationByIdLoading value)?
+        updateConversationByIdLoading,
+    TResult Function(_UpdateConversationByIdSuccess value)?
+        updateConversationByIdSuccess,
+    TResult Function(_UpdateConversationByIdFailure value)?
+        updateConversationByIdFailure,
+    TResult Function(_UpdateConversationStatusLoading value)?
+        updateConversationStatusLoading,
+    TResult Function(_UpdateConversationStatusSuccess value)?
+        updateConversationStatusSuccess,
+    TResult Function(_UpdateConversationStatusFailure value)?
+        updateConversationStatusFailure,
+    TResult Function(_ReportConversationLoading value)?
+        reportConversationLoading,
+    TResult Function(_ReportConversationSuccess value)?
+        reportConversationSuccess,
+    TResult Function(_ReportConversationFailure value)?
+        reportConversationFailure,
+    TResult Function(_GetPendingRequestsLoading value)?
+        getPendingRequestsLoading,
+    TResult Function(_GetPendingRequestsSuccess value)?
+        getPendingRequestsSuccess,
+    TResult Function(_GetPendingRequestsFailure value)?
+        getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
+    required TResult orElse(),
+  }) {
+    if (conversationStateSuccess != null) {
+      return conversationStateSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ConversationStateSuccess implements ConversationsState {
+  const factory _ConversationStateSuccess(
+          final ConversationStateResponse response) =
+      _$ConversationStateSuccessImpl;
+
+  ConversationStateResponse get response;
+  @JsonKey(ignore: true)
+  _$$ConversationStateSuccessImplCopyWith<_$ConversationStateSuccessImpl>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ConversationStateFailureImplCopyWith<$Res> {
+  factory _$$ConversationStateFailureImplCopyWith(
+          _$ConversationStateFailureImpl value,
+          $Res Function(_$ConversationStateFailureImpl) then) =
+      __$$ConversationStateFailureImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class __$$ConversationStateFailureImplCopyWithImpl<$Res>
+    extends _$ConversationsStateCopyWithImpl<$Res,
+        _$ConversationStateFailureImpl>
+    implements _$$ConversationStateFailureImplCopyWith<$Res> {
+  __$$ConversationStateFailureImplCopyWithImpl(
+      _$ConversationStateFailureImpl _value,
+      $Res Function(_$ConversationStateFailureImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$ConversationStateFailureImpl(
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ConversationStateFailureImpl implements _ConversationStateFailure {
+  const _$ConversationStateFailureImpl(this.error);
+
+  @override
+  final String error;
+
+  @override
+  String toString() {
+    return 'ConversationsState.conversationStateFailure(error: $error)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ConversationStateFailureImpl &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ConversationStateFailureImplCopyWith<_$ConversationStateFailureImpl>
+      get copyWith => __$$ConversationStateFailureImplCopyWithImpl<
+          _$ConversationStateFailureImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() getConversationsLoading,
+    required TResult Function(GetConversationsResponse response)
+        getConversationsSuccess,
+    required TResult Function(String error) getConversationsFailure,
+    required TResult Function() getConversationByIdLoading,
+    required TResult Function(dynamic response) getConversationByIdSuccess,
+    required TResult Function(String error) getConversationByIdFailure,
+    required TResult Function() deleteConversationByIdLoading,
+    required TResult Function() deleteConversationByIdSuccess,
+    required TResult Function(String error) deleteConversationByIdFailure,
+    required TResult Function() createConversationLoading,
+    required TResult Function(dynamic response) createConversationSuccess,
+    required TResult Function(String error) createConversationFailure,
+    required TResult Function() fetchCurrentConversationLoading,
+    required TResult Function(dynamic response) fetchCurrentConversationSuccess,
+    required TResult Function(String error) fetchCurrentConversationFailure,
+    required TResult Function() updateConversationByIdLoading,
+    required TResult Function(dynamic response) updateConversationByIdSuccess,
+    required TResult Function(String error) updateConversationByIdFailure,
+    required TResult Function() updateConversationStatusLoading,
+    required TResult Function(dynamic response) updateConversationStatusSuccess,
+    required TResult Function(String error) updateConversationStatusFailure,
+    required TResult Function() reportConversationLoading,
+    required TResult Function(dynamic response) reportConversationSuccess,
+    required TResult Function(String error) reportConversationFailure,
+    required TResult Function() getPendingRequestsLoading,
+    required TResult Function(GetConversationsResponse response)
+        getPendingRequestsSuccess,
+    required TResult Function(String error) getPendingRequestsFailure,
+    required TResult Function() getConversationsListLoading,
+    required TResult Function(GetConversationsListResponse response)
+        getConversationsListSuccess,
+    required TResult Function(String error) getConversationsListFailure,
+    required TResult Function() conversationStateLoading,
+    required TResult Function(ConversationStateResponse response)
+        conversationStateSuccess,
+    required TResult Function(String error) conversationStateFailure,
+  }) {
+    return conversationStateFailure(error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? getConversationsLoading,
+    TResult? Function(GetConversationsResponse response)?
+        getConversationsSuccess,
+    TResult? Function(String error)? getConversationsFailure,
+    TResult? Function()? getConversationByIdLoading,
+    TResult? Function(dynamic response)? getConversationByIdSuccess,
+    TResult? Function(String error)? getConversationByIdFailure,
+    TResult? Function()? deleteConversationByIdLoading,
+    TResult? Function()? deleteConversationByIdSuccess,
+    TResult? Function(String error)? deleteConversationByIdFailure,
+    TResult? Function()? createConversationLoading,
+    TResult? Function(dynamic response)? createConversationSuccess,
+    TResult? Function(String error)? createConversationFailure,
+    TResult? Function()? fetchCurrentConversationLoading,
+    TResult? Function(dynamic response)? fetchCurrentConversationSuccess,
+    TResult? Function(String error)? fetchCurrentConversationFailure,
+    TResult? Function()? updateConversationByIdLoading,
+    TResult? Function(dynamic response)? updateConversationByIdSuccess,
+    TResult? Function(String error)? updateConversationByIdFailure,
+    TResult? Function()? updateConversationStatusLoading,
+    TResult? Function(dynamic response)? updateConversationStatusSuccess,
+    TResult? Function(String error)? updateConversationStatusFailure,
+    TResult? Function()? reportConversationLoading,
+    TResult? Function(dynamic response)? reportConversationSuccess,
+    TResult? Function(String error)? reportConversationFailure,
+    TResult? Function()? getPendingRequestsLoading,
+    TResult? Function(GetConversationsResponse response)?
+        getPendingRequestsSuccess,
+    TResult? Function(String error)? getPendingRequestsFailure,
+    TResult? Function()? getConversationsListLoading,
+    TResult? Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult? Function(String error)? getConversationsListFailure,
+    TResult? Function()? conversationStateLoading,
+    TResult? Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult? Function(String error)? conversationStateFailure,
+  }) {
+    return conversationStateFailure?.call(error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? getConversationsLoading,
+    TResult Function(GetConversationsResponse response)?
+        getConversationsSuccess,
+    TResult Function(String error)? getConversationsFailure,
+    TResult Function()? getConversationByIdLoading,
+    TResult Function(dynamic response)? getConversationByIdSuccess,
+    TResult Function(String error)? getConversationByIdFailure,
+    TResult Function()? deleteConversationByIdLoading,
+    TResult Function()? deleteConversationByIdSuccess,
+    TResult Function(String error)? deleteConversationByIdFailure,
+    TResult Function()? createConversationLoading,
+    TResult Function(dynamic response)? createConversationSuccess,
+    TResult Function(String error)? createConversationFailure,
+    TResult Function()? fetchCurrentConversationLoading,
+    TResult Function(dynamic response)? fetchCurrentConversationSuccess,
+    TResult Function(String error)? fetchCurrentConversationFailure,
+    TResult Function()? updateConversationByIdLoading,
+    TResult Function(dynamic response)? updateConversationByIdSuccess,
+    TResult Function(String error)? updateConversationByIdFailure,
+    TResult Function()? updateConversationStatusLoading,
+    TResult Function(dynamic response)? updateConversationStatusSuccess,
+    TResult Function(String error)? updateConversationStatusFailure,
+    TResult Function()? reportConversationLoading,
+    TResult Function(dynamic response)? reportConversationSuccess,
+    TResult Function(String error)? reportConversationFailure,
+    TResult Function()? getPendingRequestsLoading,
+    TResult Function(GetConversationsResponse response)?
+        getPendingRequestsSuccess,
+    TResult Function(String error)? getPendingRequestsFailure,
+    TResult Function()? getConversationsListLoading,
+    TResult Function(GetConversationsListResponse response)?
+        getConversationsListSuccess,
+    TResult Function(String error)? getConversationsListFailure,
+    TResult Function()? conversationStateLoading,
+    TResult Function(ConversationStateResponse response)?
+        conversationStateSuccess,
+    TResult Function(String error)? conversationStateFailure,
+    required TResult orElse(),
+  }) {
+    if (conversationStateFailure != null) {
+      return conversationStateFailure(error);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_GetConversationsLoading value)
+        getConversationsLoading,
+    required TResult Function(_GetConversationsSuccess value)
+        getConversationsSuccess,
+    required TResult Function(_GetConversationsFailure value)
+        getConversationsFailure,
+    required TResult Function(_GetConversationByIdLoading value)
+        getConversationByIdLoading,
+    required TResult Function(_GetConversationByIdSuccess value)
+        getConversationByIdSuccess,
+    required TResult Function(_GetConversationByIdFailure value)
+        getConversationByIdFailure,
+    required TResult Function(_DeleteConversationByIdLoading value)
+        deleteConversationByIdLoading,
+    required TResult Function(_DeleteConversationByIdSuccess value)
+        deleteConversationByIdSuccess,
+    required TResult Function(_DeleteConversationByIdFailure value)
+        deleteConversationByIdFailure,
+    required TResult Function(_CreateConversationLoading value)
+        createConversationLoading,
+    required TResult Function(_CreateConversationSuccess value)
+        createConversationSuccess,
+    required TResult Function(_CreateConversationFailure value)
+        createConversationFailure,
+    required TResult Function(_FetchCurrentConversationLoading value)
+        fetchCurrentConversationLoading,
+    required TResult Function(_FetchCurrentConversationSuccess value)
+        fetchCurrentConversationSuccess,
+    required TResult Function(_FetchCurrentConversationFailure value)
+        fetchCurrentConversationFailure,
+    required TResult Function(_UpdateConversationByIdLoading value)
+        updateConversationByIdLoading,
+    required TResult Function(_UpdateConversationByIdSuccess value)
+        updateConversationByIdSuccess,
+    required TResult Function(_UpdateConversationByIdFailure value)
+        updateConversationByIdFailure,
+    required TResult Function(_UpdateConversationStatusLoading value)
+        updateConversationStatusLoading,
+    required TResult Function(_UpdateConversationStatusSuccess value)
+        updateConversationStatusSuccess,
+    required TResult Function(_UpdateConversationStatusFailure value)
+        updateConversationStatusFailure,
+    required TResult Function(_ReportConversationLoading value)
+        reportConversationLoading,
+    required TResult Function(_ReportConversationSuccess value)
+        reportConversationSuccess,
+    required TResult Function(_ReportConversationFailure value)
+        reportConversationFailure,
+    required TResult Function(_GetPendingRequestsLoading value)
+        getPendingRequestsLoading,
+    required TResult Function(_GetPendingRequestsSuccess value)
+        getPendingRequestsSuccess,
+    required TResult Function(_GetPendingRequestsFailure value)
+        getPendingRequestsFailure,
+    required TResult Function(_GetConversationsListLoading value)
+        getConversationsListLoading,
+    required TResult Function(_GetConversationsListSuccess value)
+        getConversationsListSuccess,
+    required TResult Function(_GetConversationsListFailure value)
+        getConversationsListFailure,
+    required TResult Function(_ConversationStateLoading value)
+        conversationStateLoading,
+    required TResult Function(_ConversationStateSuccess value)
+        conversationStateSuccess,
+    required TResult Function(_ConversationStateFailure value)
+        conversationStateFailure,
+  }) {
+    return conversationStateFailure(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_GetConversationsLoading value)? getConversationsLoading,
+    TResult? Function(_GetConversationsSuccess value)? getConversationsSuccess,
+    TResult? Function(_GetConversationsFailure value)? getConversationsFailure,
+    TResult? Function(_GetConversationByIdLoading value)?
+        getConversationByIdLoading,
+    TResult? Function(_GetConversationByIdSuccess value)?
+        getConversationByIdSuccess,
+    TResult? Function(_GetConversationByIdFailure value)?
+        getConversationByIdFailure,
+    TResult? Function(_DeleteConversationByIdLoading value)?
+        deleteConversationByIdLoading,
+    TResult? Function(_DeleteConversationByIdSuccess value)?
+        deleteConversationByIdSuccess,
+    TResult? Function(_DeleteConversationByIdFailure value)?
+        deleteConversationByIdFailure,
+    TResult? Function(_CreateConversationLoading value)?
+        createConversationLoading,
+    TResult? Function(_CreateConversationSuccess value)?
+        createConversationSuccess,
+    TResult? Function(_CreateConversationFailure value)?
+        createConversationFailure,
+    TResult? Function(_FetchCurrentConversationLoading value)?
+        fetchCurrentConversationLoading,
+    TResult? Function(_FetchCurrentConversationSuccess value)?
+        fetchCurrentConversationSuccess,
+    TResult? Function(_FetchCurrentConversationFailure value)?
+        fetchCurrentConversationFailure,
+    TResult? Function(_UpdateConversationByIdLoading value)?
+        updateConversationByIdLoading,
+    TResult? Function(_UpdateConversationByIdSuccess value)?
+        updateConversationByIdSuccess,
+    TResult? Function(_UpdateConversationByIdFailure value)?
+        updateConversationByIdFailure,
+    TResult? Function(_UpdateConversationStatusLoading value)?
+        updateConversationStatusLoading,
+    TResult? Function(_UpdateConversationStatusSuccess value)?
+        updateConversationStatusSuccess,
+    TResult? Function(_UpdateConversationStatusFailure value)?
+        updateConversationStatusFailure,
+    TResult? Function(_ReportConversationLoading value)?
+        reportConversationLoading,
+    TResult? Function(_ReportConversationSuccess value)?
+        reportConversationSuccess,
+    TResult? Function(_ReportConversationFailure value)?
+        reportConversationFailure,
+    TResult? Function(_GetPendingRequestsLoading value)?
+        getPendingRequestsLoading,
+    TResult? Function(_GetPendingRequestsSuccess value)?
+        getPendingRequestsSuccess,
+    TResult? Function(_GetPendingRequestsFailure value)?
+        getPendingRequestsFailure,
+    TResult? Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult? Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult? Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult? Function(_ConversationStateLoading value)?
+        conversationStateLoading,
+    TResult? Function(_ConversationStateSuccess value)?
+        conversationStateSuccess,
+    TResult? Function(_ConversationStateFailure value)?
+        conversationStateFailure,
+  }) {
+    return conversationStateFailure?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_GetConversationsLoading value)? getConversationsLoading,
+    TResult Function(_GetConversationsSuccess value)? getConversationsSuccess,
+    TResult Function(_GetConversationsFailure value)? getConversationsFailure,
+    TResult Function(_GetConversationByIdLoading value)?
+        getConversationByIdLoading,
+    TResult Function(_GetConversationByIdSuccess value)?
+        getConversationByIdSuccess,
+    TResult Function(_GetConversationByIdFailure value)?
+        getConversationByIdFailure,
+    TResult Function(_DeleteConversationByIdLoading value)?
+        deleteConversationByIdLoading,
+    TResult Function(_DeleteConversationByIdSuccess value)?
+        deleteConversationByIdSuccess,
+    TResult Function(_DeleteConversationByIdFailure value)?
+        deleteConversationByIdFailure,
+    TResult Function(_CreateConversationLoading value)?
+        createConversationLoading,
+    TResult Function(_CreateConversationSuccess value)?
+        createConversationSuccess,
+    TResult Function(_CreateConversationFailure value)?
+        createConversationFailure,
+    TResult Function(_FetchCurrentConversationLoading value)?
+        fetchCurrentConversationLoading,
+    TResult Function(_FetchCurrentConversationSuccess value)?
+        fetchCurrentConversationSuccess,
+    TResult Function(_FetchCurrentConversationFailure value)?
+        fetchCurrentConversationFailure,
+    TResult Function(_UpdateConversationByIdLoading value)?
+        updateConversationByIdLoading,
+    TResult Function(_UpdateConversationByIdSuccess value)?
+        updateConversationByIdSuccess,
+    TResult Function(_UpdateConversationByIdFailure value)?
+        updateConversationByIdFailure,
+    TResult Function(_UpdateConversationStatusLoading value)?
+        updateConversationStatusLoading,
+    TResult Function(_UpdateConversationStatusSuccess value)?
+        updateConversationStatusSuccess,
+    TResult Function(_UpdateConversationStatusFailure value)?
+        updateConversationStatusFailure,
+    TResult Function(_ReportConversationLoading value)?
+        reportConversationLoading,
+    TResult Function(_ReportConversationSuccess value)?
+        reportConversationSuccess,
+    TResult Function(_ReportConversationFailure value)?
+        reportConversationFailure,
+    TResult Function(_GetPendingRequestsLoading value)?
+        getPendingRequestsLoading,
+    TResult Function(_GetPendingRequestsSuccess value)?
+        getPendingRequestsSuccess,
+    TResult Function(_GetPendingRequestsFailure value)?
+        getPendingRequestsFailure,
+    TResult Function(_GetConversationsListLoading value)?
+        getConversationsListLoading,
+    TResult Function(_GetConversationsListSuccess value)?
+        getConversationsListSuccess,
+    TResult Function(_GetConversationsListFailure value)?
+        getConversationsListFailure,
+    TResult Function(_ConversationStateLoading value)? conversationStateLoading,
+    TResult Function(_ConversationStateSuccess value)? conversationStateSuccess,
+    TResult Function(_ConversationStateFailure value)? conversationStateFailure,
+    required TResult orElse(),
+  }) {
+    if (conversationStateFailure != null) {
+      return conversationStateFailure(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ConversationStateFailure implements ConversationsState {
+  const factory _ConversationStateFailure(final String error) =
+      _$ConversationStateFailureImpl;
+
+  String get error;
+  @JsonKey(ignore: true)
+  _$$ConversationStateFailureImplCopyWith<_$ConversationStateFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
 }

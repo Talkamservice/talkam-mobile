@@ -15,7 +15,6 @@ import 'package:talkam/core/navigation/path_params.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/authentication/presentation/bloc/auth_bloc.dart';
-import 'package:talkam/features/authentication/presentation/screens/verify_otp_screen.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class PassWordRecoveryScreen extends StatefulWidget {
@@ -196,9 +195,12 @@ class _PassWordRecoveryScreenState extends State<PassWordRecoveryScreen> {
     }
     if (state is ForgotPasswordSuccess) {
       context.pop();
-      context.pushNamed(PageUrl.verifyOtpScreen, queryParameters: {
+      // Straight to the reset screen — it already has its own OTP field
+      // alongside the new-password fields, so there's no separate "verify
+      // the code" step; VerifyOtpScreen is for fresh-signup email
+      // verification only.
+      context.pushNamed(PageUrl.passWordResetScreen, queryParameters: {
         PathParam.email: _emailController.text.trim(),
-        PathParam.otpType: VerifyOtpType.passwordReset.name
       });
     }
   }

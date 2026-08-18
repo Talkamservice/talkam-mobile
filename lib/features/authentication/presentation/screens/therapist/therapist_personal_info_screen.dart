@@ -8,10 +8,8 @@ import 'package:talkam/common/widgets/inline_select_field.dart';
 import 'package:talkam/common/widgets/step_progress_bar.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
-import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
-import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/therapist_application/presentation/bloc/therapist_application_bloc.dart';
 
 const List<String> kCredentialTypes = [
@@ -35,34 +33,16 @@ class TherapistPersonalInfoScreen extends StatefulWidget {
 
 class _TherapistPersonalInfoScreenState
     extends State<TherapistPersonalInfoScreen> {
-  final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
-  final _phoneController = TextEditingController();
   final _yearsController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _nameController.text = widget.bloc.state.personalInfo.fullName;
-    _phoneController.text = widget.bloc.state.personalInfo.phone;
     _yearsController.text = widget.bloc.state.personalInfo.yearsExperience;
-
-    // Prefill from the signed-in account so the therapist doesn't retype an
-    // email we already have — matches the design's pre-filled field.
-    final existingEmail = widget.bloc.state.personalInfo.email.isNotEmpty
-        ? widget.bloc.state.personalInfo.email
-        : injector.get<ProfileBloc>().appUser?.email ?? '';
-    _emailController.text = existingEmail;
-    if (existingEmail.isNotEmpty) {
-      widget.bloc.add(UpdateEmailEvent(existingEmail));
-    }
   }
 
   @override
   void dispose() {
-    _nameController.dispose();
-    _emailController.dispose();
-    _phoneController.dispose();
     _yearsController.dispose();
     super.dispose();
   }
@@ -114,29 +94,6 @@ class _TherapistPersonalInfoScreenState
                   color: Pallets.boldBlackV2,
                 ),
                 24.verticalSpace,
-                CustomTextField(
-                  label: "Full Name",
-                  hint: "Enter your name",
-                  controller: _nameController,
-                  onChanged: (v) => widget.bloc.add(UpdateFullNameEvent(v)),
-                ),
-                16.verticalSpace,
-                CustomTextField(
-                  label: "Email address",
-                  hint: "Enter your Email Address",
-                  controller: _emailController,
-                  keyboardType: TextInputType.emailAddress,
-                  onChanged: (v) => widget.bloc.add(UpdateEmailEvent(v)),
-                ),
-                16.verticalSpace,
-                CustomTextField(
-                  label: "Phone Number",
-                  hint: "Enter your number",
-                  controller: _phoneController,
-                  keyboardType: TextInputType.phone,
-                  onChanged: (v) => widget.bloc.add(UpdatePhoneEvent(v)),
-                ),
-                16.verticalSpace,
                 InlineSelectField<String>(
                   label: "Credential type",
                   hint: "Clinical Psychologist",

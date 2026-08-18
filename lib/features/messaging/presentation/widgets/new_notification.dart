@@ -49,7 +49,9 @@ class TalkamNotificationItem extends StatelessWidget {
                   const Spacer(),
                   CircleAvatar(
                     radius: 4,
-                    backgroundColor: notification.readAt == null ? Pallets.blueBubbleColor : Pallets.grey400,
+                    backgroundColor: notification.readAt == null
+                        ? Pallets.blueBubbleColor
+                        : Pallets.grey400,
                   )
                 ],
               ),
@@ -70,7 +72,8 @@ class TalkamNotificationItem extends StatelessWidget {
                         ),
                         5.verticalSpace,
                         TextView(
-                          text: TimeUtil.formDateTimeForJournal(notification.createdAt),
+                          text: TimeUtil.formDateTimeForJournal(
+                              notification.createdAt),
                           style: const TextStyle(
                             fontSize: 13,
                             color: Color(0xff444444),
@@ -80,15 +83,23 @@ class TalkamNotificationItem extends StatelessWidget {
                       ],
                     ),
                   ),
-                  if (notification.type == "comment" || notification.type == "mention")
+                  if (notification.type == "comment" ||
+                      notification.type == "mention")
                     Builder(builder: (context) {
-                      var extra = CommentNotificationExtra.fromJson(notification.extra);
-                      if (extra.comment.attachment != null || extra.postAttachements.isNotEmpty) {
+                      var extra =
+                          CommentNotificationExtra.fromJson(notification.extra);
+                      if (extra.comment.attachment != null ||
+                          extra.postAttachements.isNotEmpty) {
                         return ImageWidget(
                             height: 60,
                             width: 60,
                             borderRadius: BorderRadius.circular(10),
-                            imageUrl: CommentNotificationExtra.fromJson(notification.extra).postAttachements.firstOrNull?.url ?? "");
+                            imageUrl: CommentNotificationExtra.fromJson(
+                                        notification.extra)
+                                    .postAttachements
+                                    .firstOrNull
+                                    ?.url ??
+                                "");
                       }
                       return 0.verticalSpace;
                     })
@@ -101,16 +112,20 @@ class TalkamNotificationItem extends StatelessWidget {
     );
   }
 
-  bool get shouldDisplayUserImage => notification.type == "post" || notification.type == "conversation";
+  bool get shouldDisplayUserImage =>
+      notification.type == "post" || notification.type == "conversation";
 
   void _handleNotificationClick(BuildContext context) {
     logger.w(notification.type);
     notification.readAt = DateTime.now();
 
-    injector.get<NotificationsBloc>().add(ReadNotificationEvent(id: notification.id.toString()));
+    injector
+        .get<NotificationsBloc>()
+        .add(ReadNotificationEvent(id: notification.id.toString()));
     switch (notification.type) {
       case "post" || "comment":
-        context.pushNamed(PageUrl.postDetailsScreen, extra: notification.dataId.toString());
+        context.pushNamed(PageUrl.postDetailsScreen,
+            extra: notification.dataId.toString());
         break;
 
       case "conversation":
@@ -121,13 +136,19 @@ class TalkamNotificationItem extends StatelessWidget {
           context.pushNamed(
             PageUrl.chatScreen,
             extra: ChatScreenParam(
-              user: ConversationUser(id: user.id, name: user.name, username: user.username, email: user.email, avatar: user.avatar),
+              user: ConversationUser(
+                  id: user.id,
+                  name: user.name,
+                  username: user.username,
+                  email: user.email,
+                  avatar: user.avatar),
             ),
           );
         }
 
       case "group":
-        context.pushNamed(PageUrl.groupsInfoScreen, extra: notification.dataId.toString());
+        context.pushNamed(PageUrl.groupsInfoScreen,
+            extra: notification.dataId.toString());
       case "promotion":
         Navigator.push(
             context,
@@ -136,11 +157,14 @@ class TalkamNotificationItem extends StatelessWidget {
                       promotionId: notification.dataId.toString(),
                     )));
       case "group_request":
-        context.pushNamed(PageUrl.pendingRequestsScreen, extra: notification.dataId.toString());
+        context.pushNamed(PageUrl.pendingRequestsScreen,
+            extra: notification.dataId.toString());
       case "request":
-        context.pushNamed(PageUrl.pendingRequestsScreen, extra: notification.dataId.toString());
+        context.pushNamed(PageUrl.pendingRequestsScreen,
+            extra: notification.dataId.toString());
       case "mention":
-        context.pushNamed(PageUrl.postDetailsScreen, extra: notification.dataId.toString());
+        context.pushNamed(PageUrl.postDetailsScreen,
+            extra: notification.dataId.toString());
       case "notification" || "user":
         showDialog(
           context: context,
@@ -165,18 +189,27 @@ class NotificationImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Builder(
       builder: (context) {
-        if ((notification.type == "post") && notification.extra is! List && notification.extra["user"] != null) {
+        if ((notification.type == "post") &&
+            notification.extra is! List &&
+            notification.extra["user"] != null) {
           return Padding(
             padding: const EdgeInsets.only(right: 8.0),
             child: InkWell(
               onTap: () {
-                viewProfile(context, NotificationUser.fromJson(notification.extra["user"]).id.toString());
+                viewProfile(
+                    context,
+                    NotificationUser.fromJson(notification.extra["user"])
+                        .id
+                        .toString());
               },
               child: IgnorePointer(
                 child: ImageWidget(
                   fit: BoxFit.scaleDown,
                   shape: BoxShape.circle,
-                  imageUrl: NotificationUser.fromJson(notification.extra["user"]).avatar.toString(),
+                  imageUrl:
+                      NotificationUser.fromJson(notification.extra["user"])
+                          .avatar
+                          .toString(),
                   size: 40,
                 ),
               ),
@@ -204,12 +237,19 @@ class NotificationImage extends StatelessWidget {
             padding: const EdgeInsets.only(right: 8.0),
             child: InkWell(
               onTap: () {
-                viewProfile(context, ExtraClass.fromJson(notification.extra).sender!.id.toString());
+                viewProfile(
+                    context,
+                    ExtraClass.fromJson(notification.extra)
+                        .sender!
+                        .id
+                        .toString());
               },
               child: ImageWidget(
                 fit: BoxFit.scaleDown,
                 shape: BoxShape.circle,
-                imageUrl: ExtraClass.fromJson(notification.extra).sender?.avatar ?? "",
+                imageUrl:
+                    ExtraClass.fromJson(notification.extra).sender?.avatar ??
+                        "",
                 size: 40,
               ),
             ),

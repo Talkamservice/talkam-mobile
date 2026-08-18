@@ -236,10 +236,9 @@ class _UsernameScreenState extends State<UsernameScreen> {
     ));
   }
 
-  /// Both Skip and Next continue into user-type selection — onboarding isn't
-  /// finished until that (and consent, after it) is confirmed.
+  /// Both Skip and Next continue into Data & Privacy consent.
   void _skip() {
-    context.pushNamed(PageUrl.userTypeSelectionScreen);
+    context.pushNamed(PageUrl.dataPrivacyScreen);
   }
 
   void _listenToProfileBloc(BuildContext context, ProfileState state) {
@@ -253,7 +252,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
     if (state is UpdateProfileSuccess) {
       context.pop();
       CustomDialogs.success("Profile updated");
-      context.pushNamed(PageUrl.userTypeSelectionScreen);
+      context.pushNamed(PageUrl.dataPrivacyScreen);
     }
   }
 }

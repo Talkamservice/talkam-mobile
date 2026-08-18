@@ -5,16 +5,10 @@ import 'package:talkam/features/therapist/data/models/session_rate.dart';
 /// Step 1 — Personal Information.
 class PersonalInfo {
   const PersonalInfo({
-    this.fullName = '',
-    this.email = '',
-    this.phone = '',
     this.credentialType,
     this.yearsExperience = '',
   });
 
-  final String fullName;
-  final String email;
-  final String phone;
   final String? credentialType;
 
   /// Kept as text (matches [PayoutInfo.sessionRate]'s convention) since it's
@@ -23,23 +17,14 @@ class PersonalInfo {
   final String yearsExperience;
 
   bool get isValid =>
-      fullName.trim().isNotEmpty &&
-      email.trim().isNotEmpty &&
-      phone.trim().isNotEmpty &&
       credentialType != null &&
       int.tryParse(yearsExperience) != null;
 
   PersonalInfo copyWith({
-    String? fullName,
-    String? email,
-    String? phone,
     String? credentialType,
     String? yearsExperience,
   }) =>
       PersonalInfo(
-        fullName: fullName ?? this.fullName,
-        email: email ?? this.email,
-        phone: phone ?? this.phone,
         credentialType: credentialType ?? this.credentialType,
         yearsExperience: yearsExperience ?? this.yearsExperience,
       );

@@ -14,6 +14,8 @@ import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 import 'package:talkam/features/profile/data/models/update_profile_payload.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 
+import 'package:flutter/services.dart';
+
 class InterestsScreen extends StatefulWidget {
   const InterestsScreen({super.key});
 
@@ -84,14 +86,36 @@ class _InterestsScreenState extends State<InterestsScreen> {
     postBloc.add(const PostEvent.getInterestTopics());
   }
 
+  void _confirmExit(BuildContext context) {
+    CustomDialogs.showConfirmDialog(
+      context,
+      tittle: "Exit",
+      message: "Are you sure you want to exit",
+      onYes: () {
+        Navigator.pop(context);
+        SystemNavigator.pop();
+      },
+      onCancel: () {
+        Navigator.pop(context);
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: const CustomAppBar(
-        bgColor: Colors.transparent,
-        elevation: 0,
-      ),
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) {
+        if (didPop) return;
+        _confirmExit(context);
+      },
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        appBar: CustomAppBar(
+          bgColor: Colors.transparent,
+          elevation: 0,
+          canGoBack: false,
+        ),
       bottomNavigationBar: BlocListener<ProfileBloc, ProfileState>(
         bloc: profileBloc,
         listener: _listenToProfileBloc,
@@ -190,8 +214,9 @@ class _InterestsScreenState extends State<InterestsScreen> {
           ),
         ],
       ),
-    );
-  }
+    ),
+  );
+}
 
   /// Chip list. When [fallbackReason] is non-null the items are local fallback
   /// data and a banner explaining why is shown above them.

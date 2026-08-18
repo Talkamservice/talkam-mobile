@@ -33,6 +33,14 @@ abstract class AuthRepository {
     DateTime? dateOfBirth,
   });
 
+  Future<AuthSuccessResponse> registerTherapist({
+    required String fullName,
+    required String email,
+    required String phoneNumber,
+    required String password,
+    required String passwordConfirmation,
+  });
+
   Future<dynamic> forgotPassword(String email);
 
   Future<dynamic> passwordReset(

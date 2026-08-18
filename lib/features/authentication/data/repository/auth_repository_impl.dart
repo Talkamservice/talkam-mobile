@@ -233,6 +233,37 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
+  Future<AuthSuccessResponse> registerTherapist({
+    required String fullName,
+    required String email,
+    required String phoneNumber,
+    required String password,
+    required String passwordConfirmation,
+  }) async {
+    try {
+      final response = await _v2.call(
+        UrlConfigV2.registerTherapist,
+        RequestMethod.post,
+        formData: FormData.fromMap({
+          "full_name": fullName,
+          "email": email,
+          "phone_number": phoneNumber,
+          "password": password,
+          "password_confirmation": passwordConfirmation,
+        }),
+        options: _formOptions,
+      );
+
+      final authResponse = AuthSuccessResponse.fromJson(response.data);
+      SessionManager.instance.isTherapistAccount = true;
+      return authResponse;
+    } catch (e, stack) {
+      logger.e(e, stackTrace: stack);
+      rethrow;
+    }
+  }
+
+  @override
   Future<dynamic> forgotPassword(String email) async {
     try {
       final response = await _v2.call(

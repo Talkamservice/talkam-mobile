@@ -5,9 +5,9 @@ import 'package:google_fonts/google_fonts.dart' hide Config;
 import 'package:flutter/foundation.dart' as foundation;
 
 import 'chat_emoji_widget.dart';
-enum CategoryExtraTab{
 
-BACKSPACE, SEARCH}
+enum CategoryExtraTab { BACKSPACE, SEARCH }
+
 const accentColor = Color(0xFF4BA586);
 const accentColorDark = Color(0xFF377E6A);
 const backgroundColor = Color(0xFFEEE7DF);
@@ -208,11 +208,11 @@ class MyAppState extends State<MyApp> {
                             iconColorSelected: Colors.black,
                             iconColor: secondaryColor,
                             customCategoryView: (
-                                config,
-                                state,
-                                tabController,
-                                pageController,
-                                ) {
+                              config,
+                              state,
+                              tabController,
+                              pageController,
+                            ) {
                               return WhatsAppCategoryView(
                                 config,
                                 state,
@@ -240,10 +240,10 @@ class MyAppState extends State<MyApp> {
                           searchViewConfig: SearchViewConfig(
                             backgroundColor: Colors.white,
                             customSearchView: (
-                                config,
-                                state,
-                                showEmojiView,
-                                ) {
+                              config,
+                              state,
+                              showEmojiView,
+                            ) {
                               return WhatsAppSearchView(
                                 config,
                                 state,
@@ -270,4 +270,3 @@ class MyAppState extends State<MyApp> {
     super.dispose();
   }
 }
-

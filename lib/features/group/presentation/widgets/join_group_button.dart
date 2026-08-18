@@ -46,7 +46,8 @@ class _JoinGroupButtonState extends State<JoinGroupButton> {
                   fixedSize: const Size.fromHeight(5),
                   backgroundColor: Colors.transparent,
                   foregroundColor: Pallets.red,
-                  shape: const StadiumBorder(side: BorderSide(color: Pallets.red))),
+                  shape: const StadiumBorder(
+                      side: BorderSide(color: Pallets.red))),
               onPressed: () {
                 CustomDialogs.error("You have been suspended from this group");
               },
@@ -67,7 +68,8 @@ class _JoinGroupButtonState extends State<JoinGroupButton> {
         }
         return TextButton(
             style: TextButton.styleFrom(
-                padding: const EdgeInsets.symmetric(horizontal: 12,vertical: 4),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                 // fixedSize: const Size.fromHeight(5),
                 backgroundColor: Pallets.blueBubbleColor,
                 foregroundColor: Pallets.white,
@@ -107,7 +109,9 @@ class _JoinGroupButtonState extends State<JoinGroupButton> {
   }
 
   bool get showIcon {
-    return !(widget.group.isFollowing??false) && !(widget.group.hasRequested??false) &&( widget.showIcon??false);
+    return !(widget.group.isFollowing ?? false) &&
+        !(widget.group.hasRequested ?? false) &&
+        (widget.showIcon ?? false);
   }
 
   void listenToGroupStates(context, GroupMembersState state) {
@@ -125,7 +129,6 @@ class _JoinGroupButtonState extends State<JoinGroupButton> {
         widget.group.isFollowing = false;
         widget.group.hasRequested = false;
         widget.onStateChanged();
-
       },
       deleteMemberFailure: (error) {
         CustomDialogs.error(error);
@@ -155,7 +158,9 @@ class _JoinGroupButtonState extends State<JoinGroupButton> {
     if (canJoinGroup) {
       logger.w("Joining ");
 
-      bloc.addGroupMember(groupId: widget.group.id.toString(), userId: injector.get<ProfileBloc>().appUser!.id.toString());
+      bloc.addGroupMember(
+          groupId: widget.group.id.toString(),
+          userId: injector.get<ProfileBloc>().appUser!.id.toString());
     } else if (shouldSendJoinRequest) {
       logger.w("Sending request");
 
@@ -164,25 +169,29 @@ class _JoinGroupButtonState extends State<JoinGroupButton> {
       );
     } else if (widget.group.hasRequested!) {
       logger.w("Cancelling request");
-      bloc.unfollowGroup(injector.get<ProfileBloc>().appUser!.id.toString(), widget.group.id.toString());
+      bloc.unfollowGroup(injector.get<ProfileBloc>().appUser!.id.toString(),
+          widget.group.id.toString());
     } else {
-      bloc.unfollowGroup(injector.get<ProfileBloc>().appUser!.id.toString(), widget.group.id.toString());
+      bloc.unfollowGroup(injector.get<ProfileBloc>().appUser!.id.toString(),
+          widget.group.id.toString());
     }
   }
 
   bool get shouldSendJoinRequest =>
-      !(widget.group.isFollowing ?? false) && !(widget.group.isPublic ?? false) && !(widget.group.hasRequested ?? false);
+      !(widget.group.isFollowing ?? false) &&
+      !(widget.group.isPublic ?? false) &&
+      !(widget.group.hasRequested ?? false);
 
   bool get canJoinGroup =>
-      !(widget.group.isFollowing ?? false) && (widget.group.isPublic ?? false) && !(widget.group.hasRequested ?? false);
+      !(widget.group.isFollowing ?? false) &&
+      (widget.group.isPublic ?? false) &&
+      !(widget.group.hasRequested ?? false);
 
-  String get tittleText =>
-      (widget.group.isFollowing ?? false)
-          ? "Unfollow"
-          : (widget.group.hasRequested ?? false)
+  String get tittleText => (widget.group.isFollowing ?? false)
+      ? "Joined"
+      : (widget.group.hasRequested ?? false)
           ? "Cancel Request"
           : "Join";
-
 }
 
 class _Loader extends StatelessWidget {

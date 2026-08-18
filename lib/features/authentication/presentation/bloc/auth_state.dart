@@ -64,6 +64,15 @@ class RegisterSuccess extends AuthState {
   List<Object> get props => [response];
 }
 
+class RegisterTherapistSuccess extends AuthState {
+  final AuthSuccessResponse response;
+
+  const RegisterTherapistSuccess(this.response);
+
+  @override
+  List<Object> get props => [response];
+}
+
 class ForgotPasswordSuccess extends AuthState {
   final dynamic response;
 

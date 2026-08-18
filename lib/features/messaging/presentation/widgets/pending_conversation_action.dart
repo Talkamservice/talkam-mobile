@@ -7,7 +7,11 @@ import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/messaging/data/models/get_conversations_response.dart';
 
 class PendingConversationActions extends StatelessWidget {
-  const PendingConversationActions({super.key, required this.user, required this.onAccept, required this.onReject});
+  const PendingConversationActions(
+      {super.key,
+      required this.user,
+      required this.onAccept,
+      required this.onReject});
 
   final ConversationUser user;
   final VoidCallback onAccept;
@@ -21,7 +25,8 @@ class PendingConversationActions extends StatelessWidget {
         Center(
           child: TextView(
             color: const Color(0xff212121),
-            text: '${user.username} is sending you a message to\nconnect. Do you want to accept their request to\n send and receive messages?',
+            text:
+                '${user.username} is sending you a message to\nconnect. Do you want to accept their request to\n send and receive messages?',
             fontSize: 16,
             align: TextAlign.center,
             fontWeight: FontWeight.w400,

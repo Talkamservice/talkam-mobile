@@ -6,7 +6,6 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/dialog_texts.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
-import 'package:talkam/core/mock/mock_home_data.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/features/group/data/models/groups_filter_model.dart';
 import 'package:talkam/features/group/presentation/blocs/featured_groups/featured_groups_cubit.dart';
@@ -37,7 +36,7 @@ class _GroupExploreRecentTabState extends State<GroupExploreTab>
 
   @override
   void initState() {
-    bloc.getGroups(filter: _filter);
+    bloc.getGroups(filter: _filter, useMockFallback: false);
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
           _scrollController.position.maxScrollExtent - 300) {
@@ -57,7 +56,7 @@ class _GroupExploreRecentTabState extends State<GroupExploreTab>
   void didUpdateWidget(covariant GroupExploreTab oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.selectedCategory?.id != widget.selectedCategory?.id) {
-      bloc.getGroups(filter: _filter);
+      bloc.getGroups(filter: _filter, useMockFallback: false);
     }
   }
 
@@ -72,7 +71,7 @@ class _GroupExploreRecentTabState extends State<GroupExploreTab>
     super.build(context);
     return RefreshGroupListener(
       onRefresh: () {
-        bloc.getGroups(filter: _filter);
+        bloc.getGroups(filter: _filter, useMockFallback: false);
       },
       child: BlocConsumer<GroupsCubit, GroupsState>(
         bloc: bloc,
@@ -96,18 +95,15 @@ class _GroupExploreRecentTabState extends State<GroupExploreTab>
               state.maybeWhen(
                 orElse: () => SliverToBoxAdapter(
                   child: AppErrorWidget(
-                    onTap: () => bloc.getGroups(filter: _filter),
+                    onTap: () =>
+                        bloc.getGroups(filter: _filter, useMockFallback: false),
                   ),
                 ),
                 getGroupsLoading: () => const SliverToBoxAdapter(
                   child: Center(child: GroupLoadingShimmer()),
                 ),
                 getGroupsSuccess: (groups, paginationData) {
-                  final displayGroups = groups.isEmpty
-                      ? MockHomeData.privateTalkamGroups
-                      : groups;
-
-                  if (displayGroups.isEmpty) {
+                  if (groups.isEmpty) {
                     return const SliverToBoxAdapter(
                       child: SizedBox(
                         height: 300,
@@ -121,7 +117,7 @@ class _GroupExploreRecentTabState extends State<GroupExploreTab>
                   return SliverList(
                     delegate: SliverChildBuilderDelegate(
                       (context, index) {
-                        final group = displayGroups[index];
+                        final group = groups[index];
                         return InkWell(
                           onTap: () {
                             if (group.isSuspended ?? false) {
@@ -140,12 +136,14 @@ class _GroupExploreRecentTabState extends State<GroupExploreTab>
                             group: group,
                             onJoinStateChanged: () {
                               bloc.getGroups(
-                                  shouldRefresh: false, filter: _filter);
+                                  shouldRefresh: false,
+                                  filter: _filter,
+                                  useMockFallback: false);
                             },
                           ),
                         );
                       },
-                      childCount: displayGroups.length,
+                      childCount: groups.length,
                     ),
                   );
                 },

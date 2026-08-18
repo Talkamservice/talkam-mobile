@@ -110,9 +110,6 @@ class TherapistApplicationState extends Equatable {
 
   @override
   List<Object?> get props => [
-        personalInfo.fullName,
-        personalInfo.email,
-        personalInfo.phone,
         personalInfo.credentialType,
         personalInfo.yearsExperience,
         documents,

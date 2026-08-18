@@ -52,11 +52,31 @@ class ProfileRepositoryImpl extends ProfileRepository {
       final response = await _v2.call(
         UrlConfigV2.updateProfile,
         RequestMethod.post,
-        formData: FormData.fromMap(payload.toJson()),
+        formData: FormData.fromMap(
+          payload.toJson(),
+          ListFormat.multiCompatible,
+        ),
         options: _authedFormOptions,
       );
 
       return UpdateProfileResponse.fromJson(response.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<dynamic> saveInterests(List<int> interestIds) async {
+    try {
+      final response = await _v2.call(
+        UrlConfigV2.saveInterests,
+        RequestMethod.post,
+        data: {
+          "interests": interestIds,
+        },
+      );
+
+      return response.data;
     } catch (e) {
       rethrow;
     }

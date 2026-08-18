@@ -25,7 +25,8 @@ class ChatScreenActions extends StatefulWidget {
   State<ChatScreenActions> createState() => _ChatScreenActionsState();
 }
 
-class _ChatScreenActionsState extends State<ChatScreenActions> with RefreshPostsMixin, RefreshConversationsMixin {
+class _ChatScreenActionsState extends State<ChatScreenActions>
+    with RefreshPostsMixin, RefreshConversationsMixin {
   final profileBloc = ProfileBloc(injector.get());
   final conversationsBloc = ConversationsCubit(injector.get());
 
@@ -109,10 +110,13 @@ class _ChatScreenActionsState extends State<ChatScreenActions> with RefreshPosts
               onTap: () {
                 GuestUserHelper.handleGuestUserAction(
                   action: () {
-                    if (SessionManager().isMe(widget.conversation.otherUser.id.toString())) {
-                      context.pushNamed(PageUrl.profileScreen, extra: widget.conversation.otherUser.id.toString());
+                    if (SessionManager()
+                        .isMe(widget.conversation.otherUser.id.toString())) {
+                      context.pushNamed(PageUrl.profileScreen,
+                          extra: widget.conversation.otherUser.id.toString());
                     } else {
-                      context.pushNamed(PageUrl.userProfileScreen, extra: widget.conversation.otherUser.id.toString());
+                      context.pushNamed(PageUrl.userProfileScreen,
+                          extra: widget.conversation.otherUser.id.toString());
                     }
                   },
                 );
@@ -125,10 +129,16 @@ class _ChatScreenActionsState extends State<ChatScreenActions> with RefreshPosts
               ),
             ),
             _buildOptionRow(
-              icon: widget.conversation.notificationStatus ? Icons.notifications_none_outlined : Icons.notifications_off_outlined,
-              text: widget.conversation.notificationStatus ? 'Mute notifications' : "Unmute notifications",
+              icon: widget.conversation.notificationStatus
+                  ? Icons.notifications_none_outlined
+                  : Icons.notifications_off_outlined,
+              text: widget.conversation.notificationStatus
+                  ? 'Mute notifications'
+                  : "Unmute notifications",
               onTap: () {
-                conversationsBloc.updateConversationById(widget.conversation.id.toString(), !widget.conversation.notificationStatus);
+                conversationsBloc.updateConversationById(
+                    widget.conversation.id.toString(),
+                    !widget.conversation.notificationStatus);
               },
             ),
             const SizedBox(
@@ -142,8 +152,11 @@ class _ChatScreenActionsState extends State<ChatScreenActions> with RefreshPosts
               text: 'Delete chat',
               onTap: () {
                 CustomDialogs.showConfirmDialog(context,
-                    message: "All messages and files in this chat will be lost", tittle: "Are you sure you want to delete?", confirmText: "Delete", onYes: () {
-                  conversationsBloc.deleteConversationById(widget.conversation.id.toString());
+                    message: "All messages and files in this chat will be lost",
+                    tittle: "Are you sure you want to delete?",
+                    confirmText: "Delete", onYes: () {
+                  conversationsBloc.deleteConversationById(
+                      widget.conversation.id.toString());
                 }, onCancel: () {
                   context.pop();
                 }, confirmButtonBgColor: Pallets.red);
@@ -157,7 +170,9 @@ class _ChatScreenActionsState extends State<ChatScreenActions> with RefreshPosts
             ),
             _buildOptionRow(
               icon: Icons.block_outlined,
-              text: widget.conversation.userBlocked ? 'UnBlock ${widget.conversation.otherUser.username}' : 'Block ${widget.conversation.otherUser.username}',
+              text: widget.conversation.userBlocked
+                  ? 'UnBlock ${widget.conversation.otherUser.username}'
+                  : 'Block ${widget.conversation.otherUser.username}',
               onTap: () {
                 blockUser(context);
               },
@@ -191,37 +206,42 @@ class _ChatScreenActionsState extends State<ChatScreenActions> with RefreshPosts
       CustomDialogs.showConfirmDialog(
         context,
         confirmButtonBgColor: Pallets.red,
-        message: "Are you sure you want to block ${widget.conversation.otherUser.username}",
+        message:
+            "Are you sure you want to block ${widget.conversation.otherUser.username}",
         onCancel: () {
           context.pop();
         },
         onYes: () {
           context.pop();
 
-          profileBloc.add(BlockUerEvent(widget.conversation.otherUser.id.toString()));
+          profileBloc
+              .add(BlockUerEvent(widget.conversation.otherUser.id.toString()));
         },
       );
     } else {
       CustomDialogs.showConfirmDialog(
         context,
         confirmButtonBgColor: Pallets.primary,
-        message: "Are you sure you want to unblock ${widget.conversation.otherUser.username}",
+        message:
+            "Are you sure you want to unblock ${widget.conversation.otherUser.username}",
         onCancel: () {
           context.pop();
         },
         onYes: () {
           context.pop();
 
-          profileBloc.add(BlockUerEvent(widget.conversation.otherUser.id.toString()));
+          profileBloc
+              .add(BlockUerEvent(widget.conversation.otherUser.id.toString()));
         },
       );
     }
-
-
   }
 }
 
-Widget _buildOptionRow({required IconData icon, required String text, required VoidCallback onTap}) {
+Widget _buildOptionRow(
+    {required IconData icon,
+    required String text,
+    required VoidCallback onTap}) {
   return InkWell(
     onTap: onTap,
     child: Padding(

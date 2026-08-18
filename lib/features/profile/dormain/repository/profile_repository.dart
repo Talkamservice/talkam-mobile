@@ -14,6 +14,8 @@ abstract class ProfileRepository {
 
   Future<UpdateProfileResponse> updateProfile(UpdateProfilePayload payload);
 
+  Future<dynamic> saveInterests(List<int> interestIds);
+
   Future<GetAvatarsResponse> getAvatars();
 
   Future<BlockUserResponse> blockUser(String userId);

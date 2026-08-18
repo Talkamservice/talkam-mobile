@@ -3,7 +3,7 @@ import 'package:talkam/features/messaging/presentation/blocs/conversations/conve
 import 'package:talkam/features/notifications/presentation/bloc/notification_bloc.dart';
 
 mixin RefreshConversationsMixin {
-  void refreshAllConversations(){
+  void refreshAllConversations() {
     injector.get<ConversationsCubit>().getConversations();
     injector.get<ConversationsCubit>().getPendingRequest();
     injector.get<NotificationsBloc>().add(GetNotificationsStatsEvent());

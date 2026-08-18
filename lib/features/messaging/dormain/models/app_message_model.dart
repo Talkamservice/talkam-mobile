@@ -1,5 +1,3 @@
-
-
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/features/messaging/data/models/get_messages_response.dart';
 
@@ -19,7 +17,7 @@ class AppMessageModel {
 
   AppMessageModel({
     this.id = '0',
-     this.content,
+    this.content,
     this.isTyping = false,
     required this.iAmSender,
     this.sendingState,
@@ -42,7 +40,7 @@ class AppMessageModel {
   }
 
   @override
-  int get hashCode =>[content, iAmSender, sendingState, time, id].hashCode;
+  int get hashCode => [content, iAmSender, sendingState, time, id].hashCode;
 
   factory AppMessageModel.fromResponse(TalkamMessage message) =>
       AppMessageModel(
@@ -110,7 +108,6 @@ class AppMessageModel {
     );
   }
 
-
   AppMessageModel copyWith({
     String? id,
     String? content,
@@ -127,13 +124,13 @@ class AppMessageModel {
       id: id ?? this.id,
       content: content ?? this.content,
       isTyping: isTyping ?? this.isTyping,
-      iAmSender: iAmSender ??this.iAmSender,
+      iAmSender: iAmSender ?? this.iAmSender,
       sendingState: sendingState ?? this.sendingState,
       time: time ?? this.time,
       assetUrl: assetUrl ?? this.assetUrl,
-      receiverId: receiverId?? this.receiverId,
-      messageType: messageType?? this.messageType,
-      conversationId: conversationId ??this.conversationId,
+      receiverId: receiverId ?? this.receiverId,
+      messageType: messageType ?? this.messageType,
+      conversationId: conversationId ?? this.conversationId,
     );
   }
 

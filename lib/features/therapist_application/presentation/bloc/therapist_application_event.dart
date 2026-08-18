@@ -13,27 +13,6 @@ class ResetSaveStatusesEvent extends TherapistApplicationEvent {
 
 // ── Step 1 — Personal information ─────────────────────────────────────────
 
-class UpdateFullNameEvent extends TherapistApplicationEvent {
-  const UpdateFullNameEvent(this.value);
-  final String value;
-  @override
-  List<Object?> get props => [value];
-}
-
-class UpdateEmailEvent extends TherapistApplicationEvent {
-  const UpdateEmailEvent(this.value);
-  final String value;
-  @override
-  List<Object?> get props => [value];
-}
-
-class UpdatePhoneEvent extends TherapistApplicationEvent {
-  const UpdatePhoneEvent(this.value);
-  final String value;
-  @override
-  List<Object?> get props => [value];
-}
-
 class UpdateCredentialTypeEvent extends TherapistApplicationEvent {
   const UpdateCredentialTypeEvent(this.value);
   final String value;

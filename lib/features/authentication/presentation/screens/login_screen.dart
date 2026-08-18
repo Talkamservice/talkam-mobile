@@ -15,6 +15,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/mixins/returning_user_mixin.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/features/authentication/presentation/bloc/auth_bloc.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 import '../../../../core/theme/pallets.dart';
@@ -41,10 +42,16 @@ class _LoginScreenState extends State<LoginScreen> with ReturningUserMixin {
       builder: (context, state) {
         return Scaffold(
           backgroundColor: Colors.white,
-          appBar: const CustomAppBar(
+          appBar: CustomAppBar(
             bgColor: Colors.transparent,
             elevation: 0,
-            canGoBack: false,
+            onBackPressed: () {
+              if (context.canPop()) {
+                context.pop();
+              } else {
+                context.goNamed(PageUrl.getStartedScreen);
+              }
+            },
           ),
           body: Padding(
             padding: EdgeInsets.symmetric(horizontal: 24.w),
@@ -283,10 +290,16 @@ class _LoginScreenState extends State<LoginScreen> with ReturningUserMixin {
     if (state is LoginSuccess) {
       context.pop();
       CustomDialogs.success("Login successful.");
+      injector
+          .get<ProfileBloc>()
+          .add(SaveUserLocallyEvent(state.response.data.user));
       gotoNextScreen(context, state.response.data.user);
     }
     if (state is OauthSuccessState) {
       context.pop();
+      injector
+          .get<ProfileBloc>()
+          .add(SaveUserLocallyEvent(state.response.data.user));
       gotoNextScreen(context, state.response.data.user);
     }
   }

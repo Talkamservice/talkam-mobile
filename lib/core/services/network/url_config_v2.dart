@@ -19,6 +19,7 @@ class UrlConfigV2 {
 
   // Authentication
   static const String register = '/auth/register';
+  static const String registerTherapist = '/auth/register-therapist';
   static const String login = '/auth/login';
   static const String logout = '/auth/logout';
   static const String oauthLogin = '/auth/oauth-login';
@@ -31,7 +32,8 @@ class UrlConfigV2 {
   // User
   static const String me = '/user/me';
   static const String getAvatars = '/profile/avatars';
-  static const String updateProfile = '/user/profile/update';
+  static String updateProfile = '/user/profile/update';
+  static const String saveInterests = '/user/profile/interests';
 
   // Onboarding
   static const String setUserType = '/user/onboarding/user-type';
@@ -100,6 +102,7 @@ class UrlConfigV2 {
   static String deleteSearch(String id) => '/user/search/$id/delete';
 
   // Therapist application (5-step onboarding wizard)
+  static const String therapistApplicationStatus = '/therapist/application';
   static const String therapistApplicationPersonal =
       '/therapist/application/personal';
   static const String therapistApplicationDocuments =
@@ -117,4 +120,11 @@ class UrlConfigV2 {
       '/therapist/application/payout';
   static const String therapistApplicationSubmit =
       '/therapist/application/submit';
+
+  // Messaging — conversations
+  static const String messagingConversations = '/user/messaging/conversations';
+
+  /// mute | unmute | archive | unarchive | star | unstar | seen.
+  static String conversationState(String action) =>
+      '$messagingConversations/$action';
 }

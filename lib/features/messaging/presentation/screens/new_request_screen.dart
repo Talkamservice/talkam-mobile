@@ -50,9 +50,8 @@ class _NewRequestScreenState extends State<NewRequestScreen> {
         children: [
           Expanded(
               child: BlocConsumer<ConversationsCubit, ConversationsState>(
-                buildWhen: _buildWhen,
+            buildWhen: _buildWhen,
             bloc: injector.get<ConversationsCubit>(),
-
             listener: (context, state) {},
             builder: (context, state) {
               return state.maybeWhen(
@@ -119,7 +118,6 @@ class _NewRequestScreenState extends State<NewRequestScreen> {
   }
 
   bool _buildWhen(ConversationsState previous, ConversationsState current) {
-
     return current.maybeWhen(
       orElse: () => false,
       getPendingRequestsFailure: (error) => true,

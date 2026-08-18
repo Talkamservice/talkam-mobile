@@ -12,6 +12,7 @@ class PageUrl {
   static const userTypeSelectionScreen = 'userTypeSelectionScreen';
   static const therapistOnboardingScreen = 'therapistOnboardingScreen';
   static const therapistRequirementsScreen = 'therapistRequirementsScreen';
+  static const therapistSignupScreen = 'therapistSignupScreen';
   static const therapistPersonalInfoScreen = 'therapistPersonalInfoScreen';
   static const therapistQualificationsScreen = 'therapistQualificationsScreen';
   static const therapistSpecialtiesScreen = 'therapistSpecialtiesScreen';

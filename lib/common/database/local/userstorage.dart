@@ -11,8 +11,8 @@ class UserStorage {
 
   // Save user data to SharedPreferences
   Future<void> saveUser(TalkamUser user) async {
-    final userJson = jsonEncode(user.toJson());
     SessionManager.instance.usersData = user.toJson();
+    SessionManager.instance.isTherapistAccount = user.isTherapist;
   }
 
   // Retrieve user data from SharedPreferences

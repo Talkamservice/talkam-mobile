@@ -76,6 +76,31 @@ class RegisterEvent extends AuthEvent {
       ];
 }
 
+class RegisterTherapistEvent extends AuthEvent {
+  final String fullName;
+  final String email;
+  final String phoneNumber;
+  final String password;
+  final String passwordConfirmation;
+
+  const RegisterTherapistEvent({
+    required this.fullName,
+    required this.email,
+    required this.phoneNumber,
+    required this.password,
+    required this.passwordConfirmation,
+  });
+
+  @override
+  List<Object?> get props => [
+        fullName,
+        email,
+        phoneNumber,
+        password,
+        passwordConfirmation,
+      ];
+}
+
 class ForgotPasswordEvent extends AuthEvent {
   final String email;
 
