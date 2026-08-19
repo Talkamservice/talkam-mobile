@@ -46,8 +46,10 @@ subprojects {
         }
         // Plugins that declare no jvmTarget let Kotlin follow the JDK (17) while
         // Java falls back to AGP's default (1.8); Kotlin 2.x rejects the mismatch.
+        // sentry_flutter also hardcodes languageVersion "1.6", which Kotlin 2.2+ no longer supports.
         project.tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
             kotlinOptions.jvmTarget = "17"
+            kotlinOptions.languageVersion = "1.9"
         }
     }
 }

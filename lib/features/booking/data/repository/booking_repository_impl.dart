@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/network/network_service.dart';
 import 'package:talkam/core/services/network/url_config_v2.dart';
 import 'package:talkam/features/booking/data/models/booking_response.dart';
@@ -134,17 +135,20 @@ class BookingRepositoryImpl extends BookingRepository {
 
   @override
   Future<void> paymentCallback(String reference) async {
-    // Placeholder — verifies the transaction server-side via Flutterwave.
-    // Response shape TBD; errors are silenced since Flutterwave handles verification.
+    // Verifies the transaction server-side via Flutterwave. Errors are
+    // logged, not rethrown — the caller determines success/failure from the
+    // booking's own status (via getBookingDetail) regardless of whether this
+    // call itself succeeds.
     try {
-      await _v2.call(
+      final response = await _v2.call(
         UrlConfigV2.paymentCallback,
         RequestMethod.post,
         formData: FormData.fromMap({'reference': reference}),
         options: _formOptions,
       );
-    } catch (_) {
-      // Silent — booking status will be confirmed by Flutterwave webhook anyway.
+      logger.i('paymentCallback($reference) -> ${response.statusCode}: ${response.data}');
+    } catch (e) {
+      logger.e('paymentCallback($reference) failed: $e');
     }
   }
 

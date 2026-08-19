@@ -177,22 +177,27 @@ class BookingCubit extends Cubit<BookingState> {
         ),
       );
 
-      if (chargeResponse?.success == true) {
-        // Notify server — best effort
-        await _repo.paymentCallback(paymentData.reference);
-        // Fetch updated booking
-        final updated = await _repo.getBookingDetail(bookingId);
+      // Always verify with the server, regardless of the Flutterwave SDK's
+      // local `success` flag — that flag depends on its in-app WebView
+      // reaching a redirect page, which can hang or misreport even when the
+      // charge went through. The booking's own status (refreshed below) is
+      // the source of truth.
+      await _repo.paymentCallback(paymentData.reference);
+      final updated = await _repo.getBookingDetail(bookingId);
+
+      if (updated.isConfirmed || updated.isCompleted) {
         emit(state.copyWith(
           status: BookingStatus.paymentSuccess,
           booking: updated,
           errorMessage: null,
         ));
       } else {
-        final updated = await _repo.getBookingDetail(bookingId);
         emit(state.copyWith(
           status: BookingStatus.paymentFailed,
           booking: updated,
-          errorMessage: 'Payment was not completed.',
+          errorMessage: chargeResponse?.success == true
+              ? 'Payment is still being confirmed. Please check back shortly.'
+              : 'Payment was not completed.',
         ));
       }
     } catch (e) {

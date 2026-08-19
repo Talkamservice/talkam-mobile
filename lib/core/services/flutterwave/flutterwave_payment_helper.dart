@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutterwave_standard/flutterwave.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/network/url_config.dart';
+import 'package:talkam/core/services/network/url_config_v2.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class FlutterRequirements {
@@ -49,7 +50,14 @@ class PaymentHelper {
         customization: Customization(
             title: requirements.description, logo: Assets.images.svgs.logo2),
         isTestMode: true,
-        redirectUrl: 'https://web.talkam.prodevs.io/home/new',
+        // Not a real "thank you" page — this endpoint only accepts POST and
+        // returns 405 for the GET Flutterwave issues here. It's used purely
+        // as a fast, non-redirecting URL so the checkout WebView's redirect
+        // detection (which inspects the URL's query params) succeeds instead
+        // of following a 3xx chain that strips them (as admin.staging.talkam.net's
+        // own root does, landing on its login page). Actual server-side
+        // verification happens separately via BookingRepositoryImpl.paymentCallback.
+        redirectUrl: '${UrlConfigV2.coreBaseUrl}${UrlConfigV2.paymentCallback}',
       );
 
       final _response = await _flutterwave.charge(context);
