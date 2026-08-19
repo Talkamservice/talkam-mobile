@@ -32,7 +32,8 @@ class UrlConfig {
   static final coreBaseUrl = environment == Environment.production ? PRODUCTION_URL : STAGING_URL;
   static final webUrl = environment == Environment.production ? WEB_PRODUCTION_URL : WEB_STAGING_URL;
 
-  static final flutterWavePublicKey = environment == Environment.production ? flutterWavePublicLiveKey : flutterWavePublicTestKey;
+  // static final flutterWavePublicKey = environment == Environment.production ? flutterWavePublicLiveKey : flutterWavePublicTestKey;
+  static final flutterWavePublicKey = flutterWavePublicTestKey;
   static final flutterWaveSecretKey = environment == Environment.production ? flutterWaveSecretLiveKey : flutterWaveSecretTestKey;
 
   static const String getLibraryCoursesEndpoint = "/wellness-library/courses/list";

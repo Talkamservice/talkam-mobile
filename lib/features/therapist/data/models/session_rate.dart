@@ -16,10 +16,9 @@ class SessionRate extends Equatable {
   final String raw;
 
   /// Bounds are shared with the onboarding payout step so the two surfaces
-  /// cannot diverge. The previous onboarding ceiling of ₦20,000 could not
-  /// express the ₦25,000–₦30,000 the seeded therapists charge.
+  /// cannot diverge.
   static const int min = 5000;
-  static const int max = 100000;
+  static const int max = 20000;
 
   /// Share of the session fee the platform keeps.
   static const double platformFeeRate = 0.15;

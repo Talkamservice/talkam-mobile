@@ -81,11 +81,12 @@ class NetworkService {
     Response response;
 
     var params = queryParams ?? {};
-    if (params.keys.contains("searchTerm")) {
-      params["searchTerm"] = Uri.encodeQueryComponent(params["searchTerm"]);
+    if (params.keys.contains("searchTerm") && params["searchTerm"] != null) {
+      params["searchTerm"] =
+          Uri.encodeQueryComponent(params["searchTerm"].toString());
     }
-    if (params.keys.contains("page")) {
-      params["page"] = Uri.encodeQueryComponent(params["page"]);
+    if (params.keys.contains("page") && params["page"] != null) {
+      params["page"] = Uri.encodeQueryComponent(params["page"].toString());
     }
 
     try {

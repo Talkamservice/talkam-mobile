@@ -17,8 +17,7 @@ class PersonalInfo {
   final String yearsExperience;
 
   bool get isValid =>
-      credentialType != null &&
-      int.tryParse(yearsExperience) != null;
+      credentialType != null && int.tryParse(yearsExperience) != null;
 
   PersonalInfo copyWith({
     String? credentialType,
@@ -229,8 +228,7 @@ class PayoutInfo {
   });
 
   /// Delegated so onboarding and the therapist Edit Profile screen cannot
-  /// drift apart. The previous local ceiling of ₦20,000 rejected the
-  /// ₦25,000–₦30,000 the seeded therapists charge.
+  /// drift apart.
   static const int minSessionRate = SessionRate.min;
   static const int maxSessionRate = SessionRate.max;
 

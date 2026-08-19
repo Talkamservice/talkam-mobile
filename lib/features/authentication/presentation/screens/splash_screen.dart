@@ -21,24 +21,11 @@ class _SplashScreenState extends State<SplashScreen> with ReturningUserMixin {
   final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
   final GlobalKey<FormState> dialogKey = GlobalKey<FormState>();
 
-  /// Key used to call [AppLogoWidgetState.forward] after the first frame.
-  final GlobalKey<AppLogoWidgetState> _logoKey =
-      GlobalKey<AppLogoWidgetState>();
-
   @override
   void initState() {
     super.initState();
-
-    // Start the logo animation on the first rendered frame.
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _logoKey.currentState?.addStatusListener((status) {
-        if (status == AnimationStatus.completed) {
-          // Short pause after animation settles, then navigate.
-          Future.delayed(const Duration(milliseconds: 500), _goToNextScreen);
-        }
-      });
-      _logoKey.currentState?.forward();
-    });
+    // Brief pause so the splash isn't an instant flash before navigating on.
+    Future.delayed(const Duration(milliseconds: 900), _goToNextScreen);
   }
 
   @override
@@ -52,15 +39,8 @@ class _SplashScreenState extends State<SplashScreen> with ReturningUserMixin {
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Colors.white,
-      body: ClipRect(
-        child: Center(
-          child: IgnorePointer(
-            child: AppLogoWidget(
-              key: _logoKey,
-              iconHeight: 72,
-            ),
-          ),
-        ),
+      body: const Center(
+        child: AppLogoWidget(iconHeight: 72),
       ),
     );
   }

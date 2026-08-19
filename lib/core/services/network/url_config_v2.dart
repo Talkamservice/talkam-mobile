@@ -127,4 +127,19 @@ class UrlConfigV2 {
   /// mute | unmute | archive | unarchive | star | unstar | seen.
   static String conversationState(String action) =>
       '$messagingConversations/$action';
+
+  // Therapist Directory & Booking
+  static const String therapistDirectory = '/user/therapists';
+  static String therapistProfile(int id) => '/user/therapists/$id';
+  static String therapistSlots(int id) => '/user/therapists/$id/slots';
+  static String therapistReviews(int id) => '/user/therapists/$id/reviews';
+
+  // Bookings (consumer-facing)
+  static const String bookings = '/user/bookings';
+  static String bookingDetail(int id) => '/user/bookings/$id';
+  static String initiatePayment(int id) => '/user/bookings/$id/initiate-payment';
+  static String reviewBooking(int id) => '/user/bookings/$id/review';
+
+  // Payment callback
+  static const String paymentCallback = '/finance/payments/callback';
 }

@@ -1,13 +1,17 @@
+import 'dart:async';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
+import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/document_upload_tile.dart';
 import 'package:talkam/common/widgets/step_progress_bar.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/therapist_application/data/models/therapist_application_data.dart';
 import 'package:talkam/features/therapist_application/presentation/bloc/therapist_application_bloc.dart';
@@ -44,6 +48,33 @@ class TherapistQualificationsScreen extends StatelessWidget {
 
     bloc.add(
         UploadDocumentEvent(id, file.path!, file.name, expiresAt: expiresAt));
+  }
+
+  /// Each document already uploads to the server as soon as it's picked
+  /// ([UploadDocumentEvent]), so there's no separate batch-save call for this
+  /// step. Saving the draft here just means: wait out any upload still in
+  /// flight so it isn't abandoned mid-request, surface a failure if one
+  /// happened, then leave the wizard.
+  Future<void> _saveDraftAndExit(BuildContext context) async {
+    if (bloc.state.documents
+        .any((d) => d.status == DocumentUploadStatus.uploading)) {
+      CustomDialogs.showLoading(context);
+      await bloc.stream.firstWhere((state) => !state.documents
+          .any((d) => d.status == DocumentUploadStatus.uploading));
+      if (context.mounted) context.pop();
+    }
+
+    if (!context.mounted) return;
+
+    final failed = bloc.state.documents
+        .any((d) => d.status == DocumentUploadStatus.failure);
+    if (failed) {
+      CustomDialogs.error("Some documents failed to upload. Try again.");
+      return;
+    }
+
+    SessionManager().hasOnboarded = true;
+    context.goNamed(PageUrl.homeScreen);
   }
 
   @override
@@ -138,7 +169,7 @@ class TherapistQualificationsScreen extends StatelessWidget {
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
                       color: Pallets.grey400,
-                      onTap: () => context.pop(),
+                      onTap: () => _saveDraftAndExit(context),
                     ),
                   ],
                 ),

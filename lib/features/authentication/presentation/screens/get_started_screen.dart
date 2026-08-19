@@ -15,52 +15,36 @@ class GetStartedScreen extends StatefulWidget {
 }
 
 class _GetStartedScreenState extends State<GetStartedScreen> {
-  final GlobalKey<AppLogoWidgetState> _logoKey =
-      GlobalKey<AppLogoWidgetState>();
-
-  @override
-  void initState() {
-    super.initState();
-    // Trigger the logo animation on the first rendered frame.
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _logoKey.currentState?.forward();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      body: ClipRect(
-        child: SafeArea(
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 24.w),
-            child: Column(
-              children: [
-                // ── Logo (top, centred) ───────────────────────────────────
-                Expanded(
-                  child: Center(
-                    child: AppLogoWidget(
-                      key: _logoKey,
-                      iconHeight: 72,
-                    ),
-                  ),
+      body: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 24.w),
+          child: Column(
+            children: [
+              // ── Logo (top, centred) ───────────────────────────────────
+              const Expanded(
+                child: Center(
+                  child: AppLogoWidget(iconHeight: 72),
                 ),
+              ),
 
-                // ── Buttons (bottom) ──────────────────────────────────────
-                _GetStartedButton(
-                  onPressed: () => context.pushNamed(PageUrl.userTypeSelectionScreen),
-                ),
+              // ── Buttons (bottom) ──────────────────────────────────────
+              _GetStartedButton(
+                onPressed: () =>
+                    context.pushNamed(PageUrl.userTypeSelectionScreen),
+              ),
 
-                16.verticalSpace,
+              16.verticalSpace,
 
-                _SignInButton(
-                  onPressed: () => context.pushNamed(PageUrl.login),
-                ),
+              _SignInButton(
+                onPressed: () => context.pushNamed(PageUrl.login),
+              ),
 
-                32.verticalSpace,
-              ],
-            ),
+              32.verticalSpace,
+            ],
           ),
         ),
       ),

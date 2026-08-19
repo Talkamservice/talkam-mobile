@@ -42,4 +42,26 @@ class ConnectionsSummaryCubit extends Cubit<ConnectionsSummaryState> {
       emit(ConnectionsSummaryState.failure(error.toString()));
     }
   }
+
+  /// Refreshes in the background without emitting a loading state, so the
+  /// drawer keeps showing the last known counts instead of flashing to 0
+  /// while this resolves. Called every time the drawer is opened. Errors are
+  /// swallowed — a failed background refresh shouldn't surface anything for
+  /// an update the user didn't explicitly ask for; the stale counts just
+  /// stay on screen until the next successful refresh.
+  Future<void> refreshCountsSilently() async {
+    try {
+      final results = await Future.wait([
+        _profileRepository.fetchFollowing(),
+        _profileRepository.fetchFollowers(),
+      ]);
+      emit(ConnectionsSummaryState.success(
+        followingCount: results[0].length,
+        followersCount: results[1].length,
+      ));
+    } catch (error, stack) {
+      logger.e(error);
+      logger.e(stack);
+    }
+  }
 }

@@ -94,6 +94,20 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
     return "₦${earnings.toString().formatNumber()}";
   }
 
+  String? _rateErrorText(PayoutInfo payout) {
+    switch (SessionRate(payout.sessionRate).error) {
+      case null:
+      case SessionRateError.empty:
+        return null;
+      case SessionRateError.notANumber:
+        return "Enter a valid amount";
+      case SessionRateError.belowMin:
+        return "Amount can't be lower than ₦${PayoutInfo.minSessionRate.toString().formatNumber()}";
+      case SessionRateError.aboveMax:
+        return "Amount can't exceed ₦${PayoutInfo.maxSessionRate.toString().formatNumber()}";
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -253,11 +267,10 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
                         onChanged: (v) => widget.bloc
                             .add(SetSessionRateEvent(v.removeCommas())),
                       ),
-                      if (rateTouched && !payout.isSessionRateValid) ...[
+                      if (rateTouched && _rateErrorText(payout) != null) ...[
                         6.verticalSpace,
                         TextView(
-                          text:
-                              "Amount can't exceed ₦${PayoutInfo.maxSessionRate.toString().formatNumber()}",
+                          text: _rateErrorText(payout)!,
                           fontSize: 12,
                           fontWeight: FontWeight.w600,
                           color: Pallets.errorRed,

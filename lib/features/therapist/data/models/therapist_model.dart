@@ -1,4 +1,6 @@
 import 'package:talkam/features/therapist/data/models/availability_slot.dart';
+import 'package:talkam/features/booking/data/models/therapist_directory_response.dart';
+import 'package:talkam/features/booking/data/models/therapist_review_item.dart';
 
 /// A single client review rendered on a therapist's profile.
 class TherapistReview {
@@ -125,6 +127,57 @@ class TherapistModel {
 
   /// Share of reviews awarding [star], or 0 when no histogram is available.
   double breakdownFor(int star) => ratingBreakdown[star] ?? 0;
+
+  factory TherapistModel.fromDirectoryItem(TherapistDirectoryItem item) {
+    final rate = double.tryParse(item.sessionRate ?? '') ?? 0.0;
+    return TherapistModel(
+      id: item.id.toString(),
+      name: item.name,
+      title: item.credentialType ?? 'Licensed Therapist',
+      specialties: item.specialties.isNotEmpty
+          ? item.specialties.map((s) => s.name).toList()
+          : ['Mental Health'],
+      pricePerSession: rate,
+      rating: item.rating,
+      reviewsCount: item.reviewsCount,
+      avatarUrl: item.avatar ?? '',
+      nextAvailableSlot: item.nextSlotLabel,
+      isVerified: item.isVerified,
+      about: '',
+      totalSessions: 0,
+      avgDuration: '50 mins',
+      yearsExperience: item.yearsExperience ?? 0,
+      sessionFormats: item.resolvedFormats,
+    );
+  }
+
+  factory TherapistModel.fromProfileDetail(
+    TherapistProfileDetail detail, [
+    List<TherapistReviewItem> apiReviews = const [],
+  ]) {
+    final base = TherapistModel.fromDirectoryItem(detail);
+    final reviews = apiReviews
+        .map((r) => TherapistReview(
+              rating: r.rating,
+              body: r.comment ?? '',
+              attribution: 'Employee  •  anonymised',
+              timeAgo: r.timeAgo ?? '',
+            ))
+        .toList();
+    final Map<int, double> breakdown = {};
+    if (detail.reviewsCount > 0) {
+      detail.ratingsHistogram.forEach((k, v) {
+        breakdown[k] = v / detail.reviewsCount;
+      });
+    }
+    return base.copyWith(
+      about: detail.bio ?? '',
+      totalSessions: detail.completedSessions ?? 0,
+      yearsExperience: detail.yearsExperience ?? 0,
+      ratingBreakdown: breakdown,
+      reviews: reviews,
+    );
+  }
 }
 
 class MockTherapistData {

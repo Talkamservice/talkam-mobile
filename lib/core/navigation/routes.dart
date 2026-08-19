@@ -37,7 +37,6 @@ import 'package:talkam/features/group/presentation/screens/groups_screen.dart';
 import 'package:talkam/features/group/presentation/screens/create_group/preview_group_screen.dart';
 import 'package:talkam/features/group/presentation/screens/pending_requests_screen.dart';
 import 'package:talkam/features/group/presentation/screens/group_requests_screen.dart';
-import 'package:talkam/features/therapist/data/models/client_model.dart';
 import 'package:talkam/features/therapist/presentation/screens/clients_screen.dart';
 import 'package:talkam/features/therapist/presentation/screens/client_details_screen.dart';
 import 'package:talkam/features/home/presentation/screens/base_page.dart';
@@ -70,14 +69,17 @@ import 'package:talkam/features/profile/presentation/screens/user_profile_screen
 import 'package:talkam/features/search/presentation/screens/search_result_screen.dart';
 import 'package:talkam/features/subscription/presentation/screens/subscription_screen.dart';
 
-import 'package:talkam/features/therapist/presentation/screens/therapist_list_screen.dart';
-import 'package:talkam/features/therapist/presentation/screens/therapist_profile_screen.dart';
-import 'package:talkam/features/therapist/presentation/screens/booking_step_one_screen.dart';
-import 'package:talkam/features/therapist/presentation/screens/booking_review_screen.dart';
-import 'package:talkam/features/therapist/presentation/screens/booking_confirmed_screen.dart';
-import 'package:talkam/features/therapist/presentation/screens/booking_failed_screen.dart';
-import 'package:talkam/features/therapist/data/models/therapist_model.dart';
-import 'package:talkam/features/therapist/presentation/bloc/therapist_booking_bloc.dart';
+// Booking feature — new live-API screens
+import 'package:talkam/features/booking/presentation/screens/therapist_list_screen.dart';
+import 'package:talkam/features/booking/presentation/screens/therapist_profile_screen.dart';
+import 'package:talkam/features/booking/presentation/screens/booking_step_one_screen.dart';
+import 'package:talkam/features/booking/presentation/screens/booking_review_screen.dart';
+import 'package:talkam/features/booking/presentation/screens/booking_confirmed_screen.dart';
+import 'package:talkam/features/booking/presentation/screens/booking_failed_screen.dart';
+import 'package:talkam/features/booking/data/models/therapist_directory_response.dart';
+import 'package:talkam/features/booking/data/models/therapist_slots_response.dart';
+import 'package:talkam/features/booking/data/models/booking_response.dart';
+import 'package:talkam/features/therapist/data/models/client_model.dart';
 
 import 'package:talkam/features/session/presentation/screens/session_call_screen.dart';
 import 'package:talkam/features/session/presentation/screens/session_complete_screen.dart';
@@ -519,7 +521,7 @@ class CustomRoutes {
         name: PageUrl.therapistProfileScreen,
         pageBuilder: (context, state) => NoTransitionPage(
           child: TherapistProfileScreen(
-            therapist: state.extra as TherapistModel,
+            therapistId: state.extra as int,
           ),
         ),
       ),
@@ -538,11 +540,16 @@ class CustomRoutes {
       GoRoute(
         path: '/bookingStepOneScreen',
         name: PageUrl.bookingStepOneScreen,
-        pageBuilder: (context, state) => NoTransitionPage(
-          child: BookingStepOneScreen(
-            therapist: state.extra as TherapistModel,
-          ),
-        ),
+        pageBuilder: (context, state) {
+          final args = state.extra as Map<String, dynamic>;
+          return NoTransitionPage(
+            child: BookingStepOneScreen(
+              therapistId: args['therapistId'] as int,
+              selectedFormat: args['format'] as String,
+              profile: args['profile'] as TherapistProfileDetail,
+            ),
+          );
+        },
       ),
       GoRoute(
         path: '/bookingReviewScreen',
@@ -551,8 +558,10 @@ class CustomRoutes {
           final args = state.extra as Map<String, dynamic>;
           return NoTransitionPage(
             child: BookingReviewScreen(
-              therapist: args['therapist'] as TherapistModel,
-              bloc: args['bloc'] as TherapistBookingBloc,
+              therapistId: args['therapistId'] as int,
+              slot: args['slot'] as TherapistSlot,
+              format: args['format'] as String,
+              profile: args['profile'] as TherapistProfileDetail,
             ),
           );
         },
@@ -560,8 +569,10 @@ class CustomRoutes {
       GoRoute(
         path: '/bookingConfirmedScreen',
         name: PageUrl.bookingConfirmedScreen,
-        pageBuilder: (context, state) => const NoTransitionPage(
-          child: BookingConfirmedScreen(),
+        pageBuilder: (context, state) => NoTransitionPage(
+          child: BookingConfirmedScreen(
+            booking: state.extra as BookingResponse?,
+          ),
         ),
       ),
       GoRoute(
@@ -569,7 +580,7 @@ class CustomRoutes {
         name: PageUrl.bookingFailedScreen,
         pageBuilder: (context, state) => NoTransitionPage(
           child: BookingFailedScreen(
-            errorMessage: state.extra as String,
+            booking: state.extra as BookingResponse?,
           ),
         ),
       ),

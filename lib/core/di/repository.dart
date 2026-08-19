@@ -3,6 +3,8 @@ import 'package:talkam/features/ads/data/repository/ads_repository_impl.dart';
 import 'package:talkam/features/ads/dormain/repository/ads_repository.dart';
 import 'package:talkam/features/authentication/data/repository/auth_repository_impl.dart';
 import 'package:talkam/features/authentication/dormain/repository/auth_repository.dart';
+import 'package:talkam/features/booking/data/repository/booking_repository_impl.dart';
+import 'package:talkam/features/booking/domain/repository/booking_repository.dart';
 import 'package:talkam/features/group/data/repository/group_members_access_repository_impl.dart';
 import 'package:talkam/features/group/data/repository/group_membes_repository.dart';
 import 'package:talkam/features/group/data/repository/group_repository_impl.dart';
@@ -70,6 +72,9 @@ void setup(GetIt getIt) {
   );
   getIt.registerLazySingleton<MoodRepository>(
     () => MoodRepositoryImpl(),
+  );
+  getIt.registerLazySingleton<BookingRepository>(
+    () => BookingRepositoryImpl(),
   );
   getIt.registerLazySingleton<TherapistApplicationRepository>(
     () => TherapistApplicationRepositoryImpl(),

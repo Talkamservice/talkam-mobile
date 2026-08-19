@@ -1,5 +1,5 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutterwave_standard_smart/flutterwave.dart';
+import 'package:flutterwave_standard/flutterwave.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/common/models/get_countries_response.dart';
 import 'package:talkam/common/models/get_states_response.dart';

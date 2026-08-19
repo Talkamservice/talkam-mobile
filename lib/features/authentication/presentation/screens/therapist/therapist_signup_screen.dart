@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:go_router/go_router.dart';
+import 'package:phone_numbers_parser/phone_numbers_parser.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
@@ -73,10 +75,42 @@ class _TherapistSignupScreenState extends State<TherapistSignupScreen> {
     _authBloc.add(RegisterTherapistEvent(
       fullName: _nameController.text.trim(),
       email: _emailController.text.trim(),
-      phoneNumber: _phoneController.text.trim(),
+      phoneNumber: _normalizedPhoneNumber(),
       password: _passwordController.text,
       passwordConfirmation: _confirmPasswordController.text,
     ));
+  }
+
+  /// This screen has no country picker (unlike the member sign-up screen),
+  /// so the user is expected to type the full number including the leading
+  /// "+" — the hint text says as much. [PhoneNumber.parse] can resolve the
+  /// country from the calling code itself in that case.
+  String? _validatePhone(String? value) {
+    final raw = value?.trim() ?? '';
+    if (raw.isEmpty) return "Phone number is required";
+
+    try {
+      final phone = PhoneNumber.parse(raw);
+      if (!phone.isValid()) {
+        return "Enter a valid phone number";
+      }
+    } catch (_) {
+      return "Enter a valid phone number, e.g. +2348012345678";
+    }
+    return null;
+  }
+
+  /// E.164 (e.g. "+2348012345678") so the backend always gets an
+  /// unambiguous value. Falls back to the raw typed text — already
+  /// confirmed non-empty by the validator — if it can't be resolved.
+  String _normalizedPhoneNumber() {
+    final raw = _phoneController.text.trim();
+    try {
+      final phone = PhoneNumber.parse(raw);
+      return phone.isValid() ? phone.international : raw;
+    } catch (_) {
+      return raw;
+    }
   }
 
   @override
@@ -121,8 +155,9 @@ class _TherapistSignupScreenState extends State<TherapistSignupScreen> {
                     hint: "Enter your full name",
                     controller: _nameController,
                     keyboardType: TextInputType.name,
-                    validator: (v) =>
-                        (v == null || v.trim().isEmpty) ? "Name is required" : null,
+                    validator: (v) => (v == null || v.trim().isEmpty)
+                        ? "Name is required"
+                        : null,
                   ),
                   16.verticalSpace,
                   CustomTextField(
@@ -130,11 +165,10 @@ class _TherapistSignupScreenState extends State<TherapistSignupScreen> {
                     hint: "Enter your email",
                     controller: _emailController,
                     keyboardType: TextInputType.emailAddress,
-                    validator: (v) {
-                      if (v == null || v.trim().isEmpty) return "Email is required";
-                      if (!v.contains('@')) return "Enter a valid email";
-                      return null;
-                    },
+                    validator: MultiValidator([
+                      RequiredValidator(errorText: "Email is required"),
+                      EmailValidator(errorText: "Enter a valid email address"),
+                    ]).call,
                   ),
                   16.verticalSpace,
                   CustomTextField(
@@ -142,10 +176,7 @@ class _TherapistSignupScreenState extends State<TherapistSignupScreen> {
                     hint: "e.g. +2348012345678",
                     controller: _phoneController,
                     keyboardType: TextInputType.phone,
-                    validator: (v) =>
-                        (v == null || v.trim().isEmpty)
-                            ? "Phone number is required"
-                            : null,
+                    validator: _validatePhone,
                   ),
                   16.verticalSpace,
                   CustomTextField(
@@ -161,12 +192,13 @@ class _TherapistSignupScreenState extends State<TherapistSignupScreen> {
                         size: 20.sp,
                         color: Pallets.grey400,
                       ),
-                      onPressed: () =>
-                          setState(() => _passwordObscured = !_passwordObscured),
+                      onPressed: () => setState(
+                          () => _passwordObscured = !_passwordObscured),
                     ),
                     validator: (v) {
                       if (v == null || v.isEmpty) return "Password is required";
-                      if (v.length < 8) return "Password must be at least 8 characters";
+                      if (v.length < 8)
+                        return "Password must be at least 8 characters";
                       return null;
                     },
                   ),
@@ -184,12 +216,14 @@ class _TherapistSignupScreenState extends State<TherapistSignupScreen> {
                         size: 20.sp,
                         color: Pallets.grey400,
                       ),
-                      onPressed: () => setState(
-                          () => _confirmPasswordObscured = !_confirmPasswordObscured),
+                      onPressed: () => setState(() =>
+                          _confirmPasswordObscured = !_confirmPasswordObscured),
                     ),
                     validator: (v) {
-                      if (v == null || v.isEmpty) return "Please confirm your password";
-                      if (v != _passwordController.text) return "Passwords do not match";
+                      if (v == null || v.isEmpty)
+                        return "Please confirm your password";
+                      if (v != _passwordController.text)
+                        return "Passwords do not match";
                       return null;
                     },
                   ),

@@ -25,7 +25,28 @@ class TherapistApplicationSteps {
         availability: json?['availability'] ?? false,
         payout: json?['payout'] ?? false,
       );
+
+  bool get isComplete =>
+      personal && documents && specialties && availability && payout;
+
+  /// The wizard route name for the first step not yet marked complete, in
+  /// wizard order — where "continue application" should resume.
+  String get firstIncompleteStepRoute {
+    if (!personal) return _kPersonalInfoRoute;
+    if (!documents) return _kQualificationsRoute;
+    if (!specialties) return _kSpecialtiesRoute;
+    if (!availability) return _kAvailabilityRoute;
+    return _kPayoutRoute;
+  }
 }
+
+// Route names duplicated from PageUrl (route_url.dart) rather than imported,
+// to keep this data-model file free of navigation-layer dependencies.
+const _kPersonalInfoRoute = 'therapistPersonalInfoScreen';
+const _kQualificationsRoute = 'therapistQualificationsScreen';
+const _kSpecialtiesRoute = 'therapistSpecialtiesScreen';
+const _kAvailabilityRoute = 'therapistAvailabilityScreen';
+const _kPayoutRoute = 'therapistPayoutScreen';
 
 /// Response for Step 1 — Personal.
 class TherapistApplicationStepsResponse {

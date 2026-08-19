@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
+import 'package:phone_numbers_parser/phone_numbers_parser.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
@@ -74,6 +75,23 @@ class _EditProfileScreenState extends State<EditProfileScreen>
   }
 
   void _onChanged() => setState(() {});
+
+  /// Optional field (starts blank, not yet wired to the backend) — only
+  /// validate format once the user actually types something.
+  String? _validatePhone(String? value) {
+    final raw = value?.trim() ?? '';
+    if (raw.isEmpty) return null;
+
+    try {
+      final phone = PhoneNumber.parse(raw);
+      if (!phone.isValid()) {
+        return "Enter a valid phone number";
+      }
+    } catch (_) {
+      return "Enter a valid phone number";
+    }
+    return null;
+  }
 
   bool get _hasChanges =>
       nameController.text != _initialName ||
@@ -148,6 +166,7 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                         hint: "+234 801 234 5678",
                         controller: phoneController,
                         inputType: TextInputType.phone,
+                        validator: _validatePhone,
                         suffix: const Icon(
                           Icons.remove_red_eye_outlined,
                           color: Pallets.grey75,

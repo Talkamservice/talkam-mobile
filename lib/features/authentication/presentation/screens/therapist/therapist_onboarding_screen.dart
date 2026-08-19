@@ -130,13 +130,13 @@ class TherapistOnboardingScreen extends StatelessWidget {
 
                   12.verticalSpace,
 
-                  // ── Learn More ───────────────────────────────────────
+                  // ── Privacy Policy ───────────────────────────────────
                   CustomOutlinedButton(
-                    onPressed: _learnMore,
+                    onPressed: () => _openPrivacyPolicy(context),
                     bgColor: Colors.white,
                     borderColor: Colors.white,
                     child: const TextView(
-                      text: "Learn More",
+                      text: "Privacy Policy",
                       fontSize: 15,
                       fontWeight: FontWeight.w700,
                       color: Pallets.boldBlackV2,
@@ -161,8 +161,9 @@ class TherapistOnboardingScreen extends StatelessWidget {
     );
   }
 
-  // TODO: point at the therapist landing page / info content once it exists.
-  void _learnMore() {}
+  void _openPrivacyPolicy(BuildContext context) {
+    context.pushNamed(PageUrl.privacyPolicyScreen);
+  }
 }
 
 /// Small mask icon + "TalkAm" wordmark + professional-audience subtitle.

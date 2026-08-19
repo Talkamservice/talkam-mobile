@@ -147,7 +147,7 @@ mixin _$AdsState {
     required TResult Function(_FetchingPromotionById value)
         fetchingPromotionById,
     required TResult Function(_PromotionByIdLoaded value) promotionByIdLoaded,
-    required TResult Function(_PromotionByIdLoadFailed value)
+    required TResult Function(_PromotionByIdLoadFailed value) 
         promotionByIdLoadFailed,
     required TResult Function(_CreatingPromotion value) creatingPromotion,
     required TResult Function(_PromotionCreated value) promotionCreated,
