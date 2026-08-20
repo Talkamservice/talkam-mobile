@@ -742,6 +742,7 @@ class _PastSessionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isTherapist = SessionManager.instance.isTherapistAccount;
     final isUnpaid = session.status == 'pending_payment';
     final priceStr =
         "₦${session.price.toInt().toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}";
@@ -818,21 +819,47 @@ class _PastSessionCard extends StatelessWidget {
                               : Assets.images.svgV2.star)),
                 ),
               ),
-              GestureDetector(
-                onTap: () {
-                  if (isUnpaid) {
-                    SessionActionSheets.showCompletePaymentSheet(context, session);
-                  } else {
-                    SessionActionSheets.showReceiptSheet(context, session);
-                  }
-                },
-                child: TextView(
-                  text: isUnpaid ? "Complete payment" : "View receipt",
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
-                  color: isUnpaid ? const Color(0xFFD97706) : const Color(0xFF059669),
+              // Payment is the client's responsibility, not the
+              // therapist's — "Complete payment"/"View receipt" call
+              // consumer-only endpoints (session.user_id-scoped) that 404
+              // for a therapist caller, so the therapist card gets its own
+              // non-payment summary instead.
+              if (isTherapist)
+                isUnpaid
+                    ? TextView(
+                        text: "Awaiting payment",
+                        fontSize: 13,
+                        fontWeight: FontWeight.w700,
+                        color: const Color(0xFFD97706),
+                      )
+                    : GestureDetector(
+                        onTap: () {
+                          SessionActionSheets.showTherapistSessionSummarySheet(
+                              context, session);
+                        },
+                        child: TextView(
+                          text: "View details",
+                          fontSize: 13,
+                          fontWeight: FontWeight.w700,
+                          color: const Color(0xFF059669),
+                        ),
+                      )
+              else
+                GestureDetector(
+                  onTap: () {
+                    if (isUnpaid) {
+                      SessionActionSheets.showCompletePaymentSheet(context, session);
+                    } else {
+                      SessionActionSheets.showReceiptSheet(context, session);
+                    }
+                  },
+                  child: TextView(
+                    text: isUnpaid ? "Complete payment" : "View receipt",
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: isUnpaid ? const Color(0xFFD97706) : const Color(0xFF059669),
+                  ),
                 ),
-              ),
             ],
           ),
         ],

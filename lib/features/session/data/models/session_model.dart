@@ -34,6 +34,7 @@ class SessionModel {
   final bool isUpcoming;
   final String? status;
   final DateTime? startsAt;
+  final int? clientId;
 
   const SessionModel({
     required this.id,
@@ -49,6 +50,7 @@ class SessionModel {
     required this.isUpcoming,
     this.status,
     this.startsAt,
+    this.clientId,
   });
 }
 

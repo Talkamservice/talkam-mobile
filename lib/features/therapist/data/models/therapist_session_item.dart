@@ -34,6 +34,7 @@ class TherapistSessionItem {
     required this.status,
     required this.amount,
     required this.currency,
+    this.clientId,
     required this.clientName,
     required this.earnings,
     this.rating,
@@ -49,6 +50,7 @@ class TherapistSessionItem {
   final String status;
   final String amount;
   final String currency;
+  final int? clientId;
   final String clientName;
   final num earnings;
   final num? rating;
@@ -65,6 +67,7 @@ class TherapistSessionItem {
         status: json['status'] ?? '',
         amount: json['amount']?.toString() ?? '0',
         currency: json['currency'] ?? 'NGN',
+        clientId: (json['client_id'] as num?)?.toInt(),
         clientName: json['client_name'] ?? '',
         earnings: json['earnings'] ?? 0,
         rating: json['rating'],
@@ -97,6 +100,7 @@ class TherapistSessionItem {
       isUpcoming: status != 'completed' && status != 'cancelled',
       status: status,
       startsAt: parseBackendSessionStartsAt(startsAt),
+      clientId: clientId,
     );
   }
 

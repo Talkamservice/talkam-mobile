@@ -98,6 +98,21 @@ class SessionActionSheets {
       builder: (context) => _CompletePaymentSheet(session: session),
     );
   }
+
+  /// A therapist-facing session summary built entirely from data the list
+  /// already has — no network call, since the receipt endpoint is scoped to
+  /// the client (session.user_id) and 404s for a therapist caller.
+  static void showTherapistSessionSummarySheet(
+      BuildContext context, SessionModel session) {
+    showModalBottomSheet(
+      context: context,
+      useRootNavigator: true,
+      useSafeArea: true,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => _TherapistSessionSummarySheet(session: session),
+    );
+  }
 }
 
 class _RescheduleStepOneSheet extends StatefulWidget {
@@ -1174,6 +1189,88 @@ class _CompletePaymentSheetState extends State<_CompletePaymentSheet> {
               ],
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _TherapistSessionSummarySheet extends StatelessWidget {
+  final SessionModel session;
+
+  const _TherapistSessionSummarySheet({required this.session});
+
+  Widget _row(String label, String value) => Padding(
+        padding: EdgeInsets.only(bottom: 12.h),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextView(
+              text: label,
+              fontSize: 13,
+              fontWeight: FontWeight.w400,
+              color: const Color(0xFF64748B),
+            ),
+            TextView(
+              text: value,
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: Pallets.boldBlack,
+            ),
+          ],
+        ),
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    final earnings = "₦${session.price.toInt().toString().replaceAllMapped(
+          RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+          (m) => '${m[1]},',
+        )}";
+
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+      decoration: BoxDecoration(
+        color: Pallets.white,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(28.r)),
+      ),
+      child: SafeArea(
+        top: false,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Center(
+              child: Container(
+                width: 40.w,
+                height: 4.h,
+                decoration: BoxDecoration(
+                  color: const Color(0xFFCBD5E1),
+                  borderRadius: BorderRadius.circular(2.r),
+                ),
+              ),
+            ),
+            20.verticalSpace,
+            const TextView(
+              text: "Session Summary",
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+              color: Pallets.boldBlack,
+            ),
+            20.verticalSpace,
+            _row("Client", session.therapistName),
+            _row("Date", session.displayDate),
+            _row("Time", session.displayTime),
+            _row("Format", session.format),
+            _row("Your earnings", earnings),
+            if (session.rating > 0)
+              _row("Client rating", "${session.rating.toStringAsFixed(1)} / 5.0"),
+            12.verticalSpace,
+            CustomButton(
+              onPressed: () => Navigator.pop(context),
+              text: "Done",
+            ),
+          ],
         ),
       ),
     );
