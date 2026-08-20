@@ -3,6 +3,8 @@ import 'package:talkam/core/services/network/network_service.dart';
 import 'package:talkam/core/services/network/url_config_v2.dart';
 import 'package:talkam/features/therapist/data/models/session_note.dart';
 import 'package:talkam/features/therapist/data/models/therapist_client.dart';
+import 'package:talkam/features/therapist/data/models/therapist_note_library_item.dart';
+import 'package:talkam/features/therapist/data/models/therapist_session_item.dart';
 import 'package:talkam/features/therapist/dormain/repository/therapist_repository.dart';
 
 class TherapistRepositoryImpl extends TherapistRepository {
@@ -101,6 +103,39 @@ class TherapistRepositoryImpl extends TherapistRepository {
         },
       );
       return SessionNote.fromJson(response.data['data']);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<TherapistSessionsResponse> getSessions() async {
+    try {
+      final response =
+          await _v2.call(UrlConfigV2.therapistSessions, RequestMethod.get);
+      return TherapistSessionsResponse.fromJson(response.data['data']);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<TherapistNoteLibraryPage> getNotesLibrary({
+    int? clientId,
+    String? query,
+    int page = 1,
+  }) async {
+    try {
+      final response = await _v2.call(
+        UrlConfigV2.therapistNotesLibrary,
+        RequestMethod.get,
+        queryParams: {
+          "page": page.toString(),
+          if (clientId != null) "client_id": clientId.toString(),
+          if (query != null && query.isNotEmpty) "q": query,
+        },
+      );
+      return TherapistNoteLibraryPage.fromJson(response.data['data']);
     } catch (e) {
       rethrow;
     }

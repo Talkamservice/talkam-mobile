@@ -140,6 +140,8 @@ class UrlConfigV2 {
       '$therapistClients/$id/treatment-plan';
   static String therapistSessionNotes(int sessionId) =>
       '/therapist/sessions/$sessionId/notes';
+  static const String therapistSessions = '/therapist/sessions';
+  static const String therapistNotesLibrary = '/therapist/notes';
 
   // Therapist Directory & Booking
   static const String therapistDirectory = '/user/therapists';

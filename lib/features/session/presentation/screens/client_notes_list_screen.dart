@@ -1,18 +1,22 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/custom_text_field.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/constants/package_exports.dart';
+import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/features/therapist/dormain/repository/therapist_repository.dart';
+import 'package:talkam/features/therapist/presentation/bloc/therapist_client_cubit/therapist_client_cubit.dart';
 
-// NOTE: this screen has no backing endpoint — the v2 API only exposes a
-// single session's note (GET/POST /therapist/sessions/{id}/notes), not a
-// searchable list across all of a therapist's notes. The mock rows below
-// stay for layout reference; tapping one can't open a real note since there
-// is no session id behind it. Real per-session notes are reachable from
-// ClientDetailsScreen's session history instead.
-
+/// `GET /therapist/notes` (v2), searched via [_searchController]. Each row
+/// already carries `session_id`, so tapping one opens the same session-scoped
+/// note editor used from ClientDetailsScreen's session history rather than a
+/// separate read-only detail screen.
 class ClientNotesListScreen extends StatefulWidget {
   const ClientNotesListScreen({super.key});
 
@@ -21,143 +25,219 @@ class ClientNotesListScreen extends StatefulWidget {
 }
 
 class _ClientNotesListScreenState extends State<ClientNotesListScreen> {
-  final TextEditingController _searchController = TextEditingController();
+  final cubit = TherapistClientCubit(injector.get<TherapistRepository>());
+  final _searchController = TextEditingController();
+  Timer? _debounce;
 
-  final List<Map<String, String>> _notesList = const [
-    {
-      "name": "Bhandari",
-      "time": "10m ago",
-      "preview": "It was an incredible match! The home team clinc...",
-      "title": "Title",
-      "content":
-          "As your therapist, I'm dedicated to supporting you every step of the way on your journey toward well-being. Together, we'll take the time to explore your thoughts and feelings deeply, identify any challenges you may be facing, and develop personalized strategies to help you not just cope but truly thrive. Remember, this is a safe and confidential space where you can express yourself openly and honestly without judgment. I'm here to listen, guide, and empower you as we work toward your goals."
-    },
-    {
-      "name": "Johnson",
-      "time": "30m ago",
-      "preview": "The conference was a huge success, with attend...",
-      "title": "Session Summary",
-      "content":
-          "Client reported significant progress in anxiety management techniques practiced over the last week. Discussed sleep hygiene routines and cognitive reframing."
-    },
-    {
-      "name": "Martinez",
-      "time": "1h ago",
-      "preview": "I just finished reading a fantastic book that kept...",
-      "title": "Progress Notes",
-      "content":
-          "Focused on work stress strategies. Recommended mindfulness exercises during peak morning hours."
-    },
-    {
-      "name": "Nguyen",
-      "time": "2h ago",
-      "preview": "The new restaurant downtown offers an amazin...",
-      "title": "CBT Reflection",
-      "content":
-          "Reviewed mood log entries. Identified cognitive distortions around social interactions."
-    },
-    {
-      "name": "Smith",
-      "time": "3h ago",
-      "preview": "Our team completed the project ahead of sched...",
-      "title": "Initial Assessment",
-      "content":
-          "Initial baseline assessment completed. Established 4-week therapy goals focused on burnout prevention."
-    },
-  ];
+  @override
+  void initState() {
+    super.initState();
+    cubit.getNotesLibrary();
+  }
+
+  @override
+  void dispose() {
+    cubit.close();
+    _searchController.dispose();
+    _debounce?.cancel();
+    super.dispose();
+  }
+
+  void _onSearchChanged(String query) {
+    _debounce?.cancel();
+    _debounce = Timer(const Duration(milliseconds: 400), () {
+      cubit.getNotesLibrary(query: query.trim().isEmpty ? null : query.trim());
+    });
+  }
+
+  String _formatDate(String? raw) {
+    if (raw == null) return '';
+    final dt = DateTime.tryParse(raw);
+    if (dt == null) return raw;
+    final now = DateTime.now();
+    final diff = now.difference(dt);
+    if (diff.inMinutes < 60) return "${diff.inMinutes}m ago";
+    if (diff.inHours < 24) return "${diff.inHours}h ago";
+    if (diff.inDays < 7) return "${diff.inDays}d ago";
+    const months = [
+      'Jan',
+      'Feb',
+      'Mar',
+      'Apr',
+      'May',
+      'Jun',
+      'Jul',
+      'Aug',
+      'Sep',
+      'Oct',
+      'Nov',
+      'Dec',
+    ];
+    return "${months[dt.month - 1]} ${dt.day}";
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Pallets.white,
-      appBar: const CustomAppBar(
-        tittle: TextView(
-          text: "Clients Notes",
-          fontSize: 20,
-          fontWeight: FontWeight.w700,
-          color: Pallets.boldBlack,
-        ),
-        centerTile: false,
-      ),
-      body: Column(
-        children: [
-          12.verticalSpace,
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 20.w),
-            child: CustomTextField(
-              controller: _searchController,
-              hint: "Search messages",
-              prefixIcon: Icon(
-                Icons.search,
-                color: Pallets.grey400,
-                size: 22.w,
-              ),
+    return BlocBuilder<TherapistClientCubit, TherapistClientState>(
+      bloc: cubit,
+      builder: (context, state) {
+        return Scaffold(
+          backgroundColor: Pallets.white,
+          appBar: const CustomAppBar(
+            tittle: TextView(
+              text: "Clients Notes",
+              fontSize: 20,
+              fontWeight: FontWeight.w700,
+              color: Pallets.boldBlack,
             ),
+            centerTile: false,
           ),
-          16.verticalSpace,
-          Expanded(
-            child: ListView.separated(
-              itemCount: _notesList.length,
-              separatorBuilder: (context, index) => 12.verticalSpace,
-              padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
-              itemBuilder: (context, index) {
-                final item = _notesList[index];
-                return InkWell(
-                  onTap: () => CustomDialogs.showToast("Coming soon"),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(vertical: 8.h),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 48.w,
-                          height: 48.w,
-                          decoration: const BoxDecoration(
-                            color: Colors.black,
-                            shape: BoxShape.circle,
+          body: Column(
+            children: [
+              12.verticalSpace,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: CustomTextField(
+                  controller: _searchController,
+                  hint: "Search notes",
+                  onChanged: _onSearchChanged,
+                  prefixIcon: Icon(
+                    Icons.search,
+                    color: Pallets.grey400,
+                    size: 22.w,
+                  ),
+                ),
+              ),
+              16.verticalSpace,
+              Expanded(child: _buildBody(context, state)),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildBody(BuildContext context, TherapistClientState state) {
+    switch (state.notesLibraryStatus) {
+      case LoadStatus.idle:
+      case LoadStatus.loading:
+        if (state.notesLibrary.isEmpty) {
+          return Center(child: CustomDialogs.getLoading(size: 50));
+        }
+        break;
+      case LoadStatus.error:
+        return Center(
+          child: TextView(
+            text: state.notesLibraryError ?? "Something went wrong",
+            fontSize: 14,
+            color: Pallets.grey400,
+            align: TextAlign.center,
+          ),
+        );
+      case LoadStatus.success:
+        if (state.notesLibrary.isEmpty) {
+          return Center(
+            child: TextView(
+              text: "No notes yet",
+              fontSize: 14,
+              color: Pallets.grey400,
+            ),
+          );
+        }
+    }
+
+    return ListView.separated(
+      itemCount: state.notesLibrary.length,
+      separatorBuilder: (context, index) => 12.verticalSpace,
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 8.h),
+      itemBuilder: (context, index) {
+        final note = state.notesLibrary[index];
+        return InkWell(
+          onTap: () => context.pushNamed(
+            PageUrl.clientNoteDetailScreen,
+            extra: note.sessionId,
+          ),
+          child: Padding(
+            padding: EdgeInsets.symmetric(vertical: 8.h),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: 48.w,
+                  height: 48.w,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF2F9FF),
+                    shape: BoxShape.circle,
+                  ),
+                  child: Icon(
+                    Icons.assignment_outlined,
+                    color: Pallets.blueBubbleColor,
+                    size: 22.w,
+                  ),
+                ),
+                14.horizontalSpace,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            child: TextView(
+                              text: note.title.isEmpty
+                                  ? "Untitled note"
+                                  : note.title,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              color: Pallets.boldBlack,
+                              maxLines: 1,
+                              textOverflow: TextOverflow.ellipsis,
+                            ),
                           ),
-                        ),
-                        14.horizontalSpace,
-                        Expanded(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  TextView(
-                                    text: item["name"]!,
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w700,
-                                    color: Pallets.boldBlack,
-                                  ),
-                                  TextView(
-                                    text: item["time"]!,
-                                    fontSize: 13,
-                                    color: Pallets.grey400,
-                                  ),
-                                ],
-                              ),
-                              4.verticalSpace,
-                              TextView(
-                                text: item["preview"]!,
-                                fontSize: 13,
-                                color: Pallets.grey400,
-                                maxLines: 1,
-                                textOverflow: TextOverflow.ellipsis,
-                              ),
-                            ],
+                          8.horizontalSpace,
+                          TextView(
+                            text: _formatDate(note.updatedAt ?? note.createdAt),
+                            fontSize: 13,
+                            color: Pallets.grey400,
+                          ),
+                        ],
+                      ),
+                      4.verticalSpace,
+                      TextView(
+                        text: note.content.isEmpty
+                            ? "No content yet"
+                            : note.content,
+                        fontSize: 13,
+                        color: Pallets.grey400,
+                        maxLines: 1,
+                        textOverflow: TextOverflow.ellipsis,
+                      ),
+                      if (note.status == 'draft') ...[
+                        4.verticalSpace,
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 8.w, vertical: 2.h),
+                          decoration: BoxDecoration(
+                            color: const Color(0xFFFFFBEB),
+                            borderRadius: BorderRadius.circular(100),
+                          ),
+                          child: const TextView(
+                            text: "Draft",
+                            fontSize: 11,
+                            fontWeight: FontWeight.w600,
+                            color: Color(0xFFD97706),
                           ),
                         ),
                       ],
-                    ),
+                    ],
                   ),
-                );
-              },
+                ),
+              ],
             ),
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

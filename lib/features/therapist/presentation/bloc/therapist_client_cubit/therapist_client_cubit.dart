@@ -1,14 +1,17 @@
 import 'package:bloc/bloc.dart';
 import 'package:talkam/features/therapist/data/models/session_note.dart';
 import 'package:talkam/features/therapist/data/models/therapist_client.dart';
+import 'package:talkam/features/therapist/data/models/therapist_note_library_item.dart';
+import 'package:talkam/features/therapist/data/models/therapist_session_item.dart';
 import 'package:talkam/features/therapist/dormain/repository/therapist_repository.dart';
 
 part 'therapist_client_state.dart';
 
 /// Drives the therapist Clients roster/detail/treatment-plan/session-note
-/// screens against the real v2 `/therapist/*` endpoints. One instance per
-/// screen, constructed locally (not GetIt-registered), matching the pattern
-/// used by the other screen-scoped blocs in this app.
+/// screens, plus the therapist's own Sessions list and Notes library,
+/// against the real v2 `/therapist/*` endpoints. One instance per screen,
+/// constructed locally (not GetIt-registered), matching the pattern used by
+/// the other screen-scoped blocs in this app.
 class TherapistClientCubit extends Cubit<TherapistClientState> {
   final TherapistRepository _repository;
 
@@ -111,6 +114,51 @@ class TherapistClientCubit extends Cubit<TherapistClientState> {
     } catch (e) {
       emit(state.copyWith(savingNote: false, saveNoteError: e.toString()));
       return false;
+    }
+  }
+
+  Future<void> getSessions() async {
+    emit(state.copyWith(sessionsStatus: LoadStatus.loading));
+    try {
+      final response = await _repository.getSessions();
+      emit(state.copyWith(
+        sessionsStatus: LoadStatus.success,
+        upcomingSessions: response.upcoming,
+        pastSessions: response.past,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        sessionsStatus: LoadStatus.error,
+        sessionsError: e.toString(),
+      ));
+    }
+  }
+
+  Future<void> getNotesLibrary({
+    int? clientId,
+    String? query,
+    bool loadMore = false,
+  }) async {
+    final page = loadMore ? state.notesLibraryPage + 1 : 1;
+    emit(state.copyWith(notesLibraryStatus: LoadStatus.loading));
+    try {
+      final result = await _repository.getNotesLibrary(
+        clientId: clientId,
+        query: query,
+        page: page,
+      );
+      emit(state.copyWith(
+        notesLibraryStatus: LoadStatus.success,
+        notesLibrary:
+            loadMore ? [...state.notesLibrary, ...result.notes] : result.notes,
+        notesLibraryCanLoadMore: result.canLoadMore,
+        notesLibraryPage: result.currentPage,
+      ));
+    } catch (e) {
+      emit(state.copyWith(
+        notesLibraryStatus: LoadStatus.error,
+        notesLibraryError: e.toString(),
+      ));
     }
   }
 }
