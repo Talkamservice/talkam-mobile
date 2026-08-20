@@ -350,24 +350,10 @@ class _SessionCallScreenState extends State<SessionCallScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 // Mic Button
-                GestureDetector(
+                _CallControlButton(
+                  iconAsset: Assets.images.svgV2.mic,
+                  isOff: _isMuted,
                   onTap: _toggleMute,
-                  child: Container(
-                    width: 44.w,
-                    height: 44.w,
-                    decoration: BoxDecoration(
-                      color: _isMuted ? const Color(0xFFCBD5E1) : Pallets.white,
-                      shape: BoxShape.circle,
-                    ),
-                    child: Center(
-                      child: ImageWidget(
-                        imageUrl: Assets.images.svgV2.mic,
-                        size: 20.w,
-                        color:
-                            _isMuted ? Pallets.boldBlack : const Color(0xFF334155),
-                      ),
-                    ),
-                  ),
                 ),
 
                 // Notes Button (Therapist)
@@ -421,50 +407,18 @@ class _SessionCallScreenState extends State<SessionCallScreen> {
                 ),
 
                 // Speaker Button
-                GestureDetector(
+                _CallControlButton(
+                  iconAsset: Assets.images.svgV2.volumeHigh,
+                  isOff: !_isSpeakerOn,
                   onTap: _toggleSpeaker,
-                  child: Container(
-                    width: 44.w,
-                    height: 44.w,
-                    decoration: BoxDecoration(
-                      color:
-                          _isSpeakerOn ? Pallets.white : const Color(0xFFCBD5E1),
-                      shape: BoxShape.circle,
-                    ),
-                    child: Center(
-                      child: ImageWidget(
-                        imageUrl: Assets.images.svgV2.volumeHigh,
-                        size: 20.w,
-                        color: _isSpeakerOn
-                            ? const Color(0xFF334155)
-                            : Pallets.boldBlack,
-                      ),
-                    ),
-                  ),
                 ),
 
                 // Video Toggle Button (video sessions only)
                 if (_isVideoSession)
-                  GestureDetector(
+                  _CallControlButton(
+                    iconAsset: Assets.images.svgV2.video2,
+                    isOff: !_isVideoOn,
                     onTap: _toggleVideo,
-                    child: Container(
-                      width: 44.w,
-                      height: 44.w,
-                      decoration: BoxDecoration(
-                        color:
-                            _isVideoOn ? Pallets.white : const Color(0xFFCBD5E1),
-                        shape: BoxShape.circle,
-                      ),
-                      child: Center(
-                        child: ImageWidget(
-                          imageUrl: Assets.images.svgV2.video2,
-                          size: 20.w,
-                          color: _isVideoOn
-                              ? const Color(0xFF334155)
-                              : Pallets.boldBlack,
-                        ),
-                      ),
-                    ),
                   ),
               ],
             ),
@@ -762,4 +716,79 @@ class _SessionCallScreenState extends State<SessionCallScreen> {
       ),
     );
   }
+}
+
+/// A call-control toggle (mic/speaker/camera). When [isOff], the icon gets
+/// a red diagonal strike-through and a muted background — the standard
+/// "this is disabled" affordance — instead of relying on a subtle color
+/// swap alone.
+class _CallControlButton extends StatelessWidget {
+  final String iconAsset;
+  final bool isOff;
+  final VoidCallback onTap;
+
+  const _CallControlButton({
+    required this.iconAsset,
+    required this.isOff,
+    required this.onTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: 44.w,
+        height: 44.w,
+        decoration: BoxDecoration(
+          color: isOff ? const Color(0xFFFFF1F2) : Pallets.white,
+          shape: BoxShape.circle,
+        ),
+        child: Center(
+          child: SizedBox(
+            width: 22.w,
+            height: 22.w,
+            child: Stack(
+              alignment: Alignment.center,
+              children: [
+                ImageWidget(
+                  imageUrl: iconAsset,
+                  size: 20.w,
+                  color: isOff ? const Color(0xFFEF4444) : const Color(0xFF334155),
+                ),
+                if (isOff)
+                  CustomPaint(
+                    size: Size(22.w, 22.w),
+                    painter: _StrikeThroughPainter(color: const Color(0xFFEF4444)),
+                  ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _StrikeThroughPainter extends CustomPainter {
+  final Color color;
+
+  const _StrikeThroughPainter({required this.color});
+
+  @override
+  void paint(Canvas canvas, Size size) {
+    final paint = Paint()
+      ..color = color
+      ..strokeWidth = 2.2
+      ..strokeCap = StrokeCap.round;
+    canvas.drawLine(
+      Offset(size.width * 0.1, size.height * 0.1),
+      Offset(size.width * 0.9, size.height * 0.9),
+      paint,
+    );
+  }
+
+  @override
+  bool shouldRepaint(covariant _StrikeThroughPainter oldDelegate) =>
+      oldDelegate.color != color;
 }
