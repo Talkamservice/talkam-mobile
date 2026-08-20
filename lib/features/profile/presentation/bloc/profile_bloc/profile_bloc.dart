@@ -92,7 +92,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>
           event.payload.avatar != null ||
           event.payload.username != null ||
           event.payload.gender != null ||
-          event.payload.dob != null) {
+          event.payload.dob != null ||
+          event.payload.bio != null ||
+          event.payload.phoneNumber != null) {
         final response = await _profileRepository.updateProfile(event.payload);
         final mergedUser = response.data.copyWith(
           onboarding: appUser?.onboarding,

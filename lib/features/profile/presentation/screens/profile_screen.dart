@@ -462,8 +462,8 @@ class _SettingsTab extends StatelessWidget {
               SettingsTile(
                 iconPath: Assets.images.svgV2.card,
                 title: "Payment Methods",
-                subtitle: "2 saved cards",
-                onTap: () {},
+                subtitle: "Manage your saved cards",
+                onTap: () => context.pushNamed(PageUrl.paymentMethodsScreen),
               ),
               SettingsTile(
                 iconPath: Assets.images.svgV2.shield,

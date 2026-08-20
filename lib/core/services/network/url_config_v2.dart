@@ -137,9 +137,27 @@ class UrlConfigV2 {
   // Bookings (consumer-facing)
   static const String bookings = '/user/bookings';
   static String bookingDetail(int id) => '/user/bookings/$id';
-  static String initiatePayment(int id) => '/user/bookings/$id/initiate-payment';
+  static String initiatePayment(int id) =>
+      '/user/bookings/$id/initiate-payment';
   static String reviewBooking(int id) => '/user/bookings/$id/review';
 
   // Payment callback
   static const String paymentCallback = '/finance/payments/callback';
+
+  // Notification & privacy preferences
+  static const String notificationPreferences =
+      '/user/notification-preferences';
+  static const String privacySettings = '/user/privacy-settings';
+
+  // Payment methods & PIN
+  static const String paymentMethods = '/user/payment-methods';
+  static String deletePaymentMethod(String id) => '$paymentMethods/$id';
+  static const String paymentPin = '/user/security/payment-pin';
+
+  // Data export
+  static const String dataExport = '/user/data-export';
+  static const String dataExportLatest = '/user/data-export/latest';
+
+  // Account
+  static const String deleteAccount = '/user/profile/delete-account';
 }

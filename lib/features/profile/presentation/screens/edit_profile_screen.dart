@@ -76,8 +76,8 @@ class _EditProfileScreenState extends State<EditProfileScreen>
 
   void _onChanged() => setState(() {});
 
-  /// Optional field (starts blank, not yet wired to the backend) — only
-  /// validate format once the user actually types something.
+  /// Optional field — only validate format once the user actually types
+  /// something.
   String? _validatePhone(String? value) {
     final raw = value?.trim() ?? '';
     if (raw.isEmpty) return null;
@@ -89,6 +89,27 @@ class _EditProfileScreenState extends State<EditProfileScreen>
       }
     } catch (_) {
       return "Enter a valid phone number";
+    }
+    return null;
+  }
+
+  /// E.164 so the backend always gets an unambiguous value. Falls back to
+  /// the raw typed text if it can't be resolved (already confirmed either
+  /// empty or valid by [_validatePhone]).
+  String? _normalizedPhoneNumber() {
+    final raw = phoneController.text.trim();
+    if (raw.isEmpty) return null;
+    try {
+      final phone = PhoneNumber.parse(raw);
+      return phone.isValid() ? phone.international : raw;
+    } catch (_) {
+      return raw;
+    }
+  }
+
+  String? _validateBio(String? value) {
+    if ((value?.length ?? 0) > _bioMaxLength) {
+      return "Bio can't exceed $_bioMaxLength characters";
     }
     return null;
   }
@@ -158,9 +179,6 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                       16.verticalSpace,
 
                       // ── Phone Number ──────────────────────────────────
-                      // NOTE: the user model / update payload has no phone
-                      // field yet, so this is UI-only until the backend adds
-                      // support. Wire into the payload once available.
                       OutlinedFormField(
                         placeHolder: "Phone Number",
                         hint: "+234 801 234 5678",
@@ -175,14 +193,13 @@ class _EditProfileScreenState extends State<EditProfileScreen>
                       16.verticalSpace,
 
                       // ── Bio ───────────────────────────────────────────
-                      // NOTE: also UI-only until the backend exposes a bio
-                      // field on the profile update payload.
                       OutlinedFormField(
                         placeHolder: "Bio",
                         hint: "Finding my way through life, one day at a time.",
                         controller: bioController,
                         maxLine: 5,
                         minLine: 5,
+                        validator: _validateBio,
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(_bioMaxLength),
                         ],
@@ -233,6 +250,8 @@ class _EditProfileScreenState extends State<EditProfileScreen>
           UpdateProfilePayload(
             avatar: selectedImage,
             name: nameController.text.trim(),
+            bio: bioController.text.trim(),
+            phoneNumber: _normalizedPhoneNumber(),
           ),
         ),
       );

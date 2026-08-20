@@ -63,6 +63,8 @@ import 'package:talkam/features/settings/presentation/screens/blocked_users_scre
 import 'package:talkam/features/settings/presentation/screens/change_password_screen.dart';
 import 'package:talkam/features/settings/presentation/screens/delete_account_screen.dart';
 import 'package:talkam/features/settings/presentation/screens/notifications_settings_screen.dart';
+import 'package:talkam/features/settings/presentation/screens/payment_methods_screen.dart';
+import 'package:talkam/features/settings/presentation/screens/payment_pin_screen.dart';
 import 'package:talkam/features/settings/presentation/screens/privacy_settings_screen.dart';
 import 'package:talkam/features/settings/presentation/screens/settings_screen.dart';
 import 'package:talkam/features/profile/presentation/screens/user_profile_screen.dart';
@@ -160,22 +162,21 @@ class CustomRoutes {
         builder: (context, state) => const SignUpScreen(),
       ),
       GoRoute(
-        path: '/verifyOtpScreen',
-        name: PageUrl.verifyOtpScreen,
-        builder: (context, state) {
-          VoidCallback? onVerified;
-          if (state.extra is VerifyOtpCallbackExtra) {
-            onVerified = (state.extra as VerifyOtpCallbackExtra).onVerified;
-          }
-          return VerifyOtpScreen(
+          path: '/verifyOtpScreen',
+          name: PageUrl.verifyOtpScreen,
+          builder: (context, state) {
+            VoidCallback? onVerified;
+            if (state.extra is VerifyOtpCallbackExtra) {
+              onVerified = (state.extra as VerifyOtpCallbackExtra).onVerified;
+            }
+            return VerifyOtpScreen(
               email: state.uri.queryParameters[PathParam.email] ?? '',
               verifyOtpType: verifyOtpFromString(
                 state.uri.queryParameters[PathParam.otpType] ?? '',
               ),
               onVerified: onVerified,
-          );
-        }
-      ),
+            );
+          }),
       GoRoute(
         path: '/passwordRecoveryScreen',
         name: PageUrl.passwordRecoveryScreen,
@@ -367,6 +368,16 @@ class CustomRoutes {
         path: '/${PageUrl.privacySettingsScreen}',
         name: PageUrl.privacySettingsScreen,
         builder: (context, state) => const PrivacySettingsScreen(),
+      ),
+      GoRoute(
+        path: '/${PageUrl.paymentMethodsScreen}',
+        name: PageUrl.paymentMethodsScreen,
+        builder: (context, state) => const PaymentMethodsScreen(),
+      ),
+      GoRoute(
+        path: '/${PageUrl.paymentPinScreen}',
+        name: PageUrl.paymentPinScreen,
+        builder: (context, state) => const PaymentPinScreen(),
       ),
       GoRoute(
         path: '/searchResultScreen',

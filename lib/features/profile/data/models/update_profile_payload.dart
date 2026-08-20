@@ -6,9 +6,11 @@ import 'dart:convert';
 
 import 'package:talkam/core/utils/extensions/date_extensions.dart';
 
-UpdateProfilePayload updateProfilePayloadFromJson(String str) => UpdateProfilePayload.fromJson(json.decode(str));
+UpdateProfilePayload updateProfilePayloadFromJson(String str) =>
+    UpdateProfilePayload.fromJson(json.decode(str));
 
-String updateProfilePayloadToJson(UpdateProfilePayload data) => json.encode(data.toJson());
+String updateProfilePayloadToJson(UpdateProfilePayload data) =>
+    json.encode(data.toJson());
 
 class UpdateProfilePayload {
   String? name;
@@ -24,6 +26,11 @@ class UpdateProfilePayload {
   String? stateId;
   int? shouldDisplayAd;
 
+  /// v2 `/user/profile/update` fields. Max 300 chars — enforced by the
+  /// screen's input formatter, not re-checked here.
+  String? bio;
+  String? phoneNumber;
+
   UpdateProfilePayload({
     this.name,
     this.avatar,
@@ -37,6 +44,8 @@ class UpdateProfilePayload {
     this.countryId,
     this.stateId,
     this.shouldDisplayAd,
+    this.bio,
+    this.phoneNumber,
   });
 
   UpdateProfilePayload copyWith(
@@ -51,7 +60,9 @@ class UpdateProfilePayload {
           String? stateId,
           DateTime? dob,
           int? shouldDisplayAd,
-          String? paswordConfirmation}) =>
+          String? paswordConfirmation,
+          String? bio,
+          String? phoneNumber}) =>
       UpdateProfilePayload(
         name: name ?? this.name,
         avatar: avatar ?? this.avatar,
@@ -65,9 +76,12 @@ class UpdateProfilePayload {
         stateId: stateId ?? this.stateId,
         shouldDisplayAd: shouldDisplayAd ?? this.shouldDisplayAd,
         paswordConfirmation: paswordConfirmation ?? this.paswordConfirmation,
+        bio: bio ?? this.bio,
+        phoneNumber: phoneNumber ?? this.phoneNumber,
       );
 
-  factory UpdateProfilePayload.fromJson(Map<String, dynamic> json) => UpdateProfilePayload(
+  factory UpdateProfilePayload.fromJson(Map<String, dynamic> json) =>
+      UpdateProfilePayload(
         name: json["name"],
         avatar: json["avatar"],
         interests: List<int>.from(json["interests"].map((x) => x)),
@@ -80,12 +94,17 @@ class UpdateProfilePayload {
         gender: json["gender"],
         shouldDisplayAd: json["should_display_ads"],
         paswordConfirmation: json["password_confirmation"],
+        bio: json["bio"],
+        phoneNumber: json["phone_number"],
       );
 
   Map<String, dynamic> toJson() => {
         if (name != null) "name": name,
         if (avatar != null) "avatar": avatar,
-        if (interests != null) "interests": interests == null ? [] : List<dynamic>.from(interests!.map((x) => x)),
+        if (interests != null)
+          "interests": interests == null
+              ? []
+              : List<dynamic>.from(interests!.map((x) => x)),
         if (age != null) "age": age,
         if (username != null) "username": username,
         if (password != null) "password": password,
@@ -94,6 +113,9 @@ class UpdateProfilePayload {
         if (countryId != null) "country_id": countryId,
         if (stateId != null) "state_id": stateId,
         if (shouldDisplayAd != null) "should_display_ads": shouldDisplayAd,
-        if (paswordConfirmation != null) "password_confirmation": paswordConfirmation,
+        if (paswordConfirmation != null)
+          "password_confirmation": paswordConfirmation,
+        if (bio != null) "bio": bio,
+        if (phoneNumber != null) "phone_number": phoneNumber,
       };
 }

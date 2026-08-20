@@ -4,7 +4,11 @@ import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/core/services/network/url_config_v2.dart';
 import 'package:talkam/features/authentication/data/models/oauth_req_dto.dart';
 import 'package:talkam/features/settings/data/models/blocked_users_response.dart';
+import 'package:talkam/features/settings/data/models/data_export_status.dart';
 import 'package:talkam/features/settings/data/models/notification_preference_response.dart';
+import 'package:talkam/features/settings/data/models/notification_preferences.dart';
+import 'package:talkam/features/settings/data/models/payment_method.dart';
+import 'package:talkam/features/settings/data/models/privacy_settings.dart';
 import 'package:talkam/features/settings/data/models/update_settings_payload.dart';
 import 'package:talkam/features/settings/dormain/repository/settings_repoitory.dart';
 
@@ -86,9 +90,12 @@ class SettingsRepositoryImpl extends SettingsRepository {
   @override
   Future<dynamic> deleteAccount({String? reason}) async {
     try {
-      final response = await _networkService.call(
-          UrlConfig.deleteAccount, RequestMethod.post,
-          data: {"reason": reason});
+      final response = await _v2.call(
+        UrlConfigV2.deleteAccount,
+        RequestMethod.post,
+        formData: FormData.fromMap({if (reason != null) "reason": reason}),
+        options: _formOptions,
+      );
       return response.data;
     } catch (e) {
       rethrow;
@@ -106,6 +113,133 @@ class SettingsRepositoryImpl extends SettingsRepository {
       );
 
       return response.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  // ── v2 ────────────────────────────────────────────────────────────────
+
+  @override
+  Future<NotificationPreferences> getNotificationPreferences() async {
+    try {
+      final response = await _v2.call(
+          UrlConfigV2.notificationPreferences, RequestMethod.get);
+      return NotificationPreferences.fromJson(response.data['data']);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<NotificationPreferences> updateNotificationPreferences(
+      NotificationPreferences preferences) async {
+    try {
+      final response = await _v2.call(
+        UrlConfigV2.notificationPreferences,
+        RequestMethod.post,
+        data: preferences.toJson(),
+      );
+      return NotificationPreferences.fromJson(response.data['data']);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<PrivacySettings> getPrivacySettings() async {
+    try {
+      final response =
+          await _v2.call(UrlConfigV2.privacySettings, RequestMethod.get);
+      return PrivacySettings.fromJson(response.data['data']);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<PrivacySettings> updatePrivacySettings(PrivacySettings settings,
+      {String? otp}) async {
+    try {
+      final response = await _v2.call(
+        UrlConfigV2.privacySettings,
+        RequestMethod.post,
+        data: {
+          ...settings.toJson(),
+          if (otp != null) "otp": otp,
+        },
+      );
+      return PrivacySettings.fromJson(response.data['data']);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<PaymentMethod>> getPaymentMethods() async {
+    try {
+      final response =
+          await _v2.call(UrlConfigV2.paymentMethods, RequestMethod.get);
+      final data = response.data['data'] as List? ?? [];
+      return data
+          .map((e) => PaymentMethod.fromJson(Map<String, dynamic>.from(e)))
+          .toList();
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> deletePaymentMethod(String id) async {
+    try {
+      await _v2.call(
+        UrlConfigV2.deletePaymentMethod(id),
+        RequestMethod.delete,
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> setPaymentPin({
+    required String pin,
+    String? currentPin,
+    String? otp,
+  }) async {
+    try {
+      await _v2.call(
+        UrlConfigV2.paymentPin,
+        RequestMethod.post,
+        formData: FormData.fromMap({
+          "pin": pin,
+          if (currentPin != null) "current_pin": currentPin,
+          if (otp != null) "otp": otp,
+        }),
+        options: _formOptions,
+      );
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<DataExportStatus> requestDataExport() async {
+    try {
+      final response =
+          await _v2.call(UrlConfigV2.dataExport, RequestMethod.post);
+      return DataExportStatus.fromJson(response.data['data']);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<DataExportStatus> getDataExportStatus() async {
+    try {
+      final response =
+          await _v2.call(UrlConfigV2.dataExportLatest, RequestMethod.get);
+      return DataExportStatus.fromJson(response.data['data']);
     } catch (e) {
       rethrow;
     }

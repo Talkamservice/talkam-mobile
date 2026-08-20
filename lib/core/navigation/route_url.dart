@@ -63,6 +63,8 @@ class PageUrl {
   static const changePasswordScreen = 'changePasswordScreen';
   static const notificationSettingsScreen = 'notificationSettingsScreen';
   static const privacySettingsScreen = 'privacySettingsScreen';
+  static const paymentMethodsScreen = 'paymentMethodsScreen';
+  static const paymentPinScreen = 'paymentPinScreen';
 
 //   Groups
   static const groupsInfoScreen = 'groupsInfoScreen';

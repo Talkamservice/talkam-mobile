@@ -1,52 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
+import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/custom_switch.dart';
+import 'package:talkam/common/widgets/otp_field.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
-
-class _PrivacyPrefs {
-  const _PrivacyPrefs({
-    this.anonymousMode = false,
-    this.readReceipts = true,
-    this.activityStatus = true,
-    this.twoFactor = false,
-  });
-
-  final bool anonymousMode;
-  final bool readReceipts;
-  final bool activityStatus;
-  final bool twoFactor;
-
-  _PrivacyPrefs copyWith({
-    bool? anonymousMode,
-    bool? readReceipts,
-    bool? activityStatus,
-    bool? twoFactor,
-  }) =>
-      _PrivacyPrefs(
-        anonymousMode: anonymousMode ?? this.anonymousMode,
-        readReceipts: readReceipts ?? this.readReceipts,
-        activityStatus: activityStatus ?? this.activityStatus,
-        twoFactor: twoFactor ?? this.twoFactor,
-      );
-
-  @override
-  bool operator ==(Object other) =>
-      other is _PrivacyPrefs &&
-      other.anonymousMode == anonymousMode &&
-      other.readReceipts == readReceipts &&
-      other.activityStatus == activityStatus &&
-      other.twoFactor == twoFactor;
-
-  @override
-  int get hashCode =>
-      Object.hash(anonymousMode, readReceipts, activityStatus, twoFactor);
-}
+import 'package:talkam/core/utils/helper_utils.dart';
+import 'package:talkam/features/authentication/dormain/repository/auth_repository.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
+import 'package:talkam/features/settings/data/models/privacy_settings.dart';
+import 'package:talkam/features/settings/presentation/blocs/settings/settings_bloc.dart';
 
 class PrivacySettingsScreen extends StatefulWidget {
   const PrivacySettingsScreen({super.key});
@@ -56,133 +26,242 @@ class PrivacySettingsScreen extends StatefulWidget {
 }
 
 class _PrivacySettingsScreenState extends State<PrivacySettingsScreen> {
-  _PrivacyPrefs _saved = const _PrivacyPrefs();
-  _PrivacyPrefs _draft = const _PrivacyPrefs();
+  final bloc = SettingsBloc(injector.get(), injector.get());
+  final _authRepository = injector.get<AuthRepository>();
 
-  bool _saving = false;
+  PrivacySettings _saved = const PrivacySettings();
+  PrivacySettings _draft = const PrivacySettings();
+
   bool get _hasChanges => _draft != _saved;
 
-  void _update(_PrivacyPrefs next) => setState(() => _draft = next);
+  void _update(PrivacySettings next) => setState(() => _draft = next);
+
+  @override
+  void initState() {
+    super.initState();
+    bloc.add(const SettingsEvent.getPrivacySettings());
+  }
+
+  @override
+  void dispose() {
+    bloc.close();
+    super.dispose();
+  }
 
   Future<void> _save() async {
-    setState(() => _saving = true);
-    await Future<void>.delayed(const Duration(milliseconds: 600));
-    if (!mounted) return;
-    setState(() {
-      _saved = _draft;
-      _saving = false;
-    });
+    // Turning 2FA on for the first time needs a fresh TYPE_LOGIN otp before
+    // the server will accept the change.
+    if (_draft.twoFactorEnabled && !_saved.twoFactorEnabled) {
+      final email = injector.get<ProfileBloc>().appUser?.email;
+      if (email == null) return;
+      try {
+        await _authRepository.sendOtp(email, 'login');
+      } catch (error) {
+        if (mounted) CustomDialogs.error(error.toString());
+        return;
+      }
+      if (!mounted) return;
+      final otp = await _promptForOtp();
+      if (otp == null || !mounted) return;
+      bloc.add(SettingsEvent.updatePrivacySettings(_draft, otp: otp));
+      return;
+    }
+    bloc.add(SettingsEvent.updatePrivacySettings(_draft));
+  }
+
+  Future<String?> _promptForOtp() {
+    final controller = TextEditingController();
+    return showDialog<String>(
+      context: context,
+      builder: (dialogContext) => Dialog(
+        backgroundColor: Colors.white,
+        shape:
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
+        insetPadding: EdgeInsets.symmetric(horizontal: 24.w),
+        child: Padding(
+          padding: EdgeInsets.all(20.w),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const TextView(
+                text: "Enter the 6-digit code we sent to confirm turning on"
+                    " two-factor authentication.",
+                fontSize: 14,
+                fontWeight: FontWeight.w600,
+                align: TextAlign.center,
+                lineHeight: 1.35,
+              ),
+              20.verticalSpace,
+              OtpField(count: 6, controller: controller),
+              20.verticalSpace,
+              CustomButton(
+                elevation: 0,
+                onPressed: () =>
+                    Navigator.of(dialogContext).pop(controller.text),
+                child: const TextView(
+                  text: "Confirm",
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _openDataExport() {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20.r)),
+      ),
+      builder: (_) => _DataExportSheet(bloc: bloc),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Pallets.white,
-      appBar: const CustomAppBar(
-        padding: EdgeInsets.all(0.0),
-        tittleText: "Privacy",
-        centerTile: false,
-      ),
-      body: SafeArea(
-        child: Column(
-          children: [
-            Expanded(
-              child: SingleChildScrollView(
-                padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // ── COMMUNITY ──────────────────────────────────────────────
-                    const _SectionHeader(title: "COMMUNITY"),
-                    12.verticalSpace,
-                    if (!SessionManager.instance.isTherapistAccount) ...[
-                      _ToggleRow(
-                        title: "Anonymous mode",
-                        subtitle: "When a session is booked or cancelled",
-                        value: _draft.anonymousMode,
-                        onChanged: (v) => _update(_draft.copyWith(anonymousMode: v)),
-                      ),
-                      12.verticalSpace,
-                    ],
-                    _ToggleRow(
-                      title: "Read receipts",
-                      subtitle: "Let others see when you've read their replies",
-                      value: _draft.readReceipts,
-                      onChanged: (v) => _update(_draft.copyWith(readReceipts: v)),
-                    ),
-                    12.verticalSpace,
-                    _ToggleRow(
-                      title: "Activity status",
-                      subtitle: "Show when you were last active",
-                      value: _draft.activityStatus,
-                      onChanged: (v) => _update(_draft.copyWith(activityStatus: v)),
-                    ),
-      
-                    24.verticalSpace,
-      
-                    // ── ACCOUNT SECURITY ───────────────────────────────────────
-                    const _SectionHeader(title: "ACCOUNT SECURITY"),
-                    12.verticalSpace,
-                    _ToggleRow(
-                      title: "Two-factor authentication",
-                      subtitle: "Extra security on login via SMS OTP",
-                      value: _draft.twoFactor,
-                      onChanged: (v) => _update(_draft.copyWith(twoFactor: v)),
-                    ),
-                    12.verticalSpace,
-                    _NavRow(
-                      title: "Change Password",
-                      subtitle: "Notified before session starts",
-                      onTap: () => context.pushNamed(PageUrl.changePasswordScreen),
-                    ),
-                    12.verticalSpace,
-                    _NavRow(
-                      title: "Change Wallet PIN",
-                      subtitle: "Update your 4-digit payment PIN",
-                      onTap: () {},
-                    ),
-      
-                    24.verticalSpace,
-      
-                    // ── SESSIONS ───────────────────────────────────────────────
-                    const _SectionHeader(title: "SESSIONS"),
-                    12.verticalSpace,
-                    const _SessionsMergedCard(),
-                  ],
-                ),
-              ),
-            ),
-            // ── Save Button ───────────────────────────────────────────────
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-              decoration: const BoxDecoration(
-                color: Pallets.white,
-              ),
-              child: CustomButton(
-                elevation: 0,
-                bgColor: _hasChanges ? Pallets.primary : Pallets.primary, // Design shows blue button even if no changes? Will assume active by default.
-                onPressed: _saving ? null : _save,
-                borderRadius: BorderRadius.circular(12.r),
-                child: _saving
-                    ? SizedBox(
-                        height: 20.w,
-                        width: 20.w,
-                        child: const CircularProgressIndicator(
-                          strokeWidth: 2,
-                          valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+    return BlocConsumer<SettingsBloc, SettingsState>(
+      bloc: bloc,
+      listener: (context, state) {
+        state.maybeWhen(
+          orElse: () => null,
+          getPrivacySettingsSuccess: (settings) => setState(() {
+            _saved = settings;
+            _draft = settings;
+          }),
+          getPrivacySettingsFailure: (error) => CustomDialogs.error(error),
+          updatePrivacySettingsSuccess: (settings) => setState(() {
+            _saved = settings;
+            _draft = settings;
+          }),
+          updatePrivacySettingsFailure: (error) => CustomDialogs.error(error),
+        );
+      },
+      builder: (context, state) {
+        final saving = state.maybeWhen(
+          orElse: () => false,
+          updatePrivacySettingsLoading: () => true,
+        );
+
+        return Scaffold(
+          backgroundColor: Pallets.white,
+          appBar: const CustomAppBar(
+            padding: EdgeInsets.all(0.0),
+            tittleText: "Privacy",
+            centerTile: false,
+          ),
+          body: SafeArea(
+            child: Column(
+              children: [
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 16.w, vertical: 20.h),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        // ── COMMUNITY ──────────────────────────────────────────────
+                        const _SectionHeader(title: "COMMUNITY"),
+                        12.verticalSpace,
+                        if (!SessionManager.instance.isTherapistAccount) ...[
+                          _ToggleRow(
+                            title: "Anonymous mode",
+                            subtitle:
+                                "Post and comment without your name showing",
+                            value: _draft.anonymousMode,
+                            onChanged: (v) =>
+                                _update(_draft.copyWith(anonymousMode: v)),
+                          ),
+                          12.verticalSpace,
+                        ],
+                        _ToggleRow(
+                          title: "Read receipts",
+                          subtitle:
+                              "Let others see when you've read their replies",
+                          value: _draft.readReceipts,
+                          onChanged: (v) =>
+                              _update(_draft.copyWith(readReceipts: v)),
                         ),
-                      )
-                    : const TextView(
-                        text: "Save Settings",
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
-                      ),
-              ),
+                        12.verticalSpace,
+                        _ToggleRow(
+                          title: "Activity status",
+                          subtitle: "Show when you were last active",
+                          value: _draft.activityStatus,
+                          onChanged: (v) =>
+                              _update(_draft.copyWith(activityStatus: v)),
+                        ),
+
+                        24.verticalSpace,
+
+                        // ── ACCOUNT SECURITY ───────────────────────────────────────
+                        const _SectionHeader(title: "ACCOUNT SECURITY"),
+                        12.verticalSpace,
+                        _ToggleRow(
+                          title: "Two-factor authentication",
+                          subtitle: "Extra security on login via email OTP",
+                          value: _draft.twoFactorEnabled,
+                          onChanged: (v) =>
+                              _update(_draft.copyWith(twoFactorEnabled: v)),
+                        ),
+                        12.verticalSpace,
+                        _NavRow(
+                          title: "Change Password",
+                          subtitle: "Update your account password",
+                          onTap: () =>
+                              context.pushNamed(PageUrl.changePasswordScreen),
+                        ),
+                        12.verticalSpace,
+                        _NavRow(
+                          title: "Change Wallet PIN",
+                          subtitle: "Update your 4-digit payment PIN",
+                          onTap: () =>
+                              context.pushNamed(PageUrl.paymentPinScreen),
+                        ),
+
+                        24.verticalSpace,
+
+                        // ── SESSIONS ───────────────────────────────────────────────
+                        const _SectionHeader(title: "SESSIONS"),
+                        12.verticalSpace,
+                        _SessionsMergedCard(onDownloadData: _openDataExport),
+                      ],
+                    ),
+                  ),
+                ),
+                // ── Save Button ───────────────────────────────────────────────
+                Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+                  decoration: const BoxDecoration(
+                    color: Pallets.white,
+                  ),
+                  child: CustomButton(
+                    elevation: 0,
+                    bgColor: _hasChanges ? Pallets.primary : Pallets.lightBlue,
+                    onPressed: (_hasChanges && !saving) ? _save : null,
+                    borderRadius: BorderRadius.circular(12.r),
+                    child: saving
+                        ? CustomDialogs.getLoading(
+                            size: 24, color: Colors.white)
+                        : const TextView(
+                            text: "Save Settings",
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white,
+                          ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }
@@ -317,7 +396,9 @@ class _NavRow extends StatelessWidget {
 }
 
 class _SessionsMergedCard extends StatelessWidget {
-  const _SessionsMergedCard();
+  const _SessionsMergedCard({required this.onDownloadData});
+
+  final VoidCallback onDownloadData;
 
   @override
   Widget build(BuildContext context) {
@@ -352,7 +433,8 @@ class _SessionsMergedCard extends StatelessWidget {
                 ),
                 12.verticalSpace,
                 Container(
-                  padding: EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
                   decoration: BoxDecoration(
                     color: const Color(0xFFE6FDF4),
                     borderRadius: BorderRadius.circular(8.r),
@@ -379,7 +461,7 @@ class _SessionsMergedCard extends StatelessWidget {
             ),
           ),
           InkWell(
-            onTap: () {},
+            onTap: onDownloadData,
             borderRadius: BorderRadius.only(
               bottomLeft: Radius.circular(16.r),
               bottomRight: Radius.circular(16.r),
@@ -420,6 +502,122 @@ class _SessionsMergedCard extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+/// Bottom sheet for `POST /user/data-export` + `GET /user/data-export/latest`.
+/// Shows the last known status on open and lets the user kick off a new
+/// export; once a link is ready it's opened via the system browser.
+class _DataExportSheet extends StatefulWidget {
+  const _DataExportSheet({required this.bloc});
+
+  final SettingsBloc bloc;
+
+  @override
+  State<_DataExportSheet> createState() => _DataExportSheetState();
+}
+
+class _DataExportSheetState extends State<_DataExportSheet> {
+  @override
+  void initState() {
+    super.initState();
+    widget.bloc.add(const SettingsEvent.getDataExportStatus());
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<SettingsBloc, SettingsState>(
+      bloc: widget.bloc,
+      builder: (context, state) {
+        final loading = state.maybeWhen(
+          orElse: () => false,
+          getDataExportStatusLoading: () => true,
+          requestDataExportLoading: () => true,
+        );
+        final status = state.maybeWhen(
+          orElse: () => null,
+          getDataExportStatusSuccess: (s) => s,
+          requestDataExportSuccess: (s) => s,
+        );
+        final error = state.maybeWhen(
+          orElse: () => null,
+          getDataExportStatusFailure: (e) => e,
+          requestDataExportFailure: (e) => e,
+        );
+
+        return Padding(
+          padding: EdgeInsets.fromLTRB(
+            20.w,
+            20.h,
+            20.w,
+            20.h + MediaQuery.viewInsetsOf(context).bottom,
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const TextView(
+                text: "Download my data",
+                fontSize: 18,
+                fontWeight: FontWeight.w700,
+              ),
+              8.verticalSpace,
+              const TextView(
+                text:
+                    "We'll package a copy of your TalkAM data. The link expires 7 days after it's ready.",
+                fontSize: 13,
+                fontWeight: FontWeight.w500,
+                color: Pallets.grey400,
+                lineHeight: 1.4,
+              ),
+              20.verticalSpace,
+              if (loading)
+                Center(child: CustomDialogs.getLoading(size: 50))
+              else if (error != null)
+                TextView(
+                  text: error,
+                  fontSize: 13,
+                  color: Pallets.errorRed,
+                )
+              else if (status != null)
+                TextView(
+                  text: status.isReady
+                      ? "Your export is ready to download."
+                      : "Status: ${status.status}",
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                ),
+              20.verticalSpace,
+              if (status?.isReady == true)
+                CustomButton(
+                  elevation: 0,
+                  onPressed: () => Helpers.launchRawUrl(status!.downloadUrl!),
+                  child: const TextView(
+                    text: "Download",
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                )
+              else
+                CustomButton(
+                  elevation: 0,
+                  onPressed: loading
+                      ? null
+                      : () => widget.bloc
+                          .add(const SettingsEvent.requestDataExport()),
+                  child: const TextView(
+                    text: "Request export",
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                    color: Colors.white,
+                  ),
+                ),
+            ],
+          ),
+        );
+      },
     );
   }
 }
