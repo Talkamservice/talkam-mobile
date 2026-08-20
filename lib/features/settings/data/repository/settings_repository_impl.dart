@@ -244,4 +244,27 @@ class SettingsRepositoryImpl extends SettingsRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<dynamic> reportUser({
+    required String reportedUserId,
+    required String reason,
+    String? context,
+  }) async {
+    try {
+      final response = await _v2.call(
+        UrlConfigV2.userReports,
+        RequestMethod.post,
+        formData: FormData.fromMap({
+          "reported_user_id": reportedUserId,
+          "reason": reason,
+          if (context != null) "context": context,
+        }),
+        options: _formOptions,
+      );
+      return response.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

@@ -81,7 +81,6 @@ import 'package:talkam/features/booking/presentation/screens/booking_failed_scre
 import 'package:talkam/features/booking/data/models/therapist_directory_response.dart';
 import 'package:talkam/features/booking/data/models/therapist_slots_response.dart';
 import 'package:talkam/features/booking/data/models/booking_response.dart';
-import 'package:talkam/features/therapist/data/models/client_model.dart';
 
 import 'package:talkam/features/session/presentation/screens/session_call_screen.dart';
 import 'package:talkam/features/session/presentation/screens/session_complete_screen.dart';
@@ -625,7 +624,7 @@ class CustomRoutes {
         name: PageUrl.clientNoteDetailScreen,
         pageBuilder: (context, state) => NoTransitionPage(
           child: ClientNoteDetailScreen(
-            note: state.extra as Map<String, String>?,
+            sessionId: state.extra as int,
           ),
         ),
       ),
@@ -666,7 +665,7 @@ class CustomRoutes {
         name: PageUrl.clientDetailsScreen,
         pageBuilder: (context, state) => NoTransitionPage(
           child: ClientDetailsScreen(
-            client: state.extra as ClientModel,
+            clientId: state.extra as int,
           ),
         ),
       ),

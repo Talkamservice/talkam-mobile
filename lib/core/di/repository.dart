@@ -29,6 +29,8 @@ import 'package:talkam/features/settings/data/repository/settings_repository_imp
 import 'package:talkam/features/settings/dormain/repository/settings_repoitory.dart';
 import 'package:talkam/features/subscription/data/repository/subscriptions_repository_impl.dart';
 import 'package:talkam/features/subscription/dormain/repository/subscriptions_repository.dart';
+import 'package:talkam/features/therapist/data/repository/therapist_repository_impl.dart';
+import 'package:talkam/features/therapist/dormain/repository/therapist_repository.dart';
 import 'package:talkam/features/therapist_application/data/repository/therapist_application_repository_impl.dart';
 import 'package:talkam/features/therapist_application/dormain/repository/therapist_application_repository.dart';
 
@@ -78,5 +80,8 @@ void setup(GetIt getIt) {
   );
   getIt.registerLazySingleton<TherapistApplicationRepository>(
     () => TherapistApplicationRepositoryImpl(),
+  );
+  getIt.registerLazySingleton<TherapistRepository>(
+    () => TherapistRepositoryImpl(),
   );
 }

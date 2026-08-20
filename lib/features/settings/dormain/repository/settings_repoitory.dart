@@ -52,4 +52,12 @@ abstract class SettingsRepository {
   Future<DataExportStatus> requestDataExport();
 
   Future<DataExportStatus> getDataExportStatus();
+
+  /// One open report per (reporter, target) — a second call against the
+  /// same target while one is still pending is rejected server-side.
+  Future<dynamic> reportUser({
+    required String reportedUserId,
+    required String reason,
+    String? context,
+  });
 }

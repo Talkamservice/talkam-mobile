@@ -38,4 +38,10 @@ class SettingsEvent with _$SettingsEvent {
 
   const factory SettingsEvent.requestDataExport() = _RequestDataExport;
   const factory SettingsEvent.getDataExportStatus() = _GetDataExportStatus;
+
+  const factory SettingsEvent.reportUser({
+    required String reportedUserId,
+    required String reason,
+    String? context,
+  }) = _ReportUser;
 }

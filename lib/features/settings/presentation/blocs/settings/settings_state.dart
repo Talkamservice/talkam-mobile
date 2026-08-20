@@ -117,4 +117,9 @@ class SettingsState with _$SettingsState {
       DataExportStatus status) = _GetDataExportStatusSuccess;
   const factory SettingsState.getDataExportStatusFailure(String error) =
       _GetDataExportStatusFailure;
+
+  const factory SettingsState.reportUserLoading() = _ReportUserLoading;
+  const factory SettingsState.reportUserSuccess() = _ReportUserSuccess;
+  const factory SettingsState.reportUserFailure(String error) =
+      _ReportUserFailure;
 }

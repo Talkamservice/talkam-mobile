@@ -42,4 +42,13 @@ abstract class MessagingRepository {
   Future<GetMessagesResponse> getMessages(String conversationId);
 
   Future<dynamic> deleteConversation(String id);
+
+  /// `POST /user/messaging/conversations` (v2) — therapist<->client pairs
+  /// with a confirmed booking open Active immediately; sends the first
+  /// message in the same call. Community DMs keep the v1 request flow via
+  /// [fetchCurrentConversation].
+  Future<TalkamConversation> startConversation({
+    required int receiverId,
+    required String message,
+  });
 }

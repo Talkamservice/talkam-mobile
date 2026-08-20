@@ -128,6 +128,19 @@ class UrlConfigV2 {
   static String conversationState(String action) =>
       '$messagingConversations/$action';
 
+  // Messaging — messages. Paths are unchanged from v1, just moved to the v2
+  // base — see MessagingRepositoryImpl.
+  static const String messagingMessagesList = '/user/messaging/messages/list';
+  static const String messagingMessagesSend = '/user/messaging/messages/send';
+
+  // Therapist — clients roster & session notes
+  static const String therapistClients = '/therapist/clients';
+  static String therapistClientDetail(int id) => '$therapistClients/$id';
+  static String therapistClientTreatmentPlan(int id) =>
+      '$therapistClients/$id/treatment-plan';
+  static String therapistSessionNotes(int sessionId) =>
+      '/therapist/sessions/$sessionId/notes';
+
   // Therapist Directory & Booking
   static const String therapistDirectory = '/user/therapists';
   static String therapistProfile(int id) => '/user/therapists/$id';
@@ -160,4 +173,7 @@ class UrlConfigV2 {
 
   // Account
   static const String deleteAccount = '/user/profile/delete-account';
+
+  // Reports — one open report per (reporter, target).
+  static const String userReports = '/user/user-reports';
 }

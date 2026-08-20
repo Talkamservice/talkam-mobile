@@ -61,6 +61,10 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
             await _mapRequestDataExportToState(emit),
         getDataExportStatus: (e) async =>
             await _mapGetDataExportStatusToState(emit),
+        reportUser: (e) async => await _mapReportUserToState(emit,
+            reportedUserId: e.reportedUserId,
+            reason: e.reason,
+            context: e.context),
       );
     });
   }
@@ -317,6 +321,22 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       emit(SettingsState.getDataExportStatusSuccess(status));
     } catch (e) {
       emit(SettingsState.getDataExportStatusFailure(e.toString()));
+    }
+  }
+
+  Future<void> _mapReportUserToState(
+    Emitter<SettingsState> emit, {
+    required String reportedUserId,
+    required String reason,
+    String? context,
+  }) async {
+    emit(const SettingsState.reportUserLoading());
+    try {
+      await _settingsRepository.reportUser(
+          reportedUserId: reportedUserId, reason: reason, context: context);
+      emit(const SettingsState.reportUserSuccess());
+    } catch (e) {
+      emit(SettingsState.reportUserFailure(e.toString()));
     }
   }
 }

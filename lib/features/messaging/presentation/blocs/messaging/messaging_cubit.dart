@@ -123,6 +123,21 @@ class MessagingCubit extends Cubit<MessagingState>
     }
   }
 
+  /// Starts a brand-new conversation with its first message in one call —
+  /// used when there's no existing conversation to fetch (e.g. messaging a
+  /// client for the first time). Returned directly rather than through a
+  /// bloc state since the caller needs the created conversation immediately
+  /// to navigate into [ChatScreen].
+  Future<TalkamConversation> startConversation({
+    required int receiverId,
+    required String message,
+  }) {
+    return messagingRepository.startConversation(
+      receiverId: receiverId,
+      message: message,
+    );
+  }
+
   Future<void> deleteConversation(String id) async {
     emit(const MessagingState.deleteConversationLoading());
     try {

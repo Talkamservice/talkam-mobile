@@ -191,8 +191,8 @@ class MessagingRepositoryImpl extends MessagingRepository {
         : null;
 
     try {
-      final response = await _networkService.call(
-        UrlConfig.sendMessage,
+      final response = await _v2.call(
+        UrlConfigV2.messagingMessagesSend,
         RequestMethod.post,
         data: messageData.copyWith(assetUrl: imageUrl).toJson(),
       );
@@ -205,8 +205,8 @@ class MessagingRepositoryImpl extends MessagingRepository {
   @override
   Future<GetMessagesResponse> getMessages(String conversationId) async {
     try {
-      final response = await _networkService.call(
-          UrlConfig.getMessages, RequestMethod.get,
+      final response = await _v2.call(
+          UrlConfigV2.messagingMessagesList, RequestMethod.get,
           queryParams: {"conversation_id": conversationId});
       return GetMessagesResponse.fromJson(response.data);
     } catch (e) {
@@ -222,6 +222,27 @@ class MessagingRepositoryImpl extends MessagingRepository {
         RequestMethod.delete,
       );
       return response.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<TalkamConversation> startConversation({
+    required int receiverId,
+    required String message,
+  }) async {
+    try {
+      final response = await _v2.call(
+        UrlConfigV2.messagingConversations,
+        RequestMethod.post,
+        formData: FormData.fromMap({
+          "receiver_id": receiverId,
+          "message": message,
+        }),
+        options: _formOptions,
+      );
+      return TalkamConversation.fromJson(response.data['data']);
     } catch (e) {
       rethrow;
     }

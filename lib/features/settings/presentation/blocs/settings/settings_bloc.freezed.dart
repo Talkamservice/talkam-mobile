@@ -39,6 +39,9 @@ mixin _$SettingsEvent {
         setPaymentPin,
     required TResult Function() requestDataExport,
     required TResult Function() getDataExportStatus,
+    required TResult Function(
+            String reportedUserId, String reason, String? context)
+        reportUser,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -64,6 +67,8 @@ mixin _$SettingsEvent {
         setPaymentPin,
     TResult? Function()? requestDataExport,
     TResult? Function()? getDataExportStatus,
+    TResult? Function(String reportedUserId, String reason, String? context)?
+        reportUser,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -89,6 +94,8 @@ mixin _$SettingsEvent {
         setPaymentPin,
     TResult Function()? requestDataExport,
     TResult Function()? getDataExportStatus,
+    TResult Function(String reportedUserId, String reason, String? context)?
+        reportUser,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -116,6 +123,7 @@ mixin _$SettingsEvent {
     required TResult Function(_SetPaymentPin value) setPaymentPin,
     required TResult Function(_RequestDataExport value) requestDataExport,
     required TResult Function(_GetDataExportStatus value) getDataExportStatus,
+    required TResult Function(_ReportUser value) reportUser,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -141,6 +149,7 @@ mixin _$SettingsEvent {
     TResult? Function(_SetPaymentPin value)? setPaymentPin,
     TResult? Function(_RequestDataExport value)? requestDataExport,
     TResult? Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult? Function(_ReportUser value)? reportUser,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -166,6 +175,7 @@ mixin _$SettingsEvent {
     TResult Function(_SetPaymentPin value)? setPaymentPin,
     TResult Function(_RequestDataExport value)? requestDataExport,
     TResult Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult Function(_ReportUser value)? reportUser,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -248,6 +258,9 @@ class _$StartedImpl implements _Started {
         setPaymentPin,
     required TResult Function() requestDataExport,
     required TResult Function() getDataExportStatus,
+    required TResult Function(
+            String reportedUserId, String reason, String? context)
+        reportUser,
   }) {
     return started();
   }
@@ -276,6 +289,8 @@ class _$StartedImpl implements _Started {
         setPaymentPin,
     TResult? Function()? requestDataExport,
     TResult? Function()? getDataExportStatus,
+    TResult? Function(String reportedUserId, String reason, String? context)?
+        reportUser,
   }) {
     return started?.call();
   }
@@ -304,6 +319,8 @@ class _$StartedImpl implements _Started {
         setPaymentPin,
     TResult Function()? requestDataExport,
     TResult Function()? getDataExportStatus,
+    TResult Function(String reportedUserId, String reason, String? context)?
+        reportUser,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -337,6 +354,7 @@ class _$StartedImpl implements _Started {
     required TResult Function(_SetPaymentPin value) setPaymentPin,
     required TResult Function(_RequestDataExport value) requestDataExport,
     required TResult Function(_GetDataExportStatus value) getDataExportStatus,
+    required TResult Function(_ReportUser value) reportUser,
   }) {
     return started(this);
   }
@@ -365,6 +383,7 @@ class _$StartedImpl implements _Started {
     TResult? Function(_SetPaymentPin value)? setPaymentPin,
     TResult? Function(_RequestDataExport value)? requestDataExport,
     TResult? Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult? Function(_ReportUser value)? reportUser,
   }) {
     return started?.call(this);
   }
@@ -393,6 +412,7 @@ class _$StartedImpl implements _Started {
     TResult Function(_SetPaymentPin value)? setPaymentPin,
     TResult Function(_RequestDataExport value)? requestDataExport,
     TResult Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult Function(_ReportUser value)? reportUser,
     required TResult orElse(),
   }) {
     if (started != null) {
@@ -497,6 +517,9 @@ class _$FetchNotificationPreferencesImpl
         setPaymentPin,
     required TResult Function() requestDataExport,
     required TResult Function() getDataExportStatus,
+    required TResult Function(
+            String reportedUserId, String reason, String? context)
+        reportUser,
   }) {
     return fetchNotificationPreferences(refresh);
   }
@@ -525,6 +548,8 @@ class _$FetchNotificationPreferencesImpl
         setPaymentPin,
     TResult? Function()? requestDataExport,
     TResult? Function()? getDataExportStatus,
+    TResult? Function(String reportedUserId, String reason, String? context)?
+        reportUser,
   }) {
     return fetchNotificationPreferences?.call(refresh);
   }
@@ -553,6 +578,8 @@ class _$FetchNotificationPreferencesImpl
         setPaymentPin,
     TResult Function()? requestDataExport,
     TResult Function()? getDataExportStatus,
+    TResult Function(String reportedUserId, String reason, String? context)?
+        reportUser,
     required TResult orElse(),
   }) {
     if (fetchNotificationPreferences != null) {
@@ -586,6 +613,7 @@ class _$FetchNotificationPreferencesImpl
     required TResult Function(_SetPaymentPin value) setPaymentPin,
     required TResult Function(_RequestDataExport value) requestDataExport,
     required TResult Function(_GetDataExportStatus value) getDataExportStatus,
+    required TResult Function(_ReportUser value) reportUser,
   }) {
     return fetchNotificationPreferences(this);
   }
@@ -614,6 +642,7 @@ class _$FetchNotificationPreferencesImpl
     TResult? Function(_SetPaymentPin value)? setPaymentPin,
     TResult? Function(_RequestDataExport value)? requestDataExport,
     TResult? Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult? Function(_ReportUser value)? reportUser,
   }) {
     return fetchNotificationPreferences?.call(this);
   }
@@ -642,6 +671,7 @@ class _$FetchNotificationPreferencesImpl
     TResult Function(_SetPaymentPin value)? setPaymentPin,
     TResult Function(_RequestDataExport value)? requestDataExport,
     TResult Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult Function(_ReportUser value)? reportUser,
     required TResult orElse(),
   }) {
     if (fetchNotificationPreferences != null) {
@@ -752,6 +782,9 @@ class _$SaveNotificationPreferencesImpl
         setPaymentPin,
     required TResult Function() requestDataExport,
     required TResult Function() getDataExportStatus,
+    required TResult Function(
+            String reportedUserId, String reason, String? context)
+        reportUser,
   }) {
     return saveNotificationPreferences(preferences);
   }
@@ -780,6 +813,8 @@ class _$SaveNotificationPreferencesImpl
         setPaymentPin,
     TResult? Function()? requestDataExport,
     TResult? Function()? getDataExportStatus,
+    TResult? Function(String reportedUserId, String reason, String? context)?
+        reportUser,
   }) {
     return saveNotificationPreferences?.call(preferences);
   }
@@ -808,6 +843,8 @@ class _$SaveNotificationPreferencesImpl
         setPaymentPin,
     TResult Function()? requestDataExport,
     TResult Function()? getDataExportStatus,
+    TResult Function(String reportedUserId, String reason, String? context)?
+        reportUser,
     required TResult orElse(),
   }) {
     if (saveNotificationPreferences != null) {
@@ -841,6 +878,7 @@ class _$SaveNotificationPreferencesImpl
     required TResult Function(_SetPaymentPin value) setPaymentPin,
     required TResult Function(_RequestDataExport value) requestDataExport,
     required TResult Function(_GetDataExportStatus value) getDataExportStatus,
+    required TResult Function(_ReportUser value) reportUser,
   }) {
     return saveNotificationPreferences(this);
   }
@@ -869,6 +907,7 @@ class _$SaveNotificationPreferencesImpl
     TResult? Function(_SetPaymentPin value)? setPaymentPin,
     TResult? Function(_RequestDataExport value)? requestDataExport,
     TResult? Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult? Function(_ReportUser value)? reportUser,
   }) {
     return saveNotificationPreferences?.call(this);
   }
@@ -897,6 +936,7 @@ class _$SaveNotificationPreferencesImpl
     TResult Function(_SetPaymentPin value)? setPaymentPin,
     TResult Function(_RequestDataExport value)? requestDataExport,
     TResult Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult Function(_ReportUser value)? reportUser,
     required TResult orElse(),
   }) {
     if (saveNotificationPreferences != null) {
@@ -976,6 +1016,9 @@ class _$FetchBlockedUsersImpl implements _FetchBlockedUsers {
         setPaymentPin,
     required TResult Function() requestDataExport,
     required TResult Function() getDataExportStatus,
+    required TResult Function(
+            String reportedUserId, String reason, String? context)
+        reportUser,
   }) {
     return fetchBlockedUsers();
   }
@@ -1004,6 +1047,8 @@ class _$FetchBlockedUsersImpl implements _FetchBlockedUsers {
         setPaymentPin,
     TResult? Function()? requestDataExport,
     TResult? Function()? getDataExportStatus,
+    TResult? Function(String reportedUserId, String reason, String? context)?
+        reportUser,
   }) {
     return fetchBlockedUsers?.call();
   }
@@ -1032,6 +1077,8 @@ class _$FetchBlockedUsersImpl implements _FetchBlockedUsers {
         setPaymentPin,
     TResult Function()? requestDataExport,
     TResult Function()? getDataExportStatus,
+    TResult Function(String reportedUserId, String reason, String? context)?
+        reportUser,
     required TResult orElse(),
   }) {
     if (fetchBlockedUsers != null) {
@@ -1065,6 +1112,7 @@ class _$FetchBlockedUsersImpl implements _FetchBlockedUsers {
     required TResult Function(_SetPaymentPin value) setPaymentPin,
     required TResult Function(_RequestDataExport value) requestDataExport,
     required TResult Function(_GetDataExportStatus value) getDataExportStatus,
+    required TResult Function(_ReportUser value) reportUser,
   }) {
     return fetchBlockedUsers(this);
   }
@@ -1093,6 +1141,7 @@ class _$FetchBlockedUsersImpl implements _FetchBlockedUsers {
     TResult? Function(_SetPaymentPin value)? setPaymentPin,
     TResult? Function(_RequestDataExport value)? requestDataExport,
     TResult? Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult? Function(_ReportUser value)? reportUser,
   }) {
     return fetchBlockedUsers?.call(this);
   }
@@ -1121,6 +1170,7 @@ class _$FetchBlockedUsersImpl implements _FetchBlockedUsers {
     TResult Function(_SetPaymentPin value)? setPaymentPin,
     TResult Function(_RequestDataExport value)? requestDataExport,
     TResult Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult Function(_ReportUser value)? reportUser,
     required TResult orElse(),
   }) {
     if (fetchBlockedUsers != null) {
@@ -1221,6 +1271,9 @@ class _$LinkSocialAccountImpl implements _LinkSocialAccount {
         setPaymentPin,
     required TResult Function() requestDataExport,
     required TResult Function() getDataExportStatus,
+    required TResult Function(
+            String reportedUserId, String reason, String? context)
+        reportUser,
   }) {
     return linkSocialAccount(provider);
   }
@@ -1249,6 +1302,8 @@ class _$LinkSocialAccountImpl implements _LinkSocialAccount {
         setPaymentPin,
     TResult? Function()? requestDataExport,
     TResult? Function()? getDataExportStatus,
+    TResult? Function(String reportedUserId, String reason, String? context)?
+        reportUser,
   }) {
     return linkSocialAccount?.call(provider);
   }
@@ -1277,6 +1332,8 @@ class _$LinkSocialAccountImpl implements _LinkSocialAccount {
         setPaymentPin,
     TResult Function()? requestDataExport,
     TResult Function()? getDataExportStatus,
+    TResult Function(String reportedUserId, String reason, String? context)?
+        reportUser,
     required TResult orElse(),
   }) {
     if (linkSocialAccount != null) {
@@ -1310,6 +1367,7 @@ class _$LinkSocialAccountImpl implements _LinkSocialAccount {
     required TResult Function(_SetPaymentPin value) setPaymentPin,
     required TResult Function(_RequestDataExport value) requestDataExport,
     required TResult Function(_GetDataExportStatus value) getDataExportStatus,
+    required TResult Function(_ReportUser value) reportUser,
   }) {
     return linkSocialAccount(this);
   }
@@ -1338,6 +1396,7 @@ class _$LinkSocialAccountImpl implements _LinkSocialAccount {
     TResult? Function(_SetPaymentPin value)? setPaymentPin,
     TResult? Function(_RequestDataExport value)? requestDataExport,
     TResult? Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult? Function(_ReportUser value)? reportUser,
   }) {
     return linkSocialAccount?.call(this);
   }
@@ -1366,6 +1425,7 @@ class _$LinkSocialAccountImpl implements _LinkSocialAccount {
     TResult Function(_SetPaymentPin value)? setPaymentPin,
     TResult Function(_RequestDataExport value)? requestDataExport,
     TResult Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult Function(_ReportUser value)? reportUser,
     required TResult orElse(),
   }) {
     if (linkSocialAccount != null) {
@@ -1472,6 +1532,9 @@ class _$UnlinkSocialAccountImpl implements _UnlinkSocialAccount {
         setPaymentPin,
     required TResult Function() requestDataExport,
     required TResult Function() getDataExportStatus,
+    required TResult Function(
+            String reportedUserId, String reason, String? context)
+        reportUser,
   }) {
     return unlinkSocialAccount(accountId);
   }
@@ -1500,6 +1563,8 @@ class _$UnlinkSocialAccountImpl implements _UnlinkSocialAccount {
         setPaymentPin,
     TResult? Function()? requestDataExport,
     TResult? Function()? getDataExportStatus,
+    TResult? Function(String reportedUserId, String reason, String? context)?
+        reportUser,
   }) {
     return unlinkSocialAccount?.call(accountId);
   }
@@ -1528,6 +1593,8 @@ class _$UnlinkSocialAccountImpl implements _UnlinkSocialAccount {
         setPaymentPin,
     TResult Function()? requestDataExport,
     TResult Function()? getDataExportStatus,
+    TResult Function(String reportedUserId, String reason, String? context)?
+        reportUser,
     required TResult orElse(),
   }) {
     if (unlinkSocialAccount != null) {
@@ -1561,6 +1628,7 @@ class _$UnlinkSocialAccountImpl implements _UnlinkSocialAccount {
     required TResult Function(_SetPaymentPin value) setPaymentPin,
     required TResult Function(_RequestDataExport value) requestDataExport,
     required TResult Function(_GetDataExportStatus value) getDataExportStatus,
+    required TResult Function(_ReportUser value) reportUser,
   }) {
     return unlinkSocialAccount(this);
   }
@@ -1589,6 +1657,7 @@ class _$UnlinkSocialAccountImpl implements _UnlinkSocialAccount {
     TResult? Function(_SetPaymentPin value)? setPaymentPin,
     TResult? Function(_RequestDataExport value)? requestDataExport,
     TResult? Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult? Function(_ReportUser value)? reportUser,
   }) {
     return unlinkSocialAccount?.call(this);
   }
@@ -1617,6 +1686,7 @@ class _$UnlinkSocialAccountImpl implements _UnlinkSocialAccount {
     TResult Function(_SetPaymentPin value)? setPaymentPin,
     TResult Function(_RequestDataExport value)? requestDataExport,
     TResult Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult Function(_ReportUser value)? reportUser,
     required TResult orElse(),
   }) {
     if (unlinkSocialAccount != null) {
@@ -1721,6 +1791,9 @@ class _$DeleteAccountImpl implements _DeleteAccount {
         setPaymentPin,
     required TResult Function() requestDataExport,
     required TResult Function() getDataExportStatus,
+    required TResult Function(
+            String reportedUserId, String reason, String? context)
+        reportUser,
   }) {
     return deleteAccount(reason);
   }
@@ -1749,6 +1822,8 @@ class _$DeleteAccountImpl implements _DeleteAccount {
         setPaymentPin,
     TResult? Function()? requestDataExport,
     TResult? Function()? getDataExportStatus,
+    TResult? Function(String reportedUserId, String reason, String? context)?
+        reportUser,
   }) {
     return deleteAccount?.call(reason);
   }
@@ -1777,6 +1852,8 @@ class _$DeleteAccountImpl implements _DeleteAccount {
         setPaymentPin,
     TResult Function()? requestDataExport,
     TResult Function()? getDataExportStatus,
+    TResult Function(String reportedUserId, String reason, String? context)?
+        reportUser,
     required TResult orElse(),
   }) {
     if (deleteAccount != null) {
@@ -1810,6 +1887,7 @@ class _$DeleteAccountImpl implements _DeleteAccount {
     required TResult Function(_SetPaymentPin value) setPaymentPin,
     required TResult Function(_RequestDataExport value) requestDataExport,
     required TResult Function(_GetDataExportStatus value) getDataExportStatus,
+    required TResult Function(_ReportUser value) reportUser,
   }) {
     return deleteAccount(this);
   }
@@ -1838,6 +1916,7 @@ class _$DeleteAccountImpl implements _DeleteAccount {
     TResult? Function(_SetPaymentPin value)? setPaymentPin,
     TResult? Function(_RequestDataExport value)? requestDataExport,
     TResult? Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult? Function(_ReportUser value)? reportUser,
   }) {
     return deleteAccount?.call(this);
   }
@@ -1866,6 +1945,7 @@ class _$DeleteAccountImpl implements _DeleteAccount {
     TResult Function(_SetPaymentPin value)? setPaymentPin,
     TResult Function(_RequestDataExport value)? requestDataExport,
     TResult Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult Function(_ReportUser value)? reportUser,
     required TResult orElse(),
   }) {
     if (deleteAccount != null) {
@@ -1969,6 +2049,9 @@ class _$BlockUserImpl implements _BlockUser {
         setPaymentPin,
     required TResult Function() requestDataExport,
     required TResult Function() getDataExportStatus,
+    required TResult Function(
+            String reportedUserId, String reason, String? context)
+        reportUser,
   }) {
     return blockUser(userId);
   }
@@ -1997,6 +2080,8 @@ class _$BlockUserImpl implements _BlockUser {
         setPaymentPin,
     TResult? Function()? requestDataExport,
     TResult? Function()? getDataExportStatus,
+    TResult? Function(String reportedUserId, String reason, String? context)?
+        reportUser,
   }) {
     return blockUser?.call(userId);
   }
@@ -2025,6 +2110,8 @@ class _$BlockUserImpl implements _BlockUser {
         setPaymentPin,
     TResult Function()? requestDataExport,
     TResult Function()? getDataExportStatus,
+    TResult Function(String reportedUserId, String reason, String? context)?
+        reportUser,
     required TResult orElse(),
   }) {
     if (blockUser != null) {
@@ -2058,6 +2145,7 @@ class _$BlockUserImpl implements _BlockUser {
     required TResult Function(_SetPaymentPin value) setPaymentPin,
     required TResult Function(_RequestDataExport value) requestDataExport,
     required TResult Function(_GetDataExportStatus value) getDataExportStatus,
+    required TResult Function(_ReportUser value) reportUser,
   }) {
     return blockUser(this);
   }
@@ -2086,6 +2174,7 @@ class _$BlockUserImpl implements _BlockUser {
     TResult? Function(_SetPaymentPin value)? setPaymentPin,
     TResult? Function(_RequestDataExport value)? requestDataExport,
     TResult? Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult? Function(_ReportUser value)? reportUser,
   }) {
     return blockUser?.call(this);
   }
@@ -2114,6 +2203,7 @@ class _$BlockUserImpl implements _BlockUser {
     TResult Function(_SetPaymentPin value)? setPaymentPin,
     TResult Function(_RequestDataExport value)? requestDataExport,
     TResult Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult Function(_ReportUser value)? reportUser,
     required TResult orElse(),
   }) {
     if (blockUser != null) {
@@ -2196,6 +2286,9 @@ class _$GetNotificationPreferencesV2Impl
         setPaymentPin,
     required TResult Function() requestDataExport,
     required TResult Function() getDataExportStatus,
+    required TResult Function(
+            String reportedUserId, String reason, String? context)
+        reportUser,
   }) {
     return getNotificationPreferencesV2();
   }
@@ -2224,6 +2317,8 @@ class _$GetNotificationPreferencesV2Impl
         setPaymentPin,
     TResult? Function()? requestDataExport,
     TResult? Function()? getDataExportStatus,
+    TResult? Function(String reportedUserId, String reason, String? context)?
+        reportUser,
   }) {
     return getNotificationPreferencesV2?.call();
   }
@@ -2252,6 +2347,8 @@ class _$GetNotificationPreferencesV2Impl
         setPaymentPin,
     TResult Function()? requestDataExport,
     TResult Function()? getDataExportStatus,
+    TResult Function(String reportedUserId, String reason, String? context)?
+        reportUser,
     required TResult orElse(),
   }) {
     if (getNotificationPreferencesV2 != null) {
@@ -2285,6 +2382,7 @@ class _$GetNotificationPreferencesV2Impl
     required TResult Function(_SetPaymentPin value) setPaymentPin,
     required TResult Function(_RequestDataExport value) requestDataExport,
     required TResult Function(_GetDataExportStatus value) getDataExportStatus,
+    required TResult Function(_ReportUser value) reportUser,
   }) {
     return getNotificationPreferencesV2(this);
   }
@@ -2313,6 +2411,7 @@ class _$GetNotificationPreferencesV2Impl
     TResult? Function(_SetPaymentPin value)? setPaymentPin,
     TResult? Function(_RequestDataExport value)? requestDataExport,
     TResult? Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult? Function(_ReportUser value)? reportUser,
   }) {
     return getNotificationPreferencesV2?.call(this);
   }
@@ -2341,6 +2440,7 @@ class _$GetNotificationPreferencesV2Impl
     TResult Function(_SetPaymentPin value)? setPaymentPin,
     TResult Function(_RequestDataExport value)? requestDataExport,
     TResult Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult Function(_ReportUser value)? reportUser,
     required TResult orElse(),
   }) {
     if (getNotificationPreferencesV2 != null) {
@@ -2447,6 +2547,9 @@ class _$UpdateNotificationPreferencesV2Impl
         setPaymentPin,
     required TResult Function() requestDataExport,
     required TResult Function() getDataExportStatus,
+    required TResult Function(
+            String reportedUserId, String reason, String? context)
+        reportUser,
   }) {
     return updateNotificationPreferencesV2(preferences);
   }
@@ -2475,6 +2578,8 @@ class _$UpdateNotificationPreferencesV2Impl
         setPaymentPin,
     TResult? Function()? requestDataExport,
     TResult? Function()? getDataExportStatus,
+    TResult? Function(String reportedUserId, String reason, String? context)?
+        reportUser,
   }) {
     return updateNotificationPreferencesV2?.call(preferences);
   }
@@ -2503,6 +2608,8 @@ class _$UpdateNotificationPreferencesV2Impl
         setPaymentPin,
     TResult Function()? requestDataExport,
     TResult Function()? getDataExportStatus,
+    TResult Function(String reportedUserId, String reason, String? context)?
+        reportUser,
     required TResult orElse(),
   }) {
     if (updateNotificationPreferencesV2 != null) {
@@ -2536,6 +2643,7 @@ class _$UpdateNotificationPreferencesV2Impl
     required TResult Function(_SetPaymentPin value) setPaymentPin,
     required TResult Function(_RequestDataExport value) requestDataExport,
     required TResult Function(_GetDataExportStatus value) getDataExportStatus,
+    required TResult Function(_ReportUser value) reportUser,
   }) {
     return updateNotificationPreferencesV2(this);
   }
@@ -2564,6 +2672,7 @@ class _$UpdateNotificationPreferencesV2Impl
     TResult? Function(_SetPaymentPin value)? setPaymentPin,
     TResult? Function(_RequestDataExport value)? requestDataExport,
     TResult? Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult? Function(_ReportUser value)? reportUser,
   }) {
     return updateNotificationPreferencesV2?.call(this);
   }
@@ -2592,6 +2701,7 @@ class _$UpdateNotificationPreferencesV2Impl
     TResult Function(_SetPaymentPin value)? setPaymentPin,
     TResult Function(_RequestDataExport value)? requestDataExport,
     TResult Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult Function(_ReportUser value)? reportUser,
     required TResult orElse(),
   }) {
     if (updateNotificationPreferencesV2 != null) {
@@ -2672,6 +2782,9 @@ class _$GetPrivacySettingsImpl implements _GetPrivacySettings {
         setPaymentPin,
     required TResult Function() requestDataExport,
     required TResult Function() getDataExportStatus,
+    required TResult Function(
+            String reportedUserId, String reason, String? context)
+        reportUser,
   }) {
     return getPrivacySettings();
   }
@@ -2700,6 +2813,8 @@ class _$GetPrivacySettingsImpl implements _GetPrivacySettings {
         setPaymentPin,
     TResult? Function()? requestDataExport,
     TResult? Function()? getDataExportStatus,
+    TResult? Function(String reportedUserId, String reason, String? context)?
+        reportUser,
   }) {
     return getPrivacySettings?.call();
   }
@@ -2728,6 +2843,8 @@ class _$GetPrivacySettingsImpl implements _GetPrivacySettings {
         setPaymentPin,
     TResult Function()? requestDataExport,
     TResult Function()? getDataExportStatus,
+    TResult Function(String reportedUserId, String reason, String? context)?
+        reportUser,
     required TResult orElse(),
   }) {
     if (getPrivacySettings != null) {
@@ -2761,6 +2878,7 @@ class _$GetPrivacySettingsImpl implements _GetPrivacySettings {
     required TResult Function(_SetPaymentPin value) setPaymentPin,
     required TResult Function(_RequestDataExport value) requestDataExport,
     required TResult Function(_GetDataExportStatus value) getDataExportStatus,
+    required TResult Function(_ReportUser value) reportUser,
   }) {
     return getPrivacySettings(this);
   }
@@ -2789,6 +2907,7 @@ class _$GetPrivacySettingsImpl implements _GetPrivacySettings {
     TResult? Function(_SetPaymentPin value)? setPaymentPin,
     TResult? Function(_RequestDataExport value)? requestDataExport,
     TResult? Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult? Function(_ReportUser value)? reportUser,
   }) {
     return getPrivacySettings?.call(this);
   }
@@ -2817,6 +2936,7 @@ class _$GetPrivacySettingsImpl implements _GetPrivacySettings {
     TResult Function(_SetPaymentPin value)? setPaymentPin,
     TResult Function(_RequestDataExport value)? requestDataExport,
     TResult Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult Function(_ReportUser value)? reportUser,
     required TResult orElse(),
   }) {
     if (getPrivacySettings != null) {
@@ -2926,6 +3046,9 @@ class _$UpdatePrivacySettingsImpl implements _UpdatePrivacySettings {
         setPaymentPin,
     required TResult Function() requestDataExport,
     required TResult Function() getDataExportStatus,
+    required TResult Function(
+            String reportedUserId, String reason, String? context)
+        reportUser,
   }) {
     return updatePrivacySettings(settings, otp);
   }
@@ -2954,6 +3077,8 @@ class _$UpdatePrivacySettingsImpl implements _UpdatePrivacySettings {
         setPaymentPin,
     TResult? Function()? requestDataExport,
     TResult? Function()? getDataExportStatus,
+    TResult? Function(String reportedUserId, String reason, String? context)?
+        reportUser,
   }) {
     return updatePrivacySettings?.call(settings, otp);
   }
@@ -2982,6 +3107,8 @@ class _$UpdatePrivacySettingsImpl implements _UpdatePrivacySettings {
         setPaymentPin,
     TResult Function()? requestDataExport,
     TResult Function()? getDataExportStatus,
+    TResult Function(String reportedUserId, String reason, String? context)?
+        reportUser,
     required TResult orElse(),
   }) {
     if (updatePrivacySettings != null) {
@@ -3015,6 +3142,7 @@ class _$UpdatePrivacySettingsImpl implements _UpdatePrivacySettings {
     required TResult Function(_SetPaymentPin value) setPaymentPin,
     required TResult Function(_RequestDataExport value) requestDataExport,
     required TResult Function(_GetDataExportStatus value) getDataExportStatus,
+    required TResult Function(_ReportUser value) reportUser,
   }) {
     return updatePrivacySettings(this);
   }
@@ -3043,6 +3171,7 @@ class _$UpdatePrivacySettingsImpl implements _UpdatePrivacySettings {
     TResult? Function(_SetPaymentPin value)? setPaymentPin,
     TResult? Function(_RequestDataExport value)? requestDataExport,
     TResult? Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult? Function(_ReportUser value)? reportUser,
   }) {
     return updatePrivacySettings?.call(this);
   }
@@ -3071,6 +3200,7 @@ class _$UpdatePrivacySettingsImpl implements _UpdatePrivacySettings {
     TResult Function(_SetPaymentPin value)? setPaymentPin,
     TResult Function(_RequestDataExport value)? requestDataExport,
     TResult Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult Function(_ReportUser value)? reportUser,
     required TResult orElse(),
   }) {
     if (updatePrivacySettings != null) {
@@ -3150,6 +3280,9 @@ class _$GetPaymentMethodsImpl implements _GetPaymentMethods {
         setPaymentPin,
     required TResult Function() requestDataExport,
     required TResult Function() getDataExportStatus,
+    required TResult Function(
+            String reportedUserId, String reason, String? context)
+        reportUser,
   }) {
     return getPaymentMethods();
   }
@@ -3178,6 +3311,8 @@ class _$GetPaymentMethodsImpl implements _GetPaymentMethods {
         setPaymentPin,
     TResult? Function()? requestDataExport,
     TResult? Function()? getDataExportStatus,
+    TResult? Function(String reportedUserId, String reason, String? context)?
+        reportUser,
   }) {
     return getPaymentMethods?.call();
   }
@@ -3206,6 +3341,8 @@ class _$GetPaymentMethodsImpl implements _GetPaymentMethods {
         setPaymentPin,
     TResult Function()? requestDataExport,
     TResult Function()? getDataExportStatus,
+    TResult Function(String reportedUserId, String reason, String? context)?
+        reportUser,
     required TResult orElse(),
   }) {
     if (getPaymentMethods != null) {
@@ -3239,6 +3376,7 @@ class _$GetPaymentMethodsImpl implements _GetPaymentMethods {
     required TResult Function(_SetPaymentPin value) setPaymentPin,
     required TResult Function(_RequestDataExport value) requestDataExport,
     required TResult Function(_GetDataExportStatus value) getDataExportStatus,
+    required TResult Function(_ReportUser value) reportUser,
   }) {
     return getPaymentMethods(this);
   }
@@ -3267,6 +3405,7 @@ class _$GetPaymentMethodsImpl implements _GetPaymentMethods {
     TResult? Function(_SetPaymentPin value)? setPaymentPin,
     TResult? Function(_RequestDataExport value)? requestDataExport,
     TResult? Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult? Function(_ReportUser value)? reportUser,
   }) {
     return getPaymentMethods?.call(this);
   }
@@ -3295,6 +3434,7 @@ class _$GetPaymentMethodsImpl implements _GetPaymentMethods {
     TResult Function(_SetPaymentPin value)? setPaymentPin,
     TResult Function(_RequestDataExport value)? requestDataExport,
     TResult Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult Function(_ReportUser value)? reportUser,
     required TResult orElse(),
   }) {
     if (getPaymentMethods != null) {
@@ -3394,6 +3534,9 @@ class _$DeletePaymentMethodImpl implements _DeletePaymentMethod {
         setPaymentPin,
     required TResult Function() requestDataExport,
     required TResult Function() getDataExportStatus,
+    required TResult Function(
+            String reportedUserId, String reason, String? context)
+        reportUser,
   }) {
     return deletePaymentMethod(id);
   }
@@ -3422,6 +3565,8 @@ class _$DeletePaymentMethodImpl implements _DeletePaymentMethod {
         setPaymentPin,
     TResult? Function()? requestDataExport,
     TResult? Function()? getDataExportStatus,
+    TResult? Function(String reportedUserId, String reason, String? context)?
+        reportUser,
   }) {
     return deletePaymentMethod?.call(id);
   }
@@ -3450,6 +3595,8 @@ class _$DeletePaymentMethodImpl implements _DeletePaymentMethod {
         setPaymentPin,
     TResult Function()? requestDataExport,
     TResult Function()? getDataExportStatus,
+    TResult Function(String reportedUserId, String reason, String? context)?
+        reportUser,
     required TResult orElse(),
   }) {
     if (deletePaymentMethod != null) {
@@ -3483,6 +3630,7 @@ class _$DeletePaymentMethodImpl implements _DeletePaymentMethod {
     required TResult Function(_SetPaymentPin value) setPaymentPin,
     required TResult Function(_RequestDataExport value) requestDataExport,
     required TResult Function(_GetDataExportStatus value) getDataExportStatus,
+    required TResult Function(_ReportUser value) reportUser,
   }) {
     return deletePaymentMethod(this);
   }
@@ -3511,6 +3659,7 @@ class _$DeletePaymentMethodImpl implements _DeletePaymentMethod {
     TResult? Function(_SetPaymentPin value)? setPaymentPin,
     TResult? Function(_RequestDataExport value)? requestDataExport,
     TResult? Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult? Function(_ReportUser value)? reportUser,
   }) {
     return deletePaymentMethod?.call(this);
   }
@@ -3539,6 +3688,7 @@ class _$DeletePaymentMethodImpl implements _DeletePaymentMethod {
     TResult Function(_SetPaymentPin value)? setPaymentPin,
     TResult Function(_RequestDataExport value)? requestDataExport,
     TResult Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult Function(_ReportUser value)? reportUser,
     required TResult orElse(),
   }) {
     if (deletePaymentMethod != null) {
@@ -3660,6 +3810,9 @@ class _$SetPaymentPinImpl implements _SetPaymentPin {
         setPaymentPin,
     required TResult Function() requestDataExport,
     required TResult Function() getDataExportStatus,
+    required TResult Function(
+            String reportedUserId, String reason, String? context)
+        reportUser,
   }) {
     return setPaymentPin(pin, currentPin, otp);
   }
@@ -3688,6 +3841,8 @@ class _$SetPaymentPinImpl implements _SetPaymentPin {
         setPaymentPin,
     TResult? Function()? requestDataExport,
     TResult? Function()? getDataExportStatus,
+    TResult? Function(String reportedUserId, String reason, String? context)?
+        reportUser,
   }) {
     return setPaymentPin?.call(pin, currentPin, otp);
   }
@@ -3716,6 +3871,8 @@ class _$SetPaymentPinImpl implements _SetPaymentPin {
         setPaymentPin,
     TResult Function()? requestDataExport,
     TResult Function()? getDataExportStatus,
+    TResult Function(String reportedUserId, String reason, String? context)?
+        reportUser,
     required TResult orElse(),
   }) {
     if (setPaymentPin != null) {
@@ -3749,6 +3906,7 @@ class _$SetPaymentPinImpl implements _SetPaymentPin {
     required TResult Function(_SetPaymentPin value) setPaymentPin,
     required TResult Function(_RequestDataExport value) requestDataExport,
     required TResult Function(_GetDataExportStatus value) getDataExportStatus,
+    required TResult Function(_ReportUser value) reportUser,
   }) {
     return setPaymentPin(this);
   }
@@ -3777,6 +3935,7 @@ class _$SetPaymentPinImpl implements _SetPaymentPin {
     TResult? Function(_SetPaymentPin value)? setPaymentPin,
     TResult? Function(_RequestDataExport value)? requestDataExport,
     TResult? Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult? Function(_ReportUser value)? reportUser,
   }) {
     return setPaymentPin?.call(this);
   }
@@ -3805,6 +3964,7 @@ class _$SetPaymentPinImpl implements _SetPaymentPin {
     TResult Function(_SetPaymentPin value)? setPaymentPin,
     TResult Function(_RequestDataExport value)? requestDataExport,
     TResult Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult Function(_ReportUser value)? reportUser,
     required TResult orElse(),
   }) {
     if (setPaymentPin != null) {
@@ -3887,6 +4047,9 @@ class _$RequestDataExportImpl implements _RequestDataExport {
         setPaymentPin,
     required TResult Function() requestDataExport,
     required TResult Function() getDataExportStatus,
+    required TResult Function(
+            String reportedUserId, String reason, String? context)
+        reportUser,
   }) {
     return requestDataExport();
   }
@@ -3915,6 +4078,8 @@ class _$RequestDataExportImpl implements _RequestDataExport {
         setPaymentPin,
     TResult? Function()? requestDataExport,
     TResult? Function()? getDataExportStatus,
+    TResult? Function(String reportedUserId, String reason, String? context)?
+        reportUser,
   }) {
     return requestDataExport?.call();
   }
@@ -3943,6 +4108,8 @@ class _$RequestDataExportImpl implements _RequestDataExport {
         setPaymentPin,
     TResult Function()? requestDataExport,
     TResult Function()? getDataExportStatus,
+    TResult Function(String reportedUserId, String reason, String? context)?
+        reportUser,
     required TResult orElse(),
   }) {
     if (requestDataExport != null) {
@@ -3976,6 +4143,7 @@ class _$RequestDataExportImpl implements _RequestDataExport {
     required TResult Function(_SetPaymentPin value) setPaymentPin,
     required TResult Function(_RequestDataExport value) requestDataExport,
     required TResult Function(_GetDataExportStatus value) getDataExportStatus,
+    required TResult Function(_ReportUser value) reportUser,
   }) {
     return requestDataExport(this);
   }
@@ -4004,6 +4172,7 @@ class _$RequestDataExportImpl implements _RequestDataExport {
     TResult? Function(_SetPaymentPin value)? setPaymentPin,
     TResult? Function(_RequestDataExport value)? requestDataExport,
     TResult? Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult? Function(_ReportUser value)? reportUser,
   }) {
     return requestDataExport?.call(this);
   }
@@ -4032,6 +4201,7 @@ class _$RequestDataExportImpl implements _RequestDataExport {
     TResult Function(_SetPaymentPin value)? setPaymentPin,
     TResult Function(_RequestDataExport value)? requestDataExport,
     TResult Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult Function(_ReportUser value)? reportUser,
     required TResult orElse(),
   }) {
     if (requestDataExport != null) {
@@ -4105,6 +4275,9 @@ class _$GetDataExportStatusImpl implements _GetDataExportStatus {
         setPaymentPin,
     required TResult Function() requestDataExport,
     required TResult Function() getDataExportStatus,
+    required TResult Function(
+            String reportedUserId, String reason, String? context)
+        reportUser,
   }) {
     return getDataExportStatus();
   }
@@ -4133,6 +4306,8 @@ class _$GetDataExportStatusImpl implements _GetDataExportStatus {
         setPaymentPin,
     TResult? Function()? requestDataExport,
     TResult? Function()? getDataExportStatus,
+    TResult? Function(String reportedUserId, String reason, String? context)?
+        reportUser,
   }) {
     return getDataExportStatus?.call();
   }
@@ -4161,6 +4336,8 @@ class _$GetDataExportStatusImpl implements _GetDataExportStatus {
         setPaymentPin,
     TResult Function()? requestDataExport,
     TResult Function()? getDataExportStatus,
+    TResult Function(String reportedUserId, String reason, String? context)?
+        reportUser,
     required TResult orElse(),
   }) {
     if (getDataExportStatus != null) {
@@ -4194,6 +4371,7 @@ class _$GetDataExportStatusImpl implements _GetDataExportStatus {
     required TResult Function(_SetPaymentPin value) setPaymentPin,
     required TResult Function(_RequestDataExport value) requestDataExport,
     required TResult Function(_GetDataExportStatus value) getDataExportStatus,
+    required TResult Function(_ReportUser value) reportUser,
   }) {
     return getDataExportStatus(this);
   }
@@ -4222,6 +4400,7 @@ class _$GetDataExportStatusImpl implements _GetDataExportStatus {
     TResult? Function(_SetPaymentPin value)? setPaymentPin,
     TResult? Function(_RequestDataExport value)? requestDataExport,
     TResult? Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult? Function(_ReportUser value)? reportUser,
   }) {
     return getDataExportStatus?.call(this);
   }
@@ -4250,6 +4429,7 @@ class _$GetDataExportStatusImpl implements _GetDataExportStatus {
     TResult Function(_SetPaymentPin value)? setPaymentPin,
     TResult Function(_RequestDataExport value)? requestDataExport,
     TResult Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult Function(_ReportUser value)? reportUser,
     required TResult orElse(),
   }) {
     if (getDataExportStatus != null) {
@@ -4261,6 +4441,287 @@ class _$GetDataExportStatusImpl implements _GetDataExportStatus {
 
 abstract class _GetDataExportStatus implements SettingsEvent {
   const factory _GetDataExportStatus() = _$GetDataExportStatusImpl;
+}
+
+/// @nodoc
+abstract class _$$ReportUserImplCopyWith<$Res> {
+  factory _$$ReportUserImplCopyWith(
+          _$ReportUserImpl value, $Res Function(_$ReportUserImpl) then) =
+      __$$ReportUserImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String reportedUserId, String reason, String? context});
+}
+
+/// @nodoc
+class __$$ReportUserImplCopyWithImpl<$Res>
+    extends _$SettingsEventCopyWithImpl<$Res, _$ReportUserImpl>
+    implements _$$ReportUserImplCopyWith<$Res> {
+  __$$ReportUserImplCopyWithImpl(
+      _$ReportUserImpl _value, $Res Function(_$ReportUserImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? reportedUserId = null,
+    Object? reason = null,
+    Object? context = freezed,
+  }) {
+    return _then(_$ReportUserImpl(
+      reportedUserId: null == reportedUserId
+          ? _value.reportedUserId
+          : reportedUserId // ignore: cast_nullable_to_non_nullable
+              as String,
+      reason: null == reason
+          ? _value.reason
+          : reason // ignore: cast_nullable_to_non_nullable
+              as String,
+      context: freezed == context
+          ? _value.context
+          : context // ignore: cast_nullable_to_non_nullable
+              as String?,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ReportUserImpl implements _ReportUser {
+  const _$ReportUserImpl(
+      {required this.reportedUserId, required this.reason, this.context});
+
+  @override
+  final String reportedUserId;
+  @override
+  final String reason;
+  @override
+  final String? context;
+
+  @override
+  String toString() {
+    return 'SettingsEvent.reportUser(reportedUserId: $reportedUserId, reason: $reason, context: $context)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ReportUserImpl &&
+            (identical(other.reportedUserId, reportedUserId) ||
+                other.reportedUserId == reportedUserId) &&
+            (identical(other.reason, reason) || other.reason == reason) &&
+            (identical(other.context, context) || other.context == context));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, reportedUserId, reason, context);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ReportUserImplCopyWith<_$ReportUserImpl> get copyWith =>
+      __$$ReportUserImplCopyWithImpl<_$ReportUserImpl>(this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() started,
+    required TResult Function(bool? refresh) fetchNotificationPreferences,
+    required TResult Function(UpdateSettingsPayload preferences)
+        saveNotificationPreferences,
+    required TResult Function() fetchBlockedUsers,
+    required TResult Function(String provider) linkSocialAccount,
+    required TResult Function(String accountId) unlinkSocialAccount,
+    required TResult Function(String? reason) deleteAccount,
+    required TResult Function(String userId) blockUser,
+    required TResult Function() getNotificationPreferencesV2,
+    required TResult Function(NotificationPreferences preferences)
+        updateNotificationPreferencesV2,
+    required TResult Function() getPrivacySettings,
+    required TResult Function(PrivacySettings settings, String? otp)
+        updatePrivacySettings,
+    required TResult Function() getPaymentMethods,
+    required TResult Function(String id) deletePaymentMethod,
+    required TResult Function(String pin, String? currentPin, String? otp)
+        setPaymentPin,
+    required TResult Function() requestDataExport,
+    required TResult Function() getDataExportStatus,
+    required TResult Function(
+            String reportedUserId, String reason, String? context)
+        reportUser,
+  }) {
+    return reportUser(reportedUserId, reason, context);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? started,
+    TResult? Function(bool? refresh)? fetchNotificationPreferences,
+    TResult? Function(UpdateSettingsPayload preferences)?
+        saveNotificationPreferences,
+    TResult? Function()? fetchBlockedUsers,
+    TResult? Function(String provider)? linkSocialAccount,
+    TResult? Function(String accountId)? unlinkSocialAccount,
+    TResult? Function(String? reason)? deleteAccount,
+    TResult? Function(String userId)? blockUser,
+    TResult? Function()? getNotificationPreferencesV2,
+    TResult? Function(NotificationPreferences preferences)?
+        updateNotificationPreferencesV2,
+    TResult? Function()? getPrivacySettings,
+    TResult? Function(PrivacySettings settings, String? otp)?
+        updatePrivacySettings,
+    TResult? Function()? getPaymentMethods,
+    TResult? Function(String id)? deletePaymentMethod,
+    TResult? Function(String pin, String? currentPin, String? otp)?
+        setPaymentPin,
+    TResult? Function()? requestDataExport,
+    TResult? Function()? getDataExportStatus,
+    TResult? Function(String reportedUserId, String reason, String? context)?
+        reportUser,
+  }) {
+    return reportUser?.call(reportedUserId, reason, context);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? started,
+    TResult Function(bool? refresh)? fetchNotificationPreferences,
+    TResult Function(UpdateSettingsPayload preferences)?
+        saveNotificationPreferences,
+    TResult Function()? fetchBlockedUsers,
+    TResult Function(String provider)? linkSocialAccount,
+    TResult Function(String accountId)? unlinkSocialAccount,
+    TResult Function(String? reason)? deleteAccount,
+    TResult Function(String userId)? blockUser,
+    TResult Function()? getNotificationPreferencesV2,
+    TResult Function(NotificationPreferences preferences)?
+        updateNotificationPreferencesV2,
+    TResult Function()? getPrivacySettings,
+    TResult Function(PrivacySettings settings, String? otp)?
+        updatePrivacySettings,
+    TResult Function()? getPaymentMethods,
+    TResult Function(String id)? deletePaymentMethod,
+    TResult Function(String pin, String? currentPin, String? otp)?
+        setPaymentPin,
+    TResult Function()? requestDataExport,
+    TResult Function()? getDataExportStatus,
+    TResult Function(String reportedUserId, String reason, String? context)?
+        reportUser,
+    required TResult orElse(),
+  }) {
+    if (reportUser != null) {
+      return reportUser(reportedUserId, reason, context);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Started value) started,
+    required TResult Function(_FetchNotificationPreferences value)
+        fetchNotificationPreferences,
+    required TResult Function(_SaveNotificationPreferences value)
+        saveNotificationPreferences,
+    required TResult Function(_FetchBlockedUsers value) fetchBlockedUsers,
+    required TResult Function(_LinkSocialAccount value) linkSocialAccount,
+    required TResult Function(_UnlinkSocialAccount value) unlinkSocialAccount,
+    required TResult Function(_DeleteAccount value) deleteAccount,
+    required TResult Function(_BlockUser value) blockUser,
+    required TResult Function(_GetNotificationPreferencesV2 value)
+        getNotificationPreferencesV2,
+    required TResult Function(_UpdateNotificationPreferencesV2 value)
+        updateNotificationPreferencesV2,
+    required TResult Function(_GetPrivacySettings value) getPrivacySettings,
+    required TResult Function(_UpdatePrivacySettings value)
+        updatePrivacySettings,
+    required TResult Function(_GetPaymentMethods value) getPaymentMethods,
+    required TResult Function(_DeletePaymentMethod value) deletePaymentMethod,
+    required TResult Function(_SetPaymentPin value) setPaymentPin,
+    required TResult Function(_RequestDataExport value) requestDataExport,
+    required TResult Function(_GetDataExportStatus value) getDataExportStatus,
+    required TResult Function(_ReportUser value) reportUser,
+  }) {
+    return reportUser(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Started value)? started,
+    TResult? Function(_FetchNotificationPreferences value)?
+        fetchNotificationPreferences,
+    TResult? Function(_SaveNotificationPreferences value)?
+        saveNotificationPreferences,
+    TResult? Function(_FetchBlockedUsers value)? fetchBlockedUsers,
+    TResult? Function(_LinkSocialAccount value)? linkSocialAccount,
+    TResult? Function(_UnlinkSocialAccount value)? unlinkSocialAccount,
+    TResult? Function(_DeleteAccount value)? deleteAccount,
+    TResult? Function(_BlockUser value)? blockUser,
+    TResult? Function(_GetNotificationPreferencesV2 value)?
+        getNotificationPreferencesV2,
+    TResult? Function(_UpdateNotificationPreferencesV2 value)?
+        updateNotificationPreferencesV2,
+    TResult? Function(_GetPrivacySettings value)? getPrivacySettings,
+    TResult? Function(_UpdatePrivacySettings value)? updatePrivacySettings,
+    TResult? Function(_GetPaymentMethods value)? getPaymentMethods,
+    TResult? Function(_DeletePaymentMethod value)? deletePaymentMethod,
+    TResult? Function(_SetPaymentPin value)? setPaymentPin,
+    TResult? Function(_RequestDataExport value)? requestDataExport,
+    TResult? Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult? Function(_ReportUser value)? reportUser,
+  }) {
+    return reportUser?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Started value)? started,
+    TResult Function(_FetchNotificationPreferences value)?
+        fetchNotificationPreferences,
+    TResult Function(_SaveNotificationPreferences value)?
+        saveNotificationPreferences,
+    TResult Function(_FetchBlockedUsers value)? fetchBlockedUsers,
+    TResult Function(_LinkSocialAccount value)? linkSocialAccount,
+    TResult Function(_UnlinkSocialAccount value)? unlinkSocialAccount,
+    TResult Function(_DeleteAccount value)? deleteAccount,
+    TResult Function(_BlockUser value)? blockUser,
+    TResult Function(_GetNotificationPreferencesV2 value)?
+        getNotificationPreferencesV2,
+    TResult Function(_UpdateNotificationPreferencesV2 value)?
+        updateNotificationPreferencesV2,
+    TResult Function(_GetPrivacySettings value)? getPrivacySettings,
+    TResult Function(_UpdatePrivacySettings value)? updatePrivacySettings,
+    TResult Function(_GetPaymentMethods value)? getPaymentMethods,
+    TResult Function(_DeletePaymentMethod value)? deletePaymentMethod,
+    TResult Function(_SetPaymentPin value)? setPaymentPin,
+    TResult Function(_RequestDataExport value)? requestDataExport,
+    TResult Function(_GetDataExportStatus value)? getDataExportStatus,
+    TResult Function(_ReportUser value)? reportUser,
+    required TResult orElse(),
+  }) {
+    if (reportUser != null) {
+      return reportUser(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ReportUser implements SettingsEvent {
+  const factory _ReportUser(
+      {required final String reportedUserId,
+      required final String reason,
+      final String? context}) = _$ReportUserImpl;
+
+  String get reportedUserId;
+  String get reason;
+  String? get context;
+  @JsonKey(ignore: true)
+  _$$ReportUserImplCopyWith<_$ReportUserImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -4326,6 +4787,9 @@ mixin _$SettingsState {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -4382,6 +4846,9 @@ mixin _$SettingsState {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -4438,6 +4905,9 @@ mixin _$SettingsState {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -4531,6 +5001,9 @@ mixin _$SettingsState {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -4623,6 +5096,9 @@ mixin _$SettingsState {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -4703,6 +5179,9 @@ mixin _$SettingsState {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -4823,6 +5302,9 @@ class _$InitialImpl implements _Initial {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return initial();
   }
@@ -4882,6 +5364,9 @@ class _$InitialImpl implements _Initial {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return initial?.call();
   }
@@ -4941,6 +5426,9 @@ class _$InitialImpl implements _Initial {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -5040,6 +5528,9 @@ class _$InitialImpl implements _Initial {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return initial(this);
   }
@@ -5135,6 +5626,9 @@ class _$InitialImpl implements _Initial {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return initial?.call(this);
   }
@@ -5218,6 +5712,9 @@ class _$InitialImpl implements _Initial {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -5333,6 +5830,9 @@ class _$FetchNotificationPreferencesLoadingImpl
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return fetchNotificationPreferencesLoading();
   }
@@ -5392,6 +5892,9 @@ class _$FetchNotificationPreferencesLoadingImpl
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return fetchNotificationPreferencesLoading?.call();
   }
@@ -5451,6 +5954,9 @@ class _$FetchNotificationPreferencesLoadingImpl
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (fetchNotificationPreferencesLoading != null) {
@@ -5550,6 +6056,9 @@ class _$FetchNotificationPreferencesLoadingImpl
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return fetchNotificationPreferencesLoading(this);
   }
@@ -5645,6 +6154,9 @@ class _$FetchNotificationPreferencesLoadingImpl
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return fetchNotificationPreferencesLoading?.call(this);
   }
@@ -5728,6 +6240,9 @@ class _$FetchNotificationPreferencesLoadingImpl
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (fetchNotificationPreferencesLoading != null) {
@@ -5872,6 +6387,9 @@ class _$FetchNotificationPreferencesSuccessImpl
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return fetchNotificationPreferencesSuccess(response);
   }
@@ -5931,6 +6449,9 @@ class _$FetchNotificationPreferencesSuccessImpl
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return fetchNotificationPreferencesSuccess?.call(response);
   }
@@ -5990,6 +6511,9 @@ class _$FetchNotificationPreferencesSuccessImpl
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (fetchNotificationPreferencesSuccess != null) {
@@ -6089,6 +6613,9 @@ class _$FetchNotificationPreferencesSuccessImpl
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return fetchNotificationPreferencesSuccess(this);
   }
@@ -6184,6 +6711,9 @@ class _$FetchNotificationPreferencesSuccessImpl
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return fetchNotificationPreferencesSuccess?.call(this);
   }
@@ -6267,6 +6797,9 @@ class _$FetchNotificationPreferencesSuccessImpl
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (fetchNotificationPreferencesSuccess != null) {
@@ -6417,6 +6950,9 @@ class _$FetchNotificationPreferencesFailureImpl
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return fetchNotificationPreferencesFailure(error);
   }
@@ -6476,6 +7012,9 @@ class _$FetchNotificationPreferencesFailureImpl
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return fetchNotificationPreferencesFailure?.call(error);
   }
@@ -6535,6 +7074,9 @@ class _$FetchNotificationPreferencesFailureImpl
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (fetchNotificationPreferencesFailure != null) {
@@ -6634,6 +7176,9 @@ class _$FetchNotificationPreferencesFailureImpl
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return fetchNotificationPreferencesFailure(this);
   }
@@ -6729,6 +7274,9 @@ class _$FetchNotificationPreferencesFailureImpl
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return fetchNotificationPreferencesFailure?.call(this);
   }
@@ -6812,6 +7360,9 @@ class _$FetchNotificationPreferencesFailureImpl
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (fetchNotificationPreferencesFailure != null) {
@@ -6934,6 +7485,9 @@ class _$SaveNotificationPreferencesLoadingImpl
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return saveNotificationPreferencesLoading();
   }
@@ -6993,6 +7547,9 @@ class _$SaveNotificationPreferencesLoadingImpl
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return saveNotificationPreferencesLoading?.call();
   }
@@ -7052,6 +7609,9 @@ class _$SaveNotificationPreferencesLoadingImpl
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (saveNotificationPreferencesLoading != null) {
@@ -7151,6 +7711,9 @@ class _$SaveNotificationPreferencesLoadingImpl
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return saveNotificationPreferencesLoading(this);
   }
@@ -7246,6 +7809,9 @@ class _$SaveNotificationPreferencesLoadingImpl
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return saveNotificationPreferencesLoading?.call(this);
   }
@@ -7329,6 +7895,9 @@ class _$SaveNotificationPreferencesLoadingImpl
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (saveNotificationPreferencesLoading != null) {
@@ -7473,6 +8042,9 @@ class _$SaveNotificationPreferencesSuccessImpl
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return saveNotificationPreferencesSuccess(response);
   }
@@ -7532,6 +8104,9 @@ class _$SaveNotificationPreferencesSuccessImpl
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return saveNotificationPreferencesSuccess?.call(response);
   }
@@ -7591,6 +8166,9 @@ class _$SaveNotificationPreferencesSuccessImpl
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (saveNotificationPreferencesSuccess != null) {
@@ -7690,6 +8268,9 @@ class _$SaveNotificationPreferencesSuccessImpl
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return saveNotificationPreferencesSuccess(this);
   }
@@ -7785,6 +8366,9 @@ class _$SaveNotificationPreferencesSuccessImpl
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return saveNotificationPreferencesSuccess?.call(this);
   }
@@ -7868,6 +8452,9 @@ class _$SaveNotificationPreferencesSuccessImpl
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (saveNotificationPreferencesSuccess != null) {
@@ -8017,6 +8604,9 @@ class _$SaveNotificationPreferencesFailureImpl
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return saveNotificationPreferencesFailure(error);
   }
@@ -8076,6 +8666,9 @@ class _$SaveNotificationPreferencesFailureImpl
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return saveNotificationPreferencesFailure?.call(error);
   }
@@ -8135,6 +8728,9 @@ class _$SaveNotificationPreferencesFailureImpl
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (saveNotificationPreferencesFailure != null) {
@@ -8234,6 +8830,9 @@ class _$SaveNotificationPreferencesFailureImpl
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return saveNotificationPreferencesFailure(this);
   }
@@ -8329,6 +8928,9 @@ class _$SaveNotificationPreferencesFailureImpl
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return saveNotificationPreferencesFailure?.call(this);
   }
@@ -8412,6 +9014,9 @@ class _$SaveNotificationPreferencesFailureImpl
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (saveNotificationPreferencesFailure != null) {
@@ -8532,6 +9137,9 @@ class _$FetchBlockedUsersLoadingImpl implements _FetchBlockedUsersLoading {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return fetchBlockedUsersLoading();
   }
@@ -8591,6 +9199,9 @@ class _$FetchBlockedUsersLoadingImpl implements _FetchBlockedUsersLoading {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return fetchBlockedUsersLoading?.call();
   }
@@ -8650,6 +9261,9 @@ class _$FetchBlockedUsersLoadingImpl implements _FetchBlockedUsersLoading {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (fetchBlockedUsersLoading != null) {
@@ -8749,6 +9363,9 @@ class _$FetchBlockedUsersLoadingImpl implements _FetchBlockedUsersLoading {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return fetchBlockedUsersLoading(this);
   }
@@ -8844,6 +9461,9 @@ class _$FetchBlockedUsersLoadingImpl implements _FetchBlockedUsersLoading {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return fetchBlockedUsersLoading?.call(this);
   }
@@ -8927,6 +9547,9 @@ class _$FetchBlockedUsersLoadingImpl implements _FetchBlockedUsersLoading {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (fetchBlockedUsersLoading != null) {
@@ -9067,6 +9690,9 @@ class _$FetchBlockedUsersSuccessImpl implements _FetchBlockedUsersSuccess {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return fetchBlockedUsersSuccess(response);
   }
@@ -9126,6 +9752,9 @@ class _$FetchBlockedUsersSuccessImpl implements _FetchBlockedUsersSuccess {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return fetchBlockedUsersSuccess?.call(response);
   }
@@ -9185,6 +9814,9 @@ class _$FetchBlockedUsersSuccessImpl implements _FetchBlockedUsersSuccess {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (fetchBlockedUsersSuccess != null) {
@@ -9284,6 +9916,9 @@ class _$FetchBlockedUsersSuccessImpl implements _FetchBlockedUsersSuccess {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return fetchBlockedUsersSuccess(this);
   }
@@ -9379,6 +10014,9 @@ class _$FetchBlockedUsersSuccessImpl implements _FetchBlockedUsersSuccess {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return fetchBlockedUsersSuccess?.call(this);
   }
@@ -9462,6 +10100,9 @@ class _$FetchBlockedUsersSuccessImpl implements _FetchBlockedUsersSuccess {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (fetchBlockedUsersSuccess != null) {
@@ -9607,6 +10248,9 @@ class _$FetchBlockedUsersFailureImpl implements _FetchBlockedUsersFailure {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return fetchBlockedUsersFailure(error);
   }
@@ -9666,6 +10310,9 @@ class _$FetchBlockedUsersFailureImpl implements _FetchBlockedUsersFailure {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return fetchBlockedUsersFailure?.call(error);
   }
@@ -9725,6 +10372,9 @@ class _$FetchBlockedUsersFailureImpl implements _FetchBlockedUsersFailure {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (fetchBlockedUsersFailure != null) {
@@ -9824,6 +10474,9 @@ class _$FetchBlockedUsersFailureImpl implements _FetchBlockedUsersFailure {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return fetchBlockedUsersFailure(this);
   }
@@ -9919,6 +10572,9 @@ class _$FetchBlockedUsersFailureImpl implements _FetchBlockedUsersFailure {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return fetchBlockedUsersFailure?.call(this);
   }
@@ -10002,6 +10658,9 @@ class _$FetchBlockedUsersFailureImpl implements _FetchBlockedUsersFailure {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (fetchBlockedUsersFailure != null) {
@@ -10121,6 +10780,9 @@ class _$LinkSocialAccountLoadingImpl implements _LinkSocialAccountLoading {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return linkSocialAccountLoading();
   }
@@ -10180,6 +10842,9 @@ class _$LinkSocialAccountLoadingImpl implements _LinkSocialAccountLoading {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return linkSocialAccountLoading?.call();
   }
@@ -10239,6 +10904,9 @@ class _$LinkSocialAccountLoadingImpl implements _LinkSocialAccountLoading {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (linkSocialAccountLoading != null) {
@@ -10338,6 +11006,9 @@ class _$LinkSocialAccountLoadingImpl implements _LinkSocialAccountLoading {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return linkSocialAccountLoading(this);
   }
@@ -10433,6 +11104,9 @@ class _$LinkSocialAccountLoadingImpl implements _LinkSocialAccountLoading {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return linkSocialAccountLoading?.call(this);
   }
@@ -10516,6 +11190,9 @@ class _$LinkSocialAccountLoadingImpl implements _LinkSocialAccountLoading {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (linkSocialAccountLoading != null) {
@@ -10656,6 +11333,9 @@ class _$LinkSocialAccountSuccessImpl implements _LinkSocialAccountSuccess {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return linkSocialAccountSuccess(response);
   }
@@ -10715,6 +11395,9 @@ class _$LinkSocialAccountSuccessImpl implements _LinkSocialAccountSuccess {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return linkSocialAccountSuccess?.call(response);
   }
@@ -10774,6 +11457,9 @@ class _$LinkSocialAccountSuccessImpl implements _LinkSocialAccountSuccess {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (linkSocialAccountSuccess != null) {
@@ -10873,6 +11559,9 @@ class _$LinkSocialAccountSuccessImpl implements _LinkSocialAccountSuccess {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return linkSocialAccountSuccess(this);
   }
@@ -10968,6 +11657,9 @@ class _$LinkSocialAccountSuccessImpl implements _LinkSocialAccountSuccess {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return linkSocialAccountSuccess?.call(this);
   }
@@ -11051,6 +11743,9 @@ class _$LinkSocialAccountSuccessImpl implements _LinkSocialAccountSuccess {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (linkSocialAccountSuccess != null) {
@@ -11196,6 +11891,9 @@ class _$LinkSocialAccountFailureImpl implements _LinkSocialAccountFailure {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return linkSocialAccountFailure(error);
   }
@@ -11255,6 +11953,9 @@ class _$LinkSocialAccountFailureImpl implements _LinkSocialAccountFailure {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return linkSocialAccountFailure?.call(error);
   }
@@ -11314,6 +12015,9 @@ class _$LinkSocialAccountFailureImpl implements _LinkSocialAccountFailure {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (linkSocialAccountFailure != null) {
@@ -11413,6 +12117,9 @@ class _$LinkSocialAccountFailureImpl implements _LinkSocialAccountFailure {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return linkSocialAccountFailure(this);
   }
@@ -11508,6 +12215,9 @@ class _$LinkSocialAccountFailureImpl implements _LinkSocialAccountFailure {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return linkSocialAccountFailure?.call(this);
   }
@@ -11591,6 +12301,9 @@ class _$LinkSocialAccountFailureImpl implements _LinkSocialAccountFailure {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (linkSocialAccountFailure != null) {
@@ -11710,6 +12423,9 @@ class _$UnlinkSocialAccountLoadingImpl implements _UnlinkSocialAccountLoading {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return unlinkSocialAccountLoading();
   }
@@ -11769,6 +12485,9 @@ class _$UnlinkSocialAccountLoadingImpl implements _UnlinkSocialAccountLoading {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return unlinkSocialAccountLoading?.call();
   }
@@ -11828,6 +12547,9 @@ class _$UnlinkSocialAccountLoadingImpl implements _UnlinkSocialAccountLoading {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (unlinkSocialAccountLoading != null) {
@@ -11927,6 +12649,9 @@ class _$UnlinkSocialAccountLoadingImpl implements _UnlinkSocialAccountLoading {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return unlinkSocialAccountLoading(this);
   }
@@ -12022,6 +12747,9 @@ class _$UnlinkSocialAccountLoadingImpl implements _UnlinkSocialAccountLoading {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return unlinkSocialAccountLoading?.call(this);
   }
@@ -12105,6 +12833,9 @@ class _$UnlinkSocialAccountLoadingImpl implements _UnlinkSocialAccountLoading {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (unlinkSocialAccountLoading != null) {
@@ -12246,6 +12977,9 @@ class _$UnlinkSocialAccountSuccessImpl implements _UnlinkSocialAccountSuccess {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return unlinkSocialAccountSuccess(response);
   }
@@ -12305,6 +13039,9 @@ class _$UnlinkSocialAccountSuccessImpl implements _UnlinkSocialAccountSuccess {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return unlinkSocialAccountSuccess?.call(response);
   }
@@ -12364,6 +13101,9 @@ class _$UnlinkSocialAccountSuccessImpl implements _UnlinkSocialAccountSuccess {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (unlinkSocialAccountSuccess != null) {
@@ -12463,6 +13203,9 @@ class _$UnlinkSocialAccountSuccessImpl implements _UnlinkSocialAccountSuccess {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return unlinkSocialAccountSuccess(this);
   }
@@ -12558,6 +13301,9 @@ class _$UnlinkSocialAccountSuccessImpl implements _UnlinkSocialAccountSuccess {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return unlinkSocialAccountSuccess?.call(this);
   }
@@ -12641,6 +13387,9 @@ class _$UnlinkSocialAccountSuccessImpl implements _UnlinkSocialAccountSuccess {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (unlinkSocialAccountSuccess != null) {
@@ -12786,6 +13535,9 @@ class _$UnlinkSocialAccountFailureImpl implements _UnlinkSocialAccountFailure {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return unlinkSocialAccountFailure(error);
   }
@@ -12845,6 +13597,9 @@ class _$UnlinkSocialAccountFailureImpl implements _UnlinkSocialAccountFailure {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return unlinkSocialAccountFailure?.call(error);
   }
@@ -12904,6 +13659,9 @@ class _$UnlinkSocialAccountFailureImpl implements _UnlinkSocialAccountFailure {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (unlinkSocialAccountFailure != null) {
@@ -13003,6 +13761,9 @@ class _$UnlinkSocialAccountFailureImpl implements _UnlinkSocialAccountFailure {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return unlinkSocialAccountFailure(this);
   }
@@ -13098,6 +13859,9 @@ class _$UnlinkSocialAccountFailureImpl implements _UnlinkSocialAccountFailure {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return unlinkSocialAccountFailure?.call(this);
   }
@@ -13181,6 +13945,9 @@ class _$UnlinkSocialAccountFailureImpl implements _UnlinkSocialAccountFailure {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (unlinkSocialAccountFailure != null) {
@@ -13298,6 +14065,9 @@ class _$DeleteAccountLoadingImpl implements _DeleteAccountLoading {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return deleteAccountLoading();
   }
@@ -13357,6 +14127,9 @@ class _$DeleteAccountLoadingImpl implements _DeleteAccountLoading {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return deleteAccountLoading?.call();
   }
@@ -13416,6 +14189,9 @@ class _$DeleteAccountLoadingImpl implements _DeleteAccountLoading {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (deleteAccountLoading != null) {
@@ -13515,6 +14291,9 @@ class _$DeleteAccountLoadingImpl implements _DeleteAccountLoading {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return deleteAccountLoading(this);
   }
@@ -13610,6 +14389,9 @@ class _$DeleteAccountLoadingImpl implements _DeleteAccountLoading {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return deleteAccountLoading?.call(this);
   }
@@ -13693,6 +14475,9 @@ class _$DeleteAccountLoadingImpl implements _DeleteAccountLoading {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (deleteAccountLoading != null) {
@@ -13832,6 +14617,9 @@ class _$DeleteAccountSuccessImpl implements _DeleteAccountSuccess {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return deleteAccountSuccess(response);
   }
@@ -13891,6 +14679,9 @@ class _$DeleteAccountSuccessImpl implements _DeleteAccountSuccess {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return deleteAccountSuccess?.call(response);
   }
@@ -13950,6 +14741,9 @@ class _$DeleteAccountSuccessImpl implements _DeleteAccountSuccess {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (deleteAccountSuccess != null) {
@@ -14049,6 +14843,9 @@ class _$DeleteAccountSuccessImpl implements _DeleteAccountSuccess {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return deleteAccountSuccess(this);
   }
@@ -14144,6 +14941,9 @@ class _$DeleteAccountSuccessImpl implements _DeleteAccountSuccess {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return deleteAccountSuccess?.call(this);
   }
@@ -14227,6 +15027,9 @@ class _$DeleteAccountSuccessImpl implements _DeleteAccountSuccess {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (deleteAccountSuccess != null) {
@@ -14371,6 +15174,9 @@ class _$DeleteAccountFailureImpl implements _DeleteAccountFailure {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return deleteAccountFailure(error);
   }
@@ -14430,6 +15236,9 @@ class _$DeleteAccountFailureImpl implements _DeleteAccountFailure {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return deleteAccountFailure?.call(error);
   }
@@ -14489,6 +15298,9 @@ class _$DeleteAccountFailureImpl implements _DeleteAccountFailure {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (deleteAccountFailure != null) {
@@ -14588,6 +15400,9 @@ class _$DeleteAccountFailureImpl implements _DeleteAccountFailure {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return deleteAccountFailure(this);
   }
@@ -14683,6 +15498,9 @@ class _$DeleteAccountFailureImpl implements _DeleteAccountFailure {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return deleteAccountFailure?.call(this);
   }
@@ -14766,6 +15584,9 @@ class _$DeleteAccountFailureImpl implements _DeleteAccountFailure {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (deleteAccountFailure != null) {
@@ -14882,6 +15703,9 @@ class _$BlockUserLoadingImpl implements _BlockUserLoading {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return blockUserLoading();
   }
@@ -14941,6 +15765,9 @@ class _$BlockUserLoadingImpl implements _BlockUserLoading {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return blockUserLoading?.call();
   }
@@ -15000,6 +15827,9 @@ class _$BlockUserLoadingImpl implements _BlockUserLoading {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (blockUserLoading != null) {
@@ -15099,6 +15929,9 @@ class _$BlockUserLoadingImpl implements _BlockUserLoading {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return blockUserLoading(this);
   }
@@ -15194,6 +16027,9 @@ class _$BlockUserLoadingImpl implements _BlockUserLoading {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return blockUserLoading?.call(this);
   }
@@ -15277,6 +16113,9 @@ class _$BlockUserLoadingImpl implements _BlockUserLoading {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (blockUserLoading != null) {
@@ -15415,6 +16254,9 @@ class _$BlockUserSuccessImpl implements _BlockUserSuccess {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return blockUserSuccess(response);
   }
@@ -15474,6 +16316,9 @@ class _$BlockUserSuccessImpl implements _BlockUserSuccess {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return blockUserSuccess?.call(response);
   }
@@ -15533,6 +16378,9 @@ class _$BlockUserSuccessImpl implements _BlockUserSuccess {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (blockUserSuccess != null) {
@@ -15632,6 +16480,9 @@ class _$BlockUserSuccessImpl implements _BlockUserSuccess {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return blockUserSuccess(this);
   }
@@ -15727,6 +16578,9 @@ class _$BlockUserSuccessImpl implements _BlockUserSuccess {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return blockUserSuccess?.call(this);
   }
@@ -15810,6 +16664,9 @@ class _$BlockUserSuccessImpl implements _BlockUserSuccess {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (blockUserSuccess != null) {
@@ -15953,6 +16810,9 @@ class _$BlockUserFailureImpl implements _BlockUserFailure {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return blockUserFailure(error);
   }
@@ -16012,6 +16872,9 @@ class _$BlockUserFailureImpl implements _BlockUserFailure {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return blockUserFailure?.call(error);
   }
@@ -16071,6 +16934,9 @@ class _$BlockUserFailureImpl implements _BlockUserFailure {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (blockUserFailure != null) {
@@ -16170,6 +17036,9 @@ class _$BlockUserFailureImpl implements _BlockUserFailure {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return blockUserFailure(this);
   }
@@ -16265,6 +17134,9 @@ class _$BlockUserFailureImpl implements _BlockUserFailure {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return blockUserFailure?.call(this);
   }
@@ -16348,6 +17220,9 @@ class _$BlockUserFailureImpl implements _BlockUserFailure {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (blockUserFailure != null) {
@@ -16468,6 +17343,9 @@ class _$GetNotificationPreferencesV2LoadingImpl
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return getNotificationPreferencesV2Loading();
   }
@@ -16527,6 +17405,9 @@ class _$GetNotificationPreferencesV2LoadingImpl
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return getNotificationPreferencesV2Loading?.call();
   }
@@ -16586,6 +17467,9 @@ class _$GetNotificationPreferencesV2LoadingImpl
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (getNotificationPreferencesV2Loading != null) {
@@ -16685,6 +17569,9 @@ class _$GetNotificationPreferencesV2LoadingImpl
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return getNotificationPreferencesV2Loading(this);
   }
@@ -16780,6 +17667,9 @@ class _$GetNotificationPreferencesV2LoadingImpl
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return getNotificationPreferencesV2Loading?.call(this);
   }
@@ -16863,6 +17753,9 @@ class _$GetNotificationPreferencesV2LoadingImpl
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (getNotificationPreferencesV2Loading != null) {
@@ -17007,6 +17900,9 @@ class _$GetNotificationPreferencesV2SuccessImpl
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return getNotificationPreferencesV2Success(preferences);
   }
@@ -17066,6 +17962,9 @@ class _$GetNotificationPreferencesV2SuccessImpl
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return getNotificationPreferencesV2Success?.call(preferences);
   }
@@ -17125,6 +18024,9 @@ class _$GetNotificationPreferencesV2SuccessImpl
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (getNotificationPreferencesV2Success != null) {
@@ -17224,6 +18126,9 @@ class _$GetNotificationPreferencesV2SuccessImpl
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return getNotificationPreferencesV2Success(this);
   }
@@ -17319,6 +18224,9 @@ class _$GetNotificationPreferencesV2SuccessImpl
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return getNotificationPreferencesV2Success?.call(this);
   }
@@ -17402,6 +18310,9 @@ class _$GetNotificationPreferencesV2SuccessImpl
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (getNotificationPreferencesV2Success != null) {
@@ -17552,6 +18463,9 @@ class _$GetNotificationPreferencesV2FailureImpl
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return getNotificationPreferencesV2Failure(error);
   }
@@ -17611,6 +18525,9 @@ class _$GetNotificationPreferencesV2FailureImpl
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return getNotificationPreferencesV2Failure?.call(error);
   }
@@ -17670,6 +18587,9 @@ class _$GetNotificationPreferencesV2FailureImpl
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (getNotificationPreferencesV2Failure != null) {
@@ -17769,6 +18689,9 @@ class _$GetNotificationPreferencesV2FailureImpl
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return getNotificationPreferencesV2Failure(this);
   }
@@ -17864,6 +18787,9 @@ class _$GetNotificationPreferencesV2FailureImpl
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return getNotificationPreferencesV2Failure?.call(this);
   }
@@ -17947,6 +18873,9 @@ class _$GetNotificationPreferencesV2FailureImpl
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (getNotificationPreferencesV2Failure != null) {
@@ -18069,6 +18998,9 @@ class _$UpdateNotificationPreferencesV2LoadingImpl
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return updateNotificationPreferencesV2Loading();
   }
@@ -18128,6 +19060,9 @@ class _$UpdateNotificationPreferencesV2LoadingImpl
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return updateNotificationPreferencesV2Loading?.call();
   }
@@ -18187,6 +19122,9 @@ class _$UpdateNotificationPreferencesV2LoadingImpl
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (updateNotificationPreferencesV2Loading != null) {
@@ -18286,6 +19224,9 @@ class _$UpdateNotificationPreferencesV2LoadingImpl
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return updateNotificationPreferencesV2Loading(this);
   }
@@ -18381,6 +19322,9 @@ class _$UpdateNotificationPreferencesV2LoadingImpl
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return updateNotificationPreferencesV2Loading?.call(this);
   }
@@ -18464,6 +19408,9 @@ class _$UpdateNotificationPreferencesV2LoadingImpl
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (updateNotificationPreferencesV2Loading != null) {
@@ -18610,6 +19557,9 @@ class _$UpdateNotificationPreferencesV2SuccessImpl
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return updateNotificationPreferencesV2Success(preferences);
   }
@@ -18669,6 +19619,9 @@ class _$UpdateNotificationPreferencesV2SuccessImpl
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return updateNotificationPreferencesV2Success?.call(preferences);
   }
@@ -18728,6 +19681,9 @@ class _$UpdateNotificationPreferencesV2SuccessImpl
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (updateNotificationPreferencesV2Success != null) {
@@ -18827,6 +19783,9 @@ class _$UpdateNotificationPreferencesV2SuccessImpl
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return updateNotificationPreferencesV2Success(this);
   }
@@ -18922,6 +19881,9 @@ class _$UpdateNotificationPreferencesV2SuccessImpl
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return updateNotificationPreferencesV2Success?.call(this);
   }
@@ -19005,6 +19967,9 @@ class _$UpdateNotificationPreferencesV2SuccessImpl
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (updateNotificationPreferencesV2Success != null) {
@@ -19157,6 +20122,9 @@ class _$UpdateNotificationPreferencesV2FailureImpl
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return updateNotificationPreferencesV2Failure(error);
   }
@@ -19216,6 +20184,9 @@ class _$UpdateNotificationPreferencesV2FailureImpl
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return updateNotificationPreferencesV2Failure?.call(error);
   }
@@ -19275,6 +20246,9 @@ class _$UpdateNotificationPreferencesV2FailureImpl
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (updateNotificationPreferencesV2Failure != null) {
@@ -19374,6 +20348,9 @@ class _$UpdateNotificationPreferencesV2FailureImpl
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return updateNotificationPreferencesV2Failure(this);
   }
@@ -19469,6 +20446,9 @@ class _$UpdateNotificationPreferencesV2FailureImpl
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return updateNotificationPreferencesV2Failure?.call(this);
   }
@@ -19552,6 +20532,9 @@ class _$UpdateNotificationPreferencesV2FailureImpl
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (updateNotificationPreferencesV2Failure != null) {
@@ -19673,6 +20656,9 @@ class _$GetPrivacySettingsLoadingImpl implements _GetPrivacySettingsLoading {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return getPrivacySettingsLoading();
   }
@@ -19732,6 +20718,9 @@ class _$GetPrivacySettingsLoadingImpl implements _GetPrivacySettingsLoading {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return getPrivacySettingsLoading?.call();
   }
@@ -19791,6 +20780,9 @@ class _$GetPrivacySettingsLoadingImpl implements _GetPrivacySettingsLoading {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (getPrivacySettingsLoading != null) {
@@ -19890,6 +20882,9 @@ class _$GetPrivacySettingsLoadingImpl implements _GetPrivacySettingsLoading {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return getPrivacySettingsLoading(this);
   }
@@ -19985,6 +20980,9 @@ class _$GetPrivacySettingsLoadingImpl implements _GetPrivacySettingsLoading {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return getPrivacySettingsLoading?.call(this);
   }
@@ -20068,6 +21066,9 @@ class _$GetPrivacySettingsLoadingImpl implements _GetPrivacySettingsLoading {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (getPrivacySettingsLoading != null) {
@@ -20208,6 +21209,9 @@ class _$GetPrivacySettingsSuccessImpl implements _GetPrivacySettingsSuccess {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return getPrivacySettingsSuccess(settings);
   }
@@ -20267,6 +21271,9 @@ class _$GetPrivacySettingsSuccessImpl implements _GetPrivacySettingsSuccess {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return getPrivacySettingsSuccess?.call(settings);
   }
@@ -20326,6 +21333,9 @@ class _$GetPrivacySettingsSuccessImpl implements _GetPrivacySettingsSuccess {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (getPrivacySettingsSuccess != null) {
@@ -20425,6 +21435,9 @@ class _$GetPrivacySettingsSuccessImpl implements _GetPrivacySettingsSuccess {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return getPrivacySettingsSuccess(this);
   }
@@ -20520,6 +21533,9 @@ class _$GetPrivacySettingsSuccessImpl implements _GetPrivacySettingsSuccess {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return getPrivacySettingsSuccess?.call(this);
   }
@@ -20603,6 +21619,9 @@ class _$GetPrivacySettingsSuccessImpl implements _GetPrivacySettingsSuccess {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (getPrivacySettingsSuccess != null) {
@@ -20748,6 +21767,9 @@ class _$GetPrivacySettingsFailureImpl implements _GetPrivacySettingsFailure {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return getPrivacySettingsFailure(error);
   }
@@ -20807,6 +21829,9 @@ class _$GetPrivacySettingsFailureImpl implements _GetPrivacySettingsFailure {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return getPrivacySettingsFailure?.call(error);
   }
@@ -20866,6 +21891,9 @@ class _$GetPrivacySettingsFailureImpl implements _GetPrivacySettingsFailure {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (getPrivacySettingsFailure != null) {
@@ -20965,6 +21993,9 @@ class _$GetPrivacySettingsFailureImpl implements _GetPrivacySettingsFailure {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return getPrivacySettingsFailure(this);
   }
@@ -21060,6 +22091,9 @@ class _$GetPrivacySettingsFailureImpl implements _GetPrivacySettingsFailure {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return getPrivacySettingsFailure?.call(this);
   }
@@ -21143,6 +22177,9 @@ class _$GetPrivacySettingsFailureImpl implements _GetPrivacySettingsFailure {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (getPrivacySettingsFailure != null) {
@@ -21264,6 +22301,9 @@ class _$UpdatePrivacySettingsLoadingImpl
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return updatePrivacySettingsLoading();
   }
@@ -21323,6 +22363,9 @@ class _$UpdatePrivacySettingsLoadingImpl
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return updatePrivacySettingsLoading?.call();
   }
@@ -21382,6 +22425,9 @@ class _$UpdatePrivacySettingsLoadingImpl
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (updatePrivacySettingsLoading != null) {
@@ -21481,6 +22527,9 @@ class _$UpdatePrivacySettingsLoadingImpl
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return updatePrivacySettingsLoading(this);
   }
@@ -21576,6 +22625,9 @@ class _$UpdatePrivacySettingsLoadingImpl
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return updatePrivacySettingsLoading?.call(this);
   }
@@ -21659,6 +22711,9 @@ class _$UpdatePrivacySettingsLoadingImpl
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (updatePrivacySettingsLoading != null) {
@@ -21803,6 +22858,9 @@ class _$UpdatePrivacySettingsSuccessImpl
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return updatePrivacySettingsSuccess(settings);
   }
@@ -21862,6 +22920,9 @@ class _$UpdatePrivacySettingsSuccessImpl
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return updatePrivacySettingsSuccess?.call(settings);
   }
@@ -21921,6 +22982,9 @@ class _$UpdatePrivacySettingsSuccessImpl
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (updatePrivacySettingsSuccess != null) {
@@ -22020,6 +23084,9 @@ class _$UpdatePrivacySettingsSuccessImpl
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return updatePrivacySettingsSuccess(this);
   }
@@ -22115,6 +23182,9 @@ class _$UpdatePrivacySettingsSuccessImpl
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return updatePrivacySettingsSuccess?.call(this);
   }
@@ -22198,6 +23268,9 @@ class _$UpdatePrivacySettingsSuccessImpl
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (updatePrivacySettingsSuccess != null) {
@@ -22347,6 +23420,9 @@ class _$UpdatePrivacySettingsFailureImpl
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return updatePrivacySettingsFailure(error);
   }
@@ -22406,6 +23482,9 @@ class _$UpdatePrivacySettingsFailureImpl
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return updatePrivacySettingsFailure?.call(error);
   }
@@ -22465,6 +23544,9 @@ class _$UpdatePrivacySettingsFailureImpl
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (updatePrivacySettingsFailure != null) {
@@ -22564,6 +23646,9 @@ class _$UpdatePrivacySettingsFailureImpl
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return updatePrivacySettingsFailure(this);
   }
@@ -22659,6 +23744,9 @@ class _$UpdatePrivacySettingsFailureImpl
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return updatePrivacySettingsFailure?.call(this);
   }
@@ -22742,6 +23830,9 @@ class _$UpdatePrivacySettingsFailureImpl
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (updatePrivacySettingsFailure != null) {
@@ -22862,6 +23953,9 @@ class _$GetPaymentMethodsLoadingImpl implements _GetPaymentMethodsLoading {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return getPaymentMethodsLoading();
   }
@@ -22921,6 +24015,9 @@ class _$GetPaymentMethodsLoadingImpl implements _GetPaymentMethodsLoading {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return getPaymentMethodsLoading?.call();
   }
@@ -22980,6 +24077,9 @@ class _$GetPaymentMethodsLoadingImpl implements _GetPaymentMethodsLoading {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (getPaymentMethodsLoading != null) {
@@ -23079,6 +24179,9 @@ class _$GetPaymentMethodsLoadingImpl implements _GetPaymentMethodsLoading {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return getPaymentMethodsLoading(this);
   }
@@ -23174,6 +24277,9 @@ class _$GetPaymentMethodsLoadingImpl implements _GetPaymentMethodsLoading {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return getPaymentMethodsLoading?.call(this);
   }
@@ -23257,6 +24363,9 @@ class _$GetPaymentMethodsLoadingImpl implements _GetPaymentMethodsLoading {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (getPaymentMethodsLoading != null) {
@@ -23403,6 +24512,9 @@ class _$GetPaymentMethodsSuccessImpl implements _GetPaymentMethodsSuccess {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return getPaymentMethodsSuccess(methods);
   }
@@ -23462,6 +24574,9 @@ class _$GetPaymentMethodsSuccessImpl implements _GetPaymentMethodsSuccess {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return getPaymentMethodsSuccess?.call(methods);
   }
@@ -23521,6 +24636,9 @@ class _$GetPaymentMethodsSuccessImpl implements _GetPaymentMethodsSuccess {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (getPaymentMethodsSuccess != null) {
@@ -23620,6 +24738,9 @@ class _$GetPaymentMethodsSuccessImpl implements _GetPaymentMethodsSuccess {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return getPaymentMethodsSuccess(this);
   }
@@ -23715,6 +24836,9 @@ class _$GetPaymentMethodsSuccessImpl implements _GetPaymentMethodsSuccess {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return getPaymentMethodsSuccess?.call(this);
   }
@@ -23798,6 +24922,9 @@ class _$GetPaymentMethodsSuccessImpl implements _GetPaymentMethodsSuccess {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (getPaymentMethodsSuccess != null) {
@@ -23943,6 +25070,9 @@ class _$GetPaymentMethodsFailureImpl implements _GetPaymentMethodsFailure {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return getPaymentMethodsFailure(error);
   }
@@ -24002,6 +25132,9 @@ class _$GetPaymentMethodsFailureImpl implements _GetPaymentMethodsFailure {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return getPaymentMethodsFailure?.call(error);
   }
@@ -24061,6 +25194,9 @@ class _$GetPaymentMethodsFailureImpl implements _GetPaymentMethodsFailure {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (getPaymentMethodsFailure != null) {
@@ -24160,6 +25296,9 @@ class _$GetPaymentMethodsFailureImpl implements _GetPaymentMethodsFailure {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return getPaymentMethodsFailure(this);
   }
@@ -24255,6 +25394,9 @@ class _$GetPaymentMethodsFailureImpl implements _GetPaymentMethodsFailure {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return getPaymentMethodsFailure?.call(this);
   }
@@ -24338,6 +25480,9 @@ class _$GetPaymentMethodsFailureImpl implements _GetPaymentMethodsFailure {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (getPaymentMethodsFailure != null) {
@@ -24457,6 +25602,9 @@ class _$DeletePaymentMethodLoadingImpl implements _DeletePaymentMethodLoading {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return deletePaymentMethodLoading();
   }
@@ -24516,6 +25664,9 @@ class _$DeletePaymentMethodLoadingImpl implements _DeletePaymentMethodLoading {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return deletePaymentMethodLoading?.call();
   }
@@ -24575,6 +25726,9 @@ class _$DeletePaymentMethodLoadingImpl implements _DeletePaymentMethodLoading {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (deletePaymentMethodLoading != null) {
@@ -24674,6 +25828,9 @@ class _$DeletePaymentMethodLoadingImpl implements _DeletePaymentMethodLoading {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return deletePaymentMethodLoading(this);
   }
@@ -24769,6 +25926,9 @@ class _$DeletePaymentMethodLoadingImpl implements _DeletePaymentMethodLoading {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return deletePaymentMethodLoading?.call(this);
   }
@@ -24852,6 +26012,9 @@ class _$DeletePaymentMethodLoadingImpl implements _DeletePaymentMethodLoading {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (deletePaymentMethodLoading != null) {
@@ -24992,6 +26155,9 @@ class _$DeletePaymentMethodSuccessImpl implements _DeletePaymentMethodSuccess {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return deletePaymentMethodSuccess(id);
   }
@@ -25051,6 +26217,9 @@ class _$DeletePaymentMethodSuccessImpl implements _DeletePaymentMethodSuccess {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return deletePaymentMethodSuccess?.call(id);
   }
@@ -25110,6 +26279,9 @@ class _$DeletePaymentMethodSuccessImpl implements _DeletePaymentMethodSuccess {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (deletePaymentMethodSuccess != null) {
@@ -25209,6 +26381,9 @@ class _$DeletePaymentMethodSuccessImpl implements _DeletePaymentMethodSuccess {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return deletePaymentMethodSuccess(this);
   }
@@ -25304,6 +26479,9 @@ class _$DeletePaymentMethodSuccessImpl implements _DeletePaymentMethodSuccess {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return deletePaymentMethodSuccess?.call(this);
   }
@@ -25387,6 +26565,9 @@ class _$DeletePaymentMethodSuccessImpl implements _DeletePaymentMethodSuccess {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (deletePaymentMethodSuccess != null) {
@@ -25532,6 +26713,9 @@ class _$DeletePaymentMethodFailureImpl implements _DeletePaymentMethodFailure {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return deletePaymentMethodFailure(error);
   }
@@ -25591,6 +26775,9 @@ class _$DeletePaymentMethodFailureImpl implements _DeletePaymentMethodFailure {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return deletePaymentMethodFailure?.call(error);
   }
@@ -25650,6 +26837,9 @@ class _$DeletePaymentMethodFailureImpl implements _DeletePaymentMethodFailure {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (deletePaymentMethodFailure != null) {
@@ -25749,6 +26939,9 @@ class _$DeletePaymentMethodFailureImpl implements _DeletePaymentMethodFailure {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return deletePaymentMethodFailure(this);
   }
@@ -25844,6 +27037,9 @@ class _$DeletePaymentMethodFailureImpl implements _DeletePaymentMethodFailure {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return deletePaymentMethodFailure?.call(this);
   }
@@ -25927,6 +27123,9 @@ class _$DeletePaymentMethodFailureImpl implements _DeletePaymentMethodFailure {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (deletePaymentMethodFailure != null) {
@@ -26044,6 +27243,9 @@ class _$SetPaymentPinLoadingImpl implements _SetPaymentPinLoading {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return setPaymentPinLoading();
   }
@@ -26103,6 +27305,9 @@ class _$SetPaymentPinLoadingImpl implements _SetPaymentPinLoading {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return setPaymentPinLoading?.call();
   }
@@ -26162,6 +27367,9 @@ class _$SetPaymentPinLoadingImpl implements _SetPaymentPinLoading {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (setPaymentPinLoading != null) {
@@ -26261,6 +27469,9 @@ class _$SetPaymentPinLoadingImpl implements _SetPaymentPinLoading {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return setPaymentPinLoading(this);
   }
@@ -26356,6 +27567,9 @@ class _$SetPaymentPinLoadingImpl implements _SetPaymentPinLoading {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return setPaymentPinLoading?.call(this);
   }
@@ -26439,6 +27653,9 @@ class _$SetPaymentPinLoadingImpl implements _SetPaymentPinLoading {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (setPaymentPinLoading != null) {
@@ -26550,6 +27767,9 @@ class _$SetPaymentPinSuccessImpl implements _SetPaymentPinSuccess {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return setPaymentPinSuccess();
   }
@@ -26609,6 +27829,9 @@ class _$SetPaymentPinSuccessImpl implements _SetPaymentPinSuccess {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return setPaymentPinSuccess?.call();
   }
@@ -26668,6 +27891,9 @@ class _$SetPaymentPinSuccessImpl implements _SetPaymentPinSuccess {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (setPaymentPinSuccess != null) {
@@ -26767,6 +27993,9 @@ class _$SetPaymentPinSuccessImpl implements _SetPaymentPinSuccess {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return setPaymentPinSuccess(this);
   }
@@ -26862,6 +28091,9 @@ class _$SetPaymentPinSuccessImpl implements _SetPaymentPinSuccess {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return setPaymentPinSuccess?.call(this);
   }
@@ -26945,6 +28177,9 @@ class _$SetPaymentPinSuccessImpl implements _SetPaymentPinSuccess {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (setPaymentPinSuccess != null) {
@@ -27083,6 +28318,9 @@ class _$SetPaymentPinFailureImpl implements _SetPaymentPinFailure {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return setPaymentPinFailure(error);
   }
@@ -27142,6 +28380,9 @@ class _$SetPaymentPinFailureImpl implements _SetPaymentPinFailure {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return setPaymentPinFailure?.call(error);
   }
@@ -27201,6 +28442,9 @@ class _$SetPaymentPinFailureImpl implements _SetPaymentPinFailure {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (setPaymentPinFailure != null) {
@@ -27300,6 +28544,9 @@ class _$SetPaymentPinFailureImpl implements _SetPaymentPinFailure {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return setPaymentPinFailure(this);
   }
@@ -27395,6 +28642,9 @@ class _$SetPaymentPinFailureImpl implements _SetPaymentPinFailure {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return setPaymentPinFailure?.call(this);
   }
@@ -27478,6 +28728,9 @@ class _$SetPaymentPinFailureImpl implements _SetPaymentPinFailure {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (setPaymentPinFailure != null) {
@@ -27597,6 +28850,9 @@ class _$RequestDataExportLoadingImpl implements _RequestDataExportLoading {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return requestDataExportLoading();
   }
@@ -27656,6 +28912,9 @@ class _$RequestDataExportLoadingImpl implements _RequestDataExportLoading {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return requestDataExportLoading?.call();
   }
@@ -27715,6 +28974,9 @@ class _$RequestDataExportLoadingImpl implements _RequestDataExportLoading {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (requestDataExportLoading != null) {
@@ -27814,6 +29076,9 @@ class _$RequestDataExportLoadingImpl implements _RequestDataExportLoading {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return requestDataExportLoading(this);
   }
@@ -27909,6 +29174,9 @@ class _$RequestDataExportLoadingImpl implements _RequestDataExportLoading {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return requestDataExportLoading?.call(this);
   }
@@ -27992,6 +29260,9 @@ class _$RequestDataExportLoadingImpl implements _RequestDataExportLoading {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (requestDataExportLoading != null) {
@@ -28131,6 +29402,9 @@ class _$RequestDataExportSuccessImpl implements _RequestDataExportSuccess {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return requestDataExportSuccess(status);
   }
@@ -28190,6 +29464,9 @@ class _$RequestDataExportSuccessImpl implements _RequestDataExportSuccess {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return requestDataExportSuccess?.call(status);
   }
@@ -28249,6 +29526,9 @@ class _$RequestDataExportSuccessImpl implements _RequestDataExportSuccess {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (requestDataExportSuccess != null) {
@@ -28348,6 +29628,9 @@ class _$RequestDataExportSuccessImpl implements _RequestDataExportSuccess {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return requestDataExportSuccess(this);
   }
@@ -28443,6 +29726,9 @@ class _$RequestDataExportSuccessImpl implements _RequestDataExportSuccess {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return requestDataExportSuccess?.call(this);
   }
@@ -28526,6 +29812,9 @@ class _$RequestDataExportSuccessImpl implements _RequestDataExportSuccess {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (requestDataExportSuccess != null) {
@@ -28671,6 +29960,9 @@ class _$RequestDataExportFailureImpl implements _RequestDataExportFailure {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return requestDataExportFailure(error);
   }
@@ -28730,6 +30022,9 @@ class _$RequestDataExportFailureImpl implements _RequestDataExportFailure {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return requestDataExportFailure?.call(error);
   }
@@ -28789,6 +30084,9 @@ class _$RequestDataExportFailureImpl implements _RequestDataExportFailure {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (requestDataExportFailure != null) {
@@ -28888,6 +30186,9 @@ class _$RequestDataExportFailureImpl implements _RequestDataExportFailure {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return requestDataExportFailure(this);
   }
@@ -28983,6 +30284,9 @@ class _$RequestDataExportFailureImpl implements _RequestDataExportFailure {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return requestDataExportFailure?.call(this);
   }
@@ -29066,6 +30370,9 @@ class _$RequestDataExportFailureImpl implements _RequestDataExportFailure {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (requestDataExportFailure != null) {
@@ -29185,6 +30492,9 @@ class _$GetDataExportStatusLoadingImpl implements _GetDataExportStatusLoading {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return getDataExportStatusLoading();
   }
@@ -29244,6 +30554,9 @@ class _$GetDataExportStatusLoadingImpl implements _GetDataExportStatusLoading {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return getDataExportStatusLoading?.call();
   }
@@ -29303,6 +30616,9 @@ class _$GetDataExportStatusLoadingImpl implements _GetDataExportStatusLoading {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (getDataExportStatusLoading != null) {
@@ -29402,6 +30718,9 @@ class _$GetDataExportStatusLoadingImpl implements _GetDataExportStatusLoading {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return getDataExportStatusLoading(this);
   }
@@ -29497,6 +30816,9 @@ class _$GetDataExportStatusLoadingImpl implements _GetDataExportStatusLoading {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return getDataExportStatusLoading?.call(this);
   }
@@ -29580,6 +30902,9 @@ class _$GetDataExportStatusLoadingImpl implements _GetDataExportStatusLoading {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (getDataExportStatusLoading != null) {
@@ -29720,6 +31045,9 @@ class _$GetDataExportStatusSuccessImpl implements _GetDataExportStatusSuccess {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return getDataExportStatusSuccess(status);
   }
@@ -29779,6 +31107,9 @@ class _$GetDataExportStatusSuccessImpl implements _GetDataExportStatusSuccess {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return getDataExportStatusSuccess?.call(status);
   }
@@ -29838,6 +31169,9 @@ class _$GetDataExportStatusSuccessImpl implements _GetDataExportStatusSuccess {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (getDataExportStatusSuccess != null) {
@@ -29937,6 +31271,9 @@ class _$GetDataExportStatusSuccessImpl implements _GetDataExportStatusSuccess {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return getDataExportStatusSuccess(this);
   }
@@ -30032,6 +31369,9 @@ class _$GetDataExportStatusSuccessImpl implements _GetDataExportStatusSuccess {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return getDataExportStatusSuccess?.call(this);
   }
@@ -30115,6 +31455,9 @@ class _$GetDataExportStatusSuccessImpl implements _GetDataExportStatusSuccess {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (getDataExportStatusSuccess != null) {
@@ -30260,6 +31603,9 @@ class _$GetDataExportStatusFailureImpl implements _GetDataExportStatusFailure {
     required TResult Function(DataExportStatus status)
         getDataExportStatusSuccess,
     required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
   }) {
     return getDataExportStatusFailure(error);
   }
@@ -30319,6 +31665,9 @@ class _$GetDataExportStatusFailureImpl implements _GetDataExportStatusFailure {
     TResult? Function()? getDataExportStatusLoading,
     TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
   }) {
     return getDataExportStatusFailure?.call(error);
   }
@@ -30378,6 +31727,9 @@ class _$GetDataExportStatusFailureImpl implements _GetDataExportStatusFailure {
     TResult Function()? getDataExportStatusLoading,
     TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
     TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (getDataExportStatusFailure != null) {
@@ -30477,6 +31829,9 @@ class _$GetDataExportStatusFailureImpl implements _GetDataExportStatusFailure {
         getDataExportStatusSuccess,
     required TResult Function(_GetDataExportStatusFailure value)
         getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
   }) {
     return getDataExportStatusFailure(this);
   }
@@ -30572,6 +31927,9 @@ class _$GetDataExportStatusFailureImpl implements _GetDataExportStatusFailure {
         getDataExportStatusSuccess,
     TResult? Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
   }) {
     return getDataExportStatusFailure?.call(this);
   }
@@ -30655,6 +32013,9 @@ class _$GetDataExportStatusFailureImpl implements _GetDataExportStatusFailure {
         getDataExportStatusSuccess,
     TResult Function(_GetDataExportStatusFailure value)?
         getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
     required TResult orElse(),
   }) {
     if (getDataExportStatusFailure != null) {
@@ -30672,4 +32033,1606 @@ abstract class _GetDataExportStatusFailure implements SettingsState {
   @JsonKey(ignore: true)
   _$$GetDataExportStatusFailureImplCopyWith<_$GetDataExportStatusFailureImpl>
       get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class _$$ReportUserLoadingImplCopyWith<$Res> {
+  factory _$$ReportUserLoadingImplCopyWith(_$ReportUserLoadingImpl value,
+          $Res Function(_$ReportUserLoadingImpl) then) =
+      __$$ReportUserLoadingImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ReportUserLoadingImplCopyWithImpl<$Res>
+    extends _$SettingsStateCopyWithImpl<$Res, _$ReportUserLoadingImpl>
+    implements _$$ReportUserLoadingImplCopyWith<$Res> {
+  __$$ReportUserLoadingImplCopyWithImpl(_$ReportUserLoadingImpl _value,
+      $Res Function(_$ReportUserLoadingImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ReportUserLoadingImpl implements _ReportUserLoading {
+  const _$ReportUserLoadingImpl();
+
+  @override
+  String toString() {
+    return 'SettingsState.reportUserLoading()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ReportUserLoadingImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() fetchNotificationPreferencesLoading,
+    required TResult Function(NotificationsPreferenceResponse response)
+        fetchNotificationPreferencesSuccess,
+    required TResult Function(String error) fetchNotificationPreferencesFailure,
+    required TResult Function() saveNotificationPreferencesLoading,
+    required TResult Function(dynamic response)
+        saveNotificationPreferencesSuccess,
+    required TResult Function(String error) saveNotificationPreferencesFailure,
+    required TResult Function() fetchBlockedUsersLoading,
+    required TResult Function(BlockedUsersResponse response)
+        fetchBlockedUsersSuccess,
+    required TResult Function(String error) fetchBlockedUsersFailure,
+    required TResult Function() linkSocialAccountLoading,
+    required TResult Function(dynamic response) linkSocialAccountSuccess,
+    required TResult Function(String error) linkSocialAccountFailure,
+    required TResult Function() unlinkSocialAccountLoading,
+    required TResult Function(dynamic response) unlinkSocialAccountSuccess,
+    required TResult Function(String error) unlinkSocialAccountFailure,
+    required TResult Function() deleteAccountLoading,
+    required TResult Function(dynamic response) deleteAccountSuccess,
+    required TResult Function(String error) deleteAccountFailure,
+    required TResult Function() blockUserLoading,
+    required TResult Function(dynamic response) blockUserSuccess,
+    required TResult Function(String error) blockUserFailure,
+    required TResult Function() getNotificationPreferencesV2Loading,
+    required TResult Function(NotificationPreferences preferences)
+        getNotificationPreferencesV2Success,
+    required TResult Function(String error) getNotificationPreferencesV2Failure,
+    required TResult Function() updateNotificationPreferencesV2Loading,
+    required TResult Function(NotificationPreferences preferences)
+        updateNotificationPreferencesV2Success,
+    required TResult Function(String error)
+        updateNotificationPreferencesV2Failure,
+    required TResult Function() getPrivacySettingsLoading,
+    required TResult Function(PrivacySettings settings)
+        getPrivacySettingsSuccess,
+    required TResult Function(String error) getPrivacySettingsFailure,
+    required TResult Function() updatePrivacySettingsLoading,
+    required TResult Function(PrivacySettings settings)
+        updatePrivacySettingsSuccess,
+    required TResult Function(String error) updatePrivacySettingsFailure,
+    required TResult Function() getPaymentMethodsLoading,
+    required TResult Function(List<PaymentMethod> methods)
+        getPaymentMethodsSuccess,
+    required TResult Function(String error) getPaymentMethodsFailure,
+    required TResult Function() deletePaymentMethodLoading,
+    required TResult Function(String id) deletePaymentMethodSuccess,
+    required TResult Function(String error) deletePaymentMethodFailure,
+    required TResult Function() setPaymentPinLoading,
+    required TResult Function() setPaymentPinSuccess,
+    required TResult Function(String error) setPaymentPinFailure,
+    required TResult Function() requestDataExportLoading,
+    required TResult Function(DataExportStatus status) requestDataExportSuccess,
+    required TResult Function(String error) requestDataExportFailure,
+    required TResult Function() getDataExportStatusLoading,
+    required TResult Function(DataExportStatus status)
+        getDataExportStatusSuccess,
+    required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
+  }) {
+    return reportUserLoading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? fetchNotificationPreferencesLoading,
+    TResult? Function(NotificationsPreferenceResponse response)?
+        fetchNotificationPreferencesSuccess,
+    TResult? Function(String error)? fetchNotificationPreferencesFailure,
+    TResult? Function()? saveNotificationPreferencesLoading,
+    TResult? Function(dynamic response)? saveNotificationPreferencesSuccess,
+    TResult? Function(String error)? saveNotificationPreferencesFailure,
+    TResult? Function()? fetchBlockedUsersLoading,
+    TResult? Function(BlockedUsersResponse response)? fetchBlockedUsersSuccess,
+    TResult? Function(String error)? fetchBlockedUsersFailure,
+    TResult? Function()? linkSocialAccountLoading,
+    TResult? Function(dynamic response)? linkSocialAccountSuccess,
+    TResult? Function(String error)? linkSocialAccountFailure,
+    TResult? Function()? unlinkSocialAccountLoading,
+    TResult? Function(dynamic response)? unlinkSocialAccountSuccess,
+    TResult? Function(String error)? unlinkSocialAccountFailure,
+    TResult? Function()? deleteAccountLoading,
+    TResult? Function(dynamic response)? deleteAccountSuccess,
+    TResult? Function(String error)? deleteAccountFailure,
+    TResult? Function()? blockUserLoading,
+    TResult? Function(dynamic response)? blockUserSuccess,
+    TResult? Function(String error)? blockUserFailure,
+    TResult? Function()? getNotificationPreferencesV2Loading,
+    TResult? Function(NotificationPreferences preferences)?
+        getNotificationPreferencesV2Success,
+    TResult? Function(String error)? getNotificationPreferencesV2Failure,
+    TResult? Function()? updateNotificationPreferencesV2Loading,
+    TResult? Function(NotificationPreferences preferences)?
+        updateNotificationPreferencesV2Success,
+    TResult? Function(String error)? updateNotificationPreferencesV2Failure,
+    TResult? Function()? getPrivacySettingsLoading,
+    TResult? Function(PrivacySettings settings)? getPrivacySettingsSuccess,
+    TResult? Function(String error)? getPrivacySettingsFailure,
+    TResult? Function()? updatePrivacySettingsLoading,
+    TResult? Function(PrivacySettings settings)? updatePrivacySettingsSuccess,
+    TResult? Function(String error)? updatePrivacySettingsFailure,
+    TResult? Function()? getPaymentMethodsLoading,
+    TResult? Function(List<PaymentMethod> methods)? getPaymentMethodsSuccess,
+    TResult? Function(String error)? getPaymentMethodsFailure,
+    TResult? Function()? deletePaymentMethodLoading,
+    TResult? Function(String id)? deletePaymentMethodSuccess,
+    TResult? Function(String error)? deletePaymentMethodFailure,
+    TResult? Function()? setPaymentPinLoading,
+    TResult? Function()? setPaymentPinSuccess,
+    TResult? Function(String error)? setPaymentPinFailure,
+    TResult? Function()? requestDataExportLoading,
+    TResult? Function(DataExportStatus status)? requestDataExportSuccess,
+    TResult? Function(String error)? requestDataExportFailure,
+    TResult? Function()? getDataExportStatusLoading,
+    TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
+    TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
+  }) {
+    return reportUserLoading?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? fetchNotificationPreferencesLoading,
+    TResult Function(NotificationsPreferenceResponse response)?
+        fetchNotificationPreferencesSuccess,
+    TResult Function(String error)? fetchNotificationPreferencesFailure,
+    TResult Function()? saveNotificationPreferencesLoading,
+    TResult Function(dynamic response)? saveNotificationPreferencesSuccess,
+    TResult Function(String error)? saveNotificationPreferencesFailure,
+    TResult Function()? fetchBlockedUsersLoading,
+    TResult Function(BlockedUsersResponse response)? fetchBlockedUsersSuccess,
+    TResult Function(String error)? fetchBlockedUsersFailure,
+    TResult Function()? linkSocialAccountLoading,
+    TResult Function(dynamic response)? linkSocialAccountSuccess,
+    TResult Function(String error)? linkSocialAccountFailure,
+    TResult Function()? unlinkSocialAccountLoading,
+    TResult Function(dynamic response)? unlinkSocialAccountSuccess,
+    TResult Function(String error)? unlinkSocialAccountFailure,
+    TResult Function()? deleteAccountLoading,
+    TResult Function(dynamic response)? deleteAccountSuccess,
+    TResult Function(String error)? deleteAccountFailure,
+    TResult Function()? blockUserLoading,
+    TResult Function(dynamic response)? blockUserSuccess,
+    TResult Function(String error)? blockUserFailure,
+    TResult Function()? getNotificationPreferencesV2Loading,
+    TResult Function(NotificationPreferences preferences)?
+        getNotificationPreferencesV2Success,
+    TResult Function(String error)? getNotificationPreferencesV2Failure,
+    TResult Function()? updateNotificationPreferencesV2Loading,
+    TResult Function(NotificationPreferences preferences)?
+        updateNotificationPreferencesV2Success,
+    TResult Function(String error)? updateNotificationPreferencesV2Failure,
+    TResult Function()? getPrivacySettingsLoading,
+    TResult Function(PrivacySettings settings)? getPrivacySettingsSuccess,
+    TResult Function(String error)? getPrivacySettingsFailure,
+    TResult Function()? updatePrivacySettingsLoading,
+    TResult Function(PrivacySettings settings)? updatePrivacySettingsSuccess,
+    TResult Function(String error)? updatePrivacySettingsFailure,
+    TResult Function()? getPaymentMethodsLoading,
+    TResult Function(List<PaymentMethod> methods)? getPaymentMethodsSuccess,
+    TResult Function(String error)? getPaymentMethodsFailure,
+    TResult Function()? deletePaymentMethodLoading,
+    TResult Function(String id)? deletePaymentMethodSuccess,
+    TResult Function(String error)? deletePaymentMethodFailure,
+    TResult Function()? setPaymentPinLoading,
+    TResult Function()? setPaymentPinSuccess,
+    TResult Function(String error)? setPaymentPinFailure,
+    TResult Function()? requestDataExportLoading,
+    TResult Function(DataExportStatus status)? requestDataExportSuccess,
+    TResult Function(String error)? requestDataExportFailure,
+    TResult Function()? getDataExportStatusLoading,
+    TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
+    TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
+    required TResult orElse(),
+  }) {
+    if (reportUserLoading != null) {
+      return reportUserLoading();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_FetchNotificationPreferencesLoading value)
+        fetchNotificationPreferencesLoading,
+    required TResult Function(_FetchNotificationPreferencesSuccess value)
+        fetchNotificationPreferencesSuccess,
+    required TResult Function(_FetchNotificationPreferencesFailure value)
+        fetchNotificationPreferencesFailure,
+    required TResult Function(_SaveNotificationPreferencesLoading value)
+        saveNotificationPreferencesLoading,
+    required TResult Function(_SaveNotificationPreferencesSuccess value)
+        saveNotificationPreferencesSuccess,
+    required TResult Function(_SaveNotificationPreferencesFailure value)
+        saveNotificationPreferencesFailure,
+    required TResult Function(_FetchBlockedUsersLoading value)
+        fetchBlockedUsersLoading,
+    required TResult Function(_FetchBlockedUsersSuccess value)
+        fetchBlockedUsersSuccess,
+    required TResult Function(_FetchBlockedUsersFailure value)
+        fetchBlockedUsersFailure,
+    required TResult Function(_LinkSocialAccountLoading value)
+        linkSocialAccountLoading,
+    required TResult Function(_LinkSocialAccountSuccess value)
+        linkSocialAccountSuccess,
+    required TResult Function(_LinkSocialAccountFailure value)
+        linkSocialAccountFailure,
+    required TResult Function(_UnlinkSocialAccountLoading value)
+        unlinkSocialAccountLoading,
+    required TResult Function(_UnlinkSocialAccountSuccess value)
+        unlinkSocialAccountSuccess,
+    required TResult Function(_UnlinkSocialAccountFailure value)
+        unlinkSocialAccountFailure,
+    required TResult Function(_DeleteAccountLoading value) deleteAccountLoading,
+    required TResult Function(_DeleteAccountSuccess value) deleteAccountSuccess,
+    required TResult Function(_DeleteAccountFailure value) deleteAccountFailure,
+    required TResult Function(_BlockUserLoading value) blockUserLoading,
+    required TResult Function(_BlockUserSuccess value) blockUserSuccess,
+    required TResult Function(_BlockUserFailure value) blockUserFailure,
+    required TResult Function(_GetNotificationPreferencesV2Loading value)
+        getNotificationPreferencesV2Loading,
+    required TResult Function(_GetNotificationPreferencesV2Success value)
+        getNotificationPreferencesV2Success,
+    required TResult Function(_GetNotificationPreferencesV2Failure value)
+        getNotificationPreferencesV2Failure,
+    required TResult Function(_UpdateNotificationPreferencesV2Loading value)
+        updateNotificationPreferencesV2Loading,
+    required TResult Function(_UpdateNotificationPreferencesV2Success value)
+        updateNotificationPreferencesV2Success,
+    required TResult Function(_UpdateNotificationPreferencesV2Failure value)
+        updateNotificationPreferencesV2Failure,
+    required TResult Function(_GetPrivacySettingsLoading value)
+        getPrivacySettingsLoading,
+    required TResult Function(_GetPrivacySettingsSuccess value)
+        getPrivacySettingsSuccess,
+    required TResult Function(_GetPrivacySettingsFailure value)
+        getPrivacySettingsFailure,
+    required TResult Function(_UpdatePrivacySettingsLoading value)
+        updatePrivacySettingsLoading,
+    required TResult Function(_UpdatePrivacySettingsSuccess value)
+        updatePrivacySettingsSuccess,
+    required TResult Function(_UpdatePrivacySettingsFailure value)
+        updatePrivacySettingsFailure,
+    required TResult Function(_GetPaymentMethodsLoading value)
+        getPaymentMethodsLoading,
+    required TResult Function(_GetPaymentMethodsSuccess value)
+        getPaymentMethodsSuccess,
+    required TResult Function(_GetPaymentMethodsFailure value)
+        getPaymentMethodsFailure,
+    required TResult Function(_DeletePaymentMethodLoading value)
+        deletePaymentMethodLoading,
+    required TResult Function(_DeletePaymentMethodSuccess value)
+        deletePaymentMethodSuccess,
+    required TResult Function(_DeletePaymentMethodFailure value)
+        deletePaymentMethodFailure,
+    required TResult Function(_SetPaymentPinLoading value) setPaymentPinLoading,
+    required TResult Function(_SetPaymentPinSuccess value) setPaymentPinSuccess,
+    required TResult Function(_SetPaymentPinFailure value) setPaymentPinFailure,
+    required TResult Function(_RequestDataExportLoading value)
+        requestDataExportLoading,
+    required TResult Function(_RequestDataExportSuccess value)
+        requestDataExportSuccess,
+    required TResult Function(_RequestDataExportFailure value)
+        requestDataExportFailure,
+    required TResult Function(_GetDataExportStatusLoading value)
+        getDataExportStatusLoading,
+    required TResult Function(_GetDataExportStatusSuccess value)
+        getDataExportStatusSuccess,
+    required TResult Function(_GetDataExportStatusFailure value)
+        getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
+  }) {
+    return reportUserLoading(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_FetchNotificationPreferencesLoading value)?
+        fetchNotificationPreferencesLoading,
+    TResult? Function(_FetchNotificationPreferencesSuccess value)?
+        fetchNotificationPreferencesSuccess,
+    TResult? Function(_FetchNotificationPreferencesFailure value)?
+        fetchNotificationPreferencesFailure,
+    TResult? Function(_SaveNotificationPreferencesLoading value)?
+        saveNotificationPreferencesLoading,
+    TResult? Function(_SaveNotificationPreferencesSuccess value)?
+        saveNotificationPreferencesSuccess,
+    TResult? Function(_SaveNotificationPreferencesFailure value)?
+        saveNotificationPreferencesFailure,
+    TResult? Function(_FetchBlockedUsersLoading value)?
+        fetchBlockedUsersLoading,
+    TResult? Function(_FetchBlockedUsersSuccess value)?
+        fetchBlockedUsersSuccess,
+    TResult? Function(_FetchBlockedUsersFailure value)?
+        fetchBlockedUsersFailure,
+    TResult? Function(_LinkSocialAccountLoading value)?
+        linkSocialAccountLoading,
+    TResult? Function(_LinkSocialAccountSuccess value)?
+        linkSocialAccountSuccess,
+    TResult? Function(_LinkSocialAccountFailure value)?
+        linkSocialAccountFailure,
+    TResult? Function(_UnlinkSocialAccountLoading value)?
+        unlinkSocialAccountLoading,
+    TResult? Function(_UnlinkSocialAccountSuccess value)?
+        unlinkSocialAccountSuccess,
+    TResult? Function(_UnlinkSocialAccountFailure value)?
+        unlinkSocialAccountFailure,
+    TResult? Function(_DeleteAccountLoading value)? deleteAccountLoading,
+    TResult? Function(_DeleteAccountSuccess value)? deleteAccountSuccess,
+    TResult? Function(_DeleteAccountFailure value)? deleteAccountFailure,
+    TResult? Function(_BlockUserLoading value)? blockUserLoading,
+    TResult? Function(_BlockUserSuccess value)? blockUserSuccess,
+    TResult? Function(_BlockUserFailure value)? blockUserFailure,
+    TResult? Function(_GetNotificationPreferencesV2Loading value)?
+        getNotificationPreferencesV2Loading,
+    TResult? Function(_GetNotificationPreferencesV2Success value)?
+        getNotificationPreferencesV2Success,
+    TResult? Function(_GetNotificationPreferencesV2Failure value)?
+        getNotificationPreferencesV2Failure,
+    TResult? Function(_UpdateNotificationPreferencesV2Loading value)?
+        updateNotificationPreferencesV2Loading,
+    TResult? Function(_UpdateNotificationPreferencesV2Success value)?
+        updateNotificationPreferencesV2Success,
+    TResult? Function(_UpdateNotificationPreferencesV2Failure value)?
+        updateNotificationPreferencesV2Failure,
+    TResult? Function(_GetPrivacySettingsLoading value)?
+        getPrivacySettingsLoading,
+    TResult? Function(_GetPrivacySettingsSuccess value)?
+        getPrivacySettingsSuccess,
+    TResult? Function(_GetPrivacySettingsFailure value)?
+        getPrivacySettingsFailure,
+    TResult? Function(_UpdatePrivacySettingsLoading value)?
+        updatePrivacySettingsLoading,
+    TResult? Function(_UpdatePrivacySettingsSuccess value)?
+        updatePrivacySettingsSuccess,
+    TResult? Function(_UpdatePrivacySettingsFailure value)?
+        updatePrivacySettingsFailure,
+    TResult? Function(_GetPaymentMethodsLoading value)?
+        getPaymentMethodsLoading,
+    TResult? Function(_GetPaymentMethodsSuccess value)?
+        getPaymentMethodsSuccess,
+    TResult? Function(_GetPaymentMethodsFailure value)?
+        getPaymentMethodsFailure,
+    TResult? Function(_DeletePaymentMethodLoading value)?
+        deletePaymentMethodLoading,
+    TResult? Function(_DeletePaymentMethodSuccess value)?
+        deletePaymentMethodSuccess,
+    TResult? Function(_DeletePaymentMethodFailure value)?
+        deletePaymentMethodFailure,
+    TResult? Function(_SetPaymentPinLoading value)? setPaymentPinLoading,
+    TResult? Function(_SetPaymentPinSuccess value)? setPaymentPinSuccess,
+    TResult? Function(_SetPaymentPinFailure value)? setPaymentPinFailure,
+    TResult? Function(_RequestDataExportLoading value)?
+        requestDataExportLoading,
+    TResult? Function(_RequestDataExportSuccess value)?
+        requestDataExportSuccess,
+    TResult? Function(_RequestDataExportFailure value)?
+        requestDataExportFailure,
+    TResult? Function(_GetDataExportStatusLoading value)?
+        getDataExportStatusLoading,
+    TResult? Function(_GetDataExportStatusSuccess value)?
+        getDataExportStatusSuccess,
+    TResult? Function(_GetDataExportStatusFailure value)?
+        getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
+  }) {
+    return reportUserLoading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_FetchNotificationPreferencesLoading value)?
+        fetchNotificationPreferencesLoading,
+    TResult Function(_FetchNotificationPreferencesSuccess value)?
+        fetchNotificationPreferencesSuccess,
+    TResult Function(_FetchNotificationPreferencesFailure value)?
+        fetchNotificationPreferencesFailure,
+    TResult Function(_SaveNotificationPreferencesLoading value)?
+        saveNotificationPreferencesLoading,
+    TResult Function(_SaveNotificationPreferencesSuccess value)?
+        saveNotificationPreferencesSuccess,
+    TResult Function(_SaveNotificationPreferencesFailure value)?
+        saveNotificationPreferencesFailure,
+    TResult Function(_FetchBlockedUsersLoading value)? fetchBlockedUsersLoading,
+    TResult Function(_FetchBlockedUsersSuccess value)? fetchBlockedUsersSuccess,
+    TResult Function(_FetchBlockedUsersFailure value)? fetchBlockedUsersFailure,
+    TResult Function(_LinkSocialAccountLoading value)? linkSocialAccountLoading,
+    TResult Function(_LinkSocialAccountSuccess value)? linkSocialAccountSuccess,
+    TResult Function(_LinkSocialAccountFailure value)? linkSocialAccountFailure,
+    TResult Function(_UnlinkSocialAccountLoading value)?
+        unlinkSocialAccountLoading,
+    TResult Function(_UnlinkSocialAccountSuccess value)?
+        unlinkSocialAccountSuccess,
+    TResult Function(_UnlinkSocialAccountFailure value)?
+        unlinkSocialAccountFailure,
+    TResult Function(_DeleteAccountLoading value)? deleteAccountLoading,
+    TResult Function(_DeleteAccountSuccess value)? deleteAccountSuccess,
+    TResult Function(_DeleteAccountFailure value)? deleteAccountFailure,
+    TResult Function(_BlockUserLoading value)? blockUserLoading,
+    TResult Function(_BlockUserSuccess value)? blockUserSuccess,
+    TResult Function(_BlockUserFailure value)? blockUserFailure,
+    TResult Function(_GetNotificationPreferencesV2Loading value)?
+        getNotificationPreferencesV2Loading,
+    TResult Function(_GetNotificationPreferencesV2Success value)?
+        getNotificationPreferencesV2Success,
+    TResult Function(_GetNotificationPreferencesV2Failure value)?
+        getNotificationPreferencesV2Failure,
+    TResult Function(_UpdateNotificationPreferencesV2Loading value)?
+        updateNotificationPreferencesV2Loading,
+    TResult Function(_UpdateNotificationPreferencesV2Success value)?
+        updateNotificationPreferencesV2Success,
+    TResult Function(_UpdateNotificationPreferencesV2Failure value)?
+        updateNotificationPreferencesV2Failure,
+    TResult Function(_GetPrivacySettingsLoading value)?
+        getPrivacySettingsLoading,
+    TResult Function(_GetPrivacySettingsSuccess value)?
+        getPrivacySettingsSuccess,
+    TResult Function(_GetPrivacySettingsFailure value)?
+        getPrivacySettingsFailure,
+    TResult Function(_UpdatePrivacySettingsLoading value)?
+        updatePrivacySettingsLoading,
+    TResult Function(_UpdatePrivacySettingsSuccess value)?
+        updatePrivacySettingsSuccess,
+    TResult Function(_UpdatePrivacySettingsFailure value)?
+        updatePrivacySettingsFailure,
+    TResult Function(_GetPaymentMethodsLoading value)? getPaymentMethodsLoading,
+    TResult Function(_GetPaymentMethodsSuccess value)? getPaymentMethodsSuccess,
+    TResult Function(_GetPaymentMethodsFailure value)? getPaymentMethodsFailure,
+    TResult Function(_DeletePaymentMethodLoading value)?
+        deletePaymentMethodLoading,
+    TResult Function(_DeletePaymentMethodSuccess value)?
+        deletePaymentMethodSuccess,
+    TResult Function(_DeletePaymentMethodFailure value)?
+        deletePaymentMethodFailure,
+    TResult Function(_SetPaymentPinLoading value)? setPaymentPinLoading,
+    TResult Function(_SetPaymentPinSuccess value)? setPaymentPinSuccess,
+    TResult Function(_SetPaymentPinFailure value)? setPaymentPinFailure,
+    TResult Function(_RequestDataExportLoading value)? requestDataExportLoading,
+    TResult Function(_RequestDataExportSuccess value)? requestDataExportSuccess,
+    TResult Function(_RequestDataExportFailure value)? requestDataExportFailure,
+    TResult Function(_GetDataExportStatusLoading value)?
+        getDataExportStatusLoading,
+    TResult Function(_GetDataExportStatusSuccess value)?
+        getDataExportStatusSuccess,
+    TResult Function(_GetDataExportStatusFailure value)?
+        getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
+    required TResult orElse(),
+  }) {
+    if (reportUserLoading != null) {
+      return reportUserLoading(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ReportUserLoading implements SettingsState {
+  const factory _ReportUserLoading() = _$ReportUserLoadingImpl;
+}
+
+/// @nodoc
+abstract class _$$ReportUserSuccessImplCopyWith<$Res> {
+  factory _$$ReportUserSuccessImplCopyWith(_$ReportUserSuccessImpl value,
+          $Res Function(_$ReportUserSuccessImpl) then) =
+      __$$ReportUserSuccessImplCopyWithImpl<$Res>;
+}
+
+/// @nodoc
+class __$$ReportUserSuccessImplCopyWithImpl<$Res>
+    extends _$SettingsStateCopyWithImpl<$Res, _$ReportUserSuccessImpl>
+    implements _$$ReportUserSuccessImplCopyWith<$Res> {
+  __$$ReportUserSuccessImplCopyWithImpl(_$ReportUserSuccessImpl _value,
+      $Res Function(_$ReportUserSuccessImpl) _then)
+      : super(_value, _then);
+}
+
+/// @nodoc
+
+class _$ReportUserSuccessImpl implements _ReportUserSuccess {
+  const _$ReportUserSuccessImpl();
+
+  @override
+  String toString() {
+    return 'SettingsState.reportUserSuccess()';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _$ReportUserSuccessImpl);
+  }
+
+  @override
+  int get hashCode => runtimeType.hashCode;
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() fetchNotificationPreferencesLoading,
+    required TResult Function(NotificationsPreferenceResponse response)
+        fetchNotificationPreferencesSuccess,
+    required TResult Function(String error) fetchNotificationPreferencesFailure,
+    required TResult Function() saveNotificationPreferencesLoading,
+    required TResult Function(dynamic response)
+        saveNotificationPreferencesSuccess,
+    required TResult Function(String error) saveNotificationPreferencesFailure,
+    required TResult Function() fetchBlockedUsersLoading,
+    required TResult Function(BlockedUsersResponse response)
+        fetchBlockedUsersSuccess,
+    required TResult Function(String error) fetchBlockedUsersFailure,
+    required TResult Function() linkSocialAccountLoading,
+    required TResult Function(dynamic response) linkSocialAccountSuccess,
+    required TResult Function(String error) linkSocialAccountFailure,
+    required TResult Function() unlinkSocialAccountLoading,
+    required TResult Function(dynamic response) unlinkSocialAccountSuccess,
+    required TResult Function(String error) unlinkSocialAccountFailure,
+    required TResult Function() deleteAccountLoading,
+    required TResult Function(dynamic response) deleteAccountSuccess,
+    required TResult Function(String error) deleteAccountFailure,
+    required TResult Function() blockUserLoading,
+    required TResult Function(dynamic response) blockUserSuccess,
+    required TResult Function(String error) blockUserFailure,
+    required TResult Function() getNotificationPreferencesV2Loading,
+    required TResult Function(NotificationPreferences preferences)
+        getNotificationPreferencesV2Success,
+    required TResult Function(String error) getNotificationPreferencesV2Failure,
+    required TResult Function() updateNotificationPreferencesV2Loading,
+    required TResult Function(NotificationPreferences preferences)
+        updateNotificationPreferencesV2Success,
+    required TResult Function(String error)
+        updateNotificationPreferencesV2Failure,
+    required TResult Function() getPrivacySettingsLoading,
+    required TResult Function(PrivacySettings settings)
+        getPrivacySettingsSuccess,
+    required TResult Function(String error) getPrivacySettingsFailure,
+    required TResult Function() updatePrivacySettingsLoading,
+    required TResult Function(PrivacySettings settings)
+        updatePrivacySettingsSuccess,
+    required TResult Function(String error) updatePrivacySettingsFailure,
+    required TResult Function() getPaymentMethodsLoading,
+    required TResult Function(List<PaymentMethod> methods)
+        getPaymentMethodsSuccess,
+    required TResult Function(String error) getPaymentMethodsFailure,
+    required TResult Function() deletePaymentMethodLoading,
+    required TResult Function(String id) deletePaymentMethodSuccess,
+    required TResult Function(String error) deletePaymentMethodFailure,
+    required TResult Function() setPaymentPinLoading,
+    required TResult Function() setPaymentPinSuccess,
+    required TResult Function(String error) setPaymentPinFailure,
+    required TResult Function() requestDataExportLoading,
+    required TResult Function(DataExportStatus status) requestDataExportSuccess,
+    required TResult Function(String error) requestDataExportFailure,
+    required TResult Function() getDataExportStatusLoading,
+    required TResult Function(DataExportStatus status)
+        getDataExportStatusSuccess,
+    required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
+  }) {
+    return reportUserSuccess();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? fetchNotificationPreferencesLoading,
+    TResult? Function(NotificationsPreferenceResponse response)?
+        fetchNotificationPreferencesSuccess,
+    TResult? Function(String error)? fetchNotificationPreferencesFailure,
+    TResult? Function()? saveNotificationPreferencesLoading,
+    TResult? Function(dynamic response)? saveNotificationPreferencesSuccess,
+    TResult? Function(String error)? saveNotificationPreferencesFailure,
+    TResult? Function()? fetchBlockedUsersLoading,
+    TResult? Function(BlockedUsersResponse response)? fetchBlockedUsersSuccess,
+    TResult? Function(String error)? fetchBlockedUsersFailure,
+    TResult? Function()? linkSocialAccountLoading,
+    TResult? Function(dynamic response)? linkSocialAccountSuccess,
+    TResult? Function(String error)? linkSocialAccountFailure,
+    TResult? Function()? unlinkSocialAccountLoading,
+    TResult? Function(dynamic response)? unlinkSocialAccountSuccess,
+    TResult? Function(String error)? unlinkSocialAccountFailure,
+    TResult? Function()? deleteAccountLoading,
+    TResult? Function(dynamic response)? deleteAccountSuccess,
+    TResult? Function(String error)? deleteAccountFailure,
+    TResult? Function()? blockUserLoading,
+    TResult? Function(dynamic response)? blockUserSuccess,
+    TResult? Function(String error)? blockUserFailure,
+    TResult? Function()? getNotificationPreferencesV2Loading,
+    TResult? Function(NotificationPreferences preferences)?
+        getNotificationPreferencesV2Success,
+    TResult? Function(String error)? getNotificationPreferencesV2Failure,
+    TResult? Function()? updateNotificationPreferencesV2Loading,
+    TResult? Function(NotificationPreferences preferences)?
+        updateNotificationPreferencesV2Success,
+    TResult? Function(String error)? updateNotificationPreferencesV2Failure,
+    TResult? Function()? getPrivacySettingsLoading,
+    TResult? Function(PrivacySettings settings)? getPrivacySettingsSuccess,
+    TResult? Function(String error)? getPrivacySettingsFailure,
+    TResult? Function()? updatePrivacySettingsLoading,
+    TResult? Function(PrivacySettings settings)? updatePrivacySettingsSuccess,
+    TResult? Function(String error)? updatePrivacySettingsFailure,
+    TResult? Function()? getPaymentMethodsLoading,
+    TResult? Function(List<PaymentMethod> methods)? getPaymentMethodsSuccess,
+    TResult? Function(String error)? getPaymentMethodsFailure,
+    TResult? Function()? deletePaymentMethodLoading,
+    TResult? Function(String id)? deletePaymentMethodSuccess,
+    TResult? Function(String error)? deletePaymentMethodFailure,
+    TResult? Function()? setPaymentPinLoading,
+    TResult? Function()? setPaymentPinSuccess,
+    TResult? Function(String error)? setPaymentPinFailure,
+    TResult? Function()? requestDataExportLoading,
+    TResult? Function(DataExportStatus status)? requestDataExportSuccess,
+    TResult? Function(String error)? requestDataExportFailure,
+    TResult? Function()? getDataExportStatusLoading,
+    TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
+    TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
+  }) {
+    return reportUserSuccess?.call();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? fetchNotificationPreferencesLoading,
+    TResult Function(NotificationsPreferenceResponse response)?
+        fetchNotificationPreferencesSuccess,
+    TResult Function(String error)? fetchNotificationPreferencesFailure,
+    TResult Function()? saveNotificationPreferencesLoading,
+    TResult Function(dynamic response)? saveNotificationPreferencesSuccess,
+    TResult Function(String error)? saveNotificationPreferencesFailure,
+    TResult Function()? fetchBlockedUsersLoading,
+    TResult Function(BlockedUsersResponse response)? fetchBlockedUsersSuccess,
+    TResult Function(String error)? fetchBlockedUsersFailure,
+    TResult Function()? linkSocialAccountLoading,
+    TResult Function(dynamic response)? linkSocialAccountSuccess,
+    TResult Function(String error)? linkSocialAccountFailure,
+    TResult Function()? unlinkSocialAccountLoading,
+    TResult Function(dynamic response)? unlinkSocialAccountSuccess,
+    TResult Function(String error)? unlinkSocialAccountFailure,
+    TResult Function()? deleteAccountLoading,
+    TResult Function(dynamic response)? deleteAccountSuccess,
+    TResult Function(String error)? deleteAccountFailure,
+    TResult Function()? blockUserLoading,
+    TResult Function(dynamic response)? blockUserSuccess,
+    TResult Function(String error)? blockUserFailure,
+    TResult Function()? getNotificationPreferencesV2Loading,
+    TResult Function(NotificationPreferences preferences)?
+        getNotificationPreferencesV2Success,
+    TResult Function(String error)? getNotificationPreferencesV2Failure,
+    TResult Function()? updateNotificationPreferencesV2Loading,
+    TResult Function(NotificationPreferences preferences)?
+        updateNotificationPreferencesV2Success,
+    TResult Function(String error)? updateNotificationPreferencesV2Failure,
+    TResult Function()? getPrivacySettingsLoading,
+    TResult Function(PrivacySettings settings)? getPrivacySettingsSuccess,
+    TResult Function(String error)? getPrivacySettingsFailure,
+    TResult Function()? updatePrivacySettingsLoading,
+    TResult Function(PrivacySettings settings)? updatePrivacySettingsSuccess,
+    TResult Function(String error)? updatePrivacySettingsFailure,
+    TResult Function()? getPaymentMethodsLoading,
+    TResult Function(List<PaymentMethod> methods)? getPaymentMethodsSuccess,
+    TResult Function(String error)? getPaymentMethodsFailure,
+    TResult Function()? deletePaymentMethodLoading,
+    TResult Function(String id)? deletePaymentMethodSuccess,
+    TResult Function(String error)? deletePaymentMethodFailure,
+    TResult Function()? setPaymentPinLoading,
+    TResult Function()? setPaymentPinSuccess,
+    TResult Function(String error)? setPaymentPinFailure,
+    TResult Function()? requestDataExportLoading,
+    TResult Function(DataExportStatus status)? requestDataExportSuccess,
+    TResult Function(String error)? requestDataExportFailure,
+    TResult Function()? getDataExportStatusLoading,
+    TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
+    TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
+    required TResult orElse(),
+  }) {
+    if (reportUserSuccess != null) {
+      return reportUserSuccess();
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_FetchNotificationPreferencesLoading value)
+        fetchNotificationPreferencesLoading,
+    required TResult Function(_FetchNotificationPreferencesSuccess value)
+        fetchNotificationPreferencesSuccess,
+    required TResult Function(_FetchNotificationPreferencesFailure value)
+        fetchNotificationPreferencesFailure,
+    required TResult Function(_SaveNotificationPreferencesLoading value)
+        saveNotificationPreferencesLoading,
+    required TResult Function(_SaveNotificationPreferencesSuccess value)
+        saveNotificationPreferencesSuccess,
+    required TResult Function(_SaveNotificationPreferencesFailure value)
+        saveNotificationPreferencesFailure,
+    required TResult Function(_FetchBlockedUsersLoading value)
+        fetchBlockedUsersLoading,
+    required TResult Function(_FetchBlockedUsersSuccess value)
+        fetchBlockedUsersSuccess,
+    required TResult Function(_FetchBlockedUsersFailure value)
+        fetchBlockedUsersFailure,
+    required TResult Function(_LinkSocialAccountLoading value)
+        linkSocialAccountLoading,
+    required TResult Function(_LinkSocialAccountSuccess value)
+        linkSocialAccountSuccess,
+    required TResult Function(_LinkSocialAccountFailure value)
+        linkSocialAccountFailure,
+    required TResult Function(_UnlinkSocialAccountLoading value)
+        unlinkSocialAccountLoading,
+    required TResult Function(_UnlinkSocialAccountSuccess value)
+        unlinkSocialAccountSuccess,
+    required TResult Function(_UnlinkSocialAccountFailure value)
+        unlinkSocialAccountFailure,
+    required TResult Function(_DeleteAccountLoading value) deleteAccountLoading,
+    required TResult Function(_DeleteAccountSuccess value) deleteAccountSuccess,
+    required TResult Function(_DeleteAccountFailure value) deleteAccountFailure,
+    required TResult Function(_BlockUserLoading value) blockUserLoading,
+    required TResult Function(_BlockUserSuccess value) blockUserSuccess,
+    required TResult Function(_BlockUserFailure value) blockUserFailure,
+    required TResult Function(_GetNotificationPreferencesV2Loading value)
+        getNotificationPreferencesV2Loading,
+    required TResult Function(_GetNotificationPreferencesV2Success value)
+        getNotificationPreferencesV2Success,
+    required TResult Function(_GetNotificationPreferencesV2Failure value)
+        getNotificationPreferencesV2Failure,
+    required TResult Function(_UpdateNotificationPreferencesV2Loading value)
+        updateNotificationPreferencesV2Loading,
+    required TResult Function(_UpdateNotificationPreferencesV2Success value)
+        updateNotificationPreferencesV2Success,
+    required TResult Function(_UpdateNotificationPreferencesV2Failure value)
+        updateNotificationPreferencesV2Failure,
+    required TResult Function(_GetPrivacySettingsLoading value)
+        getPrivacySettingsLoading,
+    required TResult Function(_GetPrivacySettingsSuccess value)
+        getPrivacySettingsSuccess,
+    required TResult Function(_GetPrivacySettingsFailure value)
+        getPrivacySettingsFailure,
+    required TResult Function(_UpdatePrivacySettingsLoading value)
+        updatePrivacySettingsLoading,
+    required TResult Function(_UpdatePrivacySettingsSuccess value)
+        updatePrivacySettingsSuccess,
+    required TResult Function(_UpdatePrivacySettingsFailure value)
+        updatePrivacySettingsFailure,
+    required TResult Function(_GetPaymentMethodsLoading value)
+        getPaymentMethodsLoading,
+    required TResult Function(_GetPaymentMethodsSuccess value)
+        getPaymentMethodsSuccess,
+    required TResult Function(_GetPaymentMethodsFailure value)
+        getPaymentMethodsFailure,
+    required TResult Function(_DeletePaymentMethodLoading value)
+        deletePaymentMethodLoading,
+    required TResult Function(_DeletePaymentMethodSuccess value)
+        deletePaymentMethodSuccess,
+    required TResult Function(_DeletePaymentMethodFailure value)
+        deletePaymentMethodFailure,
+    required TResult Function(_SetPaymentPinLoading value) setPaymentPinLoading,
+    required TResult Function(_SetPaymentPinSuccess value) setPaymentPinSuccess,
+    required TResult Function(_SetPaymentPinFailure value) setPaymentPinFailure,
+    required TResult Function(_RequestDataExportLoading value)
+        requestDataExportLoading,
+    required TResult Function(_RequestDataExportSuccess value)
+        requestDataExportSuccess,
+    required TResult Function(_RequestDataExportFailure value)
+        requestDataExportFailure,
+    required TResult Function(_GetDataExportStatusLoading value)
+        getDataExportStatusLoading,
+    required TResult Function(_GetDataExportStatusSuccess value)
+        getDataExportStatusSuccess,
+    required TResult Function(_GetDataExportStatusFailure value)
+        getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
+  }) {
+    return reportUserSuccess(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_FetchNotificationPreferencesLoading value)?
+        fetchNotificationPreferencesLoading,
+    TResult? Function(_FetchNotificationPreferencesSuccess value)?
+        fetchNotificationPreferencesSuccess,
+    TResult? Function(_FetchNotificationPreferencesFailure value)?
+        fetchNotificationPreferencesFailure,
+    TResult? Function(_SaveNotificationPreferencesLoading value)?
+        saveNotificationPreferencesLoading,
+    TResult? Function(_SaveNotificationPreferencesSuccess value)?
+        saveNotificationPreferencesSuccess,
+    TResult? Function(_SaveNotificationPreferencesFailure value)?
+        saveNotificationPreferencesFailure,
+    TResult? Function(_FetchBlockedUsersLoading value)?
+        fetchBlockedUsersLoading,
+    TResult? Function(_FetchBlockedUsersSuccess value)?
+        fetchBlockedUsersSuccess,
+    TResult? Function(_FetchBlockedUsersFailure value)?
+        fetchBlockedUsersFailure,
+    TResult? Function(_LinkSocialAccountLoading value)?
+        linkSocialAccountLoading,
+    TResult? Function(_LinkSocialAccountSuccess value)?
+        linkSocialAccountSuccess,
+    TResult? Function(_LinkSocialAccountFailure value)?
+        linkSocialAccountFailure,
+    TResult? Function(_UnlinkSocialAccountLoading value)?
+        unlinkSocialAccountLoading,
+    TResult? Function(_UnlinkSocialAccountSuccess value)?
+        unlinkSocialAccountSuccess,
+    TResult? Function(_UnlinkSocialAccountFailure value)?
+        unlinkSocialAccountFailure,
+    TResult? Function(_DeleteAccountLoading value)? deleteAccountLoading,
+    TResult? Function(_DeleteAccountSuccess value)? deleteAccountSuccess,
+    TResult? Function(_DeleteAccountFailure value)? deleteAccountFailure,
+    TResult? Function(_BlockUserLoading value)? blockUserLoading,
+    TResult? Function(_BlockUserSuccess value)? blockUserSuccess,
+    TResult? Function(_BlockUserFailure value)? blockUserFailure,
+    TResult? Function(_GetNotificationPreferencesV2Loading value)?
+        getNotificationPreferencesV2Loading,
+    TResult? Function(_GetNotificationPreferencesV2Success value)?
+        getNotificationPreferencesV2Success,
+    TResult? Function(_GetNotificationPreferencesV2Failure value)?
+        getNotificationPreferencesV2Failure,
+    TResult? Function(_UpdateNotificationPreferencesV2Loading value)?
+        updateNotificationPreferencesV2Loading,
+    TResult? Function(_UpdateNotificationPreferencesV2Success value)?
+        updateNotificationPreferencesV2Success,
+    TResult? Function(_UpdateNotificationPreferencesV2Failure value)?
+        updateNotificationPreferencesV2Failure,
+    TResult? Function(_GetPrivacySettingsLoading value)?
+        getPrivacySettingsLoading,
+    TResult? Function(_GetPrivacySettingsSuccess value)?
+        getPrivacySettingsSuccess,
+    TResult? Function(_GetPrivacySettingsFailure value)?
+        getPrivacySettingsFailure,
+    TResult? Function(_UpdatePrivacySettingsLoading value)?
+        updatePrivacySettingsLoading,
+    TResult? Function(_UpdatePrivacySettingsSuccess value)?
+        updatePrivacySettingsSuccess,
+    TResult? Function(_UpdatePrivacySettingsFailure value)?
+        updatePrivacySettingsFailure,
+    TResult? Function(_GetPaymentMethodsLoading value)?
+        getPaymentMethodsLoading,
+    TResult? Function(_GetPaymentMethodsSuccess value)?
+        getPaymentMethodsSuccess,
+    TResult? Function(_GetPaymentMethodsFailure value)?
+        getPaymentMethodsFailure,
+    TResult? Function(_DeletePaymentMethodLoading value)?
+        deletePaymentMethodLoading,
+    TResult? Function(_DeletePaymentMethodSuccess value)?
+        deletePaymentMethodSuccess,
+    TResult? Function(_DeletePaymentMethodFailure value)?
+        deletePaymentMethodFailure,
+    TResult? Function(_SetPaymentPinLoading value)? setPaymentPinLoading,
+    TResult? Function(_SetPaymentPinSuccess value)? setPaymentPinSuccess,
+    TResult? Function(_SetPaymentPinFailure value)? setPaymentPinFailure,
+    TResult? Function(_RequestDataExportLoading value)?
+        requestDataExportLoading,
+    TResult? Function(_RequestDataExportSuccess value)?
+        requestDataExportSuccess,
+    TResult? Function(_RequestDataExportFailure value)?
+        requestDataExportFailure,
+    TResult? Function(_GetDataExportStatusLoading value)?
+        getDataExportStatusLoading,
+    TResult? Function(_GetDataExportStatusSuccess value)?
+        getDataExportStatusSuccess,
+    TResult? Function(_GetDataExportStatusFailure value)?
+        getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
+  }) {
+    return reportUserSuccess?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_FetchNotificationPreferencesLoading value)?
+        fetchNotificationPreferencesLoading,
+    TResult Function(_FetchNotificationPreferencesSuccess value)?
+        fetchNotificationPreferencesSuccess,
+    TResult Function(_FetchNotificationPreferencesFailure value)?
+        fetchNotificationPreferencesFailure,
+    TResult Function(_SaveNotificationPreferencesLoading value)?
+        saveNotificationPreferencesLoading,
+    TResult Function(_SaveNotificationPreferencesSuccess value)?
+        saveNotificationPreferencesSuccess,
+    TResult Function(_SaveNotificationPreferencesFailure value)?
+        saveNotificationPreferencesFailure,
+    TResult Function(_FetchBlockedUsersLoading value)? fetchBlockedUsersLoading,
+    TResult Function(_FetchBlockedUsersSuccess value)? fetchBlockedUsersSuccess,
+    TResult Function(_FetchBlockedUsersFailure value)? fetchBlockedUsersFailure,
+    TResult Function(_LinkSocialAccountLoading value)? linkSocialAccountLoading,
+    TResult Function(_LinkSocialAccountSuccess value)? linkSocialAccountSuccess,
+    TResult Function(_LinkSocialAccountFailure value)? linkSocialAccountFailure,
+    TResult Function(_UnlinkSocialAccountLoading value)?
+        unlinkSocialAccountLoading,
+    TResult Function(_UnlinkSocialAccountSuccess value)?
+        unlinkSocialAccountSuccess,
+    TResult Function(_UnlinkSocialAccountFailure value)?
+        unlinkSocialAccountFailure,
+    TResult Function(_DeleteAccountLoading value)? deleteAccountLoading,
+    TResult Function(_DeleteAccountSuccess value)? deleteAccountSuccess,
+    TResult Function(_DeleteAccountFailure value)? deleteAccountFailure,
+    TResult Function(_BlockUserLoading value)? blockUserLoading,
+    TResult Function(_BlockUserSuccess value)? blockUserSuccess,
+    TResult Function(_BlockUserFailure value)? blockUserFailure,
+    TResult Function(_GetNotificationPreferencesV2Loading value)?
+        getNotificationPreferencesV2Loading,
+    TResult Function(_GetNotificationPreferencesV2Success value)?
+        getNotificationPreferencesV2Success,
+    TResult Function(_GetNotificationPreferencesV2Failure value)?
+        getNotificationPreferencesV2Failure,
+    TResult Function(_UpdateNotificationPreferencesV2Loading value)?
+        updateNotificationPreferencesV2Loading,
+    TResult Function(_UpdateNotificationPreferencesV2Success value)?
+        updateNotificationPreferencesV2Success,
+    TResult Function(_UpdateNotificationPreferencesV2Failure value)?
+        updateNotificationPreferencesV2Failure,
+    TResult Function(_GetPrivacySettingsLoading value)?
+        getPrivacySettingsLoading,
+    TResult Function(_GetPrivacySettingsSuccess value)?
+        getPrivacySettingsSuccess,
+    TResult Function(_GetPrivacySettingsFailure value)?
+        getPrivacySettingsFailure,
+    TResult Function(_UpdatePrivacySettingsLoading value)?
+        updatePrivacySettingsLoading,
+    TResult Function(_UpdatePrivacySettingsSuccess value)?
+        updatePrivacySettingsSuccess,
+    TResult Function(_UpdatePrivacySettingsFailure value)?
+        updatePrivacySettingsFailure,
+    TResult Function(_GetPaymentMethodsLoading value)? getPaymentMethodsLoading,
+    TResult Function(_GetPaymentMethodsSuccess value)? getPaymentMethodsSuccess,
+    TResult Function(_GetPaymentMethodsFailure value)? getPaymentMethodsFailure,
+    TResult Function(_DeletePaymentMethodLoading value)?
+        deletePaymentMethodLoading,
+    TResult Function(_DeletePaymentMethodSuccess value)?
+        deletePaymentMethodSuccess,
+    TResult Function(_DeletePaymentMethodFailure value)?
+        deletePaymentMethodFailure,
+    TResult Function(_SetPaymentPinLoading value)? setPaymentPinLoading,
+    TResult Function(_SetPaymentPinSuccess value)? setPaymentPinSuccess,
+    TResult Function(_SetPaymentPinFailure value)? setPaymentPinFailure,
+    TResult Function(_RequestDataExportLoading value)? requestDataExportLoading,
+    TResult Function(_RequestDataExportSuccess value)? requestDataExportSuccess,
+    TResult Function(_RequestDataExportFailure value)? requestDataExportFailure,
+    TResult Function(_GetDataExportStatusLoading value)?
+        getDataExportStatusLoading,
+    TResult Function(_GetDataExportStatusSuccess value)?
+        getDataExportStatusSuccess,
+    TResult Function(_GetDataExportStatusFailure value)?
+        getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
+    required TResult orElse(),
+  }) {
+    if (reportUserSuccess != null) {
+      return reportUserSuccess(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ReportUserSuccess implements SettingsState {
+  const factory _ReportUserSuccess() = _$ReportUserSuccessImpl;
+}
+
+/// @nodoc
+abstract class _$$ReportUserFailureImplCopyWith<$Res> {
+  factory _$$ReportUserFailureImplCopyWith(_$ReportUserFailureImpl value,
+          $Res Function(_$ReportUserFailureImpl) then) =
+      __$$ReportUserFailureImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({String error});
+}
+
+/// @nodoc
+class __$$ReportUserFailureImplCopyWithImpl<$Res>
+    extends _$SettingsStateCopyWithImpl<$Res, _$ReportUserFailureImpl>
+    implements _$$ReportUserFailureImplCopyWith<$Res> {
+  __$$ReportUserFailureImplCopyWithImpl(_$ReportUserFailureImpl _value,
+      $Res Function(_$ReportUserFailureImpl) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? error = null,
+  }) {
+    return _then(_$ReportUserFailureImpl(
+      null == error
+          ? _value.error
+          : error // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$ReportUserFailureImpl implements _ReportUserFailure {
+  const _$ReportUserFailureImpl(this.error);
+
+  @override
+  final String error;
+
+  @override
+  String toString() {
+    return 'SettingsState.reportUserFailure(error: $error)';
+  }
+
+  @override
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$ReportUserFailureImpl &&
+            (identical(other.error, error) || other.error == error));
+  }
+
+  @override
+  int get hashCode => Object.hash(runtimeType, error);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$ReportUserFailureImplCopyWith<_$ReportUserFailureImpl> get copyWith =>
+      __$$ReportUserFailureImplCopyWithImpl<_$ReportUserFailureImpl>(
+          this, _$identity);
+
+  @override
+  @optionalTypeArgs
+  TResult when<TResult extends Object?>({
+    required TResult Function() initial,
+    required TResult Function() fetchNotificationPreferencesLoading,
+    required TResult Function(NotificationsPreferenceResponse response)
+        fetchNotificationPreferencesSuccess,
+    required TResult Function(String error) fetchNotificationPreferencesFailure,
+    required TResult Function() saveNotificationPreferencesLoading,
+    required TResult Function(dynamic response)
+        saveNotificationPreferencesSuccess,
+    required TResult Function(String error) saveNotificationPreferencesFailure,
+    required TResult Function() fetchBlockedUsersLoading,
+    required TResult Function(BlockedUsersResponse response)
+        fetchBlockedUsersSuccess,
+    required TResult Function(String error) fetchBlockedUsersFailure,
+    required TResult Function() linkSocialAccountLoading,
+    required TResult Function(dynamic response) linkSocialAccountSuccess,
+    required TResult Function(String error) linkSocialAccountFailure,
+    required TResult Function() unlinkSocialAccountLoading,
+    required TResult Function(dynamic response) unlinkSocialAccountSuccess,
+    required TResult Function(String error) unlinkSocialAccountFailure,
+    required TResult Function() deleteAccountLoading,
+    required TResult Function(dynamic response) deleteAccountSuccess,
+    required TResult Function(String error) deleteAccountFailure,
+    required TResult Function() blockUserLoading,
+    required TResult Function(dynamic response) blockUserSuccess,
+    required TResult Function(String error) blockUserFailure,
+    required TResult Function() getNotificationPreferencesV2Loading,
+    required TResult Function(NotificationPreferences preferences)
+        getNotificationPreferencesV2Success,
+    required TResult Function(String error) getNotificationPreferencesV2Failure,
+    required TResult Function() updateNotificationPreferencesV2Loading,
+    required TResult Function(NotificationPreferences preferences)
+        updateNotificationPreferencesV2Success,
+    required TResult Function(String error)
+        updateNotificationPreferencesV2Failure,
+    required TResult Function() getPrivacySettingsLoading,
+    required TResult Function(PrivacySettings settings)
+        getPrivacySettingsSuccess,
+    required TResult Function(String error) getPrivacySettingsFailure,
+    required TResult Function() updatePrivacySettingsLoading,
+    required TResult Function(PrivacySettings settings)
+        updatePrivacySettingsSuccess,
+    required TResult Function(String error) updatePrivacySettingsFailure,
+    required TResult Function() getPaymentMethodsLoading,
+    required TResult Function(List<PaymentMethod> methods)
+        getPaymentMethodsSuccess,
+    required TResult Function(String error) getPaymentMethodsFailure,
+    required TResult Function() deletePaymentMethodLoading,
+    required TResult Function(String id) deletePaymentMethodSuccess,
+    required TResult Function(String error) deletePaymentMethodFailure,
+    required TResult Function() setPaymentPinLoading,
+    required TResult Function() setPaymentPinSuccess,
+    required TResult Function(String error) setPaymentPinFailure,
+    required TResult Function() requestDataExportLoading,
+    required TResult Function(DataExportStatus status) requestDataExportSuccess,
+    required TResult Function(String error) requestDataExportFailure,
+    required TResult Function() getDataExportStatusLoading,
+    required TResult Function(DataExportStatus status)
+        getDataExportStatusSuccess,
+    required TResult Function(String error) getDataExportStatusFailure,
+    required TResult Function() reportUserLoading,
+    required TResult Function() reportUserSuccess,
+    required TResult Function(String error) reportUserFailure,
+  }) {
+    return reportUserFailure(error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult? Function()? initial,
+    TResult? Function()? fetchNotificationPreferencesLoading,
+    TResult? Function(NotificationsPreferenceResponse response)?
+        fetchNotificationPreferencesSuccess,
+    TResult? Function(String error)? fetchNotificationPreferencesFailure,
+    TResult? Function()? saveNotificationPreferencesLoading,
+    TResult? Function(dynamic response)? saveNotificationPreferencesSuccess,
+    TResult? Function(String error)? saveNotificationPreferencesFailure,
+    TResult? Function()? fetchBlockedUsersLoading,
+    TResult? Function(BlockedUsersResponse response)? fetchBlockedUsersSuccess,
+    TResult? Function(String error)? fetchBlockedUsersFailure,
+    TResult? Function()? linkSocialAccountLoading,
+    TResult? Function(dynamic response)? linkSocialAccountSuccess,
+    TResult? Function(String error)? linkSocialAccountFailure,
+    TResult? Function()? unlinkSocialAccountLoading,
+    TResult? Function(dynamic response)? unlinkSocialAccountSuccess,
+    TResult? Function(String error)? unlinkSocialAccountFailure,
+    TResult? Function()? deleteAccountLoading,
+    TResult? Function(dynamic response)? deleteAccountSuccess,
+    TResult? Function(String error)? deleteAccountFailure,
+    TResult? Function()? blockUserLoading,
+    TResult? Function(dynamic response)? blockUserSuccess,
+    TResult? Function(String error)? blockUserFailure,
+    TResult? Function()? getNotificationPreferencesV2Loading,
+    TResult? Function(NotificationPreferences preferences)?
+        getNotificationPreferencesV2Success,
+    TResult? Function(String error)? getNotificationPreferencesV2Failure,
+    TResult? Function()? updateNotificationPreferencesV2Loading,
+    TResult? Function(NotificationPreferences preferences)?
+        updateNotificationPreferencesV2Success,
+    TResult? Function(String error)? updateNotificationPreferencesV2Failure,
+    TResult? Function()? getPrivacySettingsLoading,
+    TResult? Function(PrivacySettings settings)? getPrivacySettingsSuccess,
+    TResult? Function(String error)? getPrivacySettingsFailure,
+    TResult? Function()? updatePrivacySettingsLoading,
+    TResult? Function(PrivacySettings settings)? updatePrivacySettingsSuccess,
+    TResult? Function(String error)? updatePrivacySettingsFailure,
+    TResult? Function()? getPaymentMethodsLoading,
+    TResult? Function(List<PaymentMethod> methods)? getPaymentMethodsSuccess,
+    TResult? Function(String error)? getPaymentMethodsFailure,
+    TResult? Function()? deletePaymentMethodLoading,
+    TResult? Function(String id)? deletePaymentMethodSuccess,
+    TResult? Function(String error)? deletePaymentMethodFailure,
+    TResult? Function()? setPaymentPinLoading,
+    TResult? Function()? setPaymentPinSuccess,
+    TResult? Function(String error)? setPaymentPinFailure,
+    TResult? Function()? requestDataExportLoading,
+    TResult? Function(DataExportStatus status)? requestDataExportSuccess,
+    TResult? Function(String error)? requestDataExportFailure,
+    TResult? Function()? getDataExportStatusLoading,
+    TResult? Function(DataExportStatus status)? getDataExportStatusSuccess,
+    TResult? Function(String error)? getDataExportStatusFailure,
+    TResult? Function()? reportUserLoading,
+    TResult? Function()? reportUserSuccess,
+    TResult? Function(String error)? reportUserFailure,
+  }) {
+    return reportUserFailure?.call(error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeWhen<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? fetchNotificationPreferencesLoading,
+    TResult Function(NotificationsPreferenceResponse response)?
+        fetchNotificationPreferencesSuccess,
+    TResult Function(String error)? fetchNotificationPreferencesFailure,
+    TResult Function()? saveNotificationPreferencesLoading,
+    TResult Function(dynamic response)? saveNotificationPreferencesSuccess,
+    TResult Function(String error)? saveNotificationPreferencesFailure,
+    TResult Function()? fetchBlockedUsersLoading,
+    TResult Function(BlockedUsersResponse response)? fetchBlockedUsersSuccess,
+    TResult Function(String error)? fetchBlockedUsersFailure,
+    TResult Function()? linkSocialAccountLoading,
+    TResult Function(dynamic response)? linkSocialAccountSuccess,
+    TResult Function(String error)? linkSocialAccountFailure,
+    TResult Function()? unlinkSocialAccountLoading,
+    TResult Function(dynamic response)? unlinkSocialAccountSuccess,
+    TResult Function(String error)? unlinkSocialAccountFailure,
+    TResult Function()? deleteAccountLoading,
+    TResult Function(dynamic response)? deleteAccountSuccess,
+    TResult Function(String error)? deleteAccountFailure,
+    TResult Function()? blockUserLoading,
+    TResult Function(dynamic response)? blockUserSuccess,
+    TResult Function(String error)? blockUserFailure,
+    TResult Function()? getNotificationPreferencesV2Loading,
+    TResult Function(NotificationPreferences preferences)?
+        getNotificationPreferencesV2Success,
+    TResult Function(String error)? getNotificationPreferencesV2Failure,
+    TResult Function()? updateNotificationPreferencesV2Loading,
+    TResult Function(NotificationPreferences preferences)?
+        updateNotificationPreferencesV2Success,
+    TResult Function(String error)? updateNotificationPreferencesV2Failure,
+    TResult Function()? getPrivacySettingsLoading,
+    TResult Function(PrivacySettings settings)? getPrivacySettingsSuccess,
+    TResult Function(String error)? getPrivacySettingsFailure,
+    TResult Function()? updatePrivacySettingsLoading,
+    TResult Function(PrivacySettings settings)? updatePrivacySettingsSuccess,
+    TResult Function(String error)? updatePrivacySettingsFailure,
+    TResult Function()? getPaymentMethodsLoading,
+    TResult Function(List<PaymentMethod> methods)? getPaymentMethodsSuccess,
+    TResult Function(String error)? getPaymentMethodsFailure,
+    TResult Function()? deletePaymentMethodLoading,
+    TResult Function(String id)? deletePaymentMethodSuccess,
+    TResult Function(String error)? deletePaymentMethodFailure,
+    TResult Function()? setPaymentPinLoading,
+    TResult Function()? setPaymentPinSuccess,
+    TResult Function(String error)? setPaymentPinFailure,
+    TResult Function()? requestDataExportLoading,
+    TResult Function(DataExportStatus status)? requestDataExportSuccess,
+    TResult Function(String error)? requestDataExportFailure,
+    TResult Function()? getDataExportStatusLoading,
+    TResult Function(DataExportStatus status)? getDataExportStatusSuccess,
+    TResult Function(String error)? getDataExportStatusFailure,
+    TResult Function()? reportUserLoading,
+    TResult Function()? reportUserSuccess,
+    TResult Function(String error)? reportUserFailure,
+    required TResult orElse(),
+  }) {
+    if (reportUserFailure != null) {
+      return reportUserFailure(error);
+    }
+    return orElse();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult map<TResult extends Object?>({
+    required TResult Function(_Initial value) initial,
+    required TResult Function(_FetchNotificationPreferencesLoading value)
+        fetchNotificationPreferencesLoading,
+    required TResult Function(_FetchNotificationPreferencesSuccess value)
+        fetchNotificationPreferencesSuccess,
+    required TResult Function(_FetchNotificationPreferencesFailure value)
+        fetchNotificationPreferencesFailure,
+    required TResult Function(_SaveNotificationPreferencesLoading value)
+        saveNotificationPreferencesLoading,
+    required TResult Function(_SaveNotificationPreferencesSuccess value)
+        saveNotificationPreferencesSuccess,
+    required TResult Function(_SaveNotificationPreferencesFailure value)
+        saveNotificationPreferencesFailure,
+    required TResult Function(_FetchBlockedUsersLoading value)
+        fetchBlockedUsersLoading,
+    required TResult Function(_FetchBlockedUsersSuccess value)
+        fetchBlockedUsersSuccess,
+    required TResult Function(_FetchBlockedUsersFailure value)
+        fetchBlockedUsersFailure,
+    required TResult Function(_LinkSocialAccountLoading value)
+        linkSocialAccountLoading,
+    required TResult Function(_LinkSocialAccountSuccess value)
+        linkSocialAccountSuccess,
+    required TResult Function(_LinkSocialAccountFailure value)
+        linkSocialAccountFailure,
+    required TResult Function(_UnlinkSocialAccountLoading value)
+        unlinkSocialAccountLoading,
+    required TResult Function(_UnlinkSocialAccountSuccess value)
+        unlinkSocialAccountSuccess,
+    required TResult Function(_UnlinkSocialAccountFailure value)
+        unlinkSocialAccountFailure,
+    required TResult Function(_DeleteAccountLoading value) deleteAccountLoading,
+    required TResult Function(_DeleteAccountSuccess value) deleteAccountSuccess,
+    required TResult Function(_DeleteAccountFailure value) deleteAccountFailure,
+    required TResult Function(_BlockUserLoading value) blockUserLoading,
+    required TResult Function(_BlockUserSuccess value) blockUserSuccess,
+    required TResult Function(_BlockUserFailure value) blockUserFailure,
+    required TResult Function(_GetNotificationPreferencesV2Loading value)
+        getNotificationPreferencesV2Loading,
+    required TResult Function(_GetNotificationPreferencesV2Success value)
+        getNotificationPreferencesV2Success,
+    required TResult Function(_GetNotificationPreferencesV2Failure value)
+        getNotificationPreferencesV2Failure,
+    required TResult Function(_UpdateNotificationPreferencesV2Loading value)
+        updateNotificationPreferencesV2Loading,
+    required TResult Function(_UpdateNotificationPreferencesV2Success value)
+        updateNotificationPreferencesV2Success,
+    required TResult Function(_UpdateNotificationPreferencesV2Failure value)
+        updateNotificationPreferencesV2Failure,
+    required TResult Function(_GetPrivacySettingsLoading value)
+        getPrivacySettingsLoading,
+    required TResult Function(_GetPrivacySettingsSuccess value)
+        getPrivacySettingsSuccess,
+    required TResult Function(_GetPrivacySettingsFailure value)
+        getPrivacySettingsFailure,
+    required TResult Function(_UpdatePrivacySettingsLoading value)
+        updatePrivacySettingsLoading,
+    required TResult Function(_UpdatePrivacySettingsSuccess value)
+        updatePrivacySettingsSuccess,
+    required TResult Function(_UpdatePrivacySettingsFailure value)
+        updatePrivacySettingsFailure,
+    required TResult Function(_GetPaymentMethodsLoading value)
+        getPaymentMethodsLoading,
+    required TResult Function(_GetPaymentMethodsSuccess value)
+        getPaymentMethodsSuccess,
+    required TResult Function(_GetPaymentMethodsFailure value)
+        getPaymentMethodsFailure,
+    required TResult Function(_DeletePaymentMethodLoading value)
+        deletePaymentMethodLoading,
+    required TResult Function(_DeletePaymentMethodSuccess value)
+        deletePaymentMethodSuccess,
+    required TResult Function(_DeletePaymentMethodFailure value)
+        deletePaymentMethodFailure,
+    required TResult Function(_SetPaymentPinLoading value) setPaymentPinLoading,
+    required TResult Function(_SetPaymentPinSuccess value) setPaymentPinSuccess,
+    required TResult Function(_SetPaymentPinFailure value) setPaymentPinFailure,
+    required TResult Function(_RequestDataExportLoading value)
+        requestDataExportLoading,
+    required TResult Function(_RequestDataExportSuccess value)
+        requestDataExportSuccess,
+    required TResult Function(_RequestDataExportFailure value)
+        requestDataExportFailure,
+    required TResult Function(_GetDataExportStatusLoading value)
+        getDataExportStatusLoading,
+    required TResult Function(_GetDataExportStatusSuccess value)
+        getDataExportStatusSuccess,
+    required TResult Function(_GetDataExportStatusFailure value)
+        getDataExportStatusFailure,
+    required TResult Function(_ReportUserLoading value) reportUserLoading,
+    required TResult Function(_ReportUserSuccess value) reportUserSuccess,
+    required TResult Function(_ReportUserFailure value) reportUserFailure,
+  }) {
+    return reportUserFailure(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult? Function(_Initial value)? initial,
+    TResult? Function(_FetchNotificationPreferencesLoading value)?
+        fetchNotificationPreferencesLoading,
+    TResult? Function(_FetchNotificationPreferencesSuccess value)?
+        fetchNotificationPreferencesSuccess,
+    TResult? Function(_FetchNotificationPreferencesFailure value)?
+        fetchNotificationPreferencesFailure,
+    TResult? Function(_SaveNotificationPreferencesLoading value)?
+        saveNotificationPreferencesLoading,
+    TResult? Function(_SaveNotificationPreferencesSuccess value)?
+        saveNotificationPreferencesSuccess,
+    TResult? Function(_SaveNotificationPreferencesFailure value)?
+        saveNotificationPreferencesFailure,
+    TResult? Function(_FetchBlockedUsersLoading value)?
+        fetchBlockedUsersLoading,
+    TResult? Function(_FetchBlockedUsersSuccess value)?
+        fetchBlockedUsersSuccess,
+    TResult? Function(_FetchBlockedUsersFailure value)?
+        fetchBlockedUsersFailure,
+    TResult? Function(_LinkSocialAccountLoading value)?
+        linkSocialAccountLoading,
+    TResult? Function(_LinkSocialAccountSuccess value)?
+        linkSocialAccountSuccess,
+    TResult? Function(_LinkSocialAccountFailure value)?
+        linkSocialAccountFailure,
+    TResult? Function(_UnlinkSocialAccountLoading value)?
+        unlinkSocialAccountLoading,
+    TResult? Function(_UnlinkSocialAccountSuccess value)?
+        unlinkSocialAccountSuccess,
+    TResult? Function(_UnlinkSocialAccountFailure value)?
+        unlinkSocialAccountFailure,
+    TResult? Function(_DeleteAccountLoading value)? deleteAccountLoading,
+    TResult? Function(_DeleteAccountSuccess value)? deleteAccountSuccess,
+    TResult? Function(_DeleteAccountFailure value)? deleteAccountFailure,
+    TResult? Function(_BlockUserLoading value)? blockUserLoading,
+    TResult? Function(_BlockUserSuccess value)? blockUserSuccess,
+    TResult? Function(_BlockUserFailure value)? blockUserFailure,
+    TResult? Function(_GetNotificationPreferencesV2Loading value)?
+        getNotificationPreferencesV2Loading,
+    TResult? Function(_GetNotificationPreferencesV2Success value)?
+        getNotificationPreferencesV2Success,
+    TResult? Function(_GetNotificationPreferencesV2Failure value)?
+        getNotificationPreferencesV2Failure,
+    TResult? Function(_UpdateNotificationPreferencesV2Loading value)?
+        updateNotificationPreferencesV2Loading,
+    TResult? Function(_UpdateNotificationPreferencesV2Success value)?
+        updateNotificationPreferencesV2Success,
+    TResult? Function(_UpdateNotificationPreferencesV2Failure value)?
+        updateNotificationPreferencesV2Failure,
+    TResult? Function(_GetPrivacySettingsLoading value)?
+        getPrivacySettingsLoading,
+    TResult? Function(_GetPrivacySettingsSuccess value)?
+        getPrivacySettingsSuccess,
+    TResult? Function(_GetPrivacySettingsFailure value)?
+        getPrivacySettingsFailure,
+    TResult? Function(_UpdatePrivacySettingsLoading value)?
+        updatePrivacySettingsLoading,
+    TResult? Function(_UpdatePrivacySettingsSuccess value)?
+        updatePrivacySettingsSuccess,
+    TResult? Function(_UpdatePrivacySettingsFailure value)?
+        updatePrivacySettingsFailure,
+    TResult? Function(_GetPaymentMethodsLoading value)?
+        getPaymentMethodsLoading,
+    TResult? Function(_GetPaymentMethodsSuccess value)?
+        getPaymentMethodsSuccess,
+    TResult? Function(_GetPaymentMethodsFailure value)?
+        getPaymentMethodsFailure,
+    TResult? Function(_DeletePaymentMethodLoading value)?
+        deletePaymentMethodLoading,
+    TResult? Function(_DeletePaymentMethodSuccess value)?
+        deletePaymentMethodSuccess,
+    TResult? Function(_DeletePaymentMethodFailure value)?
+        deletePaymentMethodFailure,
+    TResult? Function(_SetPaymentPinLoading value)? setPaymentPinLoading,
+    TResult? Function(_SetPaymentPinSuccess value)? setPaymentPinSuccess,
+    TResult? Function(_SetPaymentPinFailure value)? setPaymentPinFailure,
+    TResult? Function(_RequestDataExportLoading value)?
+        requestDataExportLoading,
+    TResult? Function(_RequestDataExportSuccess value)?
+        requestDataExportSuccess,
+    TResult? Function(_RequestDataExportFailure value)?
+        requestDataExportFailure,
+    TResult? Function(_GetDataExportStatusLoading value)?
+        getDataExportStatusLoading,
+    TResult? Function(_GetDataExportStatusSuccess value)?
+        getDataExportStatusSuccess,
+    TResult? Function(_GetDataExportStatusFailure value)?
+        getDataExportStatusFailure,
+    TResult? Function(_ReportUserLoading value)? reportUserLoading,
+    TResult? Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult? Function(_ReportUserFailure value)? reportUserFailure,
+  }) {
+    return reportUserFailure?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult maybeMap<TResult extends Object?>({
+    TResult Function(_Initial value)? initial,
+    TResult Function(_FetchNotificationPreferencesLoading value)?
+        fetchNotificationPreferencesLoading,
+    TResult Function(_FetchNotificationPreferencesSuccess value)?
+        fetchNotificationPreferencesSuccess,
+    TResult Function(_FetchNotificationPreferencesFailure value)?
+        fetchNotificationPreferencesFailure,
+    TResult Function(_SaveNotificationPreferencesLoading value)?
+        saveNotificationPreferencesLoading,
+    TResult Function(_SaveNotificationPreferencesSuccess value)?
+        saveNotificationPreferencesSuccess,
+    TResult Function(_SaveNotificationPreferencesFailure value)?
+        saveNotificationPreferencesFailure,
+    TResult Function(_FetchBlockedUsersLoading value)? fetchBlockedUsersLoading,
+    TResult Function(_FetchBlockedUsersSuccess value)? fetchBlockedUsersSuccess,
+    TResult Function(_FetchBlockedUsersFailure value)? fetchBlockedUsersFailure,
+    TResult Function(_LinkSocialAccountLoading value)? linkSocialAccountLoading,
+    TResult Function(_LinkSocialAccountSuccess value)? linkSocialAccountSuccess,
+    TResult Function(_LinkSocialAccountFailure value)? linkSocialAccountFailure,
+    TResult Function(_UnlinkSocialAccountLoading value)?
+        unlinkSocialAccountLoading,
+    TResult Function(_UnlinkSocialAccountSuccess value)?
+        unlinkSocialAccountSuccess,
+    TResult Function(_UnlinkSocialAccountFailure value)?
+        unlinkSocialAccountFailure,
+    TResult Function(_DeleteAccountLoading value)? deleteAccountLoading,
+    TResult Function(_DeleteAccountSuccess value)? deleteAccountSuccess,
+    TResult Function(_DeleteAccountFailure value)? deleteAccountFailure,
+    TResult Function(_BlockUserLoading value)? blockUserLoading,
+    TResult Function(_BlockUserSuccess value)? blockUserSuccess,
+    TResult Function(_BlockUserFailure value)? blockUserFailure,
+    TResult Function(_GetNotificationPreferencesV2Loading value)?
+        getNotificationPreferencesV2Loading,
+    TResult Function(_GetNotificationPreferencesV2Success value)?
+        getNotificationPreferencesV2Success,
+    TResult Function(_GetNotificationPreferencesV2Failure value)?
+        getNotificationPreferencesV2Failure,
+    TResult Function(_UpdateNotificationPreferencesV2Loading value)?
+        updateNotificationPreferencesV2Loading,
+    TResult Function(_UpdateNotificationPreferencesV2Success value)?
+        updateNotificationPreferencesV2Success,
+    TResult Function(_UpdateNotificationPreferencesV2Failure value)?
+        updateNotificationPreferencesV2Failure,
+    TResult Function(_GetPrivacySettingsLoading value)?
+        getPrivacySettingsLoading,
+    TResult Function(_GetPrivacySettingsSuccess value)?
+        getPrivacySettingsSuccess,
+    TResult Function(_GetPrivacySettingsFailure value)?
+        getPrivacySettingsFailure,
+    TResult Function(_UpdatePrivacySettingsLoading value)?
+        updatePrivacySettingsLoading,
+    TResult Function(_UpdatePrivacySettingsSuccess value)?
+        updatePrivacySettingsSuccess,
+    TResult Function(_UpdatePrivacySettingsFailure value)?
+        updatePrivacySettingsFailure,
+    TResult Function(_GetPaymentMethodsLoading value)? getPaymentMethodsLoading,
+    TResult Function(_GetPaymentMethodsSuccess value)? getPaymentMethodsSuccess,
+    TResult Function(_GetPaymentMethodsFailure value)? getPaymentMethodsFailure,
+    TResult Function(_DeletePaymentMethodLoading value)?
+        deletePaymentMethodLoading,
+    TResult Function(_DeletePaymentMethodSuccess value)?
+        deletePaymentMethodSuccess,
+    TResult Function(_DeletePaymentMethodFailure value)?
+        deletePaymentMethodFailure,
+    TResult Function(_SetPaymentPinLoading value)? setPaymentPinLoading,
+    TResult Function(_SetPaymentPinSuccess value)? setPaymentPinSuccess,
+    TResult Function(_SetPaymentPinFailure value)? setPaymentPinFailure,
+    TResult Function(_RequestDataExportLoading value)? requestDataExportLoading,
+    TResult Function(_RequestDataExportSuccess value)? requestDataExportSuccess,
+    TResult Function(_RequestDataExportFailure value)? requestDataExportFailure,
+    TResult Function(_GetDataExportStatusLoading value)?
+        getDataExportStatusLoading,
+    TResult Function(_GetDataExportStatusSuccess value)?
+        getDataExportStatusSuccess,
+    TResult Function(_GetDataExportStatusFailure value)?
+        getDataExportStatusFailure,
+    TResult Function(_ReportUserLoading value)? reportUserLoading,
+    TResult Function(_ReportUserSuccess value)? reportUserSuccess,
+    TResult Function(_ReportUserFailure value)? reportUserFailure,
+    required TResult orElse(),
+  }) {
+    if (reportUserFailure != null) {
+      return reportUserFailure(this);
+    }
+    return orElse();
+  }
+}
+
+abstract class _ReportUserFailure implements SettingsState {
+  const factory _ReportUserFailure(final String error) =
+      _$ReportUserFailureImpl;
+
+  String get error;
+  @JsonKey(ignore: true)
+  _$$ReportUserFailureImplCopyWith<_$ReportUserFailureImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
