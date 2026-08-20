@@ -149,6 +149,15 @@ class UrlConfigV2 {
   static const String therapistOwnProfile = '/therapist/profile';
   static const String therapistOwnProfileUpdate = '/therapist/profile/update';
 
+  // Earnings & payouts
+  static const String therapistEarningsDashboard =
+      '/therapist/earnings/dashboard';
+  static const String therapistEarningsTransactions =
+      '/therapist/earnings/transactions';
+  static const String therapistPayouts = '/therapist/payouts';
+  static String therapistPayoutStatus(int payoutId) =>
+      '$therapistPayouts/$payoutId';
+
   // Therapist Directory & Booking
   static const String therapistDirectory = '/user/therapists';
   static String therapistProfile(int id) => '/user/therapists/$id';
