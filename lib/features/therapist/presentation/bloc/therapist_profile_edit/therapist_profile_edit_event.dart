@@ -48,6 +48,15 @@ class SetAvatarEvent extends TherapistProfileEditEvent {
   List<Object?> get props => [value];
 }
 
+/// A photo picked from the device but not yet uploaded — see
+/// [TherapistEditableProfile.pendingAvatarPath].
+class SetPendingAvatarEvent extends TherapistProfileEditEvent {
+  const SetPendingAvatarEvent(this.path);
+  final String path;
+  @override
+  List<Object?> get props => [path];
+}
+
 class SetSpecialtiesEvent extends TherapistProfileEditEvent {
   const SetSpecialtiesEvent(this.values);
   final List<String> values;

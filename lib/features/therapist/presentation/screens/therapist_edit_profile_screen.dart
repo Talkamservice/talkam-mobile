@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/custom_text_field.dart';
 import 'package:talkam/common/widgets/edit_avatar.dart';
+import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/inline_select_field.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
@@ -13,7 +15,6 @@ import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/string_extension.dart';
 import 'package:talkam/features/authentication/presentation/screens/therapist/therapist_specialties_screen.dart'
     show kSpecialtyOptions;
-import 'package:talkam/features/profile/presentation/widgets/select_avater_sheet.dart';
 import 'package:talkam/features/therapist/data/models/availability_slot.dart';
 import 'package:talkam/features/therapist/data/models/therapist_editable_profile.dart';
 import 'package:talkam/features/therapist/presentation/bloc/therapist_profile_edit/therapist_profile_edit_bloc.dart';
@@ -78,17 +79,14 @@ class _TherapistEditProfileScreenState
     super.dispose();
   }
 
+  /// Therapists need a real photo of themselves, not one of the preset
+  /// avatars the member Edit Profile screen offers — so this picks straight
+  /// from the device gallery rather than showing [SelectAvatarSheet].
   Future<void> _changePhoto() async {
-    final avatar = await CustomDialogs.showBottomSheet<String>(
-      context,
-      SelectAvatarSheet(
-        onAvatarSelected: (_) {},
-        onBackgroundSelector: (_) {},
-      ),
-    );
-    if (avatar != null && avatar.isNotEmpty) {
-      _bloc.add(SetAvatarEvent(avatar));
-    }
+    final picked = await ImagePicker().pickImage(source: ImageSource.gallery);
+    if (picked == null) return;
+    if (!mounted) return;
+    _bloc.add(SetPendingAvatarEvent(picked.path));
   }
 
   Future<void> _addSlot(WeeklyAvailability availability) async {
@@ -186,7 +184,10 @@ class _TherapistEditProfileScreenState
                     children: [
                       24.verticalSpace,
                       EditAvatar(
-                        imageUrl: draft.avatarUrl,
+                        imageUrl: draft.pendingAvatarPath ?? draft.avatarUrl,
+                        imageType: draft.pendingAvatarPath != null
+                            ? ImageWidgetType.file
+                            : ImageWidgetType.network,
                         onTap: _changePhoto,
                       ),
                       28.verticalSpace,

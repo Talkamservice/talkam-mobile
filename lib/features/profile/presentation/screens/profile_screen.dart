@@ -19,7 +19,7 @@ import 'package:talkam/features/profile/presentation/screens/tabs/connections_ta
 import 'package:talkam/features/profile/presentation/screens/tabs/profile_comments_tab.dart';
 import 'package:talkam/features/profile/presentation/screens/tabs/profile_posts_tab.dart';
 import 'package:talkam/features/profile/presentation/screens/tabs/therapist_profile_info_tab.dart';
-import 'package:talkam/features/profile/presentation/widgets/delete_account_dialog.dart';
+import 'package:talkam/features/settings/presentation/widgets/delete_account_dialog.dart';
 import 'package:talkam/features/profile/presentation/widgets/logout_dialog.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
