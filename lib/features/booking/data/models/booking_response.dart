@@ -1,5 +1,7 @@
 // Models for POST /user/bookings, GET /user/bookings/:id
 
+import 'package:talkam/features/session/data/models/session_model.dart';
+
 class BookingResponse {
   final int id;
   final String uuid;
@@ -121,4 +123,50 @@ class BookingResponse {
   bool get isFailed => status == 'failed';
   bool get isCancelled => status == 'cancelled';
   bool get needsReview => isCompleted && rating == null;
+
+  /// Adapts this into the [SessionModel] shape shared by the existing
+  /// session screens (room/prep/cancel/reschedule sheets, receipt) so they
+  /// don't need their own booking-aware rewrite — same approach as
+  /// TherapistSessionItem.toSessionModel() on the therapist side.
+  SessionModel toSessionModel() {
+    final dt = DateTime.tryParse(startsAt);
+    return SessionModel(
+      id: id.toString(),
+      therapistName: therapistName,
+      therapistTitle: '',
+      avatarUrl: '',
+      initial: therapistName.isNotEmpty ? therapistName[0].toUpperCase() : '?',
+      displayDate: dt == null ? startsAt : _displayDateOnly(dt),
+      displayTime: dt == null ? '' : _displayTimeOnly(dt),
+      format: format.isNotEmpty
+          ? '${format[0].toUpperCase()}${format.substring(1)}'
+          : format,
+      price: double.tryParse(amount) ?? 0,
+      rating: rating ?? 0,
+      isUpcoming: status != 'completed' &&
+          status != 'cancelled' &&
+          status != 'no_show' &&
+          status != 'failed' &&
+          status != 'expired',
+      status: status,
+      startsAt: parseBackendSessionStartsAt(startsAt),
+    );
+  }
+
+  String _displayDateOnly(DateTime dt) {
+    final now = DateTime.now();
+    final today = DateTime(now.year, now.month, now.day);
+    final day = DateTime(dt.year, dt.month, dt.day);
+    final diff = day.difference(today).inDays;
+    if (diff == 0) return 'Today';
+    if (diff == 1) return 'Tomorrow';
+    return '${_monthAbbrev(dt.month)} ${dt.day}';
+  }
+
+  String _displayTimeOnly(DateTime dt) {
+    final hour = dt.hour % 12 == 0 ? 12 : dt.hour % 12;
+    final min = dt.minute.toString().padLeft(2, '0');
+    final period = dt.hour >= 12 ? 'PM' : 'AM';
+    return '$hour:$min $period';
+  }
 }

@@ -4,7 +4,10 @@ import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_outlined_button.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/network/api_error.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/features/booking/domain/repository/booking_repository.dart';
 import 'package:talkam/gen/assets.gen.dart';
 import 'package:talkam/features/session/data/models/session_model.dart';
 
@@ -63,7 +66,12 @@ class TherapistActionDialogs {
     );
   }
 
-  static void showSessionDeclinedDialog(BuildContext context) {
+  static void showSessionDeclinedDialog(
+    BuildContext context, {
+    bool isError = false,
+    String? title,
+    String? message,
+  }) {
     showDialog(
       context: context,
       builder: (context) {
@@ -92,16 +100,20 @@ class TherapistActionDialogs {
                   ),
                 ),
                 16.verticalSpace,
-                const TextView(
-                  text: "Session Declined",
+                TextView(
+                  text: title ??
+                      (isError ? "Cancellation failed" : "Session Declined"),
                   fontSize: 20,
                   fontWeight: FontWeight.w700,
                   color: Pallets.boldBlack,
                   align: TextAlign.center,
                 ),
                 8.verticalSpace,
-                const TextView(
-                  text: "You have declined your session",
+                TextView(
+                  text: message ??
+                      (isError
+                          ? "Please try again."
+                          : "You have declined your session"),
                   fontSize: 14,
                   fontWeight: FontWeight.w400,
                   color: Pallets.grey400,
@@ -130,7 +142,11 @@ class TherapistActionDialogs {
     );
   }
 
-  static void showDeclineReasonBottomSheet(BuildContext context, {SessionModel? session}) {
+  static void showDeclineReasonBottomSheet(
+    BuildContext context, {
+    SessionModel? session,
+    VoidCallback? onSuccess,
+  }) {
     showModalBottomSheet(
       context: context,
       useRootNavigator: true,
@@ -141,7 +157,7 @@ class TherapistActionDialogs {
         borderRadius: BorderRadius.vertical(top: Radius.circular(32.r)),
       ),
       builder: (context) {
-        return _DeclineReasonSheet(session: session);
+        return _DeclineReasonSheet(session: session, onSuccess: onSuccess);
       },
     );
   }
@@ -149,8 +165,9 @@ class TherapistActionDialogs {
 
 class _DeclineReasonSheet extends StatefulWidget {
   final SessionModel? session;
+  final VoidCallback? onSuccess;
 
-  const _DeclineReasonSheet({this.session});
+  const _DeclineReasonSheet({this.session, this.onSuccess});
 
   @override
   State<_DeclineReasonSheet> createState() => _DeclineReasonSheetState();
@@ -158,6 +175,7 @@ class _DeclineReasonSheet extends StatefulWidget {
 
 class _DeclineReasonSheetState extends State<_DeclineReasonSheet> {
   String? selectedReason;
+  bool submitting = false;
 
   final reasons = [
     "Personal emergency",
@@ -279,20 +297,25 @@ class _DeclineReasonSheetState extends State<_DeclineReasonSheet> {
               16.horizontalSpace,
               Expanded(
                 child: CustomButton(
-                  onPressed: selectedReason == null
-                      ? null
-                      : () {
-                          Navigator.pop(context);
-                          TherapistActionDialogs.showSessionDeclinedDialog(context);
-                        },
+                  onPressed:
+                      selectedReason == null || submitting ? null : _submit,
                   bgColor: const Color(0xFFE53935),
                   elevation: 0,
-                  child: const TextView(
-                    text: "Yes Cancel",
-                    color: Colors.white,
-                    fontWeight: FontWeight.w700,
-                    fontSize: 15,
-                  ),
+                  child: submitting
+                      ? SizedBox(
+                          width: 18.w,
+                          height: 18.w,
+                          child: const CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.white,
+                          ),
+                        )
+                      : const TextView(
+                          text: "Yes Cancel",
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700,
+                          fontSize: 15,
+                        ),
                 ),
               ),
             ],
@@ -300,6 +323,45 @@ class _DeclineReasonSheetState extends State<_DeclineReasonSheet> {
         ],
       ),
     );
+  }
+
+  Future<void> _submit() async {
+    final bookingId = int.tryParse(widget.session?.id ?? '');
+    if (bookingId == null) {
+      // No real booking behind this sheet (e.g. reached via a mock/demo
+      // path) — keep the old cosmetic behaviour rather than erroring.
+      Navigator.pop(context);
+      TherapistActionDialogs.showSessionDeclinedDialog(context);
+      return;
+    }
+
+    setState(() => submitting = true);
+    try {
+      await injector.get<BookingRepository>().cancelBooking(
+            bookingId,
+            reason: selectedReason,
+          );
+      if (!mounted) return;
+      Navigator.pop(context);
+      widget.onSuccess?.call();
+      TherapistActionDialogs.showSessionDeclinedDialog(
+        context,
+        title: "Session cancelled",
+        message: "This session has been cancelled.",
+      );
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => submitting = false);
+      final message = e is ApiError
+          ? (e.errorDescription ?? 'Could not cancel this session.')
+          : 'Could not cancel this session.';
+      Navigator.pop(context);
+      TherapistActionDialogs.showSessionDeclinedDialog(
+        context,
+        isError: true,
+        message: message,
+      );
+    }
   }
 }
 

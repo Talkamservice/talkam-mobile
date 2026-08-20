@@ -25,6 +25,11 @@ class UrlConfig {
   static const String flutterWavePublicLiveKey = String.fromEnvironment('FLUTTER_WAVE_LIVE_KEY');
   static const String flutterWaveSecretLiveKey = String.fromEnvironment('FLUTTER_WAVE_SECRET_LIVE_KEY');
 
+  // Public Agora project identifier — required by RtcEngine.initialize() on
+  // the client. Not secret; the App Certificate that actually mints tokens
+  // stays server-side only (SessionCallService, talkam-api).
+  static const String agoraAppId = String.fromEnvironment('AGORA_APP_ID');
+
   // static const String facePlusProdApiKey =
   //     String.fromEnvironment('FACE_PLUS_PROD_API_KEY');
   // static const String facePlusProdApiSecret =

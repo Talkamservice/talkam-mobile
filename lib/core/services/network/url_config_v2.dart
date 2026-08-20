@@ -155,6 +155,20 @@ class UrlConfigV2 {
   static String initiatePayment(int id) =>
       '/user/bookings/$id/initiate-payment';
   static String reviewBooking(int id) => '/user/bookings/$id/review';
+  static const String requestTopUp = '/user/bookings/request-top-up';
+  static String sessionMood(int id) => '/user/bookings/$id/session-mood';
+  static String bookingReceipt(int id) => '/user/bookings/$id/receipt';
+  static String cancelBooking(int id) => '/user/bookings/$id/cancel';
+  static String rescheduleBooking(int id) =>
+      '/user/bookings/$id/reschedule';
+  static String respondToReschedule(int id) => '/reschedules/$id/respond';
+  static String joinBooking(int id) => '/user/bookings/$id/join';
+  static String messageBooking(int id) => '/user/bookings/$id/message';
+
+  // Session requests (client asks for a preferred time when no slot works)
+  static const String sessionRequests = '/user/session-requests';
+  static String declineSessionRequest(int id) =>
+      '/user/session-requests/$id/decline';
 
   // Payment callback
   static const String paymentCallback = '/finance/payments/callback';

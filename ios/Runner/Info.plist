@@ -66,6 +66,10 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Talkam uses your camera for video therapy sessions.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Talkam uses your microphone for audio and video therapy sessions.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Talkam uses your location to display nearby posts.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

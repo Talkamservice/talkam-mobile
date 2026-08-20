@@ -11,6 +11,17 @@ enum BookingStatus {
   paymentSuccess,
   paymentFailed,
   mySessionsLoaded,
+  topUpRequested,
+  moodSaved,
+  receiptLoaded,
+  cancelled,
+  rescheduleRequested,
+  rescheduleResponded,
+  joinReady,
+  conversationReady,
+  sessionRequestsLoaded,
+  sessionRequestSubmitted,
+  sessionRequestDeclined,
   error,
 }
 
@@ -41,6 +52,16 @@ class BookingState {
   // My sessions
   final MySessionsResponse? mySessions;
 
+  // Session detail actions
+  final SessionReceipt? receipt;
+  final SessionCancelResult? cancelResult;
+  final SessionReschedule? reschedule;
+  final SessionJoinDetails? joinDetails;
+  final TalkamConversation? conversation;
+
+  // Session requests (preferred-time asks)
+  final List<SessionRequestItem>? sessionRequests;
+
   const BookingState({
     this.status = BookingStatus.initial,
     this.errorMessage,
@@ -55,6 +76,12 @@ class BookingState {
     this.notes,
     this.booking,
     this.mySessions,
+    this.receipt,
+    this.cancelResult,
+    this.reschedule,
+    this.joinDetails,
+    this.conversation,
+    this.sessionRequests,
   });
 
   BookingState copyWith({
@@ -72,6 +99,12 @@ class BookingState {
     String? notes,
     BookingResponse? booking,
     MySessionsResponse? mySessions,
+    SessionReceipt? receipt,
+    SessionCancelResult? cancelResult,
+    SessionReschedule? reschedule,
+    SessionJoinDetails? joinDetails,
+    TalkamConversation? conversation,
+    List<SessionRequestItem>? sessionRequests,
   }) =>
       BookingState(
         status: status ?? this.status,
@@ -88,5 +121,11 @@ class BookingState {
         notes: notes ?? this.notes,
         booking: booking ?? this.booking,
         mySessions: mySessions ?? this.mySessions,
+        receipt: receipt ?? this.receipt,
+        cancelResult: cancelResult ?? this.cancelResult,
+        reschedule: reschedule ?? this.reschedule,
+        joinDetails: joinDetails ?? this.joinDetails,
+        conversation: conversation ?? this.conversation,
+        sessionRequests: sessionRequests ?? this.sessionRequests,
       );
 }

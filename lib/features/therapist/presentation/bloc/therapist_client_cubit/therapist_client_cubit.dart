@@ -134,6 +134,17 @@ class TherapistClientCubit extends Cubit<TherapistClientState> {
     }
   }
 
+  /// Drops a session from the upcoming list right away, so a cancelled
+  /// card disappears without waiting on the follow-up [getSessions] refetch.
+  void removeUpcomingSession(String sessionId) {
+    final id = int.tryParse(sessionId);
+    if (id == null) return;
+    emit(state.copyWith(
+      upcomingSessions:
+          state.upcomingSessions.where((s) => s.id != id).toList(),
+    ));
+  }
+
   Future<void> getNotesLibrary({
     int? clientId,
     String? query,

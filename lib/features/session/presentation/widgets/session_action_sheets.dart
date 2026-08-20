@@ -1,33 +1,62 @@
-import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
+import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/network/api_error.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/features/booking/data/models/session_receipt.dart';
+import 'package:talkam/features/booking/domain/repository/booking_repository.dart';
+import 'package:talkam/features/booking/presentation/blocs/booking_cubit/booking_cubit.dart';
 import 'package:talkam/features/session/data/models/session_model.dart';
+import 'package:talkam/features/session/data/sessions_refresh_signal.dart';
 import 'package:talkam/features/notifications/presentation/widgets/therapist_action_dialogs.dart';
 
 class SessionActionSheets {
-  static void showRescheduleSheet(BuildContext context, SessionModel session) {
+  static void showRescheduleSheet(
+    BuildContext context,
+    SessionModel session, {
+    VoidCallback? onSuccess,
+  }) {
     showModalBottomSheet(
       context: context,
       useRootNavigator: true,
       useSafeArea: true,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (context) => _RescheduleStepOneSheet(session: session),
+      builder: (context) =>
+          _RescheduleStepOneSheet(session: session, onSuccess: onSuccess),
     );
   }
 
-  static void showCancelSheet(BuildContext context, SessionModel session) {
-    TherapistActionDialogs.showDeclineReasonBottomSheet(context, session: session);
+  static void showCancelSheet(
+    BuildContext context,
+    SessionModel session, {
+    VoidCallback? onSuccess,
+  }) {
+    TherapistActionDialogs.showDeclineReasonBottomSheet(
+      context,
+      session: session,
+      onSuccess: onSuccess,
+    );
   }
 
-  static void showStatusDialog(BuildContext context, {required bool isSuccess}) {
+  static void showStatusDialog(
+    BuildContext context, {
+    required bool isSuccess,
+    String? title,
+    String? message,
+  }) {
     showDialog(
       context: context,
       barrierDismissible: true,
-      builder: (context) => _SessionStatusDialog(isSuccess: isSuccess),
+      builder: (context) => _SessionStatusDialog(
+        isSuccess: isSuccess,
+        title: title,
+        message: message,
+      ),
     );
   }
 
@@ -42,44 +71,85 @@ class SessionActionSheets {
       builder: (context) => const _InSessionNotesSheet(),
     );
   }
+
+  /// Fetches the receipt for this booking and shows it — the API call
+  /// happens after the sheet opens so the loading state renders in place.
+  static void showReceiptSheet(BuildContext context, SessionModel session) {
+    showModalBottomSheet(
+      context: context,
+      useRootNavigator: true,
+      useSafeArea: true,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => _ReceiptSheet(session: session),
+    );
+  }
+
+  /// Lets the user finish paying for a booking that was never completed
+  /// (e.g. a slot that passed while still `pending_payment`) instead of
+  /// leaving them stuck with an unpaid session and no way to act on it.
+  static void showCompletePaymentSheet(BuildContext context, SessionModel session) {
+    showModalBottomSheet(
+      context: context,
+      useRootNavigator: true,
+      useSafeArea: true,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      builder: (context) => _CompletePaymentSheet(session: session),
+    );
+  }
 }
 
 class _RescheduleStepOneSheet extends StatefulWidget {
   final SessionModel session;
+  final VoidCallback? onSuccess;
 
-  const _RescheduleStepOneSheet({required this.session});
+  const _RescheduleStepOneSheet({required this.session, this.onSuccess});
 
   @override
   State<_RescheduleStepOneSheet> createState() => _RescheduleStepOneSheetState();
 }
 
 class _RescheduleStepOneSheetState extends State<_RescheduleStepOneSheet> {
-  String _selectedDay = "MON";
-  String _startTime = "9:00 AM";
-  String _endTime = "5:00 PM";
+  late final List<DateTime> _days =
+      List.generate(14, (i) => DateTime.now().add(Duration(days: i + 1)));
+  DateTime? _selectedDay;
+  String? _selectedTime;
 
-  final List<String> _days = ["MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"];
-
-  void _pickTime(bool isStart) {
+  void _pickTime() {
     showModalBottomSheet(
       context: context,
       useRootNavigator: true,
       useSafeArea: true,
       backgroundColor: Colors.transparent,
       builder: (context) => _TimePickerSheet(
-        initialTime: isStart ? _startTime : _endTime,
-        onSelected: (time) {
-          setState(() {
-            if (isStart) {
-              _startTime = time;
-            } else {
-              _endTime = time;
-            }
-          });
-        },
+        initialTime: _selectedTime ?? '',
+        onSelected: (time) => setState(() => _selectedTime = time),
       ),
     );
   }
+
+  /// Combines the picked day + "h:mm AM/PM" time into the datetime the API
+  /// expects (`new_starts_at`).
+  DateTime? get _combined {
+    final day = _selectedDay;
+    final time = _selectedTime;
+    if (day == null || time == null) return null;
+
+    final match = RegExp(r'^(\d{1,2}):(\d{2})\s*(AM|PM)$').firstMatch(time);
+    if (match == null) return null;
+    var hour = int.parse(match.group(1)!);
+    final minute = int.parse(match.group(2)!);
+    final period = match.group(3)!;
+    if (period == 'PM' && hour != 12) hour += 12;
+    if (period == 'AM' && hour == 12) hour = 0;
+
+    return DateTime(day.year, day.month, day.day, hour, minute);
+  }
+
+  static const _weekdayAbbrev = [
+    'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -114,14 +184,15 @@ class _RescheduleStepOneSheetState extends State<_RescheduleStepOneSheet> {
           ),
           8.verticalSpace,
           TextView(
-            text: "${widget.session.therapistName} • Wed Jul 16 • 2:00PM",
+            text:
+                "${widget.session.therapistName} • ${widget.session.displayDate} • ${widget.session.displayTime}",
             fontSize: 13,
             fontWeight: FontWeight.w400,
             color: const Color(0xFF94A3B8),
           ),
           24.verticalSpace,
           TextView(
-            text: "DAYS",
+            text: "NEW DATE",
             fontSize: 12,
             fontWeight: FontWeight.w700,
             color: const Color(0xFF475569),
@@ -131,22 +202,21 @@ class _RescheduleStepOneSheetState extends State<_RescheduleStepOneSheet> {
             scrollDirection: Axis.horizontal,
             child: Row(
               children: _days.map((day) {
-                final isSelected = _selectedDay == day;
+                final isSelected = _selectedDay != null &&
+                    _selectedDay!.year == day.year &&
+                    _selectedDay!.month == day.month &&
+                    _selectedDay!.day == day.day;
                 return GestureDetector(
-                  onTap: () {
-                    setState(() {
-                      _selectedDay = day;
-                    });
-                  },
+                  onTap: () => setState(() => _selectedDay = day),
                   child: Container(
                     margin: EdgeInsets.only(right: 8.w),
-                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
+                    padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
                     decoration: BoxDecoration(
                       color: isSelected ? Pallets.blueBubbleColor : const Color(0xFFF8FAFC),
                       borderRadius: BorderRadius.circular(16.r),
                     ),
                     child: TextView(
-                      text: day,
+                      text: "${_weekdayAbbrev[day.weekday - 1]} ${day.day}",
                       fontSize: 12,
                       fontWeight: FontWeight.w600,
                       color: isSelected ? Pallets.white : const Color(0xFF64748B),
@@ -158,89 +228,41 @@ class _RescheduleStepOneSheetState extends State<_RescheduleStepOneSheet> {
           ),
           24.verticalSpace,
           TextView(
-            text: "WORKING HOURS",
+            text: "NEW TIME",
             fontSize: 12,
             fontWeight: FontWeight.w700,
             color: const Color(0xFF475569),
           ),
           12.verticalSpace,
-          Row(
-            children: [
-              TextView(
-                text: "Mon",
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                color: Pallets.boldBlack,
+          GestureDetector(
+            onTap: _pickTime,
+            child: Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+              decoration: BoxDecoration(
+                color: Pallets.white,
+                border: Border.all(color: const Color(0xFFE2E8F0)),
+                borderRadius: BorderRadius.circular(16.r),
               ),
-              16.horizontalSpace,
-              Expanded(
-                child: GestureDetector(
-                  onTap: () => _pickTime(true),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
-                    decoration: BoxDecoration(
-                      color: Pallets.white,
-                      border: Border.all(color: const Color(0xFFE2E8F0)),
-                      borderRadius: BorderRadius.circular(16.r),
-                    ),
-                    child: Column(
-                      children: [
-                        TextView(
-                          text: _startTime,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          color: Pallets.boldBlack,
-                        ),
-                        2.verticalSpace,
-                        TextView(
-                          text: "Start",
-                          fontSize: 11,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xFF94A3B8),
-                        ),
-                      ],
-                    ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  TextView(
+                    text: _selectedTime ?? 'Select a time',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w700,
+                    color: _selectedTime == null
+                        ? const Color(0xFF94A3B8)
+                        : Pallets.boldBlack,
                   ),
-                ),
-              ),
-              12.horizontalSpace,
-              Icon(
-                Icons.chevron_right_rounded,
-                color: const Color(0xFF94A3B8),
-                size: 20.w,
-              ),
-              12.horizontalSpace,
-              Expanded(
-                child: GestureDetector(
-                  onTap: () => _pickTime(false),
-                  child: Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
-                    decoration: BoxDecoration(
-                      color: Pallets.white,
-                      border: Border.all(color: const Color(0xFFE2E8F0)),
-                      borderRadius: BorderRadius.circular(16.r),
-                    ),
-                    child: Column(
-                      children: [
-                        TextView(
-                          text: _endTime,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          color: Pallets.boldBlack,
-                        ),
-                        2.verticalSpace,
-                        TextView(
-                          text: "End",
-                          fontSize: 11,
-                          fontWeight: FontWeight.w400,
-                          color: const Color(0xFF94A3B8),
-                        ),
-                      ],
-                    ),
+                  Icon(
+                    Icons.chevron_right_rounded,
+                    color: const Color(0xFF94A3B8),
+                    size: 20.w,
                   ),
-                ),
+                ],
               ),
-            ],
+            ),
           ),
           32.verticalSpace,
           Row(
@@ -260,17 +282,24 @@ class _RescheduleStepOneSheetState extends State<_RescheduleStepOneSheet> {
               16.horizontalSpace,
               Expanded(
                 child: CustomButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    showModalBottomSheet(
-                      context: context,
-                      useRootNavigator: true,
-                      useSafeArea: true,
-                      isScrollControlled: true,
-                      backgroundColor: Colors.transparent,
-                      builder: (context) => _RescheduleReasonSheet(session: widget.session),
-                    );
-                  },
+                  onPressed: _combined == null
+                      ? null
+                      : () {
+                          final newStartsAt = _combined!;
+                          Navigator.pop(context);
+                          showModalBottomSheet(
+                            context: context,
+                            useRootNavigator: true,
+                            useSafeArea: true,
+                            isScrollControlled: true,
+                            backgroundColor: Colors.transparent,
+                            builder: (context) => _RescheduleReasonSheet(
+                              session: widget.session,
+                              newStartsAt: newStartsAt,
+                              onSuccess: widget.onSuccess,
+                            ),
+                          );
+                        },
                   text: "Next",
                 ),
               ),
@@ -381,10 +410,24 @@ class _TimePickerSheet extends StatelessWidget {
   }
 }
 
+/// Maps the picker's human-readable label to SessionConstants::RESCHEDULE_REASONS
+/// on the backend — sending anything else 422s.
+const Map<String, String> _kRescheduleReasonValues = {
+  "Personal emergency": "personal_emergency",
+  "Technical issues": "technical_issues",
+  "Client request": "client_request",
+};
+
 class _RescheduleReasonSheet extends StatefulWidget {
   final SessionModel session;
+  final DateTime newStartsAt;
+  final VoidCallback? onSuccess;
 
-  const _RescheduleReasonSheet({required this.session});
+  const _RescheduleReasonSheet({
+    required this.session,
+    required this.newStartsAt,
+    this.onSuccess,
+  });
 
   @override
   State<_RescheduleReasonSheet> createState() => _RescheduleReasonSheetState();
@@ -392,12 +435,68 @@ class _RescheduleReasonSheet extends StatefulWidget {
 
 class _RescheduleReasonSheetState extends State<_RescheduleReasonSheet> {
   String _selectedReason = "Technical issues";
+  bool _submitting = false;
 
   final List<String> _reasons = [
     "Personal emergency",
     "Technical issues",
     "Client request",
   ];
+
+  static const _weekdayAbbrev = [
+    'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'
+  ];
+
+  String get _isoNewStartsAt {
+    final d = widget.newStartsAt;
+    String two(int n) => n.toString().padLeft(2, '0');
+    return "${d.year}-${two(d.month)}-${two(d.day)} ${two(d.hour)}:${two(d.minute)}:00";
+  }
+
+  String get _displayNewTime {
+    final d = widget.newStartsAt;
+    final hour = d.hour % 12 == 0 ? 12 : d.hour % 12;
+    final minute = d.minute.toString().padLeft(2, '0');
+    final period = d.hour >= 12 ? 'PM' : 'AM';
+    return '$hour:$minute $period';
+  }
+
+  Future<void> _submit() async {
+    final bookingId = int.tryParse(widget.session.id);
+    if (bookingId == null) return;
+
+    setState(() => _submitting = true);
+    try {
+      await injector.get<BookingRepository>().requestReschedule(
+            bookingId,
+            newStartsAt: _isoNewStartsAt,
+            reason: _kRescheduleReasonValues[_selectedReason]!,
+          );
+      if (!mounted) return;
+      Navigator.pop(context);
+      widget.onSuccess?.call();
+      SessionActionSheets.showStatusDialog(
+        context,
+        isSuccess: true,
+        title: "Reschedule requested",
+        message:
+            "We've asked ${widget.session.therapistName} to confirm the new time.",
+      );
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => _submitting = false);
+      final message = e is ApiError
+          ? (e.errorDescription ?? 'Could not request a reschedule.')
+          : 'Could not request a reschedule.';
+      Navigator.pop(context);
+      SessionActionSheets.showStatusDialog(
+        context,
+        isSuccess: false,
+        title: "Reschedule failed",
+        message: message,
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -432,7 +531,8 @@ class _RescheduleReasonSheetState extends State<_RescheduleReasonSheet> {
           ),
           8.verticalSpace,
           TextView(
-            text: "${widget.session.therapistName} • Wed Jul 16 • 2:00PM",
+            text:
+                "${widget.session.therapistName} • moving to ${_weekdayAbbrev[widget.newStartsAt.weekday - 1]} ${widget.newStartsAt.day} • $_displayNewTime",
             fontSize: 13,
             fontWeight: FontWeight.w400,
             color: const Color(0xFF94A3B8),
@@ -519,13 +619,23 @@ class _RescheduleReasonSheetState extends State<_RescheduleReasonSheet> {
               16.horizontalSpace,
               Expanded(
                 child: CustomButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    final isSuccess = Random().nextBool();
-                    SessionActionSheets.showStatusDialog(context, isSuccess: isSuccess);
-                  },
+                  onPressed: _submitting ? null : _submit,
                   bgColor: const Color(0xFFEF4444),
-                  text: "Reschedule",
+                  child: _submitting
+                      ? SizedBox(
+                          width: 18.w,
+                          height: 18.w,
+                          child: const CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: Colors.white,
+                          ),
+                        )
+                      : TextView(
+                          text: "Reschedule",
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
+                          color: Pallets.white,
+                        ),
                 ),
               ),
             ],
@@ -541,8 +651,10 @@ class _RescheduleReasonSheetState extends State<_RescheduleReasonSheet> {
 
 class _SessionStatusDialog extends StatelessWidget {
   final bool isSuccess;
+  final String? title;
+  final String? message;
 
-  const _SessionStatusDialog({required this.isSuccess});
+  const _SessionStatusDialog({required this.isSuccess, this.title, this.message});
 
   @override
   Widget build(BuildContext context) {
@@ -576,16 +688,18 @@ class _SessionStatusDialog extends StatelessWidget {
             ),
             20.verticalSpace,
             TextView(
-              text: isSuccess ? "Session Rescheduled" : "Session Declined",
+              text: title ??
+                  (isSuccess ? "Session Rescheduled" : "Session Declined"),
               fontSize: 20,
               fontWeight: FontWeight.w700,
               color: Pallets.boldBlack,
             ),
             12.verticalSpace,
             TextView(
-              text: isSuccess
-                  ? "Your session is rescheduled. Continue using the service uninterrupted."
-                  : "Your rescheduled session has been declined",
+              text: message ??
+                  (isSuccess
+                      ? "Your session is rescheduled. Continue using the service uninterrupted."
+                      : "Your rescheduled session has been declined"),
               fontSize: 13,
               fontWeight: FontWeight.w400,
               color: const Color(0xFF64748B),
@@ -751,6 +865,317 @@ class _InSessionNotesSheetState extends State<_InSessionNotesSheet> {
         ],
       ),
     )
+    );
+  }
+}
+
+class _ReceiptSheet extends StatefulWidget {
+  final SessionModel session;
+
+  const _ReceiptSheet({required this.session});
+
+  @override
+  State<_ReceiptSheet> createState() => _ReceiptSheetState();
+}
+
+class _ReceiptSheetState extends State<_ReceiptSheet> {
+  SessionReceipt? _receipt;
+  String? _error;
+
+  @override
+  void initState() {
+    super.initState();
+    _load();
+  }
+
+  Future<void> _load() async {
+    final bookingId = int.tryParse(widget.session.id);
+    if (bookingId == null) {
+      setState(() => _error = 'Receipt unavailable for this session.');
+      return;
+    }
+    try {
+      final receipt =
+          await injector.get<BookingRepository>().getReceipt(bookingId);
+      if (!mounted) return;
+      setState(() => _receipt = receipt);
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => _error = e is ApiError
+          ? (e.errorDescription ?? 'Could not load the receipt.')
+          : 'Could not load the receipt.');
+    }
+  }
+
+  Widget _row(String label, String value) => Padding(
+        padding: EdgeInsets.only(bottom: 12.h),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            TextView(
+              text: label,
+              fontSize: 13,
+              fontWeight: FontWeight.w400,
+              color: const Color(0xFF64748B),
+            ),
+            TextView(
+              text: value,
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: Pallets.boldBlack,
+            ),
+          ],
+        ),
+      );
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+      decoration: BoxDecoration(
+        color: Pallets.white,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(28.r)),
+      ),
+      child: SafeArea(
+        top: false,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  width: 40.w,
+                  height: 4.h,
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFCBD5E1),
+                    borderRadius: BorderRadius.circular(2.r),
+                  ),
+                ),
+              ),
+              20.verticalSpace,
+              const TextView(
+                text: "Receipt",
+                fontSize: 20,
+                fontWeight: FontWeight.w700,
+                color: Pallets.boldBlack,
+              ),
+              20.verticalSpace,
+              if (_error != null)
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 24.h),
+                  child: Column(
+                    children: [
+                      TextView(
+                        text: _error!,
+                        fontSize: 14,
+                        color: const Color(0xFF64748B),
+                        align: TextAlign.center,
+                      ),
+                      if (widget.session.status == 'pending_payment') ...[
+                        16.verticalSpace,
+                        CustomButton(
+                          onPressed: () {
+                            Navigator.pop(context);
+                            SessionActionSheets.showCompletePaymentSheet(
+                              context,
+                              widget.session,
+                            );
+                          },
+                          text: "Complete Payment",
+                        ),
+                      ],
+                    ],
+                  ),
+                )
+              else if (_receipt == null)
+                Padding(
+                  padding: EdgeInsets.symmetric(vertical: 24.h),
+                  child: Center(child: CustomDialogs.getLoading(size: 36)),
+                )
+              else ...[
+                _row("Therapist",
+                    _receipt!.session.therapistName ?? widget.session.therapistName),
+                _row("Date", _receipt!.session.startsAt),
+                _row("Format", _receipt!.session.format),
+                _row("Amount", "${_receipt!.currency} ${_receipt!.amount}"),
+                if (_receipt!.fees != null)
+                  _row("Fees", "${_receipt!.currency} ${_receipt!.fees}"),
+                if (_receipt!.narration != null)
+                  _row("Narration", _receipt!.narration!),
+                if (_receipt!.paidAt != null) _row("Paid", _receipt!.paidAt!),
+                _row("Reference", _receipt!.reference),
+              ],
+              12.verticalSpace,
+              CustomButton(
+                onPressed: () => Navigator.pop(context),
+                text: "Done",
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _CompletePaymentSheet extends StatefulWidget {
+  final SessionModel session;
+
+  const _CompletePaymentSheet({required this.session});
+
+  @override
+  State<_CompletePaymentSheet> createState() => _CompletePaymentSheetState();
+}
+
+class _CompletePaymentSheetState extends State<_CompletePaymentSheet> {
+  final BookingCubit _cubit = BookingCubit();
+
+  @override
+  void dispose() {
+    _cubit.close();
+    super.dispose();
+  }
+
+  void _pay() {
+    final bookingId = int.tryParse(widget.session.id);
+    if (bookingId == null) return;
+    _cubit.retryPayment(bookingId, context);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final priceStr = "₦${widget.session.price.toInt().toString().replaceAllMapped(
+          RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'),
+          (m) => '${m[1]},',
+        )}";
+
+    return BlocProvider.value(
+      value: _cubit,
+      child: BlocListener<BookingCubit, BookingState>(
+        listenWhen: (prev, curr) => curr.status != prev.status,
+        listener: (context, state) {
+          if (state.status == BookingStatus.paymentSuccess) {
+            SessionsRefreshSignal.ping();
+            Navigator.pop(context);
+            SessionActionSheets.showStatusDialog(
+              context,
+              isSuccess: true,
+              title: "Payment completed",
+              message:
+                  "Your session with ${widget.session.therapistName} is now confirmed.",
+            );
+          } else if (state.status == BookingStatus.paymentFailed) {
+            SessionActionSheets.showStatusDialog(
+              context,
+              isSuccess: false,
+              title: "Payment failed",
+              message: state.errorMessage ?? "Could not complete payment.",
+            );
+          }
+        },
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
+          decoration: BoxDecoration(
+            color: Pallets.white,
+            borderRadius: BorderRadius.vertical(top: Radius.circular(28.r)),
+          ),
+          child: SafeArea(
+            top: false,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Container(
+                    width: 40.w,
+                    height: 4.h,
+                    decoration: BoxDecoration(
+                      color: const Color(0xFFCBD5E1),
+                      borderRadius: BorderRadius.circular(2.r),
+                    ),
+                  ),
+                ),
+                20.verticalSpace,
+                const TextView(
+                  text: "Complete your payment",
+                  fontSize: 20,
+                  fontWeight: FontWeight.w700,
+                  color: Pallets.boldBlack,
+                ),
+                8.verticalSpace,
+                TextView(
+                  text:
+                      "${widget.session.therapistName} • ${widget.session.displayDate} • ${widget.session.displayTime}",
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: Pallets.grey400,
+                ),
+                4.verticalSpace,
+                const TextView(
+                  text:
+                      "This session hasn't been paid for yet, so it was never confirmed. Complete payment to lock in your slot.",
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: Pallets.grey400,
+                ),
+                20.verticalSpace,
+                Container(
+                  width: double.infinity,
+                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF7F7F7),
+                    borderRadius: BorderRadius.circular(14.r),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const TextView(
+                        text: "Amount due",
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Pallets.boldBlack,
+                      ),
+                      TextView(
+                        text: priceStr,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color: Pallets.boldBlack,
+                      ),
+                    ],
+                  ),
+                ),
+                24.verticalSpace,
+                BlocBuilder<BookingCubit, BookingState>(
+                  builder: (context, state) {
+                    final isLoading =
+                        state.status == BookingStatus.paymentInitiated ||
+                            state.status == BookingStatus.loading;
+                    return CustomButton(
+                      onPressed: isLoading ? null : _pay,
+                      child: isLoading
+                          ? SizedBox(
+                              width: 18.w,
+                              height: 18.w,
+                              child: const CircularProgressIndicator(
+                                strokeWidth: 2,
+                                color: Colors.white,
+                              ),
+                            )
+                          : const TextView(
+                              text: "Complete Payment",
+                              color: Colors.white,
+                              fontWeight: FontWeight.w700,
+                              fontSize: 15,
+                            ),
+                    );
+                  },
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }

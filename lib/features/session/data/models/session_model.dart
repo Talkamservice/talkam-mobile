@@ -1,3 +1,25 @@
+/// The API sends `starts_at` as a naive `"Y-m-d H:i:s"` string (Carbon's
+/// `toDateTimeString()`) with no timezone marker — but the digits are always
+/// the backend's fixed `Africa/Lagos` (WAT, UTC+1, no DST) wall clock, not
+/// the device's timezone. `DateTime.tryParse` on a marker-less string
+/// assumes it's already device-local, which silently gives the wrong
+/// absolute instant on any device not also set to UTC+1 — harmless for
+/// display text (which just echoes the digits back), but wrong for any real
+/// elapsed-time math against `DateTime.now()`, like a session countdown.
+DateTime? parseBackendSessionStartsAt(String? raw) {
+  if (raw == null) return null;
+  final naive = DateTime.tryParse(raw);
+  if (naive == null) return null;
+  return DateTime.utc(
+    naive.year,
+    naive.month,
+    naive.day,
+    naive.hour,
+    naive.minute,
+    naive.second,
+  ).subtract(const Duration(hours: 1));
+}
+
 class SessionModel {
   final String id;
   final String therapistName;
@@ -11,6 +33,7 @@ class SessionModel {
   final double rating;
   final bool isUpcoming;
   final String? status;
+  final DateTime? startsAt;
 
   const SessionModel({
     required this.id,
@@ -25,6 +48,7 @@ class SessionModel {
     required this.rating,
     required this.isUpcoming,
     this.status,
+    this.startsAt,
   });
 }
 

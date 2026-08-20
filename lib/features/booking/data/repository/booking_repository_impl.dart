@@ -5,10 +5,16 @@ import 'package:talkam/core/services/network/url_config_v2.dart';
 import 'package:talkam/features/booking/data/models/booking_response.dart';
 import 'package:talkam/features/booking/data/models/initiate_payment_data.dart';
 import 'package:talkam/features/booking/data/models/my_sessions_response.dart';
+import 'package:talkam/features/booking/data/models/session_cancel_result.dart';
+import 'package:talkam/features/booking/data/models/session_join.dart';
+import 'package:talkam/features/booking/data/models/session_receipt.dart';
+import 'package:talkam/features/booking/data/models/session_reschedule.dart';
+import 'package:talkam/features/booking/data/models/session_request_item.dart';
 import 'package:talkam/features/booking/data/models/therapist_directory_response.dart';
 import 'package:talkam/features/booking/data/models/therapist_review_item.dart';
 import 'package:talkam/features/booking/data/models/therapist_slots_response.dart';
 import 'package:talkam/features/booking/domain/repository/booking_repository.dart';
+import 'package:talkam/features/messaging/data/models/get_conversations_response.dart';
 
 class BookingRepositoryImpl extends BookingRepository {
   final NetworkService _v2 = NetworkService(baseUrl: UrlConfigV2.coreBaseUrl);
@@ -167,5 +173,168 @@ class BookingRepositoryImpl extends BookingRepository {
       }),
       options: _formOptions,
     );
+  }
+
+  @override
+  Future<void> requestTopUp() async {
+    await _v2.call(UrlConfigV2.requestTopUp, RequestMethod.post);
+  }
+
+  @override
+  Future<void> saveSessionMood(
+    int bookingId, {
+    required String phase,
+    required int mood,
+  }) async {
+    await _v2.call(
+      UrlConfigV2.sessionMood(bookingId),
+      RequestMethod.post,
+      formData: FormData.fromMap({'phase': phase, 'mood': mood}),
+      options: _formOptions,
+    );
+  }
+
+  @override
+  Future<SessionReceipt> getReceipt(int bookingId) async {
+    final response = await _v2.call(
+      UrlConfigV2.bookingReceipt(bookingId),
+      RequestMethod.get,
+    );
+    final dataMap = response.data['data'] is Map
+        ? Map<String, dynamic>.from(response.data['data'] as Map)
+        : <String, dynamic>{};
+    return SessionReceipt.fromJson(dataMap);
+  }
+
+  @override
+  Future<SessionCancelResult> cancelBooking(
+    int bookingId, {
+    String? reason,
+  }) async {
+    final response = await _v2.call(
+      UrlConfigV2.cancelBooking(bookingId),
+      RequestMethod.post,
+      formData: FormData.fromMap({
+        if (reason != null && reason.isNotEmpty) 'reason': reason,
+      }),
+      options: _formOptions,
+    );
+    final dataMap = response.data['data'] is Map
+        ? Map<String, dynamic>.from(response.data['data'] as Map)
+        : <String, dynamic>{};
+    return SessionCancelResult.fromJson(dataMap);
+  }
+
+  @override
+  Future<SessionReschedule> requestReschedule(
+    int bookingId, {
+    required String newStartsAt,
+    required String reason,
+  }) async {
+    final response = await _v2.call(
+      UrlConfigV2.rescheduleBooking(bookingId),
+      RequestMethod.post,
+      formData: FormData.fromMap({
+        'new_starts_at': newStartsAt,
+        'reason': reason,
+      }),
+      options: _formOptions,
+    );
+    final dataMap = response.data['data'] is Map
+        ? Map<String, dynamic>.from(response.data['data'] as Map)
+        : <String, dynamic>{};
+    return SessionReschedule.fromJson(dataMap);
+  }
+
+  @override
+  Future<SessionReschedule> respondToReschedule(
+    int rescheduleId, {
+    required String action,
+  }) async {
+    final response = await _v2.call(
+      UrlConfigV2.respondToReschedule(rescheduleId),
+      RequestMethod.post,
+      formData: FormData.fromMap({'action': action}),
+      options: _formOptions,
+    );
+    final dataMap = response.data['data'] is Map
+        ? Map<String, dynamic>.from(response.data['data'] as Map)
+        : <String, dynamic>{};
+    return SessionReschedule.fromJson(dataMap);
+  }
+
+  @override
+  Future<SessionJoinDetails> joinSession(int bookingId) async {
+    final response = await _v2.call(
+      UrlConfigV2.joinBooking(bookingId),
+      RequestMethod.get,
+    );
+    final dataMap = response.data['data'] is Map
+        ? Map<String, dynamic>.from(response.data['data'] as Map)
+        : <String, dynamic>{};
+    return SessionJoinDetails.fromJson(dataMap);
+  }
+
+  @override
+  Future<TalkamConversation> startSessionConversation(int bookingId) async {
+    final response = await _v2.call(
+      UrlConfigV2.messageBooking(bookingId),
+      RequestMethod.post,
+    );
+    final dataMap = response.data['data'] is Map
+        ? Map<String, dynamic>.from(response.data['data'] as Map)
+        : <String, dynamic>{};
+    return TalkamConversation.fromJson(dataMap);
+  }
+
+  @override
+  Future<List<SessionRequestItem>> getSessionRequests() async {
+    final response =
+        await _v2.call(UrlConfigV2.sessionRequests, RequestMethod.get);
+    final dataMap = response.data['data'] is Map
+        ? Map<String, dynamic>.from(response.data['data'] as Map)
+        : <String, dynamic>{};
+    final requests = dataMap['requests'] is List
+        ? List<dynamic>.from(dataMap['requests'] as List)
+        : <dynamic>[];
+    return requests
+        .map((e) => SessionRequestItem.fromJson(e as Map<String, dynamic>))
+        .toList();
+  }
+
+  @override
+  Future<SessionRequestResult> submitSessionRequest({
+    required int therapistId,
+    required String format,
+    required String preferredAt,
+    String? note,
+  }) async {
+    final response = await _v2.call(
+      UrlConfigV2.sessionRequests,
+      RequestMethod.post,
+      formData: FormData.fromMap({
+        'therapist_id': therapistId,
+        'format': format,
+        'preferred_at': preferredAt,
+        if (note != null && note.isNotEmpty) 'note': note,
+      }),
+      options: _formOptions,
+    );
+    final dataMap = response.data['data'] is Map
+        ? Map<String, dynamic>.from(response.data['data'] as Map)
+        : <String, dynamic>{};
+    return SessionRequestResult.fromJson(dataMap);
+  }
+
+  @override
+  Future<SessionRequestResult> declineSessionRequest(int requestId) async {
+    final response = await _v2.call(
+      UrlConfigV2.declineSessionRequest(requestId),
+      RequestMethod.post,
+    );
+    final dataMap = response.data['data'] is Map
+        ? Map<String, dynamic>.from(response.data['data'] as Map)
+        : <String, dynamic>{};
+    return SessionRequestResult.fromJson(dataMap);
   }
 }

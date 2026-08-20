@@ -12,7 +12,9 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/features/booking/presentation/blocs/booking_cubit/booking_cubit.dart';
 import 'package:talkam/features/session/data/models/session_model.dart';
+import 'package:talkam/features/session/data/sessions_refresh_signal.dart';
 import 'package:talkam/features/session/presentation/widgets/session_action_sheets.dart';
 import 'package:talkam/features/therapist/dormain/repository/therapist_repository.dart';
 import 'package:talkam/features/therapist/presentation/bloc/therapist_client_cubit/therapist_client_cubit.dart';
@@ -27,6 +29,7 @@ class SessionsScreen extends StatefulWidget {
 
 class _SessionsScreenState extends State<SessionsScreen> {
   TherapistClientCubit? _cubit;
+  BookingCubit? _bookingCubit;
 
   bool get _isTherapist => SessionManager.instance.isTherapistAccount;
 
@@ -36,13 +39,42 @@ class _SessionsScreenState extends State<SessionsScreen> {
     if (_isTherapist) {
       _cubit = TherapistClientCubit(injector.get<TherapistRepository>())
         ..getSessions();
+    } else {
+      _bookingCubit = BookingCubit()..loadMyBookings();
     }
+    // This screen sits in a StatefulShellRoute branch that's kept alive
+    // across tab switches, so initState only runs once — without this,
+    // returning here right after paying for a session would still show
+    // whatever list was fetched before the payment.
+    SessionsRefreshSignal.value.addListener(_refresh);
   }
 
   @override
   void dispose() {
+    SessionsRefreshSignal.value.removeListener(_refresh);
     _cubit?.close();
+    _bookingCubit?.close();
     super.dispose();
+  }
+
+  void _refresh() {
+    if (_isTherapist) {
+      _cubit?.getSessions();
+    } else {
+      _bookingCubit?.loadMyBookings();
+    }
+  }
+
+  /// Removes the card immediately (so the screen feels dynamic) and then
+  /// reconciles with the server, which moves the cancelled session into
+  /// PAST SESSIONS.
+  void _onSessionCancelled(String sessionId) {
+    if (_isTherapist) {
+      _cubit?.removeUpcomingSession(sessionId);
+    } else {
+      _bookingCubit?.removeUpcomingSession(sessionId);
+    }
+    _refresh();
   }
 
   @override
@@ -61,16 +93,37 @@ class _SessionsScreenState extends State<SessionsScreen> {
           upcoming:
               state.upcomingSessions.map((e) => e.toSessionModel()).toList(),
           past: state.pastSessions.map((e) => e.toSessionModel()).toList(),
+          onRefresh: _refresh,
+          onCancelled: _onSessionCancelled,
         ),
       );
     }
-    return _buildScaffold(
-      context,
-      isTherapist: false,
-      loading: false,
-      error: null,
-      upcoming: MockSessionData.upcomingSessions,
-      past: MockSessionData.pastSessions,
+    return BlocBuilder<BookingCubit, BookingState>(
+      bloc: _bookingCubit,
+      builder: (context, state) {
+        final loading = state.status == BookingStatus.loading &&
+            state.mySessions == null;
+        final error = state.status == BookingStatus.error &&
+                state.mySessions == null
+            ? (state.errorMessage ?? 'Something went wrong')
+            : null;
+        final upcoming = (state.mySessions?.upcoming ?? [])
+            .map((e) => e.toSessionModel())
+            .toList();
+        final past = (state.mySessions?.past ?? [])
+            .map((e) => e.toSessionModel())
+            .toList();
+        return _buildScaffold(
+          context,
+          isTherapist: false,
+          loading: loading,
+          error: error,
+          upcoming: upcoming,
+          past: past,
+          onRefresh: _refresh,
+          onCancelled: _onSessionCancelled,
+        );
+      },
     );
   }
 
@@ -81,6 +134,8 @@ class _SessionsScreenState extends State<SessionsScreen> {
     required String? error,
     required List<SessionModel> upcoming,
     required List<SessionModel> past,
+    required VoidCallback onRefresh,
+    required ValueChanged<String> onCancelled,
   }) {
     final isEmptyState =
         !loading && error == null && upcoming.isEmpty && past.isEmpty;
@@ -211,9 +266,10 @@ class _SessionsScreenState extends State<SessionsScreen> {
                             color: Pallets.boldBlack,
                           ),
                           8.verticalSpace,
-                          const TextView(
-                            text:
-                                "Your profile is live and viable to clients. Bookings will appear here once a client schedules with you",
+                          TextView(
+                            text: isTherapist
+                                ? "Your profile is live and viable to clients. Bookings will appear here once a client schedules with you"
+                                : "Book a session with a therapist and it'll show up here",
                             fontSize: 14,
                             color: Pallets.grey400,
                             align: TextAlign.center,
@@ -221,58 +277,70 @@ class _SessionsScreenState extends State<SessionsScreen> {
                           ),
                           const Spacer(),
 
-                          // Set Availability Card
-                          Container(
-                            width: double.infinity,
-                            padding: EdgeInsets.all(16.w),
-                            decoration: BoxDecoration(
-                              color: const Color(0xFFF8FAFC),
-                              borderRadius: BorderRadius.circular(20.r),
-                              border:
-                                  Border.all(color: const Color(0xFFF1F5F9)),
-                            ),
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 48.w,
-                                  height: 48.w,
-                                  decoration: const BoxDecoration(
-                                    color: Color(0xFF64748B),
-                                    shape: BoxShape.circle,
+                          // Set Availability (therapist) / Find a Therapist (consumer) Card
+                          GestureDetector(
+                            onTap: isTherapist
+                                ? null
+                                : () => context
+                                    .pushNamed(PageUrl.therapistListScreen),
+                            child: Container(
+                              width: double.infinity,
+                              padding: EdgeInsets.all(16.w),
+                              decoration: BoxDecoration(
+                                color: const Color(0xFFF8FAFC),
+                                borderRadius: BorderRadius.circular(20.r),
+                                border: Border.all(
+                                    color: const Color(0xFFF1F5F9)),
+                              ),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    width: 48.w,
+                                    height: 48.w,
+                                    decoration: const BoxDecoration(
+                                      color: Color(0xFF64748B),
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Icon(
+                                      isTherapist
+                                          ? Icons.calendar_month_outlined
+                                          : Icons.search_rounded,
+                                      color: Colors.white,
+                                      size: 24.w,
+                                    ),
                                   ),
-                                  child: Icon(
-                                    Icons.calendar_month_outlined,
-                                    color: Colors.white,
+                                  14.horizontalSpace,
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        TextView(
+                                          text: isTherapist
+                                              ? "Set your availability"
+                                              : "Find a therapist",
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                          color: Pallets.boldBlack,
+                                        ),
+                                        4.verticalSpace,
+                                        TextView(
+                                          text: isTherapist
+                                              ? "Clients can only see open slots"
+                                              : "Book your first session",
+                                          fontSize: 13,
+                                          color: Pallets.grey400,
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.chevron_right_rounded,
+                                    color: Pallets.grey400,
                                     size: 24.w,
                                   ),
-                                ),
-                                14.horizontalSpace,
-                                Expanded(
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      const TextView(
-                                        text: "Set your availability",
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w700,
-                                        color: Pallets.boldBlack,
-                                      ),
-                                      4.verticalSpace,
-                                      const TextView(
-                                        text: "Clients can only see open slots",
-                                        fontSize: 13,
-                                        color: Pallets.grey400,
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                Icon(
-                                  Icons.chevron_right_rounded,
-                                  color: Pallets.grey400,
-                                  size: 24.w,
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                           24.verticalSpace,
@@ -299,7 +367,11 @@ class _SessionsScreenState extends State<SessionsScreen> {
                               if (isTherapist)
                                 ...upcoming.map((s) => Padding(
                                       padding: EdgeInsets.only(bottom: 16.h),
-                                      child: _TherapistUpcomingCard(session: s),
+                                      child: _TherapistUpcomingCard(
+                                        session: s,
+                                        onRefresh: onRefresh,
+                                        onCancelled: onCancelled,
+                                      ),
                                     ))
                               else ...[
                                 _UpcomingCardOne(
@@ -308,7 +380,11 @@ class _SessionsScreenState extends State<SessionsScreen> {
                                 ),
                                 if (upcoming.length > 1) ...[
                                   16.verticalSpace,
-                                  _UpcomingCardTwo(session: upcoming[1]),
+                                  _UpcomingCardTwo(
+                                    session: upcoming[1],
+                                    onRefresh: onRefresh,
+                                    onCancelled: onCancelled,
+                                  ),
                                 ],
                               ],
                               28.verticalSpace,
@@ -426,8 +502,14 @@ class _UpcomingCardOne extends StatelessWidget {
 /// consistent card instead of a position-based variant.
 class _TherapistUpcomingCard extends StatelessWidget {
   final SessionModel session;
+  final VoidCallback onRefresh;
+  final ValueChanged<String> onCancelled;
 
-  const _TherapistUpcomingCard({required this.session});
+  const _TherapistUpcomingCard({
+    required this.session,
+    required this.onRefresh,
+    required this.onCancelled,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -512,7 +594,11 @@ class _TherapistUpcomingCard extends StatelessWidget {
               Expanded(
                 child: CustomButton(
                   onPressed: () {
-                    SessionActionSheets.showCancelSheet(context, session);
+                    SessionActionSheets.showCancelSheet(
+                      context,
+                      session,
+                      onSuccess: () => onCancelled(session.id),
+                    );
                   },
                   bgColor: const Color(0xFFF8FAFC),
                   child: TextView(
@@ -527,7 +613,11 @@ class _TherapistUpcomingCard extends StatelessWidget {
               Expanded(
                 child: CustomButton(
                   onPressed: () {
-                    SessionActionSheets.showRescheduleSheet(context, session);
+                    SessionActionSheets.showRescheduleSheet(
+                      context,
+                      session,
+                      onSuccess: onRefresh,
+                    );
                   },
                   text: "Reschedule",
                 ),
@@ -542,8 +632,14 @@ class _TherapistUpcomingCard extends StatelessWidget {
 
 class _UpcomingCardTwo extends StatelessWidget {
   final SessionModel session;
+  final VoidCallback onRefresh;
+  final ValueChanged<String> onCancelled;
 
-  const _UpcomingCardTwo({required this.session});
+  const _UpcomingCardTwo({
+    required this.session,
+    required this.onRefresh,
+    required this.onCancelled,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -603,7 +699,11 @@ class _UpcomingCardTwo extends StatelessWidget {
               Expanded(
                 child: CustomButton(
                   onPressed: () {
-                    SessionActionSheets.showCancelSheet(context, session);
+                    SessionActionSheets.showCancelSheet(
+                      context,
+                      session,
+                      onSuccess: () => onCancelled(session.id),
+                    );
                   },
                   bgColor: const Color(0xFFF8FAFC),
                   child: TextView(
@@ -618,7 +718,11 @@ class _UpcomingCardTwo extends StatelessWidget {
               Expanded(
                 child: CustomButton(
                   onPressed: () {
-                    SessionActionSheets.showRescheduleSheet(context, session);
+                    SessionActionSheets.showRescheduleSheet(
+                      context,
+                      session,
+                      onSuccess: onRefresh,
+                    );
                   },
                   text: "Reschedule",
                 ),
@@ -638,6 +742,7 @@ class _PastSessionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isUnpaid = session.status == 'pending_payment';
     final priceStr =
         "₦${session.price.toInt().toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}";
 
@@ -715,13 +820,17 @@ class _PastSessionCard extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  // View receipt action
+                  if (isUnpaid) {
+                    SessionActionSheets.showCompletePaymentSheet(context, session);
+                  } else {
+                    SessionActionSheets.showReceiptSheet(context, session);
+                  }
                 },
                 child: TextView(
-                  text: "View receipt",
+                  text: isUnpaid ? "Complete payment" : "View receipt",
                   fontSize: 13,
                   fontWeight: FontWeight.w700,
-                  color: const Color(0xFF059669),
+                  color: isUnpaid ? const Color(0xFFD97706) : const Color(0xFF059669),
                 ),
               ),
             ],

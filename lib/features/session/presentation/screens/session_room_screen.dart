@@ -22,26 +22,35 @@ class SessionRoomScreen extends StatefulWidget {
 }
 
 class _SessionRoomScreenState extends State<SessionRoomScreen> {
-  late int _remainingSeconds;
+  /// The live countdown only starts ticking once the session is this close —
+  /// before that we just show the scheduled time, not a running clock.
+  static const _joinWindow = Duration(minutes: 30);
+
   Timer? _timer;
+  Duration _remaining = Duration.zero;
+
+  DateTime? get _startsAt => widget.session?.startsAt;
 
   @override
   void initState() {
     super.initState();
-    _remainingSeconds = 5;
-    _startTimer();
+    _updateRemaining();
+    _timer = Timer.periodic(
+      const Duration(seconds: 1),
+      (_) => _updateRemaining(),
+    );
   }
 
-  void _startTimer() {
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer) {
-      if (_remainingSeconds > 0) {
-        setState(() {
-          _remainingSeconds--;
-        });
-      } else {
-        _timer?.cancel();
-      }
-    });
+  void _updateRemaining() {
+    final startsAt = _startsAt;
+    // No real start time to count down to (e.g. mock/demo data) — treat the
+    // session as immediately joinable rather than showing a broken timer.
+    final diff =
+        startsAt == null ? Duration.zero : startsAt.difference(DateTime.now());
+    if (!mounted) return;
+    setState(() => _remaining = diff.isNegative ? Duration.zero : diff);
+    if (!diff.isNegative && diff > Duration.zero) return;
+    _timer?.cancel();
   }
 
   @override
@@ -50,19 +59,19 @@ class _SessionRoomScreenState extends State<SessionRoomScreen> {
     super.dispose();
   }
 
-  String _formatDuration(int totalSeconds) {
-    final minutes = totalSeconds ~/ 60;
-    final seconds = totalSeconds % 60;
+  String _formatDuration(Duration duration) {
+    final minutes = duration.inMinutes;
+    final seconds = duration.inSeconds % 60;
     return "$minutes:${seconds.toString().padLeft(2, '0')}";
   }
 
   @override
   Widget build(BuildContext context) {
-    final totalDuration = 5;
-    final progress = totalDuration > 0
-        ? (1.0 - (_remainingSeconds / totalDuration)).clamp(0.0, 1.0)
-        : 1.0;
-    final isReady = _remainingSeconds == 0;
+    final isWithinJoinWindow = _remaining <= _joinWindow;
+    final isReady = _remaining <= Duration.zero;
+    final progress = isWithinJoinWindow
+        ? (1.0 - (_remaining.inSeconds / _joinWindow.inSeconds)).clamp(0.0, 1.0)
+        : 0.0;
 
     return Scaffold(
       backgroundColor: Pallets.white,
@@ -83,49 +92,46 @@ class _SessionRoomScreenState extends State<SessionRoomScreen> {
             40.verticalSpace,
 
             // Circular Countdown Ring
-            GestureDetector(
-              onTap: () {
-                // Tap ring to quickly toggle ready state for testing
-                setState(() {
-                  _remainingSeconds = isReady ? 5 : 0;
-                });
-              },
-              child: Stack(
-                alignment: Alignment.center,
-                children: [
-                  SizedBox(
-                    width: 180.w,
-                    height: 180.w,
-                    child: CircularProgressIndicator(
-                      value: isReady ? 1.0 : (0.2 + (progress * 0.8)),
-                      strokeWidth: 12.w,
-                      backgroundColor: const Color(0xFFF1F5F9),
-                      valueColor: const AlwaysStoppedAnimation<Color>(
-                        Pallets.blueBubbleColor,
-                      ),
-                      strokeCap: StrokeCap.round,
+            Stack(
+              alignment: Alignment.center,
+              children: [
+                SizedBox(
+                  width: 180.w,
+                  height: 180.w,
+                  child: CircularProgressIndicator(
+                    value: isReady ? 1.0 : (0.2 + (progress * 0.8)),
+                    strokeWidth: 12.w,
+                    backgroundColor: const Color(0xFFF1F5F9),
+                    valueColor: const AlwaysStoppedAnimation<Color>(
+                      Pallets.blueBubbleColor,
                     ),
+                    strokeCap: StrokeCap.round,
                   ),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      TextView(
-                        text: _formatDuration(_remainingSeconds),
-                        fontSize: 34,
-                        fontWeight: FontWeight.w700,
-                        color: Pallets.boldBlack,
-                      ),
-                      4.verticalSpace,
-                      TextView(
-                        text: "until session",
-                        fontSize: 14,
-                        fontWeight: FontWeight.w400,
-                        color: const Color(0xFF64748B),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                ),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TextView(
+                      text: isWithinJoinWindow
+                          ? _formatDuration(_remaining)
+                          : (widget.session?.displayTime ?? "--:--"),
+                      fontSize: 34,
+                      fontWeight: FontWeight.w700,
+                      color: Pallets.boldBlack,
+                    ),
+                    4.verticalSpace,
+                    TextView(
+                      text: isWithinJoinWindow
+                          ? "until session"
+                          : "Countdown starts 30 min before session",
+                      fontSize: 14,
+                      fontWeight: FontWeight.w400,
+                      color: const Color(0xFF64748B),
+                      align: TextAlign.center,
+                    ),
+                  ],
+                ),
+              ],
             ),
             40.verticalSpace,
 
@@ -250,12 +256,14 @@ class _SessionRoomScreenState extends State<SessionRoomScreen> {
 
             // Join Button
             CustomButton(
-              onPressed: () {
-                context.pushNamed(
-                  PageUrl.sessionCallScreen,
-                  extra: widget.session,
-                );
-              },
+              onPressed: isReady
+                  ? () {
+                      context.pushNamed(
+                        PageUrl.sessionCallScreen,
+                        extra: widget.session,
+                      );
+                    }
+                  : null,
               bgColor: isReady
                   ? Pallets.blueBubbleColor
                   : Pallets.blueBubbleColor.withValues(alpha: 0.35),

@@ -96,6 +96,7 @@ class TherapistSessionItem {
       rating: rating?.toDouble() ?? 0,
       isUpcoming: status != 'completed' && status != 'cancelled',
       status: status,
+      startsAt: parseBackendSessionStartsAt(startsAt),
     );
   }
 
