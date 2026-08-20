@@ -5,6 +5,7 @@ import 'package:talkam/features/group/presentation/blocs/featured_groups/feature
 import 'package:talkam/features/group/presentation/blocs/group_follow_cubit/group_follow_cubit.dart';
 import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
+import 'package:talkam/features/home/presentation/bloc/drawer/drawer_data_cubit.dart';
 import 'package:talkam/features/messaging/presentation/blocs/conversations/conversations_cubit.dart';
 import 'package:talkam/features/messaging/presentation/blocs/messaging/messaging_cubit.dart';
 import 'package:talkam/features/mood_check/presentation/bloc/mood_check_cubit.dart';
@@ -38,6 +39,10 @@ void setup(GetIt getIt) {
 
   getIt.registerLazySingleton<DrawerCubit>(
     () => DrawerCubit(),
+  );
+
+  getIt.registerLazySingleton<DrawerDataCubit>(
+    () => DrawerDataCubit(injector.get()),
   );
 
   getIt.registerLazySingleton<CreatePostCubit>(

@@ -66,6 +66,10 @@ class UrlConfigV2 {
   // marked type=interest_topic).
   static const String interestTopics = '/user/interest-topics';
 
+  // Drawer — one aggregate call: profile card, follow counts, followed
+  // topics, groups + private groups.
+  static const String drawer = '/user/drawer';
+
   // Follows
   static const String followToggle = '/user/follows/toggle';
   static const String following = '/user/follows/following';
@@ -142,6 +146,17 @@ class UrlConfigV2 {
       '/therapist/sessions/$sessionId/notes';
   static const String therapistSessions = '/therapist/sessions';
   static const String therapistNotesLibrary = '/therapist/notes';
+  static const String therapistOwnProfile = '/therapist/profile';
+  static const String therapistOwnProfileUpdate = '/therapist/profile/update';
+
+  // Earnings & payouts
+  static const String therapistEarningsDashboard =
+      '/therapist/earnings/dashboard';
+  static const String therapistEarningsTransactions =
+      '/therapist/earnings/transactions';
+  static const String therapistPayouts = '/therapist/payouts';
+  static String therapistPayoutStatus(int payoutId) =>
+      '$therapistPayouts/$payoutId';
 
   // Therapist Directory & Booking
   static const String therapistDirectory = '/user/therapists';

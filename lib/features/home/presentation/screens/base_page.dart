@@ -11,9 +11,9 @@ import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
+import 'package:talkam/features/home/presentation/bloc/drawer/drawer_data_cubit.dart';
 import 'package:talkam/features/home/presentation/widgets/app_drawer.dart';
 import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
-import 'package:talkam/features/profile/presentation/bloc/connections_summary_cubit/connections_summary_cubit.dart';
 import 'package:talkam/features/post/presentation/widgets/create_post_sheet.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
@@ -227,12 +227,12 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
     // Ensure the drawer is not already open
     if (!baseScaffoldKey.currentState!.isDrawerOpen) {
       baseScaffoldKey.currentState?.openDrawer();
-      // Silent — the drawer keeps showing its last known counts while this
-      // resolves, instead of flashing back to a loading/zero state on every
+      // Silent — the drawer keeps showing its last known data while this
+      // resolves, instead of flashing back to a loading/empty state on every
       // open. The DrawerController that hosts AppDrawer stays mounted across
       // opens/closes, so its own initState only ever fires once; this is the
       // actual "drawer opened" trigger point.
-      injector.get<ConnectionsSummaryCubit>().refreshCountsSilently();
+      injector.get<DrawerDataCubit>().fetch(silent: true);
     }
   }
 

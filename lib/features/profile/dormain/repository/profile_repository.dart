@@ -6,6 +6,7 @@ import 'package:talkam/features/post/data/models/talk_am_comment.dart';
 import 'package:talkam/features/post/data/models/talkam_upvote.dart';
 import 'package:talkam/features/post/data/models/update_profile_response.dart';
 import 'package:talkam/features/profile/data/models/block_user_response.dart';
+import 'package:talkam/features/profile/data/models/drawer_response.dart';
 import 'package:talkam/features/profile/data/models/update_profile_payload.dart';
 import 'package:talkam/features/profile/data/models/user_media_response.dart';
 
@@ -64,4 +65,7 @@ abstract class ProfileRepository {
   Future<bool> toggleMute(String userId);
 
   Future<List<PostCreator>> fetchMutedUsers();
+
+  /// `GET /user/drawer` — one aggregate call backing the side drawer.
+  Future<DrawerResponse> getDrawer();
 }

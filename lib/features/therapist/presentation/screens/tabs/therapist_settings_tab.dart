@@ -4,7 +4,7 @@ import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
-import 'package:talkam/features/profile/presentation/widgets/delete_account_dialog.dart';
+import 'package:talkam/features/settings/presentation/widgets/delete_account_dialog.dart';
 import 'package:talkam/features/profile/presentation/widgets/logout_dialog.dart';
 import 'package:talkam/features/therapist_application/data/models/therapist_application_response.dart';
 import 'package:talkam/features/therapist_application/dormain/repository/therapist_application_repository.dart';

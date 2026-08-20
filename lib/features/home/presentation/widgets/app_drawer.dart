@@ -8,18 +8,15 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/dialog_texts.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
-import 'package:talkam/core/mock/mock_home_data.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
-import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
+import 'package:talkam/features/home/presentation/bloc/drawer/drawer_data_cubit.dart';
 import 'package:talkam/features/home/presentation/widgets/category_group_list.dart';
 import 'package:talkam/features/notifications/presentation/bloc/notification_bloc.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
-import 'package:talkam/features/profile/presentation/bloc/connections_summary_cubit/connections_summary_cubit.dart';
-import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
@@ -40,6 +37,16 @@ class AppDrawer extends StatefulWidget {
 
 class _AppDrawerState extends State<AppDrawer> {
   String _categorySearchQuery = '';
+
+  @override
+  void initState() {
+    super.initState();
+    // The drawer widget stays permanently mounted once the shell first
+    // builds it (Scaffold.drawer never rebuilds on its own), so this only
+    // covers the very first open — subsequent opens are refreshed from
+    // BasePage._openDrawer() instead.
+    injector.get<DrawerDataCubit>().fetch();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -76,6 +83,8 @@ class _AppDrawerState extends State<AppDrawer> {
                               12.verticalSpace,
                               _DrawerGroupsSection(
                                   onGroupsTap: widget.onGroupsTap),
+                              12.verticalSpace,
+                              const _DrawerPrivateGroupsSection(),
                               Divider(height: 24.h, color: Pallets.grey90),
                               _DrawerCategorySearchField(
                                 onChanged: (value) => setState(
@@ -154,8 +163,8 @@ class _DrawerCategorySearchField extends StatelessWidget {
 
 /// Avatar, name/username, follow counts, and the drawer's own close button.
 ///
-/// Renders the real signed-in user (`ProfileBloc.appUser`), falling back to
-/// the device-local guest alias for anonymous sessions.
+/// Renders `DrawerDataCubit`'s profile card, falling back to the
+/// device-local guest alias for anonymous sessions.
 class _DrawerProfileHeader extends StatefulWidget {
   const _DrawerProfileHeader();
 
@@ -164,24 +173,14 @@ class _DrawerProfileHeader extends StatefulWidget {
 }
 
 class _DrawerProfileHeaderState extends State<_DrawerProfileHeader> {
-  // Singleton — HomeScreen kicks off the fetch on launch, so by the time the
-  // drawer opens the counts are (usually) already loaded. Calling
-  // fetchCounts() again here is a no-op unless nothing has loaded yet (e.g.
-  // the drawer somehow opens before HomeScreen's initState ran).
-  final _connectionsSummaryCubit = injector.get<ConnectionsSummaryCubit>();
-
-  @override
-  void initState() {
-    _connectionsSummaryCubit.fetchCounts();
-    super.initState();
-  }
+  final _drawerDataCubit = injector.get<DrawerDataCubit>();
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProfileBloc, ProfileState>(
-      bloc: injector.get<ProfileBloc>(),
+    return BlocBuilder<DrawerDataCubit, DrawerDataState>(
+      bloc: _drawerDataCubit,
       builder: (context, state) {
-        final user = injector.get<ProfileBloc>().appUser;
+        final profile = state.data?.profile;
         final anonymousUsername = SessionManager.instance.anonymousUsername;
         final isAnonymous =
             !SessionManager.instance.isLoggedIn || anonymousUsername.isNotEmpty;
@@ -189,10 +188,10 @@ class _DrawerProfileHeaderState extends State<_DrawerProfileHeader> {
         final name = isAnonymous
             ? (anonymousUsername.isNotEmpty
                 ? anonymousUsername
-                : (user?.name ?? "Guest"))
-            : (user?.name ?? "");
+                : (profile?.name ?? "Guest"))
+            : (profile?.name ?? "");
         final username =
-            isAnonymous ? anonymousUsername : (user?.username ?? "");
+            isAnonymous ? anonymousUsername : (profile?.username ?? "");
         return Padding(
           padding: EdgeInsets.only(top: 12.h),
           child: Column(
@@ -207,12 +206,19 @@ class _DrawerProfileHeaderState extends State<_DrawerProfileHeader> {
                       context.pushNamed(PageUrl.profileTabScreen);
                     },
                     child: ImageWidget(
-                      imageUrl: user?.avatar ?? Assets.images.svgs.user,
+                      imageUrl: profile?.avatar ?? Assets.images.svgs.user,
                       shape: BoxShape.circle,
                       size: 56,
                     ),
                   ),
                   const Spacer(),
+                  if (profile?.isVerified ?? false) ...[
+                    ImageWidget(
+                      imageUrl: Assets.images.svgV2.checkmarkBadge,
+                      size: 16,
+                    ),
+                    8.horizontalSpace,
+                  ],
                   IconButton(
                     onPressed: () => Navigator.of(context).pop(),
                     icon:
@@ -244,36 +250,22 @@ class _DrawerProfileHeaderState extends State<_DrawerProfileHeader> {
                 ),
               ),
               10.verticalSpace,
-              BlocBuilder<ConnectionsSummaryCubit, ConnectionsSummaryState>(
-                bloc: _connectionsSummaryCubit,
-                builder: (context, state) {
-                  final counts = state.maybeWhen(
-                    orElse: () => (following: 0, followers: 0),
-                    success: (followingCount, followersCount) =>
-                        (following: followingCount, followers: followersCount),
-                  );
-                  return Row(
-                    children: [
-                      TextView(
-                          text: "${counts.following} ",
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700),
-                      const TextView(
-                          text: "Following",
-                          fontSize: 14,
-                          color: Pallets.grey400),
-                      12.horizontalSpace,
-                      TextView(
-                          text: "${counts.followers} ",
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700),
-                      const TextView(
-                          text: "Followers",
-                          fontSize: 14,
-                          color: Pallets.grey400),
-                    ],
-                  );
-                },
+              Row(
+                children: [
+                  TextView(
+                      text: "${state.data?.followingCount ?? 0} ",
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700),
+                  const TextView(
+                      text: "Following", fontSize: 14, color: Pallets.grey400),
+                  12.horizontalSpace,
+                  TextView(
+                      text: "${state.data?.followersCount ?? 0} ",
+                      fontSize: 14,
+                      fontWeight: FontWeight.w700),
+                  const TextView(
+                      text: "Followers", fontSize: 14, color: Pallets.grey400),
+                ],
               ),
             ],
           ),
@@ -364,20 +356,20 @@ class _QuickLinkRow extends StatelessWidget {
   }
 }
 
-/// "Following" — the categories the signed-in user follows, sourced from
-/// the real `TalkamUser.interests`. Tapping one opens that category's
-/// subcategory browser, same as the Groups list below.
+/// "Following" — the topics the signed-in user follows, from the drawer's
+/// `topics` field (same shape as `GET /user/interest-topics`). Tapping one
+/// opens that category's subcategory browser, same as the Groups list below.
 class _DrawerFollowingSection extends StatelessWidget {
   const _DrawerFollowingSection();
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<ProfileBloc, ProfileState>(
-      bloc: injector.get<ProfileBloc>(),
+    return BlocBuilder<DrawerDataCubit, DrawerDataState>(
+      bloc: injector.get<DrawerDataCubit>(),
       builder: (context, state) {
         return _DrawerListSection(
           title: "Following",
-          items: injector.get<ProfileBloc>().appUser?.interests ?? const [],
+          items: state.data?.topics ?? const [],
           emptyLabel: "You're not following any topics yet",
           onItemTap: (category) => context
               .read<DrawerCubit>()
@@ -415,35 +407,29 @@ class _DrawerGroupsSection extends StatelessWidget {
             ),
           ),
         ),
-        BlocBuilder<GroupsCubit, GroupsState>(
-          bloc: injector.get<GroupsCubit>(),
+        BlocBuilder<DrawerDataCubit, DrawerDataState>(
+          bloc: injector.get<DrawerDataCubit>(),
           builder: (context, state) {
-            return state.maybeWhen(
-              orElse: () => const SizedBox.shrink(),
-              getGroupsLoading: () => const Padding(
+            if (state.status == DrawerDataStatus.loading) {
+              return const Padding(
                 padding: EdgeInsets.symmetric(vertical: 8.0),
                 child: SizedBox(
                   height: 18,
                   width: 18,
                   child: CircularProgressIndicator(strokeWidth: 2),
                 ),
-              ),
-              getGroupsFailure: (_) => const TextView(
-                  text: "No groups yet", fontSize: 13, color: Pallets.grey400),
-              getGroupsSuccess: (groups, _) {
-                if (groups.isEmpty) {
-                  return const TextView(
-                      text: "No groups yet",
-                      fontSize: 13,
-                      color: Pallets.grey400);
-                }
-                return Column(
-                  children: groups
-                      .take(3)
-                      .map((group) => _DrawerGroupItem(group: group))
-                      .toList(),
-                );
-              },
+              );
+            }
+            final groups = state.data?.groups ?? const [];
+            if (groups.isEmpty) {
+              return const TextView(
+                  text: "No groups yet", fontSize: 13, color: Pallets.grey400);
+            }
+            return Column(
+              children: groups
+                  .take(3)
+                  .map((group) => _DrawerGroupItem(group: group))
+                  .toList(),
             );
           },
         ),
@@ -516,28 +502,34 @@ class _DrawerGroupItem extends StatelessWidget {
   }
 }
 
-/// "Private Groups" — no data source exists for this yet (no groups-you-own
-/// endpoint), so this renders [MockHomeData.privateGroups] for now. These are
-/// groups, not categories, so tapping one goes to the real Groups tab rather
-/// than the category subview used by Following/the Groups list below.
+/// "Private Groups" — from the drawer's `private_groups` field. Reuses
+/// [_DrawerGroupItem] since these are [TalkamGroup]s, same as the Groups
+/// list above, not categories.
 class _DrawerPrivateGroupsSection extends StatelessWidget {
-  const _DrawerPrivateGroupsSection({required this.onGroupsTap});
-
-  final VoidCallback onGroupsTap;
+  const _DrawerPrivateGroupsSection();
 
   @override
   Widget build(BuildContext context) {
-    return _DrawerListSection(
-      title: "Private Groups",
-      items: MockHomeData.privateGroups,
-      emptyLabel: "No private groups yet",
-      onItemTap: (category) {
-        context.pushNamed(
-          PageUrl.groupsInfoScreen,
-          extra: {
-            'groupId': category.id.toString(),
-            'isPrivate': true,
-          },
+    return BlocBuilder<DrawerDataCubit, DrawerDataState>(
+      bloc: injector.get<DrawerDataCubit>(),
+      builder: (context, state) {
+        final groups = state.data?.privateGroups ?? const [];
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const TextView(
+                text: "Private Groups",
+                fontSize: 15,
+                fontWeight: FontWeight.w700),
+            6.verticalSpace,
+            if (groups.isEmpty)
+              const TextView(
+                  text: "No private groups yet",
+                  fontSize: 13,
+                  color: Pallets.grey400)
+            else
+              ...groups.take(3).map((group) => _DrawerGroupItem(group: group)),
+          ],
         );
       },
     );

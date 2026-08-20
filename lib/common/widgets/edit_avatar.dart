@@ -15,6 +15,7 @@ class EditAvatar extends StatelessWidget {
     required this.imageUrl,
     required this.onTap,
     this.diameter = 100,
+    this.imageType = ImageWidgetType.network,
   });
 
   /// Empty falls back to the default person glyph.
@@ -24,6 +25,10 @@ class EditAvatar extends StatelessWidget {
 
   /// Logical diameter before ScreenUtil scaling.
   final double diameter;
+
+  /// [ImageWidgetType.file] when [imageUrl] is a local path — e.g. a photo
+  /// just picked and not yet uploaded.
+  final ImageWidgetType imageType;
 
   @override
   Widget build(BuildContext context) {
@@ -43,6 +48,9 @@ class EditAvatar extends StatelessWidget {
                   size: diameter,
                   shape: BoxShape.circle,
                   imageUrl: resolved,
+                  imageType: (imageUrl == null || imageUrl!.isEmpty)
+                      ? ImageWidgetType.asset
+                      : imageType,
                 ),
                 Positioned(
                   right: 0,

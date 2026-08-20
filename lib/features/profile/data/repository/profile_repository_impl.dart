@@ -11,6 +11,7 @@ import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/data/models/talk_am_comment.dart';
 import 'package:talkam/features/post/data/models/update_profile_response.dart';
 import 'package:talkam/features/profile/data/models/block_user_response.dart';
+import 'package:talkam/features/profile/data/models/drawer_response.dart';
 import 'package:talkam/features/profile/data/models/update_profile_payload.dart';
 import 'package:talkam/features/profile/data/models/user_media_response.dart';
 import 'package:talkam/features/profile/dormain/repository/profile_repository.dart';
@@ -394,5 +395,11 @@ class ProfileRepositoryImpl extends ProfileRepository {
     } else {
       return [];
     }
+  }
+
+  @override
+  Future<DrawerResponse> getDrawer() async {
+    final response = await _v2.call(UrlConfigV2.drawer, RequestMethod.get);
+    return DrawerResponse.fromJson(response.data['data']);
   }
 }

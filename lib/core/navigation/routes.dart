@@ -42,6 +42,7 @@ import 'package:talkam/features/therapist/presentation/screens/client_details_sc
 import 'package:talkam/features/home/presentation/screens/base_page.dart';
 import 'package:talkam/features/session/presentation/screens/sessions_screen.dart';
 import 'package:talkam/features/earnings/presentation/screens/earnings_screen.dart';
+import 'package:talkam/features/earnings/presentation/screens/earnings_transactions_screen.dart';
 import 'package:talkam/features/earnings/presentation/screens/payout_screen.dart';
 import 'package:talkam/features/home/presentation/screens/home_screen.dart';
 import 'package:talkam/features/messaging/presentation/screens/chat_screen.dart';
@@ -254,6 +255,11 @@ class CustomRoutes {
         path: '/payoutScreen',
         name: PageUrl.payoutScreen,
         builder: (context, state) => const PayoutScreen(),
+      ),
+      GoRoute(
+        path: '/earningsTransactionsScreen',
+        name: PageUrl.earningsTransactionsScreen,
+        builder: (context, state) => const EarningsTransactionsScreen(),
       ),
       GoRoute(
         path: '/therapistVerificationPendingScreen',

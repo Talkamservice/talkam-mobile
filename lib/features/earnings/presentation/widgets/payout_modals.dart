@@ -4,7 +4,11 @@ import 'package:go_router/go_router.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/theme/pallets.dart';
 
-void showSuccessModal(BuildContext context) {
+/// [stillPending] is true when the payout hadn't resolved by the time the
+/// client stopped polling — the ledger debit already happened and the
+/// transfer is genuinely in flight, so this still reads as a success state,
+/// just with adjusted copy rather than a hard "done".
+void showSuccessModal(BuildContext context, {bool stillPending = false}) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -34,8 +38,10 @@ void showSuccessModal(BuildContext context) {
                 ),
               ),
               24.verticalSpace,
-              const TextView(
-                text: "Transaction Successful",
+              TextView(
+                text: stillPending
+                    ? "Payout Initiated"
+                    : "Transaction Successful",
                 fontSize: 20,
                 fontWeight: FontWeight.w700,
                 color: Pallets.boldBlackV2,
@@ -79,7 +85,9 @@ void showSuccessModal(BuildContext context) {
   );
 }
 
-void showFailedModal(BuildContext context) {
+/// [onRetry] re-initiates the withdrawal — a failed payout reverses the
+/// ledger debit server-side, so retrying is just withdrawing again.
+void showFailedModal(BuildContext context, {required VoidCallback onRetry}) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -117,7 +125,7 @@ void showFailedModal(BuildContext context) {
               ),
               8.verticalSpace,
               const TextView(
-                text: "You'll receive your payment shortly",
+                text: "Your balance has been restored. You can try again.",
                 fontSize: 14,
                 fontWeight: FontWeight.w400,
                 color: Color(0xFF6B7280),
@@ -128,6 +136,7 @@ void showFailedModal(BuildContext context) {
                 child: ElevatedButton(
                   onPressed: () {
                     context.pop();
+                    onRetry();
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFEF4444),

@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:talkam/core/services/network/network_service.dart';
 import 'package:talkam/core/services/network/url_config_v2.dart';
+import 'package:talkam/features/booking/data/models/therapist_directory_response.dart';
 import 'package:talkam/features/therapist/data/models/session_note.dart';
 import 'package:talkam/features/therapist/data/models/therapist_client.dart';
 import 'package:talkam/features/therapist/data/models/therapist_note_library_item.dart';
@@ -136,6 +137,44 @@ class TherapistRepositoryImpl extends TherapistRepository {
         },
       );
       return TherapistNoteLibraryPage.fromJson(response.data['data']);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<TherapistProfileDetail> getMyProfile() async {
+    try {
+      final response =
+          await _v2.call(UrlConfigV2.therapistOwnProfile, RequestMethod.get);
+      return TherapistProfileDetail.fromJson(response.data['data']);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> updateMyProfile({
+    required String name,
+    required String bio,
+    required int yearsExperience,
+    required int sessionRate,
+    String? avatarPath,
+  }) async {
+    try {
+      await _v2.call(
+        UrlConfigV2.therapistOwnProfileUpdate,
+        RequestMethod.post,
+        formData: FormData.fromMap({
+          "name": name,
+          "bio": bio,
+          "years_experience": yearsExperience,
+          "session_rate": sessionRate,
+          if (avatarPath != null)
+            "avatar": await MultipartFile.fromFile(avatarPath),
+        }),
+        options: _formOptions,
+      );
     } catch (e) {
       rethrow;
     }

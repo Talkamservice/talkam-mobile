@@ -24,6 +24,7 @@ class TherapistEditableProfile extends Equatable {
     this.yearsExperience,
     this.bio = '',
     this.avatarUrl = '',
+    this.pendingAvatarPath,
     this.specialties = const [],
     this.sessionRate = '',
     this.availability = const WeeklyAvailability(),
@@ -35,6 +36,13 @@ class TherapistEditableProfile extends Equatable {
   final int? yearsExperience;
   final String bio;
   final String avatarUrl;
+
+  /// Local file path for a photo just picked but not yet uploaded — takes
+  /// display priority over [avatarUrl]. Deliberately excluded from
+  /// [toJson]/[encode]: an unsaved pick is ephemeral, like any other unsaved
+  /// edit, and a stale local path surviving an app restart would be worse
+  /// than just losing the pending pick.
+  final String? pendingAvatarPath;
   final List<String> specialties;
 
   /// Raw digits — see [SessionRate].
@@ -49,8 +57,7 @@ class TherapistEditableProfile extends Equatable {
   bool get isTitleValid => title.trim().isNotEmpty;
   // Code units, matching LengthLimitingTextInputFormatter and the on-screen
   // counter — all three must agree or the count and the limit disagree.
-  bool get isBioValid =>
-      bio.trim().isNotEmpty && bio.length <= kBioMaxLength;
+  bool get isBioValid => bio.trim().isNotEmpty && bio.length <= kBioMaxLength;
   bool get hasAvailability => availability.isNotEmpty;
   bool get hasSpecialties => specialties.isNotEmpty;
 
@@ -69,6 +76,7 @@ class TherapistEditableProfile extends Equatable {
     int? yearsExperience,
     String? bio,
     String? avatarUrl,
+    String? pendingAvatarPath,
     List<String>? specialties,
     String? sessionRate,
     WeeklyAvailability? availability,
@@ -80,6 +88,7 @@ class TherapistEditableProfile extends Equatable {
         yearsExperience: yearsExperience ?? this.yearsExperience,
         bio: bio ?? this.bio,
         avatarUrl: avatarUrl ?? this.avatarUrl,
+        pendingAvatarPath: pendingAvatarPath ?? this.pendingAvatarPath,
         specialties: specialties ?? this.specialties,
         sessionRate: sessionRate ?? this.sessionRate,
         availability: availability ?? this.availability,
@@ -110,7 +119,8 @@ class TherapistEditableProfile extends Equatable {
         about: bio.trim(),
         avatarUrl: avatarUrl,
         specialties: specialties,
-        pricePerSession: (rate.amount ?? base.pricePerSession.toInt()).toDouble(),
+        pricePerSession:
+            (rate.amount ?? base.pricePerSession.toInt()).toDouble(),
         availability: availability,
       );
 
@@ -137,8 +147,8 @@ class TherapistEditableProfile extends Equatable {
           (json['specialties'] as List?)?.whereType<String>() ?? const [],
         ),
         sessionRate: json['session_rate'] as String? ?? '',
-        availability:
-            WeeklyAvailability.fromJson((json['availability'] as List?) ?? const []),
+        availability: WeeklyAvailability.fromJson(
+            (json['availability'] as List?) ?? const []),
         sessionDurationMinutes: json['session_duration_minutes'] as int? ??
             kDefaultSessionDurationMinutes,
       );
@@ -156,6 +166,7 @@ class TherapistEditableProfile extends Equatable {
         yearsExperience,
         bio,
         avatarUrl,
+        pendingAvatarPath,
         specialties,
         sessionRate,
         availability,

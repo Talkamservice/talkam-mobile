@@ -38,6 +38,7 @@ class PageUrl {
 
   static const sessionScreen = 'sessionScreen';
   static const earningsScreen = 'earningsScreen';
+  static const earningsTransactionsScreen = 'earningsTransactionsScreen';
   static const payoutScreen = 'payoutScreen';
   static const profileTabScreen = 'profileTabScreen';
   static const clientDetailsScreen = 'clientDetailsScreen';

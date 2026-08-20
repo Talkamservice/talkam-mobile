@@ -49,6 +49,14 @@ class _MyTherapistProfileScreenState extends State<MyTherapistProfileScreen> {
   _TherapistProfileTab _selectedTab = _TherapistProfileTab.profile;
 
   @override
+  void initState() {
+    super.initState();
+    // Silent — the mock/last-known record already renders; this just
+    // refreshes it in the background.
+    TherapistProfileStore.instance.fetchFromServer();
+  }
+
+  @override
   void dispose() {
     _pageController.dispose();
     super.dispose();
