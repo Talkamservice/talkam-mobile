@@ -66,6 +66,10 @@ class UrlConfigV2 {
   // marked type=interest_topic).
   static const String interestTopics = '/user/interest-topics';
 
+  // Drawer — one aggregate call: profile card, follow counts, followed
+  // topics, groups + private groups.
+  static const String drawer = '/user/drawer';
+
   // Follows
   static const String followToggle = '/user/follows/toggle';
   static const String following = '/user/follows/following';
