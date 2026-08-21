@@ -33,7 +33,9 @@ class _GroupMediaTabState extends State<GroupMediaTab> {
         return state.maybeWhen(
           orElse: () => AppErrorWidget(
             onTap: () {
-              context.read<GroupPostCubit>().getGroupMedia(widget.group.id.toString());
+              context
+                  .read<GroupPostCubit>()
+                  .getGroupMedia(widget.group.id.toString());
             },
           ),
           mediaLoading: () {
@@ -41,7 +43,9 @@ class _GroupMediaTabState extends State<GroupMediaTab> {
           },
           mediaFailed: (message) => AppErrorWidget(
             onTap: () {
-              context.read<GroupPostCubit>().getGroupMedia(widget.group.id.toString());
+              context
+                  .read<GroupPostCubit>()
+                  .getGroupMedia(widget.group.id.toString());
             },
           ),
           mediaLoaded: (media, paginationData) {
@@ -49,28 +53,40 @@ class _GroupMediaTabState extends State<GroupMediaTab> {
               children: [
                 if (media.isNotEmpty)
                   Expanded(
-                    child: ListView.builder(
-                      itemCount: paginationData.canLoadMore ? media.length + 1 : media.length,
-                      padding: EdgeInsets.zero,
-                      itemBuilder: (context, index) {
-                        if (index >= media.length) {
-                          context
-                              .read<GroupPostCubit>()
-                              .fetchNextMediaPage(groupId: widget.group.id.toString(), paginationData: paginationData, previousMedia: media);
-                          return const Center(child: CircularProgressIndicator());
-                        }
+                    child: RefreshIndicator(
+                      onRefresh: () => context
+                          .read<GroupPostCubit>()
+                          .getGroupMedia(widget.group.id.toString()),
+                      child: ListView.builder(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        itemCount: paginationData.canLoadMore
+                            ? media.length + 1
+                            : media.length,
+                        padding: EdgeInsets.zero,
+                        itemBuilder: (context, index) {
+                          if (index >= media.length) {
+                            context.read<GroupPostCubit>().fetchNextMediaPage(
+                                groupId: widget.group.id.toString(),
+                                paginationData: paginationData,
+                                previousMedia: media);
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          }
 
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: PostItem(
-                            post: media[index],
-                            showGroupAndCategory: false,
-                          ),
-                        );
-                      },
+                          return Padding(
+                            padding: const EdgeInsets.only(bottom: 8.0),
+                            child: PostItem(
+                              post: media[index],
+                              showGroupAndCategory: false,
+                            ),
+                          );
+                        },
+                      ),
                     ),
                   ),
-                if (media.isEmpty) const Expanded(child: Center(child: TextView(text: "No media here")))
+                if (media.isEmpty)
+                  const Expanded(
+                      child: Center(child: TextView(text: "No media here")))
               ],
             );
           },

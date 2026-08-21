@@ -54,6 +54,7 @@ class UrlConfigV2 {
   static const String reportComment = '$posts/report-comment';
   static const String notInterested = '$posts/not-interested';
   static const String postDrafts = '/user/post-drafts';
+  static String postDraftDetail(String id) => '$postDrafts/$id';
 
   // Comments
   static const String postComments = '/user/post-comments';
@@ -148,6 +149,7 @@ class UrlConfigV2 {
   static const String therapistNotesLibrary = '/therapist/notes';
   static const String therapistOwnProfile = '/therapist/profile';
   static const String therapistOwnProfileUpdate = '/therapist/profile/update';
+  static const String therapistAvailability = '/therapist/availability';
 
   // Earnings & payouts
   static const String therapistEarningsDashboard =
@@ -176,7 +178,7 @@ class UrlConfigV2 {
   static String cancelBooking(int id) => '/user/bookings/$id/cancel';
   static String rescheduleBooking(int id) =>
       '/user/bookings/$id/reschedule';
-  static String respondToReschedule(int id) => '/reschedules/$id/respond';
+  static String respondToReschedule(int id) => '/user/reschedules/$id/respond';
   static String joinBooking(int id) => '/user/bookings/$id/join';
   static String messageBooking(int id) => '/user/bookings/$id/message';
 

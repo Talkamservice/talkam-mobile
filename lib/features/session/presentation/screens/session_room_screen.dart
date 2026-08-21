@@ -7,8 +7,11 @@ import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/features/booking/data/models/therapist_directory_response.dart';
+import 'package:talkam/features/booking/domain/repository/booking_repository.dart';
 import 'package:talkam/features/session/data/models/session_model.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
@@ -29,6 +32,8 @@ class _SessionRoomScreenState extends State<SessionRoomScreen> {
   Timer? _timer;
   Duration _remaining = Duration.zero;
 
+  TherapistProfileDetail? _therapistProfile;
+
   DateTime? get _startsAt => widget.session?.startsAt;
 
   @override
@@ -39,6 +44,19 @@ class _SessionRoomScreenState extends State<SessionRoomScreen> {
       const Duration(seconds: 1),
       (_) => _updateRemaining(),
     );
+
+    final therapistId = widget.session?.therapistId;
+    if (therapistId != null) {
+      injector.get<BookingRepository>().getTherapistProfile(therapistId).then(
+        (profile) {
+          if (!mounted) return;
+          setState(() => _therapistProfile = profile);
+        },
+        onError: (_) {
+          // Non-blocking — the call itself doesn't depend on these stats.
+        },
+      );
+    }
   }
 
   void _updateRemaining() {
@@ -219,13 +237,16 @@ class _SessionRoomScreenState extends State<SessionRoomScreen> {
                   ),
                   20.verticalSpace,
 
-                  // Stats Row
+                  // Stats Row — real therapist stats once fetched; "—"
+                  // while loading or if the therapist id is unavailable.
                   IntrinsicHeight(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         _StatBox(
-                          value: "132",
+                          value: _therapistProfile?.completedSessions
+                                  ?.toString() ??
+                              "—",
                           label: "Sessions",
                         ),
                         const VerticalDivider(
@@ -233,7 +254,9 @@ class _SessionRoomScreenState extends State<SessionRoomScreen> {
                           color: Color(0xFFE2E8F0),
                         ),
                         _StatBox(
-                          value: "4.9",
+                          value: _therapistProfile != null
+                              ? _therapistProfile!.rating.toStringAsFixed(1)
+                              : "—",
                           label: "Ratings",
                           icon: Assets.images.svgV2.starFilled,
                         ),
@@ -242,8 +265,9 @@ class _SessionRoomScreenState extends State<SessionRoomScreen> {
                           color: Color(0xFFE2E8F0),
                         ),
                         _StatBox(
-                          value: "Good",
-                          label: "Progress",
+                          value: _therapistProfile?.reviewsCount.toString() ??
+                              "—",
+                          label: "Reviews",
                           color: const Color(0xFF059669),
                         ),
                       ],

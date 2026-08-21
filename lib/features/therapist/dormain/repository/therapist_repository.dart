@@ -1,4 +1,5 @@
 import 'package:talkam/features/booking/data/models/therapist_directory_response.dart';
+import 'package:talkam/features/therapist/data/models/availability_slot.dart';
 import 'package:talkam/features/therapist/data/models/session_note.dart';
 import 'package:talkam/features/therapist/data/models/therapist_client.dart';
 import 'package:talkam/features/therapist/data/models/therapist_note_library_item.dart';
@@ -53,4 +54,13 @@ abstract class TherapistRepository {
     String? query,
     int page = 1,
   });
+
+  /// `GET /therapist/availability` — the therapist's recurring weekly
+  /// working-hours grid clients book slots against.
+  Future<WeeklyAvailability> getMyAvailability();
+
+  /// `PUT /therapist/availability` — full replace: sends the entire desired
+  /// week, the server deletes and recreates every row from it. Returns the
+  /// grid as persisted.
+  Future<WeeklyAvailability> updateMyAvailability(WeeklyAvailability availability);
 }

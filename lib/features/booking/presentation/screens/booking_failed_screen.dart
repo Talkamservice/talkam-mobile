@@ -6,7 +6,9 @@ import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/step_progress_bar.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/core/utils/url_launcher.dart';
 import 'package:talkam/features/booking/data/models/booking_response.dart';
 import 'package:talkam/features/booking/presentation/blocs/booking_cubit/booking_cubit.dart';
 
@@ -46,9 +48,9 @@ class _BookingFailedScreenState extends State<BookingFailedScreen> {
   @override
   Widget build(BuildContext context) {
     final doctor =
-        widget.booking?.therapistName ?? widget.doctorName ?? "Dr. Amaka Osei";
+        widget.booking?.therapistName ?? widget.doctorName ?? "your therapist";
     final timeStr =
-        widget.booking?.formattedStartsAt ?? widget.time ?? "9:00 AM";
+        widget.booking?.formattedStartsAt ?? widget.time ?? "the scheduled time";
 
     return BlocProvider.value(
       value: _cubit,
@@ -195,7 +197,7 @@ class _BookingFailedScreenState extends State<BookingFailedScreen> {
                 ),
                 16.verticalSpace,
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () => UrlLauncher().sendEmail(UrlConfig.supportEmail),
                   child: TextView(
                     text: "Contact Support",
                     fontSize: 15,

@@ -215,7 +215,7 @@ class _BookingReviewScreenState extends State<BookingReviewScreen> {
                                   4.verticalSpace,
                                   TextView(
                                     text:
-                                        "${widget.slot.formattedTime}  •  50 min",
+                                        "${widget.slot.formattedTime}  •  ${therapist.avgDuration}",
                                     fontSize: 13,
                                     fontWeight: FontWeight.w400,
                                     color: const Color(0xFF94A3B8),

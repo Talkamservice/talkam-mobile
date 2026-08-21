@@ -164,21 +164,29 @@ class _TherapistsListScreenState extends State<TherapistsListScreen> {
                         ),
                       );
                     }
-                    return ListView.separated(
-                      itemCount: therapists.length,
-                      separatorBuilder: (context, index) => 16.verticalSpace,
-                      itemBuilder: (context, index) {
-                        final therapist = therapists[index];
-                        return _TherapistCard(
-                          therapist: therapist,
-                          onTapBook: () {
-                            context.pushNamed(
-                              PageUrl.therapistProfileScreen,
-                              extra: int.tryParse(therapist.id) ?? 0,
-                            );
-                          },
-                        );
-                      },
+                    return RefreshIndicator(
+                      color: Pallets.blueBubbleColor,
+                      onRefresh: () => _cubit.loadTherapists(
+                        search: _searchController.text,
+                        sort: _sort,
+                      ),
+                      child: ListView.separated(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        itemCount: therapists.length,
+                        separatorBuilder: (context, index) => 16.verticalSpace,
+                        itemBuilder: (context, index) {
+                          final therapist = therapists[index];
+                          return _TherapistCard(
+                            therapist: therapist,
+                            onTapBook: () {
+                              context.pushNamed(
+                                PageUrl.therapistProfileScreen,
+                                extra: int.tryParse(therapist.id) ?? 0,
+                              );
+                            },
+                          );
+                        },
+                      ),
                     );
                   },
                 ),
@@ -479,8 +487,8 @@ class _TherapistCard extends StatelessWidget {
                   SvgPicture.asset(
                     Assets.images.svgV2.starFilled,
                     width: 14.w,
-                    colorFilter: const ColorFilter.mode(
-                        Pallets.yellow, BlendMode.srcIn),
+                    colorFilter:
+                        const ColorFilter.mode(Pallets.yellow, BlendMode.srcIn),
                   ),
                   4.horizontalSpace,
                   Text.rich(

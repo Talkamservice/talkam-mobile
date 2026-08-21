@@ -51,6 +51,7 @@ import 'package:talkam/features/messaging/presentation/screens/new_message_scree
 import 'package:talkam/features/messaging/presentation/screens/new_request_screen.dart';
 import 'package:talkam/features/notifications/presentation/screens/notifications_screen.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
+import 'package:talkam/features/post/presentation/screens/drafts_list_screen.dart';
 import 'package:talkam/features/post/presentation/screens/post_details_screen.dart';
 import 'package:talkam/features/profile/presentation/screens/edit_profile_screen.dart';
 import 'package:talkam/features/profile/presentation/screens/my_therapist_profile_screen.dart';
@@ -632,6 +633,13 @@ class CustomRoutes {
           child: ClientNoteDetailScreen(
             sessionId: state.extra as int,
           ),
+        ),
+      ),
+      GoRoute(
+        path: '/draftsListScreen',
+        name: PageUrl.draftsListScreen,
+        pageBuilder: (context, state) => const NoTransitionPage(
+          child: DraftsListScreen(),
         ),
       ),
       GoRoute(

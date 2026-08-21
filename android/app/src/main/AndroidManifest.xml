@@ -42,6 +42,14 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDCQy7XWRNuaFMP1iGkfjdz3ON_hguXHdw" />
 
+        <!-- Impeller (Flutter's default Android renderer) has known bugs
+             compositing SurfaceView-backed platform views — Agora's
+             AgoraVideoView renders solid white on-device despite the
+             camera/encoder pipeline running correctly. Fall back to Skia. -->
+        <meta-data
+            android:name="io.flutter.embedding.android.EnableImpeller"
+            android:value="false" />
+
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"

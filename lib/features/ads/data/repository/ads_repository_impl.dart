@@ -144,8 +144,11 @@ class AdsRepositoryImpl extends AdsRepository {
   @override
   Future<void> updateStatPayload(UpdateStatPayLoad payload) async {
     try {
-      final response = await _networkService.call(
-        UrlConfig.updateStat,
+      // Same underlying PostStatsService as v1 (post_id, group_id and
+      // time_spent are all independently-nullable there), just mounted
+      // under the v2 route — no reason for this to stay on the v1 host.
+      final response = await _v2.call(
+        UrlConfigV2.postStatsSave,
         RequestMethod.post,
         data: payload.toJson(),
       );

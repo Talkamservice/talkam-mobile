@@ -9,6 +9,7 @@ import 'package:talkam/features/post/data/models/create_post_payload.dart';
 import 'package:talkam/features/post/data/models/create_post_response.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/data/models/get_comments_response.dart';
+import 'package:talkam/features/post/data/models/get_drafts_response.dart';
 import 'package:talkam/features/post/data/models/get_guidlines_response.dart';
 import 'package:talkam/features/post/data/models/get_polls_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
@@ -158,6 +159,58 @@ class PostRepositoryImpl extends PostRepository {
       );
 
       return CreatePostResponse.fromJson(response.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<GetDraftsResponse> getDrafts() async {
+    try {
+      final response =
+          await _v2.call(UrlConfigV2.postDrafts, RequestMethod.get);
+
+      return GetDraftsResponse.fromJson(response.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<CreatePostResponse> updateDraft(
+      String draftId, CreatePostPayload postData) async {
+    try {
+      // Unlike saveDraft's create call, this is a text-only edit (no
+      // attachment re-upload), and NetworkService's RequestMethod.put
+      // branch doesn't accept formData/custom Options anyway — plain JSON
+      // matches createPost's pattern and is what PostDraftController::update
+      // (`$request->all()`) expects just as well.
+      final response = await _v2.call(
+        UrlConfigV2.postDraftDetail(draftId),
+        RequestMethod.put,
+        data: {
+          "category_id": postData.categoryId,
+          "type": postData.type,
+          "title": postData.title,
+          "body": postData.body,
+          // Included so a draft can be "published" via the same call —
+          // update(status: Active) moves it out of the drafts index and
+          // into the real feed (PostService::list filters status=Active).
+          if (postData.status != null) "status": postData.status,
+        },
+      );
+
+      return CreatePostResponse.fromJson(response.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> deleteDraft(String draftId) async {
+    try {
+      await _v2.call(
+          UrlConfigV2.postDraftDetail(draftId), RequestMethod.delete);
     } catch (e) {
       rethrow;
     }

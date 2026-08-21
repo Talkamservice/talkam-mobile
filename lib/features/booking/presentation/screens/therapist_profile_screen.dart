@@ -8,6 +8,7 @@ import 'package:talkam/common/widgets/section_label.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/core/utils/string_extension.dart';
 import 'package:talkam/features/booking/presentation/blocs/booking_cubit/booking_cubit.dart';
 import 'package:talkam/features/therapist/data/models/therapist_model.dart';
@@ -192,17 +193,19 @@ class _TherapistProfileScreenState extends State<TherapistProfileScreen> {
                           CustomButton(
                             onPressed: _selectedFormat == null
                                 ? null
-                                : () {
-                                    context.pushNamed(
-                                      PageUrl.bookingStepOneScreen,
-                                      extra: {
-                                        'therapistId': widget.therapistId,
-                                        'format': _selectedFormat!,
-                                        'profile': profileDetail,
-                                        'therapistModel': therapist,
+                                : () => GuestUserHelper.handleGuestUserAction(
+                                      action: () {
+                                        context.pushNamed(
+                                          PageUrl.bookingStepOneScreen,
+                                          extra: {
+                                            'therapistId': widget.therapistId,
+                                            'format': _selectedFormat!,
+                                            'profile': profileDetail,
+                                            'therapistModel': therapist,
+                                          },
+                                        );
                                       },
-                                    );
-                                  },
+                                    ),
                             child: const Text(
                               "Book session",
                               style: TextStyle(

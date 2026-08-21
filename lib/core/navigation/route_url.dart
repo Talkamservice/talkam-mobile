@@ -116,4 +116,5 @@ class PageUrl {
   static const sessionCompleteScreen = 'sessionCompleteScreen';
   static const clientNotesListScreen = 'clientNotesListScreen';
   static const clientNoteDetailScreen = 'clientNoteDetailScreen';
+  static const draftsListScreen = 'draftsListScreen';
 }

@@ -12,6 +12,7 @@ import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/features/messaging/data/models/get_conversations_response.dart';
 import 'package:talkam/features/messaging/presentation/screens/chat_screen.dart';
 import 'package:talkam/features/notifications/data/models/get_notifications_response.dart';
+import 'package:talkam/features/session/data/sessions_refresh_signal.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class DeepLinkNavigator {
@@ -69,6 +70,26 @@ class DeepLinkNavigator {
       case "mention":
         if (isAuthenticated) {
           CustomRoutes.goRouter.pushNamed(PageUrl.postDetailsScreen, extra: payload['id'].toString());
+        }
+      // Reschedule requested/accepted/declined, session cancelled, session
+      // reminder, and therapist-acknowledged all share this one generic
+      // backend type (see SessionRescheduleNotification/SessionCancelled
+      // Notification/etc. — buildData() has no sub-type field), so the most
+      // this payload alone can support is landing on the sessions list,
+      // freshly refreshed, rather than a specific session/detail deep link.
+      case "therapy_session":
+        if (isAuthenticated) {
+          SessionsRefreshSignal.ping();
+          CustomRoutes.goRouter.goNamed(PageUrl.sessionScreen);
+        }
+      case "therapy_session_request":
+        if (isAuthenticated) {
+          SessionsRefreshSignal.ping();
+          CustomRoutes.goRouter.goNamed(PageUrl.sessionScreen);
+        }
+      case "payout":
+        if (isAuthenticated) {
+          CustomRoutes.goRouter.goNamed(PageUrl.earningsScreen);
         }
       case "notification" || "user":
         if (isAuthenticated) {

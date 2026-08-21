@@ -15,17 +15,20 @@ class BookingConfirmedScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final therapistName = booking?.therapistName ?? "Dr. Amaka Osei";
-    final startsAtFormatted = booking?.formattedStartsAt ?? "Today at 9:00AM";
-    final amountFormatted = booking?.formattedAmount ?? "₦15,000";
+    // Fallbacks are honest placeholders, not fabricated data — this screen
+    // is only ever reached with a real booking today, but a null one must
+    // never render as if it were a genuine confirmed booking.
+    final therapistName = booking?.therapistName ?? "your therapist";
+    final startsAtFormatted = booking?.formattedStartsAt ?? "your scheduled time";
+    final amountFormatted = booking?.formattedAmount ?? "—";
     final txnId = booking != null
         ? "#FLW-${booking!.uuid.split('-').first.toUpperCase()}"
-        : "#FLW-TK-29471";
+        : "—";
     final formatStr = booking != null
         ? "${booking!.format[0].toUpperCase()}${booking!.format.substring(1)} call"
-        : "Video call";
+        : "session";
     final durationStr =
-        booking != null ? "${booking!.durationMinutes} minutes" : "50 minutes";
+        booking != null ? "${booking!.durationMinutes} minutes" : "";
 
     return Scaffold(
       backgroundColor: Pallets.white,

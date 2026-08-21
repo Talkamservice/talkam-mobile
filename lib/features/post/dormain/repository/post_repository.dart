@@ -1,6 +1,7 @@
 import 'package:talkam/features/post/data/models/create_post_payload.dart';
 import 'package:talkam/features/post/data/models/create_post_response.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
+import 'package:talkam/features/post/data/models/get_drafts_response.dart';
 import 'package:talkam/features/post/data/models/get_comments_response.dart';
 import 'package:talkam/features/post/data/models/get_guidlines_response.dart';
 import 'package:talkam/features/post/data/models/get_polls_response.dart';
@@ -37,6 +38,13 @@ abstract class PostRepository {
   Future<CreatePostResponse> createPost(CreatePostPayload postData);
 
   Future<CreatePostResponse> saveDraft(CreatePostPayload postData);
+
+  Future<GetDraftsResponse> getDrafts();
+
+  Future<CreatePostResponse> updateDraft(
+      String draftId, CreatePostPayload postData);
+
+  Future<void> deleteDraft(String draftId);
 
   Future<GetGuidlinesResponse> getRules();
 

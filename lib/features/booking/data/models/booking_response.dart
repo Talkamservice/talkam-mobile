@@ -1,5 +1,6 @@
 // Models for POST /user/bookings, GET /user/bookings/:id
 
+import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/features/session/data/models/session_model.dart';
 
 class BookingResponse {
@@ -150,6 +151,15 @@ class BookingResponse {
           status != 'expired',
       status: status,
       startsAt: parseBackendSessionStartsAt(startsAt),
+      therapistId: therapistId,
+      pendingReschedule: pendingReschedule == null
+          ? null
+          : PendingRescheduleInfo.fromJson(
+              pendingReschedule,
+              myUserId: int.tryParse(
+                SessionManager.instance.usersData['id']?.toString() ?? '',
+              ),
+            ),
     );
   }
 

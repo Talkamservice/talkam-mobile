@@ -8,6 +8,7 @@ import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/services/image_manipulation/image_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
@@ -248,9 +249,14 @@ class _CreatePostSheetState extends State<CreatePostSheet>
                       },
                     ),
                     8.verticalSpace,
-                    const Align(
-                        alignment: Alignment.centerRight,
-                        child: _RulesPillButton()),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: const [
+                        _DraftsPillButton(),
+                        SizedBox(width: 8),
+                        _RulesPillButton(),
+                      ],
+                    ),
                     16.verticalSpace,
                     const _FieldLabel("Title"),
                     8.verticalSpace,
@@ -494,6 +500,40 @@ class _CreatePostSheetState extends State<CreatePostSheet>
               ),
             ),
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class _DraftsPillButton extends StatelessWidget {
+  const _DraftsPillButton();
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      borderRadius: BorderRadius.circular(100),
+      onTap: () => context.pushNamed(PageUrl.draftsListScreen),
+      child: Container(
+        padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+        decoration: BoxDecoration(
+          color: Pallets.blueBubbleColor.withValues(alpha: 0.08),
+          borderRadius: BorderRadius.circular(100),
+          border: Border.all(color: Pallets.blueBubbleColor),
+        ),
+        child: Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(Icons.drafts_outlined,
+                size: 16.w, color: Pallets.blueBubbleColor),
+            6.horizontalSpace,
+            const TextView(
+              text: "Drafts",
+              fontSize: 13,
+              fontWeight: FontWeight.w600,
+              color: Pallets.blueBubbleColor,
+            ),
+          ],
         ),
       ),
     );

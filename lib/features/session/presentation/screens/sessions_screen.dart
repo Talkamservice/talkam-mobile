@@ -11,7 +11,9 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
+import 'package:talkam/core/services/network/api_error.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/features/booking/domain/repository/booking_repository.dart';
 import 'package:talkam/features/booking/presentation/blocs/booking_cubit/booking_cubit.dart';
 import 'package:talkam/features/session/data/models/session_model.dart';
 import 'package:talkam/features/session/data/sessions_refresh_signal.dart';
@@ -57,11 +59,11 @@ class _SessionsScreenState extends State<SessionsScreen> {
     super.dispose();
   }
 
-  void _refresh() {
+  Future<void> _refresh() async {
     if (_isTherapist) {
-      _cubit?.getSessions();
+      await _cubit?.getSessions();
     } else {
-      _bookingCubit?.loadMyBookings();
+      await _bookingCubit?.loadMyBookings();
     }
   }
 
@@ -101,12 +103,12 @@ class _SessionsScreenState extends State<SessionsScreen> {
     return BlocBuilder<BookingCubit, BookingState>(
       bloc: _bookingCubit,
       builder: (context, state) {
-        final loading = state.status == BookingStatus.loading &&
-            state.mySessions == null;
-        final error = state.status == BookingStatus.error &&
-                state.mySessions == null
-            ? (state.errorMessage ?? 'Something went wrong')
-            : null;
+        final loading =
+            state.status == BookingStatus.loading && state.mySessions == null;
+        final error =
+            state.status == BookingStatus.error && state.mySessions == null
+                ? (state.errorMessage ?? 'Something went wrong')
+                : null;
         final upcoming = (state.mySessions?.upcoming ?? [])
             .map((e) => e.toSessionModel())
             .toList();
@@ -134,7 +136,7 @@ class _SessionsScreenState extends State<SessionsScreen> {
     required String? error,
     required List<SessionModel> upcoming,
     required List<SessionModel> past,
-    required VoidCallback onRefresh,
+    required Future<void> Function() onRefresh,
     required ValueChanged<String> onCancelled,
   }) {
     final isEmptyState =
@@ -289,8 +291,8 @@ class _SessionsScreenState extends State<SessionsScreen> {
                               decoration: BoxDecoration(
                                 color: const Color(0xFFF8FAFC),
                                 borderRadius: BorderRadius.circular(20.r),
-                                border: Border.all(
-                                    color: const Color(0xFFF1F5F9)),
+                                border:
+                                    Border.all(color: const Color(0xFFF1F5F9)),
                               ),
                               child: Row(
                                 children: [
@@ -347,151 +349,75 @@ class _SessionsScreenState extends State<SessionsScreen> {
                         ],
                       ),
                     )
-                  : SingleChildScrollView(
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20.w),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            16.verticalSpace,
+                  : RefreshIndicator(
+                      onRefresh: onRefresh,
+                      color: Pallets.blueBubbleColor,
+                      child: SingleChildScrollView(
+                        physics: const AlwaysScrollableScrollPhysics(),
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              16.verticalSpace,
 
-                            // UPCOMING Section
-                            if (upcoming.isNotEmpty) ...[
-                              TextView(
-                                text: "UPCOMING",
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700,
-                                color: const Color(0xFF475569),
-                              ),
-                              12.verticalSpace,
-                              if (isTherapist)
-                                ...upcoming.map((s) => Padding(
-                                      padding: EdgeInsets.only(bottom: 16.h),
-                                      child: _TherapistUpcomingCard(
-                                        session: s,
-                                        onRefresh: onRefresh,
-                                        onCancelled: onCancelled,
-                                      ),
-                                    ))
-                              else ...[
-                                _UpcomingCardOne(
-                                  session: upcoming[0],
-                                  isTherapist: isTherapist,
+                              // UPCOMING Section
+                              if (upcoming.isNotEmpty) ...[
+                                TextView(
+                                  text: "UPCOMING",
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                  color: const Color(0xFF475569),
                                 ),
-                                if (upcoming.length > 1) ...[
-                                  16.verticalSpace,
-                                  _UpcomingCardTwo(
-                                    session: upcoming[1],
-                                    onRefresh: onRefresh,
-                                    onCancelled: onCancelled,
-                                  ),
-                                ],
+                                12.verticalSpace,
+                                if (isTherapist)
+                                  ...upcoming.map((s) => Padding(
+                                        padding: EdgeInsets.only(bottom: 16.h),
+                                        child: _TherapistUpcomingCard(
+                                          session: s,
+                                          onRefresh: onRefresh,
+                                          onCancelled: onCancelled,
+                                        ),
+                                      ))
+                                else
+                                  // Every upcoming session gets the same card
+                                  // — previously only the first two ever
+                                  // rendered (a leftover of an old two-card
+                                  // mock layout), silently hiding a 3rd+
+                                  // upcoming session from the list entirely.
+                                  ...upcoming.map((s) => Padding(
+                                        padding: EdgeInsets.only(bottom: 16.h),
+                                        child: _UpcomingCardTwo(
+                                          session: s,
+                                          onRefresh: onRefresh,
+                                          onCancelled: onCancelled,
+                                        ),
+                                      )),
+                                28.verticalSpace,
                               ],
-                              28.verticalSpace,
-                            ],
 
-                            // PAST SESSIONS Section
-                            if (past.isNotEmpty) ...[
-                              TextView(
-                                text: "PAST SESSIONS",
-                                fontSize: 12,
-                                fontWeight: FontWeight.w700,
-                                color: const Color(0xFF475569),
-                              ),
-                              12.verticalSpace,
-                              ...past.map((s) {
-                                return Padding(
-                                  padding: EdgeInsets.only(bottom: 12.h),
-                                  child: _PastSessionCard(session: s),
-                                );
-                              }),
-                              40.verticalSpace,
+                              // PAST SESSIONS Section
+                              if (past.isNotEmpty) ...[
+                                TextView(
+                                  text: "PAST SESSIONS",
+                                  fontSize: 12,
+                                  fontWeight: FontWeight.w700,
+                                  color: const Color(0xFF475569),
+                                ),
+                                12.verticalSpace,
+                                ...past.map((s) {
+                                  return Padding(
+                                    padding: EdgeInsets.only(bottom: 12.h),
+                                    child: _PastSessionCard(session: s),
+                                  );
+                                }),
+                                40.verticalSpace,
+                              ],
                             ],
-                          ],
+                          ),
                         ),
                       ),
                     ),
-    );
-  }
-}
-
-class _UpcomingCardOne extends StatelessWidget {
-  final SessionModel session;
-  final bool isTherapist;
-
-  const _UpcomingCardOne({required this.session, this.isTherapist = false});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(16.w),
-      decoration: BoxDecoration(
-        color: Pallets.white,
-        borderRadius: BorderRadius.circular(20.r),
-        border: Border.all(color: const Color(0xFFE2E8F0)),
-      ),
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Container(
-                width: 44.w,
-                height: 44.w,
-                decoration: const BoxDecoration(
-                  color: Color(0xFFEBF5FB),
-                  shape: BoxShape.circle,
-                ),
-                child: Center(
-                  child: TextView(
-                    text: session.initial,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w700,
-                    color: Pallets.blueBubbleColor,
-                  ),
-                ),
-              ),
-              12.horizontalSpace,
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    TextView(
-                      text: session.therapistName,
-                      fontSize: 15,
-                      fontWeight: FontWeight.w700,
-                      color: Pallets.boldBlack,
-                    ),
-                    4.verticalSpace,
-                    TextView(
-                      text: "${session.displayDate} • ${session.displayTime}",
-                      fontSize: 13,
-                      fontWeight: FontWeight.w400,
-                      color: const Color(0xFF64748B),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          16.verticalSpace,
-          CustomButton(
-            onPressed: () {
-              if (isTherapist) {
-                context.pushNamed(
-                  PageUrl.sessionPrepScreen,
-                  extra: session,
-                );
-              } else {
-                context.pushNamed(
-                  PageUrl.sessionRoomScreen,
-                  extra: session,
-                );
-              }
-            },
-            text: isTherapist ? "Join session" : "View session",
-          ),
-        ],
-      ),
     );
   }
 }
@@ -502,7 +428,7 @@ class _UpcomingCardOne extends StatelessWidget {
 /// consistent card instead of a position-based variant.
 class _TherapistUpcomingCard extends StatelessWidget {
   final SessionModel session;
-  final VoidCallback onRefresh;
+  final Future<void> Function() onRefresh;
   final ValueChanged<String> onCancelled;
 
   const _TherapistUpcomingCard({
@@ -511,9 +437,56 @@ class _TherapistUpcomingCard extends StatelessWidget {
     required this.onCancelled,
   });
 
+  Future<void> _respond(BuildContext context, String action) async {
+    final reschedule = session.pendingReschedule;
+    if (reschedule == null) return;
+    try {
+      await injector
+          .get<BookingRepository>()
+          .respondToReschedule(reschedule.id, action: action);
+      // Await so the list has already re-rendered without the pending-
+      // reschedule state by the time the confirmation dialog is dismissed.
+      await onRefresh();
+      if (!context.mounted) return;
+      SessionActionSheets.showStatusDialog(
+        context,
+        isSuccess: true,
+        title:
+            action == 'accept' ? "Reschedule accepted" : "Reschedule declined",
+        message: action == 'accept'
+            ? "The session has been moved to the new time."
+            : "The session keeps its original time.",
+      );
+    } catch (e) {
+      if (!context.mounted) return;
+      SessionActionSheets.showStatusDialog(
+        context,
+        isSuccess: false,
+        title: "Couldn't respond",
+        message: e is ApiError
+            ? (e.errorDescription ?? 'Please try again.')
+            : 'Please try again.',
+      );
+    }
+  }
+
+  String _formatPendingTime(DateTime? dt) {
+    if (dt == null) return '';
+    final hour = dt.hour % 12 == 0 ? 12 : dt.hour % 12;
+    final minute = dt.minute.toString().padLeft(2, '0');
+    final period = dt.hour >= 12 ? 'PM' : 'AM';
+    return "${dt.month}/${dt.day} • $hour:$minute $period";
+  }
+
   @override
   Widget build(BuildContext context) {
-    final canJoin = session.status == 'confirmed';
+    // in_progress means the other party already joined and started the
+    // call — still very much joinable (in fact the case you most want a
+    // visible "View session" for), so it belongs alongside confirmed here.
+    final canJoin =
+        session.status == 'confirmed' || session.status == 'in_progress';
+    final isVoiceCall = session.format.toLowerCase() == 'voice';
+    final pendingReschedule = session.pendingReschedule;
 
     return Container(
       padding: EdgeInsets.all(16.w),
@@ -554,11 +527,28 @@ class _TherapistUpcomingCard extends StatelessWidget {
                       color: Pallets.boldBlack,
                     ),
                     4.verticalSpace,
-                    TextView(
-                      text: "${session.displayDate} • ${session.displayTime}",
-                      fontSize: 13,
-                      fontWeight: FontWeight.w400,
-                      color: const Color(0xFF64748B),
+                    Row(
+                      children: [
+                        Icon(
+                          isVoiceCall
+                              ? Icons.call_rounded
+                              : Icons.videocam_rounded,
+                          size: 14.w,
+                          color: const Color(0xFF64748B),
+                        ),
+                        4.horizontalSpace,
+                        Flexible(
+                          child: TextView(
+                            text:
+                                "${session.displayDate} • ${session.displayTime}",
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400,
+                            color: const Color(0xFF64748B),
+                            maxLines: 1,
+                            textOverflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
@@ -580,6 +570,27 @@ class _TherapistUpcomingCard extends StatelessWidget {
                 ),
             ],
           ),
+          if (pendingReschedule != null) ...[
+            12.verticalSpace,
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF4FBFF),
+                borderRadius: BorderRadius.circular(12.r),
+                border: Border.all(color: const Color(0xFFBFE3FB)),
+              ),
+              child: TextView(
+                text: pendingReschedule.requestedByMe
+                    ? "Reschedule requested — moving to ${_formatPendingTime(pendingReschedule.newStartsAt)}. Waiting for ${session.therapistName} to respond."
+                    : "${session.therapistName} wants to move this session to ${_formatPendingTime(pendingReschedule.newStartsAt)}.",
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: const Color(0xFF0369A1),
+                lineHeight: 1.4,
+              ),
+            ),
+          ],
           16.verticalSpace,
           if (canJoin)
             CustomButton(
@@ -589,41 +600,68 @@ class _TherapistUpcomingCard extends StatelessWidget {
               text: "Join session",
             ),
           if (canJoin) 12.verticalSpace,
-          Row(
-            children: [
-              Expanded(
-                child: CustomButton(
-                  onPressed: () {
-                    SessionActionSheets.showCancelSheet(
-                      context,
-                      session,
-                      onSuccess: () => onCancelled(session.id),
-                    );
-                  },
-                  bgColor: const Color(0xFFF8FAFC),
-                  child: TextView(
-                    text: "Cancel",
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600,
-                    color: Pallets.boldBlack,
+          if (pendingReschedule != null && !pendingReschedule.requestedByMe)
+            Row(
+              children: [
+                Expanded(
+                  child: CustomButton(
+                    onPressed: () => _respond(context, 'decline'),
+                    bgColor: const Color(0xFFF8FAFC),
+                    child: TextView(
+                      text: "Decline",
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: Pallets.boldBlack,
+                    ),
                   ),
                 ),
-              ),
-              12.horizontalSpace,
-              Expanded(
-                child: CustomButton(
-                  onPressed: () {
-                    SessionActionSheets.showRescheduleSheet(
-                      context,
-                      session,
-                      onSuccess: onRefresh,
-                    );
-                  },
-                  text: "Reschedule",
+                12.horizontalSpace,
+                Expanded(
+                  child: CustomButton(
+                    onPressed: () => _respond(context, 'accept'),
+                    text: "Accept",
+                  ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            )
+          else
+            Row(
+              children: [
+                Expanded(
+                  child: CustomButton(
+                    onPressed: () {
+                      SessionActionSheets.showCancelSheet(
+                        context,
+                        session,
+                        onSuccess: () => onCancelled(session.id),
+                      );
+                    },
+                    bgColor: const Color(0xFFF8FAFC),
+                    child: TextView(
+                      text: "Cancel",
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: Pallets.boldBlack,
+                    ),
+                  ),
+                ),
+                12.horizontalSpace,
+                Expanded(
+                  child: CustomButton(
+                    onPressed: pendingReschedule != null
+                        ? null
+                        : () {
+                            SessionActionSheets.showRescheduleSheet(
+                              context,
+                              session,
+                              onSuccess: onRefresh,
+                            );
+                          },
+                    text: "Reschedule",
+                  ),
+                ),
+              ],
+            ),
         ],
       ),
     );
@@ -632,7 +670,7 @@ class _TherapistUpcomingCard extends StatelessWidget {
 
 class _UpcomingCardTwo extends StatelessWidget {
   final SessionModel session;
-  final VoidCallback onRefresh;
+  final Future<void> Function() onRefresh;
   final ValueChanged<String> onCancelled;
 
   const _UpcomingCardTwo({
@@ -641,8 +679,57 @@ class _UpcomingCardTwo extends StatelessWidget {
     required this.onCancelled,
   });
 
+  Future<void> _respond(BuildContext context, String action) async {
+    final reschedule = session.pendingReschedule;
+    if (reschedule == null) return;
+    try {
+      await injector
+          .get<BookingRepository>()
+          .respondToReschedule(reschedule.id, action: action);
+      // Await so the list has already re-rendered without the pending-
+      // reschedule state by the time the confirmation dialog is dismissed.
+      await onRefresh();
+      if (!context.mounted) return;
+      SessionActionSheets.showStatusDialog(
+        context,
+        isSuccess: true,
+        title:
+            action == 'accept' ? "Reschedule accepted" : "Reschedule declined",
+        message: action == 'accept'
+            ? "The session has been moved to the new time."
+            : "The session keeps its original time.",
+      );
+    } catch (e) {
+      if (!context.mounted) return;
+      SessionActionSheets.showStatusDialog(
+        context,
+        isSuccess: false,
+        title: "Couldn't respond",
+        message: e is ApiError
+            ? (e.errorDescription ?? 'Please try again.')
+            : 'Please try again.',
+      );
+    }
+  }
+
+  String _formatPendingTime(DateTime? dt) {
+    if (dt == null) return '';
+    final hour = dt.hour % 12 == 0 ? 12 : dt.hour % 12;
+    final minute = dt.minute.toString().padLeft(2, '0');
+    final period = dt.hour >= 12 ? 'PM' : 'AM';
+    return "${dt.month}/${dt.day} • $hour:$minute $period";
+  }
+
   @override
   Widget build(BuildContext context) {
+    // in_progress means the other party already joined and started the
+    // call — still very much joinable (in fact the case you most want a
+    // visible "View session" for), so it belongs alongside confirmed here.
+    final canJoin =
+        session.status == 'confirmed' || session.status == 'in_progress';
+    final isVoiceCall = session.format.toLowerCase() == 'voice';
+    final pendingReschedule = session.pendingReschedule;
+
     return Container(
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
@@ -682,53 +769,141 @@ class _UpcomingCardTwo extends StatelessWidget {
                       color: Pallets.boldBlack,
                     ),
                     4.verticalSpace,
-                    TextView(
-                      text: "${session.displayDate} • ${session.displayTime}",
-                      fontSize: 13,
-                      fontWeight: FontWeight.w400,
-                      color: const Color(0xFF64748B),
+                    Row(
+                      children: [
+                        Icon(
+                          isVoiceCall
+                              ? Icons.call_rounded
+                              : Icons.videocam_rounded,
+                          size: 14.w,
+                          color: const Color(0xFF64748B),
+                        ),
+                        4.horizontalSpace,
+                        Flexible(
+                          child: TextView(
+                            text:
+                                "${session.displayDate} • ${session.displayTime}",
+                            fontSize: 13,
+                            fontWeight: FontWeight.w400,
+                            color: const Color(0xFF64748B),
+                            maxLines: 1,
+                            textOverflow: TextOverflow.ellipsis,
+                          ),
+                        ),
+                      ],
                     ),
                   ],
                 ),
               ),
-            ],
-          ),
-          16.verticalSpace,
-          Row(
-            children: [
-              Expanded(
-                child: CustomButton(
-                  onPressed: () {
-                    SessionActionSheets.showCancelSheet(
-                      context,
-                      session,
-                      onSuccess: () => onCancelled(session.id),
-                    );
-                  },
-                  bgColor: const Color(0xFFF8FAFC),
+              if (!canJoin)
+                Container(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 10.w, vertical: 4.h),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFFFFBEB),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
                   child: TextView(
-                    text: "Cancel",
-                    fontSize: 15,
+                    text: session.status ?? '',
+                    fontSize: 11,
                     fontWeight: FontWeight.w600,
-                    color: Pallets.boldBlack,
+                    color: const Color(0xFFD97706),
                   ),
                 ),
-              ),
-              12.horizontalSpace,
-              Expanded(
-                child: CustomButton(
-                  onPressed: () {
-                    SessionActionSheets.showRescheduleSheet(
-                      context,
-                      session,
-                      onSuccess: onRefresh,
-                    );
-                  },
-                  text: "Reschedule",
-                ),
-              ),
             ],
           ),
+          if (pendingReschedule != null) ...[
+            12.verticalSpace,
+            Container(
+              width: double.infinity,
+              padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 10.h),
+              decoration: BoxDecoration(
+                color: const Color(0xFFF4FBFF),
+                borderRadius: BorderRadius.circular(12.r),
+                border: Border.all(color: const Color(0xFFBFE3FB)),
+              ),
+              child: TextView(
+                text: pendingReschedule.requestedByMe
+                    ? "Reschedule requested — moving to ${_formatPendingTime(pendingReschedule.newStartsAt)}. Waiting for ${session.therapistName} to respond."
+                    : "${session.therapistName} wants to move this session to ${_formatPendingTime(pendingReschedule.newStartsAt)}.",
+                fontSize: 12,
+                fontWeight: FontWeight.w500,
+                color: const Color(0xFF0369A1),
+                lineHeight: 1.4,
+              ),
+            ),
+          ],
+          16.verticalSpace,
+          if (canJoin)
+            CustomButton(
+              onPressed: () {
+                context.pushNamed(PageUrl.sessionRoomScreen, extra: session);
+              },
+              text: "View session",
+            ),
+          if (canJoin) 12.verticalSpace,
+          if (pendingReschedule != null && !pendingReschedule.requestedByMe)
+            Row(
+              children: [
+                Expanded(
+                  child: CustomButton(
+                    onPressed: () => _respond(context, 'decline'),
+                    bgColor: const Color(0xFFF8FAFC),
+                    child: TextView(
+                      text: "Decline",
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: Pallets.boldBlack,
+                    ),
+                  ),
+                ),
+                12.horizontalSpace,
+                Expanded(
+                  child: CustomButton(
+                    onPressed: () => _respond(context, 'accept'),
+                    text: "Accept",
+                  ),
+                ),
+              ],
+            )
+          else
+            Row(
+              children: [
+                Expanded(
+                  child: CustomButton(
+                    onPressed: () {
+                      SessionActionSheets.showCancelSheet(
+                        context,
+                        session,
+                        onSuccess: () => onCancelled(session.id),
+                      );
+                    },
+                    bgColor: const Color(0xFFF8FAFC),
+                    child: TextView(
+                      text: "Cancel",
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      color: Pallets.boldBlack,
+                    ),
+                  ),
+                ),
+                12.horizontalSpace,
+                Expanded(
+                  child: CustomButton(
+                    onPressed: pendingReschedule != null
+                        ? null
+                        : () {
+                            SessionActionSheets.showRescheduleSheet(
+                              context,
+                              session,
+                              onSuccess: onRefresh,
+                            );
+                          },
+                    text: "Reschedule",
+                  ),
+                ),
+              ],
+            ),
         ],
       ),
     );
@@ -744,6 +919,16 @@ class _PastSessionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     final isTherapist = SessionManager.instance.isTherapistAccount;
     final isUnpaid = session.status == 'pending_payment';
+    // completed/pending_payment get their existing distinct treatment below;
+    // everything else that never actually happened previously rendered
+    // identically to a normal completed session (same star row, price,
+    // "View receipt") — indistinguishable from "this hasn't happened yet".
+    final statusLabel = const {
+      'cancelled': 'Cancelled',
+      'failed': 'Payment failed',
+      'expired': 'Expired',
+      'no_show': 'No-show',
+    }[session.status];
     final priceStr =
         "₦${session.price.toInt().toString().replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}";
 
@@ -808,17 +993,32 @@ class _PastSessionCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: List.generate(
-                  5,
-                  (index) => Padding(
-                      padding: EdgeInsets.only(right: 2.w),
-                      child: ImageWidget(
-                          imageUrl: index < session.rating.floor()
-                              ? Assets.images.svgV2.starFilled
-                              : Assets.images.svgV2.star)),
+              if (statusLabel != null)
+                Container(
+                  padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 3.h),
+                  decoration: BoxDecoration(
+                    color: const Color(0xFFF1F5F9),
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: TextView(
+                    text: statusLabel,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    color: const Color(0xFF64748B),
+                  ),
+                )
+              else
+                Row(
+                  children: List.generate(
+                    5,
+                    (index) => Padding(
+                        padding: EdgeInsets.only(right: 2.w),
+                        child: ImageWidget(
+                            imageUrl: index < session.rating.floor()
+                                ? Assets.images.svgV2.starFilled
+                                : Assets.images.svgV2.star)),
+                  ),
                 ),
-              ),
               // Payment is the client's responsibility, not the
               // therapist's — "Complete payment"/"View receipt" call
               // consumer-only endpoints (session.user_id-scoped) that 404
@@ -848,7 +1048,8 @@ class _PastSessionCard extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     if (isUnpaid) {
-                      SessionActionSheets.showCompletePaymentSheet(context, session);
+                      SessionActionSheets.showCompletePaymentSheet(
+                          context, session);
                     } else {
                       SessionActionSheets.showReceiptSheet(context, session);
                     }
@@ -857,7 +1058,9 @@ class _PastSessionCard extends StatelessWidget {
                     text: isUnpaid ? "Complete payment" : "View receipt",
                     fontSize: 13,
                     fontWeight: FontWeight.w700,
-                    color: isUnpaid ? const Color(0xFFD97706) : const Color(0xFF059669),
+                    color: isUnpaid
+                        ? const Color(0xFFD97706)
+                        : const Color(0xFF059669),
                   ),
                 ),
             ],

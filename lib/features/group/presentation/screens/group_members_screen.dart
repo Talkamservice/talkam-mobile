@@ -63,8 +63,10 @@ class _GroupMembersScreenState extends State<GroupMembersScreen> {
               indicatorWeight: 3,
               labelColor: context.colorScheme.onSurface,
               unselectedLabelColor: Pallets.darkGrey,
-              labelStyle: const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
-              unselectedLabelStyle: const TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
+              labelStyle:
+                  const TextStyle(fontWeight: FontWeight.w600, fontSize: 14),
+              unselectedLabelStyle:
+                  const TextStyle(fontWeight: FontWeight.w500, fontSize: 14),
               dividerColor: Colors.transparent,
               tabs: const [
                 Tab(text: "Administrators"),
@@ -79,7 +81,8 @@ class _GroupMembersScreenState extends State<GroupMembersScreen> {
                 builder: (context, state) {
                   return state.maybeWhen(
                     orElse: () => const SizedBox.shrink(),
-                    getGroupMembersLoading: () => Center(child: CustomDialogs.getLoading(size: 40)),
+                    getGroupMembersLoading: () =>
+                        Center(child: CustomDialogs.getLoading(size: 40)),
                     getGroupMembersSuccess: (response) {
                       final owners = response.data.owner;
                       final admins = response.data.admin;
@@ -90,51 +93,83 @@ class _GroupMembersScreenState extends State<GroupMembersScreen> {
                         children: [
                           // Tab 1: Administrators
                           administrators.isEmpty
-                              ? const Center(child: TextView(text: "No administrators found"))
-                              : ListView.builder(
-                                  itemCount: administrators.length,
-                                  itemBuilder: (context, index) {
-                                    return GroupMemberItem(
-                                      member: administrators[index],
-                                      group: widget.group,
-                                      currentUserIsAdmin: widget.group.isAdmin,
-                                      onActionSuccess: () => bloc.getGroupMembers(widget.group.id.toString()),
-                                    );
-                                  },
+                              ? const Center(
+                                  child:
+                                      TextView(text: "No administrators found"))
+                              : RefreshIndicator(
+                                  onRefresh: () => bloc.getGroupMembers(
+                                      widget.group.id.toString()),
+                                  child: ListView.builder(
+                                    physics:
+                                        const AlwaysScrollableScrollPhysics(),
+                                    itemCount: administrators.length,
+                                    itemBuilder: (context, index) {
+                                      return GroupMemberItem(
+                                        member: administrators[index],
+                                        group: widget.group,
+                                        currentUserIsAdmin:
+                                            widget.group.isAdmin,
+                                        onActionSuccess: () =>
+                                            bloc.getGroupMembers(
+                                                widget.group.id.toString()),
+                                      );
+                                    },
+                                  ),
                                 ),
                           // Tab 2: Moderators
                           admins.isEmpty
-                              ? const Center(child: TextView(text: "No moderators found"))
-                              : ListView.builder(
-                                  itemCount: admins.length,
-                                  itemBuilder: (context, index) {
-                                    return GroupMemberItem(
-                                      member: admins[index],
-                                      group: widget.group,
-                                      currentUserIsAdmin: widget.group.isAdmin,
-                                      onActionSuccess: () => bloc.getGroupMembers(widget.group.id.toString()),
-                                    );
-                                  },
+                              ? const Center(
+                                  child: TextView(text: "No moderators found"))
+                              : RefreshIndicator(
+                                  onRefresh: () => bloc.getGroupMembers(
+                                      widget.group.id.toString()),
+                                  child: ListView.builder(
+                                    physics:
+                                        const AlwaysScrollableScrollPhysics(),
+                                    itemCount: admins.length,
+                                    itemBuilder: (context, index) {
+                                      return GroupMemberItem(
+                                        member: admins[index],
+                                        group: widget.group,
+                                        currentUserIsAdmin:
+                                            widget.group.isAdmin,
+                                        onActionSuccess: () =>
+                                            bloc.getGroupMembers(
+                                                widget.group.id.toString()),
+                                      );
+                                    },
+                                  ),
                                 ),
                           // Tab 3: All Members
                           members.isEmpty
-                              ? const Center(child: TextView(text: "No members found"))
-                              : ListView.builder(
-                                  itemCount: members.length,
-                                  itemBuilder: (context, index) {
-                                    return GroupMemberItem(
-                                      member: members[index],
-                                      group: widget.group,
-                                      currentUserIsAdmin: widget.group.isAdmin,
-                                      onActionSuccess: () => bloc.getGroupMembers(widget.group.id.toString()),
-                                    );
-                                  },
+                              ? const Center(
+                                  child: TextView(text: "No members found"))
+                              : RefreshIndicator(
+                                  onRefresh: () => bloc.getGroupMembers(
+                                      widget.group.id.toString()),
+                                  child: ListView.builder(
+                                    physics:
+                                        const AlwaysScrollableScrollPhysics(),
+                                    itemCount: members.length,
+                                    itemBuilder: (context, index) {
+                                      return GroupMemberItem(
+                                        member: members[index],
+                                        group: widget.group,
+                                        currentUserIsAdmin:
+                                            widget.group.isAdmin,
+                                        onActionSuccess: () =>
+                                            bloc.getGroupMembers(
+                                                widget.group.id.toString()),
+                                      );
+                                    },
+                                  ),
                                 ),
                         ],
                       );
                     },
                     getGroupMembersFailure: (error) => AppErrorWidget(
-                      onTap: () => bloc.getGroupMembers(widget.group.id.toString()),
+                      onTap: () =>
+                          bloc.getGroupMembers(widget.group.id.toString()),
                     ),
                   );
                 },

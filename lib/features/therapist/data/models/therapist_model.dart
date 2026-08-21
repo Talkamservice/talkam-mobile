@@ -176,6 +176,12 @@ class TherapistModel {
       yearsExperience: detail.yearsExperience ?? 0,
       ratingBreakdown: breakdown,
       reviews: reviews,
+      // fromDirectoryItem() always hardcodes '50 mins' since the plain
+      // directory list item carries no duration — but the full profile
+      // detail does, so use the real value once we have it.
+      avgDuration: detail.sessionDuration != null
+          ? '${detail.sessionDuration} min'
+          : base.avgDuration,
     );
   }
 }

@@ -18,9 +18,9 @@ abstract class AdsRepository {
 
   Future<void> updateStatPayload(UpdateStatPayLoad payload);
 
-  /// v2 share-stat endpoint — post_id + shares only, per the spec. The
-  /// broader [updateStatPayload] stays on v1 since it's also used for
-  /// non-share stats (time spent) and group shares, which v2 doesn't cover.
+  /// Narrower v2 share-stat call (post_id + shares) kept alongside the more
+  /// general [updateStatPayload] since callers that only need to log a
+  /// share don't need to build a full [UpdateStatPayLoad].
   Future<void> savePostShareStat(String postId);
 
   Future<dynamic> deletePromotion(String promotionId);

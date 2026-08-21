@@ -90,85 +90,90 @@ class _ClientsScreenState extends State<ClientsScreen> {
 
   Widget _buildClientsList(
       BuildContext context, List<TherapistClientListItem> clients) {
-    return ListView.separated(
-      padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
-      itemCount: clients.length,
-      separatorBuilder: (context, index) => 16.verticalSpace,
-      itemBuilder: (context, index) {
-        final client = clients[index];
-        return GestureDetector(
-          onTap: () {
-            context.pushNamed(
-              PageUrl.clientDetailsScreen,
-              extra: client.id,
-            );
-          },
-          child: Container(
-            padding: EdgeInsets.all(16.w),
-            decoration: BoxDecoration(
-              color: Pallets.white,
-              borderRadius: BorderRadius.circular(16.r),
-              border: Border.all(color: Pallets.grey90),
-            ),
-            child: Row(
-              children: [
-                CircleAvatar(
-                  radius: 24.r,
-                  backgroundColor: const Color(0xFFF2F9FF),
-                  backgroundImage: (client.avatar?.isNotEmpty ?? false)
-                      ? NetworkImage(client.avatar!)
-                      : null,
-                  child: (client.avatar?.isNotEmpty ?? false)
-                      ? null
-                      : TextView(
-                          text: client.name.isNotEmpty
-                              ? client.name[0].toUpperCase()
-                              : "?",
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: Pallets.primary,
-                        ),
-                ),
-                16.horizontalSpace,
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TextView(
-                        text: client.name,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: Pallets.boldBlack,
-                      ),
-                      4.verticalSpace,
-                      TextView(
-                        text: client.topics.join(' • '),
-                        fontSize: 14,
-                        fontWeight: FontWeight.w500,
-                        color: Pallets.grey400,
-                        maxLines: 1,
-                        textOverflow: TextOverflow.ellipsis,
-                      ),
-                      4.verticalSpace,
-                      TextView(
-                        text: "${client.sessionsCount} sessions",
-                        fontSize: 12,
-                        fontWeight: FontWeight.w400,
-                        color: Pallets.grey400,
-                      ),
-                    ],
+    return RefreshIndicator(
+      color: Pallets.blueBubbleColor,
+      onRefresh: () => cubit.getClients(),
+      child: ListView.separated(
+        physics: const AlwaysScrollableScrollPhysics(),
+        padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
+        itemCount: clients.length,
+        separatorBuilder: (context, index) => 16.verticalSpace,
+        itemBuilder: (context, index) {
+          final client = clients[index];
+          return GestureDetector(
+            onTap: () {
+              context.pushNamed(
+                PageUrl.clientDetailsScreen,
+                extra: client.id,
+              );
+            },
+            child: Container(
+              padding: EdgeInsets.all(16.w),
+              decoration: BoxDecoration(
+                color: Pallets.white,
+                borderRadius: BorderRadius.circular(16.r),
+                border: Border.all(color: Pallets.grey90),
+              ),
+              child: Row(
+                children: [
+                  CircleAvatar(
+                    radius: 24.r,
+                    backgroundColor: const Color(0xFFF2F9FF),
+                    backgroundImage: (client.avatar?.isNotEmpty ?? false)
+                        ? NetworkImage(client.avatar!)
+                        : null,
+                    child: (client.avatar?.isNotEmpty ?? false)
+                        ? null
+                        : TextView(
+                            text: client.name.isNotEmpty
+                                ? client.name[0].toUpperCase()
+                                : "?",
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: Pallets.primary,
+                          ),
                   ),
-                ),
-                Icon(
-                  Icons.chevron_right,
-                  color: Pallets.grey400,
-                  size: 24.w,
-                ),
-              ],
+                  16.horizontalSpace,
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        TextView(
+                          text: client.name,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w700,
+                          color: Pallets.boldBlack,
+                        ),
+                        4.verticalSpace,
+                        TextView(
+                          text: client.topics.join(' • '),
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                          color: Pallets.grey400,
+                          maxLines: 1,
+                          textOverflow: TextOverflow.ellipsis,
+                        ),
+                        4.verticalSpace,
+                        TextView(
+                          text: "${client.sessionsCount} sessions",
+                          fontSize: 12,
+                          fontWeight: FontWeight.w400,
+                          color: Pallets.grey400,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Icon(
+                    Icons.chevron_right,
+                    color: Pallets.grey400,
+                    size: 24.w,
+                  ),
+                ],
+              ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 }

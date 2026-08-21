@@ -8,6 +8,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/network/api_error.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/booking/data/models/session_receipt.dart';
+import 'package:talkam/features/booking/data/models/therapist_slots_response.dart';
 import 'package:talkam/features/booking/domain/repository/booking_repository.dart';
 import 'package:talkam/features/booking/presentation/blocs/booking_cubit/booking_cubit.dart';
 import 'package:talkam/features/session/data/models/session_model.dart';
@@ -126,48 +127,45 @@ class _RescheduleStepOneSheet extends StatefulWidget {
 }
 
 class _RescheduleStepOneSheetState extends State<_RescheduleStepOneSheet> {
+  final BookingCubit _cubit = BookingCubit();
+
   late final List<DateTime> _days =
       List.generate(14, (i) => DateTime.now().add(Duration(days: i + 1)));
-  DateTime? _selectedDay;
-  String? _selectedTime;
-
-  void _pickTime() {
-    showModalBottomSheet(
-      context: context,
-      useRootNavigator: true,
-      useSafeArea: true,
-      backgroundColor: Colors.transparent,
-      builder: (context) => _TimePickerSheet(
-        initialTime: _selectedTime ?? '',
-        onSelected: (time) => setState(() => _selectedTime = time),
-      ),
-    );
-  }
-
-  /// Combines the picked day + "h:mm AM/PM" time into the datetime the API
-  /// expects (`new_starts_at`).
-  DateTime? get _combined {
-    final day = _selectedDay;
-    final time = _selectedTime;
-    if (day == null || time == null) return null;
-
-    final match = RegExp(r'^(\d{1,2}):(\d{2})\s*(AM|PM)$').firstMatch(time);
-    if (match == null) return null;
-    var hour = int.parse(match.group(1)!);
-    final minute = int.parse(match.group(2)!);
-    final period = match.group(3)!;
-    if (period == 'PM' && hour != 12) hour += 12;
-    if (period == 'AM' && hour == 12) hour = 0;
-
-    return DateTime(day.year, day.month, day.day, hour, minute);
-  }
+  late DateTime _selectedDay = _days[0];
+  TherapistSlot? _selectedSlot;
 
   static const _weekdayAbbrev = [
     'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'
   ];
 
+  String get _dateKey {
+    final d = _selectedDay;
+    return "${d.year}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}";
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSlotsForSelectedDay();
+  }
+
+  @override
+  void dispose() {
+    _cubit.close();
+    super.dispose();
+  }
+
+  void _loadSlotsForSelectedDay() {
+    final therapistId = widget.session.therapistId;
+    if (therapistId == null) return;
+    setState(() => _selectedSlot = null);
+    _cubit.loadSlots(therapistId, _dateKey);
+  }
+
   @override
   Widget build(BuildContext context) {
+    final therapistId = widget.session.therapistId;
+
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
       decoration: BoxDecoration(
@@ -206,79 +204,120 @@ class _RescheduleStepOneSheetState extends State<_RescheduleStepOneSheet> {
             color: const Color(0xFF94A3B8),
           ),
           24.verticalSpace,
-          TextView(
-            text: "NEW DATE",
-            fontSize: 12,
-            fontWeight: FontWeight.w700,
-            color: const Color(0xFF475569),
-          ),
-          12.verticalSpace,
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: _days.map((day) {
-                final isSelected = _selectedDay != null &&
-                    _selectedDay!.year == day.year &&
-                    _selectedDay!.month == day.month &&
-                    _selectedDay!.day == day.day;
-                return GestureDetector(
-                  onTap: () => setState(() => _selectedDay = day),
-                  child: Container(
-                    margin: EdgeInsets.only(right: 8.w),
-                    padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
-                    decoration: BoxDecoration(
-                      color: isSelected ? Pallets.blueBubbleColor : const Color(0xFFF8FAFC),
-                      borderRadius: BorderRadius.circular(16.r),
-                    ),
-                    child: TextView(
-                      text: "${_weekdayAbbrev[day.weekday - 1]} ${day.day}",
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      color: isSelected ? Pallets.white : const Color(0xFF64748B),
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
-          ),
-          24.verticalSpace,
-          TextView(
-            text: "NEW TIME",
-            fontSize: 12,
-            fontWeight: FontWeight.w700,
-            color: const Color(0xFF475569),
-          ),
-          12.verticalSpace,
-          GestureDetector(
-            onTap: _pickTime,
-            child: Container(
-              width: double.infinity,
-              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
-              decoration: BoxDecoration(
-                color: Pallets.white,
-                border: Border.all(color: const Color(0xFFE2E8F0)),
-                borderRadius: BorderRadius.circular(16.r),
+          if (therapistId == null)
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: 24.h),
+              child: TextView(
+                text: "Rescheduling isn't available for this session.",
+                fontSize: 13,
+                color: const Color(0xFF64748B),
+                align: TextAlign.center,
               ),
+            )
+          else ...[
+            TextView(
+              text: "NEW DATE",
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: const Color(0xFF475569),
+            ),
+            12.verticalSpace,
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextView(
-                    text: _selectedTime ?? 'Select a time',
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                    color: _selectedTime == null
-                        ? const Color(0xFF94A3B8)
-                        : Pallets.boldBlack,
-                  ),
-                  Icon(
-                    Icons.chevron_right_rounded,
-                    color: const Color(0xFF94A3B8),
-                    size: 20.w,
-                  ),
-                ],
+                children: _days.map((day) {
+                  final isSelected = _selectedDay.year == day.year &&
+                      _selectedDay.month == day.month &&
+                      _selectedDay.day == day.day;
+                  return GestureDetector(
+                    onTap: () {
+                      setState(() => _selectedDay = day);
+                      _loadSlotsForSelectedDay();
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(right: 8.w),
+                      padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
+                      decoration: BoxDecoration(
+                        color: isSelected ? Pallets.blueBubbleColor : const Color(0xFFF8FAFC),
+                        borderRadius: BorderRadius.circular(16.r),
+                      ),
+                      child: TextView(
+                        text: "${_weekdayAbbrev[day.weekday - 1]} ${day.day}",
+                        fontSize: 12,
+                        fontWeight: FontWeight.w600,
+                        color: isSelected ? Pallets.white : const Color(0xFF64748B),
+                      ),
+                    ),
+                  );
+                }).toList(),
               ),
             ),
-          ),
+            24.verticalSpace,
+            TextView(
+              text: "NEW TIME",
+              fontSize: 12,
+              fontWeight: FontWeight.w700,
+              color: const Color(0xFF475569),
+            ),
+            12.verticalSpace,
+            // Real available slots for the selected day — a slot picked
+            // here is guaranteed bookable, unlike the old fixed time list
+            // that let you request times the therapist never offers.
+            BlocBuilder<BookingCubit, BookingState>(
+              bloc: _cubit,
+              builder: (context, state) {
+                final isLoading = state.status == BookingStatus.loading;
+                final slots = state.slotsResponse?.slots ?? [];
+
+                if (isLoading) {
+                  return Padding(
+                    padding: EdgeInsets.symmetric(vertical: 12.h),
+                    child: Center(child: CustomDialogs.getLoading(size: 28)),
+                  );
+                }
+                if (state.status == BookingStatus.error) {
+                  return TextView(
+                    text: state.errorMessage ?? "Couldn't load slots for this day.",
+                    fontSize: 13,
+                    color: const Color(0xFFDC2626),
+                  );
+                }
+                if (slots.isEmpty) {
+                  return TextView(
+                    text: "No available slots on this day.",
+                    fontSize: 13,
+                    color: const Color(0xFF94A3B8),
+                  );
+                }
+                return Wrap(
+                  spacing: 8.w,
+                  runSpacing: 8.h,
+                  children: slots.map((slot) {
+                    final isSelected = _selectedSlot?.startsAt == slot.startsAt;
+                    return GestureDetector(
+                      onTap: () => setState(() => _selectedSlot = slot),
+                      child: Container(
+                        padding: EdgeInsets.symmetric(horizontal: 14.w, vertical: 10.h),
+                        decoration: BoxDecoration(
+                          color: isSelected ? Pallets.blueBubbleColor : const Color(0xFFF8FAFC),
+                          borderRadius: BorderRadius.circular(16.r),
+                          border: Border.all(
+                            color: isSelected ? Pallets.blueBubbleColor : const Color(0xFFE2E8F0),
+                          ),
+                        ),
+                        child: TextView(
+                          text: slot.formattedTime,
+                          fontSize: 13,
+                          fontWeight: FontWeight.w600,
+                          color: isSelected ? Pallets.white : const Color(0xFF334155),
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                );
+              },
+            ),
+          ],
           32.verticalSpace,
           Row(
             children: [
@@ -297,10 +336,10 @@ class _RescheduleStepOneSheetState extends State<_RescheduleStepOneSheet> {
               16.horizontalSpace,
               Expanded(
                 child: CustomButton(
-                  onPressed: _combined == null
+                  onPressed: _selectedSlot == null
                       ? null
                       : () {
-                          final newStartsAt = _combined!;
+                          final newStartsAt = _selectedSlot!.startsAt;
                           Navigator.pop(context);
                           showModalBottomSheet(
                             context: context,
@@ -329,102 +368,6 @@ class _RescheduleStepOneSheetState extends State<_RescheduleStepOneSheet> {
   }
 }
 
-class _TimePickerSheet extends StatelessWidget {
-  final String initialTime;
-  final ValueChanged<String> onSelected;
-
-  const _TimePickerSheet({
-    required this.initialTime,
-    required this.onSelected,
-  });
-
-  static const List<String> _times = [
-    "12:00 AM",
-    "1:00 AM",
-    "2:00 AM",
-    "3:00 AM",
-    "9:00 AM",
-    "10:00 AM",
-    "11:00 AM",
-    "1:00 PM",
-    "2:00 PM",
-    "5:00 PM",
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      constraints: BoxConstraints(maxHeight: 0.7.sh),
-      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 16.h),
-      decoration: BoxDecoration(
-        color: Pallets.white,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextView(
-                text: "Select Time",
-                fontSize: 18,
-                fontWeight: FontWeight.w700,
-                color: Pallets.boldBlack,
-              ),
-              GestureDetector(
-                onTap: () => Navigator.pop(context),
-                child: TextView(
-                  text: "Done",
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                  color: Pallets.blueBubbleColor,
-                ),
-              ),
-            ],
-          ),
-          16.verticalSpace,
-          Flexible(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: _times.map((t) {
-                  final isSelected = t == initialTime;
-                  return GestureDetector(
-                    onTap: () {
-                      onSelected(t);
-                      Navigator.pop(context);
-                    },
-                    child: Container(
-                      width: double.infinity,
-                      margin: EdgeInsets.only(bottom: 8.h),
-                      padding: EdgeInsets.symmetric(vertical: 14.h),
-                      decoration: BoxDecoration(
-                        color: isSelected ? Pallets.blueBubbleColor : Colors.transparent,
-                        borderRadius: BorderRadius.circular(14.r),
-                      ),
-                      child: Center(
-                        child: TextView(
-                          text: t,
-                          fontSize: 15,
-                          fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
-                          color: isSelected ? Pallets.white : Pallets.boldBlack,
-                        ),
-                      ),
-                    ),
-                  );
-                }).toList(),
-              ),
-            ),
-          ),
-          16.verticalSpace,
-          SizedBox(height: MediaQuery.of(context).padding.bottom),
-        ],
-      ),
-    );
-  }
-}
-
 /// Maps the picker's human-readable label to SessionConstants::RESCHEDULE_REASONS
 /// on the backend — sending anything else 422s.
 const Map<String, String> _kRescheduleReasonValues = {
@@ -435,7 +378,12 @@ const Map<String, String> _kRescheduleReasonValues = {
 
 class _RescheduleReasonSheet extends StatefulWidget {
   final SessionModel session;
-  final DateTime newStartsAt;
+
+  /// Raw `starts_at` string straight from the slot the user picked (see
+  /// [TherapistSlot.startsAt]) — passed through to the API unchanged rather
+  /// than round-tripped through a local `DateTime`, so it can never drift
+  /// from the exact value the backend already validated as bookable.
+  final String newStartsAt;
   final VoidCallback? onSuccess;
 
   const _RescheduleReasonSheet({
@@ -462,14 +410,19 @@ class _RescheduleReasonSheetState extends State<_RescheduleReasonSheet> {
     'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'
   ];
 
-  String get _isoNewStartsAt {
-    final d = widget.newStartsAt;
-    String two(int n) => n.toString().padLeft(2, '0');
-    return "${d.year}-${two(d.month)}-${two(d.day)} ${two(d.hour)}:${two(d.minute)}:00";
+  DateTime? get _parsedNewStartsAt => DateTime.tryParse(widget.newStartsAt);
+
+  String get _isoNewStartsAt => widget.newStartsAt;
+
+  String get _displayNewDay {
+    final d = _parsedNewStartsAt;
+    if (d == null) return '';
+    return "${_weekdayAbbrev[d.weekday - 1]} ${d.day}";
   }
 
   String get _displayNewTime {
-    final d = widget.newStartsAt;
+    final d = _parsedNewStartsAt;
+    if (d == null) return '';
     final hour = d.hour % 12 == 0 ? 12 : d.hour % 12;
     final minute = d.minute.toString().padLeft(2, '0');
     final period = d.hour >= 12 ? 'PM' : 'AM';
@@ -547,7 +500,7 @@ class _RescheduleReasonSheetState extends State<_RescheduleReasonSheet> {
           8.verticalSpace,
           TextView(
             text:
-                "${widget.session.therapistName} • moving to ${_weekdayAbbrev[widget.newStartsAt.weekday - 1]} ${widget.newStartsAt.day} • $_displayNewTime",
+                "${widget.session.therapistName} • moving to $_displayNewDay • $_displayNewTime",
             fontSize: 13,
             fontWeight: FontWeight.w400,
             color: const Color(0xFF94A3B8),

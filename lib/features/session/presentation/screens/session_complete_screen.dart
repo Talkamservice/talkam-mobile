@@ -4,10 +4,13 @@ import 'package:go_router/go_router.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/features/booking/domain/repository/booking_repository.dart';
 import 'package:talkam/features/session/data/models/session_model.dart';
+import 'package:talkam/features/session/data/sessions_refresh_signal.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class SessionCompleteScreen extends StatefulWidget {
@@ -22,6 +25,7 @@ class SessionCompleteScreen extends StatefulWidget {
 class _SessionCompleteScreenState extends State<SessionCompleteScreen> {
   int _rating = 3;
   final TextEditingController _reviewController = TextEditingController();
+  bool _submitting = false;
 
   @override
   void dispose() {
@@ -31,6 +35,32 @@ class _SessionCompleteScreenState extends State<SessionCompleteScreen> {
 
   void _finish() {
     context.goNamed(PageUrl.sessionScreen);
+  }
+
+  Future<void> _submitReview() async {
+    final bookingId = int.tryParse(widget.session?.id ?? '');
+    if (bookingId == null) {
+      _finish();
+      return;
+    }
+
+    setState(() => _submitting = true);
+    try {
+      await injector.get<BookingRepository>().reviewSession(
+            bookingId,
+            rating: _rating,
+            comment:
+                _reviewController.text.trim().isEmpty ? null : _reviewController.text.trim(),
+          );
+      SessionsRefreshSignal.ping();
+      _finish();
+    } catch (e) {
+      if (!mounted) return;
+      setState(() => _submitting = false);
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("Couldn't submit your review. Please try again.")),
+      );
+    }
   }
 
   @override
@@ -284,14 +314,28 @@ class _SessionCompleteScreenState extends State<SessionCompleteScreen> {
 
                               // Submit & Finish Button
                               CustomButton(
-                                onPressed: _finish,
-                                text: "Submit & Finish",
+                                onPressed: _submitting ? null : _submitReview,
+                                child: _submitting
+                                    ? SizedBox(
+                                        width: 20.w,
+                                        height: 20.w,
+                                        child: const CircularProgressIndicator(
+                                          strokeWidth: 2.2,
+                                          color: Colors.white,
+                                        ),
+                                      )
+                                    : const TextView(
+                                        text: "Submit & Finish",
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.w700,
+                                        fontSize: 15,
+                                      ),
                               ),
                               16.verticalSpace,
 
                               // Skip review Link
                               GestureDetector(
-                                onTap: _finish,
+                                onTap: _submitting ? null : _finish,
                                 child: TextView(
                                   text: "Skip review",
                                   fontSize: 14,

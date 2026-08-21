@@ -1,5 +1,6 @@
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -15,7 +16,10 @@ import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/booking/data/models/session_join.dart';
 import 'package:talkam/features/booking/domain/repository/booking_repository.dart';
+import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 import 'package:talkam/features/session/data/models/session_model.dart';
+import 'package:talkam/features/therapist/dormain/repository/therapist_repository.dart';
+import 'package:talkam/features/therapist/presentation/bloc/therapist_client_cubit/therapist_client_cubit.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 enum _CallStatus { connecting, error, active }
@@ -37,31 +41,99 @@ class _SessionCallScreenState extends State<SessionCallScreen> {
   String? _channelName;
   int? _remoteUid;
   bool _leftChannel = false;
+  bool _retriedAfterRejection = false;
+
+  /// Below this, treat it as background noise rather than speech. Volume is
+  /// reported on a 0-255 scale.
+  static const _speakingVolumeThreshold = 15;
+  bool _localSpeaking = false;
+  bool _remoteSpeaking = false;
 
   bool get _isVideoSession =>
       (widget.session?.format ?? 'Video').toLowerCase() == 'video';
+
+  String get _currentUserName =>
+      SessionManager.instance.usersData['name']?.toString() ?? 'You';
+
+  /// First letter of the first word + first letter of the last word (e.g.
+  /// "Dr Adaora Nwosu" -> "DN"), falling back to a single letter for a
+  /// one-word name.
+  String _initialsFor(String name) {
+    final words =
+        name.trim().split(RegExp(r'\s+')).where((w) => w.isNotEmpty).toList();
+    if (words.isEmpty) return "?";
+    if (words.length == 1) return words.first[0].toUpperCase();
+    return (words.first[0] + words.last[0]).toUpperCase();
+  }
 
   bool _isMuted = false;
   bool _isSpeakerOn = true;
   bool _isVideoOn = true;
   bool _isNotesOpen = false;
 
-  final TextEditingController _noteController =
-      TextEditingController(text: "Clients reports sleeping better this week");
-  final Set<String> _selectedChips = {"Anxiety", "Depression"};
-  final List<String> _chips = [
-    "Anxiety",
-    "Depression",
-    "Trauma & PTSD",
-    "Grief",
-    "Bipolar",
-  ];
+  final TextEditingController _noteController = TextEditingController();
+  List<int> _selectedTagIds = [];
+  bool _sharedWithClient = false;
+  bool _noteLoadedIntoForm = false;
+
+  // Notes are a therapist-only affordance — these stay null for a consumer.
+  TherapistClientCubit? _notesCubit;
+  PostBloc? _postBloc;
 
   @override
   void initState() {
     super.initState();
     _isVideoOn = _isVideoSession;
     _connect();
+
+    if (SessionManager.instance.isTherapistAccount) {
+      final sessionId = int.tryParse(widget.session?.id ?? '');
+      _notesCubit = TherapistClientCubit(injector.get<TherapistRepository>());
+      _postBloc = PostBloc(injector.get());
+      if (sessionId != null) {
+        _notesCubit!.getSessionNote(sessionId);
+      }
+      _postBloc!.add(const PostEvent.getInterestTopics());
+    }
+  }
+
+  /// Existing note (if any) loads asynchronously after the panel is already
+  /// built — populate the form the first time it arrives so re-opening the
+  /// panel doesn't wipe out what was already saved earlier in the call.
+  void _populateNoteForm(TherapistClientState state) {
+    if (_noteLoadedIntoForm || state.note == null) return;
+    _noteLoadedIntoForm = true;
+    final note = state.note!;
+    _noteController.text = note.content;
+    _selectedTagIds = List<int>.from(note.tags);
+    _sharedWithClient = note.sharedWithClient;
+  }
+
+  Future<void> _saveNote(String status) async {
+    final sessionId = int.tryParse(widget.session?.id ?? '');
+    final cubit = _notesCubit;
+    if (sessionId == null || cubit == null) return;
+
+    final success = await cubit.saveSessionNote(
+      sessionId,
+      // No title field in this compact in-call panel — the full note
+      // editor (ClientNoteDetailScreen) is where a real title gets set;
+      // this just needs a non-empty value since the backend requires one.
+      title: cubit.state.note?.title.isNotEmpty == true
+          ? cubit.state.note!.title
+          : "Session with ${widget.session?.therapistName ?? 'client'}",
+      content: _noteController.text.trim(),
+      sharedWithClient: _sharedWithClient,
+      status: status,
+      tags: _selectedTagIds,
+    );
+    if (!mounted) return;
+    if (success) {
+      setState(() => _isNotesOpen = false);
+      CustomDialogs.success("Note saved");
+    } else {
+      CustomDialogs.error(cubit.state.saveNoteError ?? "Couldn't save note");
+    }
   }
 
   Future<void> _connect() async {
@@ -92,7 +164,8 @@ class _SessionCallScreenState extends State<SessionCallScreen> {
       final joinDetails =
           await injector.get<BookingRepository>().joinSession(bookingId);
       await _initEngineAndJoin(joinDetails);
-    } catch (e) {
+    } catch (e, stackTrace) {
+      logger.e('Could not join call session', error: e, stackTrace: stackTrace);
       if (!mounted) return;
       setState(() {
         _status = _CallStatus.error;
@@ -120,19 +193,80 @@ class _SessionCallScreenState extends State<SessionCallScreen> {
     engine.registerEventHandler(
       RtcEngineEventHandler(
         onJoinChannelSuccess: (connection, elapsed) {
+          logger.i('Agora joined channel ${connection.channelId} at ${elapsed}ms');
           if (!mounted) return;
           setState(() => _status = _CallStatus.active);
         },
         onUserJoined: (connection, remoteUid, elapsed) {
+          logger.i('Agora remote user joined: uid=$remoteUid at ${elapsed}ms');
           if (!mounted) return;
           setState(() => _remoteUid = remoteUid);
         },
         onUserOffline: (connection, remoteUid, reason) {
+          logger.i('Agora remote user offline: uid=$remoteUid reason=$reason');
           if (!mounted) return;
-          setState(() => _remoteUid = null);
+          setState(() {
+            _remoteUid = null;
+            _remoteSpeaking = false;
+          });
+        },
+        // Drives the speaking-glow effect around each participant's avatar.
+        // Fires twice per interval — once reporting only the local user
+        // (uid 0) and once reporting up to 3 loudest remote users — so each
+        // call only updates whichever side it actually reports on.
+        onAudioVolumeIndication:
+            (connection, speakers, speakerNumber, totalVolume) {
+          if (!mounted) return;
+          var nextLocal = _localSpeaking;
+          var nextRemote = _remoteSpeaking;
+          for (final speaker in speakers) {
+            final isSpeaking = (speaker.volume ?? 0) > _speakingVolumeThreshold;
+            if (speaker.uid == 0) {
+              nextLocal = isSpeaking;
+            } else if (_remoteUid != null && speaker.uid == _remoteUid) {
+              nextRemote = isSpeaking;
+            }
+          }
+          if (nextLocal != _localSpeaking || nextRemote != _remoteSpeaking) {
+            setState(() {
+              _localSpeaking = nextLocal;
+              _remoteSpeaking = nextRemote;
+            });
+          }
+        },
+        // Diagnostics for the blank-video issue (reproduces on both emulator
+        // and real device, so it isn't the emulator GPU/SurfaceView theory).
+        // These pinpoint exactly which stage stalls: capture never starts,
+        // capture starts but never encodes/publishes, or the remote side
+        // never receives a decodable frame.
+        onLocalVideoStateChanged: (source, state, reason) {
+          logger.i('Agora local video state: $source $state reason=$reason');
+        },
+        onRemoteVideoStateChanged: (connection, remoteUid, state, reason, elapsed) {
+          logger.i(
+            'Agora remote video state: uid=$remoteUid $state reason=$reason elapsed=${elapsed}ms',
+          );
+        },
+        onFirstLocalVideoFramePublished: (connection, elapsed) {
+          logger.i('Agora first local video frame published at ${elapsed}ms');
+        },
+        onFirstRemoteVideoFrame: (connection, remoteUid, width, height, elapsed) {
+          logger.i(
+            'Agora first remote video frame: uid=$remoteUid ${width}x$height at ${elapsed}ms',
+          );
         },
         onError: (err, msg) {
           logger.e('Agora call error: $err $msg');
+          // -17: the engine thinks this device is already in the channel —
+          // almost always leftover native state from a previous attempt
+          // that didn't clean up (e.g. a hot restart during dev bypasses
+          // dispose()). onJoinChannelSuccess never fires in this case, so
+          // without handling it the screen hangs on "Connecting..."
+          // indefinitely with no audio/video ever established. Force a
+          // clean leave+release and retry once before giving up.
+          if (err == ErrorCodeType.errJoinChannelRejected) {
+            _recoverFromRejectedJoin(engine);
+          }
         },
       ),
     );
@@ -144,21 +278,47 @@ class _SessionCallScreenState extends State<SessionCallScreen> {
       await engine.disableVideo();
     }
     await engine.enableAudio();
+    // Full volume on both ends — rules out a silent call being caused by a
+    // signal level left at zero rather than a routing/permission problem.
+    await engine.adjustRecordingSignalVolume(100);
+    await engine.adjustPlaybackSignalVolume(100);
     await engine.setDefaultAudioRouteToSpeakerphone(_isSpeakerOn);
-
-    await engine.joinChannel(
-      token: joinDetails.token,
-      channelId: joinDetails.channelRef,
-      uid: uid,
-      options: ChannelMediaOptions(
-        channelProfile: ChannelProfileType.channelProfileCommunication,
-        clientRoleType: ClientRoleType.clientRoleBroadcaster,
-        publishCameraTrack: _isVideoSession,
-        publishMicrophoneTrack: true,
-        autoSubscribeAudio: true,
-        autoSubscribeVideo: _isVideoSession,
-      ),
+    await engine.enableAudioVolumeIndication(
+      interval: 300,
+      smooth: 3,
+      reportVad: true,
     );
+
+    try {
+      await engine.joinChannel(
+        token: joinDetails.token,
+        channelId: joinDetails.channelRef,
+        uid: uid,
+        options: ChannelMediaOptions(
+          channelProfile: ChannelProfileType.channelProfileCommunication,
+          clientRoleType: ClientRoleType.clientRoleBroadcaster,
+          publishCameraTrack: _isVideoSession,
+          publishMicrophoneTrack: true,
+          autoSubscribeAudio: true,
+          autoSubscribeVideo: _isVideoSession,
+        ),
+      );
+    } on AgoraRtcException catch (e) {
+      // joinChannel throws synchronously on a negative result instead of
+      // (or in addition to racing) the onError event — error -17 means the
+      // engine thinks this device is already in the channel, almost always
+      // leftover native state from a previous attempt that didn't clean up.
+      // The onError-driven recovery below never gets a chance to run here
+      // since this exception unwinds straight past it, so handle it inline.
+      if (e.code == -17) {
+        await _recoverFromRejectedJoin(engine);
+        return;
+      }
+      rethrow;
+    }
+    // Some Android OEM builds don't reliably honor the pre-join default
+    // route — re-assert explicitly once actually in the channel.
+    await engine.setEnableSpeakerphone(_isSpeakerOn);
 
     if (!mounted) {
       await engine.leaveChannel();
@@ -169,6 +329,35 @@ class _SessionCallScreenState extends State<SessionCallScreen> {
       _engine = engine;
       _channelName = joinDetails.channelRef;
     });
+  }
+
+  /// Recovers from Agora error -17 (join rejected because the engine
+  /// thinks this device is already in the channel) — near-always leftover
+  /// native state from a previous attempt that didn't clean up (a hot
+  /// restart during dev bypasses dispose()). Without this,
+  /// onJoinChannelSuccess never fires and the screen hangs on "Connecting…"
+  /// forever with no audio/video ever established. Force-releases the
+  /// stale engine and retries once with a completely fresh one before
+  /// surfacing an error.
+  Future<void> _recoverFromRejectedJoin(RtcEngine staleEngine) async {
+    try {
+      await staleEngine.leaveChannel();
+      await staleEngine.release();
+    } catch (error, stack) {
+      logger.e(error, stackTrace: stack);
+    }
+    if (!mounted) return;
+
+    if (_retriedAfterRejection) {
+      setState(() {
+        _status = _CallStatus.error;
+        _errorMessage =
+            "Couldn't connect — this device appears to still be connected to a previous session. Fully close and reopen the app, then try again.";
+      });
+      return;
+    }
+    _retriedAfterRejection = true;
+    await _connect();
   }
 
   Future<void> _leaveAndReleaseEngine() async {
@@ -193,6 +382,9 @@ class _SessionCallScreenState extends State<SessionCallScreen> {
   @override
   void dispose() {
     _leaveAndReleaseEngine();
+    _notesCubit?.close();
+    _postBloc?.close();
+    _noteController.dispose();
     super.dispose();
   }
 
@@ -330,7 +522,9 @@ class _SessionCallScreenState extends State<SessionCallScreen> {
                   });
                 }
               },
-              child: _isVideoSession ? _buildVideoStreams() : _buildAudioCallStage(),
+              child: _isVideoSession
+                  ? _buildVideoStreams()
+                  : _buildAudioCallStage(),
             ),
           ),
           AnimatedContainer(
@@ -466,43 +660,72 @@ class _SessionCallScreenState extends State<SessionCallScreen> {
                             ),
                             12.verticalSpace,
 
-                            // Chips
-                            Wrap(
-                              spacing: 8.w,
-                              runSpacing: 8.h,
-                              children: _chips.map((chip) {
-                                final isSelected = _selectedChips.contains(chip);
-                                return GestureDetector(
-                                  onTap: () {
-                                    setState(() {
-                                      if (isSelected) {
-                                        _selectedChips.remove(chip);
-                                      } else {
-                                        _selectedChips.add(chip);
-                                      }
-                                    });
-                                  },
-                                  child: AnimatedContainer(
-                                    duration: const Duration(milliseconds: 150),
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 14.w, vertical: 6.h),
-                                    decoration: BoxDecoration(
-                                      color: isSelected
-                                          ? Pallets.blueBubbleColor
-                                          : const Color(0xFFF1F5F9),
-                                      borderRadius: BorderRadius.circular(100.r),
-                                    ),
-                                    child: TextView(
-                                      text: chip,
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w500,
-                                      color: isSelected
-                                          ? Colors.white
-                                          : const Color(0xFF475569),
-                                    ),
-                                  ),
+                            // Chips — the same real interest-topics
+                            // vocabulary as the full note editor
+                            // (ClientNoteDetailScreen), not a fixed list;
+                            // tags are validated server-side against
+                            // post_categories, so a fabricated label can't
+                            // be sent as-is.
+                            BlocBuilder<PostBloc, PostState>(
+                              bloc: _postBloc,
+                              builder: (context, postState) {
+                                final categories = postState.maybeWhen(
+                                  orElse: () => const [],
+                                  getInterestTopicsSuccess: (response) =>
+                                      response.data,
                                 );
-                              }).toList(),
+                                final isLoading = postState.maybeWhen(
+                                  orElse: () => false,
+                                  getInterestTopicsLoading: () => true,
+                                );
+                                if (isLoading) {
+                                  return Center(
+                                    child: CustomDialogs.getLoading(size: 24),
+                                  );
+                                }
+                                return Wrap(
+                                  spacing: 8.w,
+                                  runSpacing: 8.h,
+                                  children: categories.map((category) {
+                                    final id =
+                                        int.parse(category.id.toString());
+                                    final isSelected =
+                                        _selectedTagIds.contains(id);
+                                    return GestureDetector(
+                                      onTap: () {
+                                        setState(() {
+                                          if (isSelected) {
+                                            _selectedTagIds.remove(id);
+                                          } else {
+                                            _selectedTagIds.add(id);
+                                          }
+                                        });
+                                      },
+                                      child: AnimatedContainer(
+                                        duration:
+                                            const Duration(milliseconds: 150),
+                                        padding: EdgeInsets.symmetric(
+                                            horizontal: 14.w, vertical: 6.h),
+                                        decoration: BoxDecoration(
+                                          color: isSelected
+                                              ? Pallets.blueBubbleColor
+                                              : const Color(0xFFF1F5F9),
+                                          borderRadius:
+                                              BorderRadius.circular(100.r),
+                                        ),
+                                        child: TextView(
+                                          text: category.name.toString(),
+                                          fontSize: 12,
+                                          fontWeight: FontWeight.w500,
+                                          color: isSelected
+                                              ? Colors.white
+                                              : const Color(0xFF475569),
+                                        ),
+                                      ),
+                                    );
+                                  }).toList(),
+                                );
+                              },
                             ),
                             12.verticalSpace,
 
@@ -533,42 +756,66 @@ class _SessionCallScreenState extends State<SessionCallScreen> {
                             16.verticalSpace,
 
                             // Action Buttons
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: CustomButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        _isNotesOpen = false;
-                                      });
-                                    },
-                                    bgColor: Colors.white,
-                                    child: const TextView(
-                                      text: "Save draft",
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w600,
-                                      color: Pallets.boldBlack,
+                            BlocBuilder<TherapistClientCubit,
+                                TherapistClientState>(
+                              bloc: _notesCubit,
+                              builder: (context, state) {
+                                _populateNoteForm(state);
+                                final saving = state.savingNote;
+                                return Row(
+                                  children: [
+                                    Expanded(
+                                      child: CustomButton(
+                                        onPressed: saving
+                                            ? null
+                                            : () => _saveNote('draft'),
+                                        bgColor: Colors.white,
+                                        child: saving
+                                            ? SizedBox(
+                                                width: 16.w,
+                                                height: 16.w,
+                                                child:
+                                                    const CircularProgressIndicator(
+                                                  strokeWidth: 2,
+                                                  color: Pallets.boldBlack,
+                                                ),
+                                              )
+                                            : const TextView(
+                                                text: "Save draft",
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w600,
+                                                color: Pallets.boldBlack,
+                                              ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                12.horizontalSpace,
-                                Expanded(
-                                  child: CustomButton(
-                                    onPressed: () {
-                                      setState(() {
-                                        _isNotesOpen = false;
-                                      });
-                                    },
-                                    bgColor: Pallets.blueBubbleColor,
-                                    child: const TextView(
-                                      text: "Save & Close",
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white,
+                                    12.horizontalSpace,
+                                    Expanded(
+                                      child: CustomButton(
+                                        onPressed: saving
+                                            ? null
+                                            : () => _saveNote('final'),
+                                        bgColor: Pallets.blueBubbleColor,
+                                        child: saving
+                                            ? const SizedBox(
+                                                width: 16,
+                                                height: 16,
+                                                child:
+                                                    CircularProgressIndicator(
+                                                  strokeWidth: 2,
+                                                  color: Colors.white,
+                                                ),
+                                              )
+                                            : const TextView(
+                                                text: "Save & Close",
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w700,
+                                                color: Colors.white,
+                                              ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              ],
+                                  ],
+                                );
+                              },
                             ),
                           ],
                         ),
@@ -597,11 +844,17 @@ class _SessionCallScreenState extends State<SessionCallScreen> {
         Positioned.fill(
           child: ClipRRect(
             borderRadius: BorderRadius.circular(24.r),
-            child: Container(
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 150),
               decoration: BoxDecoration(
                 color: const Color(0xFFF4FBFF),
                 borderRadius: BorderRadius.circular(24.r),
-                border: Border.all(color: const Color(0xFF38BDF8), width: 1.5),
+                border: Border.all(
+                  color: _remoteSpeaking
+                      ? const Color(0xFF22C55E)
+                      : const Color(0xFF38BDF8),
+                  width: _remoteSpeaking ? 3 : 1.5,
+                ),
               ),
               child: _remoteUid == null
                   ? _buildWaitingForParticipant()
@@ -610,6 +863,12 @@ class _SessionCallScreenState extends State<SessionCallScreen> {
                         rtcEngine: engine,
                         canvas: VideoCanvas(uid: _remoteUid),
                         connection: RtcConnection(channelId: channelName),
+                        // The default TextureView renderer shows blank on
+                        // several Android emulators/GPU passthrough setups
+                        // (matches the EGL_BAD_ATTRIBUTE noise from
+                        // GFXSTREAM in the logs) — SurfaceView is the more
+                        // broadly compatible renderer.
+                        useAndroidSurfaceView: true,
                       ),
                     ),
             ),
@@ -620,23 +879,36 @@ class _SessionCallScreenState extends State<SessionCallScreen> {
         Positioned(
           right: -4.w,
           bottom: -28.h,
-          child: Container(
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 150),
             width: 105.w,
             height: 115.h,
             clipBehavior: Clip.antiAlias,
             decoration: BoxDecoration(
               color: const Color(0xFFF4FBFF),
               borderRadius: BorderRadius.circular(24.r),
-              border: Border.all(color: const Color(0xFF38BDF8), width: 1.5),
+              border: Border.all(
+                color: _localSpeaking
+                    ? const Color(0xFF22C55E)
+                    : const Color(0xFF38BDF8),
+                width: _localSpeaking ? 3 : 1.5,
+              ),
             ),
             child: _isVideoOn
                 ? AgoraVideoView(
                     controller: VideoViewController(
                       rtcEngine: engine,
                       canvas: const VideoCanvas(uid: 0),
+                      useAndroidSurfaceView: true,
                     ),
                   )
-                : _buildInitialAvatar("You", small: true),
+                : _buildInitialAvatar(
+                    _currentUserName,
+                    small: true,
+                    isSpeaking: _localSpeaking,
+                    isYou: true,
+                    showName: true,
+                  ),
           ),
         ),
       ],
@@ -649,52 +921,110 @@ class _SessionCallScreenState extends State<SessionCallScreen> {
     return Column(
       children: [
         Expanded(
-          child: Container(
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 150),
             width: double.infinity,
             decoration: BoxDecoration(
               color: const Color(0xFFF4FBFF),
               borderRadius: BorderRadius.circular(24.r),
-              border: Border.all(color: const Color(0xFF38BDF8), width: 1.5),
+              border: Border.all(
+                color: _remoteSpeaking
+                    ? const Color(0xFF22C55E)
+                    : const Color(0xFF38BDF8),
+                width: _remoteSpeaking ? 3 : 1.5,
+              ),
             ),
             child: _remoteUid == null
                 ? _buildWaitingForParticipant()
-                : _buildInitialAvatar(widget.session?.initial ?? "D"),
+                : _buildInitialAvatar(
+                    widget.session?.therapistName ?? "Participant",
+                    isSpeaking: _remoteSpeaking,
+                    showName: true,
+                  ),
           ),
         ),
         16.verticalSpace,
         Expanded(
-          child: Container(
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 150),
             width: double.infinity,
             decoration: BoxDecoration(
               color: const Color(0xFFF4FBFF),
               borderRadius: BorderRadius.circular(24.r),
-              border: Border.all(color: const Color(0xFF38BDF8), width: 1.5),
+              border: Border.all(
+                color: _localSpeaking
+                    ? const Color(0xFF22C55E)
+                    : const Color(0xFF38BDF8),
+                width: _localSpeaking ? 3 : 1.5,
+              ),
             ),
-            child: _buildInitialAvatar("You"),
+            child: _buildInitialAvatar(
+              _currentUserName,
+              isSpeaking: _localSpeaking,
+              isYou: true,
+              showName: true,
+            ),
           ),
         ),
       ],
     );
   }
 
-  Widget _buildInitialAvatar(String label, {bool small = false}) {
+  Widget _buildInitialAvatar(
+    String name, {
+    bool small = false,
+    bool isSpeaking = false,
+    bool isYou = false,
+    bool showName = false,
+  }) {
     final size = small ? 44.w : 70.w;
     return Center(
-      child: Container(
-        width: size,
-        height: size,
-        decoration: const BoxDecoration(
-          color: Pallets.white,
-          shape: BoxShape.circle,
-        ),
-        child: Center(
-          child: TextView(
-            text: label.isNotEmpty ? label[0].toUpperCase() : "?",
-            fontSize: small ? 18 : 24,
-            fontWeight: FontWeight.w700,
-            color: Pallets.blueBubbleColor,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          AnimatedContainer(
+            duration: const Duration(milliseconds: 150),
+            width: size,
+            height: size,
+            decoration: BoxDecoration(
+              color: Pallets.white,
+              shape: BoxShape.circle,
+              border: Border.all(
+                color:
+                    isSpeaking ? const Color(0xFF22C55E) : Colors.transparent,
+                width: 3,
+              ),
+              boxShadow: isSpeaking
+                  ? [
+                      BoxShadow(
+                        color: const Color(0xFF22C55E).withValues(alpha: 0.45),
+                        blurRadius: 12,
+                        spreadRadius: 2,
+                      ),
+                    ]
+                  : null,
+            ),
+            child: Center(
+              child: TextView(
+                text: _initialsFor(name),
+                fontSize: small ? 15 : 24,
+                fontWeight: FontWeight.w700,
+                color: Pallets.blueBubbleColor,
+              ),
+            ),
           ),
-        ),
+          if (showName) ...[
+            4.verticalSpace,
+            TextView(
+              text: isYou ? "(You)" : name,
+              fontSize: small ? 11 : 12,
+              fontWeight: FontWeight.w500,
+              color: const Color(0xFF64748B),
+              maxLines: 1,
+              textOverflow: TextOverflow.ellipsis,
+            ),
+          ],
+        ],
       ),
     );
   }
@@ -704,10 +1034,11 @@ class _SessionCallScreenState extends State<SessionCallScreen> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _buildInitialAvatar(widget.session?.initial ?? "D"),
+          _buildInitialAvatar(widget.session?.therapistName ?? "Participant"),
           12.verticalSpace,
           TextView(
-            text: "Waiting for ${widget.session?.therapistName ?? 'the other participant'} to join...",
+            text:
+                "Waiting for ${widget.session?.therapistName ?? 'the other participant'} to join...",
             fontSize: 12,
             color: const Color(0xFF64748B),
             align: TextAlign.center,
@@ -754,12 +1085,14 @@ class _CallControlButton extends StatelessWidget {
                 ImageWidget(
                   imageUrl: iconAsset,
                   size: 20.w,
-                  color: isOff ? const Color(0xFFEF4444) : const Color(0xFF334155),
+                  color:
+                      isOff ? const Color(0xFFEF4444) : const Color(0xFF334155),
                 ),
                 if (isOff)
                   CustomPaint(
                     size: Size(22.w, 22.w),
-                    painter: _StrikeThroughPainter(color: const Color(0xFFEF4444)),
+                    painter:
+                        _StrikeThroughPainter(color: const Color(0xFFEF4444)),
                   ),
               ],
             ),

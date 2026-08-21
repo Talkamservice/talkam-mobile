@@ -68,12 +68,18 @@ class _ConnectionsTabState extends State<ConnectionsTab>
               );
             }
 
-            return ListView.builder(
-              padding: EdgeInsets.only(top: 10.0.h),
-              itemCount: users.length,
-              itemBuilder: (context, index) => UserConnectionItem(
-                user: users[index],
-                initialFollowing: _isFollowing,
+            return RefreshIndicator(
+              onRefresh: () => _isFollowing
+                  ? _cubit.fetchFollowing()
+                  : _cubit.fetchFollowers(),
+              child: ListView.builder(
+                physics: const AlwaysScrollableScrollPhysics(),
+                padding: EdgeInsets.only(top: 10.0.h),
+                itemCount: users.length,
+                itemBuilder: (context, index) => UserConnectionItem(
+                  user: users[index],
+                  initialFollowing: _isFollowing,
+                ),
               ),
             );
           },

@@ -18,6 +18,8 @@ class UrlConfig {
   static const String facePlusTestApiSecret = String.fromEnvironment('FACE_PLUS_TEST_API_SECRET');
   static const String messageUserEmail = String.fromEnvironment('MESSAGE_USER_EMAIL');
   static const String messageUserPassKey = String.fromEnvironment('MESSAGE_USER_PASSKEY');
+  static const String supportEmail = String.fromEnvironment('SUPPORT_EMAIL');
+  static const String supportNumber = String.fromEnvironment('SUPPORT_NUMBER');
 
   static const String flutterWavePublicTestKey = String.fromEnvironment('FLUTTER_WAVE_TEST_KEY');
   static const String flutterWaveSecretTestKey = String.fromEnvironment('FLUTTER_WAVE_SECRET_TEST_KEY');
@@ -208,7 +210,6 @@ class UrlConfig {
   static const String getPromotions = '/user/promotions';
   static const String getPromotionById = '/user/promotions';
   static const String initiatePromotion = '/user/promotions/initiate';
-  static const String updateStat = '/user/posts/stats/save';
   static const String promotions = '/user/promotions';
   static const String analytics = '/user/posts/stats/fetch';
   static const String promotedPosts = '/user/posts/promotions/list';

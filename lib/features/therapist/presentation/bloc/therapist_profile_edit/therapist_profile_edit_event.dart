@@ -90,3 +90,12 @@ class RemoveAvailabilitySlotEvent extends TherapistProfileEditEvent {
 class SaveTherapistProfileEvent extends TherapistProfileEditEvent {
   const SaveTherapistProfileEvent();
 }
+
+/// Internal — dispatched once the background `getMyAvailability()` fetch
+/// (kicked off from the constructor) resolves. Not user-triggered.
+class _AvailabilityLoadedEvent extends TherapistProfileEditEvent {
+  const _AvailabilityLoadedEvent(this.availability);
+  final WeeklyAvailability availability;
+  @override
+  List<Object?> get props => [availability];
+}

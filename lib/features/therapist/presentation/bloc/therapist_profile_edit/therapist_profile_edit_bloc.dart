@@ -52,10 +52,44 @@ class TherapistProfileEditBloc
         (d) => d.copyWith(availability: d.availability.removeById(e.id))));
 
     on<SaveTherapistProfileEvent>(_onSave);
+    on<_AvailabilityLoadedEvent>(_onAvailabilityLoaded);
+
+    _loadAvailability();
   }
 
   final TherapistProfileStore _store;
   final TherapistRepository _repository;
+
+  /// Availability has a real backing endpoint (unlike title/specialties/
+  /// duration, still local-only) but the constructor seeds synchronously
+  /// from local storage so the form isn't blank on first frame — this
+  /// backfills the real server copy once it lands.
+  Future<void> _loadAvailability() async {
+    try {
+      final availability = await _repository.getMyAvailability();
+      if (isClosed) return;
+      add(_AvailabilityLoadedEvent(availability));
+    } catch (error, stack) {
+      logger.e(error, stackTrace: stack);
+      // Non-blocking — the locally-seeded availability already renders.
+    }
+  }
+
+  /// Only overwrites the draft if the user hasn't started editing yet, so a
+  /// fast typer never loses in-progress changes to a slow response.
+  void _onAvailabilityLoaded(
+    _AvailabilityLoadedEvent event,
+    Emitter<TherapistProfileEditState> emit,
+  ) {
+    final draftUntouched =
+        state.draft.availability == state.initial.availability;
+    emit(state.copyWith(
+      initial: state.initial.copyWith(availability: event.availability),
+      draft: draftUntouched
+          ? state.draft.copyWith(availability: event.availability)
+          : state.draft,
+    ));
+  }
 
   /// Seeded in the constructor rather than by an event, because events are
   /// processed asynchronously: a screen reading `state.draft` in `initState`
@@ -127,7 +161,7 @@ class TherapistProfileEditBloc
 
     emit(state.copyWith(status: TherapistProfileEditStatus.saving));
     try {
-      final draft = state.draft;
+      var draft = state.draft;
       await _repository.updateMyProfile(
         name: draft.fullName.trim(),
         bio: draft.bio.trim(),
@@ -135,8 +169,13 @@ class TherapistProfileEditBloc
         sessionRate: draft.rate.amount!,
         avatarPath: draft.pendingAvatarPath,
       );
-      // title/specialties/availability/duration have no backing endpoint
-      // yet — kept local, same as before the real endpoint landed.
+      // Availability now has a real endpoint — a full replace, so the
+      // server-persisted copy (real ids) becomes the new draft/initial.
+      // title/specialties/duration still have no backing endpoint, so they
+      // stay local only.
+      final savedAvailability =
+          await _repository.updateMyAvailability(draft.availability);
+      draft = draft.copyWith(availability: savedAvailability);
       _store.save(draft);
       if (draft.pendingAvatarPath != null) {
         // The update response doesn't echo back a hosted avatar URL, so
@@ -148,6 +187,7 @@ class TherapistProfileEditBloc
         status: TherapistProfileEditStatus.saved,
         // Rebaseline so the screen goes clean without a reload.
         initial: draft,
+        draft: draft,
       ));
     } catch (error, stack) {
       logger.e(error, stackTrace: stack);

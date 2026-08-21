@@ -45,8 +45,7 @@ class BookingStepOneScreen extends StatefulWidget {
 
 class _BookingStepOneScreenState extends State<BookingStepOneScreen> {
   late final BookingCubit _cubit;
-  final TextEditingController _noteController =
-      TextEditingController(text: "I'm a workaholic");
+  final TextEditingController _noteController = TextEditingController();
 
   late final List<_DateOption> _dateOptions;
   int _selectedDateIndex = 0;
@@ -223,6 +222,19 @@ class _BookingStepOneScreenState extends State<BookingStepOneScreen> {
                         child: const Center(
                           child: CircularProgressIndicator(
                               color: Pallets.blueBubbleColor),
+                        ),
+                      )
+                    else if (state.status == BookingStatus.error)
+                      Padding(
+                        padding: EdgeInsets.symmetric(vertical: 20.h),
+                        child: Center(
+                          child: TextView(
+                            text: state.errorMessage ??
+                                "Couldn't load slots for this day.",
+                            fontSize: 14,
+                            color: const Color(0xFFDC2626),
+                            align: TextAlign.center,
+                          ),
                         ),
                       )
                     else if (slots.isEmpty)

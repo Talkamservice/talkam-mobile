@@ -20,6 +20,42 @@ DateTime? parseBackendSessionStartsAt(String? raw) {
   ).subtract(const Duration(hours: 1));
 }
 
+/// A `SessionReschedule` row awaiting a response — reschedule requests never
+/// apply immediately; the counterpart must accept via `POST
+/// /reschedules/{id}/respond`. Without surfacing this, the requester sees
+/// the old time unchanged and reasonably assumes the request silently
+/// failed, and the counterpart has no prompt to ever act on it.
+class PendingRescheduleInfo {
+  final int id;
+  final DateTime? newStartsAt;
+
+  /// True when the signed-in user is the one who requested it (so they're
+  /// waiting on the other party) — false means it's on THEM to respond.
+  final bool requestedByMe;
+
+  const PendingRescheduleInfo({
+    required this.id,
+    required this.newStartsAt,
+    required this.requestedByMe,
+  });
+
+  factory PendingRescheduleInfo.fromJson(dynamic json, {required int? myUserId}) {
+    final map = Map<String, dynamic>.from(json as Map);
+    final requestedBy = map['requested_by'];
+    final requestedById = requestedBy is num
+        ? requestedBy.toInt()
+        : int.tryParse(requestedBy?.toString() ?? '');
+    return PendingRescheduleInfo(
+      id: (map['id'] as num?)?.toInt() ??
+          int.tryParse(map['id']?.toString() ?? '') ??
+          0,
+      newStartsAt: parseBackendSessionStartsAt(map['new_starts_at']?.toString()),
+      requestedByMe:
+          myUserId != null && requestedById != null && myUserId == requestedById,
+    );
+  }
+}
+
 class SessionModel {
   final String id;
   final String therapistName;
@@ -35,6 +71,8 @@ class SessionModel {
   final String? status;
   final DateTime? startsAt;
   final int? clientId;
+  final int? therapistId;
+  final PendingRescheduleInfo? pendingReschedule;
 
   const SessionModel({
     required this.id,
@@ -51,6 +89,8 @@ class SessionModel {
     this.status,
     this.startsAt,
     this.clientId,
+    this.therapistId,
+    this.pendingReschedule,
   });
 }
 

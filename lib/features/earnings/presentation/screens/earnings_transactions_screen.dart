@@ -117,23 +117,28 @@ class _EarningsTransactionsScreenState
               ),
             );
           }
-          return ListView.separated(
-            controller: _scrollController,
-            padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
-            itemCount: state.transactions.length +
-                (state.transactionsCanLoadMore ? 1 : 0),
-            separatorBuilder: (context, index) => 16.verticalSpace,
-            itemBuilder: (context, index) {
-              if (index >= state.transactions.length) {
-                return Center(child: CustomDialogs.getLoading(size: 24));
-              }
-              final tx = state.transactions[index];
-              return _TransactionRow(
-                transaction: tx,
-                naira: _naira,
-                formattedDate: _formatDate(tx.createdAt),
-              );
-            },
+          return RefreshIndicator(
+            color: Pallets.blueBubbleColor,
+            onRefresh: () => cubit.getTransactions(),
+            child: ListView.separated(
+              physics: const AlwaysScrollableScrollPhysics(),
+              controller: _scrollController,
+              padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
+              itemCount: state.transactions.length +
+                  (state.transactionsCanLoadMore ? 1 : 0),
+              separatorBuilder: (context, index) => 16.verticalSpace,
+              itemBuilder: (context, index) {
+                if (index >= state.transactions.length) {
+                  return Center(child: CustomDialogs.getLoading(size: 24));
+                }
+                final tx = state.transactions[index];
+                return _TransactionRow(
+                  transaction: tx,
+                  naira: _naira,
+                  formattedDate: _formatDate(tx.createdAt),
+                );
+              },
+            ),
           );
         },
       ),

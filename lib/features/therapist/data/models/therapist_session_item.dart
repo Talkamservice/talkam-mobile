@@ -1,3 +1,4 @@
+import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/features/session/data/models/session_model.dart';
 
 /// `GET /therapist/sessions` (v2) — mirrored upcoming/past, each item
@@ -34,12 +35,14 @@ class TherapistSessionItem {
     required this.status,
     required this.amount,
     required this.currency,
+    this.therapistId,
     this.clientId,
     required this.clientName,
     required this.earnings,
     this.rating,
     required this.hasNote,
     this.receiptUrl,
+    this.pendingReschedule,
   });
 
   final int id;
@@ -50,12 +53,14 @@ class TherapistSessionItem {
   final String status;
   final String amount;
   final String currency;
+  final int? therapistId;
   final int? clientId;
   final String clientName;
   final num earnings;
   final num? rating;
   final bool hasNote;
   final String? receiptUrl;
+  final Map<String, dynamic>? pendingReschedule;
 
   factory TherapistSessionItem.fromJson(Map<String, dynamic> json) =>
       TherapistSessionItem(
@@ -67,12 +72,16 @@ class TherapistSessionItem {
         status: json['status'] ?? '',
         amount: json['amount']?.toString() ?? '0',
         currency: json['currency'] ?? 'NGN',
+        therapistId: (json['therapist_id'] as num?)?.toInt(),
         clientId: (json['client_id'] as num?)?.toInt(),
         clientName: json['client_name'] ?? '',
         earnings: json['earnings'] ?? 0,
         rating: json['rating'],
         hasNote: json['has_note'] ?? false,
         receiptUrl: json['receipt_url'],
+        pendingReschedule: json['pending_reschedule'] == null
+            ? null
+            : Map<String, dynamic>.from(json['pending_reschedule']),
       );
 
   bool get isConfirmed => status == 'confirmed';
@@ -101,6 +110,15 @@ class TherapistSessionItem {
       status: status,
       startsAt: parseBackendSessionStartsAt(startsAt),
       clientId: clientId,
+      therapistId: therapistId,
+      pendingReschedule: pendingReschedule == null
+          ? null
+          : PendingRescheduleInfo.fromJson(
+              pendingReschedule,
+              myUserId: int.tryParse(
+                SessionManager.instance.usersData['id']?.toString() ?? '',
+              ),
+            ),
     );
   }
 
