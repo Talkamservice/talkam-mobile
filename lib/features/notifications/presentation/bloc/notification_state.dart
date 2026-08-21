@@ -52,7 +52,7 @@ class GetNotificationsStatsFailureState extends NotificationsState {
 }
 
 class ReadNotificationSuccessState extends NotificationsState {
-  final ReadNotificationResponse response;
+  final TalkamNotification response;
 
   const ReadNotificationSuccessState({required this.response});
 
@@ -156,8 +156,6 @@ class GetSenderDetailsFailureState extends NotificationsState {
 
 class LoadingMoreNotificationState extends NotificationsState {}
 
-
-
 class GetAnnouncementsSuccessState extends NotificationsState {
   final GetAnnounscementsResponse response;
 
@@ -177,15 +175,11 @@ class GetAnnouncementsFailureState extends NotificationsState {
 }
 
 class GetAnnouncementsLoading extends NotificationsState {
-
-
   const GetAnnouncementsLoading();
 
   @override
   List<Object?> get props => [];
 }
-
-
 
 class GetAnnouncementByIdSuccessState extends NotificationsState {
   final TalkamAnnouncement response;
@@ -206,8 +200,6 @@ class GetAnnouncementByIdFailureState extends NotificationsState {
 }
 
 class GetAnnouncementByIdLoading extends NotificationsState {
-
-
   const GetAnnouncementByIdLoading();
 
   @override

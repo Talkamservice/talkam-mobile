@@ -106,6 +106,16 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
                 _loading = false;
                 _error = state.error;
               });
+            } else if (state is ReadNotificationSuccessState) {
+              final updated = state.response;
+              final current = _notifications;
+              if (current != null) {
+                setState(() {
+                  _notifications = [
+                    for (final n in current) n.id == updated.id ? updated : n,
+                  ];
+                });
+              }
             } else if (state is ReadAllNotificationSuccessState) {
               CustomDialogs.showToast('All notifications marked as read');
               bloc.add(GetNotificationsStatsEvent());

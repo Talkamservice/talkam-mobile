@@ -23,12 +23,12 @@ class NotificationRepositoryImpl extends NotificationsRepository {
   }
 
   @override
-  Future<dynamic> readNotification(String id) async {
+  Future<TalkamNotification> readNotification(String id) async {
     final response = await _v2.call(
-        UrlConfigV2.notificationShow(id), RequestMethod.get,
-        data: {"id": id});
-
-    return response.data;
+      UrlConfigV2.notificationShow(id),
+      RequestMethod.get,
+    );
+    return TalkamNotification.fromJson(response.data['data']);
   }
 
   @override

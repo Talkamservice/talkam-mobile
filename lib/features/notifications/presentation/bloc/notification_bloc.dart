@@ -13,7 +13,6 @@ import 'package:talkam/features/messaging/presentation/blocs/conversations/conve
 import 'package:talkam/features/notifications/data/models/get_announcements_response.dart';
 import 'package:talkam/features/notifications/data/models/get_notifications_response.dart';
 import 'package:talkam/features/notifications/data/models/get_notifications_stats_response.dart';
-import 'package:talkam/features/notifications/data/models/read_notification_response.dart';
 import 'package:talkam/features/notifications/dormain/repository/notifications_repository.dart';
 import 'package:talkam/features/profile/dormain/repository/profile_repository.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
@@ -33,7 +32,8 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   bool _hasReachedEndOfList = false;
   NotificationsStats stats = NotificationsStats.initial();
 
-  NotificationsBloc(this._profileRepository, this._notificationsRepository) : super(NotificationsInitial()) {
+  NotificationsBloc(this._profileRepository, this._notificationsRepository)
+      : super(NotificationsInitial()) {
     // add(GetNotificationsStatsEvent());
 
     _listenForMessages();
@@ -54,23 +54,27 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   ) async {
     if (SessionManager().isLoggedIn) {
       emit(GetNotificationsLoadingState());
-       final Box cacheBox = await Hive.openBox('notificationsCache');
-       String cacheKey = "notifications_${event.tab}";
+      final Box cacheBox = await Hive.openBox('notificationsCache');
+      String cacheKey = "notifications_${event.tab}";
       if (cacheBox.containsKey(cacheKey)) {
         final cachedData = cacheBox.get(cacheKey) as List<dynamic>? ?? [];
         if (cachedData.isNotEmpty) {
           final cachedNotifications = cachedData
-              .map((e) => TalkamNotification.fromJson(Map<String, dynamic>.from(e)))
-              .toList();          
+              .map((e) =>
+                  TalkamNotification.fromJson(Map<String, dynamic>.from(e)))
+              .toList();
           emit(GetNotificationsSuccessState(response: cachedNotifications));
         }
       }
       try {
         _currentPage = 1;
         _hasReachedEndOfList = false;
-        final notificationResponse = await _notificationsRepository.getNotifications(_currentPage, tab: event.tab);
-        final fetchedNotifications = notificationResponse.data.cast<TalkamNotification>();
-        final messagesJson = fetchedNotifications.map((e) => e.toJson()).toList();
+        final notificationResponse = await _notificationsRepository
+            .getNotifications(_currentPage, tab: event.tab);
+        final fetchedNotifications =
+            notificationResponse.data.cast<TalkamNotification>();
+        final messagesJson =
+            fetchedNotifications.map((e) => e.toJson()).toList();
 
         await cacheBox.put(cacheKey, messagesJson);
         // await _firebaseMessagingService.onUpdatePalynxNotification(false);
@@ -89,7 +93,8 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   ) async {
     // emit(ReadNotificationLoading());
     try {
-      final response = await _notificationsRepository.readNotification(event.id);
+      final response =
+          await _notificationsRepository.readNotification(event.id);
       emit(ReadNotificationSuccessState(response: response));
     } catch (e) {
       emit(ReadNotificationFailureState(error: e.toString()));
@@ -103,14 +108,16 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     emit(GetNotificationsDetailsLoadingState());
 
     try {
-      final details = await _notificationsRepository.getNotificationDetails(event.id);
+      final details =
+          await _notificationsRepository.getNotificationDetails(event.id);
       emit(GetNotificationsDetailsSuccessState(details: details));
     } catch (e) {
       emit(GetNotificationsDetailsFailureState(error: e.toString()));
     }
   }
 
-  FutureOr<void> _mapClearNotificationsEventToState(ClearNotificationsEvent event, Emitter<NotificationsState> emit) async {
+  FutureOr<void> _mapClearNotificationsEventToState(
+      ClearNotificationsEvent event, Emitter<NotificationsState> emit) async {
     emit(ClearNotificationsDetailsLoadingState());
     try {
       final details = await _notificationsRepository.clearAllNotifications();
@@ -130,15 +137,21 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
   //   }
   // }
 
-  FutureOr<void> _mapLoadMoreNotificationsEvent(LoadMoreNotificationsEvent event, Emitter<NotificationsState> emit) async {
+  FutureOr<void> _mapLoadMoreNotificationsEvent(
+      LoadMoreNotificationsEvent event,
+      Emitter<NotificationsState> emit) async {
     return;
     if (state is LoadingMoreNotificationState || _hasReachedEndOfList) return;
     emit(LoadingMoreNotificationState());
     try {
       _currentPage += 1;
-      final paginatedNotificationResponse = await _notificationsRepository.getNotifications(_currentPage, tab: event.tab);
+      final paginatedNotificationResponse = await _notificationsRepository
+          .getNotifications(_currentPage, tab: event.tab);
       _hasReachedEndOfList = paginatedNotificationResponse.data.isEmpty;
-      final allNotifications = [...event.previousNotifications, ...paginatedNotificationResponse.data];
+      final allNotifications = [
+        ...event.previousNotifications,
+        ...paginatedNotificationResponse.data
+      ];
       emit(GetNotificationsSuccessState(response: allNotifications));
     } catch (e, stack) {
       logger.e(stack);
@@ -149,7 +162,8 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     }
   }
 
-  FutureOr<void> _mapReadAllNotificationEventToState(ReadAllNotificationEvent event, Emitter<NotificationsState> emit) async {
+  FutureOr<void> _mapReadAllNotificationEventToState(
+      ReadAllNotificationEvent event, Emitter<NotificationsState> emit) async {
     emit(const ReadAllNotificationLoadingState());
     try {
       final response = await _notificationsRepository.readAllNotifications();
@@ -160,11 +174,14 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     }
   }
 
-  FutureOr<void> _mapGetNotificationsStatsEventToState(GetNotificationsStatsEvent event, Emitter<NotificationsState> emit) async {
+  FutureOr<void> _mapGetNotificationsStatsEventToState(
+      GetNotificationsStatsEvent event,
+      Emitter<NotificationsState> emit) async {
     if (SessionManager().isLoggedIn) {
       emit(GetNotificationsStatsLoadingState());
       try {
-        final notificationResponse = await _notificationsRepository.getNotificationsStats();
+        final notificationResponse =
+            await _notificationsRepository.getNotificationsStats();
         stats = notificationResponse.data;
         logger.i('stats: ${stats.unreadMessages}');
         emit(GetNotificationsStatsSuccessState(response: notificationResponse));
@@ -192,7 +209,8 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
 
           PusherChannel channel = await pusher.subscribe(
             channelName: "refresh-notification.$userId",
-            onSubscriptionError: (message, d) => onSubscriptionError(message, d),
+            onSubscriptionError: (message, d) =>
+                onSubscriptionError(message, d),
             onSubscriptionSucceeded: (data) {
               // log('subscribed');
               // AppUtils.showCustomToast("onSubscriptionSucceeded:  data: $data");
@@ -205,7 +223,8 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
           logger.w('connected2');
           pusher.onAuthorizer = _authorize;
 
-          pusher.getChannel("refresh-notification.$userId")?.onEvent = onEventReceived;
+          pusher.getChannel("refresh-notification.$userId")?.onEvent =
+              onEventReceived;
         }
         await pusher.connect();
       }
@@ -217,7 +236,8 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
 
   _authorize(String channelName, String socketId, options) async {
     return {
-      "auth": "1934aa1e05c3acfdfd3f:${getSignature("$socketId:refresh-notification.$channelName)}")}",
+      "auth":
+          "1934aa1e05c3acfdfd3f:${getSignature("$socketId:refresh-notification.$channelName)}")}",
     };
   }
 
@@ -250,11 +270,13 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     }
   }
 
-  FutureOr<void> _mapGetAnnouncementsEvent(GetAnnouncementsEvent event, Emitter<NotificationsState> emit) async {
+  FutureOr<void> _mapGetAnnouncementsEvent(
+      GetAnnouncementsEvent event, Emitter<NotificationsState> emit) async {
     if (SessionManager().isLoggedIn) {
       emit(const GetAnnouncementsLoading());
       try {
-        final notificationResponse = await _notificationsRepository.getAllAnnouncements();
+        final notificationResponse =
+            await _notificationsRepository.getAllAnnouncements();
         // await _firebaseMessagingService.onUpdatePalynxNotification(false);
         // logger.w(notificationResponse.message);
         emit(GetAnnouncementsSuccessState(response: notificationResponse));
@@ -266,11 +288,13 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     }
   }
 
-  FutureOr<void> _mapGetAnnouncementByIdEvent(GetAnnouncementByIdEvent event, Emitter<NotificationsState> emit) async {
+  FutureOr<void> _mapGetAnnouncementByIdEvent(
+      GetAnnouncementByIdEvent event, Emitter<NotificationsState> emit) async {
     if (SessionManager().isLoggedIn) {
       emit(const GetAnnouncementsLoading());
       try {
-        final notificationResponse = await _notificationsRepository.getAnnouncementById(event.id);
+        final notificationResponse =
+            await _notificationsRepository.getAnnouncementById(event.id);
         // await _firebaseMessagingService.onUpdatePalynxNotification(false);
         emit(GetAnnouncementByIdSuccessState(response: notificationResponse));
       } catch (e, stack) {

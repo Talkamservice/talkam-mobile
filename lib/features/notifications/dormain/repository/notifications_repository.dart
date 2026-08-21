@@ -8,7 +8,10 @@ abstract class NotificationsRepository {
 
   Future<GetNotificationsStatsResponse> getNotificationsStats();
 
-  Future<dynamic> readNotification(String id);
+  /// `GET /user/notifications/{id}/show` — marking-as-read is a side effect
+  /// of viewing it; the response echoes the notification back with `read_at`
+  /// now stamped.
+  Future<TalkamNotification> readNotification(String id);
 
   Future<dynamic> getNotificationDetails(String id);
 
