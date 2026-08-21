@@ -4,6 +4,7 @@ import 'package:talkam/features/therapist/data/models/session_note.dart';
 import 'package:talkam/features/therapist/data/models/therapist_client.dart';
 import 'package:talkam/features/therapist/data/models/therapist_note_library_item.dart';
 import 'package:talkam/features/therapist/data/models/therapist_session_item.dart';
+import 'package:talkam/features/therapist/data/models/session_request_sheet.dart';
 
 /// Covers the therapist-scoped `/therapist/*` v2 endpoints that aren't part
 /// of the application wizard ([TherapistApplicationRepository]) — the
@@ -49,6 +50,15 @@ abstract class TherapistRepository {
 
   Future<TherapistSessionsResponse> getSessions();
 
+  /// `GET /therapist/sessions/{id}/request` — the request-sheet view of a
+  /// single pending booking, reached from a booking-request notification.
+  Future<SessionRequestSheet> getSessionRequest(int sessionId);
+
+  /// `POST /therapist/sessions/{id}/acknowledge` — stamps `acknowledged_at`
+  /// and notifies the client. Booking status is already `confirmed` from
+  /// payment; this doesn't change it.
+  Future<SessionAcknowledgeResult> acknowledgeSession(int sessionId);
+
   Future<TherapistNoteLibraryPage> getNotesLibrary({
     int? clientId,
     String? query,
@@ -62,5 +72,6 @@ abstract class TherapistRepository {
   /// `PUT /therapist/availability` — full replace: sends the entire desired
   /// week, the server deletes and recreates every row from it. Returns the
   /// grid as persisted.
-  Future<WeeklyAvailability> updateMyAvailability(WeeklyAvailability availability);
+  Future<WeeklyAvailability> updateMyAvailability(
+      WeeklyAvailability availability);
 }

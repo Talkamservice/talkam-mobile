@@ -7,6 +7,7 @@ import 'package:talkam/features/therapist/data/models/session_note.dart';
 import 'package:talkam/features/therapist/data/models/therapist_client.dart';
 import 'package:talkam/features/therapist/data/models/therapist_note_library_item.dart';
 import 'package:talkam/features/therapist/data/models/therapist_session_item.dart';
+import 'package:talkam/features/therapist/data/models/session_request_sheet.dart';
 import 'package:talkam/features/therapist/dormain/repository/therapist_repository.dart';
 
 /// `GET/PUT /therapist/availability` represent each day with a short key
@@ -129,6 +130,32 @@ class TherapistRepositoryImpl extends TherapistRepository {
       final response =
           await _v2.call(UrlConfigV2.therapistSessions, RequestMethod.get);
       return TherapistSessionsResponse.fromJson(response.data['data']);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<SessionRequestSheet> getSessionRequest(int sessionId) async {
+    try {
+      final response = await _v2.call(
+        UrlConfigV2.therapistSessionRequest(sessionId),
+        RequestMethod.get,
+      );
+      return SessionRequestSheet.fromJson(response.data['data']);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<SessionAcknowledgeResult> acknowledgeSession(int sessionId) async {
+    try {
+      final response = await _v2.call(
+        UrlConfigV2.therapistSessionAcknowledge(sessionId),
+        RequestMethod.post,
+      );
+      return SessionAcknowledgeResult.fromJson(response.data['data']);
     } catch (e) {
       rethrow;
     }

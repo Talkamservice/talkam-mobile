@@ -176,8 +176,7 @@ class UrlConfigV2 {
   static String sessionMood(int id) => '/user/bookings/$id/session-mood';
   static String bookingReceipt(int id) => '/user/bookings/$id/receipt';
   static String cancelBooking(int id) => '/user/bookings/$id/cancel';
-  static String rescheduleBooking(int id) =>
-      '/user/bookings/$id/reschedule';
+  static String rescheduleBooking(int id) => '/user/bookings/$id/reschedule';
   static String respondToReschedule(int id) => '/user/reschedules/$id/respond';
   static String joinBooking(int id) => '/user/bookings/$id/join';
   static String messageBooking(int id) => '/user/bookings/$id/message';
@@ -209,4 +208,20 @@ class UrlConfigV2 {
 
   // Reports — one open report per (reporter, target).
   static const String userReports = '/user/user-reports';
+
+  // Notifications — shared by both consumer and therapist accounts; paths
+  // are unchanged from v1, just moved to the v2 base.
+  static String notificationsList(int page) =>
+      '/user/notifications/list?page=$page';
+  static String notificationShow(String id) => '/user/notifications/$id/show';
+  static const String notificationsMarkAll = '/user/notifications/mark-all';
+  static const String notificationsClearAll = '/user/notifications/clear-all';
+  static const String notificationsStatus =
+      '/user/notifications/get-notification-status';
+
+  // Therapist — a pending booking's request sheet (assigned therapist only).
+  static String therapistSessionRequest(int id) =>
+      '/therapist/sessions/$id/request';
+  static String therapistSessionAcknowledge(int id) =>
+      '/therapist/sessions/$id/acknowledge';
 }

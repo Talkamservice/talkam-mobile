@@ -4,9 +4,11 @@
 
 import 'dart:convert';
 
-GetNotificationsResponse getNotificationsResponseFromJson(String str) => GetNotificationsResponse.fromJson(json.decode(str));
+GetNotificationsResponse getNotificationsResponseFromJson(String str) =>
+    GetNotificationsResponse.fromJson(json.decode(str));
 
-String getNotificationsResponseToJson(GetNotificationsResponse data) => json.encode(data.toJson());
+String getNotificationsResponseToJson(GetNotificationsResponse data) =>
+    json.encode(data.toJson());
 
 class GetNotificationsResponse {
   String message;
@@ -34,9 +36,11 @@ class GetNotificationsResponse {
         code: code ?? this.code,
       );
 
-  factory GetNotificationsResponse.fromJson(Map<String, dynamic> json) => GetNotificationsResponse(
+  factory GetNotificationsResponse.fromJson(Map<String, dynamic> json) =>
+      GetNotificationsResponse(
         message: json["message"],
-        data: List<TalkamNotification>.from(json["data"].map((x) => TalkamNotification.fromJson(x))),
+        data: List<TalkamNotification>.from(
+            json["data"].map((x) => TalkamNotification.fromJson(x))),
         success: json["success"],
         code: json["code"],
       );
@@ -91,7 +95,8 @@ class TalkamNotification {
         createdAt: createdAt ?? this.createdAt,
       );
 
-  factory TalkamNotification.fromJson(Map<String, dynamic> json) => TalkamNotification(
+  factory TalkamNotification.fromJson(Map<String, dynamic> json) =>
+      TalkamNotification(
         id: json["id"],
         title: json["title"],
         message: json["message"],
@@ -112,6 +117,65 @@ class TalkamNotification {
         "read_at": readAt,
         "created_at": createdAt.toIso8601String(),
       };
+
+  /// Booking-request items carry `extra.action` with request_sheet/
+  /// acknowledge/decline endpoint refs — presence of this (rather than a
+  /// specific `type` value, which isn't documented) is what marks a
+  /// notification as therapist-actionable.
+  NotificationRequestAction? get requestAction {
+    if (extra is! Map) return null;
+    final action = (extra as Map)["action"];
+    if (action is! Map) return null;
+    return NotificationRequestAction.fromJson(
+        Map<String, dynamic>.from(action));
+  }
+
+  int? get dataIdAsInt =>
+      dataId is int ? dataId : int.tryParse(dataId?.toString() ?? '');
+
+  /// The session id to act on for a booking-request notification — prefers
+  /// `extra.action.session_id` (the field the action metadata is actually
+  /// keyed on) and falls back to `data_id`, which is the same value in
+  /// every observed payload.
+  int? get sessionRequestId => requestAction?.sessionId ?? dataIdAsInt;
+}
+
+/// The `extra.action` object on a booking-request notification:
+/// `{"type": "booking_request", "session_id": 91, "endpoints": {
+/// "request_sheet", "acknowledge", "decline"}}`. The endpoint refs are
+/// informational (the app calls the typed
+/// `TherapistRepository.getSessionRequest`/`acknowledgeSession` and
+/// `BookingRepository.cancelBooking` instead of these raw paths), but their
+/// presence is the signal that this notification is actionable.
+class NotificationRequestAction {
+  const NotificationRequestAction({
+    this.type,
+    this.sessionId,
+    this.requestSheet,
+    this.acknowledge,
+    this.decline,
+  });
+
+  final String? type;
+  final int? sessionId;
+  final String? requestSheet;
+  final String? acknowledge;
+  final String? decline;
+
+  factory NotificationRequestAction.fromJson(Map<String, dynamic> json) {
+    final endpoints = json["endpoints"] is Map
+        ? Map<String, dynamic>.from(json["endpoints"])
+        : const <String, dynamic>{};
+    return NotificationRequestAction(
+      type: json["type"],
+      sessionId: json["session_id"] is int
+          ? json["session_id"]
+          : int.tryParse(json["session_id"]?.toString() ?? ''),
+      requestSheet: endpoints["request_sheet"],
+      acknowledge: endpoints["acknowledge"],
+      decline: endpoints["decline"],
+    );
+  }
 }
 
 class ExtraClass {
@@ -133,8 +197,12 @@ class ExtraClass {
       );
 
   factory ExtraClass.fromJson(Map<String, dynamic> json) => ExtraClass(
-        sender: json["sender"] == null ? null : NotificationUser.fromJson(json["sender"]),
-        receiver: json["receiver"] == null ? null : NotificationUser.fromJson(json["receiver"]),
+        sender: json["sender"] == null
+            ? null
+            : NotificationUser.fromJson(json["sender"]),
+        receiver: json["receiver"] == null
+            ? null
+            : NotificationUser.fromJson(json["receiver"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -173,7 +241,8 @@ class NotificationUser {
         email: email ?? this.email,
       );
 
-  factory NotificationUser.fromJson(Map<String, dynamic> json) => NotificationUser(
+  factory NotificationUser.fromJson(Map<String, dynamic> json) =>
+      NotificationUser(
         id: json["id"],
         avatar: json["avatar"] ?? "",
         name: json["name"],
