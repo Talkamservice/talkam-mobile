@@ -4,7 +4,6 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/data/models/post_filter_model.dart';
 import 'package:talkam/features/post/dormain/repository/post_repository.dart';
-import 'package:talkam/core/mock/mock_home_data.dart';
 
 part 'group_post_state.dart';
 
@@ -30,12 +29,7 @@ class GroupPostCubit extends Cubit<GroupPostState> {
       ));
     } catch (e, stack) {
       logger.e(e.toString(), stackTrace: stack);
-      // Fallback to mock data
-      final mockResponse = MockHomeData.postsResponse;
-      emit(GroupPostState.postsLoaded(
-        posts: mockResponse.data.data,
-        paginationData: mockResponse.data.paginationMeta,
-      ));
+      emit(GroupPostState.postsFailed(e.toString()));
     }
   }
 
@@ -49,7 +43,8 @@ class GroupPostCubit extends Cubit<GroupPostState> {
 
     try {
       final GetPostsResponse response = await groupRepository.getPosts(
-        PostFilterModel.groupPost(groupId: groupId, page: paginationData.currentPage + 1),
+        PostFilterModel.groupPost(
+            groupId: groupId, page: paginationData.currentPage + 1),
       );
 
       emit(GroupPostState.postsLoaded(
@@ -79,13 +74,7 @@ class GroupPostCubit extends Cubit<GroupPostState> {
       ));
     } catch (e, stack) {
       logger.e(e.toString(), stackTrace: stack);
-      // Fallback to mock data
-      final mockResponse = MockHomeData.postsResponse;
-      final mediaPosts = mockResponse.data.data.where((post) => post.attachments.isNotEmpty).toList();
-      emit(GroupPostState.mediaLoaded(
-        media: mediaPosts,
-        paginationData: mockResponse.data.paginationMeta,
-      ));
+      emit(GroupPostState.mediaFailed(e.toString()));
     }
   }
 
@@ -99,7 +88,10 @@ class GroupPostCubit extends Cubit<GroupPostState> {
 
     try {
       final GetPostsResponse response = await groupRepository.getPosts(
-        PostFilterModel.groupPost(groupId: groupId, page: paginationData.currentPage + 1, isMedia: true),
+        PostFilterModel.groupPost(
+            groupId: groupId,
+            page: paginationData.currentPage + 1,
+            isMedia: true),
       );
 
       emit(GroupPostState.mediaLoaded(

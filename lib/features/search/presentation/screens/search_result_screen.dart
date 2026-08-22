@@ -9,7 +9,6 @@ import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/custom_text_field.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
-import 'package:talkam/core/mock/mock_home_data.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
@@ -500,8 +499,10 @@ class _PostTabState extends State<_PostTab> with AutomaticKeepAliveClientMixin {
             child: TextView(text: error),
           ),
           postSearchLoaded: (posts, meta, relatedTopics) {
-            // Use mock posts as fallback when API returns empty
-            final display = posts.isEmpty ? MockHomeData.posts : posts;
+            final display = posts;
+            if (display.isEmpty) {
+              return const Center(child: TextView(text: "No posts found"));
+            }
             return Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

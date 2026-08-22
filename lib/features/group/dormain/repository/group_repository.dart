@@ -14,6 +14,11 @@ abstract class GroupsRepository {
 
   Future<GetGroupsResponse> getPromotedGroups();
 
+  /// `GET /user/recents/fetch?sort=group` — groups the user recently viewed
+  /// or interacted with, for the Groups "Recent" tab. Flat list, no
+  /// pagination.
+  Future<List<TalkamGroup>> getRecentGroups();
+
   Future<dynamic> getFollowingGroupMembers();
 
   Future<TalkamGroup> updateGroup(String groupId, CreateGroupPayload payload);

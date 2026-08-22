@@ -21,8 +21,7 @@ class UserProfileCommentsCubit extends Cubit<UserProfileCommentsState> {
     emit(const UserProfileCommentsState.loading());
     try {
       final List<TalkAmComment> comments =
-          await _profileRepository.fetchUserComments();
-      logger.i("current page is $_currentPage");
+          await _profileRepository.fetchUserCommentsById(userId);
       emit(UserProfileCommentsState.loaded(comments));
     } catch (exception, stackTrace) {
       logger.e(exception, stackTrace: stackTrace);

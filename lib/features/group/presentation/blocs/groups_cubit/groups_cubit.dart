@@ -5,7 +5,6 @@ import 'package:talkam/features/group/data/models/create_group_payload.dart';
 import 'package:talkam/features/group/data/models/groups_filter_model.dart';
 import 'package:talkam/features/group/dormain/repository/group_repository.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
-import 'package:talkam/core/mock/mock_home_data.dart';
 
 part 'groups_state.dart';
 
@@ -19,8 +18,7 @@ class GroupsCubit extends Cubit<GroupsState> {
   Future<void> getGroups(
       {GroupsFilterModel? filter,
       bool? shouldRefresh = true,
-      bool? isFollowing,
-      bool useMockFallback = true}) async {
+      bool? isFollowing}) async {
     if (shouldRefresh!) {
       emit(const GroupsState.getGroupsLoading());
     }
@@ -34,16 +32,8 @@ class GroupsCubit extends Cubit<GroupsState> {
               search: filter?.search,
             );
 
-      List<TalkamGroup> fetchedGroups = response.groups ?? [];
-      if (fetchedGroups.isEmpty && useMockFallback) {
-        fetchedGroups = MockHomeData.groups
-            .map((c) => MockHomeData.getTalkamGroup(c.id.toString()))
-            .whereType<TalkamGroup>()
-            .toList();
-      }
-
       emit(GroupsState.getGroupsSuccess(
-        groups: fetchedGroups,
+        groups: response.groups ?? [],
         paginationData: response.paginationMeta ??
             GroupPaginationMeta(currentPage: 1, lastPage: 1),
       ));
@@ -60,21 +50,7 @@ class GroupsCubit extends Cubit<GroupsState> {
       final GetGroupsResponse response =
           await groupRepository.getSuggestedGroups(page: 1);
 
-      List<TalkamGroup> fetchedGroups = response.groups ?? [];
-      if (fetchedGroups.isEmpty) {
-        fetchedGroups = MockHomeData.groups
-            .map((c) => MockHomeData.getTalkamGroup(c.id.toString()))
-            .whereType<TalkamGroup>()
-            .toList();
-      }
-
-      final GetGroupsResponse fallbackResponse = GetGroupsResponse(
-        groups: fetchedGroups,
-        paginationMeta: response.paginationMeta ??
-            GroupPaginationMeta(currentPage: 1, lastPage: 1),
-      );
-
-      emit(GroupsState.getRecommendedSuccess(fallbackResponse));
+      emit(GroupsState.getRecommendedSuccess(response));
     } catch (e, stack) {
       logger.e(e.toString(), stackTrace: stack);
       emit(GroupsState.getRecommendedFailure(e.toString()));
@@ -141,13 +117,7 @@ class GroupsCubit extends Cubit<GroupsState> {
       emit(GroupsState.getGroupSuccess(response));
     } catch (e, stack) {
       logger.e(e.toString(), stackTrace: stack);
-      // Fallback to mock data if it exists
-      final fallbackGroup = MockHomeData.getTalkamGroup(groupId);
-      if (fallbackGroup != null) {
-        emit(GroupsState.getGroupSuccess(fallbackGroup));
-      } else {
-        emit(GroupsState.getGroupFailure(e.toString()));
-      }
+      emit(GroupsState.getGroupFailure(e.toString()));
     }
   }
 

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/empty_state.dart';
+import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item.dart';
@@ -34,7 +35,7 @@ class _UserProfilePostTabState extends State<UserProfilePostTab>
     _scrollController.addListener(() {
       if (_scrollController.position.pixels ==
           _scrollController.position.maxScrollExtent) {
-        _cubit.loadMorePosts(_posts);
+        _cubit.loadMorePosts(_posts, widget.userId);
       }
     });
     super.initState();
@@ -45,9 +46,7 @@ class _UserProfilePostTabState extends State<UserProfilePostTab>
     super.build(context);
     return RefreshPostListener(
       onRefresh: () {
-
-        _cubit.fetchUserPosts(widget.userId,reload: false);
-
+        _cubit.fetchUserPosts(widget.userId, reload: false);
       },
       child: BlocConsumer<UserProfilePostsCubit, UserProfilePostsState>(
         bloc: _cubit,
@@ -65,10 +64,11 @@ class _UserProfilePostTabState extends State<UserProfilePostTab>
             loading: () => const Center(
               child: PostLoadingShimmer(),
             ),
-            error: () => const SizedBox.shrink(),
+            error: () => AppErrorWidget(
+              onTap: () => _cubit.fetchUserPosts(widget.userId),
+            ),
             orElse: () {
-              if(_posts.isEmpty){
-
+              if (_posts.isEmpty) {
                 return RefreshIndicator(
                   onRefresh: () async {
                     _cubit.fetchUserPosts(widget.userId);
@@ -79,18 +79,14 @@ class _UserProfilePostTabState extends State<UserProfilePostTab>
                       const EmptyState(
                         title: 'No posts yet',
                         subtitle: "Posts will appear here if any ",
-
                       ),
                     ],
                   ),
                 );
-
-
               }
               return RefreshIndicator(
-                onRefresh: () async{
+                onRefresh: () async {
                   _cubit.fetchUserPosts(widget.userId);
-
                 },
                 child: ListView(
                   controller: _scrollController,
@@ -127,7 +123,8 @@ class _UserProfilePostTabState extends State<UserProfilePostTab>
                     if (state is UserProfilePostsTabLoadingMoreState)
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 16.h),
-                        child: Center(child: CustomDialogs.getLoading(size: 50)),
+                        child:
+                            Center(child: CustomDialogs.getLoading(size: 50)),
                       )
                   ],
                 ),

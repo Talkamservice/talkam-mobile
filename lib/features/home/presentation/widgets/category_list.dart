@@ -4,7 +4,6 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
-import 'package:talkam/core/mock/mock_home_data.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
 import 'package:talkam/features/home/presentation/widgets/app_drawer.dart';
 import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
@@ -49,8 +48,7 @@ class CategoryList extends StatelessWidget {
                 },
               ),
               getInterestTopicsSuccess: (response) {
-                final source =
-                    response.data.isEmpty ? MockHomeData.groups : response.data;
+                final source = response.data;
                 final categories = searchQuery.isEmpty
                     ? source
                     : source

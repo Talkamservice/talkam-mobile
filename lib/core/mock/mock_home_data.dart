@@ -10,7 +10,8 @@ import 'package:talkam/features/post/data/models/get_comments_response.dart';
 import 'package:talkam/features/post/data/models/get_guidlines_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/data/models/post_test_models.dart';
-import 'package:talkam/features/group/data/models/get_group_members_response.dart' as gm;
+import 'package:talkam/features/group/data/models/get_group_members_response.dart'
+    as gm;
 
 /// Hardcoded placeholder content for the home shell (feed, drawer profile,
 /// following/private groups) while the staging backend has no seed data.
@@ -196,7 +197,8 @@ class MockHomeData {
       name: info.name,
       uuid: "group-$intId",
       description: info.description,
-      about: "${info.description}\n\nThis group is a dedicated community for members to share experiences, ask questions, and offer advice. We welcome everyone to participate and grow together. Make sure to check the rules and respect fellow members. Feel free to start a new discussion or join an existing one!",
+      about:
+          "${info.description}\n\nThis group is a dedicated community for members to share experiences, ask questions, and offer advice. We welcome everyone to participate and grow together. Make sure to check the rules and respect fellow members. Feel free to start a new discussion or join an existing one!",
       image: info.backgroundImage,
       category: _category(intId, info.name),
       totalMembers: info.memberCount,
@@ -218,19 +220,22 @@ class MockHomeData {
         GroupGuideline(
           id: 1,
           title: "Be Kind and Respectful",
-          description: "Treat everyone with respect. Healthy debates are natural, but kindness is required.",
+          description:
+              "Treat everyone with respect. Healthy debates are natural, but kindness is required.",
           status: "active",
         ),
         GroupGuideline(
           id: 2,
           title: "No Hate Speech or Bullying",
-          description: "Make sure everyone feels safe. Bullying of any kind isn't allowed, and degrading comments about things like race, religion, culture, sexual orientation, gender or identity will not be tolerated.",
+          description:
+              "Make sure everyone feels safe. Bullying of any kind isn't allowed, and degrading comments about things like race, religion, culture, sexual orientation, gender or identity will not be tolerated.",
           status: "active",
         ),
         GroupGuideline(
           id: 3,
           title: "Respect Privacy",
-          description: "Being part of this group requires mutual trust. Authentic, expressive discussions make groups great, but may also be sensitive and private.",
+          description:
+              "Being part of this group requires mutual trust. Authentic, expressive discussions make groups great, but may also be sensitive and private.",
           status: "active",
         ),
       ],
@@ -239,22 +244,29 @@ class MockHomeData {
     );
   }
 
-  static List<TalkamGroup> get talkamGroups => groups.map((g) => getTalkamGroup(g.id.toString())).whereType<TalkamGroup>().toList();
-  static List<TalkamGroup> get privateTalkamGroups => privateGroups.map((g) => getTalkamGroup(g.id.toString())).whereType<TalkamGroup>().toList();
+  static List<TalkamGroup> get talkamGroups => groups
+      .map((g) => getTalkamGroup(g.id.toString()))
+      .whereType<TalkamGroup>()
+      .toList();
+  static List<TalkamGroup> get privateTalkamGroups => privateGroups
+      .map((g) => getTalkamGroup(g.id.toString()))
+      .whereType<TalkamGroup>()
+      .toList();
 
   /// Member avatars for a category's or group's screen — falls back to the
   /// Anxiety group's set for any category not in [_groupInfoById].
   static List<String> groupMemberAvatars(dynamic item) {
     final id = item is PostCategory ? item.id : (item as TalkamGroup).id;
-    final seeds =
-        _groupInfoById[id]?.avatarSeeds ?? const [15, 32, 41, 51];
+    final seeds = _groupInfoById[id]?.avatarSeeds ?? const [15, 32, 41, 51];
     return seeds.map((seed) => "https://i.pravatar.cc/150?img=$seed").toList();
   }
 
   /// Falls back to a large placeholder count when the real followers count
   /// isn't seeded yet, matching the "46K Members" reference design.
   static int groupMemberCount(dynamic item) {
-    final real = item is PostCategory ? item.followersCount : (item as TalkamGroup).totalMembers;
+    final real = item is PostCategory
+        ? item.followersCount
+        : (item as TalkamGroup).totalMembers;
     if (real is num && real > 0) return real.toInt();
     return 46200;
   }
@@ -653,7 +665,7 @@ class MockHomeData {
   /// always resolves to the other, non-me member).
   static final ConversationUser _me = ConversationUser(
     id: -1,
-    name: user.name, 
+    name: user.name,
     username: user.username,
     email: user.email,
     avatar: user.avatar,
@@ -845,8 +857,9 @@ class MockHomeData {
 
   static gm.GetGroupMembersResponse get mockGroupMembersResponse {
     final now = DateTime.now();
-    
-    gm.GroupMemberDetails createMockMember(int id, String role, String name, String username, int avatarSeed) {
+
+    gm.GroupMemberDetails createMockMember(
+        int id, String role, String name, String username, int avatarSeed) {
       return gm.GroupMemberDetails(
         id: id,
         role: role,
@@ -864,227 +877,26 @@ class MockHomeData {
         updatedAt: now,
       );
     }
-    
+
     return gm.GetGroupMembersResponse(
-      message: "Members fetched successfully",
-      success: true,
-      code: 200,
-      data: gm.Data(
-        owner: [
-          createMockMember(1, "Owner", "Dr Adebayo", "dr_adebayo", 51),
-        ],
-        admin: [
-          createMockMember(2, "Admin", "Dr. Chioma", "dr_chioma", 47),
-        ],
-        member: [
-          createMockMember(3, "Member", "Alice", "alice_w", 12),
-          createMockMember(4, "Member", "Bob", "bob_b", 15),
-          createMockMember(5, "Member", "Charlie", "charlie_d", 32),
-          createMockMember(6, "Member", "Diana", "diana_s", 41),
-        ],
-      )
-    );
+        message: "Members fetched successfully",
+        success: true,
+        code: 200,
+        data: gm.Data(
+          owner: [
+            createMockMember(1, "Owner", "Dr Adebayo", "dr_adebayo", 51),
+          ],
+          admin: [
+            createMockMember(2, "Admin", "Dr. Chioma", "dr_chioma", 47),
+          ],
+          member: [
+            createMockMember(3, "Member", "Alice", "alice_w", 12),
+            createMockMember(4, "Member", "Bob", "bob_b", 15),
+            createMockMember(5, "Member", "Charlie", "charlie_d", 32),
+            createMockMember(6, "Member", "Diana", "diana_s", 41),
+          ],
+        ));
   }
-
-  /// The Notification screen's unified feed — staging has no seed data, so
-  /// this is what renders whenever the real feed comes back empty.
-  static List<MockNotificationGroup> get notificationGroups => [
-        MockNotificationGroup(label: "Today", items: [
-          MockNotificationItem(
-            type: MockNotificationType.session,
-            title: "Session in 30 minutes",
-            body: "Dr. Chioma • Video • 2:00 PM",
-            timeAgo: "30m",
-            actionLabel: "Open Session",
-          ),
-          MockNotificationItem(
-            type: MockNotificationType.comment,
-            title: "calm_water replied to your post",
-            body: '"What helped me was a consistent...',
-            timeAgo: "1h",
-          ),
-          MockNotificationItem(
-            type: MockNotificationType.like,
-            title: "48 people cared about your post",
-            body: '"Been walking up 3am with racing th...',
-            timeAgo: "2h",
-          ),
-          MockNotificationItem(
-            type: MockNotificationType.message,
-            title: "Dr. Chioma sent you message",
-            body: '"Looking forward to our session t...',
-            timeAgo: "3h",
-          ),
-        ]),
-        MockNotificationGroup(label: "Yesterday", items: [
-          MockNotificationItem(
-            type: MockNotificationType.wellness,
-            title: "TalkAM Wellness check-in",
-            body: '"You haven\'t logged your moo...',
-            timeAgo: "3h",
-          ),
-        ]),
-      ];
-
-  static List<MockNotificationGroup> get therapistNotificationGroups => [
-        MockNotificationGroup(label: "Today", items: [
-          MockNotificationItem(
-            type: MockNotificationType.bookingRequest,
-            title: "New booking request",
-            body: "Ngozi A. wants to book a 50-min video session\nWed Jul 16 at 10:00AM",
-            timeAgo: "30m",
-            actionLabel: "Open Session",
-            secondaryActionLabel: "Decline",
-          ),
-          MockNotificationItem(
-            type: MockNotificationType.payout,
-            title: "Payout received",
-            body: "80,000 was transferred to your first Bank account ending in 5678",
-            timeAgo: "1h",
-          ),
-          MockNotificationItem(
-            type: MockNotificationType.session,
-            title: "Session in 30 minutes",
-            body: "Emeka O. • 2:00 PM • Video • 50 min",
-            timeAgo: "2h",
-          ),
-        ]),
-        MockNotificationGroup(label: "Yesterday", items: [
-          MockNotificationItem(
-            type: MockNotificationType.wellness,
-            title: "TalkAM Wellness check-in",
-            body: '"You haven\'t logged your moo...',
-            timeAgo: "3h",
-          ),
-        ]),
-      ];
-}
-
-/// Simple data holder for People search results (mock only).
-class MockSearchUser {
-  const MockSearchUser({
-    required this.id,
-    required this.name,
-    required this.username,
-    this.avatar,
-    required this.bio,
-    this.isVerified = true,
-    this.isFollowing = false,
-  });
-
-  final int id;
-  final String name;
-  final String username;
-  final String? avatar;
-  final String bio;
-  final bool isVerified;
-  final bool isFollowing;
-}
-
-class MockSearchData {
-  MockSearchData._();
-
-  static const List<String> relatedTopics = [
-    "Anxiety",
-    "Depression",
-    "Fear",
-    "Grief",
-    "Bipolar",
-    "OCD",
-  ];
-
-  static List<MockSearchUser> get searchPeople => const [
-    MockSearchUser(
-      id: 1,
-      name: "Dr Adebayo",
-      username: "Dr Adebayo",
-      avatar: "https://i.pravatar.cc/150?img=51",
-      bio: "I'm a licensed therapist dedicated to helping individuals navigate life's challenges and achieve personal growth. With a compassionate...",
-      isVerified: true,
-    ),
-    MockSearchUser(
-      id: 2,
-      name: "Dr Linda",
-      username: "DrLinda",
-      avatar: "https://i.pravatar.cc/150?img=47",
-      bio: "As a clinical psychologist, I focus on cognitive-behavioral therapy for children and adolescents. My passion lies in fostering resilience and...",
-      isVerified: true,
-    ),
-    MockSearchUser(
-      id: 3,
-      name: "Prof. James",
-      username: "ProfJames",
-      avatar: "https://i.pravatar.cc/150?img=33",
-      bio: "I am a psychiatrist with over 20 years of experience in treating mood disorders. My approach combines medication management with the...",
-      isVerified: true,
-    ),
-    MockSearchUser(
-      id: 4,
-      name: "Ms. Clara",
-      username: "MsClara",
-      avatar: null,
-      bio: "As a licensed social worker, I provide counseling services that empower clients to overcome trauma and find support in their com...",
-      isVerified: false,
-    ),
-    MockSearchUser(
-      id: 5,
-      name: "Dr. Samuel",
-      username: "DrSamuel",
-      avatar: "https://i.pravatar.cc/150?img=12",
-      bio: "I am a family therapist specializing in systemic therapy. I work with families to enhance communication, resolve conflicts, and strengthe...",
-      isVerified: true,
-    ),
-  ];
-
-  static List<MockGroupSearchEntry> get searchGroupEntries => const [
-    MockGroupSearchEntry(id: 1, name: "Anxiety", memberCount: 3200, image: "https://picsum.photos/id/1015/200/120", isJoined: true),
-    MockGroupSearchEntry(id: 3, name: "Depression", memberCount: 2500, image: "https://picsum.photos/id/1016/200/120", isJoined: false),
-    MockGroupSearchEntry(id: 9, name: "Mindfulness", memberCount: 4100, image: "https://picsum.photos/id/1024/200/120", isJoined: false),
-  ];
-}
-
-class MockGroupSearchEntry {
-  final int id;
-  final String name;
-  final int memberCount;
-  final String image;
-  final bool isJoined;
-
-  const MockGroupSearchEntry({
-    required this.id,
-    required this.name,
-    required this.memberCount,
-    required this.image,
-    required this.isJoined,
-  });
-}
-
-
-enum MockNotificationType { session, comment, like, message, wellness, bookingRequest, payout }
-
-class MockNotificationGroup {
-  const MockNotificationGroup({required this.label, required this.items});
-
-  final String label;
-  final List<MockNotificationItem> items;
-}
-
-class MockNotificationItem {
-  MockNotificationItem({
-    required this.type,
-    required this.title,
-    required this.body,
-    required this.timeAgo,
-    this.actionLabel,
-    this.secondaryActionLabel,
-  });
-
-  final MockNotificationType type;
-  final String title;
-  final String body;
-  final String timeAgo;
-  final String? actionLabel;
-  final String? secondaryActionLabel;
 }
 
 /// Backing content for one entry in [MockHomeData._groupInfoById].

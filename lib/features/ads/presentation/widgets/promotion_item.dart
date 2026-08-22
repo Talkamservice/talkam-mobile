@@ -7,7 +7,7 @@ import 'package:talkam/features/ads/presentation/blocs/ads/ads_cubit.dart';
 import 'package:talkam/features/ads/presentation/widgets/ad_group_item.dart';
 import 'package:talkam/features/ads/presentation/widgets/ad_info_widget.dart';
 import 'package:talkam/features/ads/presentation/widgets/ad_post_item.dart';
-import 'package:talkam/features/post/data/models/post_test_models.dart';
+import 'package:talkam/common/widgets/text_view.dart';
 import '../../../../core/di/injector.dart';
 import '../../../../core/theme/pallets.dart';
 
@@ -36,14 +36,22 @@ class PromotionItem extends StatelessWidget {
         promotion.isPost
             ? AdPostItem(promotion: promotion)
             : Container(
-                decoration:
-                    BoxDecoration(color: context.theme.cardColor, borderRadius: BorderRadius.circular(10), border: Border.all(color: Pallets.borderGrey)),
+                decoration: BoxDecoration(
+                    color: context.theme.cardColor,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Pallets.borderGrey)),
                 padding: EdgeInsets.all(10),
-                child: AdGroupResultItem(
-                  imageRadius: BorderRadius.circular(5),
-                  group: promotion.group??TestFactories.emptyGroup,
-                  onJoinStateChanged: () {},
-                ),
+                child: promotion.group != null
+                    ? AdGroupResultItem(
+                        imageRadius: BorderRadius.circular(5),
+                        group: promotion.group!,
+                        onJoinStateChanged: () {},
+                      )
+                    : const TextView(
+                        text: "Group unavailable",
+                        fontSize: 13,
+                        color: Colors.grey,
+                      ),
               ),
         14.verticalSpace,
         AdInfoWidget(

@@ -7,7 +7,6 @@ import 'package:talkam/features/group/presentation/blocs/group_post_cubit/group_
 import 'package:talkam/features/post/presentation/widgets/post_item.dart';
 import 'package:talkam/features/post/presentation/widgets/post_loading_shimmer.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
-import 'package:talkam/core/mock/mock_home_data.dart';
 
 class GroupPostsTab extends StatefulWidget {
   const GroupPostsTab({super.key, required this.group});
@@ -87,20 +86,8 @@ class _GroupPostsTabState extends State<GroupPostsTab> {
                     ),
                   ),
                 if (media.isEmpty)
-                  Expanded(
-                    child: ListView.builder(
-                      itemCount: MockHomeData.posts.length,
-                      padding: EdgeInsets.zero,
-                      itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.only(bottom: 8.0),
-                          child: PostItem(
-                            post: MockHomeData.posts[index],
-                            showGroupAndCategory: false,
-                          ),
-                        );
-                      },
-                    ),
+                  const Expanded(
+                    child: Center(child: TextView(text: "No posts yet")),
                   )
               ],
             );

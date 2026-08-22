@@ -7,7 +7,6 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/dialog_texts.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
-import 'package:talkam/core/mock/mock_home_data.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/features/post/data/models/get_guidlines_response.dart';
 import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
@@ -87,10 +86,7 @@ class _RulesSheetState extends State<RulesSheet>
                           ),
                         ),
                         getGuideLinesSuccess: (response) {
-                          final rules =
-                              injector.get<PostBloc>().talkamRules.isEmpty
-                                  ? MockHomeData.guidelines
-                                  : injector.get<PostBloc>().talkamRules;
+                          final rules = injector.get<PostBloc>().talkamRules;
                           return ListView.builder(
                             itemCount: rules.length,
                             shrinkWrap: true,

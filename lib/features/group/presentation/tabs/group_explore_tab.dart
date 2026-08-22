@@ -36,7 +36,7 @@ class _GroupExploreRecentTabState extends State<GroupExploreTab>
 
   @override
   void initState() {
-    bloc.getGroups(filter: _filter, useMockFallback: false);
+    bloc.getGroups(filter: _filter);
     _scrollController.addListener(() {
       if (_scrollController.position.pixels >=
           _scrollController.position.maxScrollExtent - 300) {
@@ -56,7 +56,7 @@ class _GroupExploreRecentTabState extends State<GroupExploreTab>
   void didUpdateWidget(covariant GroupExploreTab oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.selectedCategory?.id != widget.selectedCategory?.id) {
-      bloc.getGroups(filter: _filter, useMockFallback: false);
+      bloc.getGroups(filter: _filter);
     }
   }
 
@@ -71,7 +71,7 @@ class _GroupExploreRecentTabState extends State<GroupExploreTab>
     super.build(context);
     return RefreshGroupListener(
       onRefresh: () {
-        bloc.getGroups(filter: _filter, useMockFallback: false);
+        bloc.getGroups(filter: _filter);
       },
       child: BlocConsumer<GroupsCubit, GroupsState>(
         bloc: bloc,
@@ -95,8 +95,7 @@ class _GroupExploreRecentTabState extends State<GroupExploreTab>
               state.maybeWhen(
                 orElse: () => SliverToBoxAdapter(
                   child: AppErrorWidget(
-                    onTap: () =>
-                        bloc.getGroups(filter: _filter, useMockFallback: false),
+                    onTap: () => bloc.getGroups(filter: _filter),
                   ),
                 ),
                 getGroupsLoading: () => const SliverToBoxAdapter(
@@ -136,9 +135,7 @@ class _GroupExploreRecentTabState extends State<GroupExploreTab>
                             group: group,
                             onJoinStateChanged: () {
                               bloc.getGroups(
-                                  shouldRefresh: false,
-                                  filter: _filter,
-                                  useMockFallback: false);
+                                  shouldRefresh: false, filter: _filter);
                             },
                           ),
                         );

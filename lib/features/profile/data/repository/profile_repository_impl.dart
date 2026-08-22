@@ -323,27 +323,14 @@ class ProfileRepositoryImpl extends ProfileRepository {
   @override
   Future<List<TalkamPost>> fetchUserPostsById(
       {int page = 1, bool isPaginating = false, required String userId}) async {
-    if (!isPaginating) {
-      final res = await Future.wait([
-        _networkService.call(
-            "/user/posts?user_id=$userId?page=1&tab=latest", RequestMethod.get),
-        // _networkService.call("/user/post-schedules", RequestMethod.get),
-      ]);
-      // final List<TalkamPost> schedulePosts = List.from(res[1].data['data'])
-      //     .map((e) => TalkamPost.fromJson(e))
-      //     .toList();
-      final List<TalkamPost> posts = List.from(res[0].data['data']['data'])
-          .map((e) => TalkamPost.fromJson(e))
-          .toList();
-
-      return [...posts];
-    } else {
-      final response = await _networkService.call(
-          "/user/posts?user_id=$userId&page=$page", RequestMethod.get);
-      return List.from(response.data['data']['data'])
-          .map((e) => TalkamPost.fromJson(e))
-          .toList();
-    }
+    final response = await _v2.call(
+      UrlConfigV2.userPosts(userId),
+      RequestMethod.get,
+      queryParams: {"page": page.toString()},
+    );
+    return List.from(response.data['data']['data'])
+        .map((e) => TalkamPost.fromJson(e))
+        .toList();
   }
 
   @override
@@ -373,9 +360,8 @@ class ProfileRepositoryImpl extends ProfileRepository {
 
   @override
   Future<List<TalkAmComment>> fetchUserCommentsById(String userId) async {
-    final response = await _networkService.call(
-        "/user/post-comments?user_id=$userId&exclude_anonymous=1&type=all",
-        RequestMethod.get);
+    final response =
+        await _v2.call(UrlConfigV2.userComments(userId), RequestMethod.get);
     return List.from(response.data['data'])
         .map((e) => TalkAmComment.fromJson(e))
         .toList();

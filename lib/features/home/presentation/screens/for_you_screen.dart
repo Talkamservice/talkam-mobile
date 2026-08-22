@@ -3,7 +3,6 @@ import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
-import 'package:talkam/core/mock/mock_home_data.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/features/post/data/models/post_filter_model.dart';
 import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
@@ -57,9 +56,7 @@ class _ForYouScreenState extends State<ForYouScreen>
       body: Column(
         children: [
           CategoryFilterChips(
-            categories: injector.get<PostBloc>().categories.isEmpty
-                ? MockHomeData.feedCategories
-                : injector.get<PostBloc>().categories,
+            categories: injector.get<PostBloc>().categories,
             onSelected: (categoryId) {
               injector.get<FeaturedPostCubit>().getFeaturedPosts(
                     PostFilterModel.featuredPost(category: categoryId),

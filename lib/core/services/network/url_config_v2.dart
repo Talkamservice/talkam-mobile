@@ -100,6 +100,15 @@ class UrlConfigV2 {
   static String requestGroupAccess(String id) => '$groups/$id/request-access';
   static const String reportGroup = '$groups/reports/create';
 
+  // Recents — reused v1 recent-views endpoint; `sort` picks the entity type
+  // (e.g. `group` for the Groups "Recent" tab).
+  static const String recentsFetch = '/user/recents/fetch';
+
+  // Public user profile — another user's posts & comments (viewed from
+  // UserProfileScreen, not the logged-in user's own profile).
+  static String userPosts(String userId) => '/users/$userId/posts';
+  static String userComments(String userId) => '/users/$userId/comments';
+
   // Search
   static const String search = '/user/search';
   static const String recentSearches = '/user/search/recent';

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/empty_state.dart';
+import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/post/data/models/get_comments_response.dart';
@@ -20,7 +21,8 @@ class UserProfileCommentsTab extends StatefulWidget {
   State<UserProfileCommentsTab> createState() => _UserProfileCommentsTabState();
 }
 
-class _UserProfileCommentsTabState extends State<UserProfileCommentsTab> with AutomaticKeepAliveClientMixin {
+class _UserProfileCommentsTabState extends State<UserProfileCommentsTab>
+    with AutomaticKeepAliveClientMixin {
   final UserProfileCommentsCubit _cubit = injector.get();
   List<TalkAmComment> _comments = [];
   final ScrollController _scrollController = ScrollController();
@@ -37,7 +39,6 @@ class _UserProfileCommentsTabState extends State<UserProfileCommentsTab> with Au
     return RefreshPostListener(
       onRefresh: () {
         _cubit.fetchUserComments(widget.userID);
-
       },
       child: BlocConsumer<UserProfileCommentsCubit, UserProfileCommentsState>(
         bloc: _cubit,
@@ -50,13 +51,14 @@ class _UserProfileCommentsTabState extends State<UserProfileCommentsTab> with Au
             orElse: () {},
           );
         },
-
         builder: (context, state) {
           return state.maybeWhen(
             loading: () => const Center(
               child: PostLoadingShimmer(),
             ),
-            error: () => const SizedBox.shrink(),
+            error: () => AppErrorWidget(
+              onTap: () => _cubit.fetchUserComments(widget.userID),
+            ),
             orElse: () {
               if (_comments.isEmpty) {
                 return RefreshIndicator(
@@ -84,18 +86,14 @@ class _UserProfileCommentsTabState extends State<UserProfileCommentsTab> with Au
                   padding: EdgeInsets.only(top: 20.0.h),
                   children: [
                     for (int i = 0; i < _comments.length; i++) ...[
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 14.w),
-                        child: ProfileCommentTile(
-                          talkAmComment: _comments[i],
-                        ),
-                      ),
-                      24.verticalSpace,
+                      ProfileCommentTile(talkAmComment: _comments[i]),
+                      8.verticalSpace,
                     ],
                     if (state is UserProfileCommentLoadingMoreTabState)
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 16.h),
-                        child: Center(child: CustomDialogs.getLoading(size: 50)),
+                        child:
+                            Center(child: CustomDialogs.getLoading(size: 50)),
                       )
                   ],
                 ),

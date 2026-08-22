@@ -4,7 +4,8 @@
 
 import 'dart:convert';
 
-TalkAmComment talkAmCommentFromJson(String str) => TalkAmComment.fromJson(json.decode(str));
+TalkAmComment talkAmCommentFromJson(String str) =>
+    TalkAmComment.fromJson(json.decode(str));
 
 String talkAmCommentToJson(TalkAmComment data) => json.encode(data.toJson());
 
@@ -45,7 +46,8 @@ class TalkAmComment {
 
   bool get isReplyingToComment => replyTo != null;
 
-  String get commentReplyTo => isReplyingToComment ? replyTo!.username : post?.title;
+  String get commentReplyTo =>
+      isReplyingToComment ? replyTo!.username : post?.title;
 
   TalkAmComment copyWith({
     int? id,
@@ -85,17 +87,22 @@ class TalkAmComment {
   factory TalkAmComment.fromJson(Map<String, dynamic> json) => TalkAmComment(
         id: json["id"],
         post: json["post"] == null ? null : Post.fromJson(json["post"]),
-        user: User.fromJson(json["user"]),
+        user: json["user"] == null
+            ? User.anonymous()
+            : User.fromJson(json["user"]),
         comment: json["comment"] ?? '',
         isAnonymous: json["is_anonymous"],
         likes: json["likes"],
         unlikes: json["unlikes"],
         isReported: json["is_reported"],
-        replyTo: json["reply_to"] == null ? null : User.fromJson(json["reply_to"]),
+        replyTo:
+            json["reply_to"] == null ? null : User.fromJson(json["reply_to"]),
         attachment: json["attachment"],
         enabledNotification: json["enabled_notification"],
         reaction: json["reaction"],
-        children: List<dynamic>.from(json["children"].map((x) => x)),
+        children: json["children"] == null
+            ? []
+            : List<dynamic>.from(json["children"].map((x) => x)),
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: DateTime.parse(json["updated_at"]),
       );
@@ -186,7 +193,12 @@ class Post {
         isAnonymous: json["is_anonymous"],
         tags: json["tags"] == null
             ? []
-            : (json["tags"] is List ? List<String>.from(json["tags"]) : (json["tags"] as String).split(',').map((e) => e.trim()).toList()),
+            : (json["tags"] is List
+                ? List<String>.from(json["tags"])
+                : (json["tags"] as String)
+                    .split(',')
+                    .map((e) => e.trim())
+                    .toList()),
         viewsCount: json["views_count"],
         status: json["status"],
         publishAt: json["publish_at"],
@@ -246,6 +258,16 @@ class User {
         name: json["name"],
         username: json["username"],
         email: json["email"],
+      );
+
+  /// Fallback for a comment whose `user` came back null from the API (e.g.
+  /// the author's account no longer exists).
+  factory User.anonymous() => User(
+        id: 0,
+        avatar: "anonymous",
+        name: "anonymous",
+        username: "anonymous",
+        email: "anonymous",
       );
 
   Map<String, dynamic> toJson() => {

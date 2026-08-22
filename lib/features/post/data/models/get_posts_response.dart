@@ -9,7 +9,6 @@ import 'package:talkam/features/ads/data/models/promotion_data.dart';
 import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/post/data/models/create_post_payload.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
-import 'package:talkam/features/post/data/models/post_test_models.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 
@@ -92,12 +91,17 @@ class Data {
             json["data"].map((x) => TalkamPost.fromJson(x))),
         relatedTopics: json["related_topics"] == null
             ? []
-            : (json["related_topics"] as List).map<String>((x) {
-                if (x is Map) {
-                  return x["name"]?.toString() ?? x["title"]?.toString() ?? "";
-                }
-                return x?.toString() ?? "";
-              }).where((String s) => s.isNotEmpty).toList(),
+            : (json["related_topics"] as List)
+                .map<String>((x) {
+                  if (x is Map) {
+                    return x["name"]?.toString() ??
+                        x["title"]?.toString() ??
+                        "";
+                  }
+                  return x?.toString() ?? "";
+                })
+                .where((String s) => s.isNotEmpty)
+                .toList(),
       );
 
   Map<String, dynamic> toJson() => {
@@ -106,6 +110,26 @@ class Data {
         "related_topics": List<dynamic>.from(relatedTopics.map((x) => x)),
       };
 }
+
+/// Sentinel used when a post's `category` is missing from the API response —
+/// keeps [TalkamPost.category] non-nullable without inventing fake category
+/// content in its place.
+PostCategory uncategorizedPostCategory() => PostCategory(
+      id: 0,
+      name: "Uncategorized",
+      uuid: null,
+      description: null,
+      backgroundImage: null,
+      followersCount: null,
+      iconImage: null,
+      createdAt: null,
+      updatedAt: null,
+      parentCategory: null,
+      type: "category",
+      isFollowing: false,
+      isSuspended: null,
+      groupAccess: '',
+    );
 
 class TalkamPost {
   int id;
@@ -226,7 +250,7 @@ class TalkamPost {
         uuid: json["uuid"],
         isReported: json["is_reported"],
         category: json["category"] == null
-            ? TestFactories.createPostCategory()
+            ? uncategorizedPostCategory()
             : PostCategory.fromJson(json["category"]),
         group:
             json["group"] == null ? null : TalkamGroup.fromJson(json["group"]),

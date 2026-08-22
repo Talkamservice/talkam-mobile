@@ -8,7 +8,6 @@ import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
-import 'package:talkam/core/mock/mock_home_data.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
@@ -165,19 +164,8 @@ class _MessagesScreenState extends State<MessagesScreen> {
                       return const MessagesLoadingShimmer();
                     },
                     getConversationsListSuccess: (response) {
-                      final fetched = response.data.data;
-                      // Only the untouched "All" tab falls back to mock data
-                      // when the API is empty — an empty Starred/Archived
-                      // tab is a real, meaningful state, not a "no seed
-                      // data yet" placeholder. This must NOT depend on the
-                      // search query, otherwise typing a single character
-                      // while viewing the mock fallback swaps the base list
-                      // out from under the filter and the results vanish.
                       final List<TalkamConversation> conversations =
-                          fetched.isEmpty &&
-                                  _selectedTab == _ConversationsTab.all
-                              ? MockHomeData.conversations
-                              : fetched;
+                          response.data.data;
 
                       final query = _searchQuery.toLowerCase();
                       final visible = query.isEmpty
@@ -202,10 +190,6 @@ class _MessagesScreenState extends State<MessagesScreen> {
                         isLoadingMore: false,
                         onRefresh: _refresh,
                         onLongPress: (conversation) {
-                          if (MockHomeData.isMockConversationId(
-                              conversation.id)) {
-                            return;
-                          }
                           CustomDialogs.showCustomDialog(
                             ConversationStateActionSheet(
                                 conversation: conversation),

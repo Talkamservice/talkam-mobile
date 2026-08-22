@@ -17,7 +17,6 @@ import 'package:talkam/features/group/presentation/widgets/group_loading_shimmer
 import 'package:talkam/features/group/presentation/widgets/suggested_groups.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/search/presentation/widget/group_result_item.dart';
-import 'package:talkam/core/mock/mock_home_data.dart';
 
 class MyGroupsTab extends StatefulWidget {
   const MyGroupsTab({super.key, this.selectedCategory});
@@ -77,9 +76,7 @@ class _GroupExploreRecentTabState extends State<MyGroupsTab>
                           ),
                         );
                       }, getGroupsSuccess: (groups, paginationData) {
-                        final allGroups = groups.isEmpty
-                            ? MockHomeData.privateTalkamGroups
-                            : groups;
+                        final allGroups = groups;
                         final displayGroups = widget.selectedCategory == null
                             ? allGroups
                             : allGroups

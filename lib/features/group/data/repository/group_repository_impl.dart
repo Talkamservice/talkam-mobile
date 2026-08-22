@@ -271,4 +271,21 @@ class GroupsRepositoryImpl extends GroupsRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<List<TalkamGroup>> getRecentGroups() async {
+    try {
+      final response = await _v2.call(
+        UrlConfigV2.recentsFetch,
+        RequestMethod.get,
+        queryParams: {"sort": "group"},
+      );
+      final data = response.data['data'] as List? ?? [];
+      return data
+          .map((e) => TalkamGroup.fromJson(Map<String, dynamic>.from(e)))
+          .toList();
+    } catch (e) {
+      rethrow;
+    }
+  }
 }

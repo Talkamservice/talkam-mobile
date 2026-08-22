@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/error_widget.dart';
+import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/theme/pallets.dart';
@@ -12,7 +13,6 @@ import 'package:talkam/features/ads/presentation/widgets/analytics_reactions_bar
 import 'package:talkam/features/ads/presentation/widgets/analytics_shimmer_item.dart';
 import 'package:talkam/features/ads/presentation/widgets/country_engagements_widget.dart';
 import 'package:talkam/features/ads/presentation/widgets/impressions_info_widget.dart';
-import 'package:talkam/features/post/data/models/post_test_models.dart';
 import '../../../../../common/widgets/custom_appbar.dart';
 
 class ViewAnalyticsPage extends StatefulWidget {
@@ -59,10 +59,7 @@ class _ViewAnalyticsPageState extends State<ViewAnalyticsPage> {
                   bloc.fetchPromotionById(widget.promotionId);
                 },
               ),
-
               promotionByIdLoaded: (promotion) {
-
-
                 return Padding(
                   padding: const EdgeInsets.only(
                     left: 16,
@@ -75,19 +72,30 @@ class _ViewAnalyticsPageState extends State<ViewAnalyticsPage> {
                           ? AdPostItem(promotion: promotion)
                           : Container(
                               decoration: BoxDecoration(
-                                  color: context.theme.cardColor, borderRadius: BorderRadius.circular(10), border: Border.all(color: Pallets.borderGrey)),
+                                  color: context.theme.cardColor,
+                                  borderRadius: BorderRadius.circular(10),
+                                  border:
+                                      Border.all(color: Pallets.borderGrey)),
                               padding: EdgeInsets.all(10),
-                              child: AdGroupResultItem(
-                                imageRadius: BorderRadius.circular(5),
-                                group: promotion.group??TestFactories.emptyGroup,
-                                onJoinStateChanged: () {},
-                              ),
+                              child: promotion.group != null
+                                  ? AdGroupResultItem(
+                                      imageRadius: BorderRadius.circular(5),
+                                      group: promotion.group!,
+                                      onJoinStateChanged: () {},
+                                    )
+                                  : const TextView(
+                                      text: "Group unavailable",
+                                      fontSize: 13,
+                                      color: Colors.grey,
+                                    ),
                             ),
                       14.verticalSpace,
                       Container(
                         padding: const EdgeInsets.all(15),
                         decoration: BoxDecoration(
-                            color: context.theme.cardColor, borderRadius: BorderRadius.circular(10), border: Border.all(color: Pallets.borderGrey)),
+                            color: context.theme.cardColor,
+                            borderRadius: BorderRadius.circular(10),
+                            border: Border.all(color: Pallets.borderGrey)),
                         child: Column(
                           children: [
                             if (promotion.isPost && promotion.stats != null)
@@ -96,12 +104,15 @@ class _ViewAnalyticsPageState extends State<ViewAnalyticsPage> {
                                   likes: promotion.stats!.likes,
                                   dislikes: promotion.stats!.dislikes,
                                   shares: promotion.stats!.shares),
-                            if (promotion.isPost && promotion.stats != null) 10.verticalSpace,
+                            if (promotion.isPost && promotion.stats != null)
+                              10.verticalSpace,
                             ImpressionsInfoWidget(
                               analyticsInfo: promotion.stats!,
                             ),
                             15.verticalSpace,
-                            if (promotion.stats != null && (promotion.stats!.countries?.isNotEmpty ?? false))
+                            if (promotion.stats != null &&
+                                (promotion.stats!.countries?.isNotEmpty ??
+                                    false))
                               Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -126,7 +137,8 @@ class _ViewAnalyticsPageState extends State<ViewAnalyticsPage> {
                                   ),
                                   20.verticalSpace,
                                   CountryEngagementsWidget(
-                                    countryStats: promotion.stats!.countries ?? [],
+                                    countryStats:
+                                        promotion.stats!.countries ?? [],
                                   ),
                                 ],
                               )

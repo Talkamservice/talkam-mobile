@@ -21,7 +21,6 @@ import 'package:talkam/features/messaging/presentation/blocs/messaging/messaging
 import 'package:talkam/features/messaging/presentation/widgets/chat_screen_actions.dart';
 import 'package:talkam/features/messaging/presentation/widgets/conversation_actions_widget.dart';
 import 'package:talkam/features/messaging/presentation/widgets/message_bubbles/message_box.dart';
-import 'package:talkam/core/mock/mock_home_data.dart';
 import 'package:uuid/uuid.dart';
 
 class ChatScreenParam {
@@ -59,8 +58,6 @@ class _ChatScreenState extends State<ChatScreen>
 
   @override
   Widget build(BuildContext context) {
-    final isVerified =
-        MockHomeData.verifiedContactIds.contains(widget.param.user.id);
     // String messageTime = "12:34 PM";
     return Scaffold(
       appBar: CustomAppBar(
@@ -81,10 +78,6 @@ class _ChatScreenState extends State<ChatScreen>
               fontSize: 16,
               fontWeight: FontWeight.w700,
             ),
-            if (isVerified) ...[
-              6.horizontalSpace,
-              const Icon(Icons.verified, size: 16, color: Colors.orange),
-            ],
           ],
         ),
         centerTile: false,

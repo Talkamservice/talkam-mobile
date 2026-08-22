@@ -16,13 +16,13 @@ class UserProfilePostsCubit extends Cubit<UserProfilePostsState> {
   UserProfilePostsCubit(this._profileRepository)
       : super(const UserProfilePostsState.initial());
 
-  Future<void> fetchUserPosts(String userId,{bool? reload= true}) async {
-    if(reload!){
+  Future<void> fetchUserPosts(String userId, {bool? reload = true}) async {
+    if (reload!) {
       emit(const UserProfilePostsState.loading());
     }
     try {
-      final List<TalkamPost> userPosts =
-          await _profileRepository.fetchUserPostsById(page: _currentPage,userId: userId);
+      final List<TalkamPost> userPosts = await _profileRepository
+          .fetchUserPostsById(page: _currentPage, userId: userId);
       emit(UserProfilePostsState.loaded(userPosts));
     } catch (exception, stackTrace) {
       logger.e(exception, stackTrace: stackTrace);
@@ -30,14 +30,17 @@ class UserProfilePostsCubit extends Cubit<UserProfilePostsState> {
     }
   }
 
-  Future<void> loadMorePosts(List<TalkamPost> previousPosts) async {
-    if (_hasReachedEndOfList || state is UserProfilePostsTabLoadingMoreState)
+  Future<void> loadMorePosts(
+      List<TalkamPost> previousPosts, String userId) async {
+    if (_hasReachedEndOfList || state is UserProfilePostsTabLoadingMoreState) {
       return;
+    }
     emit(const UserProfilePostsState.loadingMore());
     try {
       _currentPage += 1;
-      final List<TalkamPost> newUserPosts = await _profileRepository
-          .fetchUserPosts(page: _currentPage, isPaginating: true);
+      final List<TalkamPost> newUserPosts =
+          await _profileRepository.fetchUserPostsById(
+              page: _currentPage, isPaginating: true, userId: userId);
       _hasReachedEndOfList = newUserPosts.isEmpty;
       emit(UserProfilePostsState.loaded([...previousPosts, ...newUserPosts]));
     } catch (exception, stackTrace) {
