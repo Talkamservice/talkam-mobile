@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
+import 'package:talkam/common/widgets/rich_composer_controller.dart';
 import 'package:talkam/common/widgets/custom_switch.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
@@ -18,9 +19,13 @@ import 'package:talkam/core/utils/time_util.dart';
 import 'package:talkam/features/post/data/models/create_post_payload.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
+import 'package:talkam/features/post/presentation/bloc/composer_editor_cubit/composer_editor_cubit.dart';
 import 'package:talkam/features/post/presentation/bloc/create_post/create_post_cubit.dart';
 import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
+import 'package:talkam/features/post/presentation/widgets/emoji_composer_sheet.dart';
+import 'package:talkam/features/post/presentation/widgets/poll_builder_sheet.dart';
 import 'package:talkam/features/post/presentation/widgets/rules_sheet.dart';
+import 'package:talkam/features/post/presentation/widgets/style_toggle_chip.dart';
 import 'package:talkam/features/post/presentation/widgets/tags_picker_widget.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
@@ -47,7 +52,8 @@ class _CreatePostSheetState extends State<CreatePostSheet>
   final bloc = CreatePostCubit(injector.get());
   final _postBloc = PostBloc(injector.get());
   final _titleController = TextEditingController();
-  final _bodyController = TextEditingController();
+  final _bodyController = RichComposerController();
+  late final _bodyEditor = ComposerEditorCubit(_bodyController);
 
   PostCategory? _selectedCategory;
   List<String> _tags = [];
@@ -55,6 +61,7 @@ class _CreatePostSheetState extends State<CreatePostSheet>
   DateTime? _scheduleDate;
   bool _isAnonymous = false;
   File? _stagedImage;
+  Poll? _poll;
 
   @override
   void initState() {
@@ -65,6 +72,7 @@ class _CreatePostSheetState extends State<CreatePostSheet>
   @override
   void dispose() {
     _titleController.dispose();
+    _bodyEditor.close();
     _bodyController.dispose();
     _postBloc.close();
     super.dispose();
@@ -72,10 +80,30 @@ class _CreatePostSheetState extends State<CreatePostSheet>
 
   Future<void> _pickImage() async {
     var image = await ImageManager().pickImageFromGallery();
-    if (image != null) setState(() => _stagedImage = image);
+    if (image != null)
+      setState(() {
+        _stagedImage = image;
+        _poll = null;
+      });
   }
 
   void _comingSoon() => CustomDialogs.showToast("Coming soon");
+
+  Future<void> _openPoll() async {
+    _bodyEditor.closeMoreOptions();
+    final poll = await showPollBuilderSheet(context, initial: _poll);
+    if (poll != null) {
+      setState(() {
+        _poll = poll;
+        _stagedImage = null;
+      });
+    }
+  }
+
+  void _openEmoji() {
+    _bodyEditor.closeMoreOptions();
+    showEmojiComposerSheet(context, _bodyController);
+  }
 
   Future<void> _pickScheduleDateTime() async {
     final now = DateTime.now();
@@ -125,9 +153,10 @@ class _CreatePostSheetState extends State<CreatePostSheet>
       title: _titleController.text.trim(),
       body: _bodyController.text.trim(),
       tags: _tags,
-      type: _stagedImage != null ? "Image" : "Text",
+      type: _poll != null ? "Poll" : (_stagedImage != null ? "Image" : "Text"),
       attachments:
           _stagedImage != null ? [Attachment.image(_stagedImage!.path)] : [],
+      poll: _poll,
       status: _schedulePost ? "Scheduled" : "Active",
       publishAt: _schedulePost ? _scheduleDate : null,
       isAnonymous: _isAnonymous.toInt,
@@ -281,7 +310,6 @@ class _CreatePostSheetState extends State<CreatePostSheet>
                             minLines: 6,
                             maxLength: _kBodyMaxLength,
                             textCapitalization: TextCapitalization.sentences,
-                            onChanged: (_) => setState(() {}),
                             decoration: const InputDecoration(
                               hintText: "What's on your mind",
                               border: InputBorder.none,
@@ -318,41 +346,145 @@ class _CreatePostSheetState extends State<CreatePostSheet>
                                 ],
                               ),
                             ),
+                          if (_poll != null)
+                            Padding(
+                              padding: EdgeInsets.only(bottom: 8.h),
+                              child: _PollPreview(
+                                poll: _poll!,
+                                onEdit: () async {
+                                  final poll = await showPollBuilderSheet(
+                                      context,
+                                      initial: _poll);
+                                  if (poll != null) {
+                                    setState(() => _poll = poll);
+                                  }
+                                },
+                                onRemove: () => setState(() => _poll = null),
+                              ),
+                            ),
+                          BlocBuilder<ComposerEditorCubit, ComposerEditorState>(
+                            bloc: _bodyEditor,
+                            builder: (context, editorState) =>
+                                SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  InkWell(
+                                    onTap: _pickImage,
+                                    child: ImageWidget(
+                                        imageUrl:
+                                            Assets.images.svgV2.addImageIcon,
+                                        size: 20),
+                                  ),
+                                  16.horizontalSpace,
+                                  InkWell(
+                                    canRequestFocus: false,
+                                    onTap: _bodyEditor.toggleStyleOptions,
+                                    child: ImageWidget(
+                                      imageUrl: Assets.images.svgV2.text,
+                                      size: 20,
+                                      color: editorState.showStyleOptions
+                                          ? Pallets.blueBubbleColor
+                                          : null,
+                                    ),
+                                  ),
+                                  AnimatedSize(
+                                    duration: const Duration(milliseconds: 200),
+                                    curve: Curves.easeOut,
+                                    child: !editorState.showStyleOptions
+                                        ? const SizedBox(height: 28)
+                                        : Row(
+                                            children: [
+                                              8.horizontalSpace,
+                                              StyleToggleChip(
+                                                label: "B",
+                                                active:
+                                                    editorState.isBoldActive,
+                                                onTap: _bodyEditor.toggleBold,
+                                              ),
+                                              8.horizontalSpace,
+                                              StyleToggleChip(
+                                                label: "I",
+                                                active:
+                                                    editorState.isItalicActive,
+                                                fontStyle: FontStyle.italic,
+                                                onTap: _bodyEditor.toggleItalic,
+                                              ),
+                                            ],
+                                          ),
+                                  ),
+                                  16.horizontalSpace,
+                                  InkWell(
+                                    onTap: _comingSoon,
+                                    child: ImageWidget(
+                                        imageUrl: Assets.images.svgV2.gif02,
+                                        size: 20),
+                                  ),
+                                  16.horizontalSpace,
+                                  InkWell(
+                                    canRequestFocus: false,
+                                    onTap: _bodyEditor.toggleBulletLine,
+                                    child: ImageWidget(
+                                      imageUrl: Assets
+                                          .images.svgV2.rightToLeftListBullet,
+                                      size: 20,
+                                      color: editorState.isBulletLineActive
+                                          ? Pallets.blueBubbleColor
+                                          : null,
+                                    ),
+                                  ),
+                                  16.horizontalSpace,
+                                  InkWell(
+                                    canRequestFocus: false,
+                                    onTap: _bodyEditor.toggleMoreOptions,
+                                    child: Icon(Icons.add_circle_outline,
+                                        size: 22,
+                                        color: editorState.showMoreOptions
+                                            ? Pallets.blueBubbleColor
+                                            : Pallets.grey60),
+                                  ),
+                                  AnimatedSize(
+                                    duration: const Duration(milliseconds: 200),
+                                    curve: Curves.easeOut,
+                                    child: !editorState.showMoreOptions
+                                        ? const SizedBox(height: 28)
+                                        : Row(
+                                            children: [
+                                              8.horizontalSpace,
+                                              InkWell(
+                                                onTap: _openPoll,
+                                                child: const Icon(
+                                                    Icons.bar_chart_rounded,
+                                                    size: 20,
+                                                    color: Pallets
+                                                        .blueBubbleColor),
+                                              ),
+                                              8.horizontalSpace,
+                                              InkWell(
+                                                onTap: _openEmoji,
+                                                child: const Icon(
+                                                    Icons
+                                                        .emoji_emotions_outlined,
+                                                    size: 20,
+                                                    color: Pallets
+                                                        .blueBubbleColor),
+                                              ),
+                                            ],
+                                          ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                           Row(
                             children: [
-                              InkWell(
-                                onTap: _pickImage,
-                                child: ImageWidget(
-                                    imageUrl: Assets.images.svgV2.addImageIcon,
-                                    size: 20),
-                              ),
-                              16.horizontalSpace,
-                              InkWell(
-                                onTap: _comingSoon,
-                                child: ImageWidget(
-                                    imageUrl: Assets.images.svgV2.text,
-                                    size: 20),
-                              ),
-                              16.horizontalSpace,
-                              InkWell(
-                                onTap: _comingSoon,
-                                child: ImageWidget(
-                                    imageUrl: Assets.images.svgV2.gif02,
-                                    size: 20),
-                              ),
-                              16.horizontalSpace,
-                              InkWell(
-                                onTap: _comingSoon,
-                                child: ImageWidget(
-                                    imageUrl: Assets
-                                        .images.svgV2.rightToLeftListBullet,
-                                    size: 20),
-                              ),
                               const Spacer(),
                               ValueListenableBuilder(
                                 valueListenable: _bodyController,
                                 builder: (context, value, _) => TextView(
-                                  text: "${value.text.length}/$_kBodyMaxLength",
+                                  text:
+                                      "${value.text.characters.length}/$_kBodyMaxLength",
                                   color: Pallets.grey60,
                                   fontSize: 12,
                                 ),
@@ -568,6 +700,61 @@ class _RulesPillButton extends StatelessWidget {
               fontSize: 13,
               fontWeight: FontWeight.w600,
               color: Pallets.blueBubbleColor,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _PollPreview extends StatelessWidget {
+  const _PollPreview(
+      {required this.poll, required this.onEdit, required this.onRemove});
+
+  final Poll poll;
+  final VoidCallback onEdit;
+  final VoidCallback onRemove;
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onEdit,
+      child: Container(
+        width: double.infinity,
+        padding: EdgeInsets.all(12.w),
+        decoration: BoxDecoration(
+          color: Pallets.blueBubbleColor.withValues(alpha: 0.06),
+          borderRadius: BorderRadius.circular(12.r),
+          border:
+              Border.all(color: Pallets.blueBubbleColor.withValues(alpha: 0.4)),
+        ),
+        child: Row(
+          children: [
+            const Icon(Icons.bar_chart_rounded,
+                color: Pallets.blueBubbleColor, size: 20),
+            10.horizontalSpace,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const TextView(
+                      text: "Poll attached",
+                      fontSize: 13,
+                      fontWeight: FontWeight.w700),
+                  2.verticalSpace,
+                  TextView(
+                    text:
+                        "${poll.options.length} options • ${Duration(minutes: poll.duration.toInt()).inDays}d ${Duration(minutes: poll.duration.toInt()).inHours.remainder(24)}h",
+                    fontSize: 12,
+                    color: Pallets.grey60,
+                  ),
+                ],
+              ),
+            ),
+            InkWell(
+              onTap: onRemove,
+              child: const Icon(Icons.close, color: Pallets.grey60, size: 18),
             ),
           ],
         ),

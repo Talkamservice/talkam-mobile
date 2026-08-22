@@ -15,6 +15,7 @@ import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/core/utils/composer_markup.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:url_launcher/url_launcher.dart' as launch;
 import 'package:url_launcher/url_launcher.dart';
@@ -35,14 +36,21 @@ class Helpers {
             PageUrl.profileScreen,
           );
         } else {
-          context.pushNamed(PageUrl.userProfileScreen, extra: userName.toString());
+          context.pushNamed(PageUrl.userProfileScreen,
+              extra: userName.toString());
         }
       },
     );
   }
 
-  static Widget buildTextWithMentions(String text, BuildContext context, {double? fontSize, FontWeight? fontWeight, Function(String)? mentionCallback}) {
-    List<TextSpan> spans = mentionSpans(text, fontSize: fontSize, fontWeight: fontWeight, mentionCallback: mentionCallback);
+  static Widget buildTextWithMentions(String text, BuildContext context,
+      {double? fontSize,
+      FontWeight? fontWeight,
+      Function(String)? mentionCallback}) {
+    List<TextSpan> spans = mentionSpans(text,
+        fontSize: fontSize,
+        fontWeight: fontWeight,
+        mentionCallback: mentionCallback);
 
     return RichText(
       text: TextSpan(
@@ -52,7 +60,11 @@ class Helpers {
     );
   }
 
-  static List<TextSpan> mentionSpans(String text, {double? fontSize, FontWeight? fontWeight, Function(String)? mentionCallback, TextStyle? textStyle}) {
+  static List<TextSpan> mentionSpans(String text,
+      {double? fontSize,
+      FontWeight? fontWeight,
+      Function(String)? mentionCallback,
+      TextStyle? textStyle}) {
     final List<TextSpan> spans = [];
 
     // Regex to find mentions in the format $@mention$
@@ -63,11 +75,13 @@ class Helpers {
     for (final match in mentionRegExp.allMatches(text)) {
       final mention = match.group(1) ?? '';
 
-      // Add the text before the mention
+      // Add the text before the mention — further parsed for *bold*/
+      // _italic_ markup so a comment can carry both a mention and styled
+      // text at once.
       if (match.start > start) {
-        spans.add(TextSpan(
-          text: text.substring(start, match.start),
-          style: textStyle ??
+        spans.addAll(ComposerMarkup.toSpans(
+          text.substring(start, match.start),
+          baseStyle: textStyle ??
               TextStyle(
                 fontSize: fontSize?.sp,
                 fontWeight: fontWeight,
@@ -102,9 +116,9 @@ class Helpers {
 
     // Add remaining text after the last mention
     if (start < text.length) {
-      spans.add(TextSpan(
-        text: text.substring(start),
-        style: textStyle?.copyWith(
+      spans.addAll(ComposerMarkup.toSpans(
+        text.substring(start),
+        baseStyle: textStyle?.copyWith(
               fontSize: fontSize,
               fontWeight: fontWeight,
             ) ??
@@ -139,7 +153,11 @@ class Helpers {
     num dLat = degreesToRadians(lat2 - lat1);
     num dLon = degreesToRadians(lon2 - lon1);
 
-    num a = sin(dLat / 2) * sin(dLat / 2) + cos(degreesToRadians(lat1)) * cos(degreesToRadians(lat2)) * sin(dLon / 2) * sin(dLon / 2);
+    num a = sin(dLat / 2) * sin(dLat / 2) +
+        cos(degreesToRadians(lat1)) *
+            cos(degreesToRadians(lat2)) *
+            sin(dLon / 2) *
+            sin(dLon / 2);
     num c = 2 * atan2(sqrt(a), sqrt(1 - a));
 
     return (earthRadius * c).floor();
@@ -176,7 +194,9 @@ class Helpers {
   }
 
   static launchInappWebView(String url) {
-    launch.launchUrl(Uri.parse(url), mode: LaunchMode.inAppWebView, webViewConfiguration: const WebViewConfiguration());
+    launch.launchUrl(Uri.parse(url),
+        mode: LaunchMode.inAppWebView,
+        webViewConfiguration: const WebViewConfiguration());
   }
 
   static void share(String text) {
@@ -190,7 +210,8 @@ class Helpers {
     return uuid.v1();
   }
 
-  static bool hasTextOverflow(String text, TextStyle style, {double minWidth = 0, int maxLines = 3}) {
+  static bool hasTextOverflow(String text, TextStyle style,
+      {double minWidth = 0, int maxLines = 3}) {
     final TextPainter textPainter = TextPainter(
       text: TextSpan(text: text, style: style),
       maxLines: maxLines,
@@ -285,7 +306,10 @@ class Helpers {
   }
 
   static String? encodeQueryParameters(Map<String, String> params) {
-    return params.entries.map((MapEntry<String, String> e) => '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}').join('&');
+    return params.entries
+        .map((MapEntry<String, String> e) =>
+            '${Uri.encodeComponent(e.key)}=${Uri.encodeComponent(e.value)}')
+        .join('&');
   }
 
 // Function toget the file extension from a URL or path
@@ -300,7 +324,8 @@ class Helpers {
   }
 
 // Function to open the document using the appropriate method
-  static Future<void> openDocument(String urlOrPath, BuildContext context) async {
+  static Future<void> openDocument(
+      String urlOrPath, BuildContext context) async {
     final extension = getFileExtension(urlOrPath);
 
     // Check if it's an image or GIF
@@ -356,7 +381,16 @@ class Helpers {
 
   static bool pathIsDocument(String filePath) {
     final extension = filePath.split('.').last.toLowerCase();
-    final documentExtensions = ['pdf', 'doc', 'docx', 'xls', 'xlsx', 'ppt', 'pptx', 'txt'];
+    final documentExtensions = [
+      'pdf',
+      'doc',
+      'docx',
+      'xls',
+      'xlsx',
+      'ppt',
+      'pptx',
+      'txt'
+    ];
     return documentExtensions.contains(extension);
   }
 }

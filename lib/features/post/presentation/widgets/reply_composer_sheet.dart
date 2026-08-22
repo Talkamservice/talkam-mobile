@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
+import 'package:talkam/common/widgets/rich_composer_controller.dart';
 import 'package:talkam/common/widgets/custom_switch.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
@@ -12,6 +14,9 @@ import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/extensions/int_extension.dart';
 import 'package:talkam/features/post/data/models/save_comment_payload.dart';
+import 'package:talkam/features/post/presentation/bloc/composer_editor_cubit/composer_editor_cubit.dart';
+import 'package:talkam/features/post/presentation/widgets/emoji_composer_sheet.dart';
+import 'package:talkam/features/post/presentation/widgets/style_toggle_chip.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
@@ -51,12 +56,14 @@ class ReplyComposerSheet extends StatefulWidget {
 }
 
 class _ReplyComposerSheetState extends State<ReplyComposerSheet> {
-  final _controller = TextEditingController();
+  final _controller = RichComposerController();
+  late final _editor = ComposerEditorCubit(_controller);
   bool _isAnonymous = false;
   File? _stagedImage;
 
   @override
   void dispose() {
+    _editor.close();
     _controller.dispose();
     super.dispose();
   }
@@ -81,6 +88,11 @@ class _ReplyComposerSheetState extends State<ReplyComposerSheet> {
   }
 
   void _comingSoon() => CustomDialogs.showToast("Coming soon");
+
+  void _openEmoji() {
+    _editor.closeMoreOptions();
+    showEmojiComposerSheet(context, _controller);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -158,8 +170,8 @@ class _ReplyComposerSheetState extends State<ReplyComposerSheet> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         ClipOval(
-                          child: ImageWidget(
-                              imageUrl: widget.avatarUrl, size: 36),
+                          child:
+                              ImageWidget(imageUrl: widget.avatarUrl, size: 36),
                         ),
                         12.horizontalSpace,
                         Expanded(
@@ -233,7 +245,6 @@ class _ReplyComposerSheetState extends State<ReplyComposerSheet> {
                         minLines: 1,
                         maxLength: _kReplyMaxLength,
                         textCapitalization: TextCapitalization.sentences,
-                        onChanged: (_) => setState(() {}),
                         decoration: const InputDecoration(
                           hintText: "Post your reply",
                           border: InputBorder.none,
@@ -277,36 +288,119 @@ class _ReplyComposerSheetState extends State<ReplyComposerSheet> {
               const Divider(height: 24),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: BlocBuilder<ComposerEditorCubit, ComposerEditorState>(
+                    bloc: _editor,
+                    builder: (context, editorState) => SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          InkWell(
+                            onTap: _pickImage,
+                            child: ImageWidget(
+                                imageUrl: Assets.images.svgV2.addImageIcon,
+                                size: 20),
+                          ),
+                          16.horizontalSpace,
+                          InkWell(
+                            canRequestFocus: false,
+                            onTap: _editor.toggleStyleOptions,
+                            child: ImageWidget(
+                              imageUrl: Assets.images.svgV2.text,
+                              size: 20,
+                              color: editorState.showStyleOptions
+                                  ? Pallets.blueBubbleColor
+                                  : null,
+                            ),
+                          ),
+                          AnimatedSize(
+                            duration: const Duration(milliseconds: 200),
+                            curve: Curves.easeOut,
+                            child: !editorState.showStyleOptions
+                                ? const SizedBox(height: 28)
+                                : Row(
+                                    children: [
+                                      8.horizontalSpace,
+                                      StyleToggleChip(
+                                        label: "B",
+                                        active: editorState.isBoldActive,
+                                        onTap: _editor.toggleBold,
+                                      ),
+                                      8.horizontalSpace,
+                                      StyleToggleChip(
+                                        label: "I",
+                                        active: editorState.isItalicActive,
+                                        fontStyle: FontStyle.italic,
+                                        onTap: _editor.toggleItalic,
+                                      ),
+                                    ],
+                                  ),
+                          ),
+                          16.horizontalSpace,
+                          InkWell(
+                            onTap: _comingSoon,
+                            child: ImageWidget(
+                                imageUrl: Assets.images.svgV2.gif02, size: 20),
+                          ),
+                          16.horizontalSpace,
+                          InkWell(
+                            canRequestFocus: false,
+                            onTap: _editor.toggleBulletLine,
+                            child: ImageWidget(
+                              imageUrl:
+                                  Assets.images.svgV2.rightToLeftListBullet,
+                              size: 20,
+                              color: editorState.isBulletLineActive
+                                  ? Pallets.blueBubbleColor
+                                  : null,
+                            ),
+                          ),
+                          16.horizontalSpace,
+                          InkWell(
+                            canRequestFocus: false,
+                            onTap: _editor.toggleMoreOptions,
+                            child: Icon(Icons.add_circle_outline,
+                                size: 22,
+                                color: editorState.showMoreOptions
+                                    ? Pallets.blueBubbleColor
+                                    : Pallets.grey60),
+                          ),
+                          AnimatedSize(
+                            duration: const Duration(milliseconds: 200),
+                            curve: Curves.easeOut,
+                            child: !editorState.showMoreOptions
+                                ? const SizedBox(height: 28)
+                                : Row(
+                                    children: [
+                                      8.horizontalSpace,
+                                      InkWell(
+                                        onTap: _openEmoji,
+                                        child: const Icon(
+                                            Icons.emoji_emotions_outlined,
+                                            size: 20,
+                                            color: Pallets.blueBubbleColor),
+                                      ),
+                                    ],
+                                  ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
                 child: Row(
                   children: [
-                    InkWell(
-                      onTap: _pickImage,
-                      child: ImageWidget(
-                          imageUrl: Assets.images.svgV2.addImageIcon, size: 20),
-                    ),
-                    16.horizontalSpace,
-                    InkWell(
-                      onTap: _comingSoon,
-                      child: ImageWidget(
-                          imageUrl: Assets.images.svgV2.text, size: 20),
-                    ),
-                    16.horizontalSpace,
-                    InkWell(
-                      onTap: _comingSoon,
-                      child: ImageWidget(
-                          imageUrl: Assets.images.svgV2.gif02, size: 20),
-                    ),
-                    16.horizontalSpace,
-                    InkWell(
-                      onTap: _comingSoon,
-                      child: ImageWidget(
-                          imageUrl: Assets.images.svgV2.rightToLeftListBullet, size: 20),
-                    ),
                     const Spacer(),
                     ValueListenableBuilder(
                       valueListenable: _controller,
                       builder: (context, value, _) => TextView(
-                        text: "${value.text.length}/$_kReplyMaxLength",
+                        text:
+                            "${value.text.characters.length}/$_kReplyMaxLength",
                         color: Pallets.grey60,
                         fontSize: 12,
                       ),
