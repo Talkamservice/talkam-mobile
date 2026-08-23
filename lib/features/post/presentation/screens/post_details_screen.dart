@@ -100,7 +100,6 @@ class _PostDetailsScreenState extends State<PostDetailsScreen>
                   orElse: () => null,
                   getPostDetailsSuccess: (response) {
                     _post = response.data;
-                    refreshPost(reload: false);
                     setState(() {});
                   },
                 );
