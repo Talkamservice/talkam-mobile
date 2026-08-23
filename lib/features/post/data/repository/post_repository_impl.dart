@@ -133,6 +133,9 @@ class PostRepositoryImpl extends PostRepository {
       final response = await _v2.call(UrlConfigV2.posts, RequestMethod.post,
           data: postData
               .copyWith(
+                  body: postData.body == null
+                      ? null
+                      : updateMentions(postData.body!),
                   attachments:
                       imageUrls.map((e) => Attachment.image(e)).toList())
               .toJson());

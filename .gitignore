@@ -46,3 +46,8 @@ app.*.map.json
 config.json
 prod_config.json
 config-staging.json
+
+# Stale scratch output / local editor lock files — not a maintained baseline
+analyze_errors*.txt
+.~lock.*#
+status-talkam-update.xlsx

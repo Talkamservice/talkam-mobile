@@ -4,6 +4,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:either_dart/either.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:talkam/core/di/injector.dart';
 
 class ImageDownloader {
   final Dio _dio = Dio();
@@ -18,7 +19,7 @@ class ImageDownloader {
           onReceiveProgress: (received, total) {
             if (total != -1) {
               double progress = (received / total) * 100;
-              print('Download progress: $progress%');
+              logger.d('Download progress: $progress%');
             }
           },
         );

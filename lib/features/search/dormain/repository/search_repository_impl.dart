@@ -49,8 +49,12 @@ class SearchRepositoryImpl extends SearchRepository {
             GetGroupsResponse.fromJson(response.data)),
         SearchSort.media => SearchResult<GetPostsResponse>(
             GetPostsResponse.fromJson(response.data)),
+        // Unlike GetPostsResponse/GetGroupsResponse, PeopleSearchResponse
+        // has no "message"/"success"/"code" envelope of its own — the API
+        // nests pagination_meta/data one level deeper than those, inside
+        // this response's own "data" object, so it needs unwrapping here.
         SearchSort.people => SearchResult<PeopleSearchResponse>(
-            PeopleSearchResponse.fromJson(response.data)),
+            PeopleSearchResponse.fromJson(response.data["data"])),
       };
     } catch (e) {
       rethrow;

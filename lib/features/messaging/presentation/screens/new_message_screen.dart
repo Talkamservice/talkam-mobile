@@ -8,6 +8,7 @@ import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/custom_outlined_button.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/messaging/presentation/widgets/message_bubbles/blue_bubbles.dart';
 import 'package:talkam/gen/assets.gen.dart';
@@ -28,7 +29,7 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
           await ImagePicker().pickImage(source: ImageSource.gallery);
 
       if (pickedImage == null) {
-        print('No image picked');
+        logger.i('No image picked');
         return;
       }
 
@@ -37,7 +38,7 @@ class _NewMessageScreenState extends State<NewMessageScreen> {
         image = imageTemporary;
       });
     } catch (e) {
-      print('Failed to pick image: $e');
+      logger.e('Failed to pick image: $e');
     }
   }
 

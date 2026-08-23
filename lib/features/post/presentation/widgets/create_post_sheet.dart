@@ -23,6 +23,7 @@ import 'package:talkam/features/post/presentation/bloc/composer_editor_cubit/com
 import 'package:talkam/features/post/presentation/bloc/create_post/create_post_cubit.dart';
 import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 import 'package:talkam/features/post/presentation/widgets/emoji_composer_sheet.dart';
+import 'package:talkam/features/post/presentation/widgets/mention_suggestions_panel.dart';
 import 'package:talkam/features/post/presentation/widgets/poll_builder_sheet.dart';
 import 'package:talkam/features/post/presentation/widgets/rules_sheet.dart';
 import 'package:talkam/features/post/presentation/widgets/style_toggle_chip.dart';
@@ -316,6 +317,7 @@ class _CreatePostSheetState extends State<CreatePostSheet>
                               counterText: "",
                             ),
                           ),
+                          MentionSuggestionsPanel(editor: _bodyEditor),
                           if (_stagedImage != null)
                             Padding(
                               padding: EdgeInsets.only(bottom: 8.h),

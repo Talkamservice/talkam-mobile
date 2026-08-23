@@ -296,7 +296,7 @@ class _DrawerQuickLinks extends StatelessWidget {
           bloc: injector.get<NotificationsBloc>(),
           builder: (context, state) {
             final unread =
-                injector.get<NotificationsBloc>().stats.unreadMessages;
+                injector.get<NotificationsBloc>().stats.unreadNotifications;
             return _QuickLinkRow(
               iconUrl: Assets.images.svgV2.notificationIcon,
               label: "Notification",

@@ -7,6 +7,9 @@ class ComposerEditorState {
     this.isBulletLineActive = false,
     this.showStyleOptions = false,
     this.showMoreOptions = false,
+    this.mentionQuery,
+    this.mentionResults = const [],
+    this.mentionLoading = false,
   });
 
   /// Whether B/I should show as active — either because the current
@@ -22,6 +25,22 @@ class ComposerEditorState {
   final bool showStyleOptions;
   final bool showMoreOptions;
 
+  /// The in-progress "@query" text right after an active, unterminated
+  /// "@" trigger (see `ComposerTextTools.activeMentionQuery`) — null when
+  /// no mention suggestions should show. Always recomputed fresh on every
+  /// text/selection change, so it's set directly rather than through
+  /// [copyWith] (which can't tell "leave unchanged" apart from "clear to
+  /// null" for a nullable field).
+  final String? mentionQuery;
+
+  /// Debounced people-search results for [mentionQuery]. Stale while
+  /// [mentionLoading] is true for a query that changed since these were
+  /// fetched.
+  final List<PostCreator> mentionResults;
+  final bool mentionLoading;
+
+  bool get showMentionSuggestions => mentionQuery != null;
+
   ComposerEditorState copyWith({
     bool? isBoldActive,
     bool? isItalicActive,
@@ -35,5 +54,8 @@ class ComposerEditorState {
         isBulletLineActive: isBulletLineActive ?? this.isBulletLineActive,
         showStyleOptions: showStyleOptions ?? this.showStyleOptions,
         showMoreOptions: showMoreOptions ?? this.showMoreOptions,
+        mentionQuery: mentionQuery,
+        mentionResults: mentionResults,
+        mentionLoading: mentionLoading,
       );
 }

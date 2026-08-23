@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
@@ -29,7 +30,7 @@ class _NewRequestListState extends State<NewRequestList> {
           await ImagePicker().pickImage(source: ImageSource.gallery);
 
       if (pickedImage == null) {
-        print('No image picked');
+        logger.i('No image picked');
         return;
       }
 
@@ -38,7 +39,7 @@ class _NewRequestListState extends State<NewRequestList> {
         image = imageTemporary;
       });
     } catch (e) {
-      print('Failed to pick image: $e');
+      logger.e('Failed to pick image: $e');
     }
   }
 

@@ -29,7 +29,6 @@ class PusherChannelService {
           apiKey: '1934aa1e05c3acfdfd3f',
           cluster: "mt1",
 
-
           maxReconnectGapInSeconds: 1,
           onEvent: (event) {
             // logger.w(event.data);
@@ -100,7 +99,7 @@ class PusherChannelService {
 
     var hmacSha256 = Hmac(sha256, key); // HMAC-SHA256
     var digest = hmacSha256.convert(bytes);
-    print("HMAC signature in string is: $digest");
+    logger.d("HMAC signature in string is: $digest");
     return digest;
   }
 

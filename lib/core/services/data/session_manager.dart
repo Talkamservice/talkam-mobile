@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
@@ -20,6 +21,14 @@ class SessionManager {
   SharedPreferences? sharedPreferences;
   FlutterSecureStorage? secureStorage;
 
+  /// In-memory mirror of the auth token held in [secureStorage]. Reads on
+  /// [authToken] must stay synchronous (the Dio auth interceptor reads it
+  /// on every request, from a non-async `onRequest` override), while
+  /// `flutter_secure_storage`'s API is Future-based — so this cache is the
+  /// source of truth for reads, populated from secure storage during
+  /// [init], and kept in sync on every write via [authToken]'s setter.
+  String _authTokenCache = '';
+
   static final SessionManager _instance = SessionManager._internal();
 
   factory SessionManager() => _instance;
@@ -30,8 +39,29 @@ class SessionManager {
     try {
       sharedPreferences = await SharedPreferences.getInstance();
       secureStorage = const FlutterSecureStorage();
+      await _loadAuthToken();
     } catch (e) {
       logger.e(e.toString());
+    }
+  }
+
+  /// Populates [_authTokenCache] from secure storage. One-time migration:
+  /// earlier app versions stored the token in plain [sharedPreferences] —
+  /// if secure storage is empty but the legacy key still holds a value,
+  /// move it over so existing logged-in users aren't signed out by the
+  /// upgrade, then wipe the plaintext copy.
+  Future<void> _loadAuthToken() async {
+    final secureToken = await secureStorage?.read(key: KEY_AUTH_TOKEN);
+    if (secureToken != null && secureToken.isNotEmpty) {
+      _authTokenCache = secureToken;
+      return;
+    }
+
+    final legacyToken = sharedPreferences?.getString(KEY_AUTH_TOKEN);
+    if (legacyToken != null && legacyToken.isNotEmpty) {
+      _authTokenCache = legacyToken;
+      await secureStorage?.write(key: KEY_AUTH_TOKEN, value: legacyToken);
+      await sharedPreferences?.remove(KEY_AUTH_TOKEN);
     }
   }
 
@@ -59,10 +89,7 @@ class SessionManager {
   set usersData(Map<String, dynamic> map) =>
       sharedPreferences!.setString(KEY_USERS_DATA, json.encode(map));
 
-  bool get doesUserDataExists {
-    return sharedPreferences!.containsKey(KEY_AUTH_TOKEN) &&
-        authToken.isNotEmpty;
-  }
+  bool get doesUserDataExists => authToken.isNotEmpty;
 
   set arrivedHome(bool allowed) {
     sharedPreferences!.setBool(IS_CONTACT_PERMITTED, allowed);
@@ -75,7 +102,7 @@ class SessionManager {
 
   bool get useBio => sharedPreferences!.getBool(KEY_USE_BIO) ?? false;
 
-  String get authToken => sharedPreferences?.getString(KEY_AUTH_TOKEN) ?? '';
+  String get authToken => _authTokenCache;
 
   String get userEmail => sharedPreferences!.getString(KEY_USER_EMAIL) ?? '';
 
@@ -85,8 +112,10 @@ class SessionManager {
   // Future<String> getUserPassKey() async =>
   //     await secureStorage?.read(key: KEY_AUTH_PASS) ?? '';
 
-  set authToken(String authToken) =>
-      sharedPreferences!.setString(KEY_AUTH_TOKEN, authToken);
+  set authToken(String authToken) {
+    _authTokenCache = authToken;
+    unawaited(secureStorage?.write(key: KEY_AUTH_TOKEN, value: authToken));
+  }
 
   set useBio(bool useBio) => sharedPreferences!.setBool(KEY_USE_BIO, useBio);
 
@@ -196,6 +225,8 @@ class SessionManager {
     final holdHasOnboarded = sharedPreferences?.getBool(HAS_ONBOARDED);
 
     await sharedPreferences!.clear();
+    _authTokenCache = '';
+    await secureStorage?.delete(key: KEY_AUTH_TOKEN);
 
     // Restore preserved flags so the user isn't treated as a brand-new
     // install on the next launch.

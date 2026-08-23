@@ -246,7 +246,7 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     var bytes = utf8.encode(value);
     var hmacSha256 = Hmac(sha256, key); // HMAC-SHA256
     var digest = hmacSha256.convert(bytes);
-    print("HMAC signature in string is: $digest");
+    logger.d("HMAC signature in string is: $digest");
     return digest;
   }
 

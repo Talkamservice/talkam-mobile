@@ -16,6 +16,7 @@ import 'package:talkam/core/utils/extensions/int_extension.dart';
 import 'package:talkam/features/post/data/models/save_comment_payload.dart';
 import 'package:talkam/features/post/presentation/bloc/composer_editor_cubit/composer_editor_cubit.dart';
 import 'package:talkam/features/post/presentation/widgets/emoji_composer_sheet.dart';
+import 'package:talkam/features/post/presentation/widgets/mention_suggestions_panel.dart';
 import 'package:talkam/features/post/presentation/widgets/style_toggle_chip.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/gen/assets.gen.dart';
@@ -255,6 +256,10 @@ class _ReplyComposerSheetState extends State<ReplyComposerSheet> {
                     ),
                   ],
                 ),
+              ),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                child: MentionSuggestionsPanel(editor: _editor),
               ),
               if (_stagedImage != null)
                 Padding(

@@ -4,11 +4,11 @@ import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
-import 'package:talkam/features/post/data/models/get_comments_response.dart';
 import 'package:talkam/features/post/data/models/talk_am_comment.dart';
+import 'package:talkam/features/post/presentation/bloc/comments/comments_bloc.dart';
+import 'package:talkam/features/post/presentation/widgets/comment_item.dart';
 import 'package:talkam/features/post/presentation/widgets/post_loading_shimmer.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_comment_tab_cubit/profile_comment_tab_cubit.dart';
-import 'package:talkam/features/profile/presentation/widgets/profile_comment_tile.dart';
 import 'package:talkam/features/profile/presentation/widgets/refresh_post_listener.dart';
 
 class ProfileCommentsTab extends StatefulWidget {
@@ -21,6 +21,7 @@ class ProfileCommentsTab extends StatefulWidget {
 class _ProfileCommentsTabState extends State<ProfileCommentsTab>
     with AutomaticKeepAliveClientMixin {
   final ProfileCommentTabCubit _cubit = injector.get();
+  final CommentsBloc _commentsBloc = CommentsBloc(injector.get());
   List<TalkAmComment> _comments = [];
   final ScrollController _scrollController = ScrollController();
 
@@ -31,75 +32,82 @@ class _ProfileCommentsTabState extends State<ProfileCommentsTab>
   }
 
   @override
+  void dispose() {
+    _commentsBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     super.build(context);
-    return RefreshPostListener(
-      onRefresh: () {
-        _cubit.fetchUserComments();
-
-      },
-      child: BlocConsumer<ProfileCommentTabCubit, ProfileCommentTabState>(
-        bloc: _cubit,
-        listener: (context, state) {
-          state.maybeWhen(
-            loaded: (List<TalkAmComment> comments) {
-              _comments = comments;
-              setState(() {});
-            },
-            orElse: () {},
-          );
+    return BlocProvider.value(
+      value: _commentsBloc,
+      child: RefreshPostListener(
+        onRefresh: () {
+          _cubit.fetchUserComments();
         },
-        builder: (context, state) {
-          return state.maybeWhen(
-            loading: () => const Center(
-              child: PostLoadingShimmer(),
-            ),
-            error: () => const SizedBox.shrink(),
-            orElse: () {
-              if (_comments.isEmpty) {
+        child: BlocConsumer<ProfileCommentTabCubit, ProfileCommentTabState>(
+          bloc: _cubit,
+          listener: (context, state) {
+            state.maybeWhen(
+              loaded: (List<TalkAmComment> comments) {
+                _comments = comments;
+                setState(() {});
+              },
+              orElse: () {},
+            );
+          },
+          builder: (context, state) {
+            return state.maybeWhen(
+              loading: () => const Center(
+                child: PostLoadingShimmer(),
+              ),
+              error: () => const SizedBox.shrink(),
+              orElse: () {
+                if (_comments.isEmpty) {
+                  return const Center(
+                    child: TextView(
+                      text: "No comments yet",
+                      fontSize: 18,
+                      fontWeight: FontWeight.w700,
+                    ),
+                  );
+                }
 
-
-                return const Center(
-
-                  child: TextView(
-                    text: "No comments yet",
-                    fontSize: 18,
-                    fontWeight: FontWeight.w700,
+                return RefreshIndicator(
+                  onRefresh: () async {
+                    _cubit.fetchUserComments();
+                  },
+                  child: ListView(
+                    controller: _scrollController,
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    padding: EdgeInsets.only(top: 20.0.h),
+                    children: [
+                      for (int i = 0; i < _comments.length; i++) ...[
+                        CommentItem(
+                          isReply: false,
+                          comment: _comments[i].toPostComment(),
+                          posId: _comments[i].post?.id ?? 0,
+                          replyingToName: _comments[i].replyingToName,
+                          isLast: i == _comments.length - 1,
+                          onDeleted: () =>
+                              setState(() => _comments.removeAt(i)),
+                        ),
+                        8.verticalSpace,
+                      ],
+                      if (state is ProfileCommentLoadingMoreTabState)
+                        Padding(
+                          padding: EdgeInsets.symmetric(vertical: 16.h),
+                          child:
+                              Center(child: CustomDialogs.getLoading(size: 50)),
+                        )
+                    ],
                   ),
                 );
-              }
-
-
-              return RefreshIndicator(
-                onRefresh: () async {
-                  _cubit.fetchUserComments();
-
-                },
-                child: ListView(
-                  controller: _scrollController,
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  padding: EdgeInsets.only(top: 20.0.h),
-                  children: [
-                    for (int i = 0; i < _comments.length; i++) ...[
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 14.w),
-                        child: ProfileCommentTile(
-                          talkAmComment: _comments[i],
-                        ),
-                      ),
-                      24.verticalSpace,
-                    ],
-                    if (state is ProfileCommentLoadingMoreTabState)
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 16.h),
-                        child: Center(child: CustomDialogs.getLoading(size: 50)),
-                      )
-                  ],
-                ),
-              );
-            },
-          );
-        },
+              },
+            );
+          },
+        ),
       ),
     );
   }

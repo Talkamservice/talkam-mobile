@@ -189,6 +189,56 @@ class ComposerTextTools {
     );
   }
 
+  // ─── @mention trigger ───────────────────────────────────────────────
+
+  static bool _isMentionBoundary(String ch) =>
+      ch == ' ' || ch == '\n' || ch == '\t';
+
+  /// The in-progress @mention query if the (collapsed) cursor sits right
+  /// after an unterminated "@word" token — an '@' at the start of the text
+  /// or preceded by whitespace, with no whitespace between it and the
+  /// cursor — or null if there's no active mention trigger. The query may
+  /// be the empty string right after typing a bare "@".
+  static String? activeMentionQuery(String text, TextSelection selection) {
+    if (!selection.isValid || !selection.isCollapsed) return null;
+    final cursor = selection.baseOffset;
+    if (cursor <= 0 || cursor > text.length) return null;
+
+    var i = cursor - 1;
+    while (i >= 0) {
+      final ch = text[i];
+      if (ch == '@') {
+        final hasBoundaryBefore = i == 0 || _isMentionBoundary(text[i - 1]);
+        return hasBoundaryBefore ? text.substring(i + 1, cursor) : null;
+      }
+      if (_isMentionBoundary(ch)) return null;
+      i--;
+    }
+    return null;
+  }
+
+  /// Replaces the in-progress "@query" token the cursor sits in (see
+  /// [activeMentionQuery]) with "@username " and moves the cursor past it,
+  /// ready to keep typing. Only call this when [activeMentionQuery] just
+  /// returned non-null for the same [text]/[selection].
+  static TextEditingValue insertMention(
+      String text, TextSelection selection, String username) {
+    final cursor = selection.baseOffset;
+    var i = cursor - 1;
+    while (i >= 0 && text[i] != '@') {
+      i--;
+    }
+    final before = text.substring(0, i);
+    final after = text.substring(cursor);
+    final insertion = '@$username ';
+    final newText = '$before$insertion$after';
+    return TextEditingValue(
+      text: newText,
+      selection:
+          TextSelection.collapsed(offset: before.length + insertion.length),
+    );
+  }
+
   // ─── Insertion diff ─────────────────────────────────────────────────
 
   /// Finds the substring inserted between [oldText] and [newText] (assumes

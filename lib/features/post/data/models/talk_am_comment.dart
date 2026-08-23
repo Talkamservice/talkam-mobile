@@ -4,6 +4,9 @@
 
 import 'dart:convert';
 
+import 'package:talkam/features/post/data/models/get_comments_response.dart';
+import 'package:talkam/features/post/data/models/get_posts_response.dart';
+
 TalkAmComment talkAmCommentFromJson(String str) =>
     TalkAmComment.fromJson(json.decode(str));
 
@@ -277,4 +280,50 @@ class User {
         "username": username,
         "email": email,
       };
+}
+
+/// Bridges the profile-comments endpoint's own [TalkAmComment] shape to
+/// [PostComment], the model the post-detail comment widgets ([CommentItem]
+/// etc.) already render — so a user's own comment list can reuse that same
+/// widget (like/reply/menu actions included) instead of a second, thinner
+/// comment UI.
+extension TalkAmCommentMapping on TalkAmComment {
+  PostComment toPostComment() => PostComment(
+        id: id is int ? id : int.tryParse(id.toString()) ?? 0,
+        user: PostCreator(
+          id: user.id,
+          avatar: user.avatar?.toString(),
+          name: user.name?.toString() ?? '',
+          username: user.username?.toString(),
+          email: user.email?.toString() ?? '',
+        ),
+        comment: comment,
+        isAnonymous:
+            isAnonymous is int ? isAnonymous : (isAnonymous == true ? 1 : 0),
+        likes: likes is int ? likes : int.tryParse(likes.toString()) ?? 0,
+        unlikes:
+            unlikes is int ? unlikes : int.tryParse(unlikes.toString()) ?? 0,
+        replyTo: replyTo,
+        attachment: attachment,
+        reaction: reaction == null
+            ? null
+            : PostReaction.fromJson(reaction as Map<String, dynamic>),
+        // The profile-comments endpoint doesn't return typed nested replies
+        // (`children` comes back as raw, unparsed JSON) — this view shows a
+        // flat list of the user's own comments, so replies aren't needed.
+        children: const [],
+        createdAt: createdAt,
+        updatedAt: updatedAt,
+      );
+
+  /// Who this (top-level) comment is replying to, for [CommentItem]'s
+  /// "Replying to @…" line — the post's author, matching how post-detail
+  /// screens derive the same label.
+  String get replyingToName {
+    if (post == null) return '';
+    if (post!.isAnonymous == 1) return 'Anonymous';
+    final name = post!.user?.name?.toString() ?? '';
+    if (name.isNotEmpty) return name;
+    return post!.user?.username?.toString() ?? '';
+  }
 }
