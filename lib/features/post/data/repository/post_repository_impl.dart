@@ -357,8 +357,7 @@ class PostRepositoryImpl extends PostRepository {
       );
       return response.data;
     } catch (e, stack) {
-      logger.e(e.toString());
-      logger.e(stack.toString());
+      logger.e(e.toString(), error: e, stackTrace: stack);
       rethrow;
     }
   }

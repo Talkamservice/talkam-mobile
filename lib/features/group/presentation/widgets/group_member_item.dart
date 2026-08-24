@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
-import 'package:talkam/core/_core.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
@@ -12,11 +13,12 @@ import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/group/data/models/get_group_members_response.dart';
 import 'package:talkam/features/group/presentation/widgets/groupmember_action_sheet.dart';
+import 'package:talkam/features/profile/presentation/bloc/follow_cubit/follow_cubit.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/common/widgets/subscribe_button.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
-class GroupMemberItem extends StatelessWidget {
+class GroupMemberItem extends StatefulWidget {
   const GroupMemberItem({
     super.key,
     required this.member,
@@ -29,22 +31,44 @@ class GroupMemberItem extends StatelessWidget {
   final GroupMemberDetails member;
   final TalkamGroup group;
   final VoidCallback onActionSuccess;
+
+  /// Whether the signed-in user already follows this member. The group
+  /// members endpoint doesn't return per-row follow-back state, so callers
+  /// pass the best known default — same caveat as [UserConnectionItem].
   final bool isFollowing;
   final bool currentUserIsAdmin;
 
   @override
+  State<GroupMemberItem> createState() => _GroupMemberItemState();
+}
+
+class _GroupMemberItemState extends State<GroupMemberItem> {
+  final _followCubit = injector.get<FollowCubit>();
+  late bool _isFollowing = widget.isFollowing;
+
+  @override
+  void dispose() {
+    _followCubit.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final member = widget.member;
+    final group = widget.group;
     final isMe = SessionManager().isMe(member.user.id.toString());
-    final isAdmin = currentUserIsAdmin || group.isAdmin;
+    final isAdmin = widget.currentUserIsAdmin || group.isAdmin;
 
     return InkWell(
       onTap: () {
         GuestUserHelper.handleGuestUserAction(
           action: () {
             if (isMe) {
-              context.pushNamed(PageUrl.profileScreen, extra: member.user.id.toString());
+              context.pushNamed(PageUrl.profileScreen,
+                  extra: member.user.id.toString());
             } else {
-              context.pushNamed(PageUrl.userProfileScreen, extra: member.user.id.toString());
+              context.pushNamed(PageUrl.userProfileScreen,
+                  extra: member.user.id.toString());
             }
           },
         );
@@ -55,7 +79,8 @@ class GroupMemberItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ImageWidget(
-              imageUrl: member.user.avatar?.toString() ?? Assets.images.svgs.user,
+              imageUrl:
+                  member.user.avatar?.toString() ?? Assets.images.svgs.user,
               size: 50,
               shape: BoxShape.circle,
             ),
@@ -89,17 +114,22 @@ class GroupMemberItem extends StatelessWidget {
                                   color: Colors.orange,
                                   size: 16,
                                 ),
-                                if (member.isSuspended == true || member.isBanned == true) ...[
+                                if (member.isSuspended == true ||
+                                    member.isBanned == true) ...[
                                   6.horizontalSpace,
                                   Container(
-                                    padding: EdgeInsets.symmetric(horizontal: 6.w, vertical: 2.h),
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 6.w, vertical: 2.h),
                                     decoration: BoxDecoration(
                                       color: Pallets.red.withOpacity(0.1),
                                       borderRadius: BorderRadius.circular(4.r),
-                                      border: Border.all(color: Pallets.red, width: 0.5),
+                                      border: Border.all(
+                                          color: Pallets.red, width: 0.5),
                                     ),
                                     child: TextView(
-                                      text: member.isBanned == true ? "Banned" : "Suspended",
+                                      text: member.isBanned == true
+                                          ? "Banned"
+                                          : "Suspended",
                                       fontSize: 10,
                                       fontWeight: FontWeight.w600,
                                       color: Pallets.red,
@@ -109,7 +139,8 @@ class GroupMemberItem extends StatelessWidget {
                               ],
                             ),
                             TextView(
-                              text: "@${member.user.username ?? getDisplayName.replaceAll(' ', '')}",
+                              text:
+                                  "@${member.user.username ?? getDisplayName.replaceAll(' ', '')}",
                               fontSize: 13,
                               fontWeight: FontWeight.w400,
                               color: Pallets.darkGrey,
@@ -118,14 +149,30 @@ class GroupMemberItem extends StatelessWidget {
                         ),
                       ),
                       if (!isMe)
-                        SubscribeButton(
-                          color: isFollowing ? Pallets.grey60 : Pallets.blueBubbleColor,
-                          onTap: () {}, // Visual mock
-                          child: TextView(
-                            text: isFollowing ? "Following" : "Follow",
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
+                        BlocListener<FollowCubit, FollowState>(
+                          bloc: _followCubit,
+                          listener: (context, state) {
+                            state.maybeWhen(
+                              orElse: () {},
+                              success: (following) =>
+                                  setState(() => _isFollowing = following),
+                              failure: (error) => CustomDialogs.error(error),
+                            );
+                          },
+                          child: SubscribeButton(
+                            color: _isFollowing
+                                ? Pallets.grey60
+                                : Pallets.blueBubbleColor,
+                            onTap: () => GuestUserHelper.handleGuestUserAction(
+                              action: () => _followCubit
+                                  .toggleFollow(member.user.id.toString()),
+                            ),
+                            child: TextView(
+                              text: _isFollowing ? "Following" : "Follow",
+                              fontSize: 13,
+                              fontWeight: FontWeight.w600,
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       if (isAdmin && !isMe) ...[
@@ -139,7 +186,7 @@ class GroupMemberItem extends StatelessWidget {
                                 currentUserIsAdmin: isAdmin,
                                 member: member,
                                 group: group,
-                                onActionSuccess: onActionSuccess,
+                                onActionSuccess: widget.onActionSuccess,
                               ),
                             );
                           },
@@ -165,9 +212,9 @@ class GroupMemberItem extends StatelessWidget {
     );
   }
 
-  String get getDisplayName => (member.user.name ?? "").isNotEmpty
-      ? member.user.name!
-      : (member.user.username ?? "").isNotEmpty
-          ? member.user.username!
-          : member.user.email ?? "Anonymous";
+  String get getDisplayName => (widget.member.user.name ?? "").isNotEmpty
+      ? widget.member.user.name!
+      : (widget.member.user.username ?? "").isNotEmpty
+          ? widget.member.user.username!
+          : widget.member.user.email ?? "Anonymous";
 }

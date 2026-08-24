@@ -26,8 +26,7 @@ class CreatePostCubit extends Cubit<CreatePostState> {
       injector.get<ProfileBloc>().add(const GetRemoteUser());
       emit(CreatePostState.createPostSuccess(response));
     } catch (error, stack) {
-      logger.e(error.toString());
-      logger.e(stack.toString());
+      logger.e(error.toString(), error: error, stackTrace: stack);
       emit(CreatePostState.createPostFailure(error.toString()));
     }
   }
@@ -38,8 +37,7 @@ class CreatePostCubit extends Cubit<CreatePostState> {
       final response = await _postRepository.saveDraft(createPostPayload);
       emit(CreatePostState.saveDraftSuccess(response));
     } catch (error, stack) {
-      logger.e(error.toString());
-      logger.e(stack.toString());
+      logger.e(error.toString(), error: error, stackTrace: stack);
       emit(CreatePostState.saveDraftFailure(error.toString()));
     }
   }

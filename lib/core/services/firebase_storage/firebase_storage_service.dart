@@ -10,7 +10,6 @@ class FirebaseStorageService {
   Future<List<String>> uploadMultipleFiles(
       String basePath, List<File> files) async {
     try {
-
       final List<Future<String>> uploadFutures = files.map((file) async {
         // var extension = path.extension(file.path);
         final String fileName = file.path.split('/').last; // Get filename
@@ -27,24 +26,34 @@ class FirebaseStorageService {
   }
 
   Future<String> uploadFile(String path, File imageFile) async {
+    final reference = _storage.ref().child(path);
     try {
-      logger.i(imageFile.path);
-      final reference = _storage.ref().child(path);
+      logger.i(
+          'Uploading ${imageFile.path} -> ${reference.bucket}/${reference.fullPath}');
       final uploadTask = reference.putFile(imageFile);
-
-      final snapshot = await uploadTask.whenComplete(() => null);
+      final snapshot = await uploadTask;
       final url = await snapshot.ref.getDownloadURL();
       return url;
-    }  catch (e,stack) {
-      // Handle errors (e.g., network issues, permission denied)
-      logger.e('Error uploading image: ${e.toString()}');
-      logger.e(stack);
+    } on FirebaseException catch (e, stack) {
+      // FirebaseException.message is often a generic platform-channel
+      // string ("An unknown error occurred") even when the underlying
+      // Firebase service returned a specific reason — the real detail
+      // (e.g. a billing-plan block) only reaches native Android/iOS logs,
+      // not Dart. code/plugin still narrow it down; log everything we do
+      // have rather than just message.
+      logger.e(
+        'Firebase Storage upload failed for ${reference.fullPath} — '
+        'code: ${e.code}, plugin: ${e.plugin}, message: ${e.message}',
+        error: e,
+        stackTrace: stack,
+      );
+      rethrow;
+    } catch (e, stack) {
+      logger.e('Unexpected error uploading ${reference.fullPath}: $e',
+          error: e, stackTrace: stack);
       rethrow;
     }
   }
-
-
-
 }
 
 class FirebaseStoragePaths {
