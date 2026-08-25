@@ -1,0 +1,54 @@
+workflows:
+  ios-staging:
+    name: iOS - Staging (TestFlight)
+    max_build_duration: 60
+    instance_type: mac_mini_m2
+    environment:
+      flutter: stable
+      xcode: latest
+      cocoapods: default
+      # Create this group in Codemagic under Team settings / App settings ->
+      # Environment variables. It needs one secure variable:
+      #   CONFIG_JSON_B64 — output of `base64 -w0 config.json` (staging config,
+      #   the gitignored file this project already builds with locally).
+      groups:
+        - talkam_staging
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: com.talkamtechservice.app
+
+    triggering:
+      events: []
+      # No automatic push/PR trigger while this is still being set up —
+      # start builds manually from the Codemagic dashboard (pick any
+      # branch) until this pipeline is trusted enough to run on its own.
+
+    scripts:
+      - name: Write dart-define config from secret
+        script: |
+          echo "$CONFIG_JSON_B64" | base64 -d > config.json
+
+      - name: Flutter pub get
+        script: |
+          flutter packages pub get
+
+      - name: Install CocoaPods dependencies
+        script: |
+          cd ios && pod install
+
+      - name: Flutter build ipa (staging)
+        script: |
+          flutter build ipa --release \
+            --dart-define-from-file=config.json \
+            --export-options-plist=ios/ExportOptions.plist
+
+    artifacts:
+      - build/ios/ipa/*.ipa
+
+    publishing:
+      # Reuses the same App Store Connect API key already generated
+      # (Users and Access -> Integrations) and connected in Codemagic's
+      # Apple Developer Portal integration — no separate credential needed.
+      app_store_connect:
+        auth: integration
+        submit_to_testflight: true
