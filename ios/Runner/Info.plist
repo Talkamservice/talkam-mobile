@@ -45,6 +45,8 @@
 	<string>TalKAM Tech</string>
 	<key>FlutterDeepLinkingEnabled</key>
 	<true/>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
 	<key>GoogleSignIn</key>
 	<dict>
 		<key>APIKey</key>
@@ -68,6 +70,8 @@
 	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>Talkam uses your camera for video therapy sessions.</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Talkam uses Face ID to let you sign in quickly and securely.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>Talkam uses your microphone for audio and video therapy sessions.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
