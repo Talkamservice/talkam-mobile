@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
+import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
@@ -225,13 +226,9 @@ class _SessionsScreenState extends State<SessionsScreen> {
       body: loading
           ? Center(child: CustomDialogs.getLoading(size: 50))
           : error != null
-              ? Center(
-                  child: TextView(
-                    text: error,
-                    fontSize: 14,
-                    color: Pallets.grey400,
-                    align: TextAlign.center,
-                  ),
+              ? AppErrorWidget(
+                  message: error,
+                  onTap: onRefresh,
                 )
               : isEmptyState
                   ? Padding(

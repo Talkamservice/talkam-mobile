@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
+import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
@@ -125,13 +126,9 @@ class _DraftsListScreenState extends State<DraftsListScreen> {
         }
         break;
       case LoadStatus.error:
-        return Center(
-          child: TextView(
-            text: state.error ?? "Something went wrong",
-            fontSize: 14,
-            color: Pallets.grey400,
-            align: TextAlign.center,
-          ),
+        return AppErrorWidget(
+          message: state.error ?? "Something went wrong",
+          onTap: cubit.getDrafts,
         );
       case LoadStatus.success:
         if (state.drafts.isEmpty) {

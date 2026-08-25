@@ -13,12 +13,13 @@ import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_b
 import 'package:talkam/features/subscription/presentation/blocs/subscriptions_bloc/subscriptions_bloc_cubit.dart';
 import 'package:talkam/gen/assets.gen.dart';
 import 'package:tiktok_login_flutter/tiktok_login_flutter.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'core/services/firebase/crashlytics.dart';
 import 'core/services/firebase/notifiactions.dart';
 import 'core/services/firebase/remote_config_service.dart';
 import 'core/services/pay/pay_service.dart';
 import 'core/services/pusher/pusher_channel_service.dart';
 import 'firebase_options.dart';
-import 'package:shorebird_code_push/shorebird_code_push.dart';
 
 class AppConfig {
   final String appName;
@@ -29,12 +30,22 @@ class AppConfig {
   static Future<void> run(String appName, Environment enviroment) async {
     WidgetsFlutterBinding.ensureInitialized();
 
+    // Must happen before di.init() — NetworkService reads UrlConfig.coreBaseUrl
+    // at construction time, so DI-registered network clients would otherwise
+    // bind to the wrong base URL for the rest of the app's lifetime.
+    UrlConfig.environment = enviroment;
+
     final appConfig = AppConfig(appName, enviroment);
     await appConfig._setup();
 
     runZonedGuarded(() => runApp(const TalkAmApp()), (error, stack) {
       logger.e(error.toString());
       logger.e(stack.toString());
+      // FlutterError.onError / PlatformDispatcher.instance.onError (wired in
+      // CrashlyticsService.onCrash) and this zone are separate, parallel
+      // error-catching mechanisms — forward explicitly here too rather than
+      // assuming one always reaches Crashlytics before the other does.
+      FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     });
   }
 
@@ -50,7 +61,6 @@ class AppConfig {
     await initFirebaseServices();
 
     await SessionManager().init();
-    _checkForUpdates();
 
     await TimezoneService().init();
     await _getLoggedInUser();
@@ -67,28 +77,13 @@ class AppConfig {
     // Implement your DB initialization logic here
   }
 
-  Future<void> _checkForUpdates() async {
-    final updater = ShorebirdUpdater();
-    // Check whether a new update is available.
-    final status = await updater.checkForUpdate();
-
-    if (status == UpdateStatus.outdated) {
-      try {
-        // Perform the update
-        await updater.update();
-      } on UpdateException catch (error) {
-        // Handle any errors that occur while updating.
-      }
-    }
-  }
-
   Future<void> initFirebaseServices() async {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
+    CrashlyticsService.onCrash();
 
     await RemoteConfigsService.create();
-
 
     await notificationService.initializeNotification();
   }

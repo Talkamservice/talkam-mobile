@@ -8,6 +8,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_text_field.dart';
+import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/navigation/route_url.dart';
@@ -146,10 +147,10 @@ class _TherapistsListScreenState extends State<TherapistsListScreen> {
                     if (state.status == BookingStatus.error &&
                         (state.therapists == null ||
                             state.therapists!.isEmpty)) {
-                      return _ErrorState(
+                      return AppErrorWidget(
                         message:
                             state.errorMessage ?? 'Failed to load therapists',
-                        onRetry: () => _cubit.loadTherapists(),
+                        onTap: () => _cubit.loadTherapists(),
                       );
                     }
                     final therapists = (state.therapists ?? [])
@@ -194,33 +195,6 @@ class _TherapistsListScreenState extends State<TherapistsListScreen> {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _ErrorState extends StatelessWidget {
-  final String message;
-  final VoidCallback onRetry;
-
-  const _ErrorState({required this.message, required this.onRetry});
-
-  @override
-  Widget build(BuildContext context) {
-    return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(Icons.error_outline, color: Pallets.grey, size: 48.w),
-          16.verticalSpace,
-          TextView(
-              text: message,
-              fontSize: 14,
-              color: Pallets.grey,
-              align: TextAlign.center),
-          16.verticalSpace,
-          CustomButton(onPressed: onRetry, text: 'Retry'),
-        ],
       ),
     );
   }

@@ -7,5 +7,4 @@ Future<void> main() async {
   await Hive.initFlutter();
 
   AppConfig.run('Talkam', Environment.development);
-
 }

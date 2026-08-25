@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
@@ -8,6 +9,25 @@ import 'package:talkam/features/therapist/data/therapist_profile_store.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
+
+  // flutter_secure_storage has no shared_preferences-style
+  // setMockInitialValues helper — without this, SessionManager.init()'s
+  // secureStorage.read() throws MissingPluginException in the test
+  // environment (caught internally and just logged, but still noise on
+  // every run). Mock its channel directly instead.
+  const secureStorageChannel =
+      MethodChannel('plugins.it_nomads.com/flutter_secure_storage');
+  TestDefaultBinaryMessengerBinding.instance.defaultBinaryMessenger
+      .setMockMethodCallHandler(secureStorageChannel, (call) async {
+    switch (call.method) {
+      case 'read':
+        return null;
+      case 'readAll':
+        return <String, String>{};
+      default:
+        return null;
+    }
+  });
 
   final store = TherapistProfileStore.instance;
 

@@ -495,8 +495,9 @@ class _PostTabState extends State<_PostTab> with AutomaticKeepAliveClientMixin {
         return state.maybeWhen(
           orElse: () => const SizedBox.shrink(),
           getPostSearchLoading: () => const Center(child: PostLoadingShimmer()),
-          getPostSearchFailed: (error) => Center(
-            child: TextView(text: error),
+          getPostSearchFailed: (error) => AppErrorWidget(
+            message: error,
+            onTap: () => widget.bloc.searchPosts(widget.query),
           ),
           postSearchLoaded: (posts, meta, relatedTopics) {
             final display = posts;

@@ -18,7 +18,7 @@ class SessionRate extends Equatable {
   /// Bounds are shared with the onboarding payout step so the two surfaces
   /// cannot diverge.
   static const int min = 5000;
-  static const int max = 20000;
+  static const int max = 30000;
 
   /// Share of the session fee the platform keeps.
   static const double platformFeeRate = 0.15;

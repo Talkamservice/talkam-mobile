@@ -64,7 +64,7 @@ class _ProfileUpvotesTabState extends State<ProfileUpvotesTab>
             ),
             error: (e) => AppErrorWidget(
               message: e.toString(),
-              onTap: () {},
+              onTap: () => _cubit.fetchUserPosts(),
             ),
             orElse: () {
               if (_posts.isEmpty) {

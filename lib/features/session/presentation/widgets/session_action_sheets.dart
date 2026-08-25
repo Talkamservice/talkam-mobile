@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
+import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/network/api_error.dart';
@@ -276,10 +277,11 @@ class _RescheduleStepOneSheetState extends State<_RescheduleStepOneSheet> {
                   );
                 }
                 if (state.status == BookingStatus.error) {
-                  return TextView(
-                    text: state.errorMessage ?? "Couldn't load slots for this day.",
-                    fontSize: 13,
-                    color: const Color(0xFFDC2626),
+                  return AppErrorWidget(
+                    message: state.errorMessage ??
+                        "Couldn't load slots for this day.",
+                    showImage: false,
+                    onTap: _loadSlotsForSelectedDay,
                   );
                 }
                 if (slots.isEmpty) {
@@ -934,11 +936,10 @@ class _ReceiptSheetState extends State<_ReceiptSheet> {
                   padding: EdgeInsets.symmetric(vertical: 24.h),
                   child: Column(
                     children: [
-                      TextView(
-                        text: _error!,
-                        fontSize: 14,
-                        color: const Color(0xFF64748B),
-                        align: TextAlign.center,
+                      AppErrorWidget(
+                        message: _error!,
+                        showImage: false,
+                        onTap: _load,
                       ),
                       if (widget.session.status == 'pending_payment') ...[
                         16.verticalSpace,

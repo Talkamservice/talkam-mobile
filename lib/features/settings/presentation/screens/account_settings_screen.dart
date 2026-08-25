@@ -100,7 +100,9 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
               }
 
               if (state is GetProfileFailureState) {
-                return const AppErrorWidget();
+                return AppErrorWidget(
+                  onTap: () => profileBloc.add(const GetRemoteUser()),
+                );
               }
 
               if (state is GetProfileSuccessState) {

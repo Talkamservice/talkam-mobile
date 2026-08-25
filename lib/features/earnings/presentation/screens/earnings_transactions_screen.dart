@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
+import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/theme/pallets.dart';
@@ -99,13 +100,9 @@ class _EarningsTransactionsScreenState
           }
           if (state.transactionsStatus == LoadStatus.error &&
               state.transactions.isEmpty) {
-            return Center(
-              child: TextView(
-                text: state.transactionsError ?? "Something went wrong",
-                fontSize: 14,
-                color: Pallets.grey400,
-                align: TextAlign.center,
-              ),
+            return AppErrorWidget(
+              message: state.transactionsError ?? "Something went wrong",
+              onTap: cubit.getTransactions,
             );
           }
           if (state.transactions.isEmpty) {

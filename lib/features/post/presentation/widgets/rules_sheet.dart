@@ -103,6 +103,9 @@ class _RulesSheetState extends State<RulesSheet>
                         getGuideLinesFailed: (error) => AppErrorWidget(
                           title: "Something went wrong",
                           message: error,
+                          onTap: () => injector
+                              .get<PostBloc>()
+                              .add(const PostEvent.getGuidelines()),
                         ),
                       );
 

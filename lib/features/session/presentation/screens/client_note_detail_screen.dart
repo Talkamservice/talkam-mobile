@@ -4,6 +4,7 @@ import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/custom_switch.dart';
+import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/inline_select_field.dart';
 import 'package:talkam/common/widgets/outlined_form_field.dart';
 import 'package:talkam/common/widgets/text_view.dart';
@@ -108,13 +109,9 @@ class _ClientNoteDetailScreenState extends State<ClientNoteDetailScreen> {
             LoadStatus.idle ||
             LoadStatus.loading =>
               Center(child: CustomDialogs.getLoading(size: 50)),
-            LoadStatus.error => Center(
-                child: TextView(
-                  text: state.noteError ?? "Something went wrong",
-                  fontSize: 14,
-                  color: Pallets.grey400,
-                  align: TextAlign.center,
-                ),
+            LoadStatus.error => AppErrorWidget(
+                message: state.noteError ?? "Something went wrong",
+                onTap: () => cubit.getSessionNote(widget.sessionId),
               ),
             LoadStatus.success => SingleChildScrollView(
                 padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),

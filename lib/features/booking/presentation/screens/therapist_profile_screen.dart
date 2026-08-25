@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
+import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/section_label.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/navigation/route_url.dart';
@@ -84,24 +85,11 @@ class _TherapistProfileScreenState extends State<TherapistProfileScreen> {
                     ),
                   )
                 : state.status == BookingStatus.error && therapist == null
-                    ? Center(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            TextView(
-                              text: state.errorMessage ??
-                                  'Failed to load profile',
-                              fontSize: 14,
-                              color: Pallets.grey,
-                            ),
-                            16.verticalSpace,
-                            CustomButton(
-                              onPressed: () => _cubit
-                                  .loadTherapistProfile(widget.therapistId),
-                              text: 'Retry',
-                            ),
-                          ],
-                        ),
+                    ? AppErrorWidget(
+                        message:
+                            state.errorMessage ?? 'Failed to load profile',
+                        onTap: () =>
+                            _cubit.loadTherapistProfile(widget.therapistId),
                       )
                     : therapist == null
                         ? const SizedBox()

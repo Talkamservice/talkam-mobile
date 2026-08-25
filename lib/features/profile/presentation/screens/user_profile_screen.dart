@@ -118,6 +118,9 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
                     Center(child: CustomDialogs.getLoading(size: 50)),
                 getProfileError: (e) => AppErrorWidget(
                       message: e,
+                      onTap: () => injector
+                          .get<UserProfileCubit>()
+                          .fetchUserProfile(widget.userId),
                     ),
                 orElse: () {
                   if (_talkamUser.isBlocked) {

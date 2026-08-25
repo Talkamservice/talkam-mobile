@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
+import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/step_progress_bar.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/navigation/route_url.dart';
@@ -225,17 +226,12 @@ class _BookingStepOneScreenState extends State<BookingStepOneScreen> {
                         ),
                       )
                     else if (state.status == BookingStatus.error)
-                      Padding(
-                        padding: EdgeInsets.symmetric(vertical: 20.h),
-                        child: Center(
-                          child: TextView(
-                            text: state.errorMessage ??
-                                "Couldn't load slots for this day.",
-                            fontSize: 14,
-                            color: const Color(0xFFDC2626),
-                            align: TextAlign.center,
-                          ),
-                        ),
+                      AppErrorWidget(
+                        message: state.errorMessage ??
+                            "Couldn't load slots for this day.",
+                        showImage: false,
+                        onTap: () => _fetchSlots(
+                            _dateOptions[_selectedDateIndex].dateKey),
                       )
                     else if (slots.isEmpty)
                       Padding(

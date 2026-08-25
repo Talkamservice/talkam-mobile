@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/empty_state.dart';
+import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
@@ -60,13 +61,9 @@ class _ClientsScreenState extends State<ClientsScreen> {
             LoadStatus.loading ||
             LoadStatus.idle =>
               Center(child: CustomDialogs.getLoading(size: 50)),
-            LoadStatus.error => Center(
-                child: TextView(
-                  text: state.clientsError ?? "Something went wrong",
-                  fontSize: 14,
-                  color: Pallets.grey400,
-                  align: TextAlign.center,
-                ),
+            LoadStatus.error => AppErrorWidget(
+                message: state.clientsError ?? "Something went wrong",
+                onTap: cubit.getClients,
               ),
             LoadStatus.success => state.clients.isEmpty
                 ? _buildEmptyState(context)

@@ -49,7 +49,7 @@ class PaymentHelper {
             },
         customization: Customization(
             title: requirements.description, logo: Assets.images.svgs.logo2),
-        isTestMode: true,
+        isTestMode: UrlConfig.environment != Environment.production,
         // Not a real "thank you" page — this endpoint only accepts POST and
         // returns 405 for the GET Flutterwave issues here. It's used purely
         // as a fast, non-redirecting URL so the checkout WebView's redirect

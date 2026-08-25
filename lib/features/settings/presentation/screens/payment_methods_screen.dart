@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
+import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
@@ -70,13 +71,9 @@ class _PaymentMethodsScreenState extends State<PaymentMethodsScreen> {
           ),
           body: state.maybeWhen(
             orElse: () => Center(child: CustomDialogs.getLoading(size: 50)),
-            getPaymentMethodsFailure: (error) => Center(
-              child: TextView(
-                text: error,
-                fontSize: 14,
-                color: Pallets.grey400,
-                align: TextAlign.center,
-              ),
+            getPaymentMethodsFailure: (error) => AppErrorWidget(
+              message: error,
+              onTap: () => bloc.add(const SettingsEvent.getPaymentMethods()),
             ),
             getPaymentMethodsSuccess: (methods) => methods.isEmpty
                 ? const _EmptyPaymentMethods()

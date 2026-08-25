@@ -1,0 +1,31 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  analyze-and-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.41.8'
+          channel: 'stable'
+          cache: true
+
+      - run: flutter pub get
+
+      # --no-fatal-infos/--no-fatal-warnings: the branch currently carries a
+      # large pre-existing backlog of style-level warnings/infos (unused
+      # imports, lint nits — no functional bugs). Failing on those would
+      # make this gate permanently red from day one. This only fails the
+      # build on real analyzer errors; tighten it once the backlog is
+      # cleaned up.
+      - run: flutter analyze --no-fatal-infos --no-fatal-warnings
+
+      - run: flutter test

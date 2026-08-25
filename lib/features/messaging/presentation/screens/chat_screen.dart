@@ -108,7 +108,7 @@ class _ChatScreenState extends State<ChatScreen>
         listener: (context, state) {
           state.maybeWhen(
             orElse: () => null,
-            sendMessageFailure: (error) {},
+            sendMessageFailure: (error) => CustomDialogs.error(error),
             updateConversationStatusLoading: () {
               CustomDialogs.showLoading(context);
             },

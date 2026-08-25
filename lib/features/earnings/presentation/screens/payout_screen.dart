@@ -4,6 +4,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
+import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
@@ -94,14 +95,10 @@ class _PayoutScreenState extends State<PayoutScreen> {
                         return Center(
                             child: CustomDialogs.getLoading(size: 50));
                       case LoadStatus.error:
-                        return Center(
-                          child: TextView(
-                            text:
-                                state.dashboardError ?? "Something went wrong",
-                            fontSize: 14,
-                            color: Pallets.grey400,
-                            align: TextAlign.center,
-                          ),
+                        return AppErrorWidget(
+                          message:
+                              state.dashboardError ?? "Something went wrong",
+                          onTap: cubit.getDashboard,
                         );
                       case LoadStatus.success:
                         final dashboard = state.dashboard!;

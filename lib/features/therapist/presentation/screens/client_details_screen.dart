@@ -5,6 +5,7 @@ import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/custom_outlined_button.dart';
 import 'package:talkam/common/widgets/custom_text_field.dart';
+import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/inline_select_field.dart';
 import 'package:talkam/common/widgets/outlined_form_field.dart';
@@ -189,13 +190,9 @@ class _ClientDetailsScreenState extends State<ClientDetailsScreen> {
               case LoadStatus.loading:
                 return Center(child: CustomDialogs.getLoading(size: 50));
               case LoadStatus.error:
-                return Center(
-                  child: TextView(
-                    text: state.detailError ?? "Something went wrong",
-                    fontSize: 14,
-                    color: Pallets.grey400,
-                    align: TextAlign.center,
-                  ),
+                return AppErrorWidget(
+                  message: state.detailError ?? "Something went wrong",
+                  onTap: () => clientCubit.getClientDetails(widget.clientId),
                 );
               case LoadStatus.success:
                 return _buildBody(context, state.detail!);
