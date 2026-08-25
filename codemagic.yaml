@@ -37,10 +37,15 @@ workflows:
 
       - name: Flutter pub get
         script: |
-          flutter packages pub get
+          flutter pub get
 
       - name: Install CocoaPods dependencies
         script: |
+          # Re-running pub get here (not just relying on the step above) is
+          # deliberate — it's what actually writes ios/Flutter/Generated.xcconfig,
+          # which the Podfile requires to exist. Doing it again in the same
+          # script as `pod install` removes any doubt about step ordering.
+          flutter pub get
           cd ios && pod install
 
       - name: Flutter build ipa (staging)
