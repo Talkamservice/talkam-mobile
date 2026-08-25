@@ -17,6 +17,13 @@ workflows:
         distribution_type: app_store
         bundle_identifier: com.talkamtechservice.app
 
+    # Name of the App Store Connect integration as it appears in Codemagic
+    # under Team settings -> Integrations -> Apple Developer Portal (the one
+    # holding the App Store Connect API key / .p8 you connected earlier).
+    # Replace "talkam" below with whatever you actually named it there.
+    integrations:
+      app_store_connect: Talkam Service
+
     triggering:
       events: []
       # No automatic push/PR trigger while this is still being set up —
