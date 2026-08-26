@@ -31,6 +31,13 @@ target 'Runner' do
   use_modular_headers!
 
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
+
+  # video_thumbnail 0.5.x ships with s.ios.deployment_target = '8.0' in its
+  # podspec, which CocoaPods rejects at resolution time because Flutter's
+  # framework requires a higher minimum. We override it with a local copy of
+  # the podspec whose only change is setting the deployment target to 14.0.
+  pod 'video_thumbnail', :path => 'patches/video_thumbnail'
+
   target 'RunnerTests' do
     inherit! :search_paths
   end
