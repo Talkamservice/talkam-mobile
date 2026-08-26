@@ -30,6 +30,11 @@ workflows:
       # start builds manually from the Codemagic dashboard (pick any
       # branch) until this pipeline is trusted enough to run on its own.
 
+    cache:
+      cache_paths:
+        - $HOME/Library/Caches/CocoaPods
+        - $HOME/.pub-cache
+
     scripts:
       - name: Write dart-define config from secret
         script: |
@@ -42,7 +47,7 @@ workflows:
       - name: Install CocoaPods dependencies
         script: |
           flutter pub get
-          cd ios && pod install
+          cd ios && pod install --verbose
 
       - name: Flutter build ipa (staging)
         script: |
