@@ -75,9 +75,16 @@ workflows:
 
       - name: Flutter build ipa (staging)
         script: |
+          # xcode-project use-profiles (previous step) writes a matching
+          # manual-signing export options plist to $HOME/export_options.plist.
+          # Our own ios/ExportOptions.plist says signingStyle: automatic,
+          # which overrides that and makes exportArchive look for an
+          # Xcode-account-based signing identity that doesn't exist on this
+          # machine ("No Accounts" / "No signing certificate 'iOS
+          # Distribution' found") instead of the profile use-profiles fetched.
           flutter build ipa --release \
             --dart-define-from-file=config.json \
-            --export-options-plist=ios/ExportOptions.plist
+            --export-options-plist="$HOME/export_options.plist"
 
     artifacts:
       - build/ios/ipa/*.ipa
