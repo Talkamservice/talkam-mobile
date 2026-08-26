@@ -36,6 +36,18 @@ target 'Runner' do
   end
 end
 
+# Patch any pod whose podspec declares a deployment target lower than our
+# minimum (14.0). This is required for plugins like video_thumbnail whose
+# podspec still advertises 8.0, causing CocoaPods to reject them at
+# resolution time with "required a higher minimum deployment target".
+pre_install do |installer|
+  installer.pod_targets.each do |pod|
+    if pod.name == 'video_thumbnail'
+      pod.root_spec.ios.deployment_target = '14.0'
+    end
+  end
+end
+
 post_install do |installer|
   installer.pods_project.targets.each do |target|
     flutter_additional_ios_build_settings(target)
