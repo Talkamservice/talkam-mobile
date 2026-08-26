@@ -43,12 +43,16 @@ workflows:
         script: |
           flutter pub get
 
-          # video_thumbnail 0.5.x declares ios.deployment_target = '8.0' which
-          # CocoaPods rejects at dependency resolution time. We replace the podspec
-          # that flutter_install_all_ios_pods reads (via ios/.symlinks) with our
-          # committed patched copy before pod install runs.
-          cp ios/patches/video_thumbnail/video_thumbnail.podspec \
-             ios/.symlinks/plugins/video_thumbnail/ios/video_thumbnail.podspec
+          # video_thumbnail 0.5.x declares s.ios.deployment_target = '8.0' which
+          # CocoaPods rejects at dependency-resolution time because Flutter requires
+          # a higher minimum. We search for the podspec anywhere under $HOME (covers
+          # all pub-cache layouts) and patch it with perl -i before pod install runs.
+          echo "--- Patching video_thumbnail podspec ---"
+          find "$HOME" -name "video_thumbnail.podspec" 2>/dev/null | while IFS= read -r f; do
+            echo "Found: $f"
+            perl -i -pe "s/deployment_target = '8\.0'/deployment_target = '14.0'/g" "$f"
+            echo "After: $(grep deployment_target "$f")"
+          done
 
           cd ios && pod install
 
