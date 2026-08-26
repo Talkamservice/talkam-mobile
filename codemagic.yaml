@@ -60,6 +60,10 @@ workflows:
           done
           $success
 
+      - name: Set up code signing settings on Xcode project
+        script: |
+          xcode-project use-profiles
+
       - name: Flutter build ipa (staging)
         script: |
           flutter build ipa --release \
