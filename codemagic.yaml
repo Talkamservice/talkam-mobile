@@ -41,11 +41,15 @@ workflows:
 
       - name: Install CocoaPods dependencies
         script: |
-          # Re-running pub get here (not just relying on the step above) is
-          # deliberate — it's what actually writes ios/Flutter/Generated.xcconfig,
-          # which the Podfile requires to exist. Doing it again in the same
-          # script as `pod install` removes any doubt about step ordering.
           flutter pub get
+
+          # video_thumbnail 0.5.x ships with s.ios.deployment_target = '8.0' in its
+          # podspec, which CocoaPods rejects at *resolution time* (before any Podfile
+          # hook runs) because Flutter's framework now requires a higher minimum.
+          # We patch the source file in the pub cache so pod install sees the fix.
+          find "$HOME/.pub-cache" -path "*/video_thumbnail*/ios/video_thumbnail.podspec" \
+            -exec sed -i '' "s/s\.ios\.deployment_target = '8\.0'/s.ios.deployment_target = '14.0'/" {} \;
+
           cd ios && pod install
 
       - name: Flutter build ipa (staging)
