@@ -199,6 +199,17 @@ flutter_gen:
 # The following section is specific to Flutter packages.
 flutter:
 
+  # agora_rtc_engine's Swift Package Manager manifest pins an older
+  # AgoraIrisRTC_iOS binary than its podspec does, and that older binary is
+  # missing AgoraPIPController.h — SwiftPM builds fail with
+  # "AgoraRtcWrapper/AgoraPIPController.h file not found" as a result
+  # (https://github.com/AgoraIO-Extensions/Agora-Flutter-SDK/issues/2687).
+  # None of our other plugins require SwiftPM, so disable it and stay on
+  # CocoaPods, which resolves the correct binary, until agora_rtc_engine
+  # fixes its manifest.
+  config:
+    enable-swift-package-manager: false
+
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in
   # the material Icons class.
