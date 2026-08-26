@@ -42,6 +42,14 @@ workflows:
       - name: Install CocoaPods dependencies
         script: |
           flutter pub get
+
+          # video_thumbnail 0.5.x declares ios.deployment_target = '8.0' which
+          # CocoaPods rejects at dependency resolution time. We replace the podspec
+          # that flutter_install_all_ios_pods reads (via ios/.symlinks) with our
+          # committed patched copy before pod install runs.
+          cp ios/patches/video_thumbnail/video_thumbnail.podspec \
+             ios/.symlinks/plugins/video_thumbnail/ios/video_thumbnail.podspec
+
           cd ios && pod install
 
       - name: Flutter build ipa (staging)
