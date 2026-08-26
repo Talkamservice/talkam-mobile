@@ -99,7 +99,6 @@ dependencies:
   google_sign_in: ^6.1.6
   sign_in_with_apple: ^6.1.4
   chewie: ^1.7.5
-  video_thumbnail: ^0.5.3
   flutter_gen: ^5.8.0
   #  flutter_staggered_animations: ^1.1.1
   #  flutter_chat_bubble: ^2.0.2
@@ -154,6 +153,7 @@ dependencies:
   fl_chart: ^1.2.0
   phone_numbers_parser: ^9.0.25
   agora_rtc_engine: ^6.5.4
+  get_thumbnail_video: ^0.7.3
   # flutter_background: ^1.2.0
 #  audio_manager: ^0.8.2
 

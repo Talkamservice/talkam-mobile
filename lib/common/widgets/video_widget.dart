@@ -5,7 +5,8 @@ import 'package:chewie/chewie.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:video_player/video_player.dart';
-import 'package:video_thumbnail/video_thumbnail.dart';
+import 'package:get_thumbnail_video/video_thumbnail.dart';
+import 'package:get_thumbnail_video/index.dart';
 
 class VideoWidget extends StatefulWidget {
   final String videoPath;
@@ -41,7 +42,7 @@ class _VideoWidgetState extends State<VideoWidget> {
 
   Future<String?> _thumbnailData() async {
     try {
-      return VideoThumbnail.thumbnailFile(
+      final file = await VideoThumbnail.thumbnailFile(
         video: widget.videoPath,
         thumbnailPath: (await getTemporaryDirectory()).path,
         imageFormat: ImageFormat.PNG,
@@ -49,6 +50,7 @@ class _VideoWidgetState extends State<VideoWidget> {
         maxHeight: 350,
         quality: 100,
       );
+      return file.path;
     } catch (e) {
       log("Wahala: $e");
       return null;
