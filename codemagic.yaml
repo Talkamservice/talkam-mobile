@@ -47,7 +47,18 @@ workflows:
       - name: Install CocoaPods dependencies
         script: |
           flutter pub get
-          cd ios && pod install --verbose
+          cd ios
+          success=false
+          for i in 1 2 3; do
+            if pod install --verbose; then
+              success=true
+              break
+            fi
+            echo "pod install failed (attempt $i), clearing CocoaPods download cache and retrying..."
+            rm -rf "$HOME/Library/Caches/CocoaPods"
+            sleep 15
+          done
+          $success
 
       - name: Flutter build ipa (staging)
         script: |

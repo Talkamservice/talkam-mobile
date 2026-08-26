@@ -32,6 +32,12 @@ target 'Runner' do
   use_frameworks!
   use_modular_headers!
 
+  # tiktok_login_flutter depends on 'TikTokOpenSDK', '~> 5.0.15', whose
+  # CocoaPods trunk spec fetches from https://sf16-muse-va.ibytedtos.com,
+  # a host that returns 403 for CI runner IPs. We vendor the same file
+  # locally so pod install never needs that download.
+  pod 'TikTokOpenSDK', :path => 'patches/TikTokOpenSDK'
+
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
   target 'RunnerTests' do
     inherit! :search_paths
