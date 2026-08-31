@@ -317,8 +317,16 @@ class _SessionCallScreenState extends State<SessionCallScreen> {
       rethrow;
     }
     // Some Android OEM builds don't reliably honor the pre-join default
-    // route — re-assert explicitly once actually in the channel.
-    await engine.setEnableSpeakerphone(_isSpeakerOn);
+    // route — re-assert explicitly once actually in the channel. Best-effort
+    // only: the channel join above already succeeded, so a routing hiccup
+    // here (e.g. Agora -3/ERR_NOT_READY on devices where the audio session
+    // isn't ready yet) must not fail the whole connect flow.
+    try {
+      await engine.setEnableSpeakerphone(_isSpeakerOn);
+    } on AgoraRtcException catch (e) {
+      debugPrint('setEnableSpeakerphone failed post-join (code ${e.code}), '
+          'ignoring — call is already connected.');
+    }
 
     if (!mounted) {
       await engine.leaveChannel();
