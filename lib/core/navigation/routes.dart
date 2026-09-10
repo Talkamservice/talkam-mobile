@@ -27,6 +27,7 @@ import 'package:talkam/features/therapist_application/presentation/bloc/therapis
 import 'package:talkam/features/authentication/presentation/screens/user_type_selection_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/username_screen.dart';
 import 'package:talkam/features/authentication/presentation/screens/verify_otp_screen.dart';
+import 'package:talkam/features/group/presentation/screens/accept_group_invite_screen.dart';
 import 'package:talkam/features/group/presentation/screens/create_group/add_group_rules_screen.dart';
 import 'package:talkam/features/group/presentation/screens/create_group/create_group_screen.dart';
 import 'package:talkam/features/group/presentation/screens/create_group/create_group_success_screen.dart';
@@ -680,6 +681,15 @@ class CustomRoutes {
         pageBuilder: (context, state) => NoTransitionPage(
           child: ClientDetailsScreen(
             clientId: state.extra as int,
+          ),
+        ),
+      ),
+      GoRoute(
+        path: '/acceptGroupInviteScreen',
+        name: PageUrl.acceptGroupInviteScreen,
+        pageBuilder: (context, state) => NoTransitionPage(
+          child: AcceptGroupInviteScreen(
+            uuid: state.extra as String,
           ),
         ),
       ),

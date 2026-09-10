@@ -20,7 +20,8 @@ class DeepLinkNavigator {
 
   static void handleForegroundMessages(RemoteMessage message) {}
 
-  static Future<void> handlePushNotificationClick(Map<String, dynamic> payload) async {
+  static Future<void> handlePushNotificationClick(
+      Map<String, dynamic> payload) async {
     logger.w(payload);
     switch (payload['type']) {
       case 'file':
@@ -33,20 +34,27 @@ class DeepLinkNavigator {
         // openDownloadsFolder(filePath);
         break;
       case "post" || "comment":
-        if(isAuthenticated){
-          CustomRoutes.goRouter.pushNamed(PageUrl.postDetailsScreen, extra: payload['id'].toString());
-
+        if (isAuthenticated) {
+          CustomRoutes.goRouter.pushNamed(PageUrl.postDetailsScreen,
+              extra: payload['id'].toString());
         }
         break;
 
       case "conversation":
         if (isAuthenticated) {
-          if (ExtraClass.fromJson(jsonDecode(payload['extra'])).sender != null) {
-            var user = ExtraClass.fromJson(jsonDecode(payload['extra'])).sender!;
+          if (ExtraClass.fromJson(jsonDecode(payload['extra'])).sender !=
+              null) {
+            var user =
+                ExtraClass.fromJson(jsonDecode(payload['extra'])).sender!;
             CustomRoutes.goRouter.pushNamed(
               PageUrl.chatScreen,
               extra: ChatScreenParam(
-                user: ConversationUser(id: user.id, name: user.name, username: user.username, email: user.email, avatar: user.avatar),
+                user: ConversationUser(
+                    id: user.id,
+                    name: user.name,
+                    username: user.username,
+                    email: user.email,
+                    avatar: user.avatar),
               ),
             );
           }
@@ -57,19 +65,35 @@ class DeepLinkNavigator {
 
       case "group":
         if (isAuthenticated) {
-          CustomRoutes.goRouter.pushNamed(PageUrl.groupsInfoScreen, extra: payload['id'].toString());
+          CustomRoutes.goRouter.pushNamed(PageUrl.groupsInfoScreen,
+              extra: payload['id'].toString());
         }
       case "group_request":
         if (isAuthenticated) {
-          CustomRoutes.goRouter.pushNamed(PageUrl.pendingRequestsScreen, extra: payload['id'].toString());
+          CustomRoutes.goRouter.pushNamed(PageUrl.pendingRequestsScreen,
+              extra: payload['id'].toString());
         }
       case "request":
         if (isAuthenticated) {
-          CustomRoutes.goRouter.pushNamed(PageUrl.pendingRequestsScreen, extra: payload['id'].toString());
+          CustomRoutes.goRouter.pushNamed(PageUrl.pendingRequestsScreen,
+              extra: payload['id'].toString());
         }
+      // TODO: no confirmed payload contract yet for group invites
+      // (GroupsRepository.acceptGroupInvite / AcceptGroupInviteScreen are
+      // already wired up and independently reachable — this is just the
+      // missing trigger). Once backend defines the notification payload,
+      // add a case here, e.g.:
+      //   case "group_invite":
+      //     if (isAuthenticated) {
+      //       CustomRoutes.goRouter.pushNamed(
+      //         PageUrl.acceptGroupInviteScreen,
+      //         extra: payload['uuid'].toString(),
+      //       );
+      //     }
       case "mention":
         if (isAuthenticated) {
-          CustomRoutes.goRouter.pushNamed(PageUrl.postDetailsScreen, extra: payload['id'].toString());
+          CustomRoutes.goRouter.pushNamed(PageUrl.postDetailsScreen,
+              extra: payload['id'].toString());
         }
       // Reschedule requested/accepted/declined, session cancelled, session
       // reminder, and therapist-acknowledged all share this one generic
@@ -98,7 +122,6 @@ class DeepLinkNavigator {
           );
         }
 
-
         // showDialog(
         //   context: rootNavigatorKey.currentState!.context,
         //   builder: (context) {
@@ -121,7 +144,8 @@ class DeepLinkNavigator {
       final downloadsPath = '${directory?.path}/Download';
       await Process.run('open', [path]); // Or use a specific file manager app
     } else if (Platform.isIOS) {
-      await launch('file:///var/mobile/Media/Downloads'); // Or use a specific file manager app
+      await launch(
+          'file:///var/mobile/Media/Downloads'); // Or use a specific file manager app
     }
   }
 }

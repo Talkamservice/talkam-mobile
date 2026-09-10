@@ -6,15 +6,14 @@ import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
-import 'package:talkam/core/mock/mock_home_data.dart';
 import 'package:talkam/common/widgets/subscribe_button.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/gen/assets.gen.dart';
-import 'package:talkam/core/services/network/url_config.dart';
-import 'package:talkam/core/utils/helper_utils.dart';
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/features/group/presentation/blocs/group_members_cubit/group_members_cubit.dart';
 import 'package:talkam/features/group/presentation/widgets/group_action_sheet.dart';
+import 'package:talkam/features/group/presentation/widgets/invite_to_group_sheet.dart';
 
 import '../../../../core/utils/extensions/context_extension.dart';
 import '../../../search/data/models/get_group_response.dart';
@@ -32,10 +31,23 @@ class GroupDetailsHeader extends StatefulWidget {
 }
 
 class _GroupDetailsHeaderState extends State<GroupDetailsHeader> {
+  final _membersCubit = GroupMembersCubit(injector.get());
+
+  @override
+  void initState() {
+    super.initState();
+    _membersCubit.getGroupMembers(widget.group.id.toString());
+  }
+
+  @override
+  void dispose() {
+    _membersCubit.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final avatars = MockHomeData.groupMemberAvatars(widget.group);
-    final memberCount = MockHomeData.groupMemberCount(widget.group);
+    final memberCount = widget.group.totalMembers ?? 0;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -136,7 +148,23 @@ class _GroupDetailsHeaderState extends State<GroupDetailsHeader> {
                     },
                     child: Row(
                       children: [
-                        _MemberAvatarsStack(avatarUrls: avatars),
+                        BlocBuilder<GroupMembersCubit, GroupMembersState>(
+                          bloc: _membersCubit,
+                          builder: (context, state) {
+                            final avatars = state.maybeWhen(
+                              orElse: () => const <String>[],
+                              getGroupMembersSuccess: (response) => [
+                                ...response.data.owner,
+                                ...response.data.admin,
+                                ...response.data.member,
+                              ]
+                                  .map((m) => m.user.avatar)
+                                  .whereType<String>()
+                                  .toList(),
+                            );
+                            return _MemberAvatarsStack(avatarUrls: avatars);
+                          },
+                        ),
                         8.horizontalSpace,
                         TextView(
                           text: "${_formatMemberCount(memberCount)} Members",
@@ -151,27 +179,33 @@ class _GroupDetailsHeaderState extends State<GroupDetailsHeader> {
                     group: widget.group,
                     onFollowUpdated: widget.onFollowUpdated,
                   ),
-                  8.horizontalSpace,
-                  InkWell(
-                    onTap: () {
-                      Helpers.share(
-                          "${UrlConfig.webUrl}group/${widget.group.id}");
-                    },
-                    customBorder: const CircleBorder(),
-                    child: Container(
-                      width: 34.w,
-                      height: 34.w,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(color: Pallets.grey90),
-                      ),
-                      child: ImageWidget(
-                        imageUrl: Assets.images.svgV2.userAdd,
-                        size: 16,
+                  if (widget.group.isFollowing ?? false) ...[
+                    8.horizontalSpace,
+                    InkWell(
+                      onTap: () {
+                        CustomDialogs.showBottomSheet(
+                          context,
+                          InviteToGroupSheet(
+                            groupId: widget.group.id.toString(),
+                          ),
+                        );
+                      },
+                      customBorder: const CircleBorder(),
+                      child: Container(
+                        width: 34.w,
+                        height: 34.w,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(color: Pallets.grey90),
+                        ),
+                        child: ImageWidget(
+                          imageUrl: Assets.images.svgV2.userAdd,
+                          size: 16,
+                        ),
                       ),
                     ),
-                  ),
+                  ],
                 ],
               ),
               12.verticalSpace,

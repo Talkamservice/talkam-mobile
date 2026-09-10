@@ -7,10 +7,14 @@ import 'package:talkam/common/widgets/outlined_form_field.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
+/// Bottom sheet for attaching a post to one of the groups the user is
+/// already a member of — see [showCreatePostSheet]'s `group` param and
+/// `CreatePostSheet`'s "Add to group" pill.
 class SelectGroupTab extends StatefulWidget {
   const SelectGroupTab({super.key});
 
@@ -19,126 +23,182 @@ class SelectGroupTab extends StatefulWidget {
 }
 
 class _SelectGroupTabState extends State<SelectGroupTab> {
-  @override
-  void initState() {
-    super.initState();
-    groupsCubit.getGroups(isFollowing: true); // Assuming fetchGroups method exists in GroupsCubit
-  }
-
   final groupsCubit = GroupsCubit(injector.get());
   var filteredList = <TalkamGroup>[];
   var allLists = <TalkamGroup>[];
 
   @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        OutlinedFormField(
-          hint: "Search ",
-          radius: 100.r,
-          onChange: (query) {
-            filterList(query);
-          },
-          preffix: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ImageWidget(imageUrl: Assets.images.svgs.searchMd),
-          ),
-        ),
-        Expanded(
-          child: BlocConsumer<GroupsCubit, GroupsState>(
-            bloc: groupsCubit,
-            listener: (context, state) {
-              state.maybeWhen(
-                orElse: () => null,
-                getGroupsSuccess: (groups, paginationData) {
-                  allLists = groups;
-                  filteredList = groups;
-                  setState(() {});
-                },
-              );
-            },
-            builder: (context, state) {
-              return state.maybeWhen(
-                orElse: () => 0.verticalSpace,
-                getGroupsFailure: (error) => AppErrorWidget(
+  void initState() {
+    super.initState();
+    groupsCubit.getGroups(isFollowing: true);
+  }
 
-                  onTap: () {
-
-
-                    groupsCubit.getGroups(isFollowing: true); // Re-fetch groups on error
-                  },
-                ),
-                getGroupsLoading: () => CustomDialogs.getLoading(size: 50),
-                getGroupsSuccess: (groups, paginationData) {
-                  if (filteredList.isEmpty) {
-                    return const Center(
-                      child: TextView(text: "There are no groups yet"),
-                    );
-                  }
-
-                  return ListView.builder(
-                    itemCount: filteredList.length,
-                    shrinkWrap: true,
-                    itemBuilder: (context, index) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: _GroupItem(
-                        group: filteredList[index],
-                      ),
-                    ),
-                  );
-                },
-              );
-            },
-          ),
-        ),
-      ],
-    );
+  @override
+  void dispose() {
+    groupsCubit.close();
+    super.dispose();
   }
 
   void filterList(String query) {
-    if (query.isEmpty) {
-      filteredList = allLists;
-    } else {
-      filteredList = allLists
-          .where(
-            (element) => element.name!.toLowerCase().contains(query),
-          )
-          .toList();
-    }
+    final q = query.toLowerCase();
+    setState(() {
+      filteredList = q.isEmpty
+          ? allLists
+          : allLists
+              .where((group) => (group.name ?? '').toLowerCase().contains(q))
+              .toList();
+    });
+  }
 
-    setState(() {});
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 0.75.sh,
+      decoration: BoxDecoration(
+        color: Pallets.white,
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(24.r),
+          topRight: Radius.circular(24.r),
+        ),
+      ),
+      child: Column(
+        children: [
+          // ── Handle bar ─────────────────────────────────────────────
+          Padding(
+            padding: EdgeInsets.only(top: 12.h, bottom: 16.h),
+            child: Container(
+              width: 48.w,
+              height: 4.h,
+              decoration: BoxDecoration(
+                color: Pallets.boldBlackV2,
+                borderRadius: BorderRadius.circular(4.r),
+              ),
+            ),
+          ),
+
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 24.w),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextView(
+                    text: "Select a group",
+                    fontSize: 20,
+                    fontWeight: FontWeight.w700,
+                    color: Pallets.boldBlackV2,
+                  ),
+                ),
+                12.verticalSpace,
+                OutlinedFormField(
+                  hint: "Search your groups",
+                  radius: 100.r,
+                  onChange: filterList,
+                  preffix: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: ImageWidget(imageUrl: Assets.images.svgs.searchMd),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          12.verticalSpace,
+
+          Expanded(
+            child: BlocConsumer<GroupsCubit, GroupsState>(
+              bloc: groupsCubit,
+              listener: (context, state) {
+                state.maybeWhen(
+                  orElse: () => null,
+                  getGroupsSuccess: (groups, paginationData) {
+                    setState(() {
+                      allLists = groups;
+                      filteredList = groups;
+                    });
+                  },
+                );
+              },
+              builder: (context, state) {
+                return state.maybeWhen(
+                  orElse: () => const SizedBox.shrink(),
+                  getGroupsFailure: (error) => Center(
+                    child: AppErrorWidget(
+                      message: error,
+                      onTap: () => groupsCubit.getGroups(isFollowing: true),
+                    ),
+                  ),
+                  getGroupsLoading: () =>
+                      Center(child: CustomDialogs.getLoading(size: 50)),
+                  getGroupsSuccess: (groups, paginationData) {
+                    if (filteredList.isEmpty) {
+                      return Center(
+                        child: TextView(
+                          text: allLists.isEmpty
+                              ? "You haven't joined any groups yet"
+                              : "No groups match your search",
+                          fontSize: 14,
+                          color: Pallets.grey400,
+                        ),
+                      );
+                    }
+
+                    return ListView.separated(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 24.w,
+                        vertical: 8.h,
+                      ),
+                      itemCount: filteredList.length,
+                      separatorBuilder: (context, index) => 4.verticalSpace,
+                      itemBuilder: (context, index) => _GroupItem(
+                        group: filteredList[index],
+                      ),
+                    );
+                  },
+                );
+              },
+            ),
+          ),
+          8.verticalSpace,
+        ],
+      ),
+    );
   }
 }
 
 class _GroupItem extends StatelessWidget {
-  const _GroupItem({super.key, required this.group});
+  const _GroupItem({required this.group});
 
   final TalkamGroup group;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {
-        context.pop(group);
-      },
+      borderRadius: BorderRadius.circular(12.r),
+      onTap: () => Navigator.of(context).pop(group),
       child: Padding(
-        padding: const EdgeInsets.all(5.0),
+        padding: EdgeInsets.symmetric(vertical: 8.h),
         child: Row(
           children: [
             ImageWidget(
-              imageUrl: group.category?.iconImage! ?? Assets.images.png.sports.path,
-              size: 30,
+              imageUrl: group.image ?? Assets.images.svgs.user,
+              size: 40,
+              shape: BoxShape.circle,
             ),
-            8.horizontalSpace,
+            12.horizontalSpace,
             Expanded(
               child: TextView(
-                text: group.name!,
-                fontSize: 16,
+                text: group.name ?? "Untitled group",
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+                color: Pallets.boldBlackV2,
+                maxLines: 1,
+                textOverflow: TextOverflow.ellipsis,
               ),
             ),
             8.horizontalSpace,
-            ImageWidget(imageUrl: Assets.images.svgs.chevronRight)
+            Icon(Icons.chevron_right_rounded,
+                color: Pallets.grey400, size: 22.w),
           ],
         ),
       ),

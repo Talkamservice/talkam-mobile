@@ -26,24 +26,30 @@ import 'package:talkam/features/post/presentation/widgets/emoji_composer_sheet.d
 import 'package:talkam/features/post/presentation/widgets/mention_suggestions_panel.dart';
 import 'package:talkam/features/post/presentation/widgets/poll_builder_sheet.dart';
 import 'package:talkam/features/post/presentation/widgets/rules_sheet.dart';
+import 'package:talkam/features/post/presentation/widgets/select_group_tab.dart';
 import 'package:talkam/features/post/presentation/widgets/style_toggle_chip.dart';
 import 'package:talkam/features/post/presentation/widgets/tags_picker_widget.dart';
+import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 const _kBodyMaxLength = 500;
 
-/// Opens [CreatePostSheet] as a modal bottom sheet.
-Future<void> showCreatePostSheet(BuildContext context) {
+/// Opens [CreatePostSheet] as a modal bottom sheet. Pass [group] to
+/// pre-attach a group (e.g. when opened from that group's own FAB) — still
+/// freely changeable/clearable in the sheet, not locked.
+Future<void> showCreatePostSheet(BuildContext context, {TalkamGroup? group}) {
   FocusManager.instance.primaryFocus?.unfocus();
   return CustomDialogs.showBottomSheet(
     context,
-    const CreatePostSheet(),
+    CreatePostSheet(group: group),
     constraints: BoxConstraints(maxHeight: 0.94.sh),
   );
 }
 
 class CreatePostSheet extends StatefulWidget {
-  const CreatePostSheet({super.key});
+  const CreatePostSheet({super.key, this.group});
+
+  final TalkamGroup? group;
 
   @override
   State<CreatePostSheet> createState() => _CreatePostSheetState();
@@ -59,6 +65,7 @@ class _CreatePostSheetState extends State<CreatePostSheet>
   final _scrollController = ScrollController();
 
   PostCategory? _selectedCategory;
+  TalkamGroup? _selectedGroup;
   List<String> _tags = [];
   bool _schedulePost = false;
   DateTime? _scheduleDate;
@@ -70,9 +77,21 @@ class _CreatePostSheetState extends State<CreatePostSheet>
 
   @override
   void initState() {
+    _selectedGroup = widget.group;
     _postBloc.add(const PostEvent.getInterestTopics());
     _bodyController.addListener(_checkMaxLength);
     super.initState();
+  }
+
+  Future<void> _pickGroup() async {
+    FocusScope.of(context).unfocus();
+    final group = await CustomDialogs.showBottomSheet<TalkamGroup>(
+      context,
+      const SelectGroupTab(),
+    );
+    if (group != null && mounted) {
+      setState(() => _selectedGroup = group);
+    }
   }
 
   void _checkMaxLength() {
@@ -174,6 +193,7 @@ class _CreatePostSheetState extends State<CreatePostSheet>
 
     bloc.updatePayload(CreatePostPayload(
       categoryId: _selectedCategory!.id,
+      groupId: _selectedGroup?.id,
       title: _titleController.text.trim(),
       body: _bodyController.text.trim(),
       tags: _tags,
@@ -200,6 +220,7 @@ class _CreatePostSheetState extends State<CreatePostSheet>
 
     bloc.updatePayload(CreatePostPayload(
       categoryId: _selectedCategory!.id,
+      groupId: _selectedGroup?.id,
       title: _titleController.text.trim(),
       body: _bodyController.text.trim(),
       tags: _tags,
@@ -298,7 +319,8 @@ class _CreatePostSheetState extends State<CreatePostSheet>
                         builder: (context, state) {
                           final categories = state.maybeWhen(
                             orElse: () => const <PostCategory>[],
-                            getInterestTopicsSuccess: (response) => response.data,
+                            getInterestTopicsSuccess: (response) =>
+                                response.data,
                           );
                           return _CategoryChips(
                             categories: categories,
@@ -312,10 +334,17 @@ class _CreatePostSheetState extends State<CreatePostSheet>
                       Row(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.end,
-                        children: const [
-                          _DraftsPillButton(),
-                          SizedBox(width: 8),
-                          _RulesPillButton(),
+                        children: [
+                          _GroupSelectorPill(
+                            group: _selectedGroup,
+                            onTap: _pickGroup,
+                            onClear: () =>
+                                setState(() => _selectedGroup = null),
+                          ),
+                          8.horizontalSpace,
+                          const _DraftsPillButton(),
+                          8.horizontalSpace,
+                          const _RulesPillButton(),
                         ],
                       ),
                       16.verticalSpace,
@@ -338,353 +367,421 @@ class _CreatePostSheetState extends State<CreatePostSheet>
                         ),
                       ),
                       16.verticalSpace,
-                    RepaintBoundary(
-                      child: _OutlinedBox(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            TextField(
-                              controller: _bodyController,
-                              maxLines: 8,
-                              minLines: 6,
-                              maxLength: _kBodyMaxLength,
-                              textCapitalization: TextCapitalization.sentences,
-                              decoration: const InputDecoration(
-                                isDense: true,
-                                contentPadding:
-                                    EdgeInsets.symmetric(vertical: 8),
-                                hintText: "What's on your mind",
-                                border: InputBorder.none,
-                                counterText: "",
+                      RepaintBoundary(
+                        child: _OutlinedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              TextField(
+                                controller: _bodyController,
+                                maxLines: 8,
+                                minLines: 6,
+                                maxLength: _kBodyMaxLength,
+                                textCapitalization:
+                                    TextCapitalization.sentences,
+                                decoration: const InputDecoration(
+                                  isDense: true,
+                                  contentPadding:
+                                      EdgeInsets.symmetric(vertical: 8),
+                                  hintText: "What's on your mind",
+                                  border: InputBorder.none,
+                                  counterText: "",
+                                ),
                               ),
-                            ),
-                            MentionSuggestionsPanel(editor: _bodyEditor),
-                            if (_stagedImage != null)
-                              Padding(
-                                padding: EdgeInsets.only(bottom: 8.h),
-                                child: Stack(
-                                  clipBehavior: Clip.none,
-                                  children: [
-                                    ImageWidget(
-                                      imageUrl: _stagedImage!.path,
-                                      height: 140.h,
-                                      width: 1.sw,
-                                      borderRadius: BorderRadius.circular(16.r),
-                                      imageType: ImageWidgetType.file,
-                                    ),
-                                    Positioned(
-                                      top: -8,
-                                      right: -8,
-                                      child: InkWell(
-                                        onTap: () =>
-                                            setState(() => _stagedImage = null),
-                                        child: const CircleAvatar(
-                                          backgroundColor: Pallets.primary,
-                                          radius: 14,
-                                          child: Icon(Icons.close,
-                                              size: 16, color: Colors.white),
+                              MentionSuggestionsPanel(editor: _bodyEditor),
+                              if (_stagedImage != null)
+                                Padding(
+                                  padding: EdgeInsets.only(bottom: 8.h),
+                                  child: Stack(
+                                    clipBehavior: Clip.none,
+                                    children: [
+                                      ImageWidget(
+                                        imageUrl: _stagedImage!.path,
+                                        height: 140.h,
+                                        width: 1.sw,
+                                        borderRadius:
+                                            BorderRadius.circular(16.r),
+                                        imageType: ImageWidgetType.file,
+                                      ),
+                                      Positioned(
+                                        top: -8,
+                                        right: -8,
+                                        child: InkWell(
+                                          onTap: () => setState(
+                                              () => _stagedImage = null),
+                                          child: const CircleAvatar(
+                                            backgroundColor: Pallets.primary,
+                                            radius: 14,
+                                            child: Icon(Icons.close,
+                                                size: 16, color: Colors.white),
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            if (_poll != null)
-                              Padding(
-                                padding: EdgeInsets.only(bottom: 8.h),
-                                child: _PollPreview(
-                                  poll: _poll!,
-                                  onEdit: () async {
-                                    final poll = await showPollBuilderSheet(
-                                        context,
-                                        initial: _poll);
-                                    if (poll != null && mounted) {
-                                      setState(() => _poll = poll);
-                                    }
-                                  },
-                                  onRemove: () => setState(() => _poll = null),
-                                ),
-                              ),
-                            BlocBuilder<ComposerEditorCubit, ComposerEditorState>(
-                              bloc: _bodyEditor,
-                              builder: (context, editorState) =>
-                                  SingleChildScrollView(
-                                scrollDirection: Axis.horizontal,
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    InkWell(
-                                      onTap: _pickImage,
-                                      child: ImageWidget(
-                                          imageUrl:
-                                              Assets.images.svgV2.addImageIcon,
-                                          size: 20),
-                                    ),
-                                    16.horizontalSpace,
-                                    InkWell(
-                                      canRequestFocus: false,
-                                      onTap: _bodyEditor.toggleStyleOptions,
-                                      child: ImageWidget(
-                                        imageUrl: Assets.images.svgV2.text,
-                                        size: 20,
-                                        color: editorState.showStyleOptions
-                                            ? Pallets.blueBubbleColor
-                                            : null,
-                                      ),
-                                    ),
-                                    AnimatedSize(
-                                      duration: const Duration(milliseconds: 200),
-                                      curve: Curves.easeOut,
-                                      alignment: Alignment.centerLeft,
-                                      clipBehavior: Clip.hardEdge,
-                                      child: !editorState.showStyleOptions
-                                          ? const SizedBox(height: 28)
-                                          : Row(
-                                              children: [
-                                                8.horizontalSpace,
-                                                StyleToggleChip(
-                                                  label: "B",
-                                                  active:
-                                                      editorState.isBoldActive,
-                                                  onTap: _bodyEditor.toggleBold,
-                                                ),
-                                                8.horizontalSpace,
-                                                StyleToggleChip(
-                                                  label: "I",
-                                                  active:
-                                                      editorState.isItalicActive,
-                                                  fontStyle: FontStyle.italic,
-                                                  onTap: _bodyEditor.toggleItalic,
-                                                ),
-                                              ],
-                                            ),
-                                    ),
-                                    16.horizontalSpace,
-                                    InkWell(
-                                      onTap: _comingSoon,
-                                      child: ImageWidget(
-                                          imageUrl: Assets.images.svgV2.gif02,
-                                          size: 20),
-                                    ),
-                                    16.horizontalSpace,
-                                    InkWell(
-                                      canRequestFocus: false,
-                                      onTap: _bodyEditor.toggleBulletLine,
-                                      child: ImageWidget(
-                                        imageUrl: Assets
-                                            .images.svgV2.rightToLeftListBullet,
-                                        size: 20,
-                                        color: editorState.isBulletLineActive
-                                            ? Pallets.blueBubbleColor
-                                            : null,
-                                      ),
-                                    ),
-                                    16.horizontalSpace,
-                                    InkWell(
-                                      canRequestFocus: false,
-                                      onTap: _bodyEditor.toggleMoreOptions,
-                                      child: Icon(Icons.add_circle_outline,
-                                          size: 22,
-                                          color: editorState.showMoreOptions
-                                              ? Pallets.blueBubbleColor
-                                              : Pallets.grey60),
-                                    ),
-                                    AnimatedSize(
-                                      duration: const Duration(milliseconds: 200),
-                                      curve: Curves.easeOut,
-                                      alignment: Alignment.centerLeft,
-                                      clipBehavior: Clip.hardEdge,
-                                      child: !editorState.showMoreOptions
-                                          ? const SizedBox(height: 28)
-                                          : Row(
-                                              children: [
-                                                8.horizontalSpace,
-                                                InkWell(
-                                                  onTap: _openPoll,
-                                                  child: const Icon(
-                                                      Icons.bar_chart_rounded,
-                                                      size: 20,
-                                                      color: Pallets
-                                                          .blueBubbleColor),
-                                                ),
-                                                8.horizontalSpace,
-                                                InkWell(
-                                                  onTap: _openEmoji,
-                                                  child: const Icon(
-                                                      Icons
-                                                          .emoji_emotions_outlined,
-                                                      size: 20,
-                                                      color: Pallets
-                                                          .blueBubbleColor),
-                                                ),
-                                              ],
-                                            ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                            Row(
-                              children: [
-                                const Spacer(),
-                                ValueListenableBuilder(
-                                  valueListenable: _bodyController,
-                                  builder: (context, value, _) => TextView(
-                                    text:
-                                        "${value.text.characters.length}/$_kBodyMaxLength",
-                                    color: Pallets.grey60,
-                                    fontSize: 12,
+                                    ],
                                   ),
                                 ),
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    16.verticalSpace,
-                    TagsPickerWidget(onTagSelected: (tags) => _tags = tags),
-                    16.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const TextView(
-                            text: "Schedule this post", fontSize: 16),
-                        CustomSwitch(
-                          value: _schedulePost,
-                          onChanged: (value) {
-                            setState(() {
-                              _schedulePost = value;
-                              if (!value) _scheduleDate = null;
-                            });
-                          },
-                        ),
-                      ],
-                    ),
-                    if (_schedulePost) ...[
-                      8.verticalSpace,
-                      InkWell(
-                        onTap: _pickScheduleDateTime,
-                        child: Container(
-                          width: double.infinity,
-                          padding: EdgeInsets.symmetric(
-                              horizontal: 16.w, vertical: 2.h),
-                          constraints: BoxConstraints(minHeight: 55.h),
-                          decoration: BoxDecoration(
-                            color: Pallets.borderGrey.withValues(alpha: 0.1),
-                            border:
-                                Border.all(color: Pallets.borderGrey, width: 1),
-                            borderRadius: BorderRadius.circular(10.r),
-                          ),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                child: TextView(
-                                  text: _scheduleDate != null
-                                      ? TimeUtil.formartToDayTime(
-                                          _scheduleDate!)
-                                      : "Date & Time",
-                                  fontSize: 15,
-                                  color: _scheduleDate != null
-                                      ? context.colorScheme.onSurface
-                                      : Pallets.grey60,
+                              if (_poll != null)
+                                Padding(
+                                  padding: EdgeInsets.only(bottom: 8.h),
+                                  child: _PollPreview(
+                                    poll: _poll!,
+                                    onEdit: () async {
+                                      final poll = await showPollBuilderSheet(
+                                          context,
+                                          initial: _poll);
+                                      if (poll != null && mounted) {
+                                        setState(() => _poll = poll);
+                                      }
+                                    },
+                                    onRemove: () =>
+                                        setState(() => _poll = null),
+                                  ),
+                                ),
+                              BlocBuilder<ComposerEditorCubit,
+                                  ComposerEditorState>(
+                                bloc: _bodyEditor,
+                                builder: (context, editorState) =>
+                                    SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      InkWell(
+                                        onTap: _pickImage,
+                                        child: ImageWidget(
+                                            imageUrl: Assets
+                                                .images.svgV2.addImageIcon,
+                                            size: 20),
+                                      ),
+                                      16.horizontalSpace,
+                                      InkWell(
+                                        canRequestFocus: false,
+                                        onTap: _bodyEditor.toggleStyleOptions,
+                                        child: ImageWidget(
+                                          imageUrl: Assets.images.svgV2.text,
+                                          size: 20,
+                                          color: editorState.showStyleOptions
+                                              ? Pallets.blueBubbleColor
+                                              : null,
+                                        ),
+                                      ),
+                                      AnimatedSize(
+                                        duration:
+                                            const Duration(milliseconds: 200),
+                                        curve: Curves.easeOut,
+                                        alignment: Alignment.centerLeft,
+                                        clipBehavior: Clip.hardEdge,
+                                        child: !editorState.showStyleOptions
+                                            ? const SizedBox(height: 28)
+                                            : Row(
+                                                children: [
+                                                  8.horizontalSpace,
+                                                  StyleToggleChip(
+                                                    label: "B",
+                                                    active: editorState
+                                                        .isBoldActive,
+                                                    onTap:
+                                                        _bodyEditor.toggleBold,
+                                                  ),
+                                                  8.horizontalSpace,
+                                                  StyleToggleChip(
+                                                    label: "I",
+                                                    active: editorState
+                                                        .isItalicActive,
+                                                    fontStyle: FontStyle.italic,
+                                                    onTap: _bodyEditor
+                                                        .toggleItalic,
+                                                  ),
+                                                ],
+                                              ),
+                                      ),
+                                      16.horizontalSpace,
+                                      InkWell(
+                                        onTap: _comingSoon,
+                                        child: ImageWidget(
+                                            imageUrl: Assets.images.svgV2.gif02,
+                                            size: 20),
+                                      ),
+                                      16.horizontalSpace,
+                                      InkWell(
+                                        canRequestFocus: false,
+                                        onTap: _bodyEditor.toggleBulletLine,
+                                        child: ImageWidget(
+                                          imageUrl: Assets.images.svgV2
+                                              .rightToLeftListBullet,
+                                          size: 20,
+                                          color: editorState.isBulletLineActive
+                                              ? Pallets.blueBubbleColor
+                                              : null,
+                                        ),
+                                      ),
+                                      16.horizontalSpace,
+                                      InkWell(
+                                        canRequestFocus: false,
+                                        onTap: _bodyEditor.toggleMoreOptions,
+                                        child: Icon(Icons.add_circle_outline,
+                                            size: 22,
+                                            color: editorState.showMoreOptions
+                                                ? Pallets.blueBubbleColor
+                                                : Pallets.grey60),
+                                      ),
+                                      AnimatedSize(
+                                        duration:
+                                            const Duration(milliseconds: 200),
+                                        curve: Curves.easeOut,
+                                        alignment: Alignment.centerLeft,
+                                        clipBehavior: Clip.hardEdge,
+                                        child: !editorState.showMoreOptions
+                                            ? const SizedBox(height: 28)
+                                            : Row(
+                                                children: [
+                                                  8.horizontalSpace,
+                                                  InkWell(
+                                                    onTap: _openPoll,
+                                                    child: const Icon(
+                                                        Icons.bar_chart_rounded,
+                                                        size: 20,
+                                                        color: Pallets
+                                                            .blueBubbleColor),
+                                                  ),
+                                                  8.horizontalSpace,
+                                                  InkWell(
+                                                    onTap: _openEmoji,
+                                                    child: const Icon(
+                                                        Icons
+                                                            .emoji_emotions_outlined,
+                                                        size: 20,
+                                                        color: Pallets
+                                                            .blueBubbleColor),
+                                                  ),
+                                                ],
+                                              ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
-                              const Icon(Icons.keyboard_arrow_down_rounded),
+                              Row(
+                                children: [
+                                  const Spacer(),
+                                  ValueListenableBuilder(
+                                    valueListenable: _bodyController,
+                                    builder: (context, value, _) => TextView(
+                                      text:
+                                          "${value.text.characters.length}/$_kBodyMaxLength",
+                                      color: Pallets.grey60,
+                                      fontSize: 12,
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ],
                           ),
                         ),
                       ),
-                    ],
-                    16.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        const TextView(
-                            text: "Post Anonymously",
-                            fontWeight: FontWeight.w500),
-                        8.horizontalSpace,
-                        CustomSwitch(
-                          value: _isAnonymous,
-                          onChanged: (value) =>
-                              setState(() => _isAnonymous = value),
-                        ),
-                      ],
-                    ),
-                    16.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        InkWell(
-                          onTap: _saveDraft,
-                          child: const TextView(
-                            text: "Save as Draft",
-                            color: Pallets.blueBubbleColor,
-                            fontWeight: FontWeight.w600,
-                          ),
-                        ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Pallets.blueBubbleColor,
-                            shape: const StadiumBorder(),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 32.w, vertical: 12.h),
-                          ),
-                          onPressed: _submit,
-                          child: const TextView(
-                              text: "Post",
-                              color: Colors.white,
-                              fontWeight: FontWeight.w700),
-                        ),
-                      ],
-                    ),
-                    16.verticalSpace,
-                    Container(
-                      width: double.infinity,
-                      padding: EdgeInsets.all(12.w),
-                      decoration: BoxDecoration(
-                        color: Pallets.anonymousBg.withValues(alpha: 0.25),
-                        borderRadius: BorderRadius.circular(12.r),
-                        border: Border.all(
-                            color: Colors.orange.withValues(alpha: 0.4)),
-                      ),
-                      child: Row(
+                      16.verticalSpace,
+                      TagsPickerWidget(onTagSelected: (tags) => _tags = tags),
+                      16.verticalSpace,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Icon(Icons.info_outline,
-                              color: Colors.orange, size: 18),
-                          8.horizontalSpace,
-                          const Expanded(
-                            child: TextView(
-                              text: "Posting anonymously hides your identity",
-                              fontSize: 12,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.orange,
-                            ),
+                          const TextView(
+                              text: "Schedule this post", fontSize: 16),
+                          CustomSwitch(
+                            value: _schedulePost,
+                            onChanged: (value) {
+                              setState(() {
+                                _schedulePost = value;
+                                if (!value) _scheduleDate = null;
+                              });
+                            },
                           ),
                         ],
                       ),
-                    ),
-                    12.verticalSpace,
-                    const Center(
-                      child: TextView(
-                        text:
-                            "Please be kind and respectful. Moderators review posts.",
-                        fontSize: 12,
-                        color: Pallets.grey60,
-                        align: TextAlign.center,
+                      if (_schedulePost) ...[
+                        8.verticalSpace,
+                        InkWell(
+                          onTap: _pickScheduleDateTime,
+                          child: Container(
+                            width: double.infinity,
+                            padding: EdgeInsets.symmetric(
+                                horizontal: 16.w, vertical: 2.h),
+                            constraints: BoxConstraints(minHeight: 55.h),
+                            decoration: BoxDecoration(
+                              color: Pallets.borderGrey.withValues(alpha: 0.1),
+                              border: Border.all(
+                                  color: Pallets.borderGrey, width: 1),
+                              borderRadius: BorderRadius.circular(10.r),
+                            ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: TextView(
+                                    text: _scheduleDate != null
+                                        ? TimeUtil.formartToDayTime(
+                                            _scheduleDate!)
+                                        : "Date & Time",
+                                    fontSize: 15,
+                                    color: _scheduleDate != null
+                                        ? context.colorScheme.onSurface
+                                        : Pallets.grey60,
+                                  ),
+                                ),
+                                const Icon(Icons.keyboard_arrow_down_rounded),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                      16.verticalSpace,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          const TextView(
+                              text: "Post Anonymously",
+                              fontWeight: FontWeight.w500),
+                          8.horizontalSpace,
+                          CustomSwitch(
+                            value: _isAnonymous,
+                            onChanged: (value) =>
+                                setState(() => _isAnonymous = value),
+                          ),
+                        ],
                       ),
-                    ),
-                    16.verticalSpace,
-                  ],
+                      16.verticalSpace,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          InkWell(
+                            onTap: _saveDraft,
+                            child: const TextView(
+                              text: "Save as Draft",
+                              color: Pallets.blueBubbleColor,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                          ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Pallets.blueBubbleColor,
+                              shape: const StadiumBorder(),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: 32.w, vertical: 12.h),
+                            ),
+                            onPressed: _submit,
+                            child: const TextView(
+                                text: "Post",
+                                color: Colors.white,
+                                fontWeight: FontWeight.w700),
+                          ),
+                        ],
+                      ),
+                      16.verticalSpace,
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.all(12.w),
+                        decoration: BoxDecoration(
+                          color: Pallets.anonymousBg.withValues(alpha: 0.25),
+                          borderRadius: BorderRadius.circular(12.r),
+                          border: Border.all(
+                              color: Colors.orange.withValues(alpha: 0.4)),
+                        ),
+                        child: Row(
+                          children: [
+                            const Icon(Icons.info_outline,
+                                color: Colors.orange, size: 18),
+                            8.horizontalSpace,
+                            const Expanded(
+                              child: TextView(
+                                text: "Posting anonymously hides your identity",
+                                fontSize: 12,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.orange,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      12.verticalSpace,
+                      const Center(
+                        child: TextView(
+                          text:
+                              "Please be kind and respectful. Moderators review posts.",
+                          fontSize: 12,
+                          color: Pallets.grey60,
+                          align: TextAlign.center,
+                        ),
+                      ),
+                      16.verticalSpace,
+                    ],
+                  ),
                 ),
               ),
             ),
           ),
         ),
       ),
-    ),
-  );
+    );
+  }
 }
+
+/// Optional "attach this post to a group" pill, same visual language as
+/// [_DraftsPillButton]/[_RulesPillButton]. Freely editable even when
+/// pre-filled from a group's own FAB — never locked.
+class _GroupSelectorPill extends StatelessWidget {
+  const _GroupSelectorPill({
+    required this.group,
+    required this.onTap,
+    required this.onClear,
+  });
+
+  final TalkamGroup? group;
+  final VoidCallback onTap;
+  final VoidCallback onClear;
+
+  @override
+  Widget build(BuildContext context) {
+    final group = this.group;
+    return Flexible(
+      child: InkWell(
+        borderRadius: BorderRadius.circular(100),
+        onTap: onTap,
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
+          decoration: BoxDecoration(
+            color: Pallets.blueBubbleColor.withValues(alpha: 0.08),
+            borderRadius: BorderRadius.circular(100),
+            border: Border.all(color: Pallets.blueBubbleColor),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Icon(Icons.groups_outlined,
+                  size: 16.w, color: Pallets.blueBubbleColor),
+              6.horizontalSpace,
+              Flexible(
+                child: TextView(
+                  text: group?.name ?? "Add to group",
+                  fontSize: 13,
+                  fontWeight: FontWeight.w600,
+                  color: Pallets.blueBubbleColor,
+                  maxLines: 1,
+                  textOverflow: TextOverflow.ellipsis,
+                ),
+              ),
+              if (group != null) ...[
+                6.horizontalSpace,
+                InkWell(
+                  onTap: onClear,
+                  child: Icon(Icons.close,
+                      size: 14.w, color: Pallets.blueBubbleColor),
+                ),
+              ],
+            ],
+          ),
+        ),
+      ),
+    );
+  }
 }
 
 class _DraftsPillButton extends StatelessWidget {

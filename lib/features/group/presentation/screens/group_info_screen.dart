@@ -66,7 +66,11 @@ class _GroupInfoScreenState extends State<GroupInfoScreen>
           backgroundColor: Pallets.blueBubbleColor,
           shape: const CircleBorder(),
           onPressed: () {
-            showCreatePostSheet(context);
+            final group = bloc.state.maybeWhen(
+              getGroupSuccess: (response) => response,
+              orElse: () => null,
+            );
+            showCreatePostSheet(context, group: group);
           },
           child: const Icon(Icons.add, color: Colors.white),
         ),

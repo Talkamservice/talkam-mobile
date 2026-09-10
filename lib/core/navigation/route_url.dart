@@ -42,6 +42,7 @@ class PageUrl {
   static const payoutScreen = 'payoutScreen';
   static const profileTabScreen = 'profileTabScreen';
   static const clientDetailsScreen = 'clientDetailsScreen';
+  static const acceptGroupInviteScreen = 'acceptGroupInviteScreen';
 
   static const passWordResetScreen = 'passWordResetScreen';
 
