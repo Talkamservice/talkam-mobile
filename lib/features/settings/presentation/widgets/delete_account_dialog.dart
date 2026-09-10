@@ -58,9 +58,10 @@ class _DeleteAccountDialogState extends State<DeleteAccountDialog> {
             context.pop(); // dismiss loading
             CustomDialogs.error(error);
           },
-          deleteAccountSuccess: (response) {
+          deleteAccountSuccess: (response) async {
             context.pop(); // dismiss loading
-            SessionManager.instance.logOut();
+            await SessionManager.instance.logOut();
+            if (!context.mounted) return;
             context.goNamed(PageUrl.signUp);
             CustomDialogs.success('Account deleted');
           },

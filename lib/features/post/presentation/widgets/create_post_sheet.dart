@@ -34,6 +34,7 @@ const _kBodyMaxLength = 500;
 
 /// Opens [CreatePostSheet] as a modal bottom sheet.
 Future<void> showCreatePostSheet(BuildContext context) {
+  FocusManager.instance.primaryFocus?.unfocus();
   return CustomDialogs.showBottomSheet(
     context,
     const CreatePostSheet(),
@@ -55,6 +56,7 @@ class _CreatePostSheetState extends State<CreatePostSheet>
   final _titleController = TextEditingController();
   final _bodyController = RichComposerController();
   late final _bodyEditor = ComposerEditorCubit(_bodyController);
+  final _scrollController = ScrollController();
 
   PostCategory? _selectedCategory;
   List<String> _tags = [];
@@ -64,28 +66,49 @@ class _CreatePostSheetState extends State<CreatePostSheet>
   File? _stagedImage;
   Poll? _poll;
 
+  bool _hasReachedMaxLength = false;
+
   @override
   void initState() {
     _postBloc.add(const PostEvent.getInterestTopics());
+    _bodyController.addListener(_checkMaxLength);
     super.initState();
+  }
+
+  void _checkMaxLength() {
+    final length = _bodyController.text.characters.length;
+    if (length >= _kBodyMaxLength) {
+      if (!_hasReachedMaxLength) {
+        _hasReachedMaxLength = true;
+        CustomDialogs.showToast(
+          "You have reached the maximum character limit of $_kBodyMaxLength characters",
+        );
+      }
+    } else {
+      _hasReachedMaxLength = false;
+    }
   }
 
   @override
   void dispose() {
+    _bodyController.removeListener(_checkMaxLength);
     _titleController.dispose();
     _bodyEditor.close();
     _bodyController.dispose();
+    bloc.close();
     _postBloc.close();
+    _scrollController.dispose();
     super.dispose();
   }
 
   Future<void> _pickImage() async {
-    var image = await ImageManager().pickImageFromGallery();
-    if (image != null)
+    final image = await ImageManager().pickImageFromGallery();
+    if (image != null && mounted) {
       setState(() {
         _stagedImage = image;
         _poll = null;
       });
+    }
   }
 
   void _comingSoon() => CustomDialogs.showToast("Coming soon");
@@ -93,7 +116,7 @@ class _CreatePostSheetState extends State<CreatePostSheet>
   Future<void> _openPoll() async {
     _bodyEditor.closeMoreOptions();
     final poll = await showPollBuilderSheet(context, initial: _poll);
-    if (poll != null) {
+    if (poll != null && mounted) {
       setState(() {
         _poll = poll;
         _stagedImage = null;
@@ -118,7 +141,7 @@ class _CreatePostSheetState extends State<CreatePostSheet>
 
     final pickedTime =
         await showTimePicker(context: context, initialTime: TimeOfDay.now());
-    if (pickedTime == null) return;
+    if (pickedTime == null || !mounted) return;
 
     if (pickedDate.isToday && pickedTime.hour < TimeOfDay.now().hour) {
       CustomDialogs.error("Please select a future time.");
@@ -203,7 +226,8 @@ class _CreatePostSheetState extends State<CreatePostSheet>
             },
             createPostSuccess: (response) {
               refreshPost();
-              context.pop();
+              context.pop(); // dismiss loading dialog
+              context.pop(); // dismiss bottom sheet
               CustomDialogs.success("Post created");
             },
             saveDraftLoading: () => CustomDialogs.showLoading(context),
@@ -219,6 +243,7 @@ class _CreatePostSheetState extends State<CreatePostSheet>
           );
         },
         child: Container(
+          width: double.infinity,
           decoration: BoxDecoration(
             color: context.theme.cardColor,
             borderRadius: BorderRadius.only(
@@ -228,272 +253,293 @@ class _CreatePostSheetState extends State<CreatePostSheet>
           child: SafeArea(
             top: false,
             child: SingleChildScrollView(
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 16.w),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    10.verticalSpace,
-                    Center(
-                      child: Container(
-                        width: 36.w,
-                        height: 4.h,
-                        decoration: BoxDecoration(
-                            color: Pallets.grey90,
-                            borderRadius: BorderRadius.circular(2)),
-                      ),
-                    ),
-                    16.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        const TextView(
-                            text: "Create Post",
-                            fontSize: 20,
-                            fontWeight: FontWeight.w700),
-                        InkWell(
-                          onTap: () => Navigator.of(context).pop(),
-                          child: CircleAvatar(
-                            backgroundColor: Colors.white,
-                            child: Icon(Icons.close,
-                                color: context.colorScheme.onSurface),
-                          ),
-                        ),
-                      ],
-                    ),
-                    16.verticalSpace,
-                    BlocBuilder<PostBloc, PostState>(
-                      bloc: _postBloc,
-                      builder: (context, state) {
-                        final categories = state.maybeWhen(
-                          orElse: () => const <PostCategory>[],
-                          getInterestTopicsSuccess: (response) => response.data,
-                        );
-                        return _CategoryChips(
-                          categories: categories,
-                          selected: _selectedCategory,
-                          onSelected: (category) =>
-                              setState(() => _selectedCategory = category),
-                        );
-                      },
-                    ),
-                    8.verticalSpace,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: const [
-                        _DraftsPillButton(),
-                        SizedBox(width: 8),
-                        _RulesPillButton(),
-                      ],
-                    ),
-                    16.verticalSpace,
-                    const _FieldLabel("Title"),
-                    8.verticalSpace,
-                    _OutlinedBox(
-                      child: TextField(
-                        controller: _titleController,
-                        textCapitalization: TextCapitalization.sentences,
-                        decoration: const InputDecoration(
-                          hintText: "A sharp title for your post works best",
-                          border: InputBorder.none,
+              controller: _scrollController,
+              physics: const ClampingScrollPhysics(),
+              keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+              child: SizedBox(
+                width: double.infinity,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.w),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      10.verticalSpace,
+                      Center(
+                        child: Container(
+                          width: 36.w,
+                          height: 4.h,
+                          decoration: BoxDecoration(
+                              color: Pallets.grey90,
+                              borderRadius: BorderRadius.circular(2)),
                         ),
                       ),
-                    ),
-                    16.verticalSpace,
-                    _OutlinedBox(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                      16.verticalSpace,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          TextField(
-                            controller: _bodyController,
-                            maxLines: 8,
-                            minLines: 6,
-                            maxLength: _kBodyMaxLength,
-                            textCapitalization: TextCapitalization.sentences,
-                            decoration: const InputDecoration(
-                              hintText: "What's on your mind",
-                              border: InputBorder.none,
-                              counterText: "",
+                          const TextView(
+                              text: "Create Post",
+                              fontSize: 20,
+                              fontWeight: FontWeight.w700),
+                          InkWell(
+                            onTap: () => Navigator.of(context).pop(),
+                            child: CircleAvatar(
+                              backgroundColor: Colors.white,
+                              child: Icon(Icons.close,
+                                  color: context.colorScheme.onSurface),
                             ),
-                          ),
-                          MentionSuggestionsPanel(editor: _bodyEditor),
-                          if (_stagedImage != null)
-                            Padding(
-                              padding: EdgeInsets.only(bottom: 8.h),
-                              child: Stack(
-                                clipBehavior: Clip.none,
-                                children: [
-                                  ImageWidget(
-                                    imageUrl: _stagedImage!.path,
-                                    height: 140.h,
-                                    width: 1.sw,
-                                    borderRadius: BorderRadius.circular(16.r),
-                                    imageType: ImageWidgetType.file,
-                                  ),
-                                  Positioned(
-                                    top: -8,
-                                    right: -8,
-                                    child: InkWell(
-                                      onTap: () =>
-                                          setState(() => _stagedImage = null),
-                                      child: const CircleAvatar(
-                                        backgroundColor: Pallets.primary,
-                                        radius: 14,
-                                        child: Icon(Icons.close,
-                                            size: 16, color: Colors.white),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          if (_poll != null)
-                            Padding(
-                              padding: EdgeInsets.only(bottom: 8.h),
-                              child: _PollPreview(
-                                poll: _poll!,
-                                onEdit: () async {
-                                  final poll = await showPollBuilderSheet(
-                                      context,
-                                      initial: _poll);
-                                  if (poll != null) {
-                                    setState(() => _poll = poll);
-                                  }
-                                },
-                                onRemove: () => setState(() => _poll = null),
-                              ),
-                            ),
-                          BlocBuilder<ComposerEditorCubit, ComposerEditorState>(
-                            bloc: _bodyEditor,
-                            builder: (context, editorState) =>
-                                SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  InkWell(
-                                    onTap: _pickImage,
-                                    child: ImageWidget(
-                                        imageUrl:
-                                            Assets.images.svgV2.addImageIcon,
-                                        size: 20),
-                                  ),
-                                  16.horizontalSpace,
-                                  InkWell(
-                                    canRequestFocus: false,
-                                    onTap: _bodyEditor.toggleStyleOptions,
-                                    child: ImageWidget(
-                                      imageUrl: Assets.images.svgV2.text,
-                                      size: 20,
-                                      color: editorState.showStyleOptions
-                                          ? Pallets.blueBubbleColor
-                                          : null,
-                                    ),
-                                  ),
-                                  AnimatedSize(
-                                    duration: const Duration(milliseconds: 200),
-                                    curve: Curves.easeOut,
-                                    child: !editorState.showStyleOptions
-                                        ? const SizedBox(height: 28)
-                                        : Row(
-                                            children: [
-                                              8.horizontalSpace,
-                                              StyleToggleChip(
-                                                label: "B",
-                                                active:
-                                                    editorState.isBoldActive,
-                                                onTap: _bodyEditor.toggleBold,
-                                              ),
-                                              8.horizontalSpace,
-                                              StyleToggleChip(
-                                                label: "I",
-                                                active:
-                                                    editorState.isItalicActive,
-                                                fontStyle: FontStyle.italic,
-                                                onTap: _bodyEditor.toggleItalic,
-                                              ),
-                                            ],
-                                          ),
-                                  ),
-                                  16.horizontalSpace,
-                                  InkWell(
-                                    onTap: _comingSoon,
-                                    child: ImageWidget(
-                                        imageUrl: Assets.images.svgV2.gif02,
-                                        size: 20),
-                                  ),
-                                  16.horizontalSpace,
-                                  InkWell(
-                                    canRequestFocus: false,
-                                    onTap: _bodyEditor.toggleBulletLine,
-                                    child: ImageWidget(
-                                      imageUrl: Assets
-                                          .images.svgV2.rightToLeftListBullet,
-                                      size: 20,
-                                      color: editorState.isBulletLineActive
-                                          ? Pallets.blueBubbleColor
-                                          : null,
-                                    ),
-                                  ),
-                                  16.horizontalSpace,
-                                  InkWell(
-                                    canRequestFocus: false,
-                                    onTap: _bodyEditor.toggleMoreOptions,
-                                    child: Icon(Icons.add_circle_outline,
-                                        size: 22,
-                                        color: editorState.showMoreOptions
-                                            ? Pallets.blueBubbleColor
-                                            : Pallets.grey60),
-                                  ),
-                                  AnimatedSize(
-                                    duration: const Duration(milliseconds: 200),
-                                    curve: Curves.easeOut,
-                                    child: !editorState.showMoreOptions
-                                        ? const SizedBox(height: 28)
-                                        : Row(
-                                            children: [
-                                              8.horizontalSpace,
-                                              InkWell(
-                                                onTap: _openPoll,
-                                                child: const Icon(
-                                                    Icons.bar_chart_rounded,
-                                                    size: 20,
-                                                    color: Pallets
-                                                        .blueBubbleColor),
-                                              ),
-                                              8.horizontalSpace,
-                                              InkWell(
-                                                onTap: _openEmoji,
-                                                child: const Icon(
-                                                    Icons
-                                                        .emoji_emotions_outlined,
-                                                    size: 20,
-                                                    color: Pallets
-                                                        .blueBubbleColor),
-                                              ),
-                                            ],
-                                          ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                          Row(
-                            children: [
-                              const Spacer(),
-                              ValueListenableBuilder(
-                                valueListenable: _bodyController,
-                                builder: (context, value, _) => TextView(
-                                  text:
-                                      "${value.text.characters.length}/$_kBodyMaxLength",
-                                  color: Pallets.grey60,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ],
                           ),
                         ],
+                      ),
+                      16.verticalSpace,
+                      BlocBuilder<PostBloc, PostState>(
+                        bloc: _postBloc,
+                        builder: (context, state) {
+                          final categories = state.maybeWhen(
+                            orElse: () => const <PostCategory>[],
+                            getInterestTopicsSuccess: (response) => response.data,
+                          );
+                          return _CategoryChips(
+                            categories: categories,
+                            selected: _selectedCategory,
+                            onSelected: (category) =>
+                                setState(() => _selectedCategory = category),
+                          );
+                        },
+                      ),
+                      8.verticalSpace,
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: const [
+                          _DraftsPillButton(),
+                          SizedBox(width: 8),
+                          _RulesPillButton(),
+                        ],
+                      ),
+                      16.verticalSpace,
+                      const _FieldLabel("Title"),
+                      8.verticalSpace,
+                      _OutlinedBox(
+                        child: TextField(
+                          controller: _titleController,
+                          textCapitalization: TextCapitalization.sentences,
+                          decoration: InputDecoration(
+                            isDense: true,
+                            contentPadding: EdgeInsets.symmetric(vertical: 8.h),
+                            hintText: "A sharp title for your post works best",
+                            hintStyle: const TextStyle(
+                              color: Pallets.grey60,
+                              fontSize: 14,
+                            ),
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                      16.verticalSpace,
+                    RepaintBoundary(
+                      child: _OutlinedBox(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextField(
+                              controller: _bodyController,
+                              maxLines: 8,
+                              minLines: 6,
+                              maxLength: _kBodyMaxLength,
+                              textCapitalization: TextCapitalization.sentences,
+                              decoration: const InputDecoration(
+                                isDense: true,
+                                contentPadding:
+                                    EdgeInsets.symmetric(vertical: 8),
+                                hintText: "What's on your mind",
+                                border: InputBorder.none,
+                                counterText: "",
+                              ),
+                            ),
+                            MentionSuggestionsPanel(editor: _bodyEditor),
+                            if (_stagedImage != null)
+                              Padding(
+                                padding: EdgeInsets.only(bottom: 8.h),
+                                child: Stack(
+                                  clipBehavior: Clip.none,
+                                  children: [
+                                    ImageWidget(
+                                      imageUrl: _stagedImage!.path,
+                                      height: 140.h,
+                                      width: 1.sw,
+                                      borderRadius: BorderRadius.circular(16.r),
+                                      imageType: ImageWidgetType.file,
+                                    ),
+                                    Positioned(
+                                      top: -8,
+                                      right: -8,
+                                      child: InkWell(
+                                        onTap: () =>
+                                            setState(() => _stagedImage = null),
+                                        child: const CircleAvatar(
+                                          backgroundColor: Pallets.primary,
+                                          radius: 14,
+                                          child: Icon(Icons.close,
+                                              size: 16, color: Colors.white),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            if (_poll != null)
+                              Padding(
+                                padding: EdgeInsets.only(bottom: 8.h),
+                                child: _PollPreview(
+                                  poll: _poll!,
+                                  onEdit: () async {
+                                    final poll = await showPollBuilderSheet(
+                                        context,
+                                        initial: _poll);
+                                    if (poll != null && mounted) {
+                                      setState(() => _poll = poll);
+                                    }
+                                  },
+                                  onRemove: () => setState(() => _poll = null),
+                                ),
+                              ),
+                            BlocBuilder<ComposerEditorCubit, ComposerEditorState>(
+                              bloc: _bodyEditor,
+                              builder: (context, editorState) =>
+                                  SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    InkWell(
+                                      onTap: _pickImage,
+                                      child: ImageWidget(
+                                          imageUrl:
+                                              Assets.images.svgV2.addImageIcon,
+                                          size: 20),
+                                    ),
+                                    16.horizontalSpace,
+                                    InkWell(
+                                      canRequestFocus: false,
+                                      onTap: _bodyEditor.toggleStyleOptions,
+                                      child: ImageWidget(
+                                        imageUrl: Assets.images.svgV2.text,
+                                        size: 20,
+                                        color: editorState.showStyleOptions
+                                            ? Pallets.blueBubbleColor
+                                            : null,
+                                      ),
+                                    ),
+                                    AnimatedSize(
+                                      duration: const Duration(milliseconds: 200),
+                                      curve: Curves.easeOut,
+                                      alignment: Alignment.centerLeft,
+                                      clipBehavior: Clip.hardEdge,
+                                      child: !editorState.showStyleOptions
+                                          ? const SizedBox(height: 28)
+                                          : Row(
+                                              children: [
+                                                8.horizontalSpace,
+                                                StyleToggleChip(
+                                                  label: "B",
+                                                  active:
+                                                      editorState.isBoldActive,
+                                                  onTap: _bodyEditor.toggleBold,
+                                                ),
+                                                8.horizontalSpace,
+                                                StyleToggleChip(
+                                                  label: "I",
+                                                  active:
+                                                      editorState.isItalicActive,
+                                                  fontStyle: FontStyle.italic,
+                                                  onTap: _bodyEditor.toggleItalic,
+                                                ),
+                                              ],
+                                            ),
+                                    ),
+                                    16.horizontalSpace,
+                                    InkWell(
+                                      onTap: _comingSoon,
+                                      child: ImageWidget(
+                                          imageUrl: Assets.images.svgV2.gif02,
+                                          size: 20),
+                                    ),
+                                    16.horizontalSpace,
+                                    InkWell(
+                                      canRequestFocus: false,
+                                      onTap: _bodyEditor.toggleBulletLine,
+                                      child: ImageWidget(
+                                        imageUrl: Assets
+                                            .images.svgV2.rightToLeftListBullet,
+                                        size: 20,
+                                        color: editorState.isBulletLineActive
+                                            ? Pallets.blueBubbleColor
+                                            : null,
+                                      ),
+                                    ),
+                                    16.horizontalSpace,
+                                    InkWell(
+                                      canRequestFocus: false,
+                                      onTap: _bodyEditor.toggleMoreOptions,
+                                      child: Icon(Icons.add_circle_outline,
+                                          size: 22,
+                                          color: editorState.showMoreOptions
+                                              ? Pallets.blueBubbleColor
+                                              : Pallets.grey60),
+                                    ),
+                                    AnimatedSize(
+                                      duration: const Duration(milliseconds: 200),
+                                      curve: Curves.easeOut,
+                                      alignment: Alignment.centerLeft,
+                                      clipBehavior: Clip.hardEdge,
+                                      child: !editorState.showMoreOptions
+                                          ? const SizedBox(height: 28)
+                                          : Row(
+                                              children: [
+                                                8.horizontalSpace,
+                                                InkWell(
+                                                  onTap: _openPoll,
+                                                  child: const Icon(
+                                                      Icons.bar_chart_rounded,
+                                                      size: 20,
+                                                      color: Pallets
+                                                          .blueBubbleColor),
+                                                ),
+                                                8.horizontalSpace,
+                                                InkWell(
+                                                  onTap: _openEmoji,
+                                                  child: const Icon(
+                                                      Icons
+                                                          .emoji_emotions_outlined,
+                                                      size: 20,
+                                                      color: Pallets
+                                                          .blueBubbleColor),
+                                                ),
+                                              ],
+                                            ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Row(
+                              children: [
+                                const Spacer(),
+                                ValueListenableBuilder(
+                                  valueListenable: _bodyController,
+                                  builder: (context, value, _) => TextView(
+                                    text:
+                                        "${value.text.characters.length}/$_kBodyMaxLength",
+                                    color: Pallets.grey60,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                     16.verticalSpace,
@@ -636,8 +682,9 @@ class _CreatePostSheetState extends State<CreatePostSheet>
           ),
         ),
       ),
-    );
-  }
+    ),
+  );
+}
 }
 
 class _DraftsPillButton extends StatelessWidget {
@@ -647,7 +694,10 @@ class _DraftsPillButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(100),
-      onTap: () => context.pushNamed(PageUrl.draftsListScreen),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        context.pushNamed(PageUrl.draftsListScreen);
+      },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
         decoration: BoxDecoration(
@@ -681,7 +731,10 @@ class _RulesPillButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       borderRadius: BorderRadius.circular(100),
-      onTap: () => CustomDialogs.showBottomSheet(context, const RulesSheet()),
+      onTap: () {
+        FocusScope.of(context).unfocus();
+        CustomDialogs.showBottomSheet(context, const RulesSheet());
+      },
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 12.w, vertical: 6.h),
         decoration: BoxDecoration(
@@ -773,6 +826,7 @@ class _FieldLabel extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisSize: MainAxisSize.min,
       children: [
         TextView(text: text, fontSize: 15, fontWeight: FontWeight.w600),
         const TextView(
@@ -793,6 +847,7 @@ class _OutlinedBox extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 4.h),
       decoration: BoxDecoration(
+        color: context.theme.cardColor,
         border: Border.all(color: Pallets.grey90),
         borderRadius: BorderRadius.circular(16.r),
       ),
@@ -817,7 +872,18 @@ class _CategoryChips extends StatelessWidget {
     if (categories.isEmpty) {
       return SizedBox(
         height: 40.h,
-        child: Center(child: CustomDialogs.getLoading(size: 24)),
+        width: double.infinity,
+        child: const Center(
+          child: SizedBox(
+            width: 20,
+            height: 20,
+            child: CircularProgressIndicator(
+              strokeWidth: 2,
+              valueColor:
+                  AlwaysStoppedAnimation<Color>(Pallets.blueBubbleColor),
+            ),
+          ),
+        ),
       );
     }
 

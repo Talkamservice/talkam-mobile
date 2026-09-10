@@ -455,6 +455,17 @@ class PostReaction {
       };
 }
 
+bool _parseBool(dynamic value) {
+  if (value == null) return false;
+  if (value is bool) return value;
+  if (value is num) return value != 0;
+  if (value is String) {
+    final lower = value.toLowerCase().trim();
+    return lower == 'true' || lower == '1' || lower == 'yes';
+  }
+  return false;
+}
+
 class PostCreator {
   int id;
   String? avatar;
@@ -463,9 +474,11 @@ class PostCreator {
   String email;
   ActiveSubscription? activeSubscription;
 
-  /// Only present on people-search results (`sort=people`) — whether the
-  /// caller already follows this user. Absent elsewhere.
+  /// Whether the caller already follows this user. Present on people-search
+  /// results (`sort=people`) and the Followers list; absent (null) on the
+  /// Following list, where it would always be true anyway.
   bool? isFollowing;
+  bool isVerified;
 
   PostCreator({
     required this.id,
@@ -475,6 +488,7 @@ class PostCreator {
     required this.email,
     this.activeSubscription,
     this.isFollowing,
+    this.isVerified = false,
   });
 
   PostCreator copyWith(
@@ -484,7 +498,8 @@ class PostCreator {
           String? username,
           String? email,
           ActiveSubscription? activeSubscription,
-          bool? isFollowing}) =>
+          bool? isFollowing,
+          bool? isVerified}) =>
       PostCreator(
         id: id ?? this.id,
         avatar: avatar ?? this.avatar,
@@ -493,6 +508,7 @@ class PostCreator {
         email: email ?? this.email,
         activeSubscription: activeSubscription ?? this.activeSubscription,
         isFollowing: isFollowing ?? this.isFollowing,
+        isVerified: isVerified ?? this.isVerified,
       );
 
   factory PostCreator.fromJson(Map<String, dynamic> json) => PostCreator(
@@ -505,6 +521,8 @@ class PostCreator {
             ? null
             : ActiveSubscription?.fromJson(json["active_subscription"]),
         isFollowing: json["is_following"],
+        isVerified: _parseBool(json["is_verified"]) ||
+            (json["active_subscription"] != null),
       );
 
   Map<String, dynamic> toJson() => {
@@ -515,9 +533,10 @@ class PostCreator {
         "email": email,
         "active_subscription": activeSubscription?.toJson(),
         "is_following": isFollowing,
+        "is_verified": isVerified,
       };
 
-  bool get isSubscribed => activeSubscription != null;
+  bool get isSubscribed => activeSubscription != null || isVerified;
 
   String get usersName => (username ?? "").isNotEmpty
       ? username!

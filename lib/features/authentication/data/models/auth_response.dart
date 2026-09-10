@@ -172,6 +172,17 @@ class Onboarding {
   bool get isComplete => completedAt != null;
 }
 
+bool _parseBool(dynamic value) {
+  if (value == null) return false;
+  if (value is bool) return value;
+  if (value is num) return value != 0;
+  if (value is String) {
+    final lower = value.toLowerCase().trim();
+    return lower == 'true' || lower == '1' || lower == 'yes';
+  }
+  return false;
+}
+
 class TalkamUser {
   int id;
   dynamic avatar;
@@ -201,6 +212,7 @@ class TalkamUser {
   DateTime createdAt;
   DateTime? emailVerifiedAt;
   DateTime updatedAt;
+  bool isVerified;
 
   /// Only present on the v2 `/user/me` response — a server-computed summary
   /// of which onboarding steps are done. Null everywhere else (register,
@@ -209,6 +221,12 @@ class TalkamUser {
 
   /// Only present on the v2 `/user/me` response, same as [onboarding].
   Business? business;
+
+  /// Only present on the v2 `/user/me` response, same as [onboarding].
+  String? phoneNumber;
+
+  /// Only present on the v2 `/user/me` response, same as [onboarding].
+  String? bio;
 
   bool get isTherapist =>
       role?.toString().toLowerCase() == 'therapist' ||
@@ -245,6 +263,9 @@ class TalkamUser {
     this.publicGroupCount,
     this.onboarding,
     this.business,
+    this.phoneNumber,
+    this.bio,
+    this.isVerified = false,
   });
 
   TalkamUser copyWith(
@@ -277,7 +298,10 @@ class TalkamUser {
           DateTime? updatedAt,
           ActiveSubscription? activeSubscription,
           Onboarding? onboarding,
-          Business? business}) =>
+          Business? business,
+          String? phoneNumber,
+          String? bio,
+          bool? isVerified}) =>
       TalkamUser(
         id: id ?? this.id,
         avatar: avatar ?? this.avatar,
@@ -309,6 +333,9 @@ class TalkamUser {
         activeSubscription: activeSubscription ?? this.activeSubscription,
         onboarding: onboarding ?? this.onboarding,
         business: business ?? this.business,
+        phoneNumber: phoneNumber ?? this.phoneNumber,
+        bio: bio ?? this.bio,
+        isVerified: isVerified ?? this.isVerified,
       );
 
   factory TalkamUser.fromJson(Map<String, dynamic> json) => TalkamUser(
@@ -356,6 +383,10 @@ class TalkamUser {
         business: json["business"] == null
             ? null
             : Business.fromJson(json["business"]),
+        phoneNumber: json["phone_number"],
+        bio: json["bio"],
+        isVerified: _parseBool(json["is_verified"]) ||
+            (json["active_subscription"] != null),
       );
 
   Map<String, dynamic> toJson() => {
@@ -388,6 +419,9 @@ class TalkamUser {
         "active_subscription": activeSubscription?.toJson(),
         "onboarding": onboarding?.toJson(),
         "business": business?.toJson(),
+        "phone_number": phoneNumber,
+        "bio": bio,
+        "is_verified": isVerified,
       };
 
   factory TalkamUser.forTest() {
@@ -417,6 +451,7 @@ class TalkamUser {
       gender: "Male",
       state: null,
       country: null,
+      isVerified: false,
     );
   }
 }

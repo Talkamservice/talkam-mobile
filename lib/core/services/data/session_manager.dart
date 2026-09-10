@@ -1,10 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/painting.dart';
+import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:hive_ce/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/network/network_service.dart';
+import 'package:talkam/core/services/pusher/pusher_channel_service.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 
 // final sessionProvider = Provider<SessionManager>((ref) {
@@ -217,6 +222,16 @@ class SessionManager {
   bool get notificationEnabled =>
       sharedPreferences!.getBool(SOUND_ENABLED) ?? false;
 
+  /// Hive box names opened ad-hoc elsewhere (messaging + notifications
+  /// caches) — kept in sync with those call sites by hand since there's no
+  /// central box registry. `Hive.openBox` is idempotent, so this is safe to
+  /// call even if a box was never opened this session.
+  static const _cachedHiveBoxNames = [
+    'chatCache',
+    'conversationCache',
+    'notificationsCache',
+  ];
+
   Future<bool> logOut() async {
     logger.i('SessionManager: clearing local session');
 
@@ -227,6 +242,7 @@ class SessionManager {
     await sharedPreferences!.clear();
     _authTokenCache = '';
     await secureStorage?.delete(key: KEY_AUTH_TOKEN);
+    await secureStorage?.delete(key: KEY_AUTH_PASS);
 
     // Restore preserved flags so the user isn't treated as a brand-new
     // install on the next launch.
@@ -237,17 +253,45 @@ class SessionManager {
     // Do NOT reset hasOnboarded — it's a device flag, not a session flag.
 
     injector.get<ProfileBloc>().add(const Logout());
+
+    // Everything below is best-effort cleanup of the previous user's
+    // footprint on this device — none of it should be able to block or
+    // fail the logout itself (e.g. no network for the FCM token delete).
+    for (final boxName in _cachedHiveBoxNames) {
+      try {
+        final box = await Hive.openBox(boxName);
+        await box.clear();
+      } catch (error, stack) {
+        logger.e('SessionManager: failed clearing Hive box "$boxName"',
+            error: error, stackTrace: stack);
+      }
+    }
+
+    try {
+      PaintingBinding.instance.imageCache.clear();
+      PaintingBinding.instance.imageCache.clearLiveImages();
+      await DefaultCacheManager().emptyCache();
+    } catch (error, stack) {
+      logger.e('SessionManager: failed clearing image cache',
+          error: error, stackTrace: stack);
+    }
+
+    try {
+      await FirebaseMessaging.instance.deleteToken();
+    } catch (error, stack) {
+      logger.e('SessionManager: failed deleting FCM token',
+          error: error, stackTrace: stack);
+    }
+
+    try {
+      await PusherChannelService.disconnect();
+    } catch (error, stack) {
+      logger.e('SessionManager: failed disconnecting Pusher',
+          error: error, stackTrace: stack);
+    }
+
     logger.i('SessionManager: local session cleared, Logout dispatched to '
         'ProfileBloc');
-
-    // await secureStorage?.deleteAll();
-    // await sharedPreferences?.clear();
-    // await HiveBoxes.clearAllBox();
-    // try {
-    //   DefaultCacheManager().emptyCache();
-    // } catch (e) {
-    //   logger.e(e);
-    // }
     return true;
   }
 }

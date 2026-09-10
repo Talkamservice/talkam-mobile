@@ -188,6 +188,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>
   }
 
   FutureOr<void> _Logout(Logout event, Emitter<ProfileState> emit) {
+    appUser = null;
     emit(ProfileInitial());
   }
 }

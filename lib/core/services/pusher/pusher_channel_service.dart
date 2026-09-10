@@ -86,6 +86,20 @@ class PusherChannelService {
     }
   }
 
+  /// Tears down the socket on logout/delete-account so the old session's
+  /// private channels (e.g. conversation subscriptions) aren't left live
+  /// under the now-signed-out user. `pusher` is nulled after so the next
+  /// [getClient] call re-initializes from scratch for whoever logs in next.
+  static Future<void> disconnect() async {
+    try {
+      await pusher?.disconnect();
+    } catch (exception, stackTrace) {
+      // SentryService.captureException(exception, stackTrace: stackTrace);
+    } finally {
+      pusher = null;
+    }
+  }
+
   _authorize(String channelName, String socketId, options) async {
     return {
       "auth":

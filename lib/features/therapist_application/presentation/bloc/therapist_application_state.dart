@@ -22,6 +22,9 @@ class TherapistApplicationState extends Equatable {
     this.banks = const [],
     this.banksLoading = false,
     this.banksError,
+    this.credentialTypes = const [],
+    this.credentialTypesLoading = false,
+    this.credentialTypesError,
     this.verifyingAccount = false,
     this.verifyError,
     this.submitStatus = SubmitStatus.idle,
@@ -47,6 +50,9 @@ class TherapistApplicationState extends Equatable {
   final List<TherapistBank> banks;
   final bool banksLoading;
   final String? banksError;
+  final List<String> credentialTypes;
+  final bool credentialTypesLoading;
+  final String? credentialTypesError;
   final bool verifyingAccount;
   final String? verifyError;
 
@@ -74,6 +80,9 @@ class TherapistApplicationState extends Equatable {
     List<TherapistBank>? banks,
     bool? banksLoading,
     String? banksError,
+    List<String>? credentialTypes,
+    bool? credentialTypesLoading,
+    String? credentialTypesError,
     bool? verifyingAccount,
     String? verifyError,
     SubmitStatus? submitStatus,
@@ -96,6 +105,10 @@ class TherapistApplicationState extends Equatable {
         banks: banks ?? this.banks,
         banksLoading: banksLoading ?? this.banksLoading,
         banksError: banksError,
+        credentialTypes: credentialTypes ?? this.credentialTypes,
+        credentialTypesLoading:
+            credentialTypesLoading ?? this.credentialTypesLoading,
+        credentialTypesError: credentialTypesError,
         verifyingAccount: verifyingAccount ?? this.verifyingAccount,
         verifyError: verifyError,
         submitStatus: submitStatus ?? this.submitStatus,
@@ -133,6 +146,9 @@ class TherapistApplicationState extends Equatable {
         banks,
         banksLoading,
         banksError,
+        credentialTypes,
+        credentialTypesLoading,
+        credentialTypesError,
         verifyingAccount,
         verifyError,
         submitStatus,

@@ -53,6 +53,19 @@ class TherapistApplicationRepositoryImpl
   }
 
   @override
+  Future<List<String>> getCredentialTypes() async {
+    try {
+      final response = await _v2.call(
+        UrlConfigV2.therapistApplicationCredentialTypes,
+        RequestMethod.get,
+      );
+      return List<String>.from(response.data['data'] as List);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<TherapistDocumentResponse> uploadDocument({
     required String type,
     required String filePath,

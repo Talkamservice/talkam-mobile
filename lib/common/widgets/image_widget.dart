@@ -71,6 +71,39 @@ class _ImageWidgetState extends State<ImageWidget> {
           if (widget.imageUrl == '') {
             return _ErrorWidget();
           }
+          final networkImage = CachedNetworkImage(
+            imageUrl: widget.imageUrl,
+            imageBuilder: (context, imageProvider) => Container(
+              width: widget.size ?? widget.width,
+              height: widget.size ?? widget.height,
+              decoration: BoxDecoration(
+                borderRadius: widget.borderRadius,
+                shape: widget.shape ?? BoxShape.rectangle,
+                border: widget.border,
+                image: DecorationImage(
+                    image: imageProvider,
+                    fit: widget.fit ?? BoxFit.cover,
+                    onError: (error, trace) {
+                      logger.e(trace);
+                    }),
+              ),
+            ),
+            placeholder: (context, url) => _ErrorWidget(),
+            errorWidget: (context, url, error) {
+              return _ErrorWidget();
+            },
+          );
+          // Only claim the tap gesture when there's actually something to do
+          // with it — an always-present InkWell here (regardless of
+          // canPreview/onTap) sits in the same gesture arena as any tap
+          // handler further up the tree (e.g. a picker grid's own per-tile
+          // GestureDetector) and can win the arena before it, silently
+          // swallowing taps meant for the ancestor even though this InkWell
+          // itself does nothing. Matches the SVG branch below, which already
+          // guards this correctly.
+          if (!(widget.canPreview! || widget.onTap != null)) {
+            return networkImage;
+          }
           return InkWell(
             onTap: () {
               if (widget.canPreview!) {
@@ -88,31 +121,38 @@ class _ImageWidgetState extends State<ImageWidget> {
                 widget.onTap!();
               }
             },
-            child: CachedNetworkImage(
-              imageUrl: widget.imageUrl,
-              imageBuilder: (context, imageProvider) => Container(
-                width: widget.size ?? widget.width,
-                height: widget.size ?? widget.height,
-                decoration: BoxDecoration(
-                  borderRadius: widget.borderRadius,
-                  shape: widget.shape ?? BoxShape.rectangle,
-                  border: widget.border,
-                  image: DecorationImage(
-                      image: imageProvider,
-                      fit: widget.fit ?? BoxFit.cover,
-                      onError: (error, trace) {
-                        logger.e(trace);
-                      }),
-                ),
-              ),
-              placeholder: (context, url) => _ErrorWidget(),
-              errorWidget: (context, url, error) {
-                return _ErrorWidget();
-              },
-            ),
+            child: networkImage,
           );
         }
 
+        final assetOrFileImage = Container(
+          key: widget.key,
+          height: widget.size ?? widget.height,
+          width: widget.size ?? widget.width,
+          decoration: BoxDecoration(
+            borderRadius: widget.borderRadius,
+            shape: widget.shape ?? BoxShape.rectangle,
+            border: widget.border,
+            image: widget.imageType == ImageWidgetType.asset
+                ? DecorationImage(
+                    image: AssetImage(widget.imageUrl),
+                    fit: widget.fit ?? BoxFit.cover,
+                    onError: (error, trace) {
+                      // logger.e(trace);
+                    })
+                : DecorationImage(
+                    image: FileImage(
+                      File(widget.imageUrl),
+                    ),
+                    fit: widget.fit ?? BoxFit.cover,
+                    onError: (error, trace) {
+                      // logger.e(trace);
+                    }),
+          ),
+        );
+        if (!(widget.canPreview! || widget.onTap != null)) {
+          return assetOrFileImage;
+        }
         return InkWell(
           onTap: () {
             if (widget.canPreview!) {
@@ -130,39 +170,13 @@ class _ImageWidgetState extends State<ImageWidget> {
               widget.onTap!();
             }
           },
-          child: Container(
-            key: widget.key,
-            height: widget.size ?? widget.height,
-            width: widget.size ?? widget.width,
-            decoration: BoxDecoration(
-              borderRadius: widget.borderRadius,
-              shape: widget.shape ?? BoxShape.rectangle,
-              border: widget.border,
-              image: widget.imageType == ImageWidgetType.asset
-                  ? DecorationImage(
-                      image: AssetImage(widget.imageUrl),
-                      fit: widget.fit ?? BoxFit.cover,
-                      onError: (error, trace) {
-                        // logger.e(trace);
-                      })
-                  : DecorationImage(
-                      image: FileImage(
-                        File(widget.imageUrl),
-                      ),
-                      fit: widget.fit ?? BoxFit.cover,
-                      onError: (error, trace) {
-                        // logger.e(trace);
-                      }),
-            ),
-          ),
+          child: assetOrFileImage,
         );
       },
     );
   }
 
   Container _ErrorWidget() {
-
-
     return Container(
       key: widget.key,
       height: widget.size ?? widget.height,
@@ -179,8 +193,6 @@ class _ImageWidgetState extends State<ImageWidget> {
             }),
       ),
     );
-
-
   }
 }
 

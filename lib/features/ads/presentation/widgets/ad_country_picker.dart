@@ -93,12 +93,10 @@ class _AdCountryPickerState extends State<AdCountryPicker> {
   }
 
   void pickCountries(BuildContext context) async {
+    FocusScope.of(context).unfocus();
     var newCountry = await CustomDialogs.showBottomSheet(
       context,
-      Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: const CountryPickerSheet(),
-      ),
+      const CountryPickerSheet(),
     );
 
     if (newCountry != null && !selectedCountries.any((element) => element.name.contains(newCountry.name),)) {

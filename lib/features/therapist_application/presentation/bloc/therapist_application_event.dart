@@ -13,6 +13,13 @@ class ResetSaveStatusesEvent extends TherapistApplicationEvent {
 
 // ── Step 1 — Personal information ─────────────────────────────────────────
 
+/// Fetches the credential-type dropdown options via
+/// `GET /therapist/application/credential-types`. Same one-shot-per-bloc-
+/// instance guard as [LoadBanksEvent].
+class LoadCredentialTypesEvent extends TherapistApplicationEvent {
+  const LoadCredentialTypesEvent();
+}
+
 class UpdateCredentialTypeEvent extends TherapistApplicationEvent {
   const UpdateCredentialTypeEvent(this.value);
   final String value;

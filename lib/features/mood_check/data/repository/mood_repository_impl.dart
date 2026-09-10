@@ -25,4 +25,14 @@ class MoodRepositoryImpl extends MoodRepository {
 
     return MoodCheckinResponse.fromJson(response.data);
   }
+
+  @override
+  Future<MoodCheckinTodayResponse> getTodayMoodCheckin() async {
+    final response = await _v2.call(
+      UrlConfigV2.moodCheckinsToday,
+      RequestMethod.get,
+    );
+
+    return MoodCheckinTodayResponse.fromJson(response.data['data']);
+  }
 }

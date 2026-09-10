@@ -12,6 +12,10 @@ import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/therapist_application/presentation/bloc/therapist_application_bloc.dart';
 
+/// Fallback shown until `GET /therapist/application/credential-types`
+/// resolves (or if it fails) — this is the first field on the first step of
+/// the flow, so unlike the bank list on Step 5 there's no guaranteed buffer
+/// time between the fetch kicking off and the user tapping the field.
 const List<String> kCredentialTypes = [
   "Clinical Psychologist",
   "Licensed Counselor",
@@ -39,6 +43,7 @@ class _TherapistPersonalInfoScreenState
   void initState() {
     super.initState();
     _yearsController.text = widget.bloc.state.personalInfo.yearsExperience;
+    widget.bloc.add(const LoadCredentialTypesEvent());
   }
 
   @override
@@ -97,7 +102,9 @@ class _TherapistPersonalInfoScreenState
                 InlineSelectField<String>(
                   label: "Credential type",
                   hint: "Clinical Psychologist",
-                  options: kCredentialTypes,
+                  options: state.credentialTypes.isNotEmpty
+                      ? state.credentialTypes
+                      : kCredentialTypes,
                   labelBuilder: (v) => v,
                   value: state.personalInfo.credentialType,
                   onSingleChanged: (v) =>

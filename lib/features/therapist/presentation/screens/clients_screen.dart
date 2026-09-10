@@ -7,6 +7,7 @@ import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/empty_state.dart';
 import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/constants/shell_layout.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
@@ -87,12 +88,19 @@ class _ClientsScreenState extends State<ClientsScreen> {
 
   Widget _buildClientsList(
       BuildContext context, List<TherapistClientListItem> clients) {
+    // The shell's bottom nav bar floats over this screen's body (BasePage
+    // sets extendBody: true), so the list needs to explicitly clear it —
+    // viewPadding rather than padding so the device inset is only counted
+    // once even under an ancestor SafeArea.
+    final bottomInset =
+        kShellNavBarHeight.h + MediaQuery.viewPaddingOf(context).bottom;
+
     return RefreshIndicator(
       color: Pallets.blueBubbleColor,
       onRefresh: () => cubit.getClients(),
       child: ListView.separated(
         physics: const AlwaysScrollableScrollPhysics(),
-        padding: EdgeInsets.symmetric(horizontal: 24.w, vertical: 16.h),
+        padding: EdgeInsets.fromLTRB(24.w, 16.h, 24.w, bottomInset),
         itemCount: clients.length,
         separatorBuilder: (context, index) => 16.verticalSpace,
         itemBuilder: (context, index) {

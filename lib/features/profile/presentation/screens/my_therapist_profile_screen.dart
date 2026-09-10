@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:talkam/core/constants/package_exports.dart';
+import 'package:talkam/core/constants/shell_layout.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/components/talkam_tab_bar.dart';
 import 'package:talkam/features/profile/presentation/screens/tabs/profile_posts_tab.dart';
@@ -8,10 +9,6 @@ import 'package:talkam/features/therapist/data/therapist_profile_store.dart';
 import 'package:talkam/features/therapist/presentation/screens/tabs/therapist_about_tab.dart';
 import 'package:talkam/features/therapist/presentation/screens/tabs/therapist_settings_tab.dart';
 import 'package:talkam/features/therapist/presentation/widgets/therapist_profile_header.dart';
-
-/// Height of the shell's bottom navigation bar — see `BasePage`, which sets
-/// `extendBody: true`, so tab content scrolls underneath it.
-const double _kShellNavBarHeight = 69;
 
 /// Breathing room below the last row. The shell also floats a FAB above the
 /// nav bar, so clearing the bar alone still leaves content looking clipped.
@@ -83,7 +80,7 @@ class _MyTherapistProfileScreenState extends State<MyTherapistProfileScreen> {
   Widget _buildBody(BuildContext context, TherapistModel therapist) {
     // viewPadding rather than padding: it survives ancestor SafeArea widgets,
     // so the device inset is counted exactly once.
-    final bottomInset = (_kShellNavBarHeight + _kContentBottomGap).h +
+    final bottomInset = (kShellNavBarHeight + _kContentBottomGap).h +
         MediaQuery.viewPaddingOf(context).bottom;
 
     return Scaffold(

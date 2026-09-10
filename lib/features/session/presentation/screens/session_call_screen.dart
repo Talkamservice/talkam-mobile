@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:agora_rtc_engine/agora_rtc_engine.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -42,6 +44,14 @@ class _SessionCallScreenState extends State<SessionCallScreen> {
   int? _remoteUid;
   bool _leftChannel = false;
   bool _retriedAfterRejection = false;
+
+  /// Guards against the screen hanging on "Connecting..." forever.
+  /// joinChannel() returning without throwing only means the native SDK
+  /// accepted the request — actual confirmation comes later via
+  /// onJoinChannelSuccess. If that never fires (most commonly a network
+  /// that can't reach Agora's edge servers) there was previously no way
+  /// out of the connecting state short of backing out manually.
+  Timer? _joinTimeoutTimer;
 
   /// Below this, treat it as background noise rather than speech. Volume is
   /// reported on a 0-255 scale.
@@ -194,8 +204,16 @@ class _SessionCallScreenState extends State<SessionCallScreen> {
       RtcEngineEventHandler(
         onJoinChannelSuccess: (connection, elapsed) {
           logger.i('Agora joined channel ${connection.channelId} at ${elapsed}ms');
+          _joinTimeoutTimer?.cancel();
           if (!mounted) return;
           setState(() => _status = _CallStatus.active);
+        },
+        // Diagnostics for join failures that don't throw and don't hit
+        // onError (e.g. the network never reaching Agora at all) — logs
+        // every transition so a future "stuck on Connecting" report has
+        // the actual reason instead of nothing.
+        onConnectionStateChanged: (connection, state, reason) {
+          logger.i('Agora connection state: $state reason=$reason');
         },
         onUserJoined: (connection, remoteUid, elapsed) {
           logger.i('Agora remote user joined: uid=$remoteUid at ${elapsed}ms');
@@ -266,6 +284,21 @@ class _SessionCallScreenState extends State<SessionCallScreen> {
           // clean leave+release and retry once before giving up.
           if (err == ErrorCodeType.errJoinChannelRejected) {
             _recoverFromRejectedJoin(engine);
+            return;
+          }
+          // Any other error while still waiting to join used to be
+          // silently logged with the screen stuck on "Connecting..."
+          // forever — the join-timeout below is the other half of this
+          // fix for cases where the SDK never raises onError at all.
+          // Surfacing the raw code here is what will tell us the actual
+          // cause the next time this reproduces.
+          if (mounted && _status == _CallStatus.connecting) {
+            _joinTimeoutTimer?.cancel();
+            setState(() {
+              _status = _CallStatus.error;
+              _errorMessage =
+                  "Couldn't connect (error $err). Check your network connection and try again.";
+            });
           }
         },
       ),
@@ -316,6 +349,26 @@ class _SessionCallScreenState extends State<SessionCallScreen> {
       }
       rethrow;
     }
+
+    // joinChannel() not throwing only means the SDK accepted the request —
+    // real confirmation is onJoinChannelSuccess, later, over the network.
+    // If the device's current network can't reach Agora's edge servers
+    // (the classic case: restrictive WiFi/mobile NAT or firewall blocking
+    // the UDP/TCP ports Agora needs), that callback simply never arrives
+    // and onError often doesn't fire either — so without this timer the
+    // screen would spin on "Connecting..." forever with no way out but
+    // backing out manually.
+    _joinTimeoutTimer?.cancel();
+    _joinTimeoutTimer = Timer(const Duration(seconds: 15), () {
+      if (!mounted || _status != _CallStatus.connecting) return;
+      _leaveAndReleaseEngine();
+      setState(() {
+        _status = _CallStatus.error;
+        _errorMessage =
+            "Couldn't connect — check your network connection and try again.";
+      });
+    });
+
     // Some Android OEM builds don't reliably honor the pre-join default
     // route — re-assert explicitly once actually in the channel. Best-effort
     // only: the channel join above already succeeded, so a routing hiccup
@@ -389,6 +442,7 @@ class _SessionCallScreenState extends State<SessionCallScreen> {
 
   @override
   void dispose() {
+    _joinTimeoutTimer?.cancel();
     _leaveAndReleaseEngine();
     _notesCubit?.close();
     _postBloc?.close();

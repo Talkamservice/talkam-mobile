@@ -53,6 +53,8 @@ class _EditProfileScreenState extends State<EditProfileScreen>
     final user = profileBloc.appUser;
     selectedImage = user?.avatar;
     nameController.text = user?.name ?? '';
+    phoneController.text = user?.phoneNumber ?? '';
+    bioController.text = user?.bio ?? '';
     _email = user?.email;
 
     _initialName = nameController.text;

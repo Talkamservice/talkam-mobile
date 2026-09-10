@@ -20,6 +20,7 @@ class TherapistApplicationBloc
           specialtiesSaveStatus: StepSaveStatus.idle,
           availabilitySaveStatus: StepSaveStatus.idle,
         )));
+    on<LoadCredentialTypesEvent>(_onLoadCredentialTypes);
     on<UpdateCredentialTypeEvent>((e, emit) => emit(state.copyWith(
         personalSaveStatus: StepSaveStatus.idle,
         personalInfo: state.personalInfo.copyWith(credentialType: e.value))));
@@ -77,6 +78,27 @@ class TherapistApplicationBloc
   final TherapistApplicationRepository _repository;
 
   // ── Step 1 — Personal ──────────────────────────────────────────────────
+
+  Future<void> _onLoadCredentialTypes(LoadCredentialTypesEvent e,
+      Emitter<TherapistApplicationState> emit) async {
+    if (state.credentialTypes.isNotEmpty || state.credentialTypesLoading) {
+      return;
+    }
+    emit(state.copyWith(
+        credentialTypesLoading: true, credentialTypesError: null));
+    try {
+      final credentialTypes = await _repository.getCredentialTypes();
+      emit(state.copyWith(
+        credentialTypes: credentialTypes,
+        credentialTypesLoading: false,
+      ));
+    } catch (error) {
+      emit(state.copyWith(
+        credentialTypesLoading: false,
+        credentialTypesError: error.toString(),
+      ));
+    }
+  }
 
   Future<void> _onSavePersonalInfo(
       SavePersonalInfoEvent e, Emitter<TherapistApplicationState> emit) async {

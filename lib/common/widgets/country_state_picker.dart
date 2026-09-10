@@ -114,12 +114,10 @@ class _TalkamCountryStatePickerState extends State<TalkamCountryStatePicker> {
   }
 
   void pickCountry(BuildContext context) async {
+    FocusScope.of(context).unfocus();
     var _country = await CustomDialogs.showBottomSheet(
       context,
-      Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: const CountryPickerSheet(),
-      ),
+      const CountryPickerSheet(),
     );
     if (_country != null) {
       country = _country;
@@ -133,13 +131,11 @@ class _TalkamCountryStatePickerState extends State<TalkamCountryStatePicker> {
   }
 
   void pickState(BuildContext context, String countryId) async {
+    FocusScope.of(context).unfocus();
     var _state = await CustomDialogs.showBottomSheet(
       context,
-      Padding(
-        padding: EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: StatePickerSheet(
-          countryId: countryId,
-        ),
+      StatePickerSheet(
+        countryId: countryId,
       ),
     );
     if (_state != null) {

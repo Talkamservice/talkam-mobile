@@ -9,6 +9,7 @@ import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/core/constants/shell_layout.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
@@ -143,6 +144,13 @@ class _SessionsScreenState extends State<SessionsScreen> {
     final isEmptyState =
         !loading && error == null && upcoming.isEmpty && past.isEmpty;
 
+    // The shell's bottom nav bar floats over this screen's body
+    // (BasePage sets extendBody: true), so the last content needs to
+    // explicitly clear it — viewPadding rather than padding so the device
+    // inset is only counted once even under an ancestor SafeArea.
+    final bottomInset =
+        kShellNavBarHeight.h + MediaQuery.viewPaddingOf(context).bottom;
+
     return Scaffold(
       backgroundColor: Pallets.white,
       appBar: isTherapist
@@ -232,7 +240,11 @@ class _SessionsScreenState extends State<SessionsScreen> {
                 )
               : isEmptyState
                   ? Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 24.w),
+                      padding: EdgeInsets.only(
+                        left: 24.w,
+                        right: 24.w,
+                        bottom: bottomInset,
+                      ),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -352,7 +364,11 @@ class _SessionsScreenState extends State<SessionsScreen> {
                       child: SingleChildScrollView(
                         physics: const AlwaysScrollableScrollPhysics(),
                         child: Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 20.w),
+                          padding: EdgeInsets.only(
+                            left: 20.w,
+                            right: 20.w,
+                            bottom: bottomInset,
+                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [

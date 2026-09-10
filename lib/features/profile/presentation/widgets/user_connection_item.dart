@@ -27,9 +27,11 @@ class UserConnectionItem extends StatefulWidget {
 
   final PostCreator user;
 
-  /// Whether the signed-in user is already following [user]. The API
-  /// doesn't return per-row follow-back state, so callers pass the best
-  /// known default (e.g. `true` for every row on the Following tab).
+  /// Fallback for whether the signed-in user is already following [user],
+  /// used only when [PostCreator.isFollowing] is null (the Following tab's
+  /// API response doesn't include per-row follow-back state, so every row
+  /// there defaults to `true`). The Followers tab's response does include
+  /// it, and that value always wins when present.
   final bool initialFollowing;
 
   @override
@@ -38,7 +40,7 @@ class UserConnectionItem extends StatefulWidget {
 
 class _UserConnectionItemState extends State<UserConnectionItem> {
   final _followCubit = injector.get<FollowCubit>();
-  late bool _isFollowing = widget.initialFollowing;
+  late bool _isFollowing = widget.user.isFollowing ?? widget.initialFollowing;
 
   bool get _isMe => SessionManager().isMe(widget.user.id.toString());
 

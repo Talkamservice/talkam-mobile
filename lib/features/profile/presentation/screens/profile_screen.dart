@@ -13,6 +13,7 @@ import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/components/talkam_tab_bar.dart';
+import 'package:talkam/features/home/presentation/bloc/drawer/drawer_data_cubit.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_screen_cubit/profile_screen_cubit.dart';
 import 'package:talkam/features/profile/presentation/screens/tabs/connections_tab.dart';
@@ -21,6 +22,7 @@ import 'package:talkam/features/profile/presentation/screens/tabs/profile_posts_
 import 'package:talkam/features/profile/presentation/screens/tabs/therapist_profile_info_tab.dart';
 import 'package:talkam/features/settings/presentation/widgets/delete_account_dialog.dart';
 import 'package:talkam/features/profile/presentation/widgets/logout_dialog.dart';
+import 'package:talkam/features/therapist/data/therapist_profile_store.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 enum _ProfileTabOptions {
@@ -164,14 +166,36 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
 
                     // Top User Header
-                    Padding(
-                      padding: EdgeInsets.only(
-                          top: canPop ? 4.h : 20.h, right: 16.w, left: 16.w),
-                      child: isTherapist
-                          ? _buildTherapistHeader(
-                              displayName, handle, avatarUrl)
-                          : _buildRegularHeader(
-                              isAnonymous, displayName, handle, avatarUrl),
+                    Builder(
+                      builder: (context) {
+                        final drawerProfile =
+                            injector.get<DrawerDataCubit>().state.data?.profile;
+                        final isVerified = isTherapist
+                            ? (TherapistProfileStore
+                                    .instance.profile.value.isVerified ||
+                                _talkamUser.isVerified ||
+                                (user?.isVerified ?? false) ||
+                                (drawerProfile?.isVerified ?? false))
+                            : (_talkamUser.isVerified ||
+                                (user?.isVerified ?? false) ||
+                                (drawerProfile?.isVerified ?? false) ||
+                                _talkamUser.activeSubscription != null ||
+                                (user?.activeSubscription != null));
+
+                        return Padding(
+                          padding: EdgeInsets.only(
+                              top: canPop ? 4.h : 20.h,
+                              right: 16.w,
+                              left: 16.w),
+                          child: isTherapist
+                              ? _buildTherapistHeader(
+                                  displayName, handle, avatarUrl,
+                                  isVerified: isVerified)
+                              : _buildRegularHeader(
+                                  isAnonymous, displayName, handle, avatarUrl,
+                                  isVerified: isVerified),
+                        );
+                      },
                     ),
 
                     24.verticalSpace,
@@ -265,7 +289,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildRegularHeader(
-      bool isAnonymous, String displayName, String handle, String? avatarUrl) {
+      bool isAnonymous, String displayName, String handle, String? avatarUrl,
+      {required bool isVerified}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -287,12 +312,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 fontSize: 20,
                 color: Pallets.boldBlackV2,
               ),
-              6.horizontalSpace,
-              ImageWidget(
-                size: 20,
-                canPreview: false,
-                imageUrl: Assets.images.svgs.blueThick,
-              ),
+              if (isVerified) ...[
+                6.horizontalSpace,
+                ImageWidget(
+                  size: 20,
+                  canPreview: false,
+                  imageUrl: Assets.images.svgs.blueThick,
+                ),
+              ],
             ],
           ),
           4.verticalSpace,
@@ -333,7 +360,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   Widget _buildTherapistHeader(
-      String displayName, String handle, String? avatarUrl) {
+      String displayName, String handle, String? avatarUrl,
+      {required bool isVerified}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
@@ -357,12 +385,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
               fontSize: 20,
               color: Pallets.boldBlackV2,
             ),
-            6.horizontalSpace,
-            const Icon(
-              Icons.verified,
-              color: Color(0xFFF59E0B),
-              size: 20,
-            ),
+            if (isVerified) ...[
+              6.horizontalSpace,
+              const Icon(
+                Icons.verified,
+                color: Color(0xFFF59E0B),
+                size: 20,
+              ),
+            ],
           ],
         ),
         4.verticalSpace,

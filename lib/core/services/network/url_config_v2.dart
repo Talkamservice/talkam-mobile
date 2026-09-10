@@ -86,6 +86,7 @@ class UrlConfigV2 {
 
   // Mood
   static const String moodCheckins = '/user/mood-checkins';
+  static const String moodCheckinsToday = '$moodCheckins/today';
 
   // Groups
   static const String groups = '/user/groups';
@@ -119,6 +120,8 @@ class UrlConfigV2 {
   static const String therapistApplicationStatus = '/therapist/application';
   static const String therapistApplicationPersonal =
       '/therapist/application/personal';
+  static const String therapistApplicationCredentialTypes =
+      '/therapist/application/credential-types';
   static const String therapistApplicationDocuments =
       '/therapist/application/documents';
   static String therapistApplicationDocument(String id) =>

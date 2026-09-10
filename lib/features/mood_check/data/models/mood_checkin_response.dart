@@ -68,6 +68,7 @@ class MoodCheckinRecord {
   int id;
   String date;
   int mood;
+  String? moodLabel;
   List<dynamic> factors;
   List<dynamic> factorLabels;
   String? note;
@@ -76,6 +77,7 @@ class MoodCheckinRecord {
     required this.id,
     required this.date,
     required this.mood,
+    this.moodLabel,
     required this.factors,
     required this.factorLabels,
     required this.note,
@@ -86,6 +88,7 @@ class MoodCheckinRecord {
         id: json["id"],
         date: json["date"],
         mood: json["mood"],
+        moodLabel: json["mood_label"],
         factors:
             json["factors"] == null ? [] : List<dynamic>.from(json["factors"]),
         factorLabels: json["factor_labels"] == null
@@ -98,8 +101,38 @@ class MoodCheckinRecord {
         "id": id,
         "date": date,
         "mood": mood,
+        "mood_label": moodLabel,
         "factors": factors,
         "factor_labels": factorLabels,
         "note": note,
       };
+}
+
+/// Response for `GET /user/mood-checkins/today` — tells the app whether
+/// today's check-in is already done server-side, so the popup's "should I
+/// show" decision doesn't rely on a local date cache anymore.
+class MoodCheckinTodayResponse {
+  bool checkedIn;
+  int? mood;
+  String? checkedInOn;
+
+  /// Null when [checkedIn] is false.
+  MoodCheckinRecord? checkin;
+
+  MoodCheckinTodayResponse({
+    required this.checkedIn,
+    this.mood,
+    this.checkedInOn,
+    this.checkin,
+  });
+
+  factory MoodCheckinTodayResponse.fromJson(Map<String, dynamic> json) =>
+      MoodCheckinTodayResponse(
+        checkedIn: json["checked_in"] ?? false,
+        mood: json["mood"],
+        checkedInOn: json["checked_in_on"],
+        checkin: json["checkin"] == null
+            ? null
+            : MoodCheckinRecord.fromJson(json["checkin"]),
+      );
 }

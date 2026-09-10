@@ -11,6 +11,9 @@ abstract class TherapistApplicationRepository {
     required int yearsExperience,
   });
 
+  /// Credential-type dropdown options for Step 1.
+  Future<List<String>> getCredentialTypes();
+
   /// Step 2 — one document per call; re-uploading the same [type] replaces
   /// it. [expiresAt] is only meaningful for the `licence` type.
   Future<TherapistDocumentResponse> uploadDocument({

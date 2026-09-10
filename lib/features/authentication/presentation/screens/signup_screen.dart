@@ -12,7 +12,6 @@ import 'package:talkam/common/models/get_countries_response.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
-import 'package:talkam/common/widgets/custom_dropdown.dart';
 import 'package:talkam/common/widgets/inline_select_field.dart';
 import 'package:talkam/common/widgets/custom_outlined_button.dart';
 import 'package:talkam/common/widgets/custom_text_field.dart';
@@ -151,13 +150,10 @@ class _SignUpScreenState extends State<SignUpScreen> with AuthSuccessMixin {
   }
 
   Future<TalkamCountry?> _pickCountry(BuildContext context) {
+    FocusScope.of(context).unfocus();
     return CustomDialogs.showBottomSheet(
       context,
-      Padding(
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
-        child: const CountryPickerSheet(),
-      ),
+      const CountryPickerSheet(),
     );
   }
 

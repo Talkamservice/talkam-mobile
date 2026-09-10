@@ -257,7 +257,7 @@ class _UserProfileScreenState extends State<UserProfileScreen> {
               fontSize: 20,
               color: Pallets.boldBlackV2,
             ),
-            if (_talkamUser.activeSubscription != null) ...[
+            if (_talkamUser.isVerified) ...[
               6.horizontalSpace,
               ImageWidget(
                 size: 20,
