@@ -7,7 +7,7 @@ class RefreshGroupListener extends StatelessWidget {
   const RefreshGroupListener({super.key, required this.child, required this.onRefresh});
 
   final Widget child;
-  final VoidCallback onRefresh;
+  final void Function(bool silent) onRefresh;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class RefreshGroupListener extends StatelessWidget {
       listener: (context, state) {
         state.maybeWhen(
           orElse: () => null,
-          refreshGroups: () => onRefresh(),
+          refreshGroups: () => onRefresh(injector.get<GroupsCubit>().isSilentRefresh),
         );
       },
       child: child,

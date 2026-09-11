@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:talkam/features/therapist/data/models/availability_slot.dart';
 import 'package:talkam/features/booking/data/models/therapist_directory_response.dart';
 import 'package:talkam/features/booking/data/models/therapist_review_item.dart';
@@ -7,7 +8,8 @@ class TherapistReview {
   final int rating;
   final String body;
 
-  /// Who left it, already anonymised for display — e.g. "Employee  •  anonymised".
+  /// Who left it, already anonymised by the backend for display — e.g.
+  /// "Anonymous".
   final String attribution;
   final String timeAgo;
 
@@ -36,9 +38,6 @@ class TherapistModel {
   final int yearsExperience;
   final List<String> sessionFormats;
 
-  /// Primary therapeutic approach shown in the profile headline, e.g. "CBT".
-  final String modality;
-
   /// Share of reviews per star, keyed 1-5, each 0.0-1.0. Empty when the
   /// backend has not supplied a histogram — bars then render empty.
   final Map<int, double> ratingBreakdown;
@@ -65,7 +64,6 @@ class TherapistModel {
     required this.avgDuration,
     required this.yearsExperience,
     required this.sessionFormats,
-    this.modality = 'CBT',
     this.ratingBreakdown = const {},
     this.reviews = const [],
     this.availability = const WeeklyAvailability(),
@@ -87,7 +85,6 @@ class TherapistModel {
     String? avgDuration,
     int? yearsExperience,
     List<String>? sessionFormats,
-    String? modality,
     Map<int, double>? ratingBreakdown,
     List<TherapistReview>? reviews,
     WeeklyAvailability? availability,
@@ -108,16 +105,14 @@ class TherapistModel {
         avgDuration: avgDuration ?? this.avgDuration,
         yearsExperience: yearsExperience ?? this.yearsExperience,
         sessionFormats: sessionFormats ?? this.sessionFormats,
-        modality: modality ?? this.modality,
         ratingBreakdown: ratingBreakdown ?? this.ratingBreakdown,
         reviews: reviews ?? this.reviews,
         availability: availability ?? this.availability,
       );
 
-  /// The line under the name: "Anxiety  •  CBT  •  9 yrs experience".
+  /// The line under the name: "Anxiety  •  Bipolar  •  9 yrs experience".
   String get headline => [
-        if (specialties.isNotEmpty) specialties.first,
-        modality,
+        ...specialties.take(2),
         '$yearsExperience yrs experience',
       ].join('  •  ');
 
@@ -127,6 +122,26 @@ class TherapistModel {
 
   /// Share of reviews awarding [star], or 0 when no histogram is available.
   double breakdownFor(int star) => ratingBreakdown[star] ?? 0;
+
+  /// Placeholder shown before the first successful fetch (or when it fails)
+  /// — every stat reads as zero/blank rather than a fabricated number.
+  factory TherapistModel.empty() => const TherapistModel(
+        id: '',
+        name: '',
+        title: '',
+        specialties: [],
+        pricePerSession: 0,
+        rating: 0,
+        reviewsCount: 0,
+        avatarUrl: '',
+        nextAvailableSlot: '',
+        isVerified: false,
+        about: '',
+        totalSessions: 0,
+        avgDuration: '',
+        yearsExperience: 0,
+        sessionFormats: [],
+      );
 
   factory TherapistModel.fromDirectoryItem(TherapistDirectoryItem item) {
     final rate = double.tryParse(item.sessionRate ?? '') ?? 0.0;
@@ -153,28 +168,41 @@ class TherapistModel {
 
   factory TherapistModel.fromProfileDetail(
     TherapistProfileDetail detail, [
-    List<TherapistReviewItem> apiReviews = const [],
+    TherapistReviewsResponse? reviewsResponse,
   ]) {
     final base = TherapistModel.fromDirectoryItem(detail);
-    final reviews = apiReviews
+    final reviews = (reviewsResponse?.reviews ?? [])
         .map((r) => TherapistReview(
               rating: r.rating,
               body: r.comment ?? '',
-              attribution: 'Employee  •  anonymised',
-              timeAgo: r.timeAgo ?? '',
+              attribution: r.author ?? 'Anonymous',
+              timeAgo: r.timeAgo,
             ))
         .toList();
     final Map<int, double> breakdown = {};
-    if (detail.reviewsCount > 0) {
-      detail.ratingsHistogram.forEach((k, v) {
-        breakdown[k] = v / detail.reviewsCount;
+    
+    // The histogram might come from the detail profile or the reviews response
+    final rawHistogram = reviewsResponse?.histogram ?? detail.ratingsHistogram;
+    
+    int totalCount = detail.reviewsCount;
+    if (totalCount == 0 && rawHistogram.isNotEmpty) {
+      totalCount = rawHistogram.values.fold(0, (sum, count) => sum + count);
+    }
+    
+    if (totalCount > 0) {
+      rawHistogram.forEach((k, v) {
+        breakdown[k] = v / totalCount;
       });
     }
+    
+    debugPrint('Mapped ${reviews.length} reviews from API');
+    
     return base.copyWith(
       about: detail.bio ?? '',
       totalSessions: detail.completedSessions ?? 0,
       yearsExperience: detail.yearsExperience ?? 0,
       ratingBreakdown: breakdown,
+      reviewsCount: totalCount,
       reviews: reviews,
       // fromDirectoryItem() always hardcodes '50 mins' since the plain
       // directory list item carries no duration — but the full profile
@@ -184,122 +212,4 @@ class TherapistModel {
           : base.avgDuration,
     );
   }
-}
-
-class MockTherapistData {
-  /// Placeholder histogram and reviews shared by every seeded therapist until
-  /// a reviews endpoint exists. These were previously hardcoded inside the
-  /// profile screen, which meant the UI could not render a therapist who had
-  /// different numbers.
-  static const Map<int, double> sampleBreakdown = {
-    5: 0.92,
-    4: 0.35,
-    3: 0.15,
-    2: 0.05,
-    1: 0.0,
-  };
-
-  static const List<TherapistReview> sampleReviews = [
-    TherapistReview(
-      rating: 5,
-      body:
-          "Had a great session with my therapist! They listened and gave valuable insights. I feel more equipped now. Highly recommend!",
-      attribution: "Employee  •  anonymised",
-      timeAgo: "2 wks ago",
-    ),
-    TherapistReview(
-      rating: 5,
-      body:
-          "Participated in a team-building workshop that enhanced our collaboration skills. It was fun and informative!",
-      attribution: "Employee  •  anonymised",
-      timeAgo: "1 wk ago",
-    ),
-  ];
-
-  /// Stand-in for the signed-in therapist's own profile. Device-local mock
-  /// until the backend exposes a therapist record for the current user —
-  /// see SessionManager.isTherapistAccount.
-  static const TherapistModel currentTherapist = TherapistModel(
-    id: "me",
-    name: "Dr. Femi Adebayo",
-    title: "Clinical Psychologist, PHD",
-    specialties: ["Anxiety", "Depression", "Stress", "Overwhelm"],
-    pricePerSession: 25000,
-    rating: 4.9,
-    reviewsCount: 128,
-    avatarUrl: "https://i.pravatar.cc/150?img=12",
-    nextAvailableSlot: "Today, 4pm",
-    isVerified: true,
-    about:
-        "Clinical psychologist with 8 years helping young professionals manage anxiety, burnout and relationship challenges. I use evidence-based CBT and mindfulness-based approaches.",
-    totalSessions: 132,
-    avgDuration: "2 hrs",
-    yearsExperience: 9,
-    sessionFormats: ["Video", "Voice"],
-    ratingBreakdown: sampleBreakdown,
-    reviews: sampleReviews,
-  );
-
-  static final List<TherapistModel> therapists = [
-    const TherapistModel(
-      id: "1",
-      name: "Dr. Adewale K.",
-      title: "Clinical Psychologist, PHD",
-      specialties: ["Anxiety", "Depression", "Stress", "Overwhelm"],
-      pricePerSession: 25000,
-      rating: 4.9,
-      reviewsCount: 128,
-      avatarUrl: "https://i.pravatar.cc/150?img=51",
-      nextAvailableSlot: "Today, 4:00pm",
-      isVerified: true,
-      about:
-          "Clinical psychologist with 8 years helping young professionals manage anxiety, burnout and relationship challenges. I use evidence-based CBT and mindfulness-based approaches.",
-      totalSessions: 132,
-      avgDuration: "2 hrs",
-      yearsExperience: 9,
-      sessionFormats: ["Video", "Voice"],
-      ratingBreakdown: sampleBreakdown,
-      reviews: sampleReviews,
-    ),
-    const TherapistModel(
-      id: "2",
-      name: "Ms. Rachel T.",
-      title: "Licensed Therapist, MSW",
-      specialties: ["Depression", "Anxiety", "Trauma"],
-      pricePerSession: 20000,
-      rating: 4.7,
-      reviewsCount: 75,
-      avatarUrl: "https://i.pravatar.cc/150?img=47",
-      nextAvailableSlot: "Tomorrow, 10:00am",
-      isVerified: true,
-      about:
-          "I specialize in depression and trauma, providing a safe space to process and heal using trauma-informed therapy techniques.",
-      totalSessions: 95,
-      avgDuration: "1 hr",
-      yearsExperience: 5,
-      sessionFormats: ["Video"],
-      ratingBreakdown: sampleBreakdown,
-      reviews: sampleReviews,
-    ),
-    const TherapistModel(
-      id: "3",
-      name: "Dr. Samuel P.",
-      title: "Counseling Psychologist, EdD",
-      specialties: ["Stress", "Burnout", "Career"],
-      pricePerSession: 30000,
-      rating: 4.8,
-      reviewsCount: 95,
-      avatarUrl: "https://i.pravatar.cc/150?img=11",
-      nextAvailableSlot: "Today, 2:00pm",
-      isVerified: true,
-      about:
-          "Expert in managing work-related stress and career transitions. I work with clients to develop resilience and actionable career plans.",
-      totalSessions: 210,
-      avgDuration: "1.5 hrs",
-      yearsExperience: 12,
-      sessionFormats: ["Video", "Voice", "Chat"],
-      ratingBreakdown: sampleBreakdown,
-      reviews: sampleReviews,
-    ),
-  ];
 }

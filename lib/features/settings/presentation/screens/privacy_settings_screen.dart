@@ -6,15 +6,12 @@ import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/custom_switch.dart';
-import 'package:talkam/common/widgets/otp_field.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/helper_utils.dart';
-import 'package:talkam/features/authentication/dormain/repository/auth_repository.dart';
-import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/settings/data/models/privacy_settings.dart';
 import 'package:talkam/features/settings/presentation/blocs/settings/settings_bloc.dart';
 
@@ -27,7 +24,6 @@ class PrivacySettingsScreen extends StatefulWidget {
 
 class _PrivacySettingsScreenState extends State<PrivacySettingsScreen> {
   final bloc = SettingsBloc(injector.get(), injector.get());
-  final _authRepository = injector.get<AuthRepository>();
 
   PrivacySettings _saved = const PrivacySettings();
   PrivacySettings _draft = const PrivacySettings();
@@ -48,68 +44,8 @@ class _PrivacySettingsScreenState extends State<PrivacySettingsScreen> {
     super.dispose();
   }
 
-  Future<void> _save() async {
-    // Turning 2FA on for the first time needs a fresh TYPE_LOGIN otp before
-    // the server will accept the change.
-    if (_draft.twoFactorEnabled && !_saved.twoFactorEnabled) {
-      final email = injector.get<ProfileBloc>().appUser?.email;
-      if (email == null) return;
-      try {
-        await _authRepository.sendOtp(email, 'login');
-      } catch (error) {
-        if (mounted) CustomDialogs.error(error.toString());
-        return;
-      }
-      if (!mounted) return;
-      final otp = await _promptForOtp();
-      if (otp == null || !mounted) return;
-      bloc.add(SettingsEvent.updatePrivacySettings(_draft, otp: otp));
-      return;
-    }
+  void _save() {
     bloc.add(SettingsEvent.updatePrivacySettings(_draft));
-  }
-
-  Future<String?> _promptForOtp() {
-    final controller = TextEditingController();
-    return showDialog<String>(
-      context: context,
-      builder: (dialogContext) => Dialog(
-        backgroundColor: Colors.white,
-        shape:
-            RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.r)),
-        insetPadding: EdgeInsets.symmetric(horizontal: 24.w),
-        child: Padding(
-          padding: EdgeInsets.all(20.w),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              const TextView(
-                text: "Enter the 6-digit code we sent to confirm turning on"
-                    " two-factor authentication.",
-                fontSize: 14,
-                fontWeight: FontWeight.w600,
-                align: TextAlign.center,
-                lineHeight: 1.35,
-              ),
-              20.verticalSpace,
-              OtpField(count: 6, controller: controller),
-              20.verticalSpace,
-              CustomButton(
-                elevation: 0,
-                onPressed: () =>
-                    Navigator.of(dialogContext).pop(controller.text),
-                child: const TextView(
-                  text: "Confirm",
-                  fontSize: 15,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
   }
 
   void _openDataExport() {
@@ -202,12 +138,18 @@ class _PrivacySettingsScreenState extends State<PrivacySettingsScreen> {
                         // ── ACCOUNT SECURITY ───────────────────────────────────────
                         const _SectionHeader(title: "ACCOUNT SECURITY"),
                         12.verticalSpace,
-                        _ToggleRow(
-                          title: "Two-factor authentication",
-                          subtitle: "Extra security on login via email OTP",
-                          value: _draft.twoFactorEnabled,
-                          onChanged: (v) =>
-                              _update(_draft.copyWith(twoFactorEnabled: v)),
+                        _NavRow(
+                          title: "Two-Factor Authentication",
+                          subtitle: _saved.twoFactorEnabled
+                              ? "On — extra security via email OTP"
+                              : "Off — extra security via email OTP",
+                          onTap: () async {
+                            // Toggling actually happens on that screen, so
+                            // re-fetch on return instead of going stale.
+                            await context
+                                .pushNamed(PageUrl.twoFactorAuthScreen);
+                            bloc.add(const SettingsEvent.getPrivacySettings());
+                          },
                         ),
                         12.verticalSpace,
                         _NavRow(
@@ -276,7 +218,7 @@ class _SectionHeader extends StatelessWidget {
       text: title,
       fontSize: 12,
       fontWeight: FontWeight.w700,
-      color: const Color(0xFF4B5563), // Darker gray matching design
+      color: Pallets.grey35,
       wordSpacing: 1,
     );
   }
@@ -300,7 +242,7 @@ class _ToggleRow extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
       decoration: BoxDecoration(
-        color: const Color(0xFFF9FAFB),
+        color: Pallets.bgLight,
         borderRadius: BorderRadius.circular(16.r),
       ),
       child: Row(
@@ -321,7 +263,7 @@ class _ToggleRow extends StatelessWidget {
                   text: subtitle,
                   fontSize: 13,
                   fontWeight: FontWeight.w500,
-                  color: const Color(0xFF6B7280), // Gray text
+                  color: Pallets.grey400,
                   lineHeight: 1.3,
                 ),
               ],
@@ -354,7 +296,7 @@ class _NavRow extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 16.h),
         decoration: BoxDecoration(
-          color: const Color(0xFFF9FAFB),
+          color: Pallets.bgLight,
           borderRadius: BorderRadius.circular(16.r),
         ),
         child: Row(
@@ -375,7 +317,7 @@ class _NavRow extends StatelessWidget {
                       text: subtitle!,
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
-                      color: const Color(0xFF6B7280),
+                      color: Pallets.grey400,
                       lineHeight: 1.3,
                     ),
                   ],
@@ -383,10 +325,10 @@ class _NavRow extends StatelessWidget {
               ),
             ),
             16.horizontalSpace,
-            const Icon(
+            Icon(
               Icons.chevron_right,
-              size: 20.0,
-              color: Color(0xFF6B7280),
+              size: 20.w,
+              color: Pallets.grey400,
             ),
           ],
         ),
@@ -405,7 +347,7 @@ class _SessionsMergedCard extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: const Color(0xFFF9FAFB),
+        color: Pallets.bgLight,
         borderRadius: BorderRadius.circular(16.r),
       ),
       child: Column(
@@ -428,7 +370,7 @@ class _SessionsMergedCard extends StatelessWidget {
                       "TalkAM never records your therapy sessions. Video and audio stay exclusively between you and your therapist.",
                   fontSize: 13,
                   fontWeight: FontWeight.w500,
-                  color: Color(0xFF6B7280),
+                  color: Pallets.grey400,
                   lineHeight: 1.4,
                 ),
                 12.verticalSpace,
@@ -436,7 +378,7 @@ class _SessionsMergedCard extends StatelessWidget {
                   padding:
                       EdgeInsets.symmetric(horizontal: 10.w, vertical: 6.h),
                   decoration: BoxDecoration(
-                    color: const Color(0xFFE6FDF4),
+                    color: Pallets.successGreen.withValues(alpha: 0.08),
                     borderRadius: BorderRadius.circular(8.r),
                   ),
                   child: Row(
@@ -445,14 +387,14 @@ class _SessionsMergedCard extends StatelessWidget {
                       const Icon(
                         Icons.shield_outlined,
                         size: 16,
-                        color: Color(0xFF0F9D58),
+                        color: Pallets.successGreen,
                       ),
                       6.horizontalSpace,
                       const TextView(
                         text: "End-to-end encrypted",
                         fontSize: 12,
                         fontWeight: FontWeight.w600,
-                        color: Color(0xFF0F9D58),
+                        color: Pallets.successGreen,
                       ),
                     ],
                   ),
@@ -485,16 +427,16 @@ class _SessionsMergedCard extends StatelessWidget {
                           text: "Get a copy of all your TalkAM data",
                           fontSize: 13,
                           fontWeight: FontWeight.w500,
-                          color: Color(0xFF6B7280),
+                          color: Pallets.grey400,
                         ),
                       ],
                     ),
                   ),
                   16.horizontalSpace,
-                  const Icon(
+                  Icon(
                     Icons.chevron_right,
-                    size: 20.0,
-                    color: Color(0xFF6B7280),
+                    size: 20.w,
+                    color: Pallets.grey400,
                   ),
                 ],
               ),

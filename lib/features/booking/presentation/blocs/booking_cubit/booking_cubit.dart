@@ -96,7 +96,8 @@ class BookingCubit extends Cubit<BookingState> {
     try {
       final reviews = await _repo.getTherapistReviews(therapistId);
       emit(state.copyWith(reviews: reviews));
-    } catch (_) {
+    } catch (e, stack) {
+      debugPrint('Error loading reviews: $e\n$stack');
       // Reviews are non-critical — silently fail
     }
   }

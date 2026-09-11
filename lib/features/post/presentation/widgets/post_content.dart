@@ -39,14 +39,14 @@ class PostContent extends StatelessWidget {
           if (post.title?.isNotEmpty ?? false)
             TextView(
               text: post.title,
-              fontSize: 16,
+              fontSize: 14,
               fontWeight: FontWeight.w600,
             ),
           if (post.body?.isNotEmpty ?? false) 4.verticalSpace,
           if (post.body?.isNotEmpty ?? false)
             CustomReadMoreText(
               text: post.body ?? '',
-              fontSize: 14,
+              fontSize: 13,
               fontWeight: FontWeight.w400,
             ),
       if (post.tags.isNotEmpty ?? false)
@@ -71,7 +71,7 @@ class PostContent extends StatelessWidget {
                           width: 1,
                           color: Pallets.borderGrey,
                         )),
-                    child: TextView(text: post.tags?[index] ?? ''),
+                    child: TextView(text: post.tags?[index] ?? '', fontSize: 11),
                   ),
                 ),
               ),

@@ -3,14 +3,15 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/group/data/models/get_group_members_response.dart';
 import 'package:talkam/features/group/data/models/get_pending_requests_response.dart';
+import 'package:talkam/features/group/dormain/mixins/refresh_groups_mixin.dart';
 import 'package:talkam/features/group/dormain/repository/group_members_repository.dart';
-import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
 
 part 'group_members_state.dart';
 
 part 'group_members_cubit.freezed.dart';
 
-class GroupMembersCubit extends Cubit<GroupMembersState> {
+class GroupMembersCubit extends Cubit<GroupMembersState>
+    with RefreshGroupsMixin {
   GroupMembersCubit(this.groupMembersRepository)
       : super(const GroupMembersState.initial());
 
@@ -39,6 +40,7 @@ class GroupMembersCubit extends Cubit<GroupMembersState> {
           groupId: groupId, userId: userId);
 
       emit(GroupMembersState.addGroupMemberSuccess(response));
+      refreshAllGroupLists();
     } catch (e, stack) {
       logger.e(e.toString(), stackTrace: stack);
       emit(GroupMembersState.addGroupMemberFailure(e.toString()));
@@ -81,11 +83,7 @@ class GroupMembersCubit extends Cubit<GroupMembersState> {
           await groupMembersRepository.deleteMember(memberId, groupId);
 
       emit(GroupMembersState.deleteMemberSuccess(response));
-      // Keep the shared GroupsCubit singleton (the sidebar's "Groups" list)
-      // in sync now that this group has been left.
-      injector
-          .get<GroupsCubit>()
-          .getGroups(isFollowing: true, shouldRefresh: false);
+      refreshAllGroupLists();
     } catch (e, stack) {
       logger.e(e.toString(), stackTrace: stack);
       emit(GroupMembersState.deleteMemberFailure(e.toString()));
@@ -100,6 +98,7 @@ class GroupMembersCubit extends Cubit<GroupMembersState> {
           memberId: memberId);
 
       emit(GroupMembersState.cancelRequestSuccess(response));
+      refreshAllGroupLists();
     } catch (e, stack) {
       logger.e(e.toString(), stackTrace: stack);
       emit(GroupMembersState.cancelRequestFailure(e.toString()));
@@ -130,6 +129,7 @@ class GroupMembersCubit extends Cubit<GroupMembersState> {
           await groupMembersRepository.sendJoinRequest(groupId: groupId);
 
       emit(GroupMembersState.sendRequestSyccess(response));
+      refreshAllGroupLists();
     } catch (e, stack) {
       logger.e(e.toString(), stackTrace: stack);
       emit(GroupMembersState.sendRequestFailure(e.toString()));

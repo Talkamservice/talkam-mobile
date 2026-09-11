@@ -84,7 +84,8 @@ class _JoinGroupButtonState extends State<JoinGroupButton> {
             child: Builder(builder: (context) {
               return state.maybeWhen(
                   orElse: () => Row(
-                        children: [
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
                           if (showIcon)
                             const Icon(
                               Icons.add,

@@ -8,9 +8,9 @@ import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/di/resettable_singletons.dart';
 import 'package:talkam/core/services/network/network_service.dart';
 import 'package:talkam/core/services/pusher/pusher_channel_service.dart';
-import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 
 // final sessionProvider = Provider<SessionManager>((ref) {
 //   SessionManager().init();
@@ -252,7 +252,14 @@ class SessionManager {
     instance.isLoggedIn = false;
     // Do NOT reset hasOnboarded — it's a device flag, not a session flag.
 
-    injector.get<ProfileBloc>().add(const Logout());
+    for (final resettable in resettableSingletons()) {
+      try {
+        resettable.resetForLogout();
+      } catch (error, stack) {
+        logger.e('SessionManager: resetForLogout failed',
+            error: error, stackTrace: stack);
+      }
+    }
 
     // Everything below is best-effort cleanup of the previous user's
     // footprint on this device — none of it should be able to block or
@@ -290,8 +297,7 @@ class SessionManager {
           error: error, stackTrace: stack);
     }
 
-    logger.i('SessionManager: local session cleared, Logout dispatched to '
-        'ProfileBloc');
+    logger.i('SessionManager: local session cleared, singletons reset');
     return true;
   }
 }

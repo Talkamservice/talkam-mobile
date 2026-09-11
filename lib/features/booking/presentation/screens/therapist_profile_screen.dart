@@ -62,8 +62,7 @@ class _TherapistProfileScreenState extends State<TherapistProfileScreen> {
         builder: (context, state) {
           final profileDetail = state.profile;
           final therapist = profileDetail != null
-              ? TherapistModel.fromProfileDetail(
-                  profileDetail, state.reviews?.reviews ?? [])
+              ? TherapistModel.fromProfileDetail(profileDetail, state.reviews)
               : null;
 
           return Scaffold(

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/features/post/data/models/create_post_payload.dart';
 import 'package:talkam/features/post/data/models/create_post_response.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
@@ -19,7 +20,8 @@ part 'post_state.dart';
 
 part 'post_bloc.freezed.dart';
 
-class PostBloc extends Bloc<PostEvent, PostState> {
+class PostBloc extends Bloc<PostEvent, PostState>
+    implements ResettableOnLogout {
   final PostRepository _postRepository;
 
   List<TalkamGuidelineModel> talkamRules = [];
@@ -70,6 +72,9 @@ class PostBloc extends Bloc<PostEvent, PostState> {
       );
     });
   }
+
+  @override
+  void resetForLogout() => emit(const PostState.initial());
 
   Future<void> _mapGetCategoriesEventToState(
       Emitter<PostState> emit, _GetCategoriesEvent e) async {

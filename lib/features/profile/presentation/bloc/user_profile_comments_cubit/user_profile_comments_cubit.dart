@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/features/post/data/models/get_comments_response.dart';
 import 'package:talkam/features/post/data/models/talk_am_comment.dart';
 import 'package:talkam/features/profile/dormain/repository/profile_repository.dart';
@@ -9,13 +10,17 @@ part 'user_profile_comments_state.dart';
 
 part 'user_profile_comments_cubit.freezed.dart';
 
-class UserProfileCommentsCubit extends Cubit<UserProfileCommentsState> {
+class UserProfileCommentsCubit extends Cubit<UserProfileCommentsState>
+    implements ResettableOnLogout {
   final ProfileRepository _profileRepository;
   int _currentPage = 1;
   bool _hasReachedEndOfList = false;
 
   UserProfileCommentsCubit(this._profileRepository)
       : super(const UserProfileCommentsState.initial());
+
+  @override
+  void resetForLogout() => emit(const UserProfileCommentsState.initial());
 
   Future<void> fetchUserComments(String userId) async {
     emit(const UserProfileCommentsState.loading());

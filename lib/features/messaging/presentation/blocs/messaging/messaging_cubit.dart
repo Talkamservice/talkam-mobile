@@ -7,6 +7,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:hive_ce/hive.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/core/services/pusher/pusher_channel_service.dart';
 import 'package:talkam/features/messaging/data/models/get_conversations_response.dart';
 import 'package:talkam/features/messaging/data/models/get_messages_response.dart';
@@ -22,7 +23,8 @@ part 'messaging_state.dart';
 part 'messaging_cubit.freezed.dart';
 
 class MessagingCubit extends Cubit<MessagingState>
-    with MessagingFormatterMixin {
+    with MessagingFormatterMixin
+    implements ResettableOnLogout {
   final MessagingRepository messagingRepository;
 
   TalkamConversation? currentConversation;
@@ -32,6 +34,13 @@ class MessagingCubit extends Cubit<MessagingState>
   MessagingCubit(
     this.messagingRepository,
   ) : super(const MessagingState.initial());
+
+  @override
+  void resetForLogout() {
+    currentConversation = null;
+    messages = [];
+    emit(const MessagingState.initial());
+  }
 
   void _scrollToBottom({bool animate = true}) {
     WidgetsBinding.instance.addPostFrameCallback((_) {

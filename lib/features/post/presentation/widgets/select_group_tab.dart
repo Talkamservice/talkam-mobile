@@ -30,7 +30,7 @@ class _SelectGroupTabState extends State<SelectGroupTab> {
   @override
   void initState() {
     super.initState();
-    groupsCubit.getGroups(isFollowing: true);
+    groupsCubit.getGroups(isJoined: true);
   }
 
   @override
@@ -125,7 +125,7 @@ class _SelectGroupTabState extends State<SelectGroupTab> {
                   getGroupsFailure: (error) => Center(
                     child: AppErrorWidget(
                       message: error,
-                      onTap: () => groupsCubit.getGroups(isFollowing: true),
+                      onTap: () => groupsCubit.getGroups(isJoined: true),
                     ),
                   ),
                   getGroupsLoading: () =>

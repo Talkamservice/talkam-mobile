@@ -19,31 +19,35 @@ class TalkamTabBar extends StatelessWidget {
     required this.title,
     required this.onTap,
     required this.isSelected,
-    this.useExpandedAsParent = true,
+    this.useExpandedAsParent = false,
     this.indicatorWidth = 60,
   });
 
   @override
   Widget build(BuildContext context) {
     final hugsLabel = indicatorWidth == null;
+    // Meant to sit inside an Expanded cell: the whole cell becomes the tap
+    // target and the underline stretches to match, instead of just the label.
+    final fillsParent = useExpandedAsParent;
 
     final column = Column(
       mainAxisAlignment: MainAxisAlignment.center,
       // The underline has no child, so it only has a width to stretch to when
       // the cross axis stretches. Without this it would collapse to zero.
-      crossAxisAlignment:
-          hugsLabel ? CrossAxisAlignment.stretch : CrossAxisAlignment.center,
+      crossAxisAlignment: fillsParent || hugsLabel
+          ? CrossAxisAlignment.stretch
+          : CrossAxisAlignment.center,
       children: [
         TextView(
           text: title,
           color: isSelected ? Pallets.boldBlackV2 : Pallets.grey400,
           fontWeight: FontWeight.w600,
-          align: hugsLabel ? TextAlign.center : TextAlign.left,
+          align: fillsParent || hugsLabel ? TextAlign.center : TextAlign.left,
         ),
         10.verticalSpace,
         Container(
           height: 3.0,
-          width: indicatorWidth?.w,
+          width: fillsParent ? null : indicatorWidth?.w,
           decoration: BoxDecoration(
             color: isSelected ? Pallets.tabBarBlue : Colors.transparent,
             borderRadius: BorderRadius.circular(4.0),
@@ -55,8 +59,9 @@ class TalkamTabBar extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       // IntrinsicWidth sizes the column to the label so the stretched
-      // underline ends up exactly as wide as the text.
-      child: hugsLabel ? IntrinsicWidth(child: column) : column,
+      // underline ends up exactly as wide as the text. Skipped when filling
+      // an Expanded parent, whose tight width constraint sizes it already.
+      child: !fillsParent && hugsLabel ? IntrinsicWidth(child: column) : column,
     );
   }
 }

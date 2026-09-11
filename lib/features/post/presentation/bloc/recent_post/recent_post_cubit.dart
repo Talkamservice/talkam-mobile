@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/data/models/post_filter_model.dart';
 import 'package:talkam/features/post/dormain/repository/post_repository.dart';
@@ -8,13 +9,17 @@ part 'recent_post_state.dart';
 
 part 'recent_post_cubit.freezed.dart';
 
-class RecentPostCubit extends Cubit<RecentPostState> {
+class RecentPostCubit extends Cubit<RecentPostState>
+    implements ResettableOnLogout {
   final PostRepository postRepository;
 
   List<TalkamPost> _promotedPosts = []; // Track promoted posts
   int _promotedIndex = 0; // Current index of promoted posts
 
   RecentPostCubit(this.postRepository) : super(const RecentPostState.initial());
+
+  @override
+  void resetForLogout() => emit(const RecentPostState.initial());
 
   void getRecentPosts(PostFilterModel filter, {bool? reload}) async {
     if (reload ?? true) {

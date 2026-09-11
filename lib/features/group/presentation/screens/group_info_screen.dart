@@ -56,7 +56,7 @@ class _GroupInfoScreenState extends State<GroupInfoScreen>
   @override
   Widget build(BuildContext context) {
     return RefreshGroupListener(
-      onRefresh: () {
+      onRefresh: (silent) {
         bloc.getGroup(widget.groupId);
       },
       child: Scaffold(

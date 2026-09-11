@@ -144,6 +144,7 @@ class _CommentItemState extends State<CommentItem> {
                                                     child: TextView(
                                                       text: posterName,
                                                       fontWeight: FontWeight.w700,
+                                                      fontSize: 13,
                                                     ),
                                                   ),
                                                   6.horizontalSpace,
@@ -154,6 +155,7 @@ class _CommentItemState extends State<CommentItem> {
                                                     text: TimeUtil.getTimeAgo(
                                                         widget.comment.createdAt.toString()),
                                                     color: Pallets.grey60,
+                                                    fontSize: 11,
                                                   ),
                                                 ],
                                               ),
@@ -161,7 +163,7 @@ class _CommentItemState extends State<CommentItem> {
                                                 text: "Replying to @${widget.replyingToName}",
                                                 color: Pallets.blueBubbleColor,
                                                 fontWeight: FontWeight.w600,
-                                                fontSize: 12,
+                                                fontSize: 11,
                                               ),
                                             ],
                                           ),
@@ -176,6 +178,7 @@ class _CommentItemState extends State<CommentItem> {
                                     1.verticalSpace,
                                     CustomReadMoreText(
                                       text: widget.comment.comment,
+                                      fontSize: 13,
                                       mentionCallback: (mention) {
                                         Helpers.viewMentionedUserProfile(
                                             context, mention);

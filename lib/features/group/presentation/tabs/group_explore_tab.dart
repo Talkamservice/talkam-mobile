@@ -70,82 +70,91 @@ class _GroupExploreRecentTabState extends State<GroupExploreTab>
   Widget build(BuildContext context) {
     super.build(context);
     return RefreshGroupListener(
-      onRefresh: () {
-        bloc.getGroups(filter: _filter);
+      onRefresh: (silent) {
+        bloc.getGroups(shouldRefresh: !silent, filter: _filter);
       },
       child: BlocConsumer<GroupsCubit, GroupsState>(
         bloc: bloc,
         listener: (context, state) {},
         builder: (context, state) {
-          return CustomScrollView(
-            controller: _scrollController,
-            slivers: [
-              SliverToBoxAdapter(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    BlocProvider<FeaturedGroupsCubit>.value(
-                      value: injector.get<FeaturedGroupsCubit>(),
-                      child: const SuggestedGroups(),
-                    ),
-                    16.verticalSpace,
-                  ],
-                ),
-              ),
-              state.maybeWhen(
-                orElse: () => SliverToBoxAdapter(
-                  child: AppErrorWidget(
-                    onTap: () => bloc.getGroups(filter: _filter),
+          return RefreshIndicator(
+            onRefresh: () async {
+              // Broadcast instead of refetching directly — every group
+              // tab (this one included) already listens for this via
+              // RefreshGroupListener and refetches itself, so pulling to
+              // refresh here also refreshes Recent and My Groups.
+              injector.get<GroupsCubit>().refreshGroups();
+            },
+            child: CustomScrollView(
+              controller: _scrollController,
+              slivers: [
+                SliverToBoxAdapter(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      BlocProvider<FeaturedGroupsCubit>.value(
+                        value: injector.get<FeaturedGroupsCubit>(),
+                        child: const SuggestedGroups(),
+                      ),
+                      16.verticalSpace,
+                    ],
                   ),
                 ),
-                getGroupsLoading: () => const SliverToBoxAdapter(
-                  child: Center(child: GroupLoadingShimmer()),
-                ),
-                getGroupsSuccess: (groups, paginationData) {
-                  if (groups.isEmpty) {
-                    return const SliverToBoxAdapter(
-                      child: SizedBox(
-                        height: 300,
-                        child: Center(
-                          child: TextView(text: "No groups in this category"),
+                state.maybeWhen(
+                  orElse: () => SliverToBoxAdapter(
+                    child: AppErrorWidget(
+                      onTap: () => bloc.getGroups(filter: _filter),
+                    ),
+                  ),
+                  getGroupsLoading: () => const SliverToBoxAdapter(
+                    child: Center(child: GroupLoadingShimmer()),
+                  ),
+                  getGroupsSuccess: (groups, paginationData) {
+                    if (groups.isEmpty) {
+                      return const SliverToBoxAdapter(
+                        child: SizedBox(
+                          height: 300,
+                          child: Center(
+                            child:
+                                TextView(text: "No groups in this category"),
+                          ),
                         ),
+                      );
+                    }
+
+                    return SliverList(
+                      delegate: SliverChildBuilderDelegate(
+                        (context, index) {
+                          final group = groups[index];
+                          return InkWell(
+                            onTap: () {
+                              if (group.isSuspended ?? false) {
+                                CustomDialogs.error(
+                                    "You have been suspended from this group");
+                              } else if (!group.isPublic &&
+                                  !(group.isFollowing ?? false)) {
+                                CustomDialogs.showInfoMessage(
+                                    context, privateGroupViewText);
+                              } else {
+                                context.pushNamed(PageUrl.groupsInfoScreen,
+                                    extra: group.id.toString());
+                              }
+                            },
+                            child: GroupResultItem(
+                              group: group,
+                              onJoinStateChanged: () {
+                                injector.get<GroupsCubit>().refreshAllGroupLists(silent: true);
+                              },
+                            ),
+                          );
+                        },
+                        childCount: groups.length,
                       ),
                     );
-                  }
-
-                  return SliverList(
-                    delegate: SliverChildBuilderDelegate(
-                      (context, index) {
-                        final group = groups[index];
-                        return InkWell(
-                          onTap: () {
-                            if (group.isSuspended ?? false) {
-                              CustomDialogs.error(
-                                  "You have been suspended from this group");
-                            } else if (!group.isPublic &&
-                                !(group.isFollowing ?? false)) {
-                              CustomDialogs.showInfoMessage(
-                                  context, privateGroupViewText);
-                            } else {
-                              context.pushNamed(PageUrl.groupsInfoScreen,
-                                  extra: group.id.toString());
-                            }
-                          },
-                          child: GroupResultItem(
-                            group: group,
-                            onJoinStateChanged: () {
-                              bloc.getGroups(
-                                  shouldRefresh: false, filter: _filter);
-                            },
-                          ),
-                        );
-                      },
-                      childCount: groups.length,
-                    ),
-                  );
-                },
-              ),
-            ],
+                  },
+                ),
+              ],
+            ),
           );
         },
       ),

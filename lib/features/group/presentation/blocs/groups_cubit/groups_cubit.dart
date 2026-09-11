@@ -1,8 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/features/group/data/models/create_group_payload.dart';
 import 'package:talkam/features/group/data/models/groups_filter_model.dart';
+import 'package:talkam/features/group/dormain/mixins/refresh_groups_mixin.dart';
 import 'package:talkam/features/group/dormain/repository/group_repository.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 
@@ -10,27 +12,35 @@ part 'groups_state.dart';
 
 part 'groups_cubit.freezed.dart';
 
-class GroupsCubit extends Cubit<GroupsState> {
+class GroupsCubit extends Cubit<GroupsState>
+    with RefreshGroupsMixin
+    implements ResettableOnLogout {
   GroupsCubit(this.groupRepository) : super(const GroupsState.initial());
 
   final GroupsRepository groupRepository;
 
+  @override
+  void resetForLogout() => emit(const GroupsState.initial());
+
   Future<void> getGroups(
       {GroupsFilterModel? filter,
       bool? shouldRefresh = true,
-      bool? isFollowing}) async {
+      bool? isFollowing,
+      bool? isJoined}) async {
     if (shouldRefresh!) {
       emit(const GroupsState.getGroupsLoading());
     }
 
     try {
-      final GetGroupsResponse response = (isFollowing ?? false)
-          ? await groupRepository.getFollowedGroups(page: 1)
-          : await groupRepository.getGroups(
-              page: 1,
-              categoryId: filter?.category,
-              search: filter?.search,
-            );
+      final GetGroupsResponse response = (isJoined ?? false)
+          ? await groupRepository.getJoinedGroups(page: 1)
+          : (isFollowing ?? false)
+              ? await groupRepository.getFollowedGroups(page: 1)
+              : await groupRepository.getGroups(
+                  page: 1,
+                  categoryId: filter?.category,
+                  search: filter?.search,
+                );
 
       emit(GroupsState.getGroupsSuccess(
         groups: response.groups ?? [],
@@ -128,6 +138,9 @@ class GroupsCubit extends Cubit<GroupsState> {
       final response = await groupRepository.deleteGroup(groupId);
 
       emit(GroupsState.deleteGroupSuccess(response));
+      // The deleted group needs to disappear from every list it was
+      // showing in, not just this screen.
+      refreshAllGroupLists();
     } catch (e, stack) {
       logger.e(e.toString(), stackTrace: stack);
       emit(GroupsState.deleteGroupFailure(e.toString()));
@@ -211,7 +224,11 @@ class GroupsCubit extends Cubit<GroupsState> {
     }
   }
 
-  void refreshGroups() {
+  bool isSilentRefresh = false;
+
+  void refreshGroups({bool silent = false}) {
+    isSilentRefresh = silent;
+    emit(const GroupsState.initial());
     emit(const GroupsState.refreshGroups());
   }
 }

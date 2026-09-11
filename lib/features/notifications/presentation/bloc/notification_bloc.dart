@@ -7,6 +7,7 @@ import 'package:equatable/equatable.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/services/pusher/pusher_channel_service.dart';
 import 'package:talkam/features/messaging/presentation/blocs/conversations/conversations_cubit.dart';
@@ -22,7 +23,8 @@ part 'notification_event.dart';
 part 'notification_state.dart';
 
 // Bloc class
-class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
+class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState>
+    implements ResettableOnLogout {
   final NotificationsRepository _notificationsRepository;
   final ProfileRepository _profileRepository;
 
@@ -46,6 +48,14 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState> {
     on<LoadMoreNotificationsEvent>(_mapLoadMoreNotificationsEvent);
     on<GetAnnouncementsEvent>(_mapGetAnnouncementsEvent);
     on<GetAnnouncementByIdEvent>(_mapGetAnnouncementByIdEvent);
+  }
+
+  @override
+  void resetForLogout() {
+    _currentPage = 1;
+    _hasReachedEndOfList = false;
+    stats = NotificationsStats.initial();
+    emit(NotificationsInitial());
   }
 
   Future<void> _mapGetNotificationsEventToState(

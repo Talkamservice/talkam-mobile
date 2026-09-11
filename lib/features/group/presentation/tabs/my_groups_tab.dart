@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
-import 'package:talkam/core/constants/dialog_texts.dart';
 
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
@@ -33,7 +32,7 @@ class _GroupExploreRecentTabState extends State<MyGroupsTab>
 
   @override
   void initState() {
-    bloc.getGroups(isFollowing: true);
+    bloc.getGroups(isJoined: true);
 
     super.initState();
   }
@@ -42,8 +41,8 @@ class _GroupExploreRecentTabState extends State<MyGroupsTab>
   Widget build(BuildContext context) {
     super.build(context);
     return RefreshGroupListener(
-      onRefresh: () {
-        bloc.getGroups(isFollowing: true);
+      onRefresh: (silent) {
+        bloc.getGroups(shouldRefresh: !silent, isJoined: true);
       },
       child: Column(
         children: [
@@ -66,7 +65,7 @@ class _GroupExploreRecentTabState extends State<MyGroupsTab>
                       state.maybeWhen(orElse: () {
                         return AppErrorWidget(
                           onTap: () {
-                            bloc.getGroups(isFollowing: true);
+                            bloc.getGroups(isJoined: true);
                           },
                         );
                       }, getGroupsLoading: () {
@@ -99,7 +98,13 @@ class _GroupExploreRecentTabState extends State<MyGroupsTab>
                         return Expanded(
                           child: RefreshIndicator(
                             onRefresh: () async {
-                              bloc.getGroups(isFollowing: true);
+                              // Broadcast instead of refetching directly —
+                              // every group tab (this one included)
+                              // already listens for this via
+                              // RefreshGroupListener and refetches
+                              // itself, so pulling to refresh here also
+                              // refreshes Recent and Explore.
+                              injector.get<GroupsCubit>().refreshGroups();
                             },
                             child: ListView.builder(
                               itemCount: displayGroups.length,
@@ -108,17 +113,15 @@ class _GroupExploreRecentTabState extends State<MyGroupsTab>
                                   children: [
                                     InkWell(
                                       onTap: () {
+                                        // Every group here is one the user
+                                        // has actually joined, so there's no
+                                        // "private, can't view" case to gate
+                                        // on anymore — only suspension can
+                                        // block access.
                                         if (displayGroups[index].isSuspended ??
                                             false) {
                                           CustomDialogs.error(
                                               "You have been suspended from this group");
-                                        } else if (!displayGroups[index]
-                                                .isPublic &&
-                                            !(displayGroups[index]
-                                                    .isFollowing ??
-                                                false)) {
-                                          CustomDialogs.showInfoMessage(
-                                              context, privateGroupViewText);
                                         } else {
                                           context.pushNamed(
                                               PageUrl.groupsInfoScreen,
@@ -130,9 +133,7 @@ class _GroupExploreRecentTabState extends State<MyGroupsTab>
                                       child: GroupResultItem(
                                         group: displayGroups[index],
                                         onJoinStateChanged: () {
-                                          bloc.getGroups(
-                                              shouldRefresh: false,
-                                              isFollowing: true);
+                                          injector.get<GroupsCubit>().refreshAllGroupLists(silent: true);
                                         },
                                       ),
                                     ),

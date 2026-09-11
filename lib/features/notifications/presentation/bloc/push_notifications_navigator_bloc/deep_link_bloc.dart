@@ -3,12 +3,14 @@ import 'dart:async';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/resettable_on_logout.dart';
 
 part 'deep_link_event.dart';
 
 part 'deep_link_state.dart';
 
-class PushNotificationNavigatorBloc extends Bloc<PushNotificationNavigatorEvent, PushNotificationNavigatorState> {
+class PushNotificationNavigatorBloc extends Bloc<PushNotificationNavigatorEvent, PushNotificationNavigatorState>
+    implements ResettableOnLogout {
   PushNotificationNavigatorBloc() : super(DeepLinkInitial()) {
     dynamic data;
 
@@ -34,4 +36,7 @@ class PushNotificationNavigatorBloc extends Bloc<PushNotificationNavigatorEvent,
       emit(NoDeepLink());
     });
   }
+
+  @override
+  void resetForLogout() => emit(DeepLinkInitial());
 }

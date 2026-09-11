@@ -1,9 +1,29 @@
 import 'package:flutter/foundation.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
+import 'package:talkam/core/services/network/api_error.dart';
+import 'package:talkam/features/booking/data/models/therapist_review_item.dart';
+import 'package:talkam/features/booking/domain/repository/booking_repository.dart';
 import 'package:talkam/features/therapist/data/models/therapist_editable_profile.dart';
 import 'package:talkam/features/therapist/data/models/therapist_model.dart';
 import 'package:talkam/features/therapist/dormain/repository/therapist_repository.dart';
+
+/// Result of the most recent [TherapistProfileStore.fetchFromServer] call.
+enum TherapistProfileLoadStatus {
+  /// A fetch is in flight and nothing has loaded yet this session.
+  loading,
+
+  /// [TherapistProfileStore.profile] holds a real server record.
+  loaded,
+
+  /// The server rejected the request as unauthorized (401) or forbidden
+  /// (403) — on this endpoint that means the signed-in account isn't a
+  /// verified therapist yet, not that the user is signed out.
+  unauthorized,
+
+  /// Any other failure (network, 5xx, parse error).
+  error,
+}
 
 /// The signed-in therapist's record — `GET /therapist/profile` overlaid with
 /// whatever they've since saved on this device for fields the update
@@ -22,13 +42,20 @@ class TherapistProfileStore {
   static final TherapistProfileStore instance = TherapistProfileStore._();
 
   /// Base record from the server. Null until [fetchFromServer] succeeds at
-  /// least once — [MockTherapistData.currentTherapist] fills in until then
-  /// (and on failure) so the screens never render an empty shell.
+  /// least once — [TherapistModel.empty] fills in until then (and on
+  /// failure) so screens never render fabricated stats.
   TherapistModel? _serverProfile;
 
   /// The composed record the profile screens render.
   late final ValueNotifier<TherapistModel> profile =
       ValueNotifier<TherapistModel>(_compose());
+
+  /// How the last [fetchFromServer] call went — screens branch on this to
+  /// show a loading/unauthorized/error state instead of [profile], which
+  /// stays a blank placeholder until a fetch actually succeeds.
+  final ValueNotifier<TherapistProfileLoadStatus> loadStatus =
+      ValueNotifier<TherapistProfileLoadStatus>(
+          TherapistProfileLoadStatus.loading);
 
   /// The editable draft, seeded from the base record when nothing is stored.
   TherapistEditableProfile get draft {
@@ -36,19 +63,30 @@ class TherapistProfileStore {
     return stored ?? TherapistEditableProfile.fromTherapist(_base);
   }
 
-  TherapistModel get _base =>
-      _serverProfile ?? MockTherapistData.currentTherapist;
+  TherapistModel get _base => _serverProfile ?? TherapistModel.empty();
 
-  /// Fetches the real profile and recomposes. Errors are swallowed — this is
-  /// a background refresh, and the mock/last-known record already covers the
-  /// screen while it's loading or if the network call fails.
+  /// Fetches the real profile and recomposes.
   Future<void> fetchFromServer() async {
+    loadStatus.value = TherapistProfileLoadStatus.loading;
     try {
       final detail = await injector.get<TherapistRepository>().getMyProfile();
-      _serverProfile = TherapistModel.fromProfileDetail(detail);
+      
+      TherapistReviewsResponse? reviews;
+      try {
+        reviews = await injector.get<BookingRepository>().getTherapistReviews(detail.id);
+      } catch (e) {
+        // Silently fail if reviews can't be fetched
+      }
+      
+      _serverProfile = TherapistModel.fromProfileDetail(detail, reviews);
       reload();
+      loadStatus.value = TherapistProfileLoadStatus.loaded;
     } catch (error, stack) {
       logger.e(error, stackTrace: stack);
+      final statusCode = error is ApiError ? error.statusCode : null;
+      loadStatus.value = (statusCode == 401 || statusCode == 403)
+          ? TherapistProfileLoadStatus.unauthorized
+          : TherapistProfileLoadStatus.error;
     }
   }
 

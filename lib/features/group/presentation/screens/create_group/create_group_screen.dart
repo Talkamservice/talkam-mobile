@@ -16,6 +16,7 @@ import 'package:talkam/features/group/presentation/blocs/create_group_cubit/crea
 import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
 import 'package:talkam/features/group/presentation/tabs/group_rules_tab.dart';
 import 'package:talkam/features/group/presentation/widgets/create_group_header.dart';
+import 'package:talkam/features/home/presentation/bloc/drawer/drawer_data_cubit.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/presentation/widgets/select_category_sheet.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
@@ -101,7 +102,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
             updateGroupSuccess: (response) {
               context.pop();
               injector.get<GroupsCubit>().refreshGroups();
-              injector.get<GroupsCubit>().getGroups();
+              injector.get<DrawerDataCubit>().fetch(silent: true);
               context.goNamed(
                 PageUrl.groups,
               );

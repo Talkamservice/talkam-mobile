@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/profile/dormain/repository/profile_repository.dart';
 
@@ -10,9 +11,13 @@ part 'user_profile_state.dart';
 
 part 'user_profile_cubit.freezed.dart';
 
-class UserProfileCubit extends Cubit<UserProfileState> {
+class UserProfileCubit extends Cubit<UserProfileState>
+    implements ResettableOnLogout {
   UserProfileCubit(this._profileRepository) : super(const UserProfileState.initial());
   final ProfileRepository _profileRepository;
+
+  @override
+  void resetForLogout() => emit(const UserProfileState.initial());
 
   Future<void> fetchUserProfile(String id, {bool? reload = true}) async {
     if (reload!) {

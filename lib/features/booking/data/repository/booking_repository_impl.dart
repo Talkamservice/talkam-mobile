@@ -1,4 +1,5 @@
 import 'package:dio/dio.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/network/network_service.dart';
 import 'package:talkam/core/services/network/url_config_v2.dart';
@@ -76,8 +77,9 @@ class BookingRepositoryImpl extends BookingRepository {
       UrlConfigV2.therapistReviews(therapistId),
       RequestMethod.get,
     );
-    final dataMap = response.data is Map
-        ? Map<String, dynamic>.from(response.data as Map)
+    debugPrint('RAW REVIEWS RESPONSE: ${response.data}');
+    final dataMap = response.data['data'] is Map
+        ? Map<String, dynamic>.from(response.data['data'] as Map)
         : <String, dynamic>{};
     return TherapistReviewsResponse.fromJson(dataMap);
   }

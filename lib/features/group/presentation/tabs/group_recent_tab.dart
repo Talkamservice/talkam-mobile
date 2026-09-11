@@ -7,6 +7,7 @@ import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/core/constants/dialog_texts.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
 import 'package:talkam/features/group/presentation/blocs/recent_groups_cubit/recent_groups_cubit.dart';
 import 'package:talkam/features/group/presentation/screens/refresh_group_listener.dart';
 import 'package:talkam/features/group/presentation/widgets/group_loading_shimmer.dart';
@@ -44,7 +45,7 @@ class _GroupRecentTabState extends State<GroupRecentTab>
   Widget build(BuildContext context) {
     super.build(context);
     return RefreshGroupListener(
-      onRefresh: () => cubit.getRecentGroups(),
+      onRefresh: (silent) => cubit.getRecentGroups(),
       child: BlocBuilder<RecentGroupsCubit, RecentGroupsState>(
         bloc: cubit,
         builder: (context, state) {
@@ -71,7 +72,13 @@ class _GroupRecentTabState extends State<GroupRecentTab>
           }
 
           return RefreshIndicator(
-            onRefresh: () => cubit.getRecentGroups(),
+            onRefresh: () async {
+              // Broadcast instead of refetching directly — every group
+              // tab (this one included) already listens for this via
+              // RefreshGroupListener and refetches itself, so pulling to
+              // refresh here also refreshes Explore and My Groups.
+              injector.get<GroupsCubit>().refreshGroups();
+            },
             child: ListView.builder(
               itemCount: groups.length,
               itemBuilder: (context, index) {
@@ -94,7 +101,7 @@ class _GroupRecentTabState extends State<GroupRecentTab>
                       },
                       child: GroupResultItem(
                         group: group,
-                        onJoinStateChanged: () => cubit.getRecentGroups(),
+                        onJoinStateChanged: () => injector.get<GroupsCubit>().refreshAllGroupLists(silent: true),
                       ),
                     ),
                   ],

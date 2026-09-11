@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 
 part 'drawer_state.dart';
@@ -10,8 +11,11 @@ part 'drawer_cubit.freezed.dart';
 // drawer_view.dart
 enum DrawerView { category, subCategory }
 
-class DrawerCubit extends Cubit<DrawerState> {
+class DrawerCubit extends Cubit<DrawerState> implements ResettableOnLogout {
   DrawerCubit() : super(const DrawerState.categoryView());
+
+  @override
+  void resetForLogout() => emit(const DrawerState.categoryView());
 
   void openDrawer() {
     emit(const DrawerState.openDrawer());

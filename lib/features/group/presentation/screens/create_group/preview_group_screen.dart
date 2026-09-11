@@ -16,6 +16,7 @@ import 'package:talkam/features/group/presentation/tabs/preview_members_tab.dart
 import 'package:talkam/features/group/presentation/tabs/preview_rules_tab.dart';
 import 'package:talkam/features/group/presentation/widgets/preview_group_header.dart';
 import 'package:talkam/features/group/presentation/widgets/preview_overview_section.dart';
+import 'package:talkam/features/home/presentation/bloc/drawer/drawer_data_cubit.dart';
 import 'package:talkam/features/home/presentation/screens/home_screen.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
@@ -94,7 +95,7 @@ class _PreviewGroupScreenState extends State<PreviewGroupScreen> {
                   createGroupSuccess: (response) {
                     injector.get<GroupsCubit>().refreshGroups();
 
-                    injector.get<GroupsCubit>().getGroups();
+                    injector.get<DrawerDataCubit>().fetch(silent: true);
                     context.pushNamed(PageUrl.createGroupSuccessScreen, extra: response).then(
                       (value) {
                         context.goNamed(PageUrl.groupsInfoScreen, extra: response.id);

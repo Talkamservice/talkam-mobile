@@ -40,7 +40,7 @@ class CustomDialogs {
       context: context,
       useRootNavigator: useRootNavigator!,
       builder: (BuildContext context) => BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+        filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
         child: dialog,
       ),
       barrierDismissible: true,
@@ -67,7 +67,7 @@ class CustomDialogs {
         transitionAnimationController: transitionAnimationController,
         builder: (context) {
           return BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+            filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
             child: ClipRRect(
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(16),
@@ -210,7 +210,7 @@ class CustomDialogs {
     await showDialog(
       context: context,
       builder: (BuildContext context) => BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+        filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
         child: Builder(builder: (context) {
           return dialog;
         }),
@@ -239,7 +239,7 @@ class CustomDialogs {
       context: context,
       useRootNavigator: useRootNavigator!,
       builder: (BuildContext context) => BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+        filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
         child: dialog,
       ),
       barrierDismissible: barrierDismissible!,
@@ -259,7 +259,7 @@ class CustomDialogs {
         barrierColor: Colors.black.withValues(alpha: opacity ?? 0.35),
         builder: (context) {
           return BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+            filter: ImageFilter.blur(sigmaX: 1, sigmaY: 1),
             child: Center(
               child: Column(
                 mainAxisSize: MainAxisSize.min,

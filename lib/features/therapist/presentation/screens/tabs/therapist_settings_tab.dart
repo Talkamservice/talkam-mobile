@@ -96,9 +96,15 @@ class _TherapistSettingsTabState extends State<TherapistSettingsTab> {
             title: "Privacy & payments",
             tiles: [
               SettingsTile(
+                iconPath: Assets.images.svgV2.money03,
+                title: "Bank Details",
+                subtitle: "Manage payouts",
+                onTap: () => context.pushNamed(PageUrl.bankDetailsScreen),
+              ),
+              SettingsTile(
                 iconPath: Assets.images.svgV2.card,
                 title: "Account Settings",
-                subtitle: "2 saved cards",
+                subtitle: "Email, password & subscription",
                 onTap: () => context.pushNamed(PageUrl.accountSettingsScreen),
               ),
               SettingsTile(

@@ -55,7 +55,6 @@ class PageUrl {
   static const userProfileScreen = 'userProfileScreen';
   static const userScheduledPosts = 'userScheduledPosts';
   static const editProfileScreen = 'editProfileScreen';
-  static const settingsScreen = 'settingsScreen';
   static const searchResultScreen = 'searchResultScreen';
 
   // Settings
@@ -67,6 +66,8 @@ class PageUrl {
   static const privacySettingsScreen = 'privacySettingsScreen';
   static const paymentMethodsScreen = 'paymentMethodsScreen';
   static const paymentPinScreen = 'paymentPinScreen';
+  static const bankDetailsScreen = 'bankDetailsScreen';
+  static const twoFactorAuthScreen = 'twoFactorAuthScreen';
 
 //   Groups
   static const groupsInfoScreen = 'groupsInfoScreen';

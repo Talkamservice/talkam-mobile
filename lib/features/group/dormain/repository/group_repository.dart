@@ -10,6 +10,11 @@ abstract class GroupsRepository {
 
   Future<GetGroupsResponse> getFollowedGroups({int? page});
 
+  /// `GET /user/groups/joined` — groups the user is actually a *member* of.
+  /// Distinct from [getFollowedGroups], which is the lighter follow
+  /// relationship (Follow != Join).
+  Future<GetGroupsResponse> getJoinedGroups({int? page});
+
   Future<GetGroupsResponse> getSuggestedGroups({int? page});
 
   Future<GetGroupsResponse> getPromotedGroups();

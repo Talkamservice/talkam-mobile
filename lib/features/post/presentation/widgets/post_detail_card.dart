@@ -52,7 +52,7 @@ class _PostDetailCardState extends State<PostDetailCard> {
             TextView(
               text:
                   "${TimeUtil.formatPostMeta(post.createdAt)} · ${post.viewsCount ?? 0} Views",
-              fontSize: 12,
+              fontSize: 13,
               color: Pallets.grey60,
             ),
             10.verticalSpace,

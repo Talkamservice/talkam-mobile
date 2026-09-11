@@ -4,6 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:talkam/common/database/local/userstorage.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/authentication/data/models/get_avatars_response.dart';
 import 'package:talkam/features/post/data/models/update_profile_response.dart';
@@ -17,7 +18,8 @@ part 'profile_event.dart';
 part 'profile_state.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState>
-    with RefreshPostsMixin {
+    with RefreshPostsMixin
+    implements ResettableOnLogout {
   final ProfileRepository _profileRepository;
 
   TalkamUser? appUser;
@@ -27,7 +29,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>
   ProfileBloc(this._profileRepository) : super(UserInitial()) {
     on<ProfileEvent>((event, emit) {});
     on<SaveUserLocallyEvent>(_mapSaveUserEventToState);
-    on<Logout>(_Logout);
     on<GetCachedUserEvent>(_mapGetUserEventToState);
     on<UploadAvatarEvent>(_onUploadAvatar);
     on<UpdateProfileEvent>(_onUpdateProfile);
@@ -187,8 +188,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState>
     }
   }
 
-  FutureOr<void> _Logout(Logout event, Emitter<ProfileState> emit) {
+  @override
+  void resetForLogout() {
     appUser = null;
-    emit(ProfileInitial());
+    emit(UserInitial());
   }
 }

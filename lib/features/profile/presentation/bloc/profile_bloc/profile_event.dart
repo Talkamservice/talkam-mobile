@@ -75,10 +75,3 @@ class UpdateInterestEvent extends ProfileEvent {
   @override
   List<Object?> get props => [];
 }
-
-class Logout extends ProfileEvent {
-  const Logout();
-
-  @override
-  List<Object?> get props => [];
-}

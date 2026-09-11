@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/features/subscription/data/models/get_plans_response.dart';
 import 'package:talkam/features/subscription/data/models/get_subcriptions_response.dart';
 import 'package:talkam/features/subscription/data/models/initiate_subscription_response.dart';
@@ -10,11 +11,15 @@ part 'subscriptions_bloc_state.dart';
 
 part 'subscriptions_bloc_cubit.freezed.dart';
 
-class SubscriptionsCubit extends Cubit<SubscriptionsState> {
+class SubscriptionsCubit extends Cubit<SubscriptionsState>
+    implements ResettableOnLogout {
   final SubscriptionsRepository subscriptionsRepository;
 
   SubscriptionsCubit(this.subscriptionsRepository) : super(const SubscriptionsState.initial());
   List<TalkamPlan> subscriptionPlans = [];
+
+  @override
+  void resetForLogout() => emit(const SubscriptionsState.initial());
 
   Future<void> getPlans({bool? reload = true}) async {
     if (reload!) {

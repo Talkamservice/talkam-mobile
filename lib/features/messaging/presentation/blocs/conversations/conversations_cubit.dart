@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/features/messaging/data/models/conversation_state_response.dart';
 import 'package:talkam/features/messaging/data/models/conversations_filter.dart';
@@ -13,11 +14,15 @@ part 'conversations_state.dart';
 
 part 'conversations_cubit.freezed.dart';
 
-class ConversationsCubit extends Cubit<ConversationsState> {
+class ConversationsCubit extends Cubit<ConversationsState>
+    implements ResettableOnLogout {
   final MessagingRepository conversationsRepository;
 
   ConversationsCubit(this.conversationsRepository)
       : super(const ConversationsState.initial());
+
+  @override
+  void resetForLogout() => emit(const ConversationsState.initial());
 
   Future<void> getConversations(
       {ConversationsFilter? filter, bool? reload = true}) async {

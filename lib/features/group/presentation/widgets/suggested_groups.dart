@@ -9,6 +9,9 @@ import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/ads/presentation/widgets/ad_indicator.dart';
 import 'package:talkam/features/group/presentation/blocs/featured_groups/featured_groups_cubit.dart';
+import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
+import 'package:talkam/features/group/presentation/widgets/join_group_button.dart';
+import 'package:talkam/features/group/presentation/widgets/suggestion_shimmer.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 
 class SuggestedGroups extends StatefulWidget {
@@ -32,54 +35,56 @@ class _SuggestedGroupsState extends State<SuggestedGroups> {
     return BlocBuilder<FeaturedGroupsCubit, FeaturedGroupsState>(
       bloc: injector.get<FeaturedGroupsCubit>(),
       builder: (context, state) {
-        final groups = state.maybeWhen(
-          orElse: () => const <TalkamGroup>[],
-          getRecommendedSuccess: (response) => response.groups ?? [],
-        );
+        return state.maybeWhen(
+          orElse: () => 0.verticalSpace,
+          getRecommendedLoading: () => const SuggestionsShimmer(),
+          getRecommendedSuccess: (response) {
+            final groups = response.groups ?? [];
+            if (groups.isEmpty) {
+              return 0.verticalSpace;
+            }
 
-        if (groups.isEmpty) {
-          return 0.verticalSpace;
-        }
-
-        return Column(
-          children: [
-            Padding(
-              padding:
-                  const EdgeInsets.only(top: 24.0, right: 18.0, left: 18.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  TextView(
-                    text: "Suggested",
-                    fontSize: 16.sp,
-                    fontWeight: FontWeight.w700,
+            return Column(
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(
+                      top: 24.0, right: 18.0, left: 18.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      TextView(
+                        text: "Suggested",
+                        fontSize: 16.sp,
+                        fontWeight: FontWeight.w700,
+                      ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 18.0, bottom: 10),
-              child: SizedBox(
-                width: double.infinity,
-                height: 100.h,
-                child: ListView.separated(
-                  padding: const EdgeInsets.symmetric(horizontal: 18),
-                  scrollDirection: Axis.horizontal,
-                  itemCount: groups.length,
-                  separatorBuilder: (_, __) => 14.horizontalSpace,
-                  itemBuilder: (_, int index) {
-                    return _SuggestedTile(
-                      onTap: () {
-                        context.pushNamed(PageUrl.groupsInfoScreen,
-                            extra: groups[index].id.toString());
-                      },
-                      group: groups[index],
-                    );
-                  },
                 ),
-              ),
-            ),
-          ],
+                Padding(
+                  padding: const EdgeInsets.only(top: 18.0, bottom: 10),
+                  child: SizedBox(
+                    width: double.infinity,
+                    height: 100.h,
+                    child: ListView.separated(
+                      padding: const EdgeInsets.symmetric(horizontal: 18),
+                      scrollDirection: Axis.horizontal,
+                      itemCount: groups.length,
+                      separatorBuilder: (_, __) => 14.horizontalSpace,
+                      itemBuilder: (_, int index) {
+                        return _SuggestedTile(
+                          onTap: () {
+                            context.pushNamed(PageUrl.groupsInfoScreen,
+                                extra: groups[index].id.toString());
+                          },
+                          group: groups[index],
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ],
+            );
+          },
         );
       },
     );
@@ -136,21 +141,24 @@ class _SuggestedTile extends StatelessWidget {
                         color: Pallets.boldBlackV2,
                       ),
                       2.verticalSpace,
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Pallets.blueBubbleColor,
-                          borderRadius: BorderRadius.circular(22.0),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 12.0, vertical: 4),
-                          child: TextView(
-                            text: "Join",
-                            fontWeight: FontWeight.w700,
-                            color: Pallets.white,
+                      Theme(
+                        data: Theme.of(context).copyWith(
+                          textButtonTheme: TextButtonThemeData(
+                            style: TextButton.styleFrom(
+                              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+                            ),
                           ),
                         ),
-                      )
+                        child: IntrinsicWidth(
+                          child: JoinGroupButton(
+                            group: group,
+                            showIcon: false,
+                            onStateChanged: () => injector
+                                .get<GroupsCubit>()
+                                .refreshAllGroupLists(silent: true),
+                          ),
+                        ),
+                      ),
                     ],
                   ),
                 )

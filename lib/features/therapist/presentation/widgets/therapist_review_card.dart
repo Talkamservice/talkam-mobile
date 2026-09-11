@@ -17,7 +17,7 @@ class TherapistReviewCard extends StatelessWidget {
       width: double.infinity,
       padding: EdgeInsets.all(16.w),
       decoration: BoxDecoration(
-        color: Pallets.surfaceMuted,
+        color: Pallets.white,
         borderRadius: BorderRadius.circular(16.r),
         border: Border.all(color: Pallets.hairline),
       ),

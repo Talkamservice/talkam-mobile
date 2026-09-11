@@ -42,7 +42,7 @@ void setup(GetIt getIt) {
   );
 
   getIt.registerLazySingleton<DrawerDataCubit>(
-    () => DrawerDataCubit(injector.get()),
+    () => DrawerDataCubit(injector.get(), injector.get()),
   );
 
   getIt.registerLazySingleton<CreatePostCubit>(

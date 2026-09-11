@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/data/models/post_filter_model.dart';
 import 'package:talkam/features/post/dormain/repository/post_repository.dart';
@@ -9,13 +10,17 @@ part 'featured_post_state.dart';
 
 part 'featured_post_cubit.freezed.dart';
 
-class FeaturedPostCubit extends Cubit<FeaturedPostState> {
+class FeaturedPostCubit extends Cubit<FeaturedPostState>
+    implements ResettableOnLogout {
   final PostRepository postRepository;
 
   bool _isLoadingMore = false;
 
   FeaturedPostCubit(this.postRepository)
       : super(const FeaturedPostState.initial());
+
+  @override
+  void resetForLogout() => emit(const FeaturedPostState.initial());
 
   /// Backs the "For You" tab — v2's `tab=for_you` feed. Promoted posts are
   /// already interleaved server-side (each post carries its own `promotion`

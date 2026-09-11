@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/features/group/data/models/create_group_payload.dart';
+import 'package:talkam/features/group/dormain/mixins/refresh_groups_mixin.dart';
 import 'package:talkam/features/group/dormain/repository/group_repository.dart';
 import 'package:talkam/features/home/dormain/mixins/refresh_app_mixin.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
@@ -11,13 +13,18 @@ part 'create_group_state.dart';
 
 part 'create_group_cubit.freezed.dart';
 
-class CreateGroupCubit extends Cubit<CreateGroupState> {
+class CreateGroupCubit extends Cubit<CreateGroupState>
+    with RefreshGroupsMixin
+    implements ResettableOnLogout {
   final GroupsRepository groupRepository;
   CreateGroupPayload groupPayload = CreateGroupPayload.empty();
 
 
   CreateGroupCubit(this.groupRepository)
       : super(const CreateGroupState.initial());
+
+  @override
+  void resetForLogout() => emit(const CreateGroupState.initial());
 
   Future<void> createGroup(CreateGroupPayload payload) async {
     emit(const CreateGroupState.createGroupLoading());
@@ -26,6 +33,9 @@ class CreateGroupCubit extends Cubit<CreateGroupState> {
       final response = await groupRepository.createGroup(payload);
       injector.get<ProfileBloc>().add(const GetRemoteUser());
       emit(CreateGroupState.createGroupSuccess(response));
+      // The new group needs to show up in My Groups/Recent immediately,
+      // not just after the user happens to pull-to-refresh.
+      refreshAllGroupLists();
     } catch (e, stack) {
       logger.e(e.toString(), stackTrace: stack);
       emit(CreateGroupState.createGroupFailure(e.toString()));
@@ -39,6 +49,9 @@ class CreateGroupCubit extends Cubit<CreateGroupState> {
       final response = await groupRepository.updateGroup(groupId, payload);
 
       emit(CreateGroupState.updateGroupSuccess(response));
+      // Changed name/image/category/etc. needs to be reflected everywhere
+      // that group is listed, not just on this screen.
+      refreshAllGroupLists();
     } catch (e, stack) {
       logger.e(e.toString(), stackTrace: stack);
       emit(CreateGroupState.updateGroupFailure(e.toString()));

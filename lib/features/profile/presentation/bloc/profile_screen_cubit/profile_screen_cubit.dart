@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/profile/dormain/repository/profile_repository.dart';
@@ -9,11 +10,15 @@ part 'profile_screen_state.dart';
 
 part 'profile_screen_cubit.freezed.dart';
 
-class ProfileScreenCubit extends Cubit<ProfileScreenState> {
+class ProfileScreenCubit extends Cubit<ProfileScreenState>
+    implements ResettableOnLogout {
   final ProfileRepository _profileRepository;
 
   ProfileScreenCubit(this._profileRepository)
       : super(const ProfileScreenState.initial());
+
+  @override
+  void resetForLogout() => emit(const ProfileScreenState.initial());
 
   bool get hasCachedUserData => SessionManager.instance.usersData.isNotEmpty;
 

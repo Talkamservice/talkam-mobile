@@ -95,6 +95,7 @@ class UrlConfigV2 {
   static const String unfollowGroup = '$groups/unfollow-group';
   static const String groupFollowToggle = '$groups/follow';
   static const String followedGroups = '$groups/members/following';
+  static const String joinedGroups = '$groups/joined';
   static const String suggestedGroups = '$groups/suggested';
   static String inviteToGroup(String id) => '$groups/$id/invite';
   static const String acceptGroupInvite = '$groups/invites/accept';

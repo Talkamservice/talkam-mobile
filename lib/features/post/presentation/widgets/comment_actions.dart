@@ -68,7 +68,7 @@ class _CommentActionsState extends State<CommentActions> {
             4.horizontalSpace,
             TextView(
               text: widget.comment.likes.toString(),
-              fontSize: 14,
+              fontSize: 12,
               fontWeight: FontWeight.w500,
             ),
           ],
@@ -82,7 +82,7 @@ class _CommentActionsState extends State<CommentActions> {
               4.horizontalSpace,
               TextView(
                 text: "${widget.comment.children.length}",
-                fontSize: 14,
+                fontSize: 12,
                 fontWeight: FontWeight.w500,
               ),
             ],

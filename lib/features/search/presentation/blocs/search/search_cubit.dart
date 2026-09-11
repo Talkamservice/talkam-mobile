@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/search/data/models/get_search_response.dart';
 import 'package:talkam/features/search/data/models/search_user_response.dart';
@@ -11,10 +12,13 @@ part 'search_state.dart';
 
 part 'search_cubit.freezed.dart';
 
-class SearchCubit extends Cubit<SearchState> {
+class SearchCubit extends Cubit<SearchState> implements ResettableOnLogout {
   final SearchRepository _searchRepository;
 
   SearchCubit(this._searchRepository) : super(const SearchState.initial());
+
+  @override
+  void resetForLogout() => emit(const SearchState.initial());
 
   Future<void> fetchRecentSearches({bool? reload = true}) async {
     if (reload!) {

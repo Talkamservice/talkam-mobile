@@ -62,6 +62,20 @@ class GroupsRepositoryImpl extends GroupsRepository {
   }
 
   @override
+  Future<GetGroupsResponse> getJoinedGroups({int? page}) async {
+    try {
+      final response = await _v2.call(
+        UrlConfigV2.joinedGroups,
+        RequestMethod.get,
+        queryParams: {"page": (page ?? 1).toString()},
+      );
+      return GetGroupsResponse.fromJson(response.data);
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<GetGroupsResponse> getSuggestedGroups({int? page}) async {
     try {
       final response = await _v2.call(

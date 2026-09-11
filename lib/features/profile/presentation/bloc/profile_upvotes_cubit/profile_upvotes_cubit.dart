@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/profile/dormain/repository/profile_repository.dart';
 
@@ -8,13 +9,17 @@ part 'profile_upvotes_state.dart';
 
 part 'profile_upvotes_cubit.freezed.dart';
 
-class ProfileUpvotesCubit extends Cubit<ProfileUpvotesState> {
+class ProfileUpvotesCubit extends Cubit<ProfileUpvotesState>
+    implements ResettableOnLogout {
   final ProfileRepository _profileRepository;
   int _currentPage = 1;
   bool _hasReachedEndOfList = false;
 
   ProfileUpvotesCubit(this._profileRepository)
       : super(const ProfileUpvotesState.initial());
+
+  @override
+  void resetForLogout() => emit(const ProfileUpvotesState.initial());
 
   Future<void> fetchUserPosts({bool? reload= true}) async {
     if(reload!){

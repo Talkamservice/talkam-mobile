@@ -55,7 +55,7 @@ class _AppDrawerState extends State<AppDrawer> {
       backgroundColor: Colors.transparent,
       elevation: 0,
       child: BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+        filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
         child: Row(
           children: [
             Container(
@@ -356,9 +356,9 @@ class _QuickLinkRow extends StatelessWidget {
   }
 }
 
-/// "Following" — the topics the signed-in user follows, from the drawer's
-/// `topics` field (same shape as `GET /user/interest-topics`). Tapping one
-/// opens that category's subcategory browser, same as the Groups list below.
+/// "Following" — groups the signed-in user follows (the lighter follow
+/// relationship, not membership — see `GroupFollowCubit`). Tapping one opens
+/// the group, same as the Groups list below.
 class _DrawerFollowingSection extends StatelessWidget {
   const _DrawerFollowingSection();
 
@@ -367,13 +367,21 @@ class _DrawerFollowingSection extends StatelessWidget {
     return BlocBuilder<DrawerDataCubit, DrawerDataState>(
       bloc: injector.get<DrawerDataCubit>(),
       builder: (context, state) {
-        return _DrawerListSection(
-          title: "Following",
-          items: state.data?.topics ?? const [],
-          emptyLabel: "You're not following any topics yet",
-          onItemTap: (category) => context
-              .read<DrawerCubit>()
-              .switchView(DrawerView.subCategory, subCategory: category),
+        final groups = state.followedGroups;
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const TextView(
+                text: "Following", fontSize: 15, fontWeight: FontWeight.w700),
+            6.verticalSpace,
+            if (groups.isEmpty)
+              const TextView(
+                  text: "You're not following any groups yet",
+                  fontSize: 13,
+                  color: Pallets.grey400)
+            else
+              ...groups.take(3).map((group) => _DrawerGroupItem(group: group)),
+          ],
         );
       },
     );
@@ -420,7 +428,7 @@ class _DrawerGroupsSection extends StatelessWidget {
                 ),
               );
             }
-            final groups = state.data?.groups ?? const [];
+            final groups = state.joinedGroups;
             if (groups.isEmpty) {
               return const TextView(
                   text: "No groups yet", fontSize: 13, color: Pallets.grey400);
@@ -532,40 +540,6 @@ class _DrawerPrivateGroupsSection extends StatelessWidget {
           ],
         );
       },
-    );
-  }
-}
-
-class _DrawerListSection extends StatelessWidget {
-  const _DrawerListSection({
-    required this.title,
-    required this.items,
-    required this.emptyLabel,
-    required this.onItemTap,
-  });
-
-  final String title;
-  final List<PostCategory> items;
-  final String emptyLabel;
-  final ValueChanged<PostCategory> onItemTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        TextView(text: title, fontSize: 15, fontWeight: FontWeight.w700),
-        6.verticalSpace,
-        if (items.isEmpty)
-          TextView(text: emptyLabel, fontSize: 13, color: Pallets.grey400)
-        else
-          ...items.take(3).map(
-                (category) => NavCategoryItem(
-                  category: category,
-                  onTap: () => onItemTap(category),
-                ),
-              ),
-      ],
     );
   }
 }

@@ -35,10 +35,13 @@ class TherapistRatingsSummary extends StatelessWidget {
               const RatingStars(count: 5),
               6.verticalSpace,
               TextView(
-                text: "avg rating",
+                text: therapist.reviewsCount == 0
+                    ? "No ratings yet"
+                    : "avg rating",
                 fontSize: 12,
                 fontWeight: FontWeight.w400,
                 color: Pallets.grey,
+                align: TextAlign.center,
               ),
             ],
           ),

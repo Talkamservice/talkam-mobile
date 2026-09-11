@@ -33,7 +33,7 @@ class _GroupMembersTabState extends State<GroupMembersTab> {
   @override
   Widget build(BuildContext context) {
     return RefreshGroupListener(
-      onRefresh: () {
+      onRefresh: (silent) {
         bloc.getGroupMembers(widget.group.id.toString());
       },
       child: Padding(

@@ -55,15 +55,21 @@ class _ForYouScreenState extends State<ForYouScreen>
       backgroundColor: context.colorScheme.surface,
       body: Column(
         children: [
-          CategoryFilterChips(
-            categories: injector.get<PostBloc>().categories,
-            onSelected: (categoryId) {
-              injector.get<FeaturedPostCubit>().getFeaturedPosts(
-                    PostFilterModel.featuredPost(category: categoryId),
-                  );
+          BlocBuilder<PostBloc, PostState>(
+            bloc: injector.get<PostBloc>(),
+            builder: (context, state) {
+              final categories = injector.get<PostBloc>().categories;
+              if (categories.isEmpty) return const SizedBox.shrink();
+              return CategoryFilterChips(
+                categories: categories,
+                onSelected: (categoryId) {
+                  injector.get<FeaturedPostCubit>().getFeaturedPosts(
+                        PostFilterModel.featuredPost(category: categoryId),
+                      );
+                },
+              );
             },
           ),
-          8.verticalSpace,
           Expanded(
             child: BlocBuilder<FeaturedPostCubit, FeaturedPostState>(
               bloc: injector.get(),

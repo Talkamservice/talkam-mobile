@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/features/profile/dormain/repository/profile_repository.dart';
 
 part 'connections_summary_state.dart';
@@ -12,11 +13,15 @@ part 'connections_summary_cubit.freezed.dart';
 /// endpoint exists). Fetched once — typically kicked off by [HomeScreen] on
 /// launch — and read from wherever the counts are shown (currently the app
 /// drawer) without re-fetching on every open.
-class ConnectionsSummaryCubit extends Cubit<ConnectionsSummaryState> {
+class ConnectionsSummaryCubit extends Cubit<ConnectionsSummaryState>
+    implements ResettableOnLogout {
   final ProfileRepository _profileRepository;
 
   ConnectionsSummaryCubit(this._profileRepository)
       : super(const ConnectionsSummaryState.initial());
+
+  @override
+  void resetForLogout() => emit(const ConnectionsSummaryState.initial());
 
   /// No-ops if a fetch already succeeded or is in flight, unless [force].
   Future<void> fetchCounts({bool force = false}) async {

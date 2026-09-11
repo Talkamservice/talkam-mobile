@@ -1,11 +1,106 @@
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
+import 'package:talkam/core/services/network/api_error.dart';
+import 'package:talkam/features/booking/data/models/therapist_directory_response.dart';
 import 'package:talkam/features/therapist/data/models/availability_slot.dart';
+import 'package:talkam/features/therapist/data/models/session_note.dart';
+import 'package:talkam/features/therapist/data/models/session_request_sheet.dart';
+import 'package:talkam/features/therapist/data/models/therapist_client.dart';
 import 'package:talkam/features/therapist/data/models/therapist_editable_profile.dart';
 import 'package:talkam/features/therapist/data/models/therapist_model.dart';
+import 'package:talkam/features/therapist/data/models/therapist_note_library_item.dart';
+import 'package:talkam/features/therapist/data/models/therapist_session_item.dart';
 import 'package:talkam/features/therapist/data/therapist_profile_store.dart';
+import 'package:talkam/features/therapist/dormain/repository/therapist_repository.dart';
+
+/// Only [getMyProfile] is exercised by [TherapistProfileStore.fetchFromServer]
+/// — every other method is unused by these tests and left unimplemented.
+class _FakeTherapistRepository implements TherapistRepository {
+  _FakeTherapistRepository(this._result);
+
+  /// Either a [TherapistProfileDetail] to return, or an [Object] (typically
+  /// an [ApiError]) to throw.
+  final Object _result;
+
+  @override
+  Future<TherapistProfileDetail> getMyProfile() async {
+    final result = _result;
+    if (result is TherapistProfileDetail) return result;
+    throw result;
+  }
+
+  @override
+  Future<void> updateMyProfile({
+    required String name,
+    required String bio,
+    required int yearsExperience,
+    required int sessionRate,
+    String? avatarPath,
+  }) =>
+      throw UnimplementedError();
+
+  @override
+  Future<List<TherapistClientListItem>> getClients() =>
+      throw UnimplementedError();
+
+  @override
+  Future<TherapistClientDetail> getClientDetails(int clientId) =>
+      throw UnimplementedError();
+
+  @override
+  Future<TreatmentPlan> setTreatmentPlan(
+    int clientId, {
+    required int totalSessions,
+    required String progressStatus,
+    String? notes,
+  }) =>
+      throw UnimplementedError();
+
+  @override
+  Future<SessionNote> getSessionNote(int sessionId) =>
+      throw UnimplementedError();
+
+  @override
+  Future<SessionNote> saveSessionNote(
+    int sessionId, {
+    required String title,
+    required String content,
+    required bool sharedWithClient,
+    required String status,
+    required List<int> tags,
+  }) =>
+      throw UnimplementedError();
+
+  @override
+  Future<TherapistSessionsResponse> getSessions() => throw UnimplementedError();
+
+  @override
+  Future<SessionRequestSheet> getSessionRequest(int sessionId) =>
+      throw UnimplementedError();
+
+  @override
+  Future<SessionAcknowledgeResult> acknowledgeSession(int sessionId) =>
+      throw UnimplementedError();
+
+  @override
+  Future<TherapistNoteLibraryPage> getNotesLibrary({
+    int? clientId,
+    String? query,
+    int page = 1,
+  }) =>
+      throw UnimplementedError();
+
+  @override
+  Future<WeeklyAvailability> getMyAvailability() => throw UnimplementedError();
+
+  @override
+  Future<WeeklyAvailability> updateMyAvailability(
+          WeeklyAvailability availability) =>
+      throw UnimplementedError();
+}
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -38,9 +133,9 @@ void main() {
   });
 
   group('TherapistProfileStore', () {
-    test('seeds from the mock record when nothing is stored', () {
-      expect(store.profile.value.name, MockTherapistData.currentTherapist.name);
-      expect(store.draft.fullName, MockTherapistData.currentTherapist.name);
+    test('seeds from an empty record when nothing is stored or loaded', () {
+      expect(store.profile.value.name, TherapistModel.empty().name);
+      expect(store.draft.fullName, TherapistModel.empty().name);
     });
 
     test('overlays saved edits onto the base record', () {
@@ -56,7 +151,7 @@ void main() {
     });
 
     test('leaves server-owned fields untouched', () {
-      final base = MockTherapistData.currentTherapist;
+      final base = TherapistModel.empty();
       store.save(store.draft.copyWith(fullName: 'Dr. Ada Okafor'));
 
       expect(store.profile.value.rating, base.rating);
@@ -103,15 +198,85 @@ void main() {
       SessionManager.instance.therapistProfile = 'not json at all';
       store.reload();
 
-      expect(store.profile.value.name, MockTherapistData.currentTherapist.name);
-      expect(store.draft.fullName, MockTherapistData.currentTherapist.name);
+      expect(store.profile.value.name, TherapistModel.empty().name);
+      expect(store.draft.fullName, TherapistModel.empty().name);
     });
 
     test('clear drops saved edits', () {
       store.save(store.draft.copyWith(fullName: 'Dr. Ada Okafor'));
       store.clear();
 
-      expect(store.profile.value.name, MockTherapistData.currentTherapist.name);
+      expect(store.profile.value.name, TherapistModel.empty().name);
+    });
+
+    group('fetchFromServer', () {
+      tearDown(() {
+        if (injector.isRegistered<TherapistRepository>()) {
+          injector.unregister<TherapistRepository>();
+        }
+      });
+
+      // Ordered before the success case below: `_serverProfile` is only ever
+      // replaced by a *successful* fetch (deliberately — a transient failure
+      // shouldn't wipe previously-known-good data), so asserting these leave
+      // it untouched only works starting from the store's still-empty state.
+      test('reports unauthorized on a 401, without touching the base record',
+          () async {
+        injector.registerFactory<TherapistRepository>(
+          () => _FakeTherapistRepository(
+              ApiError('Unauthorized', statusCode: 401)),
+        );
+
+        await store.fetchFromServer();
+
+        expect(
+            store.loadStatus.value, TherapistProfileLoadStatus.unauthorized);
+        expect(store.profile.value.name, TherapistModel.empty().name);
+      });
+
+      test('reports unauthorized on a 403 too', () async {
+        injector.registerFactory<TherapistRepository>(
+          () => _FakeTherapistRepository(
+              ApiError('Account not verified', statusCode: 403)),
+        );
+
+        await store.fetchFromServer();
+
+        expect(
+            store.loadStatus.value, TherapistProfileLoadStatus.unauthorized);
+      });
+
+      test('reports a generic error for anything else', () async {
+        injector.registerFactory<TherapistRepository>(
+          () => _FakeTherapistRepository(
+              ApiError('Something went wrong', statusCode: 500)),
+        );
+
+        await store.fetchFromServer();
+
+        expect(store.loadStatus.value, TherapistProfileLoadStatus.error);
+      });
+
+      test('loads the real profile and reports loaded', () async {
+        injector.registerFactory<TherapistRepository>(
+          () => _FakeTherapistRepository(TherapistProfileDetail(
+            id: 3,
+            name: 'Dr Adaora Nwosu',
+            username: 'Njgdf9cjle',
+            isVerified: true,
+            rating: 4.5,
+            reviewsCount: 12,
+            specialties: const [],
+            completedSessions: 40,
+          )),
+        );
+
+        await store.fetchFromServer();
+
+        expect(store.loadStatus.value, TherapistProfileLoadStatus.loaded);
+        expect(store.profile.value.name, 'Dr Adaora Nwosu');
+        expect(store.profile.value.totalSessions, 40);
+      });
     });
   });
 

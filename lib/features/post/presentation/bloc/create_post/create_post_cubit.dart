@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/core/utils/no_equality.dart';
 import 'package:talkam/features/post/data/models/create_post_payload.dart';
 import 'package:talkam/features/post/data/models/create_post_response.dart';
@@ -11,10 +12,14 @@ part 'create_post_state.dart';
 
 part 'create_post_cubit.freezed.dart';
 
-class CreatePostCubit extends Cubit<CreatePostState> {
+class CreatePostCubit extends Cubit<CreatePostState>
+    implements ResettableOnLogout {
   CreatePostCubit(this._postRepository)
       : super(const CreatePostState.initial());
   final PostRepository _postRepository;
+
+  @override
+  void resetForLogout() => emit(const CreatePostState.initial());
 
   bool formsValidated = false;
   CreatePostPayload createPostPayload = CreatePostPayload.empty();

@@ -82,7 +82,7 @@ class PostHeader extends StatelessWidget {
                     text: category.name,
                     maxLines: 1,
                     maxLength: 14,
-                    fontSize: 17,
+                    fontSize: 16,
                     textOverflow: TextOverflow.ellipsis,
                     fontWeight: FontWeight.w700,
                   ),
@@ -92,6 +92,7 @@ class PostHeader extends StatelessWidget {
                   TextView(
                     text: TimeUtil.getTimeAgo(post.createdAt.toString()),
                     fontWeight: FontWeight.w500,
+                    fontSize: 13,
                     color: Pallets.grey60,
                   ),
                   if (enablePromoteAddPill!) 12.horizontalSpace,
@@ -130,7 +131,7 @@ class PostHeader extends StatelessWidget {
                       text: "Posted by $userName ",
                       color: Pallets.grey,
                       fontWeight: FontWeight.w600,
-                      fontSize: 12,
+                      fontSize: 13,
                     ),
                   ),
                   if (posterIsSubscribed)
@@ -227,7 +228,7 @@ class _PostActionsState extends State<PostActions> {
             4.horizontalSpace,
             TextView(
               text: widget.post.likesCount.toString(),
-              fontSize: 14,
+              fontSize: 12,
               fontWeight: FontWeight.w500,
             ),
           ],
@@ -240,7 +241,7 @@ class _PostActionsState extends State<PostActions> {
               4.horizontalSpace,
               TextView(
                 text: "${widget.post.commentsCount}",
-                fontSize: 14,
+                fontSize: 12,
                 fontWeight: FontWeight.w500,
               )
             ],

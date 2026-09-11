@@ -27,7 +27,7 @@ class DeleteAccountDialog extends StatefulWidget {
       barrierDismissible: true,
       barrierColor: Pallets.black.withValues(alpha: 0.35),
       builder: (_) => BackdropFilter(
-        filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+        filter: ImageFilter.blur(sigmaX: 2, sigmaY: 2),
         child: const DeleteAccountDialog(),
       ),
     );

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/features/group/dormain/repository/group_repository.dart';
 import 'package:talkam/features/search/data/models/get_group_response.dart';
 
@@ -8,11 +9,15 @@ part 'featured_groups_state.dart';
 
 part 'featured_groups_cubit.freezed.dart';
 
-class FeaturedGroupsCubit extends Cubit<FeaturedGroupsState> {
+class FeaturedGroupsCubit extends Cubit<FeaturedGroupsState>
+    implements ResettableOnLogout {
   FeaturedGroupsCubit(this.groupRepository)
       : super(const FeaturedGroupsState.initial());
 
   final GroupsRepository groupRepository;
+
+  @override
+  void resetForLogout() => emit(const FeaturedGroupsState.initial());
 
   /// v2's suggested-groups endpoint already does interest-match +
   /// member-count ranking server-side (excluding joined/closed groups), so

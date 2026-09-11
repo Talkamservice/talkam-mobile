@@ -59,13 +59,21 @@ Two registration styles coexist and both are in active use:
 - **Global singletons in GetIt** (`lib/core/di/bloc_module.dart`) — most blocs, reached with `injector.get<XCubit>()` or `BlocBuilder(bloc: injector.get(), ...)`. These survive navigation and hold state across screens.
 - **Locally constructed** — screen-scoped blocs created in the screen or passed through `GoRoute`'s `state.extra` (the therapist application flow does this: `TherapistApplicationBloc` is built once and handed to each step screen).
 
-`ProfileCommentTabCubit` is the only `registerFactory`; everything else is `registerLazySingleton`.
+Both of the above are valid and already in active use. What's **not** valid going forward: calling `injector.get<SomeRepository>()` (or any other core/service class) directly from inside a widget's `build()`/callback, bypassing the bloc layer entirely — or, the reverse direction, a core service reaching directly into a Presentation-layer bloc (e.g. `SessionManager` used to call `injector.get<ProfileBloc>().add(const Logout())` directly; it now goes through `resettableSingletons()` instead, described below).
+
+`registerFactory` is used for `ProfileCommentTabCubit`, `MoodCheckCubit`, `FollowCubit`, `GroupFollowCubit`, and `ConnectionsCubit` — cheap, short-lived cubits that are fine to reconstruct per use; everything else in `bloc_module.dart` is `registerLazySingleton`.
+
+**Every `registerLazySingleton` bloc/cubit in `bloc_module.dart` must implement `ResettableOnLogout`** (`lib/core/services/data/resettable_on_logout.dart`) and be added to `resettableSingletons()` (`lib/core/di/resettable_singletons.dart`). `SessionManager.logOut()` calls `resetForLogout()` on every entry in that list so a second person signing into the same device never sees the previous account's cached posts, messages, notifications, or search history. `resetForLogout()` just re-emits the bloc's own already-existing initial state (no `build_runner` needed) and clears any extra non-state fields (e.g. `ProfileBloc.appUser`, `MessagingCubit.messages`). `registerFactory` cubits don't need this — GetIt hands out a fresh instance per request, so there's nothing to reset.
 
 ### Networking
 
 `NetworkService` (`lib/core/services/network/network_service.dart`) wraps Dio with a single `call(path, RequestMethod, {...})` method. It injects the bearer token from `SessionManager.instance.authToken` and a `timezone` header per request, reports failures to Sentry, and converts errors into `ApiError` via `Future.error`. Repositories catch/rethrow; there is no `Either` wrapper in practice despite `either_dart` being a dependency.
 
 All endpoint paths are string constants on `UrlConfig` — add new ones there rather than inlining URLs.
+
+### Shared response models
+
+The same model class (e.g. `TalkamUser`, `PostCreator`) often backs responses from several different endpoints, but not every endpoint populates every field (`TalkamUser.phoneNumber`/`bio` only come from `/user/me`; `PostCreator.isFollowing` only from feed endpoints that compute it). When adding a field like this to a shared model: make it nullable, and add a doc comment naming exactly which endpoint(s) populate it. Don't assume a field is present just because the type has it — check which endpoint produced the instance in hand.
 
 ### Routing
 

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/data/models/post_filter_model.dart';
 import 'package:talkam/features/post/dormain/repository/post_repository.dart';
@@ -9,13 +10,17 @@ part 'trending_post_state.dart';
 
 part 'trending_post_cubit.freezed.dart';
 
-class TrendingPostCubit extends Cubit<TrendingPostState> {
+class TrendingPostCubit extends Cubit<TrendingPostState>
+    implements ResettableOnLogout {
   final PostRepository postRepository;
 
   bool _isLoadingMore = false;
 
   TrendingPostCubit(this.postRepository)
       : super(const TrendingPostState.initial());
+
+  @override
+  void resetForLogout() => emit(const TrendingPostState.initial());
 
   /// Backs the "Trending" tab — v2's `tab=trending` feed. Promoted posts are
   /// already interleaved server-side (each post carries its own `promotion`

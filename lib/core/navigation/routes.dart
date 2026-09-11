@@ -68,8 +68,9 @@ import 'package:talkam/features/settings/presentation/screens/delete_account_scr
 import 'package:talkam/features/settings/presentation/screens/notifications_settings_screen.dart';
 import 'package:talkam/features/settings/presentation/screens/payment_methods_screen.dart';
 import 'package:talkam/features/settings/presentation/screens/payment_pin_screen.dart';
+import 'package:talkam/features/settings/presentation/screens/bank_details_screen.dart';
+import 'package:talkam/features/settings/presentation/screens/two_factor_auth_screen.dart';
 import 'package:talkam/features/settings/presentation/screens/privacy_settings_screen.dart';
-import 'package:talkam/features/settings/presentation/screens/settings_screen.dart';
 import 'package:talkam/features/profile/presentation/screens/user_profile_screen.dart';
 import 'package:talkam/features/search/presentation/screens/search_result_screen.dart';
 import 'package:talkam/features/subscription/presentation/screens/subscription_screen.dart';
@@ -325,11 +326,6 @@ class CustomRoutes {
         builder: (context, state) => const ProfileScreen(),
       ),
       GoRoute(
-        path: '/${PageUrl.settingsScreen}',
-        name: PageUrl.settingsScreen,
-        builder: (context, state) => const SettingsScreen(),
-      ),
-      GoRoute(
         path: '/${PageUrl.userProfileScreen}',
         name: PageUrl.userProfileScreen,
         builder: (context, state) => UserProfileScreen(
@@ -385,6 +381,16 @@ class CustomRoutes {
         path: '/${PageUrl.paymentPinScreen}',
         name: PageUrl.paymentPinScreen,
         builder: (context, state) => const PaymentPinScreen(),
+      ),
+      GoRoute(
+        path: '/${PageUrl.bankDetailsScreen}',
+        name: PageUrl.bankDetailsScreen,
+        builder: (context, state) => const BankDetailsScreen(),
+      ),
+      GoRoute(
+        path: '/${PageUrl.twoFactorAuthScreen}',
+        name: PageUrl.twoFactorAuthScreen,
+        builder: (context, state) => const TwoFactorAuthScreen(),
       ),
       GoRoute(
         path: '/searchResultScreen',

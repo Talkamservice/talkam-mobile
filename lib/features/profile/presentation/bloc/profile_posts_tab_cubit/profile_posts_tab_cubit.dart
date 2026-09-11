@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/profile/dormain/repository/profile_repository.dart';
 
@@ -9,12 +10,16 @@ part 'profile_posts_tab_state.dart';
 
 part 'profile_posts_tab_cubit.freezed.dart';
 
-class ProfilePostsTabCubit extends Cubit<ProfilePostsTabState> {
+class ProfilePostsTabCubit extends Cubit<ProfilePostsTabState>
+    implements ResettableOnLogout {
   final ProfileRepository _profileRepository;
   int _currentPage = 1;
   bool _hasReachedEndOfList = false;
 
   ProfilePostsTabCubit(this._profileRepository) : super(const ProfilePostsTabState.initial());
+
+  @override
+  void resetForLogout() => emit(const ProfilePostsTabState.initial());
 
   Future<void> fetchUserPosts({bool? reload = true,bool? isScheduled = false}) async {
     if (reload!) {

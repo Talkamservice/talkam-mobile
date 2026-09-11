@@ -16,7 +16,12 @@ class ApiError {
   /// description of error generated this is similar to convention [Error.currentMessage]
   String? errorDescription;
 
-  ApiError(this.errorDescription);
+  /// HTTP status code of the failed response, when one exists (absent for
+  /// timeouts/cancellations). Lets callers branch on 401/403 without
+  /// string-matching [errorDescription].
+  int? statusCode;
+
+  ApiError(this.errorDescription, {this.statusCode});
 
   factory ApiError.fromDio(DioException dioError) {
     switch (dioError.type) {
@@ -33,11 +38,13 @@ class ApiError {
       case DioExceptionType.receiveTimeout:
         return ApiError('Receive timeout in connection with API');
       case DioExceptionType.badResponse:
-        return ApiError(_setCustomErrorMessage(dioError.response!));
+        return ApiError(_setCustomErrorMessage(dioError.response!),
+            statusCode: dioError.response?.statusCode);
       // return ApiError(
       //     'Received invalid status code: ${dioError.response?.statusCode}');
       case DioExceptionType.unknown:
-        return ApiError(_setCustomErrorMessage(dioError.response!));
+        return ApiError(_setCustomErrorMessage(dioError.response!),
+            statusCode: dioError.response?.statusCode);
 
       default:
         return ApiError('Oops!, Something went wrong, Please try again');
@@ -50,6 +57,7 @@ class ApiError {
 
   ApiError.fromResponse(Object? error) {
     if (error is Response) {
+      statusCode = error.statusCode;
       _setCustomErrorMessage(error);
       _handleErr();
     } else {
