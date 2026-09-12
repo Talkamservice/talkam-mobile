@@ -199,8 +199,6 @@ class TalkamUser {
   dynamic currency;
   dynamic state;
   dynamic googleId;
-  dynamic facebookId;
-  dynamic tiktokId;
   dynamic appleId;
   dynamic isBlocked;
   dynamic shouldDisplayAd;
@@ -252,8 +250,6 @@ class TalkamUser {
     required this.emailVerifiedAt,
     required this.updatedAt,
     required this.googleId,
-    required this.facebookId,
-    required this.tiktokId,
     required this.appleId,
     required this.isBlocked,
     required this.iamBlocked,
@@ -282,8 +278,6 @@ class TalkamUser {
           dynamic currency,
           dynamic shouldDisplayAd,
           dynamic state,
-          dynamic facebookId,
-          dynamic tiktokId,
           dynamic appleId,
           dynamic isBlocked,
           dynamic iamBlocked,
@@ -322,8 +316,6 @@ class TalkamUser {
         emailVerifiedAt: emailVerifiedAt ?? this.emailVerifiedAt,
         updatedAt: updatedAt ?? this.updatedAt,
         googleId: googleId ?? this.googleId,
-        facebookId: facebookId ?? this.facebookId,
-        tiktokId: tiktokId ?? this.tiktokId,
         appleId: appleId ?? this.appleId,
         isBlocked: isBlocked ?? this.isBlocked,
         iamBlocked: iamBlocked ?? this.iamBlocked,
@@ -356,9 +348,7 @@ class TalkamUser {
         country: json["country"] == null
             ? null
             : TalkamCountry.fromJson(json["country"]),
-        facebookId: json["facebook_id"],
         googleId: json["google_id"],
-        tiktokId: json["tiktok_id"],
         appleId: json["apple_id"],
         isBlocked: json["is_blocked"],
         iamBlocked: json["i_am_blocked"],
@@ -405,8 +395,6 @@ class TalkamUser {
         "i_am_blocked": iamBlocked,
         "apple_id": appleId,
         "google_id": googleId,
-        "facebook_id": facebookId,
-        "tiktok_id": tiktokId,
         "username": username,
         "status": status,
         "anonymous_comment": anonymousComment,
@@ -441,8 +429,6 @@ class TalkamUser {
       interests: [],
       emailVerifiedAt: DateTime.now(),
       googleId: null,
-      facebookId: null,
-      tiktokId: null,
       appleId: null,
       isBlocked: null,
       iamBlocked: null,

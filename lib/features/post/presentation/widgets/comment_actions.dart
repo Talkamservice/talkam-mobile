@@ -90,8 +90,8 @@ class _CommentActionsState extends State<CommentActions> {
         ),
         18.horizontalSpace,
         InkWell(
-          onTap: () =>
-              Helpers.share("${UrlConfig.webUrl}comment/${widget.comment.id}"),
+          onTap: () => Helpers.share(
+              "${UrlConfig.webUrl}comment/${widget.comment.id}"),
           child: ImageWidget(imageUrl: Assets.images.svgV2.shareIcon, size: 20),
         ),
       ],

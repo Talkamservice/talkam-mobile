@@ -58,7 +58,6 @@ abstract class Pallets {
   static const buttonred = Color(0xFFAC4242);
   static const black80 = Color(0xFF333333);
   static const boldRed = Color(0xFFEE1414);
-  static const facebookBlue = Color(0xFF1877F2);
   static const black = Colors.black;
   static const buttonBlack = Color(0xFF272727);
 

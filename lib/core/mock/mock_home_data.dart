@@ -40,8 +40,6 @@ class MockHomeData {
     emailVerifiedAt: DateTime(2025, 1, 10),
     updatedAt: DateTime(2025, 1, 10),
     googleId: null,
-    facebookId: null,
-    tiktokId: null,
     appleId: null,
     isBlocked: false,
     iamBlocked: false,

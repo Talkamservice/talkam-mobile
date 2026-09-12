@@ -18,20 +18,6 @@ class AppleAuthEvent extends AuthEvent {
   List<Object?> get props => [];
 }
 
-class FacebookAuthEvent extends AuthEvent {
-  const FacebookAuthEvent();
-
-  @override
-  List<Object?> get props => [];
-}
-
-class TikTokAuthEvent extends AuthEvent {
-  const TikTokAuthEvent();
-
-  @override
-  List<Object?> get props => [];
-}
-
 class LoginEvent extends AuthEvent {
   final String email;
   final String password;

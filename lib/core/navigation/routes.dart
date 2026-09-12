@@ -320,6 +320,13 @@ class CustomRoutes {
             : PostDetailsScreen(postId: state.extra as String),
       ),
       GoRoute(
+        path: '/comment/:id',
+        name: PageUrl.postDetailsDeepLink,
+        builder: (context, state) => PostDetailsScreen(
+          postId: state.pathParameters['id']!,
+        ),
+      ),
+      GoRoute(
         path: '/${PageUrl.profileScreen}',
         name: PageUrl.profileScreen,
         parentNavigatorKey: rootNavigatorKey,

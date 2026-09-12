@@ -18,25 +18,6 @@ subprojects { subproject ->
 }
 
 subprojects { subproject ->
-    if (subproject.name == 'tiktok_login_flutter') {
-        subproject.afterEvaluate {
-            // Remove the package attribute from the AndroidManifest.xml
-            def manifestFile = file("${subproject.projectDir}/src/main/AndroidManifest.xml")
-            if (manifestFile.exists()) {
-                def manifestContent = manifestFile.text
-                manifestContent = manifestContent.replaceAll('package="com.raiinmaker.tiktok_login_flutter"', '')
-                manifestFile.text = manifestContent
-            }
-
-            // Add the namespace property to build.gradle
-            subproject.android {
-                namespace = 'com.raiinmaker.tiktok_login_flutter'
-            }
-        }
-    }
-}
-
-subprojects { subproject ->
     if (subproject.name == 'video_thumbnail') {
         subproject.afterEvaluate {
             def manifestFile = file("${subproject.projectDir}/src/main/AndroidManifest.xml")

@@ -97,7 +97,7 @@ class _PostDetailCardState extends State<PostDetailCard> {
                 24.horizontalSpace,
                 InkWell(
                   onTap: () {
-                    Helpers.share("${UrlConfig.webUrl}/comments/${post.id}");
+                    Helpers.share("${UrlConfig.webUrl}comment/${post.id}");
                   },
                   child: ImageWidget(
                       imageUrl: Assets.images.svgV2.shareIcon, size: 22),

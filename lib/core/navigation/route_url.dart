@@ -48,6 +48,7 @@ class PageUrl {
 
 //   Posts
   static const postDetailsScreen = 'postDetailsScreen';
+  static const postDetailsDeepLink = 'postDetailsDeepLink';
 
   // Profile
 

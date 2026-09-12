@@ -125,15 +125,8 @@ dependencies:
   firebase_analytics: ^11.3.3
   either_dart: ^1.0.0
   sentry_flutter: ^9.22.0
-  #  flutter_tiktok_sdk: ^0.2.6
-  flutter_facebook_auth: ^7.0.1
   pinput: ^5.0.0
   freezed_annotation: ^2.4.4
-  #  tiktok_sdk_v2: ^0.0.2
-  tiktok_login_flutter:
-    git:
-      url: https://github.com/Vickboy/tiktok_login_flutter.git
-      branch: master
   shimmer: ^3.0.0
   firebase_storage: ^12.3.4
   readmore: ^3.0.0

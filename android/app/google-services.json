@@ -1,48 +1,40 @@
 {
   "project_info": {
-    "project_number": "478885302787",
-    "project_id": "talkam-temp",
-    "storage_bucket": "talkam-temp.appspot.com"
+    "project_number": "631667238707",
+    "project_id": "talkam-1",
+    "storage_bucket": "talkam-1.firebasestorage.app"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:478885302787:android:0687c098adcae8ae807436",
+        "mobilesdk_app_id": "1:631667238707:android:4526e6c7893a9091acc046",
         "android_client_info": {
-          "package_name": "com.talkam.app"
+          "package_name": "com.talkamtech.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "478885302787-32qfubm0damgpkn5tm0tt655s09e3sfq.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.talkam.app",
-            "certificate_hash": "c2cf7c5e676fd222c3390c63e08bae31d5b9ff51"
-          }
-        },
-        {
-          "client_id": "478885302787-1gaden2q9a6320jk2ajjpqoa7borgj7n.apps.googleusercontent.com",
+          "client_id": "631667238707-5ntoga7mlrq8s7v7878lgj97pb027d9u.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAG_0IXf7nV8BdwiG4gKQMGNs-tzu75Prk"
+          "current_key": "AIzaSyBR5eMZEDlzdYgJyPzCppQwulRg5ZA-JMk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "478885302787-1gaden2q9a6320jk2ajjpqoa7borgj7n.apps.googleusercontent.com",
+              "client_id": "631667238707-5ntoga7mlrq8s7v7878lgj97pb027d9u.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "478885302787-46tgclrpaf3vqnti7g95ud418uvjla9b.apps.googleusercontent.com",
+              "client_id": "631667238707-2rdclmurshivbhgluafsshnq5rj8e73c.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.talkam.app"
+                "bundle_id": "com.talkamtechservice.app"
               }
             }
           ]
@@ -51,34 +43,42 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:478885302787:android:47ff863f6ccc995b807436",
+        "mobilesdk_app_id": "1:631667238707:android:30775cc590fccb78acc046",
         "android_client_info": {
-          "package_name": "com.talkamtech.app"
+          "package_name": "com.talkamtechservice.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "478885302787-1gaden2q9a6320jk2ajjpqoa7borgj7n.apps.googleusercontent.com",
+          "client_id": "631667238707-sn2i3p9nm4rum1ktq84to000tgm8887v.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.talkamtechservice.app",
+            "certificate_hash": "d021e7d02babccd37394a8191ec79f61ac42ef75"
+          }
+        },
+        {
+          "client_id": "631667238707-5ntoga7mlrq8s7v7878lgj97pb027d9u.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAG_0IXf7nV8BdwiG4gKQMGNs-tzu75Prk"
+          "current_key": "AIzaSyBR5eMZEDlzdYgJyPzCppQwulRg5ZA-JMk"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "478885302787-1gaden2q9a6320jk2ajjpqoa7borgj7n.apps.googleusercontent.com",
+              "client_id": "631667238707-5ntoga7mlrq8s7v7878lgj97pb027d9u.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "478885302787-46tgclrpaf3vqnti7g95ud418uvjla9b.apps.googleusercontent.com",
+              "client_id": "631667238707-2rdclmurshivbhgluafsshnq5rj8e73c.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "com.talkam.app"
+                "bundle_id": "com.talkamtechservice.app"
               }
             }
           ]

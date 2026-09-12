@@ -20,8 +20,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthEvent>((event, emit) {});
     on<GoogleAuthEvent>(_mapGoogleAuthEventToState);
     on<AppleAuthEvent>(_mapAppleAuthEventToState);
-    on<FacebookAuthEvent>(_mapFacebookAuthEventToState);
-    on<TikTokAuthEvent>(_mapTikTokAuthEventToState);
     on<LoginEvent>(_onLogin);
     on<RegisterEvent>(_onRegister);
     on<RegisterTherapistEvent>(_onRegisterTherapist);
@@ -76,53 +74,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       emit(OauthSuccessState(res));
     } catch (e) {
       logger.e(e);
-      emit(OauthFailureState(error: e.toString()));
-    }
-  }
-
-  FutureOr<void> _mapFacebookAuthEventToState(
-      FacebookAuthEvent event, Emitter<AuthState> emit) async {
-    emit(OauthLoadingState());
-
-    try {
-      final response = await _authRepository.facebookAuth();
-      if (response == null) {
-        emit(
-            const OauthFailureState(error: "Facebook Authentication canceled"));
-        return;
-      }
-      var res = await _authRepository.oauthSignIn(OauthReqDto(
-        token: response?.tokenString,
-        provider: 'facebook',
-      ));
-      AuthSuccessUsecase().execute(res);
-      emit(OauthSuccessState(res));
-    } catch (e) {
-      emit(OauthFailureState(error: e.toString()));
-    }
-  }
-
-  FutureOr<void> _mapTikTokAuthEventToState(
-      TikTokAuthEvent event, Emitter<AuthState> emit) async {
-    emit(OauthLoadingState());
-
-    try {
-      final response = await _authRepository.tikTokAuth();
-
-      if (response == null) {
-        emit(const OauthFailureState(error: "Tiktok Authentication canceled"));
-        return;
-      }
-      logger.w(response.toString());
-
-      var res = await _authRepository.oauthSignIn(OauthReqDto(
-        token: response,
-        provider: 'tiktok',
-      ));
-
-      AuthSuccessUsecase().execute(res);
-      emit(OauthSuccessState(res));
-    } catch (e) {
       emit(OauthFailureState(error: e.toString()));
     }
   }

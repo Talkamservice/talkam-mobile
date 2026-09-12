@@ -118,9 +118,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       case "apple":
         await _handleLinkAppleAccount(emit);
         return;
-      case "facebook":
-        await _handleLinkFacebookAccount(emit);
-        return;
     }
   }
 
@@ -189,26 +186,6 @@ class SettingsBloc extends Bloc<SettingsEvent, SettingsState> {
       var res = await _settingsRepository.linkSocialAccount(OauthReqDto(
         token: response.identityToken,
         provider: 'apple',
-      ));
-
-      emit(SettingsState.linkSocialAccountSuccess(res));
-    } catch (e) {
-      emit(SettingsState.linkSocialAccountFailure(e.toString()));
-    }
-  }
-
-  Future _handleLinkFacebookAccount(Emitter<SettingsState> emit) async {
-    try {
-      final response = await _authRepository.facebookAuth();
-
-      if (response == null) {
-        emit(const SettingsState.linkSocialAccountFailure(
-            "Facebook Authentication canceled"));
-        return;
-      }
-      var res = await _settingsRepository.linkSocialAccount(OauthReqDto(
-        token: response.tokenString,
-        provider: 'facebook',
       ));
 
       emit(SettingsState.linkSocialAccountSuccess(res));

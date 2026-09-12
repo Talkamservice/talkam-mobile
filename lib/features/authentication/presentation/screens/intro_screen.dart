@@ -89,32 +89,6 @@ class _IntroScreenState extends State<IntroScreen> with AuthSuccessMixin {
                                   ],
                                 ),
                               ),
-                            if (false) 12.verticalSpace,
-                            if (false)
-                              CustomButton(
-                                bgColor: Pallets.white,
-                                foregroundColor: Pallets.black,
-                                borderRadius: BorderRadius.circular(8.r),
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 16.h, horizontal: 20.w),
-                                onPressed: () {
-                                  _authBloc.add(const FacebookAuthEvent());
-
-                                  // context.pushNamed(PageUrl.termsScreen);
-                                },
-                                child: Row(
-                                  children: [
-                                    ImageWidget(
-                                        imageUrl: Assets.images.svgs.facebook),
-                                    const Expanded(
-                                        child: TextView(
-                                      text: 'Login with Facebook',
-                                      align: TextAlign.center,
-                                      fontWeight: FontWeight.w700,
-                                    )),
-                                  ],
-                                ),
-                              ),
                             12.verticalSpace,
                             CustomButton(
                               bgColor: Pallets.white,
@@ -139,32 +113,7 @@ class _IntroScreenState extends State<IntroScreen> with AuthSuccessMixin {
                                 ],
                               ),
                             ),
-                            12.verticalSpace,
-                            if (false)
-                              CustomButton(
-                                bgColor: Pallets.white,
-                                foregroundColor: Pallets.black,
-                                borderRadius: BorderRadius.circular(8.r),
-                                padding: EdgeInsets.symmetric(
-                                    vertical: 16.h, horizontal: 20.w),
-                                onPressed: () {
-                                  _authBloc.add(const TikTokAuthEvent());
-                                  // context.pushNamed(PageUrl.termsScreen);
-                                },
-                                child: Row(
-                                  children: [
-                                    ImageWidget(
-                                        imageUrl: Assets.images.svgs.tiktok),
-                                    const Expanded(
-                                        child: TextView(
-                                      text: 'Login with TikTok',
-                                      align: TextAlign.center,
-                                      fontWeight: FontWeight.w700,
-                                    )),
-                                  ],
-                                ),
-                              ),
-                            if (false) 16.verticalSpace,
+                            16.verticalSpace,
                             const Center(
                               child: TextView(
                                 text: "or",

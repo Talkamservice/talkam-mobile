@@ -11,6 +11,7 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>applinks:talkam.net</string>
+		<string>applinks:staging.talkam.net</string>
 	</array>
 </dict>
 </plist>

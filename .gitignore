@@ -47,6 +47,11 @@ config.json
 prod_config.json
 config-staging.json
 
+# Signing secrets — never commit a release keystore or its passwords
+android/key.properties
+*.jks
+*.keystore
+
 # Stale scratch output / local editor lock files — not a maintained baseline
 analyze_errors*.txt
 .~lock.*#

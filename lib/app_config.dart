@@ -12,7 +12,6 @@ import 'package:talkam/core/di/injector.dart' as di;
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/subscription/presentation/blocs/subscriptions_bloc/subscriptions_bloc_cubit.dart';
 import 'package:talkam/gen/assets.gen.dart';
-import 'package:tiktok_login_flutter/tiktok_login_flutter.dart';
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'core/services/firebase/crashlytics.dart';
 import 'core/services/firebase/notifiactions.dart';
@@ -56,8 +55,6 @@ class AppConfig {
   }
 
   Future<void> _initializeServices() async {
-    await TiktokLoginFlutter.initializeTiktokLogin("sbawv08gbmy7ntisfh");
-    // await  TikTokSDK.instance.setup(clientKey: "sbawv08gbmy7ntisfh");
     await initFirebaseServices();
 
     await SessionManager().init();

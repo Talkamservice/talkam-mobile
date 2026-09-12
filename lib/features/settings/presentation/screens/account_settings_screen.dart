@@ -197,10 +197,6 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                 outlinedColr: Pallets.borderGrey,
                                 padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 20.w),
                                 onPressed: () {
-                                  // _authBloc.add(const FacebookAuthEvent());
-
-                                  // context.pushNamed(PageUrl.termsScreen);
-
                                   if (state.user.googleId == null) {
                                     bloc.add(const SettingsEvent.linkSocialAccount('google'));
                                   } else {
@@ -220,32 +216,6 @@ class _AccountSettingsScreenState extends State<AccountSettingsScreen> {
                                       ),
                                     ],
                                   ),
-                                ),
-                              ),
-                              12.verticalSpace,
-                              CustomButton(
-                                foregroundColor: Colors.white,
-                                bgColor: Pallets.facebookBlue,
-                                borderRadius: BorderRadius.circular(8.r),
-                                padding: EdgeInsets.symmetric(vertical: 16.h, horizontal: 20.w),
-                                onPressed: () {
-                                  if (state.user.facebookId == null) {
-                                    bloc.add(const SettingsEvent.linkSocialAccount('facebook'));
-                                  } else {
-                                    bloc.add(const SettingsEvent.unlinkSocialAccount('facebook'));
-                                  }
-                                },
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    ImageWidget(imageUrl: Assets.images.svgs.facebookWhite),
-                                    12.horizontalSpace,
-                                    TextView(
-                                      text: state.user.facebookId == null ? 'Connect with Facebook' : "Disconnect with Facebook",
-                                      align: TextAlign.center,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ],
                                 ),
                               ),
                               12.verticalSpace,

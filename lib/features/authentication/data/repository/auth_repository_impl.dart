@@ -1,6 +1,4 @@
-import 'dart:io';
 import 'package:dio/dio.dart';
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:intl/intl.dart';
 import 'package:talkam/common/models/success_response.dart';
@@ -12,7 +10,6 @@ import 'package:talkam/features/authentication/data/models/oauth_req_dto.dart';
 import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/authentication/dormain/repository/auth_repository.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
-import 'package:tiktok_login_flutter/tiktok_login_flutter.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 
 class AuthRepositoryImpl extends AuthRepository {
@@ -29,14 +26,12 @@ class AuthRepositoryImpl extends AuthRepository {
       'email',
       'profile',
     ],
-
-    // serverClientId: ,serverClientId
-    // clientId:
-    //     '469691765994-mpvuctgp9epjihb9gs0bj138alged9jg.apps.googleusercontent.com',
-
-    clientId: Platform.isAndroid
-        ? '478885302787-1gaden2q9a6320jk2ajjpqoa7borgj7n.apps.googleusercontent.com'
-        : "478885302787-46tgclrpaf3vqnti7g95ud418uvjla9b.apps.googleusercontent.com",
+    // Android/iOS client IDs are read automatically from
+    // google-services.json / GoogleService-Info.plist — only the web
+    // client is passed explicitly, as serverClientId, for backend
+    // verification of the ID token.
+    serverClientId:
+        '631667238707-5ntoga7mlrq8s7v7878lgj97pb027d9u.apps.googleusercontent.com',
   );
 
   @override
@@ -127,46 +122,6 @@ class AuthRepositoryImpl extends AuthRepository {
       return AuthSuccessResponse.fromJson(response.data);
     } catch (e, stack) {
       logger.e(e.toString(), stackTrace: stack);
-      rethrow;
-    }
-  }
-
-  @override
-  Future<String> tikTokAuth() async {
-    try {
-      logger.w("gg");
-      final result = await TiktokLoginFlutter.authorize(
-        "user.info.basic",
-      );
-
-      logger.i(result.toString().toString());
-
-      return result;
-    } catch (e, stack) {
-      logger.i(e.toString());
-      logger.i(stack.toString());
-      rethrow;
-    }
-  }
-
-  @override
-  Future<AccessToken?> facebookAuth() async {
-    try {
-      final LoginResult result = await FacebookAuth.instance.login(
-          permissions: [
-            'email',
-            'public_profile'
-          ]); // by default we request the email and the public profile
-      if (result.status == LoginStatus.success) {
-        final AccessToken accessToken = result.accessToken!;
-        logger.i(accessToken);
-        return accessToken;
-      } else {
-        logger.i(result.status);
-        logger.i(result.message);
-        return null;
-      }
-    } catch (e) {
       rethrow;
     }
   }

@@ -24,23 +24,11 @@
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
 
 
-    <queries>
-        <provider android:authorities="com.facebook.katana.provider.PlatformProvider" />
-    </queries>
     <application
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher"
         android:label="TalKAM Tech"
         android:enableOnBackInvokedCallback="true">
-        <meta-data
-            android:name="com.facebook.sdk.ApplicationId"
-            android:value="@string/facebook_app_id" />
-        <meta-data
-            android:name="com.facebook.sdk.ClientToken"
-            android:value="@string/facebook_client_token" />
-        <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDCQy7XWRNuaFMP1iGkfjdz3ON_hguXHdw" />
 
         <!-- Impeller (Flutter's default Android renderer) has known bugs
              compositing SurfaceView-backed platform views — Agora's
@@ -71,8 +59,8 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="http" android:host="talkam.net" />
-                <data android:scheme="https" />
+                <data android:scheme="https" android:host="talkam.net" />
+                <data android:scheme="https" android:host="staging.talkam.net" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -96,9 +84,5 @@
             <action android:name="android.intent.action.PROCESS_TEXT" />
             <data android:mimeType="text/plain" />
         </intent>
-    </queries>
-    <queries>
-        <package android:name="com.zhiliaoapp.musically" />
-        <package android:name="com.ss.android.ugc.trill" />
     </queries>
 </manifest>

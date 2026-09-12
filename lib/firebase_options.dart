@@ -41,22 +41,22 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyAG_0IXf7nV8BdwiG4gKQMGNs-tzu75Prk',
-    appId: '1:478885302787:android:47ff863f6ccc995b807436',
-    messagingSenderId: '478885302787',
-    projectId: 'talkam-temp',
-    storageBucket: 'talkam-temp.appspot.com',
+    apiKey: 'AIzaSyBR5eMZEDlzdYgJyPzCppQwulRg5ZA-JMk',
+    appId: '1:631667238707:android:4526e6c7893a9091acc046',
+    messagingSenderId: '631667238707',
+    projectId: 'talkam-1',
+    storageBucket: 'talkam-1.firebasestorage.app',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDNIPDDGTmviX0itRrEStBEpBJnvX2Ul6Y',
-    appId: '1:478885302787:ios:074c846c87398546807436',
-    messagingSenderId: '478885302787',
-    projectId: 'talkam-temp',
-    storageBucket: 'talkam-temp.appspot.com',
-    androidClientId: '478885302787-2p5kropebl3t1sp6vdfokom4kkphod4h.apps.googleusercontent.com',
-    iosClientId: '478885302787-ok0upi23o86662habvpf6tsf06u1gpog.apps.googleusercontent.com',
-    iosBundleId: 'com.talkamtech.app',
+    apiKey: 'AIzaSyDmaTQrqGDxVPz-jXcR3uk7td94BZAfmBM',
+    appId: '1:631667238707:ios:9e4f79c6842957b0acc046',
+    messagingSenderId: '631667238707',
+    projectId: 'talkam-1',
+    storageBucket: 'talkam-1.firebasestorage.app',
+    androidClientId: '631667238707-sn2i3p9nm4rum1ktq84to000tgm8887v.apps.googleusercontent.com',
+    iosClientId: '631667238707-2rdclmurshivbhgluafsshnq5rj8e73c.apps.googleusercontent.com',
+    iosBundleId: 'com.talkamtechservice.app',
   );
 
   static const FirebaseOptions web = FirebaseOptions(

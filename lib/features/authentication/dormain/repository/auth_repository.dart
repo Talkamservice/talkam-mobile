@@ -1,4 +1,3 @@
-import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:talkam/features/authentication/data/models/oauth_req_dto.dart';
 import 'package:talkam/features/authentication/data/models/auth_response.dart';
@@ -12,11 +11,7 @@ abstract class AuthRepository {
 
   Future<GoogleSignInAuthentication?> googleAuth();
 
-  Future<String?> tikTokAuth();
-
   Future<AuthorizationCredentialAppleID?> appleAuth();
-
-  Future<AccessToken?> facebookAuth();
 
   Future<AuthSuccessResponse> oauthSignIn(OauthReqDto data);
 

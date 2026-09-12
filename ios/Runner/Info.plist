@@ -29,20 +29,12 @@
 			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>sbawv08gbmy7ntisfh</string>
-				<string>com.googleusercontent.apps.478885302787-46tgclrpaf3vqnti7g95ud418uvjla9b</string>
-				<string>fb3700490343547694</string>
+				<string>com.googleusercontent.apps.631667238707-2rdclmurshivbhgluafsshnq5rj8e73c</string>
 			</array>
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
-	<key>FacebookAppID</key>
-	<string>3700490343547694</string>
-	<key>FacebookClientToken</key>
-	<string>f055a6e3d63e1adf42c82192a01e1fbb</string>
-	<key>FacebookDisplayName</key>
-	<string>TalKAM Tech</string>
 	<key>FlutterDeepLinkingEnabled</key>
 	<true/>
 	<key>ITSAppUsesNonExemptEncryption</key>
@@ -50,21 +42,19 @@
 	<key>GoogleSignIn</key>
 	<dict>
 		<key>APIKey</key>
-		<string>AIzaSyDNIPDDGTmviX0itRrEStBEpBJnvX2Ul6Y</string>
+		<string>AIzaSyDmaTQrqGDxVPz-jXcR3uk7td94BZAfmBM</string>
 		<key>ClientId</key>
-		<string>478885302787-46tgclrpaf3vqnti7g95ud418uvjla9b.apps.googleusercontent.com</string>
+		<string>631667238707-2rdclmurshivbhgluafsshnq5rj8e73c.apps.googleusercontent.com</string>
 		<key>ReversedClientId</key>
-		<string>com.googleusercontent.apps.478885302787-46tgclrpaf3vqnti7g95ud418uvjla9b</string>
+		<string>com.googleusercontent.apps.631667238707-2rdclmurshivbhgluafsshnq5rj8e73c</string>
 	</dict>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>tiktokopensdk</string>
-		<string>tiktoksharesdk</string>
-		<string>snssdk1180</string>
-		<string>snssdk1233</string>
-		<string>com.googleusercontent.apps.478885302787-46tgclrpaf3vqnti7g95ud418uvjla9b</string>
-		<string>fbapi</string>
-		<string>fb-messenger-share-api</string>
+		<string>com.googleusercontent.apps.631667238707-2rdclmurshivbhgluafsshnq5rj8e73c</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
@@ -80,8 +70,6 @@
 	<string>Talkam uses your location to display nearby posts.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>Talkam uses your photo library to upload picture contents.</string>
-	<key>TikTokClientKey</key>
-	<string>sbawv08gbmy7ntisfh</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
