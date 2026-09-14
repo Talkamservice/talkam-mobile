@@ -333,6 +333,8 @@ class _FollowGroupButtonState extends State<FollowGroupButton> {
               success: (following) {
                 setState(() => _isFollowing = following);
                 widget.onFollowUpdated?.call();
+                CustomDialogs.showToast(
+                    following ? "Subscribed to group" : "Unsubscribed from group");
               },
             );
           },

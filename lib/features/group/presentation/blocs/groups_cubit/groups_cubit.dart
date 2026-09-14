@@ -224,6 +224,23 @@ class GroupsCubit extends Cubit<GroupsState>
     }
   }
 
+  /// Optimistically drops a group from the currently-held list (e.g. right
+  /// after a successful leave) so the UI can animate its removal
+  /// immediately, instead of waiting for the next full refetch. Only
+  /// touches this cubit's own in-memory list — [refreshAllGroupLists] is
+  /// still responsible for reconciling every other list in the app.
+  void removeGroupLocally(int groupId) {
+    state.maybeWhen(
+      orElse: () {},
+      getGroupsSuccess: (groups, paginationData) {
+        emit(GroupsState.getGroupsSuccess(
+          groups: groups.where((g) => g.id != groupId).toList(),
+          paginationData: paginationData,
+        ));
+      },
+    );
+  }
+
   bool isSilentRefresh = false;
 
   void refreshGroups({bool silent = false}) {

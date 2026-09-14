@@ -37,4 +37,20 @@ class FeaturedGroupsCubit extends Cubit<FeaturedGroupsState>
       emit(FeaturedGroupsState.getRecommendedFailure(e.toString()));
     }
   }
+
+  /// Optimistically drops a group from the suggested carousel right after
+  /// it's joined, so it can animate out immediately instead of waiting for
+  /// the next `getRecommendedGroups` refetch to exclude it server-side.
+  void removeGroupLocally(int groupId) {
+    state.maybeWhen(
+      orElse: () {},
+      getRecommendedSuccess: (response) {
+        emit(FeaturedGroupsState.getRecommendedSuccess(response.copyWith(
+          groups: (response.groups ?? [])
+              .where((g) => g.id != groupId)
+              .toList(),
+        )));
+      },
+    );
+  }
 }

@@ -1,85 +1,87 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/painting.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:shimmer/shimmer.dart';
-import 'package:talkam/core/theme/pallets.dart';
 
+/// Mirrors [GroupResultItem]'s layout — a thumbnail, title/subtitle, and a
+/// trailing pill button — so the loading state doesn't visibly jump once
+/// the real rows swap in.
 class GroupLoadingShimmer extends StatelessWidget {
-  const GroupLoadingShimmer({super.key, this.padding});
+  const GroupLoadingShimmer({super.key, this.padding, this.itemCount = 6});
 
   final EdgeInsetsGeometry? padding;
+  final int itemCount;
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      // color: Pallets.white,
-      padding: const EdgeInsets.symmetric(vertical: 8),
-      child: ListView.builder(
-        padding: padding ?? const EdgeInsets.symmetric(horizontal: 16),
-        itemBuilder: (c, i) => Padding(
-          padding: const EdgeInsets.only(bottom: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Shimmer.fromColors(
-                baseColor: Colors.grey[350]!,
-                highlightColor: Colors.grey[50]!,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Container(
-                          height: 60,
-                          width: 80,
-                             decoration: BoxDecoration(
-                               color: Colors.white,
-                               borderRadius: BorderRadius.circular(8),
-                                ),
-                        ),
-                        const SizedBox(width: 10,),
-                        Column(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              height: 20,
-                              width: 150,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(7.0),
-                              ),
-                            ),
-                            const SizedBox(height: 10,),
-                            Container(
-                              height: 10,
-                              width: 70,
-                              decoration: BoxDecoration(
-                                color: Colors.white,
-                                borderRadius: BorderRadius.circular(10.0),
-                              ),
-                            )
-                          ],
-                        ),
-                        const SizedBox(width: 35,),
-                        Container(
-                          height: 35,
-                          width: 80,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20.0),
-                          ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(height: 10,)
-                  ],
-                ),
-              ),
-            ],
+    return ListView.builder(
+      // Callers place this inside a Center/SliverToBoxAdapter/Expanded
+      // interchangeably — shrink-wrapping keeps it correct in all three
+      // instead of relying on the ambient constraints being bounded.
+      shrinkWrap: true,
+      physics: const NeverScrollableScrollPhysics(),
+      padding: padding ?? const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      itemCount: itemCount,
+      itemBuilder: (context, index) => const Padding(
+        padding: EdgeInsets.only(bottom: 20),
+        child: _GroupRowPlaceholder(),
+      ),
+    );
+  }
+}
+
+class _GroupRowPlaceholder extends StatelessWidget {
+  const _GroupRowPlaceholder();
+
+  @override
+  Widget build(BuildContext context) {
+    return Shimmer.fromColors(
+      baseColor: Colors.grey[350]!,
+      highlightColor: Colors.grey[50]!,
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Container(
+            height: 54,
+            width: 78,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(6),
+            ),
           ),
-        ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  height: 14,
+                  width: 140,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(7),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Container(
+                  height: 10,
+                  width: 64,
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(7),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 10),
+          Container(
+            height: 30,
+            width: 72,
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(20),
+            ),
+          ),
+        ],
       ),
     );
   }

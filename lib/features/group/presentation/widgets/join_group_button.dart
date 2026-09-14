@@ -121,15 +121,22 @@ class _JoinGroupButtonState extends State<JoinGroupButton> {
       addGroupMemberSuccess: (response) {
         widget.group.isFollowing = !widget.group.isFollowing!;
         widget.onStateChanged();
+        CustomDialogs.showToast("Joined group successfully");
       },
       addGroupMemberFailure: (error) {
         CustomDialogs.error(error);
         widget.onStateChanged();
       },
       deleteMemberSuccess: (response) {
+        // unfollowGroup is also used to cancel a pending join request
+        // (see handleJoinGroupAction) — check hasRequested before it's
+        // cleared below to show the right toast for either case.
+        final wasPending = widget.group.hasRequested ?? false;
         widget.group.isFollowing = false;
         widget.group.hasRequested = false;
         widget.onStateChanged();
+        CustomDialogs.showToast(
+            wasPending ? "Join request cancelled" : "Left group successfully");
       },
       deleteMemberFailure: (error) {
         CustomDialogs.error(error);
@@ -139,6 +146,7 @@ class _JoinGroupButtonState extends State<JoinGroupButton> {
         widget.group.isFollowing = false;
 
         widget.onStateChanged();
+        CustomDialogs.showToast("Join request cancelled");
       },
       cancelRequestFailure: (error) {
         CustomDialogs.error(error);
@@ -147,6 +155,7 @@ class _JoinGroupButtonState extends State<JoinGroupButton> {
       sendRequestSyccess: (response) {
         widget.group.hasRequested = !widget.group.hasRequested!;
         widget.onStateChanged();
+        CustomDialogs.showToast("Join request sent");
       },
       sendRequestFailure: (error) {
         CustomDialogs.error(error);

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
+import 'package:talkam/common/widgets/animated_diff_list.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
@@ -65,18 +66,22 @@ class _SuggestedGroupsState extends State<SuggestedGroups> {
                   child: SizedBox(
                     width: double.infinity,
                     height: 100.h,
-                    child: ListView.separated(
+                    child: AnimatedDiffList<TalkamGroup>(
                       padding: const EdgeInsets.symmetric(horizontal: 18),
                       scrollDirection: Axis.horizontal,
-                      itemCount: groups.length,
-                      separatorBuilder: (_, __) => 14.horizontalSpace,
-                      itemBuilder: (_, int index) {
-                        return _SuggestedTile(
-                          onTap: () {
-                            context.pushNamed(PageUrl.groupsInfoScreen,
-                                extra: groups[index].id.toString());
-                          },
-                          group: groups[index],
+                      items: groups,
+                      keyOf: (group) => group.id!,
+                      itemBuilder: (context, group, index) {
+                        return Padding(
+                          padding: EdgeInsets.only(
+                              right: index == groups.length - 1 ? 0 : 14),
+                          child: _SuggestedTile(
+                            onTap: () {
+                              context.pushNamed(PageUrl.groupsInfoScreen,
+                                  extra: group.id.toString());
+                            },
+                            group: group,
+                          ),
                         );
                       },
                     ),
@@ -153,9 +158,26 @@ class _SuggestedTile extends StatelessWidget {
                           child: JoinGroupButton(
                             group: group,
                             showIcon: false,
-                            onStateChanged: () => injector
-                                .get<GroupsCubit>()
-                                .refreshAllGroupLists(silent: true),
+                            onStateChanged: () {
+                              // JoinGroupButton already mutated
+                              // group.isFollowing/hasRequested by the time
+                              // this fires, so only remove it from
+                              // Suggested when the user actually joined or
+                              // requested to join — not when they just
+                              // cancelled a pending request, which should
+                              // leave the group suggested.
+                              final joinedOrRequested =
+                                  (group.isFollowing ?? false) ||
+                                      (group.hasRequested ?? false);
+                              if (joinedOrRequested) {
+                                injector
+                                    .get<FeaturedGroupsCubit>()
+                                    .removeGroupLocally(group.id!);
+                              }
+                              injector
+                                  .get<GroupsCubit>()
+                                  .refreshAllGroupLists(silent: true);
+                            },
                           ),
                         ),
                       ),

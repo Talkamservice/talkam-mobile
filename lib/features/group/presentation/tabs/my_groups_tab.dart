@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:talkam/common/widgets/animated_diff_list.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
@@ -15,6 +16,7 @@ import 'package:talkam/features/group/presentation/screens/refresh_group_listene
 import 'package:talkam/features/group/presentation/widgets/group_loading_shimmer.dart';
 import 'package:talkam/features/group/presentation/widgets/suggested_groups.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
+import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/features/search/presentation/widget/group_result_item.dart';
 
 class MyGroupsTab extends StatefulWidget {
@@ -106,9 +108,10 @@ class _GroupExploreRecentTabState extends State<MyGroupsTab>
                               // refreshes Recent and Explore.
                               injector.get<GroupsCubit>().refreshGroups();
                             },
-                            child: ListView.builder(
-                              itemCount: displayGroups.length,
-                              itemBuilder: (context, index) {
+                            child: AnimatedDiffList<TalkamGroup>(
+                              items: displayGroups,
+                              keyOf: (group) => group.id!,
+                              itemBuilder: (context, group, index) {
                                 return Column(
                                   children: [
                                     InkWell(
@@ -118,21 +121,24 @@ class _GroupExploreRecentTabState extends State<MyGroupsTab>
                                         // "private, can't view" case to gate
                                         // on anymore — only suspension can
                                         // block access.
-                                        if (displayGroups[index].isSuspended ??
-                                            false) {
+                                        if (group.isSuspended ?? false) {
                                           CustomDialogs.error(
                                               "You have been suspended from this group");
                                         } else {
                                           context.pushNamed(
                                               PageUrl.groupsInfoScreen,
-                                              extra: displayGroups[index]
-                                                  .id
-                                                  .toString());
+                                              extra: group.id.toString());
                                         }
                                       },
                                       child: GroupResultItem(
-                                        group: displayGroups[index],
+                                        group: group,
                                         onJoinStateChanged: () {
+                                          // Optimistic: drop it from this
+                                          // list immediately so it animates
+                                          // out, then reconcile every other
+                                          // open group list in the
+                                          // background.
+                                          bloc.removeGroupLocally(group.id!);
                                           injector.get<GroupsCubit>().refreshAllGroupLists(silent: true);
                                         },
                                       ),
