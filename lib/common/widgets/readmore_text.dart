@@ -48,6 +48,8 @@ class _CustomReadMoreTextState extends State<CustomReadMoreText> {
 
               if (!tp.didExceedMaxLines) {
                 return Helpers.buildTextWithMentions(widget.text, context,
+                    fontSize: widget.fontSize,
+                    fontWeight: widget.fontWeight,
                     mentionCallback: widget.mentionCallback);
               }
 
