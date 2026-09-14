@@ -1,1 +1,30 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"talkam-1","appId":"1:631667238707:android:4526e6c7893a9091acc046","fileOutput":"android/app/google-services.json"}},"dart":{"lib/firebase_options.dart":{"projectId":"talkam-1","configurations":{"android":"1:631667238707:android:4526e6c7893a9091acc046","ios":"1:631667238707:ios:9e4f79c6842957b0acc046"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "talkam-1",
+          "appId": "1:631667238707:android:4526e6c7893a9091acc046",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "talkam-1",
+          "appId": "1:631667238707:ios:9e4f79c6842957b0acc046",
+          "uploadDebugSymbols": true,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      }
+    },
+    "dart": {
+      "lib/firebase_options.dart": {
+        "projectId": "talkam-1",
+        "configurations": {
+          "android": "1:631667238707:android:4526e6c7893a9091acc046",
+          "ios": "1:631667238707:ios:9e4f79c6842957b0acc046"
+        }
+      }
+    }
+  }
+}

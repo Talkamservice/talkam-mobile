@@ -56,3 +56,4 @@ android/key.properties
 analyze_errors*.txt
 .~lock.*#
 status-talkam-update.xlsx
+config.json.b64
