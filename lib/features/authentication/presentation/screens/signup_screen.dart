@@ -1,3 +1,4 @@
+import 'package:talkam/core/utils/validators.dart';
 import 'dart:async';
 import 'dart:io';
 
@@ -450,9 +451,7 @@ class _SignUpScreenState extends State<SignUpScreen> with AuthSuccessMixin {
                             validator: MultiValidator([
                               RequiredValidator(
                                   errorText: "Password is required"),
-                              MinLengthValidator(8,
-                                  errorText:
-                                      "Password must be at least 8 characters"),
+                              ComplexPasswordValidator(),
                             ]).call,
                             suffixIcon: IconButton(
                               icon: Icon(

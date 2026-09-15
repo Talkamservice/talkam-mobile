@@ -38,6 +38,11 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
   bool _loading = true;
   String? _error;
 
+  bool get _hasUnread {
+    if (_notifications == null) return false;
+    return _notifications!.any((n) => n.readAt == null);
+  }
+
   @override
   void initState() {
     super.initState();
@@ -61,20 +66,21 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
         titleAlign: TextAlign.left,
         showDivider: true,
         actions: [
-          TextButton(
-            style: TextButton.styleFrom(
-              padding: EdgeInsets.symmetric(horizontal: 4.w),
-              minimumSize: Size.zero,
-              tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          if (_hasUnread)
+            TextButton(
+              style: TextButton.styleFrom(
+                padding: EdgeInsets.symmetric(horizontal: 4.w),
+                minimumSize: Size.zero,
+                tapTargetSize: MaterialTapTargetSize.shrinkWrap,
+              ),
+              onPressed: () => bloc.add(const ReadAllNotificationEvent()),
+              child: const TextView(
+                text: "Mark all read",
+                fontSize: 13,
+                fontWeight: FontWeight.w600,
+                color: Pallets.blueBubbleColor,
+              ),
             ),
-            onPressed: () => bloc.add(const ReadAllNotificationEvent()),
-            child: const TextView(
-              text: "Mark all read",
-              fontSize: 13,
-              fontWeight: FontWeight.w600,
-              color: Pallets.blueBubbleColor,
-            ),
-          ),
           PopupMenuButton<String>(
             icon: Icon(Icons.more_vert, color: Pallets.boldBlackV2, size: 22.w),
             onSelected: (value) {
@@ -352,10 +358,14 @@ class _NotificationCard extends StatelessWidget {
         padding: EdgeInsets.all(14.w),
         decoration: BoxDecoration(
           color: _isUnread
-              ? Pallets.blueBubbleColor.withValues(alpha: 0.04)
-              : Pallets.grey90.withValues(alpha: 0.4),
+              ? Pallets.blueBubbleColor.withValues(alpha: 0.1)
+              : Pallets.grey90.withValues(alpha: 0.2),
           borderRadius: BorderRadius.circular(16.r),
-          border: Border.all(color: Pallets.grey90),
+          border: Border.all(
+            color: _isUnread
+                ? Pallets.blueBubbleColor.withValues(alpha: 0.3)
+                : Pallets.grey90,
+          ),
         ),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -383,14 +393,31 @@ class _NotificationCard extends StatelessWidget {
                         child: TextView(
                           text: item.title?.toString() ?? '',
                           fontSize: 15,
-                          fontWeight: FontWeight.w700,
+                          fontWeight: _isUnread ? FontWeight.w800 : FontWeight.w600,
+                          color: _isUnread ? Pallets.boldBlack : Pallets.grey400,
                         ),
                       ),
                       8.horizontalSpace,
-                      TextView(
-                        text: timeago.format(item.createdAt),
-                        fontSize: 11,
-                        color: Pallets.grey60,
+                      Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          if (_isUnread) ...[
+                            Container(
+                              width: 8.w,
+                              height: 8.w,
+                              decoration: const BoxDecoration(
+                                color: Pallets.blueBubbleColor,
+                                shape: BoxShape.circle,
+                              ),
+                            ),
+                            6.horizontalSpace,
+                          ],
+                          TextView(
+                            text: timeago.format(item.createdAt),
+                            fontSize: 11,
+                            color: Pallets.grey60,
+                          ),
+                        ],
                       ),
                     ],
                   ),

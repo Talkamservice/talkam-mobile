@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
@@ -89,7 +90,7 @@ class _PostReactionButtonState extends State<PostReactionButton> {
             ReactionType.like => ImageWidget(
                 imageUrl: Assets.images.svgV2.likeIcon,
                 color:
-                    widget.reaction?.isLike ?? false ? Pallets.primary : null,
+                    widget.reaction?.isLike ?? false ? Colors.pink : null,
               ),
             ReactionType.dislike => ImageWidget(
                 imageUrl: Assets.images.svgs.thumbsDownSvg_,
@@ -104,6 +105,11 @@ class _PostReactionButtonState extends State<PostReactionButton> {
   void handleLikeClicked() {
     di.logger.i(
         'handleLikeClicked: id=${widget.id}, currentReaction=${widget.reaction}');
+        
+    if (!(widget.reaction?.isLike ?? false)) {
+      HapticFeedback.lightImpact();
+    }
+    
     bloc.add(PostEvent.postReaction(widget.id, "Like"));
     di.logger.i('handleLikeClicked: event added to bloc');
 

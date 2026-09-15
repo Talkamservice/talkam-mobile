@@ -111,6 +111,7 @@ class _OutlinedFormFieldState extends State<OutlinedFormField> {
             obscureText: widget.obscure == null ? false : widget.obscure!,
             style: TextStyle(color: Theme.of(context).colorScheme.onBackground, fontSize: 14.sp),
             decoration: InputDecoration(
+              errorMaxLines: 10,
                 filled: widget.filled ?? false,
                 counter: 0.verticalSpace,
                 focusedBorder: OutlineInputBorder(

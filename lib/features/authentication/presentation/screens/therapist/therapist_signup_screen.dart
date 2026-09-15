@@ -1,3 +1,4 @@
+import 'package:talkam/core/utils/validators.dart';
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -197,8 +198,8 @@ class _TherapistSignupScreenState extends State<TherapistSignupScreen> {
                     ),
                     validator: (v) {
                       if (v == null || v.isEmpty) return "Password is required";
-                      if (v.length < 8)
-                        return "Password must be at least 8 characters";
+                      final error = ComplexPasswordValidator().call(v);
+                      if (error != null) return error;
                       return null;
                     },
                   ),

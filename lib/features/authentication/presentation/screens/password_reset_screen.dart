@@ -99,7 +99,7 @@ class _PassWordResetScreenState extends State<PassWordResetScreen> {
                     crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
                       const TextView(
-                        text: "A $_otpLength-digit code was sent to",
+                        text: "A $_otpLength-digit OTP was sent to",
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                         color: Pallets.grey400,
@@ -137,9 +137,7 @@ class _PassWordResetScreenState extends State<PassWordResetScreen> {
                     obscureText: _passwordObscured,
                     validator: MultiValidator([
                       RequiredValidator(errorText: "Field is required"),
-                      MinLengthValidator(_minPasswordLength,
-                          errorText:
-                              "Password should be up to $_minPasswordLength characters"),
+                      ComplexPasswordValidator(),
                     ]).call,
                     suffixIcon: IconButton(
                       icon: Icon(
@@ -163,9 +161,7 @@ class _PassWordResetScreenState extends State<PassWordResetScreen> {
                     obscureText: _confirmPasswordObscured,
                     validator: MultiValidator([
                       RequiredValidator(errorText: "Field is required"),
-                      MinLengthValidator(_minPasswordLength,
-                          errorText:
-                              "Password should be up to $_minPasswordLength characters"),
+                      ComplexPasswordValidator(),
                       ConfirmPasswordValidator(
                           errorText: "Password mismatch",
                           comparedPassword: _passwordController.text)
@@ -204,7 +200,7 @@ class _PassWordResetScreenState extends State<PassWordResetScreen> {
                       children: [
                         // Disabled until the countdown finishes.
                         TextView(
-                          text: 'Resend Code',
+                          text: 'Resend OTP',
                           fontSize: 14,
                           fontWeight: FontWeight.w700,
                           color: isCounting
@@ -217,32 +213,32 @@ class _PassWordResetScreenState extends State<PassWordResetScreen> {
                           crossAxisAlignment: WrapCrossAlignment.center,
                           children: [
                             const TextView(
-                              text: "Didn’t receive the code? ",
+                              text: "Didn’t receive the OTP? ",
                               fontSize: 14,
                               fontWeight: FontWeight.w500,
                               color: Pallets.grey500,
                             ),
                             if (isCounting) ...[
                               const TextView(
-                                text: "Resend code ",
+                                text: "Resend OTP in ",
                                 fontSize: 14,
-                                fontWeight: FontWeight.w700,
-                                color: Pallets.blueBubbleColor,
+                                fontWeight: FontWeight.w500,
+                                color: Pallets.grey500,
                               ),
                               CustomCountDown(
                                 endTime: _countDownEndTime,
                                 onEnd: () => setState(() => isCounting = false),
                                 style: TextStyle(
                                   fontSize: 14.sp,
-                                  fontWeight: FontWeight.w700,
-                                  color: Pallets.blueBubbleColor,
+                                  fontWeight: FontWeight.w500,
+                                  color: Pallets.grey500,
                                 ),
                               ),
                               const TextView(
                                 text: "s",
                                 fontSize: 14,
-                                fontWeight: FontWeight.w700,
-                                color: Pallets.blueBubbleColor,
+                                fontWeight: FontWeight.w500,
+                                color: Pallets.grey500,
                               ),
                             ],
                           ],

@@ -50,7 +50,9 @@ class _SelectAvatarSheetState extends State<SelectAvatarSheet> {
           topRight: Radius.circular(24.r),
         ),
       ),
-      padding: EdgeInsets.only(bottom: 20.h),
+      padding: EdgeInsets.only(
+        bottom: 24.h + MediaQuery.viewPaddingOf(context).bottom,
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [

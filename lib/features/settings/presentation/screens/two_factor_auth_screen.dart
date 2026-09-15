@@ -173,8 +173,8 @@ class _TwoFactorAuthScreenState extends State<TwoFactorAuthScreen> {
                                         TextView(
                                           text: (_settings?.twoFactorEnabled ??
                                                   false)
-                                              ? "On — we'll email you a code every time you sign in."
-                                              : "Off — turn on to require a code sent to your email when signing in.",
+                                              ? "On — we'll email you an OTP every time you sign in."
+                                              : "Off — turn on to require an OTP sent to your email when signing in.",
                                           fontSize: 13,
                                           fontWeight: FontWeight.w500,
                                           color: Pallets.grey400,
@@ -258,7 +258,7 @@ class _EnableOtpScreenState extends State<_EnableOtpScreen> {
     });
     try {
       await widget.onResend();
-      if (mounted) CustomDialogs.success("Code resent");
+      if (mounted) CustomDialogs.success("OTP resent");
     } catch (error) {
       if (mounted) CustomDialogs.error(error.toString());
     }
@@ -296,7 +296,7 @@ class _EnableOtpScreenState extends State<_EnableOtpScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const TextView(
-                    text: "Enter the code we emailed you",
+                    text: "Enter the OTP we emailed you",
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
                   ),
@@ -304,7 +304,7 @@ class _EnableOtpScreenState extends State<_EnableOtpScreen> {
                   Wrap(
                     children: [
                       const TextView(
-                        text: "We sent a 6-digit code to ",
+                        text: "We sent a 6-digit OTP to ",
                         fontSize: 13,
                         fontWeight: FontWeight.w500,
                         color: Pallets.grey400,
@@ -333,7 +333,7 @@ class _EnableOtpScreenState extends State<_EnableOtpScreen> {
                             crossAxisAlignment: WrapCrossAlignment.center,
                             children: [
                               const TextView(
-                                text: "Resend code in ",
+                                text: "Resend OTP in ",
                                 fontSize: 13,
                                 fontWeight: FontWeight.w500,
                                 color: Pallets.grey400,
@@ -344,20 +344,20 @@ class _EnableOtpScreenState extends State<_EnableOtpScreen> {
                                     setState(() => _isCounting = false),
                                 style: TextStyle(
                                   fontSize: 13.sp,
-                                  fontWeight: FontWeight.w700,
-                                  color: Pallets.blueBubbleColor,
+                                  fontWeight: FontWeight.w500,
+                                  color: Pallets.grey400,
                                 ),
                               ),
                               const TextView(
                                 text: "s",
                                 fontSize: 13,
-                                fontWeight: FontWeight.w700,
-                                color: Pallets.blueBubbleColor,
+                                fontWeight: FontWeight.w500,
+                                color: Pallets.grey400,
                               ),
                             ],
                           )
                         : TextView(
-                            text: "Resend code",
+                            text: "Resend OTP",
                             fontSize: 13,
                             fontWeight: FontWeight.w700,
                             color: Pallets.blueBubbleColor,

@@ -57,6 +57,7 @@ class _TherapistsListScreenState extends State<TherapistsListScreen> {
   void _showFilterSheet() {
     showModalBottomSheet(
       context: context,
+      useRootNavigator: true,
       backgroundColor: Pallets.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(24.r)),
@@ -231,7 +232,12 @@ class _FilterSheetState extends State<_FilterSheet> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.fromLTRB(20.w, 20.h, 20.w, 32.h),
+      padding: EdgeInsets.fromLTRB(
+        20.w,
+        20.h,
+        20.w,
+        32.h + MediaQuery.viewPaddingOf(context).bottom,
+      ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,

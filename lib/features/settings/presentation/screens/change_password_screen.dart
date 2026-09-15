@@ -1,3 +1,4 @@
+import 'package:talkam/core/utils/validators.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
@@ -76,8 +77,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   },
                   validator: MultiValidator([
                     RequiredValidator(errorText: "Field is required"),
-                    MinLengthValidator(8,
-                        errorText: "Password should be up to 8 characters"),
+                    ComplexPasswordValidator(),
                   ]).call,
                   suffix: InkWell(
                     onTap: () {
@@ -104,8 +104,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   },
                   validator: MultiValidator([
                     RequiredValidator(errorText: "Field is required"),
-                    MinLengthValidator(8,
-                        errorText: "Password should be up to 8 characters"),
+                    ComplexPasswordValidator(),
                     ConfirmPasswordValidator(
                         errorText: "Password mismatch",
                         comparedPassword: password)

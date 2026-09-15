@@ -114,9 +114,9 @@ class ApiErrorModel {
 
 String _setCustomErrorMessage(Response error) {
   if (error.statusCode == 401) {
-    // CustomDialogs.error('Unauthorized');
-    // SessionManager.instance.logOut();
-    // CustomRoutes.goRouter.goNamed(PageUrl.onboardingIntro);
+    CustomDialogs.error('Unauthorized');
+    SessionManager.instance.logOut();
+    CustomRoutes.goRouter.goNamed(PageUrl.getStartedScreen);
 
     return 'Unauthorized';
   }

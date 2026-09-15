@@ -517,45 +517,22 @@ class _CreatePostSheetState extends State<CreatePostSheet>
                                       ),
                                       16.horizontalSpace,
                                       InkWell(
-                                        canRequestFocus: false,
-                                        onTap: _bodyEditor.toggleMoreOptions,
-                                        child: Icon(Icons.add_circle_outline,
-                                            size: 22,
-                                            color: editorState.showMoreOptions
-                                                ? Pallets.blueBubbleColor
-                                                : Pallets.grey60),
+                                        onTap: _openPoll,
+                                        child: const Icon(
+                                            Icons.bar_chart_rounded,
+                                            size: 20,
+                                            color: Pallets
+                                                .blueBubbleColor),
                                       ),
-                                      AnimatedSize(
-                                        duration:
-                                            const Duration(milliseconds: 200),
-                                        curve: Curves.easeOut,
-                                        alignment: Alignment.centerLeft,
-                                        clipBehavior: Clip.hardEdge,
-                                        child: !editorState.showMoreOptions
-                                            ? const SizedBox(height: 28)
-                                            : Row(
-                                                children: [
-                                                  8.horizontalSpace,
-                                                  InkWell(
-                                                    onTap: _openPoll,
-                                                    child: const Icon(
-                                                        Icons.bar_chart_rounded,
-                                                        size: 20,
-                                                        color: Pallets
-                                                            .blueBubbleColor),
-                                                  ),
-                                                  8.horizontalSpace,
-                                                  InkWell(
-                                                    onTap: _openEmoji,
-                                                    child: const Icon(
-                                                        Icons
-                                                            .emoji_emotions_outlined,
-                                                        size: 20,
-                                                        color: Pallets
-                                                            .blueBubbleColor),
-                                                  ),
-                                                ],
-                                              ),
+                                      16.horizontalSpace,
+                                      InkWell(
+                                        onTap: _openEmoji,
+                                        child: const Icon(
+                                            Icons
+                                                .emoji_emotions_outlined,
+                                            size: 20,
+                                            color: Pallets
+                                                .blueBubbleColor),
                                       ),
                                     ],
                                   ),
@@ -897,7 +874,7 @@ class _PollPreview extends StatelessWidget {
                   2.verticalSpace,
                   TextView(
                     text:
-                        "${poll.options.length} options • ${Duration(minutes: poll.duration.toInt()).inDays}d ${Duration(minutes: poll.duration.toInt()).inHours.remainder(24)}h",
+                        "${poll.options.length} options • ${TimeUtil.formatPollDuration(poll.duration.toInt())}",
                     fontSize: 12,
                     color: Pallets.grey60,
                   ),

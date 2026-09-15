@@ -79,7 +79,7 @@ class _PassWordRecoveryScreenState extends State<PassWordRecoveryScreen> {
                       8.verticalSpace,
                       const TextView(
                         text:
-                            "Enter the email linked to your account and we'll send you a code to reset your password.",
+                            "Enter the email linked to your account and we'll send you an OTP to reset your password.",
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                         color: Pallets.grey400,

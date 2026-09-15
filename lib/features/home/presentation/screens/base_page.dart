@@ -132,14 +132,16 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
             return widget.navigationShell;
           },
         ),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Pallets.blueBubbleColor,
-          onPressed: () => GuestUserHelper.handleGuestUserAction(
-            message: "Login or Signup to create post",
-            action: () => showCreatePostSheet(context),
-          ),
-          child: const Icon(Icons.add, color: Colors.white),
-        ),
+        floatingActionButton: widget.navigationShell.currentIndex == _kHomeBranch
+            ? FloatingActionButton(
+                backgroundColor: Pallets.blueBubbleColor,
+                onPressed: () => GuestUserHelper.handleGuestUserAction(
+                  message: "Login or Signup to create post",
+                  action: () => showCreatePostSheet(context),
+                ),
+                child: const Icon(Icons.add, color: Colors.white),
+              )
+            : null,
         bottomNavigationBar: widget.navigationShell.currentIndex ==
                 _kGroupsBranch
             ? null

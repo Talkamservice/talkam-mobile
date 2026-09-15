@@ -75,7 +75,7 @@ class _PollBuilderSheetState extends State<PollBuilderSheet> {
   Future<void> _selectDays() async {
     final picked = await CustomDialogs.showBottomSheet<int>(
       context,
-      _NumberPickerSheet(title: "Days", max: 14, current: _days),
+      _NumberPickerSheet(title: "Days", max: 30, current: _days),
     );
     if (picked != null) setState(() => _days = picked);
   }

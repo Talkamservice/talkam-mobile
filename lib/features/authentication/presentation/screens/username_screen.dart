@@ -232,7 +232,7 @@ class _UsernameScreenState extends State<UsernameScreen> {
     }
 
     profileBloc.add(UpdateProfileEvent(
-      UpdateProfilePayload(avatar: selectedAvatarId),
+      UpdateProfilePayload(avatar: selectedAvatar),
     ));
   }
 

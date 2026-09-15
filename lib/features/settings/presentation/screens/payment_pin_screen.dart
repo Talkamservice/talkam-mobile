@@ -160,8 +160,8 @@ class _PaymentPinScreenState extends State<PaymentPinScreen> {
                     12.verticalSpace,
                     TextView(
                       text: _requestingOtp
-                          ? "Sending code…"
-                          : "Forgot your PIN? Verify with a code instead",
+                          ? "Sending OTP…"
+                          : "Forgot your PIN? Verify with an OTP instead",
                       fontSize: 13,
                       fontWeight: FontWeight.w600,
                       color: Pallets.blueBubbleColor,
@@ -169,13 +169,13 @@ class _PaymentPinScreenState extends State<PaymentPinScreen> {
                     ),
                   ] else ...[
                     const TextView(
-                      text: "Verification code",
+                      text: "Verification OTP",
                       fontSize: 14,
                       fontWeight: FontWeight.w700,
                     ),
                     4.verticalSpace,
                     const TextView(
-                      text: "Enter the 6-digit code sent to your email.",
+                      text: "Enter the 6-digit OTP sent to your email.",
                       fontSize: 13,
                       fontWeight: FontWeight.w500,
                       color: Pallets.grey400,

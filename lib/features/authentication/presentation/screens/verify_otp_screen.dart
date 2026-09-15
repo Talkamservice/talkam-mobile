@@ -76,7 +76,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen>
                 crossAxisAlignment: WrapCrossAlignment.center,
                 children: [
                   const TextView(
-                    text: "Please enter the PIN we sent to",
+                    text: "Please enter the OTP we sent to",
                     fontSize: 14,
                     fontWeight: FontWeight.w500,
                     color: Pallets.grey400,
@@ -152,7 +152,7 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen>
                 children: [
                   // Disabled until the countdown finishes.
                   TextView(
-                    text: 'Resend Code',
+                    text: 'Resend OTP',
                     fontSize: 14,
                     fontWeight: FontWeight.w700,
                     color:
@@ -164,17 +164,17 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen>
                     crossAxisAlignment: WrapCrossAlignment.center,
                     children: [
                       const TextView(
-                        text: "Haven’t received the Code yet? ",
+                        text: "Haven’t received the OTP yet? ",
                         fontSize: 14,
                         fontWeight: FontWeight.w500,
                         color: Pallets.grey500,
                       ),
                       if (isCounting == true) ...[
                         const TextView(
-                          text: "Resend code ",
+                          text: "Resend OTP in ",
                           fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          color: Pallets.blueBubbleColor,
+                          fontWeight: FontWeight.w500,
+                          color: Pallets.grey500,
                         ),
                         CustomCountDown(
                           endTime: _countDownEndTime,
@@ -184,15 +184,15 @@ class _VerifyOtpScreenState extends State<VerifyOtpScreen>
                           },
                           style: TextStyle(
                             fontSize: 14.sp,
-                            fontWeight: FontWeight.w700,
-                            color: Pallets.blueBubbleColor,
+                            fontWeight: FontWeight.w500,
+                            color: Pallets.grey500,
                           ),
                         ),
                         const TextView(
                           text: "s",
                           fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                          color: Pallets.blueBubbleColor,
+                          fontWeight: FontWeight.w500,
+                          color: Pallets.grey500,
                         ),
                       ]
                     ],

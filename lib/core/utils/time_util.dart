@@ -219,35 +219,65 @@ class TimeUtil {
       return 'Finished';
     }
 
-    // Calculate remaining days, hours, minutes, and seconds
-    // int days = difference.inDays;
-    int hours = difference.inHours;
-    int minutes = difference.inMinutes % 60;
-    int seconds = difference.inSeconds % 60;
+    int days = difference.inDays;
 
-    // Build the string representation
-    String result = '';
-    // if (days > 0) {
-    //   result += '$days day${days > 1 ? 's' : ''}';
-    // }
-    if (hours > 0) {
-      if (result.isNotEmpty) result += ' ';
-      result += '$hours hour${hours > 1 ? 's' : ''}';
-    }
-    if (minutes > 0) {
-      if (result.isNotEmpty) result += ' ';
-      result += '$minutes minute${minutes > 1 ? 's' : ''}';
-    }
-    // if (seconds > 0 && (days == 0 || hours == 0 || minutes == 0)) {
-    //   if (result.isNotEmpty) result += ' ';
-    //   result += '$seconds second${seconds > 1 ? 's' : ''}';
-    // }
-
-    if (result.isEmpty) {
+    if (days > 14) {
+      int weeks = days ~/ 7;
+      int remDays = days % 7;
+      String result = '$weeks week${weeks > 1 ? 's' : ''}';
+      if (remDays > 0) {
+        result += ' $remDays day${remDays > 1 ? 's' : ''}';
+      }
+      return '$result remaining';
+    } else if (days > 2) {
+      int hours = difference.inHours % 24;
+      String result = '$days day${days > 1 ? 's' : ''}';
+      if (hours > 0) {
+        result += ' $hours hour${hours > 1 ? 's' : ''}';
+      }
+      return '$result remaining';
+    } else if (difference.inHours > 1) {
+      int hours = difference.inHours;
+      int minutes = difference.inMinutes % 60;
+      String result = '$hours hour${hours > 1 ? 's' : ''}';
+      if (minutes > 0) {
+        result += ' $minutes minute${minutes > 1 ? 's' : ''}';
+      }
+      return '$result remaining';
+    } else {
+      int minutes = difference.inMinutes;
+      if (minutes > 0) {
+        return '$minutes minute${minutes > 1 ? 's' : ''} remaining';
+      }
       return 'Less than a minute remaining';
     }
+  }
 
-    return '$result remaining';
+  static String formatPollDuration(int durationInMinutes) {
+    Duration difference = Duration(minutes: durationInMinutes);
+    int days = difference.inDays;
+
+    if (days > 14) {
+      int weeks = days ~/ 7;
+      int remDays = days % 7;
+      String result = '${weeks}w';
+      if (remDays > 0) result += ' ${remDays}d';
+      return result;
+    } else if (days > 2) {
+      int hours = difference.inHours % 24;
+      String result = '${days}d';
+      if (hours > 0) result += ' ${hours}h';
+      return result;
+    } else if (difference.inHours > 1) {
+      int hours = difference.inHours;
+      int minutes = difference.inMinutes % 60;
+      String result = '${hours}h';
+      if (minutes > 0) result += ' ${minutes}m';
+      return result;
+    } else {
+      int minutes = difference.inMinutes;
+      return '${minutes}m';
+    }
   }
 
 // String formatDateString(String dateString) {

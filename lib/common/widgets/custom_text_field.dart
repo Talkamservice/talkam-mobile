@@ -114,6 +114,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             return error;
           },
           decoration: InputDecoration(
+            errorMaxLines: 10,
             hintText: widget.hint,
             hintStyle: TextStyle(
               fontSize: 14.sp,

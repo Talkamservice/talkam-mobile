@@ -239,7 +239,11 @@ class _SessionsScreenState extends State<SessionsScreen> {
                   onTap: onRefresh,
                 )
               : isEmptyState
-                  ? Padding(
+                  ? CustomScrollView(
+                      slivers: [
+                        SliverFillRemaining(
+                          hasScrollBody: false,
+                          child: Padding(
                       padding: EdgeInsets.only(
                         left: 24.w,
                         right: 24.w,
@@ -357,6 +361,9 @@ class _SessionsScreenState extends State<SessionsScreen> {
                           24.verticalSpace,
                         ],
                       ),
+                    ),
+                        ),
+                      ],
                     )
                   : RefreshIndicator(
                       onRefresh: onRefresh,
