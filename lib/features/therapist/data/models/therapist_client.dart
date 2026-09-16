@@ -33,6 +33,7 @@ class TherapistClientDetail {
   const TherapistClientDetail({
     required this.id,
     required this.name,
+    this.avatar,
     required this.topics,
     required this.clientSince,
     required this.sessionsCount,
@@ -44,6 +45,7 @@ class TherapistClientDetail {
 
   final int id;
   final String name;
+  final String? avatar;
   final List<String> topics;
   final String clientSince;
   final int sessionsCount;
@@ -56,6 +58,7 @@ class TherapistClientDetail {
       TherapistClientDetail(
         id: json['id'],
         name: json['name'] ?? '',
+        avatar: json['avatar'],
         topics: List<String>.from(json['topics'] ?? []),
         clientSince: json['client_since'] ?? '',
         sessionsCount: json['sessions_count'] ?? 0,

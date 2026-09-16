@@ -109,7 +109,10 @@ class _ClientsScreenState extends State<ClientsScreen> {
             onTap: () {
               context.pushNamed(
                 PageUrl.clientDetailsScreen,
-                extra: client.id,
+                extra: {
+                  'id': client.id,
+                  'avatar': client.avatar,
+                },
               );
             },
             child: Container(

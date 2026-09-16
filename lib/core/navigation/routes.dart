@@ -691,11 +691,25 @@ class CustomRoutes {
       GoRoute(
         path: '/clientDetailsScreen',
         name: PageUrl.clientDetailsScreen,
-        pageBuilder: (context, state) => NoTransitionPage(
-          child: ClientDetailsScreen(
-            clientId: state.extra as int,
-          ),
-        ),
+        pageBuilder: (context, state) {
+          final extra = state.extra;
+          int clientId = 0;
+          String? avatar;
+
+          if (extra is int) {
+            clientId = extra;
+          } else if (extra is Map<String, dynamic>) {
+            clientId = extra['id'] as int;
+            avatar = extra['avatar'] as String?;
+          }
+
+          return NoTransitionPage(
+            child: ClientDetailsScreen(
+              clientId: clientId,
+              avatar: avatar,
+            ),
+          );
+        },
       ),
       GoRoute(
         path: '/acceptGroupInviteScreen',

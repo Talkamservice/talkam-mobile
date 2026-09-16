@@ -25,8 +25,9 @@ import 'package:talkam/gen/assets.gen.dart';
 
 class ClientDetailsScreen extends StatefulWidget {
   final int clientId;
+  final String? avatar;
 
-  const ClientDetailsScreen({super.key, required this.clientId});
+  const ClientDetailsScreen({super.key, required this.clientId, this.avatar});
 
   @override
   State<ClientDetailsScreen> createState() => _ClientDetailsScreenState();
@@ -218,20 +219,30 @@ class _ClientDetailsScreenState extends State<ClientDetailsScreen> {
           Center(
             child: Column(
               children: [
-                Container(
-                  width: 60.r,
-                  height: 60.r,
-                  decoration: const BoxDecoration(
-                    color: Color(0xFFF2F9FF),
-                    shape: BoxShape.circle,
-                  ),
-                  child: Center(
-                    child: ImageWidget(
-                      imageUrl: Assets.images.svgV2.userInActive,
-                      size: 24,
-                      color: Pallets.blueBubbleColor,
-                    ),
-                  ),
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(30.r),
+                  child: (widget.avatar ?? client.avatar) != null &&
+                          (widget.avatar ?? client.avatar)!.isNotEmpty
+                      ? ImageWidget(
+                          imageUrl: (widget.avatar ?? client.avatar)!,
+                          width: 60.r,
+                          height: 60.r,
+                        )
+                      : Container(
+                          width: 60.r,
+                          height: 60.r,
+                          decoration: const BoxDecoration(
+                            color: Color(0xFFF2F9FF),
+                            shape: BoxShape.circle,
+                          ),
+                          child: Center(
+                            child: ImageWidget(
+                              imageUrl: Assets.images.svgV2.userInActive,
+                              size: 24,
+                              color: Pallets.blueBubbleColor,
+                            ),
+                          ),
+                        ),
                 ),
                 16.verticalSpace,
                 TextView(
