@@ -24,11 +24,29 @@ class CreatePollForm extends StatefulWidget {
 }
 
 class _CreatePollFormState extends State<CreatePollForm> {
+  static const _kChoiceMaxLength = 30;
+
   final tittleController = TextEditingController();
   final List<TextEditingController> choiceControllers = [
     TextEditingController(),
     TextEditingController(),
   ];
+
+  /// Tracks whether each choice controller was already at the character
+  /// limit as of the last keystroke, keyed by controller identity (not
+  /// index — indices shift when a choice is removed) so the toast fires
+  /// once per field on reaching the limit, not on every keystroke while
+  /// sitting at it.
+  final Map<TextEditingController, bool> _choiceAtLimit = {};
+
+  void _checkChoiceLimit(TextEditingController controller) {
+    final atLimit = controller.text.characters.length >= _kChoiceMaxLength;
+    if (atLimit && !(_choiceAtLimit[controller] ?? false)) {
+      CustomDialogs.showToast(
+          "You have reached the maximum character limit of $_kChoiceMaxLength characters");
+    }
+    _choiceAtLimit[controller] = atLimit;
+  }
 
   int pollHours = 7;
   int pollDays = 2;
@@ -77,10 +95,15 @@ class _CreatePollFormState extends State<CreatePollForm> {
                         child: OutlinedFormField(
                             validator: RequiredValidator(errorText: "Field is required").call,
                             controller: choiceControllers[index],
+                            maxLength: _kChoiceMaxLength,
+                            onChange: (d) {
+                              _checkChoiceLimit(choiceControllers[index]);
+                            },
                             hint: "Choice ${index + 1}")),
                     if (index + 1 > 2)
                       IconButton(
                           onPressed: () {
+                            _choiceAtLimit.remove(choiceControllers[index]);
                             choiceControllers.removeAt(index);
                             setState(() {});
                           },

@@ -91,7 +91,21 @@ class TherapistRepositoryImpl extends TherapistRepository {
         UrlConfigV2.therapistSessionNotes(sessionId),
         RequestMethod.get,
       );
-      return SessionNote.fromJson(response.data['data']);
+      final data = response.data['data'];
+      // No note has been written for this session yet — the backend
+      // returns null data rather than an empty object, so hand back a
+      // blank draft instead of crashing on the fromJson cast.
+      if (data == null) {
+        return SessionNote(
+          sessionId: sessionId,
+          title: '',
+          content: '',
+          sharedWithClient: false,
+          status: 'draft',
+          tags: const [],
+        );
+      }
+      return SessionNote.fromJson(data);
     } catch (e) {
       rethrow;
     }

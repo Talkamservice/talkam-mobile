@@ -46,7 +46,7 @@ mixin _$GroupsState {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -364,7 +364,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -690,7 +690,7 @@ class _$GetGroupsLoadingImpl implements _GetGroupsLoading {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -1061,7 +1061,7 @@ class _$GetGroupsSuccessImpl implements _GetGroupsSuccess {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -1423,7 +1423,7 @@ class _$GetGroupsFailureImpl implements _GetGroupsFailure {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -1759,7 +1759,7 @@ class _$GetFollowingGroupMembersLoadingImpl
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -2119,7 +2119,7 @@ class _$GetFollowingGroupMembersSuccessImpl
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -2484,7 +2484,7 @@ class _$GetFollowingGroupMembersFailureImpl
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -2817,7 +2817,7 @@ class _$UpdateGroupLoadingImpl implements _UpdateGroupLoading {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -3171,7 +3171,7 @@ class _$UpdateGroupSuccessImpl implements _UpdateGroupSuccess {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -3530,7 +3530,7 @@ class _$UpdateGroupFailureImpl implements _UpdateGroupFailure {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -3862,7 +3862,7 @@ class _$GetGroupLoadingImpl implements _GetGroupLoading {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -4216,7 +4216,7 @@ class _$GetGroupSuccessImpl implements _GetGroupSuccess {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -4575,7 +4575,7 @@ class _$GetGroupFailureImpl implements _GetGroupFailure {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -4906,7 +4906,7 @@ class _$DeleteGroupLoadingImpl implements _DeleteGroupLoading {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -5260,7 +5260,7 @@ class _$DeleteGroupSuccessImpl implements _DeleteGroupSuccess {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -5619,7 +5619,7 @@ class _$DeleteGroupFailureImpl implements _DeleteGroupFailure {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -5953,7 +5953,7 @@ class _$GetRecommendedLoadingImpl implements _GetRecommendedLoading {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -6308,7 +6308,7 @@ class _$GetRecommendedSuccessImpl implements _GetRecommendedSuccess {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -6668,7 +6668,7 @@ class _$GetRecommendedFailureImpl implements _GetRecommendedFailure {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -7000,7 +7000,7 @@ class _$JoinGroupLoadingImpl implements _JoinGroupLoading {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -7354,7 +7354,7 @@ class _$JoinGroupSuccessImpl implements _JoinGroupSuccess {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -7713,7 +7713,7 @@ class _$JoinGroupFailureImpl implements _JoinGroupFailure {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -8045,7 +8045,7 @@ class _$AddGroupRuleLoadingImpl implements _AddGroupRuleLoading {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -8399,7 +8399,7 @@ class _$AddGroupRuleSuccessImpl implements _AddGroupRuleSuccess {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -8758,7 +8758,7 @@ class _$AddGroupRuleFailureImpl implements _AddGroupRuleFailure {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -9091,7 +9091,7 @@ class _$GetGroupRuleLoadingImpl implements _GetGroupRuleLoading {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -9357,7 +9357,7 @@ abstract class _$$GetGroupRuleSuccessImplCopyWith<$Res> {
           $Res Function(_$GetGroupRuleSuccessImpl) then) =
       __$$GetGroupRuleSuccessImplCopyWithImpl<$Res>;
   @useResult
-  $Res call({dynamic response});
+  $Res call({List<GroupGuideline> guidelines});
 }
 
 /// @nodoc
@@ -9371,13 +9371,13 @@ class __$$GetGroupRuleSuccessImplCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? response = freezed,
+    Object? guidelines = null,
   }) {
     return _then(_$GetGroupRuleSuccessImpl(
-      freezed == response
-          ? _value.response
-          : response // ignore: cast_nullable_to_non_nullable
-              as dynamic,
+      null == guidelines
+          ? _value._guidelines
+          : guidelines // ignore: cast_nullable_to_non_nullable
+              as List<GroupGuideline>,
     ));
   }
 }
@@ -9385,14 +9385,20 @@ class __$$GetGroupRuleSuccessImplCopyWithImpl<$Res>
 /// @nodoc
 
 class _$GetGroupRuleSuccessImpl implements _GetGroupRuleSuccess {
-  const _$GetGroupRuleSuccessImpl(this.response);
+  const _$GetGroupRuleSuccessImpl(final List<GroupGuideline> guidelines)
+      : _guidelines = guidelines;
 
+  final List<GroupGuideline> _guidelines;
   @override
-  final dynamic response;
+  List<GroupGuideline> get guidelines {
+    if (_guidelines is EqualUnmodifiableListView) return _guidelines;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_guidelines);
+  }
 
   @override
   String toString() {
-    return 'GroupsState.getGroupRuleSuccess(response: $response)';
+    return 'GroupsState.getGroupRuleSuccess(guidelines: $guidelines)';
   }
 
   @override
@@ -9400,12 +9406,13 @@ class _$GetGroupRuleSuccessImpl implements _GetGroupRuleSuccess {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$GetGroupRuleSuccessImpl &&
-            const DeepCollectionEquality().equals(other.response, response));
+            const DeepCollectionEquality()
+                .equals(other._guidelines, _guidelines));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, const DeepCollectionEquality().hash(response));
+  int get hashCode => Object.hash(
+      runtimeType, const DeepCollectionEquality().hash(_guidelines));
 
   @JsonKey(ignore: true)
   @override
@@ -9445,7 +9452,7 @@ class _$GetGroupRuleSuccessImpl implements _GetGroupRuleSuccess {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -9455,7 +9462,7 @@ class _$GetGroupRuleSuccessImpl implements _GetGroupRuleSuccess {
     required TResult Function(String error) reportGroupFailureState,
     required TResult Function() refreshGroups,
   }) {
-    return getGroupRuleSuccess(response);
+    return getGroupRuleSuccess(guidelines);
   }
 
   @override
@@ -9499,7 +9506,7 @@ class _$GetGroupRuleSuccessImpl implements _GetGroupRuleSuccess {
     TResult? Function(String error)? reportGroupFailureState,
     TResult? Function()? refreshGroups,
   }) {
-    return getGroupRuleSuccess?.call(response);
+    return getGroupRuleSuccess?.call(guidelines);
   }
 
   @override
@@ -9545,7 +9552,7 @@ class _$GetGroupRuleSuccessImpl implements _GetGroupRuleSuccess {
     required TResult orElse(),
   }) {
     if (getGroupRuleSuccess != null) {
-      return getGroupRuleSuccess(response);
+      return getGroupRuleSuccess(guidelines);
     }
     return orElse();
   }
@@ -9702,10 +9709,10 @@ class _$GetGroupRuleSuccessImpl implements _GetGroupRuleSuccess {
 }
 
 abstract class _GetGroupRuleSuccess implements GroupsState {
-  const factory _GetGroupRuleSuccess(final dynamic response) =
+  const factory _GetGroupRuleSuccess(final List<GroupGuideline> guidelines) =
       _$GetGroupRuleSuccessImpl;
 
-  dynamic get response;
+  List<GroupGuideline> get guidelines;
   @JsonKey(ignore: true)
   _$$GetGroupRuleSuccessImplCopyWith<_$GetGroupRuleSuccessImpl> get copyWith =>
       throw _privateConstructorUsedError;
@@ -9804,7 +9811,7 @@ class _$GetGroupRuleFailureImpl implements _GetGroupRuleFailure {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -10139,7 +10146,7 @@ class _$DeleteGroupRuleLoadingImpl implements _DeleteGroupRuleLoading {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -10495,7 +10502,7 @@ class _$DeleteGroupRuleSuccessImpl implements _DeleteGroupRuleSuccess {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -10856,7 +10863,7 @@ class _$DeleteGroupRuleFailureImpl implements _DeleteGroupRuleFailure {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -11188,7 +11195,7 @@ class _$ReportGroupLoadingImpl implements _ReportGroupLoading {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -11542,7 +11549,7 @@ class _$ReportGroupSuccessImpl implements _ReportGroupSuccess {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -11901,7 +11908,7 @@ class _$ReportGroupFailureImpl implements _ReportGroupFailure {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,
@@ -12233,7 +12240,7 @@ class _$RefreshGroupsStateImpl implements _RefreshGroupsState {
     required TResult Function(GroupGuideline response) addGroupRuleSuccess,
     required TResult Function(String error) addGroupRuleFailureState,
     required TResult Function() getGroupRuleLoading,
-    required TResult Function(dynamic response) getGroupRuleSuccess,
+    required TResult Function(List<GroupGuideline> guidelines) getGroupRuleSuccess,
     required TResult Function(String error) getGroupRuleFailureState,
     required TResult Function() deleteGroupRuleLoading,
     required TResult Function(dynamic response) deleteGroupRuleSuccess,

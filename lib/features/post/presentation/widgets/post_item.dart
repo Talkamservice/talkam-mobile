@@ -92,20 +92,19 @@ class PostItem extends StatelessWidget {
                               },
                               post: post,
                             ),
+                            // Rendered here (inside the same horizontally-
+                            // padded column as the header/content/actions
+                            // above) and above the divider below, so it
+                            // lines up with the rest of the card instead
+                            // of running edge-to-edge underneath it.
+                            ScheduledPostPill(
+                                showScheduledPost: shouldShowScheduledPost,
+                                post: post),
                           ],
                         )),
-                    const Divider(thickness: 1),
                     4.verticalSpace,
-
-                    if (!showScheduledPost! && post.isPromoted)
-                      25.verticalSpace,
-
-                    if (showScheduledPost!) 4.verticalSpace,
-                    if (shouldShowScheduledPost) const Divider(thickness: 1),
-                    // 3.verticalSpace,
-                    ScheduledPostPill(
-                        showScheduledPost: shouldShowScheduledPost, post: post),
-                    if (showScheduledPost! && post.isPromoted) 25.verticalSpace
+                    const Divider(thickness: 1),
+                    if (post.isPromoted) 25.verticalSpace,
                   ],
                 ),
               ),

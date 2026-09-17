@@ -62,7 +62,7 @@ class GroupsState with _$GroupsState {
 
   //  Get Rules States
   const factory GroupsState.getGroupRuleLoading() = _GetGroupRuleLoading;
-  const factory GroupsState.getGroupRuleSuccess(dynamic response) = _GetGroupRuleSuccess;
+  const factory GroupsState.getGroupRuleSuccess(List<GroupGuideline> guidelines) = _GetGroupRuleSuccess;
   const factory GroupsState.getGroupRuleFailureState(String error) = _GetGroupRuleFailure;
 
 

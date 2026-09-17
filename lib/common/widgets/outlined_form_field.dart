@@ -30,6 +30,7 @@ class OutlinedFormField extends StatefulWidget {
     this.padding,
     this.hintStyle,
     this.minLine,
+    this.isError = false,
   });
 
   final String hint;
@@ -56,6 +57,12 @@ class OutlinedFormField extends StatefulWidget {
   final AutovalidateMode? autovalidateMode;
 
   final Color? fillColor;
+
+  /// Forces the outline to [Pallets.red] regardless of focus state — for
+  /// signalling something like a reached character limit, independent of
+  /// [validator]/[autovalidateMode] (which only run on submit/interaction,
+  /// not live as the user types).
+  final bool isError;
 
   @override
   State<OutlinedFormField> createState() => _OutlinedFormFieldState();
@@ -117,12 +124,12 @@ class _OutlinedFormFieldState extends State<OutlinedFormField> {
                 focusedBorder: OutlineInputBorder(
                     gapPadding: 2,
                     borderSide: BorderSide(
-                      color: Theme.of(context).primaryColor,
-                      width: 0.5,
+                      color: widget.isError ? Pallets.red : Theme.of(context).primaryColor,
+                      width: widget.isError ? 1 : 0.5,
                     ),
                     borderRadius: BorderRadius.circular(widget.radius ?? 10)),
                 border: OutlineInputBorder(
-                    gapPadding: 2, borderSide: const BorderSide(color: Pallets.borderGrey, width: 1), borderRadius: BorderRadius.circular(10)),
+                    gapPadding: 2, borderSide: BorderSide(color: widget.isError ? Pallets.red : Pallets.borderGrey, width: 1), borderRadius: BorderRadius.circular(10)),
                 fillColor: widget.fillColor ?? Theme.of(context).cardColor,
                 hintText: widget.hint,
                 suffixIcon: widget.suffix,
@@ -131,7 +138,7 @@ class _OutlinedFormFieldState extends State<OutlinedFormField> {
                 enabled: widget.enabled ?? true,
                 prefixIconColor: Colors.grey,
                 enabledBorder: OutlineInputBorder(
-                    gapPadding: 2, borderSide: const BorderSide(color: Pallets.borderGrey, width: 1), borderRadius: BorderRadius.circular(widget.radius ?? 10)),
+                    gapPadding: 2, borderSide: BorderSide(color: widget.isError ? Pallets.red : Pallets.borderGrey, width: 1), borderRadius: BorderRadius.circular(widget.radius ?? 10)),
                 contentPadding: widget.padding ?? const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
                 suffixIconColor: Pallets.grey75,
                 hintStyle: widget.hintStyle ?? TextStyle(color: Pallets.grey75, fontSize: 15.sp, fontWeight: FontWeight.w500)),

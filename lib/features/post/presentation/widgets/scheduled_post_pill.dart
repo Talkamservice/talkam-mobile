@@ -14,31 +14,27 @@ class ScheduledPostPill extends StatelessWidget {
     return Column(children: [
       if (showScheduledPost)
         Padding(
-          padding: EdgeInsets.only(right: 12.w, top: 10.h),
+          // Horizontal placement (and matching the post card's own
+          // padding) is left to the caller — this only owns its own
+          // vertical spacing and internal text inset.
+          padding: EdgeInsets.only(top: 10.h),
           child: Container(
             width: double.infinity,
             height: 40.h,
+            padding: EdgeInsets.symmetric(horizontal: 14.w),
             decoration: BoxDecoration(
               color: Pallets.tabBarBlue,
               borderRadius: BorderRadius.circular(40),
             ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                TextView(
-                  text: "Scheduled post",
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 13.sp,
-                ),
-                TextView(
-                  text: DateFormat("dd MMMM, yyyy - hh:mm a")
-                      .format(post.publishAt!),
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 13.sp,
-                ),
-              ],
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: TextView(
+                text:
+                    "Scheduled for ${DateFormat("dd MMMM, yyyy - hh:mm a").format(post.publishAt!)}",
+                color: Colors.white,
+                fontWeight: FontWeight.w600,
+                fontSize: 13.sp,
+              ),
             ),
           ),
         )

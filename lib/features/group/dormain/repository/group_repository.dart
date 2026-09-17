@@ -48,7 +48,7 @@ abstract class GroupsRepository {
   Future<dynamic> reportGroup(
       {required String groupId, required String reason});
 
-  Future<dynamic> getGroupRules({
+  Future<List<GroupGuideline>> getGroupRules({
     required String groupId,
   });
 

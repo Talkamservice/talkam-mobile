@@ -30,6 +30,14 @@ class GroupRulesTab extends StatefulWidget {
 
 class _GroupRulesTabState extends State<GroupRulesTab> {
   final bloc = GroupsCubit(injector.get());
+  bool _loadingRules = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadingRules = true;
+    bloc.getGroupRules(groupId: widget.group.id.toString());
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,9 +61,23 @@ class _GroupRulesTabState extends State<GroupRulesTab> {
               widget.group.guidelines?.add(response);
               setState(() {});
             },
+            getGroupRuleSuccess: (guidelines) {
+              _loadingRules = false;
+              widget.group.guidelines = guidelines;
+              setState(() {});
+            },
+            getGroupRuleFailureState: (error) {
+              // Keep whatever guidelines came bundled with the group
+              // itself rather than blanking the tab on a failed refetch.
+              _loadingRules = false;
+              setState(() {});
+            },
           );
         },
         builder: (context, state) {
+          if (_loadingRules) {
+            return const Center(child: CircularProgressIndicator());
+          }
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 10.0),
             child: Column(
@@ -199,14 +221,12 @@ class GroupRuleItem extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        CircularBorder(padding: 4, child: TextView(text: index.toString())),
-        12.horizontalSpace,
         Expanded(
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextView(
-              text: guidline.title.toString(),
+              text: "Rule $index: ${guidline.title}",
               fontWeight: FontWeight.w700,
             ),
             4.verticalSpace,

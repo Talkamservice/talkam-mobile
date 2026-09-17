@@ -85,9 +85,18 @@ class CreateGroupPayload {
         canPost: json["can_post"],
         image: json["image"],
         rulesSummary: json["rules_summary"],
-        tags: List<String>.from(json["tags"].map((x) => x)),
+        tags: json["tags"] == null
+            ? []
+            : List<String>.from(json["tags"].map((x) => x)),
         groupAccess: json["group_access"],
-        guidelines: List<GuidelinePayload>.from(json["guidelines"].map((x) => GuidelinePayload.fromJson(x))),
+        // toJson() only emits "guidelines" when the list is non-empty (so
+        // the create/update API call doesn't send an empty array) — a
+        // draft saved before the user ever reaches the rules step won't
+        // have this key at all, so it can't be assumed present here.
+        guidelines: json["guidelines"] == null
+            ? []
+            : List<GuidelinePayload>.from(
+                json["guidelines"].map((x) => GuidelinePayload.fromJson(x))),
         categoryImage: '',
         categoryName: '',
       );

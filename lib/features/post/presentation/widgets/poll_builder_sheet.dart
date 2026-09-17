@@ -9,6 +9,7 @@ import 'package:talkam/features/post/presentation/widgets/time_picker_button.dar
 
 const _kMinOptions = 2;
 const _kMaxOptions = 4;
+const _kOptionMaxLength = 30;
 
 /// Opens the poll-builder sheet and returns the built [Poll], or null if
 /// dismissed without completing it. Same rounded-top/drag-handle styling as
@@ -44,6 +45,22 @@ class _PollBuilderSheetState extends State<PollBuilderSheet> {
   int _days = 1;
   int _hours = 0;
 
+  /// Tracks whether each option controller was already at the character
+  /// limit as of the last keystroke, keyed by controller identity (not
+  /// index — indices shift when an option is removed) so the toast fires
+  /// once per field on reaching the limit, not on every keystroke while
+  /// sitting at it.
+  final Map<TextEditingController, bool> _optionAtLimit = {};
+
+  void _checkOptionLimit(TextEditingController controller) {
+    final atLimit = controller.text.characters.length >= _kOptionMaxLength;
+    if (atLimit && !(_optionAtLimit[controller] ?? false)) {
+      CustomDialogs.showToast(
+          "You have reached the maximum character limit of $_kOptionMaxLength characters");
+    }
+    _optionAtLimit[controller] = atLimit;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -69,7 +86,11 @@ class _PollBuilderSheetState extends State<PollBuilderSheet> {
 
   void _removeOption(int index) {
     if (_optionControllers.length <= _kMinOptions) return;
-    setState(() => _optionControllers.removeAt(index).dispose());
+    setState(() {
+      final removed = _optionControllers.removeAt(index);
+      _optionAtLimit.remove(removed);
+      removed.dispose();
+    });
   }
 
   Future<void> _selectDays() async {
@@ -186,9 +207,13 @@ class _PollBuilderSheetState extends State<PollBuilderSheet> {
                             child: TextField(
                               controller: _optionControllers[index],
                               textCapitalization: TextCapitalization.sentences,
+                              maxLength: _kOptionMaxLength,
+                              onChanged: (_) =>
+                                  _checkOptionLimit(_optionControllers[index]),
                               decoration: InputDecoration(
                                 hintText: "Choice ${index + 1}",
                                 border: InputBorder.none,
+                                counterText: '',
                               ),
                             ),
                           ),

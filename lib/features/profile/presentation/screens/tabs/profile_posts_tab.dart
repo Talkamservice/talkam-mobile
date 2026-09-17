@@ -4,13 +4,14 @@ import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item.dart';
 import 'package:talkam/features/post/presentation/widgets/post_loading_shimmer.dart';
 import 'package:talkam/features/profile/presentation/widgets/refresh_post_listener.dart';
-import 'package:timeago/timeago.dart' as timeago;
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_posts_tab_cubit/profile_posts_tab_cubit.dart';
-import 'package:talkam/features/profile/presentation/widgets/profile_post_item_tile.dart';
+
+enum _PostsSubTab { active, scheduled }
 
 class ProfilePostTab extends StatefulWidget {
   const ProfilePostTab({super.key, this.bottomPadding = 0});
@@ -24,35 +25,183 @@ class ProfilePostTab extends StatefulWidget {
 }
 
 class _ProfilePostTabState extends State<ProfilePostTab> with AutomaticKeepAliveClientMixin {
-  final ProfilePostsTabCubit _cubit = injector.get();
-  List<TalkamPost> _posts = [];
-  final ScrollController _scrollController = ScrollController();
+  final ProfilePostsTabCubit _activeCubit = injector.get();
+  // A separate instance — not the DI singleton — so its state doesn't
+  // collide with the "Active Posts" cubit above. Both sub-tabs stay loaded
+  // and cached independently while switching between them.
+  final ProfilePostsTabCubit _scheduledCubit = ProfilePostsTabCubit(injector.get());
+
+  _PostsSubTab _subTab = _PostsSubTab.active;
+
+  List<TalkamPost> _activePosts = [];
+  List<TalkamPost> _scheduledPosts = [];
+
+  final ScrollController _activeScrollController = ScrollController();
+  final ScrollController _scheduledScrollController = ScrollController();
 
   @override
   void initState() {
-    injector.get<ProfilePostsTabCubit>().fetchUserPosts();
-    _scrollController.addListener(() {
-      if (_scrollController.position.pixels == _scrollController.position.maxScrollExtent) {
-        injector.get<ProfilePostsTabCubit>().loadMorePosts(_posts);
+    _activeCubit.fetchUserPosts();
+    _scheduledCubit.fetchUserPosts(isScheduled: true);
+    _activeScrollController.addListener(() {
+      if (_activeScrollController.position.pixels == _activeScrollController.position.maxScrollExtent) {
+        _activeCubit.loadMorePosts(_activePosts);
+      }
+    });
+    _scheduledScrollController.addListener(() {
+      if (_scheduledScrollController.position.pixels == _scheduledScrollController.position.maxScrollExtent) {
+        _scheduledCubit.loadMorePosts(_scheduledPosts, isScheduled: true);
       }
     });
     super.initState();
   }
 
   @override
+  void dispose() {
+    _scheduledCubit.close();
+    _activeScrollController.dispose();
+    _scheduledScrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     super.build(context);
+    return Column(
+      children: [
+        10.verticalSpace,
+        Row(
+          children: [
+            _SubTabButton(
+              title: "Active Posts",
+              isSelected: _subTab == _PostsSubTab.active,
+              onTap: () => setState(() => _subTab = _PostsSubTab.active),
+            ),
+            _SubTabButton(
+              title: "Scheduled Posts",
+              isSelected: _subTab == _PostsSubTab.scheduled,
+              onTap: () => setState(() => _subTab = _PostsSubTab.scheduled),
+            ),
+          ],
+        ),
+        Padding(
+          padding: EdgeInsets.only(top: 6.h),
+          child: const Divider(height: 1, color: Pallets.borderGrey),
+        ),
+        Expanded(
+          child: IndexedStack(
+            index: _subTab.index,
+            children: [
+              _PostsList(
+                cubit: _activeCubit,
+                scrollController: _activeScrollController,
+                posts: _activePosts,
+                onPostsUpdated: (posts) => setState(() => _activePosts = posts),
+                isScheduled: false,
+                emptyText: "No posts yet",
+                bottomPadding: widget.bottomPadding,
+              ),
+              _PostsList(
+                cubit: _scheduledCubit,
+                scrollController: _scheduledScrollController,
+                posts: _scheduledPosts,
+                onPostsUpdated: (posts) => setState(() => _scheduledPosts = posts),
+                isScheduled: true,
+                emptyText: "No scheduled posts",
+                bottomPadding: widget.bottomPadding,
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+
+  @override
+  bool get wantKeepAlive => true;
+}
+
+/// A half-width tab cell whose tap target fills the whole cell, but whose
+/// selected-underline only spans the label's own width — `IntrinsicWidth`
+/// sizes the label+underline column to its widest child (the text), then
+/// `Center` places that narrower column in the middle of the full-width
+/// tappable area.
+class _SubTabButton extends StatelessWidget {
+  const _SubTabButton({
+    required this.title,
+    required this.isSelected,
+    required this.onTap,
+  });
+
+  final String title;
+  final bool isSelected;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Expanded(
+      child: InkWell(
+        onTap: onTap,
+        child: Center(
+          child: IntrinsicWidth(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                TextView(
+                  text: title,
+                  align: TextAlign.center,
+                  color: isSelected ? Pallets.boldBlackV2 : Pallets.grey400,
+                  fontWeight: FontWeight.w600,
+                ),
+                10.verticalSpace,
+                Container(
+                  height: 3.0,
+                  decoration: BoxDecoration(
+                    color: isSelected ? Pallets.tabBarBlue : Colors.transparent,
+                    borderRadius: BorderRadius.circular(4.0),
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _PostsList extends StatelessWidget {
+  const _PostsList({
+    required this.cubit,
+    required this.scrollController,
+    required this.posts,
+    required this.onPostsUpdated,
+    required this.isScheduled,
+    required this.emptyText,
+    required this.bottomPadding,
+  });
+
+  final ProfilePostsTabCubit cubit;
+  final ScrollController scrollController;
+  final List<TalkamPost> posts;
+  final void Function(List<TalkamPost> posts) onPostsUpdated;
+  final bool isScheduled;
+  final String emptyText;
+  final double bottomPadding;
+
+  @override
+  Widget build(BuildContext context) {
     return RefreshPostListener(
       onRefresh: () {
-        injector.get<ProfilePostsTabCubit>().fetchUserPosts(reload: false);
+        cubit.fetchUserPosts(reload: false, isScheduled: isScheduled);
       },
       child: BlocConsumer<ProfilePostsTabCubit, ProfilePostsTabState>(
-        bloc: injector.get<ProfilePostsTabCubit>(),
+        bloc: cubit,
         listener: (context, state) {
           state.maybeWhen(
-            loaded: (List<TalkamPost> posts) {
-              _posts = posts;
-              setState(() {});
+            loaded: (List<TalkamPost> loadedPosts) {
+              onPostsUpdated(loadedPosts);
             },
             orElse: () {},
           );
@@ -64,10 +213,10 @@ class _ProfilePostTabState extends State<ProfilePostTab> with AutomaticKeepAlive
             ),
             error: () => const SizedBox.shrink(),
             orElse: () {
-              if (_posts.isEmpty) {
-                return const Center(
+              if (posts.isEmpty) {
+                return Center(
                   child: TextView(
-                    text: "No posts yet",
+                    text: emptyText,
                     fontSize: 18,
                     fontWeight: FontWeight.w700,
                   ),
@@ -76,36 +225,18 @@ class _ProfilePostTabState extends State<ProfilePostTab> with AutomaticKeepAlive
 
               return RefreshIndicator(
                 onRefresh: () async {
-                  injector.get<ProfilePostsTabCubit>().fetchUserPosts();
+                  cubit.fetchUserPosts(isScheduled: isScheduled);
                 },
                 child: ListView(
-                  controller: _scrollController,
+                  controller: scrollController,
                   physics: const AlwaysScrollableScrollPhysics(),
                   padding: EdgeInsets.only(
                     top: 10.0.h,
-                    bottom: widget.bottomPadding,
+                    bottom: bottomPadding,
                   ),
                   children: [
-                    for (int i = 0; i < _posts.length; i++) ...[
-                      PostItem(post: _posts[i],showScheduledPost: true,),
-                      // Padding(
-                      //   padding: EdgeInsets.only(left: 12.w),
-                      //   child: ProfilePostItemTile(
-                      //     postId: _posts[i].id,
-                      //     categoryIconImageUrl: _posts[i].category.postCategoryImage,
-                      //     categoryName: _posts[i].category.name,
-                      //     username: _posts[i].user.username ?? _posts[i].user.name,
-                      //     formattedPostTime: timeago.format(_posts[i].createdAt),
-                      //     postContent: _posts[i].body ?? '',
-                      //     postTitle: _posts[i].title ?? '',
-                      //     categories: _posts[i].tags.isNotEmpty ? _posts[i].tags : [_posts[i].category.name],
-                      //
-                      //     isScheduledPost: _posts[i].isSchedulePost && (_posts[i].publishAt as DateTime).isAfter(DateTime.now()),
-                      //     scheduledDate: _posts[i].isSchedulePost ? _posts[i].publishAt : null,
-                      //     userId: _posts[i].user.id,
-                      //     post: _posts[i],
-                      //   ),
-                      // ),
+                    for (final post in posts) ...[
+                      PostItem(post: post, showScheduledPost: true),
                       6.verticalSpace,
                     ],
                     if (state is ProfilePostsTabLoadingMoreState)
@@ -122,7 +253,4 @@ class _ProfilePostTabState extends State<ProfilePostTab> with AutomaticKeepAlive
       ),
     );
   }
-
-  @override
-  bool get wantKeepAlive => true;
 }

@@ -26,10 +26,23 @@ class AddGroupRulesScreen extends StatefulWidget {
 }
 
 class _AddGroupRulesScreenState extends State<AddGroupRulesScreen> {
+  static const _kRulesSummaryMaxLength = 100;
+
   final rulesSummaryController = TextEditingController();
   List<GuidelinePayload> guidlines = [];
+  bool _rulesSummaryAtLimit = false;
 
   final formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    // Carry over anything already saved on the payload — e.g. rules
+    // added on an earlier pass through this screen, or a resumed draft.
+    final payload = injector.get<CreateGroupCubit>().groupPayload;
+    guidlines = List.of(payload.guidelines);
+    rulesSummaryController.text = payload.rulesSummary;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -109,48 +122,30 @@ class _AddGroupRulesScreenState extends State<AddGroupRulesScreen> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      const Expanded(
-                        child: TextView(
-                          text: "Group Rules",
-                          fontSize: 18,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                      TextButton(
-                          style: TextButton.styleFrom(
-                              foregroundColor: context.colorScheme.onSurface,
-                              shape: const StadiumBorder(
-                                  side: BorderSide(color: Pallets.grey75))),
-                          onPressed: () {
-                            addRule(context);
-                          },
-                          child: Row(
-                            children: [
-                              const Icon(Icons.add),
-                              4.horizontalSpace,
-                              const TextView(text: "Add Rule")
-                            ],
-                          ))
-                    ],
+                  const TextView(
+                    text: "Group Rules",
+                    fontSize: 18,
+                    fontWeight: FontWeight.w700,
                   ),
                   17.verticalSpace,
                   const TextView(
                       text:
                           "Your group can have up to 8 different rules. Make your rules clear for healthy participation of all members"),
                   10.verticalSpace,
-                  const TextView(
-                    text: "You should add at least 2 rules",
-                    color: Colors.orange,
-                  ),
+                  if (guidlines.length < 2)
+                    TextView(
+                      text:
+                          "You should add at least 2 rules (${guidlines.length}/2 added)",
+                      color: Colors.orange,
+                    ),
                   28.verticalSpace,
                   OutlinedFormField(
                       maxLine: 10,
                       radius: 8,
                       minLine: 4,
                       filled: true,
-                      maxLength: 100,
+                      maxLength: _kRulesSummaryMaxLength,
+                      isError: _rulesSummaryAtLimit,
 
                       // padding: const EdgeInsets.symmetric(vertical: 16,horizontal: 16),
                       placeHolder: "Rules summary",
@@ -158,6 +153,8 @@ class _AddGroupRulesScreenState extends State<AddGroupRulesScreen> {
                           RequiredValidator(errorText: "Field is required").call,
                       controller: rulesSummaryController,
                       onChange: (d) {
+                        _checkRulesSummaryLimit();
+                        updatePayload();
                         setState(() {});
                       },
                       showRequiredAsterics: false,
@@ -165,15 +162,42 @@ class _AddGroupRulesScreenState extends State<AddGroupRulesScreen> {
                   25.verticalSpace,
                   ...List.generate(
                     guidlines.length,
-                    (index) => _RuleItem(
-                      index: index + 1,
-                      rule: guidlines[index],
-                      onDelete: () {
-                        guidlines.remove(guidlines[index]);
-                        setState(() {});
-                      },
+                    (index) => Padding(
+                      padding: const EdgeInsets.only(bottom: 20.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          _RuleItem(
+                            index: index + 1,
+                            rule: guidlines[index],
+                            onDelete: () {
+                              guidlines.remove(guidlines[index]);
+                              updatePayload();
+                              setState(() {});
+                            },
+                          ),
+                          16.verticalSpace,
+                          Divider(color: Pallets.grey90),
+                        ],
+                      ),
                     ),
-                  )
+                  ),
+                  TextButton(
+                      style: TextButton.styleFrom(
+                          foregroundColor: context.colorScheme.onSurface,
+                          shape: const StadiumBorder(
+                              side: BorderSide(color: Pallets.grey75))),
+                      onPressed: () {
+                        addRule(context);
+                      },
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          const Icon(Icons.add),
+                          4.horizontalSpace,
+                          const TextView(text: "Add Rule")
+                        ],
+                      ))
                 ],
               ),
             ),
@@ -188,12 +212,24 @@ class _AddGroupRulesScreenState extends State<AddGroupRulesScreen> {
         await CustomDialogs.showBottomSheet(context, const AddRuleSheet());
     if (rule != null) {
       guidlines.add(rule);
+      updatePayload();
       setState(() {});
     }
   }
 
   void updatePayload() {
-    injector.get<CreateGroupCubit>().updateGroupPayload(guidelines: guidlines);
+    injector.get<CreateGroupCubit>().updateGroupPayload(
+        guidelines: guidlines, rulesSummary: rulesSummaryController.text);
+  }
+
+  void _checkRulesSummaryLimit() {
+    final atLimit =
+        rulesSummaryController.text.characters.length >= _kRulesSummaryMaxLength;
+    if (atLimit && !_rulesSummaryAtLimit) {
+      CustomDialogs.showToast(
+          "You have reached the maximum character limit of $_kRulesSummaryMaxLength characters");
+    }
+    _rulesSummaryAtLimit = atLimit;
   }
 }
 

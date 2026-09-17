@@ -232,14 +232,15 @@ class GroupsRepositoryImpl extends GroupsRepository {
   }
 
   @override
-  Future getGroupRules({required String groupId}) async {
+  Future<List<GroupGuideline>> getGroupRules({required String groupId}) async {
     try {
       final response = await _networkService
           .call(UrlConfig.guideline, RequestMethod.get, queryParams: {
         "group_id": groupId,
       });
 
-      return response.data;
+      return List<GroupGuideline>.from(
+          (response.data["data"] as List).map((x) => GroupGuideline.fromJson(x)));
     } catch (e) {
       rethrow;
     }

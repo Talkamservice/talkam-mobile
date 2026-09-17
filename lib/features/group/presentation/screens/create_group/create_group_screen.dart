@@ -12,6 +12,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/features/group/data/models/create_group_payload.dart';
 import 'package:talkam/features/group/presentation/blocs/create_group_cubit/create_group_cubit.dart';
 import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
 import 'package:talkam/features/group/presentation/tabs/group_rules_tab.dart';
@@ -54,8 +55,74 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
 
   @override
   void initState() {
+    injector.get<CreateGroupCubit>().logDraft();
     _prefill();
+    _maybeOfferDraftResume();
     super.initState();
+  }
+
+  /// If this is a fresh "create group" flow (not editing an existing
+  /// group) and a previous attempt left a resumable draft behind, ask
+  /// before wiping it — the draft persists across app restarts, so this
+  /// is the only point where an abandoned flow gets resolved one way or
+  /// the other.
+  void _maybeOfferDraftResume() {
+    if (widget.group != null) return;
+    final cubit = injector.get<CreateGroupCubit>();
+    if (!cubit.hasSavedDraft()) return;
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      CustomDialogs.showConfirmDialog(
+        context,
+        tittle: "Unfinished Group",
+        message:
+            "You have an unfinished group from before. Would you like to continue where you left off?",
+        confirmText: "Continue",
+        cancelText: "Start Fresh",
+        onYes: () {
+          context.pop();
+          final draft = cubit.loadDraft();
+          if (draft != null) _applyDraft(draft);
+        },
+        onCancel: () {
+          context.pop();
+          cubit.clearDraft();
+        },
+      );
+    });
+  }
+
+  void _applyDraft(CreateGroupPayload draft) {
+    groupNameController.text = draft.name;
+    purposeController.text = draft.about;
+    groupInfoController.text = draft.description;
+    if (draft.image.isNotEmpty) {
+      _bannerImage = draft.image;
+    }
+    if (draft.categoryName.isNotEmpty) {
+      selectedCategory = PostCategory(
+        id: draft.categoryId,
+        name: draft.categoryName,
+        uuid: null,
+        description: '',
+        backgroundImage: null,
+        followersCount: null,
+        iconImage: draft.categoryImage,
+        createdAt: null,
+        updatedAt: null,
+        parentCategory: null,
+        type: "Category",
+        isFollowing: false,
+        isSuspended: null,
+        groupAccess: null,
+      );
+      categoryController.text = draft.categoryName;
+    }
+    if (draft.groupAccess.isNotEmpty) {
+      discoverability = draft.groupAccess;
+    }
+    setState(() {});
   }
 
   @override
@@ -128,6 +195,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                 banner: _bannerImage ?? widget.group?.image,
                 onBannerUpdated: (String bannerImage) {
                   _bannerImage = bannerImage;
+                  updatePayload();
                 },
               ),
               Expanded(
@@ -149,6 +217,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                             validator: RequiredValidator(errorText: "Field is required").call,
                             controller: groupNameController,
                             onChange: (d) {
+                              updatePayload();
                               setState(() {});
                             },
                             showRequiredAsterics: false,
@@ -199,6 +268,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                             validator: RequiredValidator(errorText: "Field is required").call,
                             controller: purposeController,
                             onChange: (d) {
+                              updatePayload();
                               setState(() {});
                             },
                             showRequiredAsterics: false,
@@ -217,6 +287,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                             validator: RequiredValidator(errorText: "Field is required").call,
                             controller: groupInfoController,
                             onChange: (d) {
+                              updatePayload();
                               setState(() {});
                             },
                             showRequiredAsterics: false,
@@ -243,6 +314,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                                         canCreate = SubscriptionHelper.canCreatePublicGroup;
 
 
+                                      updatePayload();
                                       setState(() {});
                                     },
                                     items: [
@@ -343,14 +415,21 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
     }
   }
 
+  /// Pushes whatever's currently in the form onto the shared payload —
+  /// safe to call after every field change, not just once everything's
+  /// filled in and validated: every param is nullable on the cubit side
+  /// and falls back to the previous value, and `updateGroupPayload`
+  /// itself persists the draft locally on every call. That's what makes
+  /// the draft stay current even if the app is killed mid-step, not just
+  /// between steps.
   void updatePayload() {
     injector.get<CreateGroupCubit>().updateGroupPayload(
         name: groupNameController.text,
         image: _bannerImage,
-        categoryId: selectedCategory!.id,
+        categoryId: selectedCategory?.id,
         about: purposeController.text,
-        categoryImage: selectedCategory!.iconImage,
-        categoryName: selectedCategory!.name,
+        categoryImage: selectedCategory?.iconImage,
+        categoryName: selectedCategory?.name,
         description: groupInfoController.text,
         status: "Active",
         groupAccess: discoverability);
@@ -362,6 +441,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
     if (categoryorGroup is PostCategory) {
       selectedCategory = categoryorGroup;
       categoryController.text = categoryorGroup.name;
+      updatePayload();
       setState(() {});
     }
 

@@ -73,10 +73,19 @@ class CustomDialogs {
                 topLeft: Radius.circular(16),
                 topRight: Radius.circular(16),
               ),
-              child: Padding(
-                padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom),
-                child: child,
+              // The manual padding only clears the keyboard — on devices
+              // with a tall gesture bar / home indicator (which
+              // SafeArea's bottom padding accounts for, on top of
+              // whatever the keyboard is covering), content pinned to
+              // the bottom of the sheet — a submit button, for instance
+              // — was rendering underneath it.
+              child: SafeArea(
+                top: false,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                      bottom: MediaQuery.of(context).viewInsets.bottom),
+                  child: child,
+                ),
               ),
             ),
           );
