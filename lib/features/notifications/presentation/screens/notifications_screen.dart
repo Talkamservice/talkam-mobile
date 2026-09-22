@@ -159,10 +159,12 @@ class _NotificationsScreenState extends State<NotificationsScreen> {
 
     final notifications = _notifications ?? [];
     if (notifications.isEmpty) {
-      return EmptyState(
-        imageUrl: Assets.images.svgV2.emptyState,
-        title: "No notifications yet",
-        subtitle: "You'll see session updates, messages, and activity here.",
+      return Center(
+        child: EmptyState(
+          imageUrl: Assets.images.svgV2.emptyState,
+          title: "No notifications yet",
+          subtitle: "You'll see session updates, messages, and activity here.",
+        ),
       );
     }
 

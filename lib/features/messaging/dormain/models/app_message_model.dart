@@ -44,6 +44,7 @@ class AppMessageModel {
 
   factory AppMessageModel.fromResponse(TalkamMessage message) =>
       AppMessageModel(
+          id: message.id.toString(),
           content: message.message,
           iAmSender: SessionManager().isMe(message.senderId.toString()),
           sendingState: SendingState.success,
@@ -75,7 +76,7 @@ class AppMessageModel {
 
   Map<String, dynamic> toJson() {
     return {
-      'id': content,
+      'id': id,
       'conversation_id': conversationId,
       'receiver_id': receiverId,
       'message_type': messageType,
@@ -96,15 +97,16 @@ class AppMessageModel {
 
   factory AppMessageModel.fromJson(Map<String, dynamic> json) {
     return AppMessageModel(
+      id: json['id']?.toString() ?? '0',
       content: json['message'],
       iAmSender: json['isMentraMessage'],
       isTyping: json['isTyping'] ?? false,
       sendingState: _parseSendingState(json['sendingState']),
       time: json['time'] != null ? DateTime.tryParse(json['time']) : null,
       assetUrl: json['asset_url'],
-      receiverId: '',
-      messageType: '',
-      conversationId: '',
+      receiverId: json['receiver_id']?.toString() ?? '',
+      messageType: json['message_type']?.toString() ?? '',
+      conversationId: json['conversation_id']?.toString() ?? '',
     );
   }
 

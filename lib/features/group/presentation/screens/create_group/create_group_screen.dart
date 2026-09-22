@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:form_field_validator/form_field_validator.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
@@ -52,6 +53,21 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
   final _createGroupBloc = CreateGroupCubit(injector.get());
 
   bool canCreate = SubscriptionHelper.canCreatePublicGroup;
+
+  static const _kGroupNameMaxLength = 40;
+  bool _groupNameAtLimit = false;
+
+  void _checkGroupNameLimit() {
+    final atLimit =
+        groupNameController.text.characters.length >= _kGroupNameMaxLength;
+    if (atLimit && !_groupNameAtLimit) {
+      HapticFeedback.vibrate();
+      CustomDialogs.showToast(
+        "You have reached the maximum character limit of $_kGroupNameMaxLength characters",
+      );
+    }
+    _groupNameAtLimit = atLimit;
+  }
 
   @override
   void initState() {
@@ -209,6 +225,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                         25.verticalSpace,
                         OutlinedFormField(
                             maxLine: 1,
+                            maxLength: _kGroupNameMaxLength,
                             radius: 8,
                             filled: true,
                             textCapitalization: TextCapitalization.sentences,
@@ -217,6 +234,7 @@ class _CreateGroupScreenState extends State<CreateGroupScreen> {
                             validator: RequiredValidator(errorText: "Field is required").call,
                             controller: groupNameController,
                             onChange: (d) {
+                              _checkGroupNameLimit();
                               updatePayload();
                               setState(() {});
                             },

@@ -116,7 +116,7 @@ class _BasePageState extends State<BasePage> with RefreshPostsMixin {
       child: Scaffold(
         key: baseScaffoldKey,
         extendBody: true,
-        drawerScrimColor: Colors.transparent,
+        drawerScrimColor: Colors.black.withValues(alpha: 0.35),
         drawer: AppDrawer(
           onGroupsTap: () => _goBranchFromDrawer(_kGroupsBranch),
         ),

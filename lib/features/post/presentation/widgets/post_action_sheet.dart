@@ -82,30 +82,36 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
                       );
                     },
                   ),
-                BlocListener<ProfileBloc, ProfileState>(
-                  bloc: profileBloc,
-                  listener: (context, state) {
-                    if (state is MuteUserLoadingState) {
-                      CustomDialogs.showLoading(context);
-                    }
+                // The tile's own label and success toast use
+                // post.user.usersName directly — showing/acting on that
+                // here would deanonymize the poster the UI is elsewhere
+                // treating as hidden (avatar/name/profile link are all
+                // suppressed for anonymous posts). Same guard as Block below.
+                if (!post.isAnonymous.toBool && !postIsFromLoggedInUser)
+                  BlocListener<ProfileBloc, ProfileState>(
+                    bloc: profileBloc,
+                    listener: (context, state) {
+                      if (state is MuteUserLoadingState) {
+                        CustomDialogs.showLoading(context);
+                      }
 
-                    if (state is MuteUserFailureState) {
-                      context.pop();
-                      CustomDialogs.error(state.error);
-                    }
+                      if (state is MuteUserFailureState) {
+                        context.pop();
+                        CustomDialogs.error(state.error);
+                      }
 
-                    if (state is MuteUserSuccessState) {
-                      context.pop();
-                      context.pop();
-                      CustomDialogs.success("${post.user.usersName} muted");
-                    }
-                  },
-                  child: _PostAction(
-                    title: "Mute ${post.user.usersName}",
-                    onTap: () =>
-                        profileBloc.add(MuteUserEvent(post.user.id.toString())),
+                      if (state is MuteUserSuccessState) {
+                        context.pop();
+                        context.pop();
+                        CustomDialogs.success("${post.user.usersName} muted");
+                      }
+                    },
+                    child: _PostAction(
+                      title: "Mute ${post.user.usersName}",
+                      onTap: () => profileBloc
+                          .add(MuteUserEvent(post.user.id.toString())),
+                    ),
                   ),
-                ),
                 if (!post.isAnonymous.toBool && !postIsFromLoggedInUser)
                   BlocListener<ProfileBloc, ProfileState>(
                     bloc: profileBloc,

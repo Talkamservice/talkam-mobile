@@ -44,7 +44,7 @@ class CustomDialogs {
         child: dialog,
       ),
       barrierDismissible: true,
-      barrierColor: barrierColor ?? Colors.transparent,
+      barrierColor: barrierColor ?? Colors.black.withValues(alpha: 0.35),
     );
   }
 
@@ -58,7 +58,7 @@ class CustomDialogs {
         backgroundColor: Colors.transparent,
         elevation: 0,
         context: context,
-        barrierColor: barrierColor ?? Colors.transparent,
+        barrierColor: barrierColor ?? Colors.black.withValues(alpha: 0.35),
         useRootNavigator: true,
         isScrollControlled: true,
         shape: shape,

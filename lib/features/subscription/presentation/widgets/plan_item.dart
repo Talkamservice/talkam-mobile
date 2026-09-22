@@ -12,6 +12,7 @@ import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/helper_utils.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 import 'package:talkam/features/subscription/data/models/get_plans_response.dart';
+import 'package:talkam/features/subscription/dormain/repository/subscriptions_repository.dart';
 import 'package:talkam/features/subscription/presentation/blocs/subscriptions_bloc/subscriptions_bloc_cubit.dart';
 import 'package:talkam/features/subscription/presentation/widgets/subscription_succes_dialog.dart';
 
@@ -50,15 +51,32 @@ class PlanItem extends StatelessWidget {
                   email: user?.email,
                   fullName: user?.name,
                 ));
+
+            // Always verify with the server, regardless of the
+            // Flutterwave SDK's local `success` flag — that flag
+            // depends on its in-app WebView reaching a redirect page,
+            // which can misreport "cancelled" even when the charge
+            // actually went through (same issue BookingCubit.
+            // initiateAndPay already works around). The plan's own
+            // refreshed `isActiveSubscription` is the source of truth.
+            await injector
+                .get<SubscriptionsRepository>()
+                .paymentCallback(response.data.reference);
             injector.get<ProfileBloc>().add(const GetRemoteUser());
-            if (paymentResponse?.success ?? false) {
+
+            final refreshedPlan =
+                await injector.get<SubscriptionsRepository>().getPlanById(plan.id);
+
+            if (refreshedPlan.isActiveSubscription == true) {
               CustomDialogs.showOverlayDialog(context,
                   dissmisable: false,
                   child: SubscriptionSucessDialog(
                     duration: plan.durations[durationIndex]!,
                   ));
             } else {
-              CustomDialogs.error(paymentResponse?.status.toString() ?? "Payment canceled");
+              CustomDialogs.error(paymentResponse?.success == true
+                  ? "Payment is still being confirmed. Please check back shortly."
+                  : (paymentResponse?.status.toString() ?? "Payment canceled"));
             }
             injector.get<SubscriptionsCubit>().getPlans(reload: true);
           },

@@ -21,6 +21,7 @@ import 'package:talkam/features/messaging/presentation/blocs/messaging/messaging
 import 'package:talkam/features/messaging/presentation/widgets/chat_screen_actions.dart';
 import 'package:talkam/features/messaging/presentation/widgets/conversation_actions_widget.dart';
 import 'package:talkam/features/messaging/presentation/widgets/message_bubbles/message_box.dart';
+import 'package:talkam/gen/assets.gen.dart';
 import 'package:uuid/uuid.dart';
 
 class ChatScreenParam {
@@ -53,7 +54,22 @@ class _ChatScreenState extends State<ChatScreen>
       conversation: widget.param.conversation,
       receiverId: widget.param.user.id.toString(),
     );
+    // Older messages live at the start of the (ascending-sorted) list, at
+    // the top of the ListView — load the next page once the user scrolls
+    // near there.
+    messagingCubit.listController.addListener(() {
+      if (messagingCubit.listController.position.pixels <= 100) {
+        messagingCubit.loadMoreMessages();
+      }
+    });
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    messagingCubit.close();
+    controller.dispose();
+    super.dispose();
   }
 
   @override
@@ -70,7 +86,7 @@ class _ChatScreenState extends State<ChatScreen>
               width: 32,
               height: 32,
               shape: BoxShape.circle,
-              imageUrl: widget.param.user.avatar.toString(),
+              imageUrl: widget.param.user.avatar ?? Assets.images.svgs.dummyUser,
             ),
             11.horizontalSpace,
             TextView(
@@ -95,9 +111,13 @@ class _ChatScreenState extends State<ChatScreen>
                     ));
 
                 if (refresh ?? false) {
+                  // `refresh: true` here means "actually hit the network,
+                  // don't just show whatever's cached" — this is the one
+                  // place that needs it: something changed (block/report)
+                  // and the local cache is now stale.
                   messagingCubit.fetchCurrentConversation(
                       widget.param.user.id.toString(),
-                      refresh: false);
+                      refresh: true);
                 }
               },
               icon: const Icon(Icons.more_vert)),

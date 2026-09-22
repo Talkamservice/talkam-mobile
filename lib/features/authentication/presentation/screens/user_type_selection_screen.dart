@@ -7,6 +7,7 @@ import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/authentication/data/models/onboarding_user_type.dart';
@@ -128,31 +129,42 @@ class _UserTypeSelectionScreenState extends State<UserTypeSelectionScreen> {
     final userType = _selectedType == _typeTherapist
         ? kMentalHealthProUserType
         : kSupportSeekerUserType;
-    try {
-      await injector.get<ProfileRepository>().setUserType(userType);
 
-      // The endpoint only echoes back {user_type}, not the full onboarding
-      // summary — merge just that field locally so a restart before the
-      // rest of onboarding finishes still remembers this choice, instead of
-      // relying solely on a later /user/me refresh.
-      final currentUser = injector.get<ProfileBloc>().appUser;
-      if (currentUser != null) {
-        final priorOnboarding = currentUser.onboarding;
-        injector.get<ProfileBloc>().add(SaveUserLocallyEvent(
-              currentUser.copyWith(
-                onboarding: Onboarding(
-                  userType: userType,
-                  interests: priorOnboarding?.interests ?? false,
-                  avatar: priorOnboarding?.avatar ?? false,
-                  consents: priorOnboarding?.consents ?? false,
-                  completedAt: priorOnboarding?.completedAt,
+    // A brand-new user reaches this screen straight from "Get Started",
+    // before signing up — there's no account yet to record this against,
+    // and this is an authenticated-only endpoint, so calling it here 401s.
+    // That 401 isn't just a failed request: api_error.dart's global handler
+    // reacts to any 401 by force-logging-out and bouncing to the get-started
+    // screen, which is exactly the "unauthorized" snackbar this was causing.
+    // Only sync server-side for a returning, already-signed-in user
+    // revisiting this step mid-onboarding (see initState's pre-fill above).
+    if (SessionManager.instance.isLoggedIn) {
+      try {
+        await injector.get<ProfileRepository>().setUserType(userType);
+
+        // The endpoint only echoes back {user_type}, not the full onboarding
+        // summary — merge just that field locally so a restart before the
+        // rest of onboarding finishes still remembers this choice, instead
+        // of relying solely on a later /user/me refresh.
+        final currentUser = injector.get<ProfileBloc>().appUser;
+        if (currentUser != null) {
+          final priorOnboarding = currentUser.onboarding;
+          injector.get<ProfileBloc>().add(SaveUserLocallyEvent(
+                currentUser.copyWith(
+                  onboarding: Onboarding(
+                    userType: userType,
+                    interests: priorOnboarding?.interests ?? false,
+                    avatar: priorOnboarding?.avatar ?? false,
+                    consents: priorOnboarding?.consents ?? false,
+                    completedAt: priorOnboarding?.completedAt,
+                  ),
                 ),
-              ),
-            ));
+              ));
+        }
+      } catch (_) {
+        // Best-effort — this only records onboarding intent, so a failed
+        // request shouldn't trap the user on this screen.
       }
-    } catch (_) {
-      // Best-effort — this only records onboarding intent, so a failed
-      // request shouldn't trap the user on this screen.
     }
     if (!mounted) return;
     setState(() => _submitting = false);

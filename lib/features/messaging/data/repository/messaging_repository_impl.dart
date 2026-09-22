@@ -203,11 +203,15 @@ class MessagingRepositoryImpl extends MessagingRepository {
   }
 
   @override
-  Future<GetMessagesResponse> getMessages(String conversationId) async {
+  Future<GetMessagesResponse> getMessages(String conversationId,
+      {int page = 1}) async {
     try {
       final response = await _v2.call(
           UrlConfigV2.messagingMessagesList, RequestMethod.get,
-          queryParams: {"conversation_id": conversationId});
+          queryParams: {
+            "conversation_id": conversationId,
+            "page": page.toString(),
+          });
       return GetMessagesResponse.fromJson(response.data);
     } catch (e) {
       rethrow;

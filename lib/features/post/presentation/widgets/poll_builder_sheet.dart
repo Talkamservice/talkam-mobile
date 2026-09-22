@@ -155,7 +155,7 @@ class _PollBuilderSheetState extends State<PollBuilderSheet> {
                     width: 36.w,
                     height: 4.h,
                     decoration: BoxDecoration(
-                        color: Pallets.grey90,
+                        color: Pallets.grey60,
                         borderRadius: BorderRadius.circular(2)),
                   ),
                 ),

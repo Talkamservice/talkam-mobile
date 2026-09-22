@@ -87,6 +87,7 @@ class MoodCheckDialog extends StatelessWidget {
                         children: Mood.values
                             .map((mood) => _MoodFace(
                                   mood: mood,
+                                  isSelected: mood == selected,
                                   onTriggered: () => cubit.selectMood(mood),
                                 ))
                             .toList(),
@@ -121,9 +122,14 @@ class MoodCheckDialog extends StatelessWidget {
 }
 
 class _MoodFace extends StatelessWidget {
-  const _MoodFace({required this.mood, required this.onTriggered});
+  const _MoodFace({
+    required this.mood,
+    required this.isSelected,
+    required this.onTriggered,
+  });
 
   final Mood mood;
+  final bool isSelected;
 
   /// Fired via [Tooltip.onTriggered] — the same tap that shows the label
   /// also selects the mood. Deliberately not a separate InkWell/
@@ -138,11 +144,19 @@ class _MoodFace extends StatelessWidget {
   Widget build(BuildContext context) {
     return Tooltip(
       message: mood.label,
+      preferBelow: false,
       triggerMode: TooltipTriggerMode.tap,
       onTriggered: onTriggered,
       child: Padding(
         padding: EdgeInsets.all(4.w),
-        child: SvgPicture.asset(mood.iconPath, width: 33.w, height: 33.w),
+        child: SvgPicture.asset(
+          mood.iconPath,
+          width: 33.w,
+          height: 33.w,
+          colorFilter: isSelected
+              ? ColorFilter.mode(Pallets.blueBubbleColor, BlendMode.srcIn)
+              : null,
+        ),
       ),
     );
   }

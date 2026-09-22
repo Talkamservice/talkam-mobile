@@ -118,7 +118,7 @@ class _ReplyComposerSheetState extends State<ReplyComposerSheet> {
                 width: 36.w,
                 height: 4.h,
                 decoration: BoxDecoration(
-                    color: Pallets.grey90,
+                    color: Pallets.grey60,
                     borderRadius: BorderRadius.circular(2)),
               ),
               Padding(

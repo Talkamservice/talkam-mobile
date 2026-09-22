@@ -37,6 +37,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
       message.notification.hashCode,
       message.notification?.title ?? message.data['title'],
       message.notification?.body ?? message.data['body'],
+      payload: jsonEncode(message.data),
     );
     return;
   }

@@ -93,4 +93,22 @@ class SubscriptionsRepositoryImpl extends SubscriptionsRepository {
       rethrow;
     }
   }
+
+  @override
+  Future<void> paymentCallback(String reference) async {
+    // Mirrors BookingRepositoryImpl.paymentCallback. Errors are logged,
+    // not rethrown — the caller determines success/failure from the
+    // plan's own refreshed status (via getPlanById), not from whether
+    // this call itself succeeds.
+    try {
+      final response = await _networkService.call(
+        UrlConfig.paymentCallback,
+        RequestMethod.post,
+        data: {"reference": reference},
+      );
+      logger.i('paymentCallback($reference) -> ${response.statusCode}: ${response.data}');
+    } catch (e) {
+      logger.e('paymentCallback($reference) failed: $e');
+    }
+  }
 }

@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/gen/assets.gen.dart';
 import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
@@ -35,7 +36,7 @@ class PendingRequestItem extends StatelessWidget {
       child: Row(
         children: [
           ImageWidget(
-            imageUrl: pendingRequest.user.avatar,
+            imageUrl: pendingRequest.user.avatar ?? Assets.images.svgs.dummyUser,
             size: 36,
             shape: BoxShape.circle,
           ),

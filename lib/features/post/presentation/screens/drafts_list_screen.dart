@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
@@ -275,14 +276,39 @@ class _DraftEditSheet extends StatefulWidget {
 }
 
 class _DraftEditSheetState extends State<_DraftEditSheet> {
+  static const _kTitleMaxLength = 40;
+
   late final _titleController =
       TextEditingController(text: widget.draft.title?.toString() ?? '');
   late final _bodyController =
       TextEditingController(text: widget.draft.body ?? '');
   bool _saving = false;
+  bool _titleAtLimit = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _titleController.addListener(_checkTitleMaxLength);
+  }
+
+  void _checkTitleMaxLength() {
+    final length = _titleController.text.characters.length;
+    if (length >= _kTitleMaxLength) {
+      if (!_titleAtLimit) {
+        _titleAtLimit = true;
+        HapticFeedback.vibrate();
+        CustomDialogs.showToast(
+          "You have reached the maximum character limit of $_kTitleMaxLength characters",
+        );
+      }
+    } else {
+      _titleAtLimit = false;
+    }
+  }
 
   @override
   void dispose() {
+    _titleController.removeListener(_checkTitleMaxLength);
     _titleController.dispose();
     _bodyController.dispose();
     super.dispose();
@@ -336,7 +362,7 @@ class _DraftEditSheetState extends State<_DraftEditSheet> {
                     width: 36.w,
                     height: 4.h,
                     decoration: BoxDecoration(
-                        color: Pallets.grey90,
+                        color: Pallets.grey60,
                         borderRadius: BorderRadius.circular(2)),
                   ),
                 ),
@@ -350,6 +376,7 @@ class _DraftEditSheetState extends State<_DraftEditSheet> {
                 TextField(
                   controller: _titleController,
                   textCapitalization: TextCapitalization.sentences,
+                  maxLength: _kTitleMaxLength,
                   decoration: InputDecoration(
                     hintText: "Title",
                     border: OutlineInputBorder(

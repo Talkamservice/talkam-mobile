@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/rich_composer_controller.dart';
@@ -33,6 +34,7 @@ import 'package:talkam/features/search/data/models/get_group_response.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 const _kBodyMaxLength = 500;
+const _kTitleMaxLength = 40;
 
 /// Opens [CreatePostSheet] as a modal bottom sheet. Pass [group] to
 /// pre-attach a group (e.g. when opened from that group's own FAB) — still
@@ -74,12 +76,14 @@ class _CreatePostSheetState extends State<CreatePostSheet>
   Poll? _poll;
 
   bool _hasReachedMaxLength = false;
+  bool _titleHasReachedMaxLength = false;
 
   @override
   void initState() {
     _selectedGroup = widget.group;
     _postBloc.add(const PostEvent.getInterestTopics());
     _bodyController.addListener(_checkMaxLength);
+    _titleController.addListener(_checkTitleMaxLength);
     super.initState();
   }
 
@@ -108,9 +112,25 @@ class _CreatePostSheetState extends State<CreatePostSheet>
     }
   }
 
+  void _checkTitleMaxLength() {
+    final length = _titleController.text.characters.length;
+    if (length >= _kTitleMaxLength) {
+      if (!_titleHasReachedMaxLength) {
+        _titleHasReachedMaxLength = true;
+        HapticFeedback.vibrate();
+        CustomDialogs.showToast(
+          "You have reached the maximum character limit of $_kTitleMaxLength characters",
+        );
+      }
+    } else {
+      _titleHasReachedMaxLength = false;
+    }
+  }
+
   @override
   void dispose() {
     _bodyController.removeListener(_checkMaxLength);
+    _titleController.removeListener(_checkTitleMaxLength);
     _titleController.dispose();
     _bodyEditor.close();
     _bodyController.dispose();
@@ -291,7 +311,7 @@ class _CreatePostSheetState extends State<CreatePostSheet>
                           width: 36.w,
                           height: 4.h,
                           decoration: BoxDecoration(
-                              color: Pallets.grey90,
+                              color: Pallets.grey60,
                               borderRadius: BorderRadius.circular(2)),
                         ),
                       ),
@@ -354,6 +374,7 @@ class _CreatePostSheetState extends State<CreatePostSheet>
                         child: TextField(
                           controller: _titleController,
                           textCapitalization: TextCapitalization.sentences,
+                          maxLength: _kTitleMaxLength,
                           decoration: InputDecoration(
                             isDense: true,
                             contentPadding: EdgeInsets.symmetric(vertical: 8.h),
@@ -363,6 +384,7 @@ class _CreatePostSheetState extends State<CreatePostSheet>
                               fontSize: 14,
                             ),
                             border: InputBorder.none,
+                            counterText: "",
                           ),
                         ),
                       ),

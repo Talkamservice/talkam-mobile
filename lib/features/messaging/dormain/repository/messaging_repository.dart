@@ -39,7 +39,7 @@ abstract class MessagingRepository {
 
   Future<dynamic> sendMessage(AppMessageModel messageData);
 
-  Future<GetMessagesResponse> getMessages(String conversationId);
+  Future<GetMessagesResponse> getMessages(String conversationId, {int page = 1});
 
   Future<dynamic> deleteConversation(String id);
 

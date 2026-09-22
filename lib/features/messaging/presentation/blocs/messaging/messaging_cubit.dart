@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 import 'package:bloc/bloc.dart';
+import 'package:collection/collection.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -31,6 +32,10 @@ class MessagingCubit extends Cubit<MessagingState>
   List<AppMessageModel> messages = [];
   final ScrollController listController = ScrollController();
 
+  int _currentPage = 1;
+  bool _hasMorePages = false;
+  bool _loadingMore = false;
+
   MessagingCubit(
     this.messagingRepository,
   ) : super(const MessagingState.initial());
@@ -39,6 +44,9 @@ class MessagingCubit extends Cubit<MessagingState>
   void resetForLogout() {
     currentConversation = null;
     messages = [];
+    _currentPage = 1;
+    _hasMorePages = false;
+    _loadingMore = false;
     emit(const MessagingState.initial());
   }
 
@@ -73,41 +81,38 @@ class MessagingCubit extends Cubit<MessagingState>
 
       _listenForMessages(currentConversation!.id.toString());
 
-      messages.where((element) => element.id == message.id).first.sendingState =
-          SendingState.success;
+      // The message being tracked may no longer be in `messages` if a
+      // concurrent fetch replaced the list while this send was in
+      // flight — look it up defensively instead of assuming `.first`
+      // always finds a match (that throws an uncaught StateError here).
+      messages.firstWhereOrNull((element) => element.id == message.id)
+          ?.sendingState = SendingState.success;
 
       emit(MessagingState.sendMessageSuccess(response));
     } catch (e) {
-      messages.where((element) => element.id == message.id).first.sendingState =
-          SendingState.failed;
+      messages.firstWhereOrNull((element) => element.id == message.id)
+          ?.sendingState = SendingState.failed;
       emit(MessagingState.sendMessageFailure(e.toString()));
     }
   }
 
   Future<void> retryMessage(AppMessageModel message) async {
-    messages
-        .firstWhere(
-          (element) => element.id == message.id,
-        )
-        .sendingState = SendingState.loading;
-    // logger.w("cjns");
+    messages.firstWhereOrNull((element) => element.id == message.id)
+        ?.sendingState = SendingState.loading;
 
     emit(const MessagingState.sendMessageLoading());
-    // listController.jumpTo(0);
 
     try {
       final response = await messagingRepository.sendMessage(message);
-      logger.w("NO WAY MY ID IS ${injector.get<ProfileBloc>().appUser?.id}");
-      logger.w("NO CONVERSATION ID IS ${currentConversation!.id}");
 
       _listenForMessages(currentConversation!.id.toString());
-      messages.where((element) => element.id == message.id).first.sendingState =
-          SendingState.success;
+      messages.firstWhereOrNull((element) => element.id == message.id)
+          ?.sendingState = SendingState.success;
 
       emit(MessagingState.sendMessageSuccess(response));
     } catch (e) {
-      messages.where((element) => element.id == message.id).first.sendingState =
-          SendingState.failed;
+      messages.firstWhereOrNull((element) => element.id == message.id)
+          ?.sendingState = SendingState.failed;
       emit(MessagingState.sendMessageFailure(e.toString()));
     }
   }
@@ -120,6 +125,8 @@ class MessagingCubit extends Cubit<MessagingState>
           .where((msg) => msg.messageType != "divider")
           .toList());
       messages = fetchedMessages;
+      _currentPage = response.data.paginationMeta.currentPage;
+      _hasMorePages = response.data.paginationMeta.canLoadMore;
       final Box cacheBox = await Hive.openBox('chatCache');
       final messagesJson = fetchedMessages.map((e) => e.toJson()).toList();
       cacheBox.put(conversationId, messagesJson);
@@ -129,6 +136,47 @@ class MessagingCubit extends Cubit<MessagingState>
     } catch (e, stack) {
       log(stack.toString());
       emit(MessagingState.getMessagesFailure(e.toString()));
+    }
+  }
+
+  /// Loads the next page of older messages and merges them into the
+  /// existing list (deduped by id, then re-sorted/re-dividered — the
+  /// backend's own ordering doesn't need to be trusted since messages are
+  /// always sorted by [time] locally anyway). Call when the user scrolls
+  /// up towards the start of the conversation.
+  Future<void> loadMoreMessages() async {
+    if (_loadingMore || !_hasMorePages || currentConversation == null) return;
+    _loadingMore = true;
+    try {
+      final nextPage = _currentPage + 1;
+      final response = await messagingRepository.getMessages(
+        currentConversation!.id.toString(),
+        page: nextPage,
+      );
+      final olderMessages = response.data.data
+          .map((e) => AppMessageModel.fromResponse(e))
+          .where((msg) => msg.messageType != "divider")
+          .toList();
+
+      final existingIds = messages
+          .where((m) => m.messageType != "divider")
+          .map((m) => m.id)
+          .toSet();
+      final merged = [
+        ...messages.where((m) => m.messageType != "divider"),
+        ...olderMessages.where((m) => !existingIds.contains(m.id)),
+      ];
+      messages = sortAndInsertDividers(merged);
+      _currentPage = response.data.paginationMeta.currentPage;
+      _hasMorePages = response.data.paginationMeta.canLoadMore;
+      emit(MessagingState.getMessagesSuccess(response));
+    } catch (e, stack) {
+      log(stack.toString());
+      // Best-effort — leave the currently-loaded messages as they are
+      // rather than surfacing an error for a background pagination
+      // fetch the user didn't explicitly request.
+    } finally {
+      _loadingMore = false;
     }
   }
 
@@ -334,10 +382,19 @@ class MessagingCubit extends Cubit<MessagingState>
     }
   }
 
+  // TODO(backend): this signs the private-channel auth challenge
+  // client-side with a key baked into the app, instead of verifying it
+  // server-side. Whoever has the app's binary can derive a valid auth
+  // response for any conversation id — fine for now, but move this to a
+  // real backend auth endpoint before relying on it for anything private.
   _authorize(String channelName, String socketId, options) async {
+    // Sign whichever channel is actually being authorized, not whatever
+    // `currentConversation` happens to be at call time — those can
+    // diverge if a reauth for a different conversation's channel comes
+    // in while this cubit has since moved on to another one (the
+    // underlying Pusher client is a process-wide singleton).
     return {
-      "auth":
-          "1934aa1e05c3acfdfd3f:${getSignature("$socketId:private-conversation.${currentConversation!.id.toString()}")}",
+      "auth": "1934aa1e05c3acfdfd3f:${getSignature("$socketId:$channelName")}",
     };
   }
 

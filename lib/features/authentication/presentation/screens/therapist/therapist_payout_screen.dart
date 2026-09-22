@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_button.dart';
@@ -190,6 +191,7 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
                   hint: "Enter your 10-digit account number",
                   controller: _accountController,
                   keyboardType: TextInputType.number,
+                  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
                   forceError: accountTouched && !payout.isAccountValid,
                   forceValid: accountTouched &&
                       payout.isAccountValid &&
