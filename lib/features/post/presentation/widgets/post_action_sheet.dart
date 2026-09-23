@@ -21,12 +21,20 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
     super.key,
     required this.post,
     required this.onPostDeleted,
+    this.isOwnPost = false,
   });
 
   TalkamPost post;
   final profileBloc = ProfileBloc(injector.get());
   final postBloc = PostBloc(injector.get());
   final VoidCallback onPostDeleted;
+
+  /// Set by callers that already know this post is the logged-in user's
+  /// own — the only reliable signal on an anonymous post, since the
+  /// backend nulls `post.user` for anonymous content and `post.user.id`
+  /// collapses to the placeholder `PostCreator.anonymous()` (id 0) either
+  /// way, making the id comparison below always false for it.
+  final bool isOwnPost;
 
   @override
   Widget build(BuildContext context) {
@@ -138,6 +146,39 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
                       },
                     ),
                   ),
+                if (postIsFromLoggedInUser)
+                  BlocListener<PostBloc, PostState>(
+                    bloc: postBloc,
+                    listener: (context, state) {
+                      state.maybeWhen(
+                        orElse: () => null,
+                        deletePostLoading: () =>
+                            CustomDialogs.showLoading(context),
+                        deletePostSuccess: () {
+                          context.pop();
+                          context.pop();
+                          CustomDialogs.success("Post deleted");
+                          onPostDeleted();
+                        },
+                        deletePostFailure: (error) {
+                          context.pop();
+                          CustomDialogs.error(error);
+                        },
+                      );
+                    },
+                    child: _PostAction(
+                      title: "Delete post",
+                      onTap: () {
+                        CustomDialogs.showConfirmDialog(
+                          context,
+                          tittle: "Delete post",
+                          message: "Are you sure you want to delete this post?",
+                          onYes: () => postBloc
+                              .add(PostEvent.deletePost(post.id.toString())),
+                        );
+                      },
+                    ),
+                  ),
                 if (!postIsFromLoggedInUser && !(post.isReported ?? false))
                   BlocListener<PostBloc, PostState>(
                     bloc: postBloc,
@@ -202,7 +243,7 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
   }
 
   bool get postIsFromLoggedInUser =>
-      post.user.id == injector.get<ProfileBloc>().appUser?.id;
+      isOwnPost || post.user.id == injector.get<ProfileBloc>().appUser?.id;
 }
 
 class _PostAction extends StatelessWidget {

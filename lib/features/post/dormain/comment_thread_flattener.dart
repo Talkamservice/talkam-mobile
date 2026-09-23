@@ -63,3 +63,20 @@ List<FlattenedReply> flattenReplies(PostComment root) {
       ),
   ];
 }
+
+/// Removes the comment with [commentId] from [comments], searching every
+/// reply at every depth — a deleted comment can be a top-level entry or a
+/// reply nested arbitrarily deep inside another comment's `children`.
+/// Mutates [comments] (and any nested `children` list) in place, so the
+/// caller can rebuild off the same list without a network refetch. Returns
+/// whether a match was found and removed.
+bool removeCommentById(List<PostComment> comments, int commentId) {
+  for (var i = 0; i < comments.length; i++) {
+    if (comments[i].id == commentId) {
+      comments.removeAt(i);
+      return true;
+    }
+    if (removeCommentById(comments[i].children, commentId)) return true;
+  }
+  return false;
+}

@@ -100,8 +100,8 @@ class _UserProfileCommentsTabState extends State<UserProfileCommentsTab>
                           comment: _comments[i].toPostComment(),
                           posId: _comments[i].post?.id ?? 0,
                           replyingToName: _comments[i].replyingToName,
-                          onDeleted: () =>
-                              setState(() => _comments.removeAt(i)),
+                          onDeleted: (id) => setState(
+                              () => _comments.removeWhere((c) => c.id == id)),
                         ),
                         8.verticalSpace,
                       ],

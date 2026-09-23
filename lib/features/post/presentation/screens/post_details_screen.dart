@@ -20,7 +20,7 @@ import 'package:talkam/features/ads/presentation/blocs/ads/ads_cubit.dart';
 import 'package:talkam/features/post/data/models/get_comments_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/data/models/save_comment_payload.dart';
-import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
+import 'package:talkam/features/post/dormain/comment_thread_flattener.dart';
 import 'package:talkam/features/post/presentation/bloc/comments/comments_bloc.dart';
 import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 import 'package:talkam/features/post/presentation/widgets/comment_item.dart';
@@ -47,8 +47,7 @@ class PostDetailsScreen extends StatefulWidget {
   State<PostDetailsScreen> createState() => _PostDetailsScreenState();
 }
 
-class _PostDetailsScreenState extends State<PostDetailsScreen>
-    with RefreshPostsMixin {
+class _PostDetailsScreenState extends State<PostDetailsScreen> {
   TalkamPost? _post;
   final List<PostComment> _localComments = [];
 
@@ -193,7 +192,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen>
           key: ValueKey(_localComments[index].id),
           comment: _localComments[index],
           posId: post.id,
-          onDeleted: () => setState(() {}),
+          onDeleted: (id) => setState(() {
+            removeCommentById(_localComments, id);
+          }),
         ),
       ),
     );
@@ -250,9 +251,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen>
                   key: ValueKey(commentBloc.comments[index].id),
                   comment: commentBloc.comments[index],
                   posId: post.id,
-                  onDeleted: () {
-                    refresh();
-                  },
+                  onDeleted: (id) => setState(() {
+                    removeCommentById(commentBloc.comments, id);
+                  }),
                 ),
               ),
             );
@@ -260,17 +261,6 @@ class _PostDetailsScreenState extends State<PostDetailsScreen>
         );
       },
     );
-  }
-
-  void refresh() {
-    if (_isLocalPost) {
-      setState(() {});
-      return;
-    }
-    postBloc.add(PostEvent.getPostDetails(widget.postId.toString()));
-    refreshPost(reload: false);
-    commentBloc.add(
-        CommentsEvent.getComments(widget.postId.toString(), reload: false));
   }
 
   void commentToPost(SaveCommentPayload payload) {

@@ -28,7 +28,10 @@ class CommentActionSheet extends StatelessWidget {
 
   final PostComment comment;
   final String postId;
-  final VoidCallback onDeleted;
+
+  /// Passes the deleted comment's id so the caller can splice it out of
+  /// whatever local list/tree is rendering it, instead of refetching.
+  final void Function(int commentId) onDeleted;
   final profileBloc = ProfileBloc(injector.get());
   final postBloc = PostBloc(injector.get());
 
@@ -142,7 +145,7 @@ class CommentActionSheet extends StatelessWidget {
                         CustomDialogs.success("Comment deleted");
                         context.pop();
                         context.pop();
-                        onDeleted();
+                        onDeleted(comment.id);
                       },
                       deleteCommentFailure: (error) {
                         context.pop();

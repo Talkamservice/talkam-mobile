@@ -236,7 +236,10 @@ class _PostsList extends StatelessWidget {
                   ),
                   children: [
                     for (final post in posts) ...[
-                      PostItem(post: post, showScheduledPost: true),
+                      PostItem(
+                          post: post,
+                          showScheduledPost: true,
+                          isOwnPost: true),
                       6.verticalSpace,
                     ],
                     if (state is ProfilePostsTabLoadingMoreState)

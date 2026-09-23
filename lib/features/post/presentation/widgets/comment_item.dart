@@ -65,7 +65,10 @@ class CommentItem extends StatefulWidget {
   /// [replyingToName] is null, or when the target is anonymous.
   final int? replyingToUserId;
   final bool replyingToIsAnonymous;
-  final VoidCallback onDeleted;
+
+  /// Passes the deleted comment's id so the caller can splice it out of
+  /// whatever local list/tree is rendering it, instead of refetching.
+  final void Function(int commentId) onDeleted;
 
   @override
   State<CommentItem> createState() => _CommentItemState();
@@ -453,7 +456,12 @@ class _CommentItemState extends State<CommentItem> {
     });
   }
 
-  String get posterName => widget.comment.displayName;
+  String get posterName {
+    if (!widget.comment.isAnonymous.toBool) return widget.comment.user.usersName;
+    final isMine =
+        widget.comment.user.id == injector.get<ProfileBloc>().appUser?.id;
+    return isMine ? "Anonymous (You)" : "Anonymous";
+  }
 
   String collapseText(int count) {
     return repliesCollapsed

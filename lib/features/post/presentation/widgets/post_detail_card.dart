@@ -110,8 +110,12 @@ class _PostDetailCardState extends State<PostDetailCard> {
     );
   }
 
-  String get userName =>
-      widget.post.isAnonymous.toBool ? "Anonymous" : widget.post.user.usersName;
+  String get userName {
+    if (!widget.post.isAnonymous.toBool) return widget.post.user.usersName;
+    final isMine =
+        widget.post.user.id == injector.get<ProfileBloc>().appUser?.id;
+    return isMine ? "Anonymous (You)" : "Anonymous";
+  }
 }
 
 /// Avatar, poster name, "Posted in {category}", a Subscribe/Follow pill,

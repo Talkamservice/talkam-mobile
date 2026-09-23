@@ -15,22 +15,46 @@ import 'package:talkam/features/post/presentation/widgets/post_action_sheet.dart
 import 'package:talkam/features/post/presentation/widgets/post_content.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item_components.dart';
 import 'package:talkam/features/post/presentation/widgets/scheduled_post_pill.dart';
+import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 
-class PostItem extends StatelessWidget {
+class PostItem extends StatefulWidget {
   PostItem(
       {super.key,
       required this.post,
       this.showGroupAndCategory = true,
-      this.showScheduledPost = false});
+      this.showScheduledPost = false,
+      this.isOwnPost = false});
 
   final bool? showGroupAndCategory;
   final bool? showScheduledPost;
   final TalkamPost post;
 
+  /// Set by callers that already know every post they render is the
+  /// logged-in user's own (e.g. the profile's own posts tab) — the only
+  /// reliable signal for that on an anonymous post, since the backend
+  /// nulls `post.user` for anonymous content and `post.user.id` collapses
+  /// to the placeholder `PostCreator.anonymous()` (id 0) either way.
+  final bool isOwnPost;
+
+  @override
+  State<PostItem> createState() => _PostItemState();
+}
+
+class _PostItemState extends State<PostItem> {
+  // Deleting a post shouldn't force a refetch of whatever feed/list this
+  // item lives in — the item just removes itself from view immediately.
+  bool _deleted = false;
+
   final AdsCubit adsCubit = AdsCubit(injector.get());
+
+  bool get showGroupAndCategory => widget.showGroupAndCategory ?? true;
+  bool get showScheduledPost => widget.showScheduledPost ?? false;
+  TalkamPost get post => widget.post;
 
   @override
   Widget build(BuildContext context) {
+    if (_deleted) return const SizedBox.shrink();
+
     return InkWell(
       onTap: () {
         // Mock posts don't exist on the real backend — pass the post object
@@ -69,7 +93,9 @@ class PostItem extends StatelessWidget {
                                     await CustomDialogs.showCustomDialog(
                                         PostActionSheet(
                                           post: post,
-                                          onPostDeleted: () {},
+                                          isOwnPost: widget.isOwnPost,
+                                          onPostDeleted: () =>
+                                              setState(() => _deleted = true),
                                         ),
                                         context);
                                 if (isReported ?? false) {
@@ -142,10 +168,14 @@ class PostItem extends StatelessWidget {
   }
 
   bool get shouldShowScheduledPost =>
-      showScheduledPost! &&
+      showScheduledPost &&
       post.isSchedulePost &&
       (post.publishAt as DateTime).isAfter(DateTime.now());
 
-  String get userName =>
-      post.isAnonymous.toBool ? "Anonymous" : post.user.usersName;
+  String get userName {
+    if (!post.isAnonymous.toBool) return post.user.usersName;
+    final isMine = widget.isOwnPost ||
+        post.user.id == injector.get<ProfileBloc>().appUser?.id;
+    return isMine ? "Anonymous (You)" : "Anonymous";
+  }
 }

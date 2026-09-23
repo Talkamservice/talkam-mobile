@@ -19,7 +19,7 @@ class CommentActions extends StatefulWidget {
   final int dislikeCount;
   final String postId;
   final VoidCallback onCommentTap;
-  final VoidCallback onCommentDeleted;
+  final void Function(int commentId) onCommentDeleted;
   final VoidCallback onLikeTap;
   final PostComment comment;
 
@@ -111,7 +111,7 @@ class CommentMenuButton extends StatelessWidget {
 
   final PostComment comment;
   final String postId;
-  final VoidCallback onCommentDeleted;
+  final void Function(int commentId) onCommentDeleted;
 
   @override
   Widget build(BuildContext context) {
