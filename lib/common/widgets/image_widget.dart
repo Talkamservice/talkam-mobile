@@ -22,6 +22,7 @@ class ImageWidget extends StatefulWidget {
   final bool? canPreview;
 
   final ImageWidgetType imageType;
+  final String? errorImage;
 
   const ImageWidget({
     super.key,
@@ -37,6 +38,7 @@ class ImageWidget extends StatefulWidget {
     this.imageType = ImageWidgetType.asset,
     this.canPreview = false,
     this.onTap,
+    this.errorImage,
   });
 
   @override
@@ -176,7 +178,15 @@ class _ImageWidgetState extends State<ImageWidget> {
     );
   }
 
-  Container _ErrorWidget() {
+  Widget _ErrorWidget() {
+    if (widget.errorImage != null && widget.errorImage!.endsWith('.svg')) {
+      return SvgPicture.asset(
+        widget.errorImage!,
+        height: widget.size ?? widget.height,
+        width: widget.size ?? widget.width,
+        fit: widget.fit ?? BoxFit.contain,
+      );
+    }
     return Container(
       key: widget.key,
       height: widget.size ?? widget.height,
@@ -186,7 +196,8 @@ class _ImageWidgetState extends State<ImageWidget> {
         shape: widget.shape ?? BoxShape.rectangle,
         border: widget.border,
         image: DecorationImage(
-            image: AssetImage(Assets.images.png.appIcon.path),
+            image: AssetImage(
+                widget.errorImage ?? Assets.images.png.appIcon.path),
             fit: BoxFit.contain,
             onError: (error, trace) {
               // logger.e(trace);

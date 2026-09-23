@@ -10,6 +10,7 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
 import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
@@ -192,6 +193,19 @@ class _TherapistSpecialtiesScreenState
                     fontSize: 15,
                     fontWeight: FontWeight.w700,
                     color: Colors.white,
+                  ),
+                ),
+                12.verticalSpace,
+                Center(
+                  child: TextView(
+                    text: "Save draft & continue later",
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: Pallets.grey400,
+                    onTap: () {
+                      SessionManager().hasOnboarded = true;
+                      context.goNamed(PageUrl.homeScreen);
+                    },
                   ),
                 ),
                 24.verticalSpace,

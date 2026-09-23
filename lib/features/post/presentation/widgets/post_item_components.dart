@@ -9,6 +9,8 @@ import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/extensions/int_extension.dart';
 import 'package:talkam/core/utils/guest_user_helper.dart';
+import 'package:talkam/core/utils/helper_utils.dart';
+import 'package:talkam/core/utils/string_extension.dart';
 import 'package:talkam/core/utils/time_util.dart';
 import 'package:talkam/features/ads/presentation/widgets/promotion_sheet.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
@@ -20,14 +22,18 @@ import 'package:talkam/features/subscription/utils/subscription_helper.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
 class AvatarImage extends StatelessWidget {
-  final String imageUrl;
+  final String? imageUrl;
   final double size;
 
   const AvatarImage({super.key, required this.imageUrl, required this.size});
 
   @override
   Widget build(BuildContext context) {
-    return ImageWidget(imageUrl: imageUrl, size: size);
+    return ImageWidget(
+      imageUrl: Helpers.getAvatar(imageUrl),
+      size: size,
+      errorImage: Assets.images.svgs.dummyUser,
+    );
   }
 }
 
@@ -56,20 +62,20 @@ class PostHeader extends StatelessWidget {
           ImageWidget(
             imageUrl: Assets.images.svgs.dummyUser,
             size: 32,
-          ),
-        if (!post.isAnonymous.toBool)
+          )
+        else
           InkWell(
             onTap: () {
               viewUsersProfile(context);
             },
-              child: ClipOval(
-                child: IgnorePointer(
-                  child: AvatarImage(
-                    imageUrl: post.user.avatar ?? Assets.images.svgs.dummyUser,
-                    size: 32,
-                  ),
+            child: ClipOval(
+              child: IgnorePointer(
+                child: AvatarImage(
+                  imageUrl: post.user.avatar,
+                  size: 32,
                 ),
-              )
+              ),
+            ),
           ),
         10.horizontalSpace,
         Expanded(

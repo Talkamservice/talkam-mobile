@@ -96,11 +96,10 @@ class _UserProfileCommentsTabState extends State<UserProfileCommentsTab>
                     children: [
                       for (int i = 0; i < _comments.length; i++) ...[
                         CommentItem(
-                          isReply: false,
+                          key: ValueKey(_comments[i].id),
                           comment: _comments[i].toPostComment(),
                           posId: _comments[i].post?.id ?? 0,
                           replyingToName: _comments[i].replyingToName,
-                          isLast: i == _comments.length - 1,
                           onDeleted: () =>
                               setState(() => _comments.removeAt(i)),
                         ),

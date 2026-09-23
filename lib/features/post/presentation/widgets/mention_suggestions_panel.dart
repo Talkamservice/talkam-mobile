@@ -5,6 +5,8 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
+import 'package:talkam/core/utils/helper_utils.dart';
+import 'package:talkam/core/utils/string_extension.dart';
 import 'package:talkam/features/post/presentation/bloc/composer_editor_cubit/composer_editor_cubit.dart';
 import 'package:talkam/gen/assets.gen.dart';
 
@@ -92,9 +94,10 @@ class MentionSuggestionsPanel extends StatelessWidget {
               children: [
                 ClipOval(
                   child: ImageWidget(
-                    imageUrl: user.avatar ?? Assets.images.svgs.dummyUser,
+                    imageUrl: Helpers.getAvatar(user.avatar),
                     size: 32,
                     fit: BoxFit.cover,
+                    errorImage: Assets.images.svgs.dummyUser,
                   ),
                 ),
                 10.horizontalSpace,

@@ -413,6 +413,19 @@ class _TherapistPayoutScreenState extends State<TherapistPayoutScreen> {
                     color: Colors.white,
                   ),
                 ),
+                12.verticalSpace,
+                Center(
+                  child: TextView(
+                    text: "Save draft & continue later",
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: Pallets.grey400,
+                    onTap: () {
+                      SessionManager().hasOnboarded = true;
+                      context.goNamed(PageUrl.homeScreen);
+                    },
+                  ),
+                ),
                 24.verticalSpace,
               ],
             ),

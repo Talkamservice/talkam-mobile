@@ -19,6 +19,40 @@ class TagsPickerWidget extends StatefulWidget {
 
 class _TagsPickerWidgetState extends State<TagsPickerWidget> {
   List<String> selectedTags = [];
+  final ScrollController _tagsScrollController = ScrollController();
+
+  // Only fade the edge that actually has more content hidden behind it —
+  // e.g. scrolled all the way to the last pill, the right edge shows it
+  // in full rather than fading it out.
+  bool _canScrollLeft = false;
+  bool _canScrollRight = false;
+
+  @override
+  void initState() {
+    super.initState();
+    _tagsScrollController.addListener(_updateFadeState);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _updateFadeState());
+  }
+
+  @override
+  void dispose() {
+    _tagsScrollController.removeListener(_updateFadeState);
+    _tagsScrollController.dispose();
+    super.dispose();
+  }
+
+  void _updateFadeState() {
+    if (!_tagsScrollController.hasClients) return;
+    final position = _tagsScrollController.position;
+    final canScrollLeft = position.pixels > 0;
+    final canScrollRight = position.pixels < position.maxScrollExtent;
+    if (canScrollLeft != _canScrollLeft || canScrollRight != _canScrollRight) {
+      setState(() {
+        _canScrollLeft = canScrollLeft;
+        _canScrollRight = canScrollRight;
+      });
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,22 +89,49 @@ class _TagsPickerWidgetState extends State<TagsPickerWidget> {
               children: [
                 Expanded(
                     child: selectedTags.isNotEmpty
-                        ? Wrap(
-                            children: selectedTags
-                                .map(
-                                  (e) => Padding(
-                                    padding: const EdgeInsets.only(right: 8.0),
-                                    child: Chip(
-                                      label: TextView(text: e),
-                                      onDeleted: () {
-                                        selectedTags.remove(e);
-                                        setState(() {});
-                                        widget.onTagSelected(selectedTags);
-                                      },
-                                    ),
-                                  ),
-                                )
-                                .toList(),
+                        ? ShaderMask(
+                            shaderCallback: (bounds) => LinearGradient(
+                              begin: Alignment.centerLeft,
+                              end: Alignment.centerRight,
+                              colors: [
+                                _canScrollLeft
+                                    ? Colors.transparent
+                                    : Colors.white,
+                                Colors.white,
+                                Colors.white,
+                                _canScrollRight
+                                    ? Colors.transparent
+                                    : Colors.white,
+                              ],
+                              stops: const [0.0, 0.06, 0.94, 1.0],
+                            ).createShader(bounds),
+                            blendMode: BlendMode.dstIn,
+                            child: SingleChildScrollView(
+                              controller: _tagsScrollController,
+                              scrollDirection: Axis.horizontal,
+                              child: Row(
+                                children: selectedTags
+                                    .map(
+                                      (e) => Padding(
+                                        padding:
+                                            const EdgeInsets.only(right: 8.0),
+                                        child: Chip(
+                                          label: TextView(text: e),
+                                          onDeleted: () {
+                                            selectedTags.remove(e);
+                                            setState(() {});
+                                            widget
+                                                .onTagSelected(selectedTags);
+                                            WidgetsBinding.instance
+                                                .addPostFrameCallback(
+                                                    (_) => _updateFadeState());
+                                          },
+                                        ),
+                                      ),
+                                    )
+                                    .toList(),
+                              ),
+                            ),
                           )
                         : TextView(text: "Add at least one tag", style: TextStyle(color: Pallets.grey75, fontSize: 15.sp, fontWeight: FontWeight.w500))),
                 10.horizontalSpace,
@@ -96,5 +157,6 @@ class _TagsPickerWidgetState extends State<TagsPickerWidget> {
     }
     widget.onTagSelected(selectedTags);
     setState(() {});
+    WidgetsBinding.instance.addPostFrameCallback((_) => _updateFadeState());
   }
 }

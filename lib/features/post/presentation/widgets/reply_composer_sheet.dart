@@ -13,6 +13,8 @@ import 'package:talkam/core/services/image_manipulation/image_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/extensions/int_extension.dart';
+import 'package:talkam/core/utils/helper_utils.dart';
+import 'package:talkam/core/utils/string_extension.dart';
 import 'package:talkam/features/post/data/models/save_comment_payload.dart';
 import 'package:talkam/features/post/presentation/bloc/composer_editor_cubit/composer_editor_cubit.dart';
 import 'package:talkam/features/post/presentation/widgets/emoji_composer_sheet.dart';
@@ -59,6 +61,7 @@ class ReplyComposerSheet extends StatefulWidget {
 class _ReplyComposerSheetState extends State<ReplyComposerSheet> {
   final _controller = RichComposerController();
   late final _editor = ComposerEditorCubit(_controller);
+  final _focusNode = FocusNode();
   bool _isAnonymous = false;
   File? _stagedImage;
 
@@ -66,6 +69,7 @@ class _ReplyComposerSheetState extends State<ReplyComposerSheet> {
   void dispose() {
     _editor.close();
     _controller.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -172,7 +176,11 @@ class _ReplyComposerSheetState extends State<ReplyComposerSheet> {
                       children: [
                         ClipOval(
                           child:
-                              ImageWidget(imageUrl: widget.avatarUrl, size: 36),
+                              ImageWidget(
+                                imageUrl: Helpers.getAvatar(widget.avatarUrl),
+                                size: 36,
+                                errorImage: Assets.images.svgs.dummyUser,
+                              ),
                         ),
                         12.horizontalSpace,
                         Expanded(
@@ -234,14 +242,17 @@ class _ReplyComposerSheetState extends State<ReplyComposerSheet> {
                   children: [
                     ClipOval(
                       child: ImageWidget(
-                          imageUrl: myAvatar ?? Assets.images.svgs.dummyUser,
-                          size: 36),
+                        imageUrl: Helpers.getAvatar(myAvatar),
+                        size: 36,
+                        errorImage: Assets.images.svgs.dummyUser,
+                      ),
                     ),
                     12.horizontalSpace,
                     Expanded(
                       child: TextField(
                         controller: _controller,
-                        autofocus: true,
+                        focusNode: _focusNode,
+                        autofocus: false,
                         maxLines: 5,
                         minLines: 1,
                         maxLength: _kReplyMaxLength,

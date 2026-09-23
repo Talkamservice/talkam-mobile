@@ -8,12 +8,14 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/navigation/route_url.dart';
 import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/extensions/int_extension.dart';
 import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/core/utils/helper_utils.dart';
+import 'package:talkam/core/utils/string_extension.dart';
 import 'package:talkam/core/utils/time_util.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/presentation/widgets/post_action_sheet.dart';
@@ -61,9 +63,7 @@ class _PostDetailCardState extends State<PostDetailCard> {
               fontSize: 15,
               fontWeight: FontWeight.w700,
             ),
-            10.verticalSpace,
-            const Divider(thickness: 1),
-            8.verticalSpace,
+            12.verticalSpace,
             Row(
               children: [
                 PostReactionButton(
@@ -139,6 +139,24 @@ class _PostDetailHeaderState extends State<_PostDetailHeader> {
     super.dispose();
   }
 
+  void _viewProfile(BuildContext context) {
+    if (widget.post.isAnonymous.toBool) {
+      CustomDialogs.showToast("User is Anonymous");
+      return;
+    }
+    GuestUserHelper.handleGuestUserAction(
+      action: () {
+        final myId = injector.get<ProfileBloc>().appUser?.id;
+        if (myId == widget.post.user.id) {
+          context.pushNamed(PageUrl.profileScreen);
+        } else {
+          context.pushNamed(PageUrl.userProfileScreen,
+              extra: widget.post.user.id.toString());
+        }
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final post = widget.post;
@@ -146,47 +164,62 @@ class _PostDetailHeaderState extends State<_PostDetailHeader> {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
-        if (post.isAnonymous.toBool)
-          ImageWidget(
-              imageUrl: Assets.images.svgs.dummyUser,
-              size: 40,
-              shape: BoxShape.circle)
-        else
-          ClipOval(
-            child: ImageWidget(
-              imageUrl: post.user.avatar ?? Assets.images.svgs.dummyUser,
-              size: 40,
-            ),
-          ),
-        10.horizontalSpace,
         Expanded(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Flexible(
-                    child: TextView(
-                      text: userName,
-                      fontSize: 16,
-                      fontWeight: FontWeight.w700,
-                      maxLines: 1,
-                      textOverflow: TextOverflow.ellipsis,
+          child: InkWell(
+            onTap: () => _viewProfile(context),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                if (post.isAnonymous.toBool)
+                  ImageWidget(
+                      imageUrl: Assets.images.svgs.dummyUser,
+                      size: 40,
+                      shape: BoxShape.circle)
+                else
+                  ClipOval(
+                    child: ImageWidget(
+                      imageUrl: Helpers.getAvatar(
+                        post.user.avatar,
+                        isAnonymous: post.isAnonymous.toBool,
+                      ),
+                      size: 40,
+                      errorImage: Assets.images.svgs.dummyUser,
                     ),
                   ),
-                  if (post.user.isSubscribed) ...[
-                    4.horizontalSpace,
-                    ImageWidget(
-                        imageUrl: Assets.images.svgs.blueThick, size: 12),
-                  ],
-                ],
-              ),
-              TextView(
-                text: "Posted in ${post.category.name}",
-                fontSize: 13,
-                color: Pallets.grey60,
-              ),
-            ],
+                10.horizontalSpace,
+                Expanded(
+                  child: Column( 
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Flexible(
+                            child: TextView(
+                              text: userName,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              maxLines: 1,
+                              textOverflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          if (post.user.isSubscribed) ...[
+                            4.horizontalSpace,
+                            ImageWidget(
+                                imageUrl: Assets.images.svgs.blueThick,
+                                size: 12),
+                          ],
+                        ],
+                      ),
+                      TextView(
+                        text: "Posted in ${post.category.name}",
+                        fontSize: 13,
+                        color: Pallets.grey60,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
         if (!post.isAnonymous.toBool && !_postIsFromLoggedInUser)

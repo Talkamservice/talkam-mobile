@@ -2,6 +2,7 @@ import 'dart:io';
 import 'dart:ui';
 import 'dart:math';
 import 'package:dart_ipify/dart_ipify.dart';
+import 'package:talkam/gen/assets.gen.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,21 @@ import '_utils.dart';
 import 'guest_user_helper.dart';
 
 class Helpers {
+  static String getAvatar(String? avatar, {bool isAnonymous = false}) {
+    if (isAnonymous || avatar == null) return Assets.images.svgs.dummyUser;
+    final trimmed = avatar.trim();
+    if (trimmed.isEmpty ||
+        trimmed == 'null' ||
+        trimmed == 'anonymous' ||
+        trimmed == 'undefined' ||
+        int.tryParse(trimmed) != null) {
+      // bare numeric ID (e.g. "34") means the server returned a DB record ID
+      // instead of a resolved URL — show dummy avatar instead of a broken image
+      return Assets.images.svgs.dummyUser;
+    }
+    return trimmed;
+  }
+
   // Helper method to handle mentions in text
   static void viewMentionedUserProfile(BuildContext context, String userName) {
     GuestUserHelper.handleGuestUserAction(
@@ -46,6 +62,7 @@ class Helpers {
   static Widget buildTextWithMentions(String text, BuildContext context,
       {double? fontSize,
       FontWeight? fontWeight,
+      double? height,
       Function(String)? mentionCallback}) {
     List<TextSpan> spans = mentionSpans(text,
         fontSize: fontSize,
@@ -54,7 +71,9 @@ class Helpers {
 
     return RichText(
       text: TextSpan(
-        style: Theme.of(context).textTheme.bodyMedium,
+        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+              height: height,
+            ),
         children: spans,
       ),
     );

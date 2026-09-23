@@ -12,6 +12,8 @@ import 'package:talkam/core/mock/mock_home_data.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/extensions/int_extension.dart';
 import 'package:talkam/core/utils/guest_user_helper.dart';
+import 'package:talkam/core/utils/helper_utils.dart';
+import 'package:talkam/core/utils/string_extension.dart';
 import 'package:talkam/core/utils/time_util.dart';
 import 'package:talkam/features/ads/data/models/update_stat_payload.dart';
 import 'package:talkam/features/ads/presentation/blocs/ads/ads_cubit.dart';
@@ -159,7 +161,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen>
                 post: post,
                 onCommentTap: () => _openReplyToPost(context),
               ),
+              4.verticalSpace,
               const Divider(thickness: 1),
+              12.verticalSpace,
             ],
           ),
         ),
@@ -186,12 +190,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen>
       itemBuilder: (context, index) => Padding(
         padding: const EdgeInsets.symmetric(vertical: 1.0),
         child: CommentItem(
-          isReply: false,
+          key: ValueKey(_localComments[index].id),
           comment: _localComments[index],
           posId: post.id,
-          replyingToName:
-              post.isAnonymous.toBool ? "Anonymous" : post.user.usersName,
-          isLast: index == _localComments.length - 1,
           onDeleted: () => setState(() {}),
         ),
       ),
@@ -246,13 +247,9 @@ class _PostDetailsScreenState extends State<PostDetailsScreen>
               itemBuilder: (context, index) => Padding(
                 padding: const EdgeInsets.symmetric(vertical: 1.0),
                 child: CommentItem(
-                  isReply: false,
+                  key: ValueKey(commentBloc.comments[index].id),
                   comment: commentBloc.comments[index],
                   posId: post.id,
-                  replyingToName: post.isAnonymous.toBool
-                      ? "Anonymous"
-                      : post.user.usersName,
-                  isLast: index == commentBloc.comments.length - 1,
                   onDeleted: () {
                     refresh();
                   },
@@ -310,6 +307,17 @@ class _PostDetailsScreenState extends State<PostDetailsScreen>
   }
 
   void _openReplyToPost(BuildContext context) {
+    if (_post != null) {
+      debugPrint('=== [TALKAM LOG] POST DETAIL COMMENT ICON TAPPED ===');
+      debugPrint('Post ID: ${_post?.id}');
+      debugPrint('Author Name: ${_post?.user.name}');
+      debugPrint('Author Username: ${_post?.user.username}');
+      debugPrint('Is Anonymous: ${_post?.isAnonymous}');
+      debugPrint('Avatar Raw: "${_post?.user.avatar}"');
+      debugPrint(
+          'Avatar Resolved: "${Helpers.getAvatar(_post?.user.avatar, isAnonymous: _post?.isAnonymous.toBool ?? false)}"');
+      debugPrint('Title: "${_post?.title}", Body: "${_post?.body}"');
+    }
     GuestUserHelper.handleGuestUserAction(
       action: () async {
         final userName =
@@ -317,7 +325,10 @@ class _PostDetailsScreenState extends State<PostDetailsScreen>
         final payload = await CustomDialogs.showBottomSheet<SaveCommentPayload>(
           context,
           ReplyComposerSheet(
-            avatarUrl: _post!.user.avatar ?? Assets.images.svgs.dummyUser,
+            avatarUrl: Helpers.getAvatar(
+              _post!.user.avatar,
+              isAnonymous: _post!.isAnonymous.toBool,
+            ),
             posterName: userName,
             isVerified: _post!.user.isSubscribed,
             timeAgo: TimeUtil.getTimeAgo(_post!.createdAt.toString()),

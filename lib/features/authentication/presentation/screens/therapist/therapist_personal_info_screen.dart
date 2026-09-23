@@ -9,6 +9,7 @@ import 'package:talkam/common/widgets/step_progress_bar.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/therapist_application/presentation/bloc/therapist_application_bloc.dart';
 
@@ -131,6 +132,19 @@ class _TherapistPersonalInfoScreenState
                     fontSize: 15,
                     fontWeight: FontWeight.w700,
                     color: Colors.white,
+                  ),
+                ),
+                12.verticalSpace,
+                Center(
+                  child: TextView(
+                    text: "Save draft & continue later",
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: Pallets.grey400,
+                    onTap: () {
+                      SessionManager().hasOnboarded = true;
+                      context.goNamed(PageUrl.homeScreen);
+                    },
                   ),
                 ),
                 24.verticalSpace,

@@ -126,6 +126,14 @@ class CommentMenuButton extends StatelessWidget {
           context,
         );
       },
+      // Material's default IconButton enforces a ~48x48 min tap target,
+      // which inflates the header row's height beyond the name/timestamp
+      // text next to it — most visible on a reply row, where the 28px
+      // avatar is far smaller than that box. Shrinking it to the icon's
+      // own size keeps the button in the same vertical area as the name
+      // row on every tier, root and reply alike.
+      padding: EdgeInsets.zero,
+      constraints: const BoxConstraints(),
       icon: const Icon(Icons.more_vert, size: 20),
     );
   }

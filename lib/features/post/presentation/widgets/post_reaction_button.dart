@@ -87,11 +87,12 @@ class _PostReactionButtonState extends State<PostReactionButton> {
             );
           },
           child: switch (widget.reactionType) {
-            ReactionType.like => ImageWidget(
-                imageUrl: Assets.images.svgV2.likeIcon,
-                color:
-                    widget.reaction?.isLike ?? false ? Colors.pink : null,
-              ),
+            // likeIcon is a pure outline SVG (stroke only, no fill), so it
+            // can never look "filled" just by tinting it — the active
+            // state needs an actually-filled heart glyph instead.
+            ReactionType.like => (widget.reaction?.isLike ?? false)
+                ? const Icon(Icons.favorite, color: Colors.pink, size: 24)
+                : ImageWidget(imageUrl: Assets.images.svgV2.likeIcon),
             ReactionType.dislike => ImageWidget(
                 imageUrl: Assets.images.svgs.thumbsDownSvg_,
                 color: widget.reaction?.isDisLike ?? false ? Pallets.red : null,

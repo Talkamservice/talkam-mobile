@@ -7,7 +7,6 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
-import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/extensions/int_extension.dart';
@@ -46,14 +45,6 @@ class CommentActionSheet extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          _CommentAction(
-            imagePath: Assets.images.svgs.link01,
-            tittle: "Copy link",
-            onTap: () {
-              Helpers.copy("${UrlConfig.webUrl}${comment.id}");
-              context.pop();
-            },
-          ),
           _CommentAction(
             imagePath: Assets.images.svgs.copy07,
             tittle: "Copy comment text",

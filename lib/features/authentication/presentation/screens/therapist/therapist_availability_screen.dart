@@ -10,6 +10,7 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/common/widgets/time_select_sheet.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/therapist_application/data/models/therapist_application_data.dart';
 import 'package:talkam/features/therapist_application/presentation/bloc/therapist_application_bloc.dart';
@@ -52,208 +53,232 @@ class TherapistAvailabilityScreen extends StatelessWidget {
         bgColor: Colors.transparent,
         elevation: 0,
       ),
-      body: BlocConsumer<TherapistApplicationBloc, TherapistApplicationState>(
-        bloc: bloc,
-        listener: (context, state) {
-          if (state.availabilitySaveStatus == StepSaveStatus.saving) {
-            CustomDialogs.showLoading(context);
-          }
-          if (state.availabilitySaveStatus == StepSaveStatus.success) {
-            context.pop();
-            bloc.add(const ResetSaveStatusesEvent());
-            context.pushNamed(
-              PageUrl.therapistPayoutScreen,
-              extra: bloc,
-            );
-          }
-          if (state.availabilitySaveStatus == StepSaveStatus.error) {
-            context.pop();
-            CustomDialogs.error(
-                state.availabilitySaveError ?? "Something went wrong");
-          }
-        },
-        builder: (context, state) {
-          final activeDays =
-              state.availability.days.where((d) => d.active).toList();
+      // The appbar already covers the top inset; bottom matters here
+      // because this screen has no bottomNavigationBar to reserve space
+      // from the system gesture/nav bar, so the Continue button would
+      // otherwise sit right behind it on devices with a bottom inset.
+      body: SafeArea(
+        top: false,
+        child:
+            BlocConsumer<TherapistApplicationBloc, TherapistApplicationState>(
+          bloc: bloc,
+          listener: (context, state) {
+            if (state.availabilitySaveStatus == StepSaveStatus.saving) {
+              CustomDialogs.showLoading(context);
+            }
+            if (state.availabilitySaveStatus == StepSaveStatus.success) {
+              context.pop();
+              bloc.add(const ResetSaveStatusesEvent());
+              context.pushNamed(
+                PageUrl.therapistPayoutScreen,
+                extra: bloc,
+              );
+            }
+            if (state.availabilitySaveStatus == StepSaveStatus.error) {
+              context.pop();
+              CustomDialogs.error(
+                  state.availabilitySaveError ?? "Something went wrong");
+            }
+          },
+          builder: (context, state) {
+            final activeDays =
+                state.availability.days.where((d) => d.active).toList();
 
-          return SingleChildScrollView(
-            padding: EdgeInsets.symmetric(horizontal: 24.w),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const StepProgressBar(
-                  step: 4,
-                  totalSteps: 5,
-                  label: "Availability",
-                ),
-                20.verticalSpace,
-                const TextView(
-                  text: "Set your availability",
-                  fontSize: 26,
-                  fontWeight: FontWeight.w800,
-                  color: Pallets.boldBlackV2,
-                ),
-                8.verticalSpace,
-                const TextView(
-                  text:
-                      "Choose when clients can book you. You can edit this anytime.",
-                  fontSize: 16,
-                  fontWeight: FontWeight.w500,
-                  color: Pallets.grey400,
-                  lineHeight: 1.4,
-                ),
-                24.verticalSpace,
-
-                // ── Session duration ─────────────────────────────────
-                const TextView(
-                  text: "SESSION DURATION",
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
-                  color: Pallets.grey400,
-                ),
-                10.verticalSpace,
-                Row(
-                  children: [
-                    for (final option in kSessionDurations) ...[
-                      Expanded(
-                        child: SelectablePill(
-                          label: "${option.minutes} min",
-                          caption: option.label,
-                          selected: state.availability.sessionDurationMinutes ==
-                              option.minutes,
-                          onTap: () =>
-                              bloc.add(SetSessionDurationEvent(option.minutes)),
-                        ),
-                      ),
-                      if (option != kSessionDurations.last) 8.horizontalSpace,
-                    ],
-                  ],
-                ),
-                24.verticalSpace,
-
-                // ── Working days ──────────────────────────────────────
-                const TextView(
-                  text: "WORKING DAYS",
-                  fontSize: 13,
-                  fontWeight: FontWeight.w700,
-                  color: Pallets.grey400,
-                ),
-                10.verticalSpace,
-                Wrap(
-                  spacing: 4.w,
-                  runSpacing: 8.h,
-                  children: [
-                    for (final day in state.availability.days)
-                      SelectablePill(
-                        label: day.day.substring(0, 3).toUpperCase(),
-                        selected: day.active,
-                        style: SelectablePillStyle.solid,
-                        labelSize: 11,
-                        radius: 8,
-                        width: 44.w,
-                        height: 30.h,
-                        padding: EdgeInsets.zero,
-                        onTap: () => bloc.add(ToggleWorkingDayEvent(day.day)),
-                      ),
-                  ],
-                ),
-                24.verticalSpace,
-
-                // ── Working hours ─────────────────────────────────────
-                AnimatedSize(
-                  duration: const Duration(milliseconds: 220),
-                  curve: Curves.easeInOut,
-                  alignment: Alignment.topCenter,
-                  child: activeDays.isEmpty
-                      ? const SizedBox.shrink()
-                      : Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const TextView(
-                              text: "WORKING HOURS",
-                              fontSize: 13,
-                              fontWeight: FontWeight.w700,
-                              color: Pallets.grey400,
-                            ),
-                            // Every day stays mounted so toggling one animates
-                            // its row in/out instead of popping the list.
-                            for (final day in state.availability.days)
-                              AnimatedSize(
-                                duration: const Duration(milliseconds: 220),
-                                curve: Curves.easeInOut,
-                                alignment: Alignment.topCenter,
-                                child: AnimatedOpacity(
-                                  duration: const Duration(milliseconds: 180),
-                                  opacity: day.active ? 1 : 0,
-                                  child: day.active
-                                      ? _WorkingHoursRow(
-                                          day: day,
-                                          onTapStart: () => _pickTime(
-                                              context, day,
-                                              isStart: true),
-                                          onTapEnd: () => _pickTime(
-                                              context, day,
-                                              isStart: false),
-                                          onTogglePaid: () => bloc
-                                              .add(ToggleDayPaidEvent(day.day)),
-                                        )
-                                      : const SizedBox(width: double.infinity),
-                                ),
-                              ),
-                            8.verticalSpace,
-                          ],
-                        ),
-                ),
-
-                // ── Buffer ─────────────────────────────────────────────
-                const TextView(
-                  text: "Buffer between sessions",
-                  fontSize: 14,
-                  fontWeight: FontWeight.w600,
-                  color: Pallets.boldBlackV2,
-                ),
-                4.verticalSpace,
-                const TextView(
-                  text: "Gives you time to write Notes",
-                  fontSize: 12,
-                  fontWeight: FontWeight.w500,
-                  color: Pallets.grey400,
-                ),
-                10.verticalSpace,
-                Row(
-                  children: [
-                    for (final minutes in kBufferOptions) ...[
-                      Expanded(
-                        child: SelectablePill(
-                          label: "$minutes min",
-                          selected: state.availability.bufferMinutes == minutes,
-                          onTap: () => bloc.add(SetBufferEvent(minutes)),
-                        ),
-                      ),
-                      if (minutes != kBufferOptions.last) 8.horizontalSpace,
-                    ],
-                  ],
-                ),
-
-                32.verticalSpace,
-                CustomButton(
-                  elevation: 0,
-                  onPressed: state.availability.isValid
-                      ? () => bloc.add(const SaveAvailabilityEvent())
-                      : null,
-                  bgColor: Pallets.blueBubbleColor,
-                  child: const TextView(
-                    text: "Continue",
-                    fontSize: 15,
-                    fontWeight: FontWeight.w700,
-                    color: Colors.white,
+            return SingleChildScrollView(
+              padding: EdgeInsets.symmetric(horizontal: 24.w),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const StepProgressBar(
+                    step: 4,
+                    totalSteps: 5,
+                    label: "Availability",
                   ),
-                ),
-                24.verticalSpace,
-              ],
-            ),
-          );
-        },
+                  20.verticalSpace,
+                  const TextView(
+                    text: "Set your availability",
+                    fontSize: 26,
+                    fontWeight: FontWeight.w800,
+                    color: Pallets.boldBlackV2,
+                  ),
+                  8.verticalSpace,
+                  const TextView(
+                    text:
+                        "Choose when clients can book you. You can edit this anytime.",
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    color: Pallets.grey400,
+                    lineHeight: 1.4,
+                  ),
+                  24.verticalSpace,
+
+                  // ── Session duration ─────────────────────────────────
+                  const TextView(
+                    text: "SESSION DURATION",
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: Pallets.grey400,
+                  ),
+                  10.verticalSpace,
+                  Row(
+                    children: [
+                      for (final option in kSessionDurations) ...[
+                        Expanded(
+                          child: SelectablePill(
+                            label: "${option.minutes} min",
+                            caption: option.label,
+                            selected:
+                                state.availability.sessionDurationMinutes ==
+                                    option.minutes,
+                            onTap: () => bloc
+                                .add(SetSessionDurationEvent(option.minutes)),
+                          ),
+                        ),
+                        if (option != kSessionDurations.last) 8.horizontalSpace,
+                      ],
+                    ],
+                  ),
+                  24.verticalSpace,
+
+                  // ── Working days ──────────────────────────────────────
+                  const TextView(
+                    text: "WORKING DAYS",
+                    fontSize: 13,
+                    fontWeight: FontWeight.w700,
+                    color: Pallets.grey400,
+                  ),
+                  10.verticalSpace,
+                  Wrap(
+                    spacing: 4.w,
+                    runSpacing: 8.h,
+                    children: [
+                      for (final day in state.availability.days)
+                        SelectablePill(
+                          label: day.day.substring(0, 3).toUpperCase(),
+                          selected: day.active,
+                          style: SelectablePillStyle.solid,
+                          labelSize: 11,
+                          radius: 8,
+                          width: 44.w,
+                          height: 30.h,
+                          padding: EdgeInsets.zero,
+                          onTap: () => bloc.add(ToggleWorkingDayEvent(day.day)),
+                        ),
+                    ],
+                  ),
+                  24.verticalSpace,
+
+                  // ── Working hours ─────────────────────────────────────
+                  AnimatedSize(
+                    duration: const Duration(milliseconds: 220),
+                    curve: Curves.easeInOut,
+                    alignment: Alignment.topCenter,
+                    child: activeDays.isEmpty
+                        ? const SizedBox.shrink()
+                        : Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const TextView(
+                                text: "WORKING HOURS",
+                                fontSize: 13,
+                                fontWeight: FontWeight.w700,
+                                color: Pallets.grey400,
+                              ),
+                              // Every day stays mounted so toggling one animates
+                              // its row in/out instead of popping the list.
+                              for (final day in state.availability.days)
+                                AnimatedSize(
+                                  duration: const Duration(milliseconds: 220),
+                                  curve: Curves.easeInOut,
+                                  alignment: Alignment.topCenter,
+                                  child: AnimatedOpacity(
+                                    duration: const Duration(milliseconds: 180),
+                                    opacity: day.active ? 1 : 0,
+                                    child: day.active
+                                        ? _WorkingHoursRow(
+                                            day: day,
+                                            onTapStart: () => _pickTime(
+                                                context, day,
+                                                isStart: true),
+                                            onTapEnd: () => _pickTime(
+                                                context, day,
+                                                isStart: false),
+                                            onTogglePaid: () => bloc.add(
+                                                ToggleDayPaidEvent(day.day)),
+                                          )
+                                        : const SizedBox(
+                                            width: double.infinity),
+                                  ),
+                                ),
+                              8.verticalSpace,
+                            ],
+                          ),
+                  ),
+
+                  // ── Buffer ─────────────────────────────────────────────
+                  const TextView(
+                    text: "Buffer between sessions",
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Pallets.boldBlackV2,
+                  ),
+                  4.verticalSpace,
+                  const TextView(
+                    text: "Gives you time to write Notes",
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: Pallets.grey400,
+                  ),
+                  10.verticalSpace,
+                  Row(
+                    children: [
+                      for (final minutes in kBufferOptions) ...[
+                        Expanded(
+                          child: SelectablePill(
+                            label: "$minutes min",
+                            selected:
+                                state.availability.bufferMinutes == minutes,
+                            onTap: () => bloc.add(SetBufferEvent(minutes)),
+                          ),
+                        ),
+                        if (minutes != kBufferOptions.last) 8.horizontalSpace,
+                      ],
+                    ],
+                  ),
+
+                  32.verticalSpace,
+                  CustomButton(
+                    elevation: 0,
+                    onPressed: state.availability.isValid
+                        ? () => bloc.add(const SaveAvailabilityEvent())
+                        : null,
+                    bgColor: Pallets.blueBubbleColor,
+                    child: const TextView(
+                      text: "Continue",
+                      fontSize: 15,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
+                  ),
+                  12.verticalSpace,
+                  Center(
+                    child: TextView(
+                      text: "Save draft & continue later",
+                      fontSize: 13,
+                      fontWeight: FontWeight.w500,
+                      color: Pallets.grey400,
+                      onTap: () {
+                        SessionManager().hasOnboarded = true;
+                        context.goNamed(PageUrl.homeScreen);
+                      },
+                    ),
+                  ),
+                  24.verticalSpace,
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

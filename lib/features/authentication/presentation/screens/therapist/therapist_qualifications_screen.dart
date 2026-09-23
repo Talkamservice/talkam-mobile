@@ -164,12 +164,14 @@ class TherapistQualificationsScreen extends StatelessWidget {
                       ),
                     ),
                     12.verticalSpace,
-                    TextView(
-                      text: "Save draft & continue later",
-                      fontSize: 13,
-                      fontWeight: FontWeight.w500,
-                      color: Pallets.grey400,
-                      onTap: () => _saveDraftAndExit(context),
+                    Center(
+                      child: TextView(
+                        text: "Save draft & continue later",
+                        fontSize: 13,
+                        fontWeight: FontWeight.w500,
+                        color: Pallets.grey400,
+                        onTap: () => _saveDraftAndExit(context),
+                      ),
                     ),
                   ],
                 ),

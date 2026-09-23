@@ -83,7 +83,26 @@ class PostItem extends StatelessWidget {
                             ),
                             4.verticalSpace,
                             PostActions(
-                              onCommentTap: () {},
+                              onCommentTap: () {
+                                debugPrint(
+                                    '=== [TALKAM LOG] POST COMMENT ICON TAPPED ===');
+                                debugPrint('Post ID: ${post.id}');
+                                debugPrint('Author Name: ${post.user.name}');
+                                debugPrint(
+                                    'Author Username: ${post.user.username}');
+                                debugPrint('Is Anonymous: ${post.isAnonymous}');
+                                debugPrint('Avatar Raw: "${post.user.avatar}"');
+                                debugPrint(
+                                    'Avatar Resolved: "${Helpers.getAvatar(post.user.avatar, isAnonymous: post.isAnonymous.toBool)}"');
+                                debugPrint(
+                                    'Title: "${post.title}", Body: "${post.body}"');
+                                context.pushNamed(
+                                  PageUrl.postDetailsScreen,
+                                  extra: MockHomeData.isMockPostId(post.id)
+                                      ? post
+                                      : post.id.toString(),
+                                );
+                              },
                               onLikeTap: () {},
                               onShareTap: () {
                                 adsCubit.savePostShareStat(post.id.toString());

@@ -40,6 +40,7 @@ class _AddTagsSheet2State extends State<AddTagsSheet2> {
   ];
 
   final TextEditingController searchController = TextEditingController();
+  final ScrollController _tagsScrollController = ScrollController();
   List<String> selectedTags = [];
   List<String> allTrends = []; // Full list of trends from BLoC
   List<String> filteredTrends = [];
@@ -53,104 +54,141 @@ class _AddTagsSheet2State extends State<AddTagsSheet2> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-      decoration: BoxDecoration(color: context.theme.cardColor),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextView(
-                text: "Add Tags",
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
-              IconButton(
-                onPressed: () => context.pop(),
-                icon: const Icon(Icons.close),
-              ),
-            ],
-          ),
-          const TextView(
-            text:
-                "Select or add tags to categorize your post. Press Enter to add a new tag if not found.",
-            fontSize: 14,
-            color: Colors.grey,
-          ),
-          10.verticalSpace,
-          const Divider(),
-          BlocBuilder<PostBloc, PostState>(
-            bloc: injector.get(),
-            builder: (context, state) {
-              return state.maybeWhen(
-                getTrendsLoading: () => SizedBox(
-                    width: 1.sw,
-                    height: 200,
-                    child: Center(child: CustomDialogs.getLoading(size: 30))),
-                getTrendsSuccess: () {
-                  final serverTrends = injector
-                      .get<PostBloc>()
-                      .trends
-                      .map(
-                        (e) => e.tag.toString(),
-                      )
-                      .toList();
-                  allTrends =
-                      serverTrends.isEmpty ? _fallbackTags : serverTrends;
+  void dispose() {
+    searchController.dispose();
+    _tagsScrollController.dispose();
+    super.dispose();
+  }
 
-                  _filterTrends();
-                  return _buildTagSelector(
-                    fallbackReason: serverTrends.isEmpty
-                        ? 'The server returned an empty tag list.'
-                        : null,
-                  );
-                },
-                getTrendsFailure: (error) {
-                  allTrends = _fallbackTags;
-                  _filterTrends();
-                  return _buildTagSelector(fallbackReason: error);
-                },
-                orElse: () => const SizedBox.shrink(),
-              );
-            },
-          ),
-          const SizedBox(height: 10),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Spacer(),
-              TextButton(
-                  style: TextButton.styleFrom(
-                      backgroundColor: Pallets.primary,
-                      foregroundColor: Pallets.white,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 10, horizontal: 16),
-                      shape: const StadiumBorder()),
-                  onPressed: () {
-                    if (filteredTrends.isEmpty &&
-                        searchController.text.isNotEmpty &&
-                        !selectedTags.contains(searchController.text)) {
-                      selectedTags.add(searchController.text);
-                      searchController.clear();
-                      setState(() {});
-                    } else {
-                      context.pop(selectedTags);
-                    }
+  /// Scrolls the selected-tags row to its end once the new chip has laid
+  /// out, so a newly added tag is always visible without the user having
+  /// to scroll for it themselves.
+  void _scrollTagsToEnd() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (_tagsScrollController.hasClients) {
+        _tagsScrollController.animateTo(
+          _tagsScrollController.position.maxScrollExtent,
+          duration: const Duration(milliseconds: 250),
+          curve: Curves.easeOut,
+        );
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ConstrainedBox(
+      // Caps the sheet instead of letting it grow to the full screen —
+      // within that cap, the header/footer stay fixed and only the middle
+      // (tag chips + search + suggestions) scrolls, so Save is never
+      // something you have to scroll to find. Short content still sizes
+      // naturally (Flexible, not Expanded, only claims space once the
+      // middle section actually needs it).
+      constraints: BoxConstraints(maxHeight: 0.85.sh),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+        decoration: BoxDecoration(color: context.theme.cardColor),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextView(
+                  text: "Add Tags",
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                ),
+                IconButton(
+                  onPressed: () => context.pop(),
+                  icon: const Icon(Icons.close),
+                ),
+              ],
+            ),
+            const TextView(
+              text:
+                  "Select or add tags to categorize your post. Press Enter to add a new tag if not found.",
+              fontSize: 14,
+              color: Colors.grey,
+            ),
+            10.verticalSpace,
+            const Divider(),
+            Flexible(
+              child: SingleChildScrollView(
+                child: BlocBuilder<PostBloc, PostState>(
+                  bloc: injector.get(),
+                  builder: (context, state) {
+                    return state.maybeWhen(
+                      getTrendsLoading: () => SizedBox(
+                          width: 1.sw,
+                          height: 200,
+                          child: Center(
+                              child: CustomDialogs.getLoading(size: 30))),
+                      getTrendsSuccess: () {
+                        final serverTrends = injector
+                            .get<PostBloc>()
+                            .trends
+                            .map(
+                              (e) => e.tag.toString(),
+                            )
+                            .toList();
+                        allTrends =
+                            serverTrends.isEmpty ? _fallbackTags : serverTrends;
+
+                        _filterTrends();
+                        return _buildTagSelector(
+                          fallbackReason: serverTrends.isEmpty
+                              ? 'The server returned an empty tag list.'
+                              : null,
+                        );
+                      },
+                      getTrendsFailure: (error) {
+                        allTrends = _fallbackTags;
+                        _filterTrends();
+                        return _buildTagSelector(fallbackReason: error);
+                      },
+                      orElse: () => const SizedBox.shrink(),
+                    );
                   },
-                  child: TextView(
-                    text: filteredTrends.isEmpty &&
-                            searchController.text.isNotEmpty
-                        ? "Add tag"
-                        : "Save",
-                    fontWeight: FontWeight.w700,
-                  )),
-            ],
-          ),
-        ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Spacer(),
+                TextButton(
+                    style: TextButton.styleFrom(
+                        backgroundColor: Pallets.primary,
+                        foregroundColor: Pallets.white,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 10, horizontal: 16),
+                        shape: const StadiumBorder()),
+                    onPressed: () {
+                      if (filteredTrends.isEmpty &&
+                          searchController.text.isNotEmpty &&
+                          !selectedTags.contains(searchController.text)) {
+                        selectedTags.add(searchController.text);
+                        searchController.clear();
+                        setState(() {});
+                        _scrollTagsToEnd();
+                      } else {
+                        context.pop(selectedTags);
+                      }
+                    },
+                    child: TextView(
+                      text: filteredTrends.isEmpty &&
+                              searchController.text.isNotEmpty
+                          ? "Add tag"
+                          : "Save",
+                      fontWeight: FontWeight.w700,
+                    )),
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -201,22 +239,27 @@ class _AddTagsSheet2State extends State<AddTagsSheet2> {
           ),
           10.verticalSpace,
         ],
-        Wrap(
-          spacing: 8.0,
-          runSpacing: 4.0,
-          alignment: WrapAlignment.start,
-          crossAxisAlignment: WrapCrossAlignment.start,
-          runAlignment: WrapAlignment.start,
-          children: selectedTags
-              .map((tag) => Chip(
-                    label: Text(tag),
-                    onDeleted: () {
-                      selectedTags.remove(tag);
-                      setState(() {});
-                    },
-                  ))
-              .toList(),
-        ),
+        // Single row of chips that scrolls horizontally once selected tags
+        // overflow the sheet's width, instead of wrapping onto more lines.
+        if (selectedTags.isNotEmpty)
+          SingleChildScrollView(
+            controller: _tagsScrollController,
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: selectedTags
+                  .map((tag) => Padding(
+                        padding: const EdgeInsets.only(right: 8.0),
+                        child: Chip(
+                          label: Text(tag),
+                          onDeleted: () {
+                            selectedTags.remove(tag);
+                            setState(() {});
+                          },
+                        ),
+                      ))
+                  .toList(),
+            ),
+          ),
         OutlinedFormField(
           hint: "Search ",
           controller: searchController,
@@ -233,6 +276,7 @@ class _AddTagsSheet2State extends State<AddTagsSheet2> {
               selectedTags.add(value);
               searchController.clear();
               setState(() {});
+              _scrollTagsToEnd();
             }
           },
         ),
@@ -252,24 +296,32 @@ class _AddTagsSheet2State extends State<AddTagsSheet2> {
                   itemCount: filteredTrends.length,
                   itemBuilder: (context, index) {
                     final trend = filteredTrends[index];
-                    return ListTile(
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 0, horizontal: 16),
-                      dense: true,
-                      title: TextView(text: trend),
-                      trailing: selectedTags.contains(trend)
-                          ? const Icon(Icons.check_circle,
-                              color: Pallets.primary)
-                          : null,
-                      onTap: () {
-                        if (!selectedTags.contains(trend)) {
-                          selectedTags.add(trend);
-                          setState(() {});
-                        } else {
-                          selectedTags.remove(trend);
-                          setState(() {});
-                        }
-                      },
+                    // The outer sheet Container paints its own background
+                    // color, which sits between this tile and the nearest
+                    // Material ancestor and would hide its ink splashes —
+                    // giving it its own transparent Material fixes that.
+                    return Material(
+                      color: Colors.transparent,
+                      child: ListTile(
+                        contentPadding:
+                            EdgeInsets.symmetric(vertical: 0, horizontal: 16),
+                        dense: true,
+                        title: TextView(text: trend),
+                        trailing: selectedTags.contains(trend)
+                            ? const Icon(Icons.check_circle,
+                                color: Pallets.primary)
+                            : null,
+                        onTap: () {
+                          if (!selectedTags.contains(trend)) {
+                            selectedTags.add(trend);
+                            setState(() {});
+                            _scrollTagsToEnd();
+                          } else {
+                            selectedTags.remove(trend);
+                            setState(() {});
+                          }
+                        },
+                      ),
                     );
                   },
                 ),
@@ -282,6 +334,7 @@ class _AddTagsSheet2State extends State<AddTagsSheet2> {
     Future.delayed(
       Duration(milliseconds: 200),
       () {
+        if (!mounted) return;
         setState(() {
           final query = searchController.text.toLowerCase();
           if (query.isEmpty) {

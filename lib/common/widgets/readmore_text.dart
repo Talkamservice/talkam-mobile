@@ -10,12 +10,28 @@ class CustomReadMoreText extends StatefulWidget {
   final FontWeight? fontWeight;
   final Function(String mention)? mentionCallback;
 
+  /// Space above the text, before it even starts — defaults to matching
+  /// existing call sites (post bodies). A caller with its own tighter
+  /// spacing above (e.g. a comment sitting right under its name row) can
+  /// pass 0 instead, rather than trying to cancel it out with negative
+  /// padding from outside, which Flutter's Padding rejects at runtime.
+  final double topSpace;
+
+  /// Overrides the text's line-height multiplier — null keeps the theme's
+  /// own bodyMedium height (existing behavior everywhere). A tighter value
+  /// (e.g. 1) trims the font's built-in leading above the first line, which
+  /// [topSpace] alone doesn't reach since it's space added before the text,
+  /// not the text's own natural line box.
+  final double? lineHeight;
+
   CustomReadMoreText({
     required this.text,
     this.trimLines = 2,
     this.fontSize,
     this.fontWeight,
     this.mentionCallback,
+    this.topSpace = 3,
+    this.lineHeight,
   });
 
   @override
@@ -30,8 +46,9 @@ class _CustomReadMoreTextState extends State<CustomReadMoreText> {
     const style = TextStyle(color: Colors.blue);
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        3.verticalSpace,
+        SizedBox(height: widget.topSpace.h),
         if (widget.text != null)
           LayoutBuilder(
             builder: (context, size) {
@@ -50,6 +67,7 @@ class _CustomReadMoreTextState extends State<CustomReadMoreText> {
                 return Helpers.buildTextWithMentions(widget.text, context,
                     fontSize: widget.fontSize,
                     fontWeight: widget.fontWeight,
+                    height: widget.lineHeight,
                     mentionCallback: widget.mentionCallback);
               }
 
@@ -63,6 +81,7 @@ class _CustomReadMoreTextState extends State<CustomReadMoreText> {
                     context,
                     fontSize: widget.fontSize,
                     fontWeight: widget.fontWeight,
+                    height: widget.lineHeight,
                     mentionCallback: widget.mentionCallback,
                   ),
                   8.verticalSpace,
