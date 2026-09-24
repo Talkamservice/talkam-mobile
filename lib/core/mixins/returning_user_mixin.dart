@@ -9,6 +9,7 @@ import 'package:talkam/features/authentication/data/models/auth_response.dart';
 import 'package:talkam/features/authentication/data/models/onboarding_user_type.dart';
 import 'package:talkam/features/authentication/presentation/bloc/auth_bloc.dart';
 import 'package:talkam/features/authentication/presentation/screens/verify_otp_screen.dart';
+import 'package:talkam/features/home/presentation/bloc/drawer/drawer_data_cubit.dart';
 import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 import 'package:talkam/features/therapist_application/dormain/repository/therapist_application_repository.dart';
 import 'package:talkam/features/therapist_application/presentation/bloc/therapist_application_bloc.dart';
@@ -137,6 +138,12 @@ mixin ReturningUserMixin<T extends StatefulWidget> on State<T> {
   void _navigateToHome(BuildContext context) {
     injector.get<PostBloc>().add(const PostEvent.getGuidelines());
     injector.get<PostBloc>().add(const PostEvent.getCategories());
+    // Same head-start idea as the two calls above: fire the sidebar's own
+    // data now, before Home/BasePage/AppDrawer even mount, so by the time
+    // the user actually drags it open it's had this much longer to
+    // resolve instead of starting from zero at AppDrawer.initState.
+    injector.get<PostBloc>().add(const PostEvent.getInterestTopics());
+    injector.get<DrawerDataCubit>().fetch();
     SessionManager().hasOnboarded = true;
     context.goNamed(PageUrl.homeScreen);
   }

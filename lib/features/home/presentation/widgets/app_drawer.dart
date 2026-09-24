@@ -41,11 +41,16 @@ class _AppDrawerState extends State<AppDrawer> {
   @override
   void initState() {
     super.initState();
-    // The drawer widget stays permanently mounted once the shell first
-    // builds it (Scaffold.drawer never rebuilds on its own), so this only
-    // covers the very first open — subsequent opens are refreshed from
-    // BasePage._openDrawer() instead.
-    injector.get<DrawerDataCubit>().fetch();
+    // ReturningUserMixin._navigateToHome already kicked this same fetch
+    // off before Home/BasePage/this widget even mounted, as a head start.
+    // This call is just a safety net for reaching Home some other way —
+    // silent, so if the head start already resolved by the time we get
+    // here, this doesn't blow the result away with a fresh loading state
+    // (which is what made the Groups section flash back to its spinner on
+    // first open even though the data had already arrived). The drawer
+    // stays permanently mounted once the shell first builds it, so this
+    // initState only ever runs once regardless.
+    injector.get<DrawerDataCubit>().fetch(silent: true);
   }
 
   @override
