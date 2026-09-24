@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/theme/pallets.dart';
+import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/guest_user_helper.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/presentation/bloc/comments/comments_bloc.dart';
@@ -109,12 +110,13 @@ class _CommentReactionButtonState extends State<CommentReactionButton> {
           },
 
           child: switch (widget.reactionType) {
-            // likeIcon is a pure outline SVG (stroke only, no fill), so it
-            // can never look "filled" just by tinting it — the active
-            // state needs an actually-filled heart glyph instead.
+            // Same glyph both states (Material's favorite/favorite_border
+            // pair) so the inactive outline reads as the same icon as the
+            // active fill, not a mismatched SVG asset — only active is pink.
             ReactionType.like => (widget.reaction?.isLike ?? false)
                 ? const Icon(Icons.favorite, color: Colors.pink, size: 24)
-                : ImageWidget(imageUrl: Assets.images.svgV2.likeIcon),
+                : Icon(Icons.favorite_border,
+                    color: context.colorScheme.onSurface, size: 24),
             ReactionType.dislike => ImageWidget(
                 imageUrl: Assets.images.svgs.thumbsDownSvg_,
                 color: widget.reaction?.isDisLike ?? false ? Pallets.red : null,
