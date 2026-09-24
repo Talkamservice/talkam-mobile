@@ -3,6 +3,7 @@ import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/services/network/url_config.dart';
+import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/helper_utils.dart';
 import 'package:talkam/features/post/data/models/get_comments_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
@@ -134,7 +135,8 @@ class CommentMenuButton extends StatelessWidget {
       // row on every tier, root and reply alike.
       padding: EdgeInsets.zero,
       constraints: const BoxConstraints(),
-      icon: const Icon(Icons.more_vert, size: 20),
+      icon: Icon(Icons.more_vert,
+          size: 20, color: context.colorScheme.onSurface),
     );
   }
 }

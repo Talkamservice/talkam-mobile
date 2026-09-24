@@ -248,6 +248,8 @@ class _PostDetailHeaderState extends State<_PostDetailHeader> {
           ),
         GuestUserHelper.guestUserWidget(
           widget: IconButton(
+            padding: EdgeInsets.zero,
+            constraints: const BoxConstraints(),
             icon: Icon(Icons.more_vert_rounded,
                 color: context.colorScheme.onSurface),
             onPressed: () async {

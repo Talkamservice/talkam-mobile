@@ -9,12 +9,12 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/constants/dialog_texts.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/navigation/route_url.dart';
+import 'package:talkam/features/group/data/models/groups_filter_model.dart';
+import 'package:talkam/features/group/presentation/blocs/groups_cubit/groups_cubit.dart';
 import 'package:talkam/features/home/presentation/bloc/drawer/drawer_cubit.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
-import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
+import 'package:talkam/features/search/presentation/widget/group_result_item.dart';
 import 'package:talkam/gen/assets.gen.dart';
-
-import 'app_drawer.dart';
 
 class CategoryGroupList extends StatefulWidget {
   const CategoryGroupList({super.key, required this.category});
@@ -26,14 +26,30 @@ class CategoryGroupList extends StatefulWidget {
 }
 
 class _CategoryGroupListState extends State<CategoryGroupList> {
+  // widget.category comes from the interest-topics taxonomy (see
+  // CategoryList, which is what the user actually picks "Addiction" from),
+  // so groups have to be filtered by that same id space — GroupsCubit's v2
+  // `getGroups(categoryId: ...)` is what the Groups screen's own category
+  // chips already use successfully for exactly this. The old
+  // `PostEvent.getCategories(mergeGroups: true)` call queried the older,
+  // unrelated `/user/post-categories` id space, so it could never actually
+  // return this category's groups.
+  final groupsCubit = GroupsCubit(injector.get());
+
+  GroupsFilterModel get _filter =>
+      GroupsFilterModel(category: widget.category.id.toString());
+
   @override
   void initState() {
-    logger.w(widget.category.id);
-    postBloc.add(PostEvent.getCategories(categoryId: widget.category.id.toString(), mergeGroups: true));
+    groupsCubit.getGroups(filter: _filter);
     super.initState();
   }
 
-  final postBloc = PostBloc(injector.get());
+  @override
+  void dispose() {
+    groupsCubit.close();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,65 +80,55 @@ class _CategoryGroupListState extends State<CategoryGroupList> {
                       fontWeight: FontWeight.w600,
                     ),
                   ),
-                  // IconButton(
-                  //     onPressed: () {},
-                  //     icon: Icon(color: context.colorScheme.onSurface, Icons.close))
                 ],
               ),
             ),
           ),
           8.verticalSpace,
-          BlocConsumer<PostBloc, PostState>(
-            bloc: postBloc,
+          BlocConsumer<GroupsCubit, GroupsState>(
+            bloc: groupsCubit,
             listener: (context, state) {},
             builder: (context, state) {
               return state.maybeWhen(
                 orElse: () => 0.verticalSpace,
-                getCategoriesFailure: (error) => AppErrorWidget(
-                  onTap: () {
-                    postBloc.add(const PostEvent.getCategories());
-                  },
+                getGroupsFailure: (error) => AppErrorWidget(
+                  onTap: () => groupsCubit.getGroups(filter: _filter),
                 ),
-                getCategoriesLoading: () => SizedBox(height: 300, child: CustomDialogs.getLoading(size: 50)),
-                getCategoriesSuccess: (response) {
-                  if (response.data.isEmpty) {
+                getGroupsLoading: () => SizedBox(height: 300, child: CustomDialogs.getLoading(size: 50)),
+                getGroupsSuccess: (groups, paginationData) {
+                  if (groups.isEmpty) {
                     return const SizedBox(
                       height: 300,
                       child: Center(
-                        child: TextView(text: "There are no groups here"),
+                        child: TextView(text: "No groups in this category"),
                       ),
                     );
                   }
 
                   return ListView.builder(
-                    itemCount: response.data.length,
+                    itemCount: groups.length,
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) => Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 3.0),
-                      child: NavCategoryItem(
-                        showArrow: false,
-                        category: response.data[index],
+                    itemBuilder: (context, index) {
+                      final group = groups[index];
+                      return InkWell(
                         onTap: () {
-                          // logger.w(response.data[index].toJson());
                           context.read<DrawerCubit>().closeDrawer();
 
-                          if (response.data[index].type.toString().toLowerCase() == "category") {
-                            context.pushNamed(PageUrl.groupsInfoScreen, extra: response.data[index].id.toString());
+                          if (group.isSuspended ?? false) {
+                            CustomDialogs.error("You have been suspended from this group");
+                          } else if (!group.isPublic && !(group.isFollowing ?? false)) {
+                            CustomDialogs.showInfoMessage(context, privateGroupViewText);
                           } else {
-                            if (response.data[index].isSuspended ?? false) {
-                              CustomDialogs.error("You have been suspended from this group");
-                            } else if (!response.data[index].isPublic && !(response.data[index].isFollowing ?? false)) {
-                              CustomDialogs.showInfoMessage(context, privateGroupViewText);
-                            } else {
-                              context.pushNamed(PageUrl.groupsInfoScreen, extra: response.data[index].id.toString());
-                            }
-
-                            // context.pushNamed(PageUrl.groupsInfoScreen, extra: response.data[index].id.toString());
+                            context.pushNamed(PageUrl.groupsInfoScreen, extra: group.id.toString());
                           }
                         },
-                      ),
-                    ),
+                        child: GroupResultItem(
+                          group: group,
+                          onJoinStateChanged: () => groupsCubit.getGroups(filter: _filter),
+                        ),
+                      );
+                    },
                   );
                 },
               );

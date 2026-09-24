@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
-import 'package:talkam/common/widgets/custom_button.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
@@ -12,6 +10,7 @@ import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/dormain/repository/post_repository.dart';
 import 'package:talkam/features/post/presentation/bloc/drafts_cubit/drafts_cubit.dart';
+import 'package:talkam/features/post/presentation/widgets/create_post_sheet.dart';
 
 /// `GET/PUT/DELETE /user/post-drafts[/{id}]` — the only draft affordance
 /// that existed before this screen was the "Save as Draft" button in
@@ -47,14 +46,11 @@ class _DraftsListScreenState extends State<DraftsListScreen> {
   }
 
   Future<void> _openEditSheet(TalkamPost draft) async {
-    await CustomDialogs.showBottomSheet(
-      context,
-      BlocProvider.value(
-        value: cubit,
-        child: _DraftEditSheet(draft: draft),
-      ),
-      constraints: BoxConstraints(maxHeight: 0.9.sh),
-    );
+    await showCreatePostSheet(context, draft: draft);
+    // The sheet edits/publishes through CreatePostCubit directly (not this
+    // screen's DraftsCubit), so refetch to pick up whatever changed —
+    // content update, or the draft having moved into the real feed.
+    if (mounted) cubit.getDrafts();
   }
 
   void _confirmDelete(TalkamPost draft) {
@@ -261,162 +257,6 @@ class _DraftsListScreenState extends State<DraftsListScreen> {
             ),
           );
         },
-      ),
-    );
-  }
-}
-
-class _DraftEditSheet extends StatefulWidget {
-  const _DraftEditSheet({required this.draft});
-
-  final TalkamPost draft;
-
-  @override
-  State<_DraftEditSheet> createState() => _DraftEditSheetState();
-}
-
-class _DraftEditSheetState extends State<_DraftEditSheet> {
-  static const _kTitleMaxLength = 40;
-
-  late final _titleController =
-      TextEditingController(text: widget.draft.title?.toString() ?? '');
-  late final _bodyController =
-      TextEditingController(text: widget.draft.body ?? '');
-  bool _saving = false;
-  bool _titleAtLimit = false;
-
-  @override
-  void initState() {
-    super.initState();
-    _titleController.addListener(_checkTitleMaxLength);
-  }
-
-  void _checkTitleMaxLength() {
-    final length = _titleController.text.characters.length;
-    if (length >= _kTitleMaxLength) {
-      if (!_titleAtLimit) {
-        _titleAtLimit = true;
-        HapticFeedback.vibrate();
-        CustomDialogs.showToast(
-          "You have reached the maximum character limit of $_kTitleMaxLength characters",
-        );
-      }
-    } else {
-      _titleAtLimit = false;
-    }
-  }
-
-  @override
-  void dispose() {
-    _titleController.removeListener(_checkTitleMaxLength);
-    _titleController.dispose();
-    _bodyController.dispose();
-    super.dispose();
-  }
-
-  Future<void> _save() async {
-    if (_titleController.text.trim().isEmpty) {
-      CustomDialogs.error("Please add a title for your post");
-      return;
-    }
-
-    setState(() => _saving = true);
-    final cubit = context.read<DraftsCubit>();
-    final success = await cubit.updateDraft(
-      widget.draft.id,
-      categoryId: int.tryParse(widget.draft.category.id.toString()) ?? 0,
-      type: widget.draft.type?.toString() ?? "Text",
-      title: _titleController.text.trim(),
-      body: _bodyController.text.trim(),
-    );
-    if (!mounted) return;
-    setState(() => _saving = false);
-    if (success) {
-      Navigator.of(context).pop();
-      CustomDialogs.success("Draft saved");
-    } else {
-      CustomDialogs.error("Couldn't save this draft");
-    }
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Pallets.white,
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(20.r), topRight: Radius.circular(20.r)),
-      ),
-      child: SafeArea(
-        top: false,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(
-                16.w, 16.h, 16.w, 16.h + MediaQuery.of(context).viewInsets.bottom),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Center(
-                  child: Container(
-                    width: 36.w,
-                    height: 4.h,
-                    decoration: BoxDecoration(
-                        color: Pallets.grey60,
-                        borderRadius: BorderRadius.circular(2)),
-                  ),
-                ),
-                16.verticalSpace,
-                const TextView(
-                  text: "Edit draft",
-                  fontSize: 20,
-                  fontWeight: FontWeight.w700,
-                ),
-                16.verticalSpace,
-                TextField(
-                  controller: _titleController,
-                  textCapitalization: TextCapitalization.sentences,
-                  maxLength: _kTitleMaxLength,
-                  decoration: InputDecoration(
-                    hintText: "Title",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.r)),
-                  ),
-                ),
-                12.verticalSpace,
-                TextField(
-                  controller: _bodyController,
-                  maxLines: 8,
-                  minLines: 6,
-                  textCapitalization: TextCapitalization.sentences,
-                  decoration: InputDecoration(
-                    hintText: "What's on your mind",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(12.r)),
-                  ),
-                ),
-                20.verticalSpace,
-                CustomButton(
-                  onPressed: _saving ? null : _save,
-                  bgColor: Pallets.blueBubbleColor,
-                  child: _saving
-                      ? SizedBox(
-                          width: 20.w,
-                          height: 20.w,
-                          child: const CircularProgressIndicator(
-                              strokeWidth: 2.2, color: Colors.white),
-                        )
-                      : const TextView(
-                          text: "Save",
-                          color: Colors.white,
-                          fontWeight: FontWeight.w700,
-                          fontSize: 15,
-                        ),
-                ),
-              ],
-            ),
-          ),
-        ),
       ),
     );
   }

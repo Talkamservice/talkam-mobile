@@ -47,6 +47,38 @@ class CreatePostCubit extends Cubit<CreatePostState>
     }
   }
 
+  /// Content edit on an existing draft — [payload] is passed straight
+  /// through rather than merged into [createPostPayload] via [updatePayload]
+  /// so its `status: null` (deliberately unset, to leave the draft's status
+  /// alone) can't get swallowed by copyWith's `status ?? this.status`.
+  void updateDraft(int draftId, CreatePostPayload payload) async {
+    emit(const CreatePostState.saveDraftLoading());
+    try {
+      final response =
+          await _postRepository.updateDraft(draftId.toString(), payload);
+      emit(CreatePostState.saveDraftSuccess(response));
+    } catch (error, stack) {
+      logger.e(error.toString(), error: error, stackTrace: stack);
+      emit(CreatePostState.saveDraftFailure(error.toString()));
+    }
+  }
+
+  /// Moves an existing draft into the real feed — same endpoint as
+  /// [updateDraft], just with `status: "Active"` (or "Scheduled") already
+  /// set on [payload], matching how [DraftsCubit.publishDraft] does it.
+  void publishDraft(int draftId, CreatePostPayload payload) async {
+    emit(const CreatePostState.createPostLoading());
+    try {
+      final response =
+          await _postRepository.updateDraft(draftId.toString(), payload);
+      injector.get<ProfileBloc>().add(const GetRemoteUser());
+      emit(CreatePostState.createPostSuccess(response));
+    } catch (error, stack) {
+      logger.e(error.toString(), error: error, stackTrace: stack);
+      emit(CreatePostState.createPostFailure(error.toString()));
+    }
+  }
+
   void validateForms() {
     // Triggers form validation for create post forms
     emit(const CreatePostState.validateFormsState());

@@ -26,40 +26,6 @@ class DraftsCubit extends Cubit<DraftsState> {
     }
   }
 
-  /// Plain content edit — status is deliberately left null so this can
-  /// never accidentally publish the draft (CreatePostPayload defaults
-  /// status to "Active" when unset, which [publishDraft] relies on).
-  Future<bool> updateDraft(
-    int draftId, {
-    required int categoryId,
-    required String type,
-    required String title,
-    required String body,
-  }) async {
-    emit(state.copyWith(savingId: draftId));
-    try {
-      final response = await _repository.updateDraft(
-        draftId.toString(),
-        CreatePostPayload(
-          categoryId: categoryId,
-          type: type,
-          title: title,
-          body: body,
-          status: null,
-        ),
-      );
-      final updated = state.drafts
-          .map((d) => d.id == draftId ? response.data : d)
-          .toList();
-      emit(state.copyWith(drafts: updated, clearSavingId: true));
-      return true;
-    } catch (e, stack) {
-      logger.e(e, stackTrace: stack);
-      emit(state.copyWith(clearSavingId: true));
-      return false;
-    }
-  }
-
   /// Moves a draft into the real feed by flipping its status to Active —
   /// PostService::list only ever returns status=Active posts, so this is
   /// all "publish" needs to do; no separate publish endpoint exists.

@@ -27,6 +27,12 @@ class PostBloc extends Bloc<PostEvent, PostState>
   List<TalkamGuidelineModel> talkamRules = [];
   List<PostCategory> categories = [];
   List<PostCategory> subcategories = [];
+
+  /// `/user/interest-topics` (v2) — the taxonomy posts are actually tagged
+  /// under (see `CreatePostSheet`'s category picker), distinct from
+  /// [categories] (`/user/post-categories`, v1 — used for group/category
+  /// browsing in the drawer, a separate, older taxonomy).
+  List<PostCategory> interestTopics = [];
   List<Trend> trends = [];
 
   PostBloc(this._postRepository) : super(const PostState.initial()) {
@@ -99,6 +105,7 @@ class PostBloc extends Bloc<PostEvent, PostState>
     emit(const PostState.getInterestTopicsLoading());
     try {
       final response = await _postRepository.getInterestTopics();
+      interestTopics = response.data;
       emit(PostState.getInterestTopicsSuccess(response));
     } catch (error) {
       emit(PostState.getInterestTopicsFailure(error.toString()));

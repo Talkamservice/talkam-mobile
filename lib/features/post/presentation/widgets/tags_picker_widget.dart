@@ -9,16 +9,21 @@ import 'package:talkam/features/post/presentation/widgets/add_tags_sheet.dart';
 import 'add_tags_sheet_2.dart';
 
 class TagsPickerWidget extends StatefulWidget {
-  const TagsPickerWidget({super.key, required this.onTagSelected});
+  const TagsPickerWidget({
+    super.key,
+    required this.onTagSelected,
+    this.initialTags = const [],
+  });
 
   final Function(List<String> selectedTags) onTagSelected;
+  final List<String> initialTags;
 
   @override
   State<TagsPickerWidget> createState() => _TagsPickerWidgetState();
 }
 
 class _TagsPickerWidgetState extends State<TagsPickerWidget> {
-  List<String> selectedTags = [];
+  late List<String> selectedTags = List.of(widget.initialTags);
   final ScrollController _tagsScrollController = ScrollController();
 
   // Only fade the edge that actually has more content hidden behind it —

@@ -5,7 +5,9 @@ import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/features/post/data/models/post_filter_model.dart';
 import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
+import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 import 'package:talkam/features/post/presentation/bloc/trending_post/trending_post_cubit.dart';
+import 'package:talkam/features/post/presentation/widgets/category_filter_chips.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item.dart';
 import 'package:talkam/features/post/presentation/widgets/post_loading_shimmer.dart';
 
@@ -52,6 +54,24 @@ class _TrendingScreenState extends State<TrendingScreen>
       backgroundColor: context.colorScheme.surface,
       body: Column(
         children: [
+          BlocBuilder<PostBloc, PostState>(
+            bloc: injector.get<PostBloc>(),
+            builder: (context, state) {
+              // Same source as ForYouScreen's pill row — interestTopics
+              // (`/user/interest-topics`), the taxonomy posts are actually
+              // tagged under, not categories (`/user/post-categories`).
+              final categories = injector.get<PostBloc>().interestTopics;
+              if (categories.isEmpty) return const SizedBox.shrink();
+              return CategoryFilterChips(
+                categories: categories,
+                onSelected: (categoryId) {
+                  injector.get<TrendingPostCubit>().getTrendingPosts(
+                        PostFilterModel.trendingPost(category: categoryId),
+                      );
+                },
+              );
+            },
+          ),
           Expanded(
             child: BlocBuilder<TrendingPostCubit, TrendingPostState>(
               bloc: injector.get(),

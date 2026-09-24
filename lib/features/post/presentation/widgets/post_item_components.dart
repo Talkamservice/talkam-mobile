@@ -152,6 +152,12 @@ class PostHeader extends StatelessWidget {
           ),
         ),
         IconButton(
+          // Material's default IconButton keeps a ~48x48 min tap target,
+          // which pushes it further from the edge than the comment
+          // container's own menu button (CommentMenuButton) — shrinking it
+          // to the icon's own size matches that spacing.
+          padding: EdgeInsets.zero,
+          constraints: const BoxConstraints(),
           icon: Icon(Icons.more_vert_rounded, color: context.colorScheme.onSurface),
           onPressed: onMenuTap,
         )

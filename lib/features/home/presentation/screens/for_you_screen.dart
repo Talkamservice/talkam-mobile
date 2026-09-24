@@ -58,7 +58,12 @@ class _ForYouScreenState extends State<ForYouScreen>
           BlocBuilder<PostBloc, PostState>(
             bloc: injector.get<PostBloc>(),
             builder: (context, state) {
-              final categories = injector.get<PostBloc>().categories;
+              // interestTopics (`/user/interest-topics`), not categories
+              // (`/user/post-categories`) — posts are actually tagged
+              // under interest-topic ids (see CreatePostSheet's category
+              // picker), so filtering by the other taxonomy's ids here
+              // wouldn't match any post.
+              final categories = injector.get<PostBloc>().interestTopics;
               if (categories.isEmpty) return const SizedBox.shrink();
               return CategoryFilterChips(
                 categories: categories,

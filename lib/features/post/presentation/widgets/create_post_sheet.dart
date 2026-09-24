@@ -19,6 +19,7 @@ import 'package:talkam/core/utils/extensions/int_extension.dart';
 import 'package:talkam/core/utils/time_util.dart';
 import 'package:talkam/features/post/data/models/create_post_payload.dart';
 import 'package:talkam/features/post/data/models/get_categories_response.dart';
+import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
 import 'package:talkam/features/post/presentation/bloc/composer_editor_cubit/composer_editor_cubit.dart';
 import 'package:talkam/features/post/presentation/bloc/create_post/create_post_cubit.dart';
@@ -38,20 +39,25 @@ const _kTitleMaxLength = 40;
 
 /// Opens [CreatePostSheet] as a modal bottom sheet. Pass [group] to
 /// pre-attach a group (e.g. when opened from that group's own FAB) — still
-/// freely changeable/clearable in the sheet, not locked.
-Future<void> showCreatePostSheet(BuildContext context, {TalkamGroup? group}) {
+/// freely changeable/clearable in the sheet, not locked. Pass [draft] to
+/// open it pre-filled with an existing draft's content instead of blank —
+/// "Post" then publishes that draft and "Save as Draft" updates it in
+/// place, rather than either creating a separate new post/draft.
+Future<void> showCreatePostSheet(BuildContext context,
+    {TalkamGroup? group, TalkamPost? draft}) {
   FocusManager.instance.primaryFocus?.unfocus();
   return CustomDialogs.showBottomSheet(
     context,
-    CreatePostSheet(group: group),
+    CreatePostSheet(group: group, draft: draft),
     constraints: BoxConstraints(maxHeight: 0.94.sh),
   );
 }
 
 class CreatePostSheet extends StatefulWidget {
-  const CreatePostSheet({super.key, this.group});
+  const CreatePostSheet({super.key, this.group, this.draft});
 
   final TalkamGroup? group;
+  final TalkamPost? draft;
 
   @override
   State<CreatePostSheet> createState() => _CreatePostSheetState();
@@ -75,15 +81,36 @@ class _CreatePostSheetState extends State<CreatePostSheet>
   File? _stagedImage;
   Poll? _poll;
 
+  /// The draft's own already-uploaded image, if it has one — kept separate
+  /// from [_stagedImage] (always a local file) so an edit that doesn't
+  /// touch the image can still resubmit it untouched, and so the preview
+  /// can tell a network URL apart from a freshly-picked local file.
+  String? _existingAttachmentUrl;
+
   bool _hasReachedMaxLength = false;
   bool _titleHasReachedMaxLength = false;
 
+  bool get _isEditingDraft => widget.draft != null;
+
   @override
   void initState() {
-    _selectedGroup = widget.group;
+    _selectedGroup = widget.group ?? widget.draft?.group;
     _postBloc.add(const PostEvent.getInterestTopics());
     _bodyController.addListener(_checkMaxLength);
     _titleController.addListener(_checkTitleMaxLength);
+
+    final draft = widget.draft;
+    if (draft != null) {
+      _titleController.text = draft.title?.toString() ?? '';
+      _bodyController.text = draft.body ?? '';
+      _selectedCategory = draft.category;
+      _tags = List.of(draft.tags);
+      _isAnonymous = draft.isAnonymous.toBool;
+      _schedulePost = draft.status == "Scheduled" && draft.publishAt != null;
+      _scheduleDate = _schedulePost ? draft.publishAt as DateTime : null;
+      final attachment = draft.attachments.whereType<Attachment>().firstOrNull;
+      if (attachment != null) _existingAttachmentUrl = attachment.url;
+    }
     super.initState();
   }
 
@@ -145,6 +172,7 @@ class _CreatePostSheetState extends State<CreatePostSheet>
     if (image != null && mounted) {
       setState(() {
         _stagedImage = image;
+        _existingAttachmentUrl = null;
         _poll = null;
       });
     }
@@ -193,6 +221,14 @@ class _CreatePostSheetState extends State<CreatePostSheet>
     });
   }
 
+  /// The freshly-picked image if there is one, otherwise the draft's own
+  /// already-uploaded image if it still has one, otherwise none.
+  List<Attachment> get _attachmentsPayload => _stagedImage != null
+      ? [Attachment.image(_stagedImage!.path)]
+      : _existingAttachmentUrl != null
+          ? [Attachment.image(_existingAttachmentUrl!)]
+          : [];
+
   void _submit() {
     if (_titleController.text.trim().isEmpty) {
       CustomDialogs.error("Please add a title for your post");
@@ -211,21 +247,25 @@ class _CreatePostSheetState extends State<CreatePostSheet>
       return;
     }
 
-    bloc.updatePayload(CreatePostPayload(
+    final payload = CreatePostPayload(
       categoryId: _selectedCategory!.id,
       groupId: _selectedGroup?.id,
       title: _titleController.text.trim(),
       body: _bodyController.text.trim(),
       tags: _tags,
       type: _poll != null ? "Poll" : (_stagedImage != null ? "Image" : "Text"),
-      attachments:
-          _stagedImage != null ? [Attachment.image(_stagedImage!.path)] : [],
+      attachments: _attachmentsPayload,
       poll: _poll,
       status: _schedulePost ? "Scheduled" : "Active",
       publishAt: _schedulePost ? _scheduleDate : null,
       isAnonymous: _isAnonymous.toInt,
-    ));
-    bloc.createPost();
+    );
+    if (_isEditingDraft) {
+      bloc.publishDraft(widget.draft!.id, payload);
+    } else {
+      bloc.updatePayload(payload);
+      bloc.createPost();
+    }
   }
 
   void _saveDraft() {
@@ -238,18 +278,25 @@ class _CreatePostSheetState extends State<CreatePostSheet>
       return;
     }
 
-    bloc.updatePayload(CreatePostPayload(
+    final payload = CreatePostPayload(
       categoryId: _selectedCategory!.id,
       groupId: _selectedGroup?.id,
       title: _titleController.text.trim(),
       body: _bodyController.text.trim(),
       tags: _tags,
       type: _stagedImage != null ? "Image" : "Text",
-      attachments:
-          _stagedImage != null ? [Attachment.image(_stagedImage!.path)] : [],
+      attachments: _attachmentsPayload,
       isAnonymous: _isAnonymous.toInt,
-    ));
-    bloc.saveDraft();
+      // Deliberately unset (not "Active") so updating a draft's content
+      // doesn't accidentally publish it — matches DraftsCubit.updateDraft.
+      status: _isEditingDraft ? null : "Active",
+    );
+    if (_isEditingDraft) {
+      bloc.updateDraft(widget.draft!.id, payload);
+    } else {
+      bloc.updatePayload(payload);
+      bloc.saveDraft();
+    }
   }
 
   @override
@@ -269,7 +316,8 @@ class _CreatePostSheetState extends State<CreatePostSheet>
               refreshPost();
               context.pop(); // dismiss loading dialog
               context.pop(); // dismiss bottom sheet
-              CustomDialogs.success("Post created");
+              CustomDialogs.success(
+                  _isEditingDraft ? "Draft published" : "Post created");
             },
             saveDraftLoading: () => CustomDialogs.showLoading(context),
             saveDraftFailure: (error) {
@@ -279,7 +327,8 @@ class _CreatePostSheetState extends State<CreatePostSheet>
             saveDraftSuccess: (response) {
               context.pop();
               context.pop();
-              CustomDialogs.success("Saved as draft");
+              CustomDialogs.success(
+                  _isEditingDraft ? "Draft saved" : "Saved as draft");
             },
           );
         },
@@ -319,8 +368,9 @@ class _CreatePostSheetState extends State<CreatePostSheet>
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const TextView(
-                              text: "Create Post",
+                          TextView(
+                              text:
+                                  _isEditingDraft ? "Edit Draft" : "Create Post",
                               fontSize: 20,
                               fontWeight: FontWeight.w700),
                           InkWell(
@@ -411,26 +461,32 @@ class _CreatePostSheetState extends State<CreatePostSheet>
                                 ),
                               ),
                               MentionSuggestionsPanel(editor: _bodyEditor),
-                              if (_stagedImage != null)
+                              if (_stagedImage != null ||
+                                  _existingAttachmentUrl != null)
                                 Padding(
                                   padding: EdgeInsets.only(bottom: 8.h),
                                   child: Stack(
                                     clipBehavior: Clip.none,
                                     children: [
                                       ImageWidget(
-                                        imageUrl: _stagedImage!.path,
+                                        imageUrl: _stagedImage?.path ??
+                                            _existingAttachmentUrl!,
                                         height: 140.h,
                                         width: 1.sw,
                                         borderRadius:
                                             BorderRadius.circular(16.r),
-                                        imageType: ImageWidgetType.file,
+                                        imageType: _stagedImage != null
+                                            ? ImageWidgetType.file
+                                            : ImageWidgetType.network,
                                       ),
                                       Positioned(
                                         top: -8,
                                         right: -8,
                                         child: InkWell(
-                                          onTap: () => setState(
-                                              () => _stagedImage = null),
+                                          onTap: () => setState(() {
+                                            _stagedImage = null;
+                                            _existingAttachmentUrl = null;
+                                          }),
                                           child: const CircleAvatar(
                                             backgroundColor: Pallets.primary,
                                             radius: 14,
@@ -579,7 +635,10 @@ class _CreatePostSheetState extends State<CreatePostSheet>
                         ),
                       ),
                       16.verticalSpace,
-                      TagsPickerWidget(onTagSelected: (tags) => _tags = tags),
+                      TagsPickerWidget(
+                        initialTags: _tags,
+                        onTagSelected: (tags) => _tags = tags,
+                      ),
                       16.verticalSpace,
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
