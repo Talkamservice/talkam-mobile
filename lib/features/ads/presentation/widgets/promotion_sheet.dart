@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:go_router/go_router.dart';
@@ -93,9 +94,8 @@ class _PromotePostSheetState extends State<PromotePostSheet> with RefreshAppMixi
                       radius: 30,
                       padding: EdgeInsets.all(11),
                       onPressed: previousPage,
-                      child: TextView(
-                        text: _selectedIndex == 0 ? "Cancel" : "Back",
-                      ),
+                      foregroundColor: context.colorScheme.onSurface,
+                      text: _selectedIndex == 0 ? "Cancel" : "Back",
                     ),
                   ),
 
@@ -335,7 +335,7 @@ class PromotePostHeader extends StatelessWidget {
           thickness: 1,
         ),
         TextView(
-          text: "Reach more people and make your group more visible to a large audience of people.",
+          text: "Reach more people and make your ${type.toLowerCase()} more visible to a large audience of people.",
           color: Pallets.textGrey,
         ),
         16.verticalSpace,

@@ -187,7 +187,8 @@ class AdsCubit extends Cubit<AdsState> {
       emit(const AdsState.getAnalyticsLoading());
       final result = await adsRepository.getAnalytics(isPost, id);
       emit(AdsState.getAnalyticsSuccess(result));
-    } catch (e) {
+    } catch (e, stack) {
+      logger.e(e, stackTrace: stack);
       emit(AdsState.getAnalyticsFailed(e.toString()));
     }
   }

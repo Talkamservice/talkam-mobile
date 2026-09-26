@@ -69,6 +69,7 @@ class _ViewAnalyticsBottomSheetState extends State<ViewAnalyticsBottomSheet> {
                           topRight: Radius.circular(8.r),
                         )),
                     child: AppErrorWidget(
+                      message: message,
                       onTap: () {
                         bloc.getAnalytics(widget.isPost, widget.postId);
                       },
@@ -117,36 +118,50 @@ class _ViewAnalyticsBottomSheetState extends State<ViewAnalyticsBottomSheet> {
                           ),
                         ),
                         20.verticalSpace,
-                        ImpressionsInfoWidget(analyticsInfo: promotion.data),
-                        if (promotion.data.countries != null && promotion.data.countries!.isNotEmpty)
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const Divider(
-                                thickness: 1,
-                                color: Pallets.buttonGrey,
+                        if (promotion.data != null) ...[
+                          ImpressionsInfoWidget(analyticsInfo: promotion.data!),
+                          if (promotion.data!.countries != null && promotion.data!.countries!.isNotEmpty)
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                const Divider(
+                                  thickness: 1,
+                                  color: Pallets.buttonGrey,
+                                ),
+                                12.verticalSpace,
+                                const Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "Country engagements",
+                                      style: TextStyle(fontSize: 12),
+                                    ),
+                                  ],
+                                ),
+                                12.verticalSpace,
+                                const Divider(
+                                  thickness: 1,
+                                  color: Pallets.buttonGrey,
+                                ),
+                                20.verticalSpace,
+                                CountryEngagementsWidget(
+                                  countryStats: promotion.data!.countries ?? [],
+                                ),
+                              ],
+                            )
+                        ] else
+                          Padding(
+                            padding: EdgeInsets.symmetric(vertical: 40.h),
+                            child: const Center(
+                              child: Text(
+                                "No analytics data available for this post yet.",
+                                style: TextStyle(
+                                  color: Pallets.textGrey,
+                                  fontSize: 14,
+                                ),
                               ),
-                              12.verticalSpace,
-                              const Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    "Country engagements",
-                                    style: TextStyle(fontSize: 12),
-                                  ),
-                                ],
-                              ),
-                              12.verticalSpace,
-                              const Divider(
-                                thickness: 1,
-                                color: Pallets.buttonGrey,
-                              ),
-                              20.verticalSpace,
-                              CountryEngagementsWidget(
-                                countryStats: promotion.data.countries ?? [],
-                              ),
-                            ],
-                          )
+                            ),
+                          ),
                       ],
                     ),
                   ]),

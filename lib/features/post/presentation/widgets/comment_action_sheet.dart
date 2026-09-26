@@ -60,11 +60,7 @@ class CommentActionSheet extends StatelessWidget {
           GuestUserHelper.guestUserWidget(widget:  Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _CommentAction(
-                imagePath: Assets.images.svgs.bellPlus,
-                tittle: "Get notifications for this comment",
-                onTap: () {},
-              ),
+
               if (!comment.isAnonymous.toBool && !commentIsFromLoggedInUser)
                 BlocListener<ProfileBloc, ProfileState>(
                   bloc: profileBloc,

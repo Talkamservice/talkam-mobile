@@ -10,13 +10,13 @@ String adAnalyticsResponseToJson(AdAnalyticsResponse data) => json.encode(data.t
 
 class AdAnalyticsResponse {
   String message;
-  AnalyticsInfo data;
+  AnalyticsInfo? data;
   bool success;
   int code;
 
   AdAnalyticsResponse({
     required this.message,
-    required this.data,
+    this.data,
     required this.success,
     required this.code,
   });
@@ -36,14 +36,14 @@ class AdAnalyticsResponse {
 
   factory AdAnalyticsResponse.fromJson(Map<String, dynamic> json) => AdAnalyticsResponse(
         message: json["message"],
-        data: AnalyticsInfo.fromJson(json["data"]),
+        data: json["data"] != null ? AnalyticsInfo.fromJson(json["data"]) : null,
         success: json["success"],
         code: json["code"],
       );
 
   Map<String, dynamic> toJson() => {
         "message": message,
-        "data": data.toJson(),
+        "data": data?.toJson(),
         "success": success,
         "code": code,
       };

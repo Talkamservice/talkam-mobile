@@ -49,30 +49,31 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          BlocListener<PostBloc, PostState>(
-            bloc: postBloc,
-            listener: (context, state) {
-              state.maybeWhen(
-                orElse: () => null,
-                notInterestedLoading: () => CustomDialogs.showLoading(context),
-                notInterestedFailure: (error) {
-                  context.pop();
-                  CustomDialogs.error(error);
-                },
-                notInterestedSuccess: (notInterested) {
-                  refreshPost(reload: false);
-                  context.pop();
-                  context.pop();
-                  CustomDialogs.success("Marked as not interested");
-                },
-              );
-            },
-            child: _PostAction(
-              title: "Not Interested in the post",
-              onTap: () =>
-                  postBloc.add(PostEvent.notInterested(post.id.toString())),
+          if (!postIsFromLoggedInUser)
+            BlocListener<PostBloc, PostState>(
+              bloc: postBloc,
+              listener: (context, state) {
+                state.maybeWhen(
+                  orElse: () => null,
+                  notInterestedLoading: () => CustomDialogs.showLoading(context),
+                  notInterestedFailure: (error) {
+                    context.pop();
+                    CustomDialogs.error(error);
+                  },
+                  notInterestedSuccess: (notInterested) {
+                    refreshPost(reload: false);
+                    context.pop();
+                    context.pop();
+                    CustomDialogs.success("Marked as not interested");
+                  },
+                );
+              },
+              child: _PostAction(
+                title: "Not Interested in the post",
+                onTap: () =>
+                    postBloc.add(PostEvent.notInterested(post.id.toString())),
+              ),
             ),
-          ),
           GuestUserHelper.guestUserWidget(
             widget: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -173,8 +174,10 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
                           context,
                           tittle: "Delete post",
                           message: "Are you sure you want to delete this post?",
-                          onYes: () => postBloc
-                              .add(PostEvent.deletePost(post.id.toString())),
+                          onYes: () {
+                            context.pop();
+                            postBloc.add(PostEvent.deletePost(post.id.toString()));
+                          },
                         );
                       },
                     ),
