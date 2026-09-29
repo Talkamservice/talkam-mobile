@@ -15,7 +15,7 @@ class MessagesList extends StatefulWidget {
   final List<TalkamConversation> message;
   final ScrollController? controller;
   final bool isLoadingMore;
-  final VoidCallback? onRefresh;
+  final Future<void> Function()? onRefresh;
   final ValueChanged<TalkamConversation>? onLongPress;
 
   const MessagesList({
@@ -41,7 +41,7 @@ class _MessagesListState extends State<MessagesList> {
 
     if (widget.message.isEmpty) {
       return RefreshIndicator(
-        onRefresh: () async => onRefresh(),
+        onRefresh: onRefresh,
         child: ListView(
           children: [
             100.verticalSpace,
@@ -56,7 +56,7 @@ class _MessagesListState extends State<MessagesList> {
     }
 
     return RefreshIndicator(
-      onRefresh: () async => onRefresh(),
+      onRefresh: onRefresh,
       child: ListView.separated(
         controller: widget.controller,
         padding: const EdgeInsets.all(16.0),

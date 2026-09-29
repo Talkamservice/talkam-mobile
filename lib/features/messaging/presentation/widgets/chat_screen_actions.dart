@@ -31,6 +31,13 @@ class _ChatScreenActionsState extends State<ChatScreenActions>
   final conversationsBloc = ConversationsCubit(injector.get());
 
   @override
+  void dispose() {
+    profileBloc.close();
+    conversationsBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
       listeners: [
@@ -104,30 +111,37 @@ class _ChatScreenActionsState extends State<ChatScreenActions>
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _buildOptionRow(
-              icon: Icons.person_outline,
-              text: 'View Profile',
-              onTap: () {
-                GuestUserHelper.handleGuestUserAction(
-                  action: () {
-                    if (SessionManager()
-                        .isMe(widget.conversation.otherUser.id.toString())) {
-                      context.pushNamed(PageUrl.profileScreen,
-                          extra: widget.conversation.otherUser.id.toString());
-                    } else {
-                      context.pushNamed(PageUrl.userProfileScreen,
-                          extra: widget.conversation.otherUser.id.toString());
-                    }
-                  },
-                );
-              },
-            ),
-            Container(
-              width: double.infinity,
-              child: const Divider(
-                thickness: 1,
+            // The backend sends the real id/name even in an anonymized
+            // conversation and doesn't re-check anonymization on the
+            // profile-view endpoints itself — hide the one navigation path
+            // to a real profile this menu offers until that's fixed
+            // server-side.
+            if (!widget.conversation.isAnonymous) ...[
+              _buildOptionRow(
+                icon: Icons.person_outline,
+                text: 'View Profile',
+                onTap: () {
+                  GuestUserHelper.handleGuestUserAction(
+                    action: () {
+                      if (SessionManager()
+                          .isMe(widget.conversation.otherUser.id.toString())) {
+                        context.pushNamed(PageUrl.profileScreen,
+                            extra: widget.conversation.otherUser.id.toString());
+                      } else {
+                        context.pushNamed(PageUrl.userProfileScreen,
+                            extra: widget.conversation.otherUser.id.toString());
+                      }
+                    },
+                  );
+                },
               ),
-            ),
+              Container(
+                width: double.infinity,
+                child: const Divider(
+                  thickness: 1,
+                ),
+              ),
+            ],
             _buildOptionRow(
               icon: widget.conversation.notificationStatus
                   ? Icons.notifications_none_outlined

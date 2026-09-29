@@ -9,6 +9,7 @@ import 'package:hive_ce/hive.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/di/resettable_singletons.dart';
+import 'package:talkam/core/services/data/chat_local_store.dart';
 import 'package:talkam/core/services/network/network_service.dart';
 import 'package:talkam/core/services/pusher/pusher_channel_service.dart';
 
@@ -222,13 +223,12 @@ class SessionManager {
   bool get notificationEnabled =>
       sharedPreferences!.getBool(SOUND_ENABLED) ?? false;
 
-  /// Hive box names opened ad-hoc elsewhere (messaging + notifications
-  /// caches) — kept in sync with those call sites by hand since there's no
-  /// central box registry. `Hive.openBox` is idempotent, so this is safe to
-  /// call even if a box was never opened this session.
+  /// Hive box names opened ad-hoc elsewhere (notifications cache only — the
+  /// messaging caches are covered by [ChatLocalStore.clearAll]) — kept in
+  /// sync with those call sites by hand since there's no central box
+  /// registry. `Hive.openBox` is idempotent, so this is safe to call even
+  /// if a box was never opened this session.
   static const _cachedHiveBoxNames = [
-    'chatCache',
-    'conversationCache',
     'notificationsCache',
   ];
 
@@ -264,6 +264,13 @@ class SessionManager {
     // Everything below is best-effort cleanup of the previous user's
     // footprint on this device — none of it should be able to block or
     // fail the logout itself (e.g. no network for the FCM token delete).
+    try {
+      await ChatLocalStore.instance.clearAll();
+    } catch (error, stack) {
+      logger.e('SessionManager: failed clearing ChatLocalStore',
+          error: error, stackTrace: stack);
+    }
+
     for (final boxName in _cachedHiveBoxNames) {
       try {
         final box = await Hive.openBox(boxName);

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:talkam/app.dart';
 import 'package:talkam/core/constants/pay_configurations.dart';
+import 'package:talkam/core/services/data/chat_local_store.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/core/services/time_zone/time_zone_service.dart';
@@ -58,6 +59,7 @@ class AppConfig {
     await initFirebaseServices();
 
     await SessionManager().init();
+    await ChatLocalStore.instance.init();
 
     await TimezoneService().init();
     await _getLoggedInUser();

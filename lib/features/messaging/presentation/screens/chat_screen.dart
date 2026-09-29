@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:talkam/common/widgets/custom_appbar.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/empty_state.dart';
+import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/_core.dart';
@@ -146,10 +147,12 @@ class _ChatScreenState extends State<ChatScreen>
                 context.pop();
               }
             },
-            getMessagesSuccess: (response) {
-              refreshAllConversations();
-            },
             sendMessageSuccess: (response) {
+              // patchConversationPreview is called from inside
+              // MessagingCubit.sendMessage/retryMessage now, not here — this
+              // listener only fires if the cubit is still open and this
+              // screen is still mounted when the response lands, which
+              // isn't guaranteed if the user already navigated away.
               refreshAllConversations();
             },
           );
@@ -160,25 +163,27 @@ class _ChatScreenState extends State<ChatScreen>
               Expanded(
                 child: Builder(builder: (context) {
                   return state.maybeWhen(
-                    fetchCurrentConversationLoading: () {
-                      if (messagingCubit.messages.isNotEmpty) {
-                        return ListView.builder(
-                          controller: messagingCubit.listController,
-                          itemCount: messagingCubit.messages.length,
-                          itemBuilder: (context, index) => ChatMessageBox(
-                            message: messagingCubit.messages[index],
-                            onRetryMessage: () {
-                              messagingCubit
-                                  .retryMessage(messagingCubit.messages[index]);
-                            },
-                          ),
-                        );
-                      }
-                      return Center(
-                        child: CustomDialogs.getLoading(size: 50),
+                    fetchCurrentConversationFailure: (error) {
+                      return AppErrorWidget(
+                        message: error,
+                        onTap: () => messagingCubit.init(
+                          conversation: widget.param.conversation,
+                          receiverId: widget.param.user.id.toString(),
+                        ),
                       );
                     },
-                    orElse: () {
+                    getMessagesFailure: (error) {
+                      return AppErrorWidget(
+                        message: error,
+                        onTap: () => messagingCubit.init(
+                          conversation: widget.param.conversation,
+                          receiverId: widget.param.user.id.toString(),
+                        ),
+                      );
+                    },
+                    // A confirmed fetch that genuinely has zero messages —
+                    // the only case that should show the empty state.
+                    getMessagesSuccess: () {
                       if (messagingCubit.messages.isEmpty) {
                         return const Center(
                           child: EmptyState(
@@ -187,16 +192,18 @@ class _ChatScreenState extends State<ChatScreen>
                                   "Chats would appear here when you have them"),
                         );
                       }
-                      return ListView.builder(
-                        controller: messagingCubit.listController,
-                        itemCount: messagingCubit.messages.length,
-                        itemBuilder: (context, index) => ChatMessageBox(
-                          message: messagingCubit.messages[index],
-                          onRetryMessage: () {
-                            messagingCubit
-                                .retryMessage(messagingCubit.messages[index]);
-                          },
-                        ),
+                      return _buildMessagesList();
+                    },
+                    // Every other state — loading, the not-yet-resolved
+                    // `initial` state, etc. — shows existing messages if we
+                    // have them, otherwise a spinner. Never the empty state:
+                    // we haven't heard back from a real fetch yet.
+                    orElse: () {
+                      if (messagingCubit.messages.isNotEmpty) {
+                        return _buildMessagesList();
+                      }
+                      return Center(
+                        child: CustomDialogs.getLoading(size: 50),
                       );
                     },
                   );
@@ -224,6 +231,19 @@ class _ChatScreenState extends State<ChatScreen>
               ),
             ],
           );
+        },
+      ),
+    );
+  }
+
+  Widget _buildMessagesList() {
+    return ListView.builder(
+      controller: messagingCubit.listController,
+      itemCount: messagingCubit.messages.length,
+      itemBuilder: (context, index) => ChatMessageBox(
+        message: messagingCubit.messages[index],
+        onRetryMessage: () {
+          messagingCubit.retryMessage(messagingCubit.messages[index]);
         },
       ),
     );

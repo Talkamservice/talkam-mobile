@@ -2,12 +2,11 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:bloc/bloc.dart';
 import 'package:collection/collection.dart';
-import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
-import 'package:hive_ce/hive.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/chat_local_store.dart';
 import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/core/services/pusher/pusher_channel_service.dart';
 import 'package:talkam/features/messaging/data/models/get_conversations_response.dart';
@@ -15,9 +14,8 @@ import 'package:talkam/features/messaging/data/models/get_messages_response.dart
 import 'package:talkam/features/messaging/dormain/mixins/messaging_formater_mixin.dart';
 import 'package:talkam/features/messaging/dormain/models/app_message_model.dart';
 import 'package:talkam/features/messaging/dormain/repository/messaging_repository.dart';
+import 'package:talkam/features/messaging/presentation/blocs/conversations/conversations_cubit.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
-
-import '../message_hive/message.dart';
 
 part 'messaging_state.dart';
 
@@ -40,6 +38,36 @@ class MessagingCubit extends Cubit<MessagingState>
     this.messagingRepository,
   ) : super(const MessagingState.initial());
 
+  /// [_listenForMessages] never unsubscribes as chat screens come and go —
+  /// without this, a closed cubit's stale [onEventReceived] stays registered
+  /// as the channel's handler and throws ("Cannot emit new states after
+  /// calling close") the next time a message arrives while this screen
+  /// isn't open, silently skipping the local-store write-through too.
+  @override
+  Future<void> close() async {
+    final conversationId = currentConversation?.id;
+    if (conversationId != null) {
+      try {
+        final pusherService = await PusherChannelService.getInstance;
+        await pusherService.unsubscribe("private-conversation.$conversationId");
+      } catch (e) {
+        logger.w(e.toString());
+      }
+    }
+    return super.close();
+  }
+
+  /// Every async operation in this cubit can outlive it — the user can
+  /// leave the chat (which calls [close]) while a request is still in
+  /// flight. Emitting after close throws ("Bad state: Cannot emit new
+  /// states after calling close"), including from inside a `catch` block
+  /// handling that very exception — which then escapes uncaught, since
+  /// nothing wraps the catch body itself. Every emit in this class goes
+  /// through here instead of calling `emit` directly.
+  void _safeEmit(MessagingState state) {
+    if (!isClosed) emit(state);
+  }
+
   @override
   void resetForLogout() {
     currentConversation = null;
@@ -47,7 +75,9 @@ class MessagingCubit extends Cubit<MessagingState>
     _currentPage = 1;
     _hasMorePages = false;
     _loadingMore = false;
-    emit(const MessagingState.initial());
+    // ChatLocalStore.clearAll() is called centrally from
+    // SessionManager.logOut() rather than here.
+    _safeEmit(const MessagingState.initial());
   }
 
   void _scrollToBottom({bool animate = true}) {
@@ -73,7 +103,7 @@ class MessagingCubit extends Cubit<MessagingState>
     ];
     messages = sortAndInsertDividers(rawList);
 
-    emit(const MessagingState.sendMessageLoading());
+    _safeEmit(const MessagingState.sendMessageLoading());
     _scrollToBottom();
 
     try {
@@ -81,18 +111,28 @@ class MessagingCubit extends Cubit<MessagingState>
 
       _listenForMessages(currentConversation!.id.toString());
 
-      // The message being tracked may no longer be in `messages` if a
-      // concurrent fetch replaced the list while this send was in
-      // flight — look it up defensively instead of assuming `.first`
-      // always finds a match (that throws an uncaught StateError here).
-      messages.firstWhereOrNull((element) => element.id == message.id)
-          ?.sendingState = SendingState.success;
+      // Reconciles the optimistic client-UUID entry with the server's real
+      // id and writes it through to ChatLocalStore — mirrors what
+      // onEventReceived already does for messages we receive. Without this,
+      // a sent message only ever lived in this cubit's in-memory `messages`
+      // list; navigating away (which closes this cubit) lost it from every
+      // local source, leaving the next fetch as the only way to recover it.
+      _reconcileSentMessage(message.id, response);
 
-      emit(MessagingState.sendMessageSuccess(response));
+      // Called directly here rather than left to chat_screen.dart's
+      // sendMessageSuccess listener: if the user has already navigated
+      // away, ChatScreen.dispose() already closed this cubit, _safeEmit
+      // below silently no-ops, and that listener never runs. This method
+      // itself keeps running to completion regardless (Dart doesn't cancel
+      // in-flight futures on cubit close), and ConversationsCubit is a
+      // separate, persistent singleton — so this fires either way.
+      _patchConversationsListFromSendResponse(response);
+
+      _safeEmit(MessagingState.sendMessageSuccess(response));
     } catch (e) {
       messages.firstWhereOrNull((element) => element.id == message.id)
           ?.sendingState = SendingState.failed;
-      emit(MessagingState.sendMessageFailure(e.toString()));
+      _safeEmit(MessagingState.sendMessageFailure(e.toString()));
     }
   }
 
@@ -100,24 +140,88 @@ class MessagingCubit extends Cubit<MessagingState>
     messages.firstWhereOrNull((element) => element.id == message.id)
         ?.sendingState = SendingState.loading;
 
-    emit(const MessagingState.sendMessageLoading());
+    _safeEmit(const MessagingState.sendMessageLoading());
 
     try {
       final response = await messagingRepository.sendMessage(message);
 
       _listenForMessages(currentConversation!.id.toString());
-      messages.firstWhereOrNull((element) => element.id == message.id)
-          ?.sendingState = SendingState.success;
+      _reconcileSentMessage(message.id, response);
 
-      emit(MessagingState.sendMessageSuccess(response));
+      _patchConversationsListFromSendResponse(response);
+
+      _safeEmit(MessagingState.sendMessageSuccess(response));
     } catch (e) {
       messages.firstWhereOrNull((element) => element.id == message.id)
           ?.sendingState = SendingState.failed;
-      emit(MessagingState.sendMessageFailure(e.toString()));
+      _safeEmit(MessagingState.sendMessageFailure(e.toString()));
     }
   }
 
-  Future<void> getMessages(String conversationId, {bool refresh = true}) async {
+  /// Replaces the optimistic entry (client-generated UUID `id`) with one
+  /// carrying the server's real id, and persists it. The `id` swap matters
+  /// beyond bookkeeping: ChatLocalStore.appendMessage and
+  /// loadMoreMessages' merge both dedupe by `id` — a message stuck on its
+  /// client UUID would never match the server's copy of itself once a real
+  /// fetch reconciles the list, risking a visible duplicate.
+  void _reconcileSentMessage(String localMessageId, dynamic response) {
+    final index = messages.indexWhere((m) => m.id == localMessageId);
+    try {
+      final raw = Map<String, dynamic>.from(response);
+      final data = raw['data'] is Map
+          ? Map<String, dynamic>.from(raw['data'])
+          : raw;
+      if (index == -1) return;
+      final reconciled = messages[index].copyWith(
+        id: data['id'].toString(),
+        sendingState: SendingState.success,
+      );
+      messages[index] = reconciled;
+      ChatLocalStore.instance
+          .appendMessage(reconciled.conversationId, reconciled.toJson());
+    } catch (e) {
+      logger.e('Failed to reconcile sent message: $e');
+      // Still mark it as sent even if the id/persistence step failed —
+      // better an un-reconciled optimistic entry than one stuck "sending".
+      if (index != -1) messages[index].sendingState = SendingState.success;
+    }
+  }
+
+  void _patchConversationsListFromSendResponse(dynamic response) {
+    final conversationsCubit = injector.get<ConversationsCubit>();
+    try {
+      final raw = Map<String, dynamic>.from(response);
+      // Every other endpoint observed this session wraps its payload in
+      // {message, data, success, code} — unwrap if present, otherwise
+      // assume the flat shape.
+      final data = raw['data'] is Map
+          ? Map<String, dynamic>.from(raw['data'])
+          : raw;
+      conversationsCubit.patchConversationPreview(
+            conversationId: data['conversation_id'].toString(),
+            lastMessageId: data['id'],
+            senderId: data['sender_id'],
+            message: data['message'] ?? '',
+            createdAt: DateTime.parse(data['created_at']),
+          );
+    } catch (e) {
+      logger.e('Failed to patch conversation preview after send: $e');
+    }
+    // patchConversationPreview only updates an already-loaded
+    // getConversationsListSuccess state. In practice ConversationsCubit
+    // usually isn't in that state at this point: opening a chat from the
+    // Messages list calls markConversationSeen() first, which routes
+    // through _updateConversationState('seen', ...) — that deliberately
+    // skips its own list refetch (to avoid hitting the endpoint on every
+    // single tap), leaving the cubit sitting on conversationStateSuccess
+    // for the rest of the session. So the patch above is a no-op most of
+    // the time; this real refetch is what actually keeps the list
+    // in sync, and — unlike refreshAllConversations() in chat_screen.dart's
+    // listener — it doesn't depend on the chat screen still being mounted.
+    conversationsCubit.getConversationsList(reload: false);
+  }
+
+  Future<void> getMessages(String conversationId) async {
     try {
       final response = await messagingRepository.getMessages(conversationId);
       final fetchedMessages = sortAndInsertDividers(response.data.data
@@ -127,15 +231,14 @@ class MessagingCubit extends Cubit<MessagingState>
       messages = fetchedMessages;
       _currentPage = response.data.paginationMeta.currentPage;
       _hasMorePages = response.data.paginationMeta.canLoadMore;
-      final Box cacheBox = await Hive.openBox('chatCache');
       final messagesJson = fetchedMessages.map((e) => e.toJson()).toList();
-      cacheBox.put(conversationId, messagesJson);
-      emit(MessagingState.getMessagesSuccess(response));
+      await ChatLocalStore.instance.saveMessages(conversationId, messagesJson);
+      _safeEmit(const MessagingState.getMessagesSuccess());
       _scrollToBottom(animate: false);
       _listenForMessages(currentConversation!.id.toString());
     } catch (e, stack) {
       log(stack.toString());
-      emit(MessagingState.getMessagesFailure(e.toString()));
+      _safeEmit(MessagingState.getMessagesFailure(e.toString()));
     }
   }
 
@@ -169,7 +272,7 @@ class MessagingCubit extends Cubit<MessagingState>
       messages = sortAndInsertDividers(merged);
       _currentPage = response.data.paginationMeta.currentPage;
       _hasMorePages = response.data.paginationMeta.canLoadMore;
-      emit(MessagingState.getMessagesSuccess(response));
+      _safeEmit(const MessagingState.getMessagesSuccess());
     } catch (e, stack) {
       log(stack.toString());
       // Best-effort — leave the currently-loaded messages as they are
@@ -196,55 +299,57 @@ class MessagingCubit extends Cubit<MessagingState>
   }
 
   Future<void> deleteConversation(String id) async {
-    emit(const MessagingState.deleteConversationLoading());
+    _safeEmit(const MessagingState.deleteConversationLoading());
     try {
       await messagingRepository.deleteConversation(id);
-      emit(const MessagingState.deleteConversationSuccess());
+      _safeEmit(const MessagingState.deleteConversationSuccess());
     } catch (e, stack) {
-      emit(MessagingState.deleteConversationFailure(e.toString()));
+      _safeEmit(MessagingState.deleteConversationFailure(e.toString()));
     }
   }
 
   Future<void> fetchCurrentConversation(String receiverId,
-      {bool refresh = true}) async {
+      {bool refresh = true, TalkamConversation? knownConversation}) async {
     String? storedConversationId = await getStoredConversationId(receiverId);
-    final Box cacheBox = await Hive.openBox('chatCache');
-    log("Cache keys: ${cacheBox.keys.toList()}");
 
     if (storedConversationId != null) {
-      if (cacheBox.containsKey(storedConversationId)) {
-        final cachedData =
-            cacheBox.get(storedConversationId) as List<dynamic>? ?? [];
-        if (cachedData.isNotEmpty) {
-          final rawCachedMessages = sortAndInsertDividers(cachedData
-              .map(
-                  (e) => AppMessageModel.fromJson(Map<String, dynamic>.from(e)))
-              .where((msg) => msg.messageType.toLowerCase() != "divider")
-              .toList());
-          final cachedMessages = rawCachedMessages;
-          messages = cachedMessages;
-          emit(MessagingState.getMessagesSuccess(cachedMessages));
-          _scrollToBottom(animate: false);
-          if (!refresh) {
-            return;
-          }
+      final cachedData =
+          ChatLocalStore.instance.getCachedMessages(storedConversationId);
+      if (cachedData != null && cachedData.isNotEmpty) {
+        final rawCachedMessages = sortAndInsertDividers(cachedData
+            .map((e) => AppMessageModel.fromJson(e))
+            .where((msg) => msg.messageType.toLowerCase() != "divider")
+            .toList());
+        final cachedMessages = rawCachedMessages;
+        messages = cachedMessages;
+        _safeEmit(const MessagingState.getMessagesSuccess());
+        _scrollToBottom(animate: false);
+        if (!refresh) {
+          return;
         }
       }
     }
-    if (refresh) {
-      // emit(const MessagingState.fetchCurrentConversationLoading());
+    // Only show a blocking loading state when there's nothing cached to
+    // display yet — a background refresh over already-visible cached
+    // messages shouldn't hide them behind a spinner.
+    if (messages.isEmpty) {
+      _safeEmit(const MessagingState.fetchCurrentConversationLoading());
     }
 
     try {
-      // Fetch conversation details from the API.
-      final response =
+      // If the caller already has the correct conversation (e.g. tapped
+      // from the v2 conversations list), use it directly instead of
+      // re-resolving through this v1-only endpoint — it doesn't reliably
+      // recognize conversations that only ever went through v2, which was
+      // silently producing an empty message list for those chats.
+      final response = knownConversation ??
           await messagingRepository.fetchCurrentConversation(receiverId);
       currentConversation = response;
       // Store the conversation ID persistently.
       await storeConversationId(receiverId, response.id.toString());
-      getMessages(response.id.toString(), refresh: refresh);
+      getMessages(response.id.toString());
     } catch (e, stack) {
-      emit(MessagingState.fetchCurrentConversationFailure(e.toString()));
+      _safeEmit(MessagingState.fetchCurrentConversationFailure(e.toString()));
     }
   }
 
@@ -270,7 +375,7 @@ class MessagingCubit extends Cubit<MessagingState>
   //     log("Fetched from cache: $cachedMessages");
 
   //       messages = cachedMessages;
-  //       emit(MessagingState.getMessagesSuccess(cachedMessages));
+  //       _safeEmit(MessagingState.getMessagesSuccess(cachedMessages));
 
   //       // If you don't want to refresh when cache exists, return early.
   //       if (!refresh!) {
@@ -279,7 +384,7 @@ class MessagingCubit extends Cubit<MessagingState>
   //     }
   //   }
   //   if (refresh!) {
-  //     // emit(const MessagingState.fetchCurrentConversationLoading());
+  //     // _safeEmit(const MessagingState.fetchCurrentConversationLoading());
   //   }
 
   //   try {
@@ -289,23 +394,23 @@ class MessagingCubit extends Cubit<MessagingState>
   //     currentConversation = response;
 
   //     getMessages(response.id.toString(), refresh: refresh);
-  //     // emit(MessagingState.fetchCurrentConversationSuccess(response));
+  //     // _safeEmit(MessagingState.fetchCurrentConversationSuccess(response));
   //   } catch (e, stack) {
-  //     emit(MessagingState.fetchCurrentConversationFailure(e.toString()));
+  //     _safeEmit(MessagingState.fetchCurrentConversationFailure(e.toString()));
   //   }
   // }
 
   Future<void> updateConversationStatus(
       {required String conversationId, required String status}) async {
-    emit(const MessagingState.updateConversationStatusLoading());
+    _safeEmit(const MessagingState.updateConversationStatusLoading());
     try {
       final response = await messagingRepository.updateConversationStatus(
           conversationId: conversationId, status: status);
       currentConversation = null;
 
-      emit(MessagingState.updateConversationStatusSuccess(response));
+      _safeEmit(MessagingState.updateConversationStatusSuccess(response));
     } catch (e, stack) {
-      emit(MessagingState.updateConversationStatusFailure(e.toString()));
+      _safeEmit(MessagingState.updateConversationStatusFailure(e.toString()));
     }
   }
 
@@ -314,32 +419,29 @@ class MessagingCubit extends Cubit<MessagingState>
   //     fetchCurrentConversation(receiverId, conversation!.id.toString());
   //   } else {
   //     currentConversation = conversation;
-  //     emit(MessagingState.fetchCurrentConversationSuccess(currentConversation!));
+  //     _safeEmit(MessagingState.fetchCurrentConversationSuccess(currentConversation!));
   //   }
   // }
   void init({TalkamConversation? conversation, required String receiverId}) {
     if (conversation == null) {
-      // If conversation is null, call fetchCurrentConversation with only the receiverId.
+      // No conversation known yet — resolve it via the v1 endpoint.
       fetchCurrentConversation(receiverId, refresh: true);
     } else {
-      // If a conversation is provided, pass its id (as a string) to fetchCurrentConversation.
+      // Already have the correct (v2) conversation — use it directly rather
+      // than re-resolving it through the v1 endpoint.
       currentConversation = conversation;
-      storeConversationId(receiverId, conversation.id.toString());
-      fetchCurrentConversation(receiverId);
-      emit(
-          MessagingState.fetchCurrentConversationSuccess(currentConversation!));
+      fetchCurrentConversation(receiverId, knownConversation: conversation);
     }
   }
 
   Future<String?> getStoredConversationId(String receiverId) async {
-    final Box conversationBox = await Hive.openBox('conversationCache');
-    return conversationBox.get(receiverId) as String?;
+    return ChatLocalStore.instance.getStoredConversationId(receiverId);
   }
 
   Future<void> storeConversationId(
       String receiverId, String conversationId) async {
-    final Box conversationBox = await Hive.openBox('conversationCache');
-    await conversationBox.put(receiverId, conversationId);
+    await ChatLocalStore.instance.storeConversationId(
+        receiverId, conversationId);
   }
 
   void _listenForMessages(String conversationId) async {
@@ -352,7 +454,7 @@ class MessagingCubit extends Cubit<MessagingState>
 
         if (!pusher.channels
             .containsKey("private-conversation.$conversationId")) {
-          pusher.onAuthorizer = _authorize;
+          pusher.onAuthorizer = PusherChannelService.authorize;
 
           PusherChannel channel = await pusher.subscribe(
             channelName: "private-conversation.$conversationId",
@@ -368,7 +470,7 @@ class MessagingCubit extends Cubit<MessagingState>
           logger.w('connected');
         } else {
           logger.w('connected2');
-          pusher.onAuthorizer = _authorize;
+          pusher.onAuthorizer = PusherChannelService.authorize;
 
           pusher
               .getChannel("private-conversation.${currentConversation?.id}")
@@ -382,36 +484,14 @@ class MessagingCubit extends Cubit<MessagingState>
     }
   }
 
-  // TODO(backend): this signs the private-channel auth challenge
-  // client-side with a key baked into the app, instead of verifying it
-  // server-side. Whoever has the app's binary can derive a valid auth
-  // response for any conversation id — fine for now, but move this to a
-  // real backend auth endpoint before relying on it for anything private.
-  _authorize(String channelName, String socketId, options) async {
-    // Sign whichever channel is actually being authorized, not whatever
-    // `currentConversation` happens to be at call time — those can
-    // diverge if a reauth for a different conversation's channel comes
-    // in while this cubit has since moved on to another one (the
-    // underlying Pusher client is a process-wide singleton).
-    return {
-      "auth": "1934aa1e05c3acfdfd3f:${getSignature("$socketId:$channelName")}",
-    };
-  }
-
-  getSignature(String value) {
-    var key = utf8.encode('0bfd461496258bd6e236');
-    var bytes = utf8.encode(value);
-    var hmacSha256 = Hmac(sha256, key); // HMAC-SHA256
-    var digest = hmacSha256.convert(bytes);
-    logger.d("HMAC signature in string is: $digest");
-    return digest;
-  }
-
   onSubscriptionError(message, d) {
     logger.e(message);
   }
 
   onEventReceived(event) {
+    // Defensive — [close] unsubscribes the channel, but guard anyway
+    // against any event that lands in the gap before that completes.
+    if (isClosed) return;
     try {
       var receivedEvent = (event as PusherEvent);
       logger.i('received chat message${receivedEvent.data}');
@@ -419,10 +499,10 @@ class MessagingCubit extends Cubit<MessagingState>
       if (receivedEvent.eventName ==
           'receive-message.${injector.get<ProfileBloc>().appUser?.id}') {
         logger.i('received chat message${receivedEvent.data}');
-        // var dataMap = jsonDecode(receivedEvent.data);
 
-        final newMessage = AppMessageModel.fromResponse(
-            TalkamMessage.fromJson(jsonDecode(receivedEvent.data)["data"]));
+        final talkamMessage =
+            TalkamMessage.fromJson(jsonDecode(receivedEvent.data)["data"]);
+        final newMessage = AppMessageModel.fromResponse(talkamMessage);
 
         if (!newMessage.iAmSender) {
           logger.i('adding chat message');
@@ -432,8 +512,24 @@ class MessagingCubit extends Cubit<MessagingState>
             ..removeWhere(
               (element) => element.messageType == "divider",
             ));
-          emit(MessagingState.messageUpdated(newMessage));
-          // listController.jumpTo(0);
+          _safeEmit(MessagingState.messageUpdated(newMessage));
+
+          // Write-through so this message survives a cold restart even if
+          // the next full fetch doesn't happen first, and patch the
+          // conversations list locally instead of triggering a network
+          // refetch — the one case where this cubit already has live
+          // message content (Pusher subscription is scoped to whichever
+          // conversation is currently open).
+          ChatLocalStore.instance
+              .appendMessage(newMessage.conversationId, newMessage.toJson());
+          injector.get<ConversationsCubit>().patchConversationPreview(
+                conversationId: newMessage.conversationId,
+                lastMessageId: talkamMessage.id,
+                senderId: talkamMessage.senderId,
+                message: talkamMessage.message ?? '',
+                createdAt: talkamMessage.createdAt,
+                assetUrl: talkamMessage.assetUrl?.toString() ?? '',
+              );
         }
 
         logger.i(receivedEvent.data.runtimeType);

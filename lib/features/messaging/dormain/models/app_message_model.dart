@@ -48,7 +48,10 @@ class AppMessageModel {
           content: message.message,
           iAmSender: SessionManager().isMe(message.senderId.toString()),
           sendingState: SendingState.success,
-          assetUrl: message.assetUrl,
+          // `/messages/list` returns a resolved `file_url`; the
+          // create-conversation endpoint's `last_message` only has
+          // `asset_url` — prefer the resolved one where present.
+          assetUrl: message.fileUrl ?? message.assetUrl,
           time: message.createdAt.toLocal(),
           receiverId: message.receiverId.toString(),
           messageType: message.messageType,
@@ -89,10 +92,6 @@ class AppMessageModel {
       // Convert DateTime to ISO 8601 string
       'asset_url': assetUrl,
     };
-  }
-
-  Map<String, dynamic> toRequestJson() {
-    return {"user": iAmSender ? "assistant" : "user", "prompt": content};
   }
 
   factory AppMessageModel.fromJson(Map<String, dynamic> json) {

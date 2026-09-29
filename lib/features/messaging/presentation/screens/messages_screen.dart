@@ -83,10 +83,11 @@ class _MessagesScreenState extends State<MessagesScreen> {
     );
   }
 
-  void _refresh() {
-    _cubit.getConversationsList(
+  Future<void> _refresh() {
+    return _cubit.getConversationsList(
       archived: _selectedTab == _ConversationsTab.archived,
       starred: _selectedTab == _ConversationsTab.starred,
+      forceRefresh: true,
     );
   }
 
@@ -156,7 +157,12 @@ class _MessagesScreenState extends State<MessagesScreen> {
                 listener: (context, state) {},
                 builder: (context, state) {
                   return state.maybeWhen(
-                    orElse: () => 0.verticalSpace,
+                    // Any unmatched/not-yet-resolved state (e.g. `initial`
+                    // before the first fetch's async gap resolves) shows the
+                    // loading shimmer rather than literal blank space — a
+                    // stuck spinner is visible and debuggable, invisible
+                    // blank space isn't.
+                    orElse: () => const MessagesLoadingShimmer(),
                     getConversationsListFailure: (error) {
                       return AppErrorWidget(onTap: _refresh);
                     },

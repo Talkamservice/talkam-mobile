@@ -13,8 +13,7 @@ class MessagingState with _$MessagingState {
 
   // Get Messages States
   const factory MessagingState.getMessagesLoading() = _GetMessagesLoading;
-  const factory MessagingState.getMessagesSuccess(dynamic response) =
-      _GetMessagesSuccess;
+  const factory MessagingState.getMessagesSuccess() = _GetMessagesSuccess;
   const factory MessagingState.getMessagesFailure(String error) =
       _GetMessagesFailure;
 

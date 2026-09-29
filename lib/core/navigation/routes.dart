@@ -48,7 +48,6 @@ import 'package:talkam/features/earnings/presentation/screens/payout_screen.dart
 import 'package:talkam/features/home/presentation/screens/home_screen.dart';
 import 'package:talkam/features/messaging/presentation/screens/chat_screen.dart';
 import 'package:talkam/features/messaging/presentation/screens/messages_screen.dart';
-import 'package:talkam/features/messaging/presentation/screens/new_message_screen.dart';
 import 'package:talkam/features/messaging/presentation/screens/new_request_screen.dart';
 import 'package:talkam/features/notifications/presentation/screens/notifications_screen.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
@@ -501,13 +500,6 @@ class CustomRoutes {
         name: PageUrl.new_requestScreen,
         pageBuilder: (context, state) => const NoTransitionPage(
           child: NewRequestScreen(),
-        ),
-      ),
-      GoRoute(
-        path: '/new_messageScreen',
-        name: PageUrl.new_messageScreen,
-        pageBuilder: (context, state) => const NoTransitionPage(
-          child: NewMessageScreen(),
         ),
       ),
       GoRoute(

@@ -1,7 +1,5 @@
-import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:talkam/core/di/injector.dart';
-import 'package:talkam/core/services/firebase_storage/firebase_storage_service.dart';
 import 'package:talkam/core/services/network/network_service.dart';
 import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/core/services/network/url_config_v2.dart';
@@ -184,17 +182,18 @@ class MessagingRepositoryImpl extends MessagingRepository {
 
   @override
   Future<dynamic> sendMessage(AppMessageModel messageData) async {
-    var imageUrl = messageData.assetUrl != null
-        ? (await FirebaseStorageService().uploadMultipleFiles(
-                FirebaseStoragePaths.chatFiles, [File(messageData.assetUrl!)]))
-            .first
-        : null;
-
     try {
       final response = await _v2.call(
         UrlConfigV2.messagingMessagesSend,
-        RequestMethod.post,
-        data: messageData.copyWith(assetUrl: imageUrl).toJson(),
+        RequestMethod.upload,
+        formData: FormData.fromMap({
+          'conversation_id': messageData.conversationId,
+          'message_type': messageData.messageType,
+          if (messageData.content != null) 'message': messageData.content,
+          if (messageData.assetUrl != null)
+            'file': await MultipartFile.fromFile(messageData.assetUrl!),
+        }),
+        options: _formOptions,
       );
       return response.data;
     } catch (e) {

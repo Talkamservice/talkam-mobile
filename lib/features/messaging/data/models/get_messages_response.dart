@@ -89,10 +89,30 @@ class TalkamMessage {
   int conversationId;
   String? message;
   String messageType;
+
+  /// Only populated when this model backs a `last_message` from
+  /// `/messaging/conversations` (create/start conversation) — that response
+  /// resolves the attachment to a downloadable URL. `/messaging/messages/list`
+  /// doesn't return `asset_url`; it returns [fileId] instead.
   dynamic assetUrl;
+
+  /// Populated by `/messaging/messages/list` for messages with an attached
+  /// file — a raw file reference, superseded by [fileUrl]/[fileName] below.
+  int? fileId;
+
+  /// The resolved, downloadable URL for [fileId] — `/messaging/messages/list`
+  /// returns this already resolved, no second call needed.
+  String? fileUrl;
+
+  String? fileName;
+
   bool read;
   DateTime createdAt;
-  DateTime updatedAt;
+
+  /// Not present on messages returned by `/messaging/messages/list` (only
+  /// `created_at` is) — only populated when this model backs a
+  /// `last_message` from `/messaging/conversations`.
+  DateTime? updatedAt;
 
   TalkamMessage({
     required this.id,
@@ -102,9 +122,12 @@ class TalkamMessage {
     required this.message,
     required this.messageType,
     required this.assetUrl,
+    this.fileId,
+    this.fileUrl,
+    this.fileName,
     required this.read,
     required this.createdAt,
-    required this.updatedAt,
+    this.updatedAt,
   });
 
   TalkamMessage copyWith({
@@ -115,6 +138,9 @@ class TalkamMessage {
     String? message,
     String? messageType,
     dynamic assetUrl,
+    int? fileId,
+    String? fileUrl,
+    String? fileName,
     bool? read,
     DateTime? createdAt,
     DateTime? updatedAt,
@@ -127,6 +153,9 @@ class TalkamMessage {
         message: message ?? this.message,
         messageType: messageType ?? this.messageType,
         assetUrl: assetUrl ?? this.assetUrl,
+        fileId: fileId ?? this.fileId,
+        fileUrl: fileUrl ?? this.fileUrl,
+        fileName: fileName ?? this.fileName,
         read: read ?? this.read,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
@@ -140,9 +169,14 @@ class TalkamMessage {
         message: json["message"],
         messageType: json["message_type"],
         assetUrl: json["asset_url"],
-        read: json["read"],
+        fileId: json["file_id"],
+        fileUrl: json["file_url"],
+        fileName: json["file_name"],
+        read: json["read"] ?? false,
         createdAt: DateTime.parse(json["created_at"]),
-        updatedAt: DateTime.parse(json["updated_at"]),
+        updatedAt: json["updated_at"] == null
+            ? null
+            : DateTime.parse(json["updated_at"]),
       );
 
   Map<String, dynamic> toJson() => {
@@ -153,9 +187,12 @@ class TalkamMessage {
         "message": message,
         "message_type": messageType,
         "asset_url": assetUrl,
+        "file_id": fileId,
+        "file_url": fileUrl,
+        "file_name": fileName,
         "read": read,
         "created_at": createdAt.toIso8601String(),
-        "updated_at": updatedAt.toIso8601String(),
+        "updated_at": updatedAt?.toIso8601String(),
       };
 }
 

@@ -266,11 +266,13 @@ class ProfileRepositoryImpl extends ProfileRepository {
       SessionManager.instance.usersData = newUserResponse.toJson();
       // Keep the local therapist-account flag (drives the bottom nav
       // variant, earnings tab, etc.) in sync with the server's own answer
-      // every time it's refreshed, not just at login.
-      final isTherapist = newUserResponse.business?.isTherapist;
-      if (isTherapist != null) {
-        SessionManager.instance.isTherapistAccount = isTherapist;
-      }
+      // every time it's refreshed, not just at login. `business?.isTherapist`
+      // only covers org-employed therapists — OR in `isTherapist` (role- or
+      // in-progress-application-based) so independent therapists and
+      // applicants still get this set from the server instead of relying on
+      // a manual local flag elsewhere.
+      SessionManager.instance.isTherapistAccount = newUserResponse.isTherapist ||
+          (newUserResponse.business?.isTherapist ?? false);
       return newUserResponse;
     } else {
       return null;

@@ -50,6 +50,12 @@ class UrlConfig {
   //     String.fromEnvironment('FACE_PLUS_PROD_API_SECRET');
   static final coreBaseUrl =
       environment == Environment.production ? PRODUCTION_URL : STAGING_URL;
+
+  /// `coreBaseUrl` with the trailing `/api/vN` stripped — for the handful of
+  /// endpoints (e.g. Laravel's broadcasting auth route) that aren't under
+  /// either API version prefix.
+  static String get rootBaseUrl =>
+      coreBaseUrl.replaceFirst(RegExp(r'/api/v\d+/?$'), '');
   static final webUrl = environment == Environment.production
       ? WEB_PRODUCTION_URL
       : WEB_STAGING_URL;

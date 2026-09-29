@@ -1,10 +1,11 @@
-import 'dart:convert';
 import 'dart:developer';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:pusher_channels_flutter/pusher_channels_flutter.dart';
-import 'package:crypto/crypto.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/network/network_service.dart';
+import 'package:talkam/core/services/network/url_config.dart';
 
 class PusherChannelService {
   PusherChannelService._();
@@ -38,8 +39,7 @@ class PusherChannelService {
             log("onSubscriptionError: $d Exception: $a");
             // AppUtils.showCustomToast("onSubscriptionError: $d Exception: $a");
           },
-          onAuthorizer: _authorize,
-          // authEndpoint: AuthorizationEndpoints.pusherAuth
+          onAuthorizer: authorize,
         );
 
         await pusher?.connect();
@@ -100,28 +100,36 @@ class PusherChannelService {
     }
   }
 
-  _authorize(String channelName, String socketId, options) async {
-    return {
-      "auth":
-          "6e531aee4ab45d75d4ad:${getSignature("$socketId:private-conversation.27")}",
-    };
+  /// Real per-channel authorization via the backend's `POST /broadcasting/auth`
+  /// (Laravel's standard broadcasting auth route, Sanctum-gated) — replaces
+  /// the previous local HMAC signing (a Pusher app secret compiled into the
+  /// binary, extractable from the APK; anyone could sign auth for any
+  /// channel). `NetworkService`'s auth interceptor attaches the bearer token
+  /// automatically. Shared by both the app-wide default (`initialize()`
+  /// below) and per-conversation subscriptions (`MessagingCubit`), so there's
+  /// one real implementation instead of two divergent local ones.
+  static Future<dynamic> authorize(
+      String channelName, String socketId, dynamic options) async {
+    try {
+      final response =
+          await NetworkService(baseUrl: UrlConfig.rootBaseUrl).call(
+        '/broadcasting/auth',
+        RequestMethod.post,
+        formData: FormData.fromMap({
+          'channel_name': channelName,
+          'socket_id': socketId,
+        }),
+        options: Options(headers: {"Accept": "application/json"}),
+      );
+      logger.i(
+          'PUSHER AUTH OK -> channel: $channelName, socketId: $socketId, response: ${response.data}');
+      return response.data;
+    } catch (e) {
+      // A failed auth here fails the Pusher subscription *silently* on the
+      // native side otherwise — log it loudly while verifying this.
+      logger.e(
+          'PUSHER AUTH FAILED -> channel: $channelName, socketId: $socketId, error: $e');
+      rethrow;
+    }
   }
-
-  getSignature(String value) {
-    var key = utf8.encode('a7a8a166ad27ac7b03b3');
-    var bytes = utf8.encode(value);
-
-    var hmacSha256 = Hmac(sha256, key); // HMAC-SHA256
-    var digest = hmacSha256.convert(bytes);
-    logger.d("HMAC signature in string is: $digest");
-    return digest;
-  }
-
-// _authorize(String channelName, String socketId, options) async {
-//
-//   return {
-//     "channel_data": '{"user_id": 1}',
-//     "shared_secret": "foobar"
-//   };
-// }
 }

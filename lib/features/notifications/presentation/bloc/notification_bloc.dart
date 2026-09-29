@@ -272,7 +272,13 @@ class NotificationsBloc extends Bloc<NotificationsEvent, NotificationsState>
       if (receivedEvent.eventName == 'refresh') {
         logger.i('received message${receivedEvent.data}');
         add(GetNotificationsStatsEvent());
-        injector.get<ConversationsCubit>().getConversations(reload: false);
+        // This is the one genuinely global, always-live signal this app
+        // has for "something changed" — refresh the v2 list, which is what
+        // MessagesScreen actually renders. NOT the v1 getConversations() —
+        // that state has zero consumers anywhere, but shares this same
+        // cubit with getConversationsList; calling both race-overwrites
+        // ConversationsCubit.state with whichever resolves last.
+        injector.get<ConversationsCubit>().getConversationsList(reload: false);
       }
     } catch (e, stack) {
       logger.e(e.toString());
