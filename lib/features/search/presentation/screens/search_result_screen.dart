@@ -508,12 +508,14 @@ class _PostTabState extends State<_PostTab> with AutomaticKeepAliveClientMixin {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Expanded(
-                  child: ListView.separated(
+                  // PostItem already renders its own bottom divider (see
+                  // for_you_screen.dart, which uses a plain ListView for
+                  // the same reason) — ListView.separated's own separator
+                  // stacked a second line under every post here.
+                  child: ListView.builder(
                     controller: _scrollController,
                     itemCount:
                         meta.canLoadMore ? display.length + 1 : display.length,
-                    separatorBuilder: (_, __) =>
-                        Container(height: 1, color: Pallets.borderGrey),
                     itemBuilder: (context, index) {
                       if (index >= display.length) {
                         return const Center(child: CircularProgressIndicator());

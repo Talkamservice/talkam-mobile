@@ -10,15 +10,18 @@ import 'package:talkam/common/widgets/empty_state.dart';
 import 'package:talkam/common/widgets/error_widget.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/common/widgets/text_view.dart';
+import 'package:talkam/common/widgets/typing_animation.dart';
 import 'package:talkam/core/_core.dart';
 import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
 import 'package:talkam/core/services/image_manipulation/image_manager.dart';
+import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/messaging/data/models/get_conversations_response.dart';
 import 'package:talkam/features/messaging/dormain/mixins/refresh_conversations_mixin.dart';
 import 'package:talkam/features/messaging/dormain/models/app_message_model.dart';
 import 'package:talkam/features/messaging/presentation/blocs/messaging/messaging_cubit.dart';
+import 'package:talkam/features/messaging/presentation/widgets/chat_loading_shimmer.dart';
 import 'package:talkam/features/messaging/presentation/widgets/chat_screen_actions.dart';
 import 'package:talkam/features/messaging/presentation/widgets/conversation_actions_widget.dart';
 import 'package:talkam/features/messaging/presentation/widgets/message_bubbles/message_box.dart';
@@ -55,11 +58,14 @@ class _ChatScreenState extends State<ChatScreen>
       conversation: widget.param.conversation,
       receiverId: widget.param.user.id.toString(),
     );
-    // Older messages live at the start of the (ascending-sorted) list, at
-    // the top of the ListView — load the next page once the user scrolls
-    // near there.
+    // The list is built with `reverse: true` (see _buildMessagesList) so
+    // the newest message is anchored at scroll offset 0 with no manual
+    // jump-to-bottom needed. That flips which end is "near 0": older
+    // messages (start of the ascending-sorted array) now sit near
+    // maxScrollExtent — load the next page once the user scrolls there.
     messagingCubit.listController.addListener(() {
-      if (messagingCubit.listController.position.pixels <= 100) {
+      final position = messagingCubit.listController.position;
+      if (position.pixels >= position.maxScrollExtent - 100) {
         messagingCubit.loadMoreMessages();
       }
     });
@@ -83,17 +89,67 @@ class _ChatScreenState extends State<ChatScreen>
         tittle: Row(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            ImageWidget(
-              width: 32,
-              height: 32,
-              shape: BoxShape.circle,
-              imageUrl: widget.param.user.avatar ?? Assets.images.svgs.dummyUser,
+            Stack(
+              clipBehavior: Clip.none,
+              children: [
+                ImageWidget(
+                  width: 32,
+                  height: 32,
+                  shape: BoxShape.circle,
+                  imageUrl:
+                      widget.param.user.avatar ?? Assets.images.svgs.dummyUser,
+                ),
+                // Presence UI — event name/payload are an unverified guess
+                // (see MessagingCubit._subscribeToPresence), so this dot
+                // simply never lights up until that's confirmed.
+                Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: ValueListenableBuilder<bool>(
+                    valueListenable: messagingCubit.isOtherUserOnlineNotifier,
+                    builder: (context, isOnline, _) {
+                      if (!isOnline) return const SizedBox.shrink();
+                      return Container(
+                        width: 10,
+                        height: 10,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Pallets.successGreen,
+                          border: Border.all(color: Colors.white, width: 1.5),
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ],
             ),
             11.horizontalSpace,
-            TextView(
-              text: widget.param.user.username,
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextView(
+                  text: widget.param.user.username,
+                  fontSize: 16,
+                  fontWeight: FontWeight.w700,
+                ),
+                // Typing UI — same caveat: `typing` event name/shape are
+                // unverified, so this just never appears until confirmed.
+                ValueListenableBuilder<bool>(
+                  valueListenable: messagingCubit.isOtherUserTypingNotifier,
+                  builder: (context, isTyping, _) {
+                    if (!isTyping) return const SizedBox.shrink();
+                    return const Padding(
+                      padding: EdgeInsets.only(top: 2),
+                      child: TypingDotAnimation(
+                        color: Color(0xFF888888),
+                        dotSize: 4,
+                        spacing: 2,
+                      ),
+                    );
+                  },
+                ),
+              ],
             ),
           ],
         ),
@@ -109,6 +165,7 @@ class _ChatScreenState extends State<ChatScreen>
                     ),
                     ChatScreenActions(
                       conversation: messagingCubit.currentConversation!,
+                      onBulkMarkRead: messagingCubit.bulkMarkRead,
                     ));
 
                 if (refresh ?? false) {
@@ -183,7 +240,7 @@ class _ChatScreenState extends State<ChatScreen>
                     },
                     // A confirmed fetch that genuinely has zero messages —
                     // the only case that should show the empty state.
-                    getMessagesSuccess: () {
+                    getMessagesSuccess: (_) {
                       if (messagingCubit.messages.isEmpty) {
                         return const Center(
                           child: EmptyState(
@@ -202,9 +259,7 @@ class _ChatScreenState extends State<ChatScreen>
                       if (messagingCubit.messages.isNotEmpty) {
                         return _buildMessagesList();
                       }
-                      return Center(
-                        child: CustomDialogs.getLoading(size: 50),
-                      );
+                      return const ChatLoadingShimmer();
                     },
                   );
                 }),
@@ -228,6 +283,7 @@ class _ChatScreenState extends State<ChatScreen>
                 },
                 currentConversation: messagingCubit.currentConversation,
                 isPendingRequest: isAPendingRequest,
+                onTyping: messagingCubit.notifyTyping,
               ),
             ],
           );
@@ -236,16 +292,29 @@ class _ChatScreenState extends State<ChatScreen>
     );
   }
 
+  // `reverse: true` anchors the newest message at scroll offset 0, so the
+  // list opens already positioned at the bottom with no manual jump —
+  // eliminating the old "flash of the top, then skip to the newest
+  // message" glitch that came from jumping there only after the first
+  // (top-anchored) layout had already painted. The index is mapped
+  // backwards so the visual top-to-bottom order (oldest → newest) matches
+  // `messagingCubit.messages`'s own ascending order unchanged.
   Widget _buildMessagesList() {
     return ListView.builder(
+      reverse: true,
       controller: messagingCubit.listController,
       itemCount: messagingCubit.messages.length,
-      itemBuilder: (context, index) => ChatMessageBox(
-        message: messagingCubit.messages[index],
-        onRetryMessage: () {
-          messagingCubit.retryMessage(messagingCubit.messages[index]);
-        },
-      ),
+      itemBuilder: (context, index) {
+        final message = messagingCubit
+            .messages[messagingCubit.messages.length - 1 - index];
+        return ChatMessageBox(
+          message: message,
+          messagingCubit: messagingCubit,
+          onRetryMessage: () {
+            messagingCubit.retryMessage(message);
+          },
+        );
+      },
     );
   }
 

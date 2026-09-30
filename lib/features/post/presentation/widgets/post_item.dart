@@ -11,6 +11,7 @@ import 'package:talkam/core/utils/extensions/int_extension.dart';
 import 'package:talkam/features/ads/presentation/blocs/ads/ads_cubit.dart';
 import 'package:talkam/features/ads/presentation/widgets/ad_indicator.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
+import 'package:talkam/features/post/presentation/screens/post_details_screen.dart';
 import 'package:talkam/features/post/presentation/widgets/post_action_sheet.dart';
 import 'package:talkam/features/post/presentation/widgets/post_content.dart';
 import 'package:talkam/features/post/presentation/widgets/post_item_components.dart';
@@ -61,7 +62,9 @@ class _PostItemState extends State<PostItem> {
         // directly so the detail screen skips the network fetch for it.
         context.pushNamed(
           PageUrl.postDetailsScreen,
-          extra: MockHomeData.isMockPostId(post.id) ? post : post.id.toString(),
+          extra: MockHomeData.isMockPostId(post.id)
+              ? post
+              : PostDetailsSeed(post),
         );
       },
       child: Padding(
@@ -90,14 +93,14 @@ class _PostItemState extends State<PostItem> {
                               category: post.category,
                               onMenuTap: () async {
                                 var isReported =
-                                    await CustomDialogs.showCustomDialog(
+                                    await CustomDialogs.showBottomSheet(
+                                        context,
                                         PostActionSheet(
                                           post: post,
                                           isOwnPost: widget.isOwnPost,
                                           onPostDeleted: () =>
                                               setState(() => _deleted = true),
-                                        ),
-                                        context);
+                                        ));
                                 if (isReported ?? false) {
                                   post.isReported = true;
                                 }
@@ -126,7 +129,7 @@ class _PostItemState extends State<PostItem> {
                                   PageUrl.postDetailsScreen,
                                   extra: MockHomeData.isMockPostId(post.id)
                                       ? post
-                                      : post.id.toString(),
+                                      : PostDetailsSeed(post),
                                 );
                               },
                               onLikeTap: () {},

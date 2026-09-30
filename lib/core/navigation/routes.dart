@@ -314,9 +314,12 @@ class CustomRoutes {
       GoRoute(
         path: '/postDetailsScreen',
         name: PageUrl.postDetailsScreen,
-        builder: (context, state) => state.extra is TalkamPost
-            ? PostDetailsScreen(post: state.extra as TalkamPost)
-            : PostDetailsScreen(postId: state.extra as String),
+        builder: (context, state) => switch (state.extra) {
+          TalkamPost post => PostDetailsScreen(post: post),
+          PostDetailsSeed seed => PostDetailsScreen(
+              postId: seed.post.id.toString(), seed: seed.post),
+          _ => PostDetailsScreen(postId: state.extra as String),
+        },
       ),
       GoRoute(
         path: '/comment/:id',

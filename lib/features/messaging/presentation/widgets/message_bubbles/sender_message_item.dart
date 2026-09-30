@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:talkam/common/widgets/link_recognizing_text.dart';
 import 'package:talkam/common/widgets/text_view.dart';
 import 'package:talkam/core/_core.dart';
+import 'package:talkam/core/constants/package_exports.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/features/messaging/dormain/models/app_message_model.dart';
 import 'package:talkam/features/messaging/presentation/widgets/message_bubbles/media_item.dart';
+import 'package:talkam/features/messaging/presentation/widgets/message_bubbles/reaction_badge_row.dart';
 
 class SenderMessageItem extends StatelessWidget {
   final AppMessageModel message;
@@ -18,44 +20,81 @@ class SenderMessageItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerRight,
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          final bool isShortMessage = message.content.toString().length <= 20;
-
-          return Container(
-            margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-            padding: EdgeInsets.symmetric(
-              vertical: messageIsMedia ? 4 : 8.0,
-              horizontal: messageIsMedia ? 4 : 8.0,
-            ),
-            decoration: const BoxDecoration(
-              color: Color(0xFFEEEEEE),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(12),
-                topRight: Radius.circular(0),
-                bottomLeft: Radius.circular(12),
-                bottomRight: Radius.circular(12),
-              ),
-            ),
-            constraints: isShortMessage
-                ? const BoxConstraints(minHeight: 20, maxWidth: 280)
-                : const BoxConstraints(maxWidth: 280),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                if (messageIsMedia) MediaItem(messageModel: message),
-                TextMessageWidget(
-                  message: message,
-                  isShortMessage: isShortMessage,
-                  onRetryMessage: onRetryMessage,
+    // Row instead of a plain Align so the sending spinner can sit as a
+    // sibling immediately to the left of the bubble, rather than needing
+    // to be laid out inside it.
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.end,
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            if (message.sendingState == SendingState.loading)
+              const Padding(
+                padding: EdgeInsets.only(right: 6, bottom: 10),
+                child: SizedBox(
+                  width: 14,
+                  height: 14,
+                  child: CircularProgressIndicator(
+                    strokeWidth: 2,
+                    color: Color(0xFF888888),
+                  ),
                 ),
-              ],
+              ),
+            LayoutBuilder(
+              builder: (context, constraints) {
+                final bool isShortMessage =
+                    message.content.toString().length <= 20;
+
+                return Container(
+                  margin: const EdgeInsets.symmetric(
+                      vertical: 4.0, horizontal: 8.0),
+                  padding: EdgeInsets.symmetric(
+                    vertical: messageIsMedia ? 4 : 8.0,
+                    horizontal: messageIsMedia ? 4 : 8.0,
+                  ),
+                  decoration: const BoxDecoration(
+                    color: Color(0xFFEEEEEE),
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(12),
+                      topRight: Radius.circular(0),
+                      bottomLeft: Radius.circular(12),
+                      bottomRight: Radius.circular(12),
+                    ),
+                  ),
+                  constraints: isShortMessage
+                      ? const BoxConstraints(minHeight: 20, maxWidth: 280)
+                      : const BoxConstraints(maxWidth: 280),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      if (message.isPinned)
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 2),
+                          child: Icon(Icons.push_pin,
+                              size: 12, color: Color(0xFF888888)),
+                        ),
+                      if (messageIsMedia && !message.isDeleted)
+                        MediaItem(messageModel: message),
+                      TextMessageWidget(
+                        message: message,
+                        isShortMessage: isShortMessage,
+                        onRetryMessage: onRetryMessage,
+                      ),
+                    ],
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
+          ],
+        ),
+        if (message.reactions.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.only(right: 8, top: 2),
+            child: ReactionBadgeRow(reactions: message.reactions),
+          ),
+      ],
     );
   }
 
@@ -86,15 +125,22 @@ class TextMessageWidget extends StatelessWidget {
         // message text with right padding to make room for the timestamp
         Padding(
           padding: const EdgeInsets.only(right: _timeWidth, bottom: 2),
-          child: message.content != null
-              ? LinkRecognizingText(
-                  text: message.content.toString(),
-                  mainTextColor: const Color(0xFF444444),
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                  linkColor: Pallets.adIndicator,
+          child: message.isDeleted
+              ? const TextView(
+                  text: 'This message was deleted',
+                  fontStyle: FontStyle.italic,
+                  color: Color(0xFF888888),
+                  fontSize: 14,
                 )
-              : const SizedBox.shrink(),
+              : message.content != null
+                  ? LinkRecognizingText(
+                      text: message.content.toString(),
+                      mainTextColor: const Color(0xFF444444),
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      linkColor: Pallets.adIndicator,
+                    )
+                  : const SizedBox.shrink(),
         ),
         // timestamp pinned to bottom-right, raised into the last line
         Positioned(
@@ -116,11 +162,32 @@ class TextMessageWidget extends StatelessWidget {
       case null:
       case SendingState.loading:
       case SendingState.success:
-        return TextView(
-          text: TimeUtil.formatTime(message.time!),
-          color: const Color(0xFF888888),
-          fontSize: 11,
-          fontWeight: FontWeight.w500,
+        return Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            if (message.isEdited && !message.isDeleted) ...[
+              const TextView(
+                text: 'Edited',
+                color: Color(0xFF888888),
+                fontSize: 11,
+                fontStyle: FontStyle.italic,
+              ),
+              4.horizontalSpace,
+            ],
+            TextView(
+              text: TimeUtil.formatTime(message.time!),
+              color: const Color(0xFF888888),
+              fontSize: 11,
+              fontWeight: FontWeight.w500,
+            ),
+            // Only a confirmed (server-acked) send has a real delivery/read
+            // state to show — `loading`/`null` haven't reached the server
+            // yet, so no checkmark applies there.
+            if (message.sendingState == SendingState.success) ...[
+              4.horizontalSpace,
+              _buildDeliveryIcon(),
+            ],
+          ],
         );
       case SendingState.failed:
         return TextButton(
@@ -130,5 +197,21 @@ class TextMessageWidget extends StatelessWidget {
       default:
         return const SizedBox.shrink();
     }
+  }
+
+  // Single check: sent, not yet delivered. Double check (grey): delivered,
+  // not yet read. Double check (blue): read. Mirrors the standard
+  // WhatsApp-style convention; backed by [AppMessageModel.deliveredAt]/
+  // [AppMessageModel.read], populated by
+  // [ChatRealtimeCoordinator]/[MessagingCubit.applyDeliveryStatus] off the
+  // `message-delivered`/`message-read` realtime events.
+  Widget _buildDeliveryIcon() {
+    if (message.read) {
+      return const Icon(Icons.done_all, size: 14, color: Pallets.blueBubbleColor);
+    }
+    if (message.deliveredAt != null) {
+      return const Icon(Icons.done_all, size: 14, color: Color(0xFF888888));
+    }
+    return const Icon(Icons.check, size: 14, color: Color(0xFF888888));
   }
 }

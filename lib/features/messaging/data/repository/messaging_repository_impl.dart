@@ -218,6 +218,57 @@ class MessagingRepositoryImpl extends MessagingRepository {
   }
 
   @override
+  Future<dynamic> updateMessageState({
+    required String action,
+    required String messageId,
+    Map<String, dynamic>? extra,
+    RequestMethod method = RequestMethod.post,
+  }) async {
+    try {
+      final params = {"message_id": messageId, ...?extra};
+      // NetworkService.call's `delete` branch only ever reads `data`/
+      // `queryParams` — unlike its `post` branch (`data: data ?? formData`),
+      // it never falls back to `formData`, so a DELETE call built with
+      // `formData:` silently sends an empty body. That's exactly why
+      // delete/removeReaction 404'd with "Message not found" despite
+      // hitting the right route with the right method — `message_id`
+      // never actually left the device. Query params are read the same
+      // way regardless of HTTP method, so route DELETE calls through
+      // those instead; POST keeps using formData (already confirmed
+      // working for edit/pin/unpin).
+      final response = await _v2.call(
+        UrlConfigV2.messageState(action),
+        method,
+        queryParams: method == RequestMethod.delete
+            ? params.map((key, value) => MapEntry(key, value.toString()))
+            : null,
+        formData: method == RequestMethod.delete
+            ? null
+            : FormData.fromMap(params),
+        options: _formOptions,
+      );
+      return response.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<dynamic> bulkMarkRead(String conversationId) async {
+    try {
+      final response = await _v2.call(
+        UrlConfigV2.messageState('bulk-mark-read'),
+        RequestMethod.post,
+        formData: FormData.fromMap({"conversation_id": conversationId}),
+        options: _formOptions,
+      );
+      return response.data;
+    } catch (e) {
+      rethrow;
+    }
+  }
+
+  @override
   Future<dynamic> deleteConversation(String id) async {
     try {
       final response = await _networkService.call(

@@ -17,9 +17,11 @@ import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
 
 class ChatScreenActions extends StatefulWidget {
-  const ChatScreenActions({super.key, required this.conversation});
+  const ChatScreenActions(
+      {super.key, required this.conversation, required this.onBulkMarkRead});
 
   final TalkamConversation conversation;
+  final Future<void> Function() onBulkMarkRead;
 
   @override
   State<ChatScreenActions> createState() => _ChatScreenActionsState();
@@ -153,6 +155,30 @@ class _ChatScreenActionsState extends State<ChatScreenActions>
                 conversationsBloc.updateConversationById(
                     widget.conversation.id.toString(),
                     !widget.conversation.notificationStatus);
+              },
+            ),
+            const SizedBox(
+              width: double.infinity,
+              child: Divider(
+                thickness: 1,
+              ),
+            ),
+            _buildOptionRow(
+              icon: Icons.done_all,
+              text: 'Mark all as read',
+              // Backend's bulkMarkRead() action exists (MessageActionService)
+              // but its route/payload isn't documented — this calls an
+              // UNVERIFIED guessed endpoint (see
+              // MessagingRepository.bulkMarkRead's doc comment); a failure
+              // here most likely means that guess needs correcting.
+              onTap: () async {
+                context.pop();
+                try {
+                  await widget.onBulkMarkRead();
+                  CustomDialogs.showToast("Marked as read");
+                } catch (e) {
+                  CustomDialogs.error(e.toString());
+                }
               },
             ),
             const SizedBox(

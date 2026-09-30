@@ -43,7 +43,10 @@ class PostActionSheet extends StatelessWidget with RefreshPostsMixin {
       padding: EdgeInsets.symmetric(horizontal: 32.w, vertical: 24.h),
       decoration: BoxDecoration(
         color: context.theme.cardColor,
-        borderRadius: BorderRadius.circular(24.r),
+        borderRadius: BorderRadius.only(
+          topLeft: Radius.circular(24.r),
+          topRight: Radius.circular(24.r),
+        ),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,

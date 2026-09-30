@@ -15,6 +15,17 @@ class AppMessageModel {
   DateTime? time;
   String? assetUrl;
 
+  /// Read/delivered status — only meaningful for messages this user sent
+  /// (`iAmSender == true`); see CHAT_AND_SESSION_API_REFERENCE.md.
+  bool read;
+  DateTime? readAt;
+  DateTime? deliveredAt;
+
+  bool isPinned;
+  DateTime? editedAt;
+  bool isDeleted;
+  List<MessageReaction> reactions;
+
   AppMessageModel({
     this.id = '0',
     this.content,
@@ -23,10 +34,19 @@ class AppMessageModel {
     this.sendingState,
     this.assetUrl,
     this.time,
+    this.read = false,
+    this.readAt,
+    this.deliveredAt,
+    this.isPinned = false,
+    this.editedAt,
+    this.isDeleted = false,
+    this.reactions = const [],
     required this.receiverId,
     required this.messageType,
     required this.conversationId,
   });
+
+  bool get isEdited => editedAt != null;
 
   @override
   bool operator ==(Object other) {
@@ -53,6 +73,13 @@ class AppMessageModel {
           // `asset_url` — prefer the resolved one where present.
           assetUrl: message.fileUrl ?? message.assetUrl,
           time: message.createdAt.toLocal(),
+          read: message.read,
+          readAt: message.readAt?.toLocal(),
+          deliveredAt: message.deliveredAt?.toLocal(),
+          isPinned: message.isPinned,
+          editedAt: message.editedAt?.toLocal(),
+          isDeleted: message.isDeleted,
+          reactions: message.reactions,
           receiverId: message.receiverId.toString(),
           messageType: message.messageType,
           conversationId: message.conversationId.toString());
@@ -91,6 +118,13 @@ class AppMessageModel {
       'time': time?.toIso8601String(),
       // Convert DateTime to ISO 8601 string
       'asset_url': assetUrl,
+      'read': read,
+      'read_at': readAt?.toIso8601String(),
+      'delivered_at': deliveredAt?.toIso8601String(),
+      'is_pinned': isPinned,
+      'edited_at': editedAt?.toIso8601String(),
+      'is_deleted': isDeleted,
+      'reactions': reactions.map((r) => r.toJson()).toList(),
     };
   }
 
@@ -103,6 +137,19 @@ class AppMessageModel {
       sendingState: _parseSendingState(json['sendingState']),
       time: json['time'] != null ? DateTime.tryParse(json['time']) : null,
       assetUrl: json['asset_url'],
+      read: json['read'] ?? false,
+      readAt: json['read_at'] != null ? DateTime.tryParse(json['read_at']) : null,
+      deliveredAt: json['delivered_at'] != null
+          ? DateTime.tryParse(json['delivered_at'])
+          : null,
+      isPinned: json['is_pinned'] ?? false,
+      editedAt:
+          json['edited_at'] != null ? DateTime.tryParse(json['edited_at']) : null,
+      isDeleted: json['is_deleted'] ?? false,
+      reactions: (json['reactions'] as List<dynamic>?)
+              ?.map((e) => MessageReaction.fromJson(Map<String, dynamic>.from(e)))
+              .toList() ??
+          const [],
       receiverId: json['receiver_id']?.toString() ?? '',
       messageType: json['message_type']?.toString() ?? '',
       conversationId: json['conversation_id']?.toString() ?? '',
@@ -120,6 +167,13 @@ class AppMessageModel {
     SendingState? sendingState,
     DateTime? time,
     String? assetUrl,
+    bool? read,
+    DateTime? readAt,
+    DateTime? deliveredAt,
+    bool? isPinned,
+    DateTime? editedAt,
+    bool? isDeleted,
+    List<MessageReaction>? reactions,
   }) {
     return AppMessageModel(
       id: id ?? this.id,
@@ -129,6 +183,13 @@ class AppMessageModel {
       sendingState: sendingState ?? this.sendingState,
       time: time ?? this.time,
       assetUrl: assetUrl ?? this.assetUrl,
+      read: read ?? this.read,
+      readAt: readAt ?? this.readAt,
+      deliveredAt: deliveredAt ?? this.deliveredAt,
+      isPinned: isPinned ?? this.isPinned,
+      editedAt: editedAt ?? this.editedAt,
+      isDeleted: isDeleted ?? this.isDeleted,
+      reactions: reactions ?? this.reactions,
       receiverId: receiverId ?? this.receiverId,
       messageType: messageType ?? this.messageType,
       conversationId: conversationId ?? this.conversationId,

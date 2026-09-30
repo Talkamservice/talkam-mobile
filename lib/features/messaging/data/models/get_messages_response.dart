@@ -107,12 +107,26 @@ class TalkamMessage {
   String? fileName;
 
   bool read;
+
+  /// Timestamp the recipient marked this message read — populated by
+  /// `/messaging/messages/list` per CHAT_AND_SESSION_API_REFERENCE.md.
+  DateTime? readAt;
+
+  /// Timestamp the message was delivered to the recipient's device —
+  /// same source as [readAt].
+  DateTime? deliveredAt;
+
   DateTime createdAt;
 
   /// Not present on messages returned by `/messaging/messages/list` (only
   /// `created_at` is) — only populated when this model backs a
   /// `last_message` from `/messaging/conversations`.
   DateTime? updatedAt;
+
+  bool isPinned;
+  DateTime? editedAt;
+  bool isDeleted;
+  List<MessageReaction> reactions;
 
   TalkamMessage({
     required this.id,
@@ -126,8 +140,14 @@ class TalkamMessage {
     this.fileUrl,
     this.fileName,
     required this.read,
+    this.readAt,
+    this.deliveredAt,
     required this.createdAt,
     this.updatedAt,
+    this.isPinned = false,
+    this.editedAt,
+    this.isDeleted = false,
+    this.reactions = const [],
   });
 
   TalkamMessage copyWith({
@@ -142,8 +162,14 @@ class TalkamMessage {
     String? fileUrl,
     String? fileName,
     bool? read,
+    DateTime? readAt,
+    DateTime? deliveredAt,
     DateTime? createdAt,
     DateTime? updatedAt,
+    bool? isPinned,
+    DateTime? editedAt,
+    bool? isDeleted,
+    List<MessageReaction>? reactions,
   }) =>
       TalkamMessage(
         id: id ?? this.id,
@@ -157,8 +183,14 @@ class TalkamMessage {
         fileUrl: fileUrl ?? this.fileUrl,
         fileName: fileName ?? this.fileName,
         read: read ?? this.read,
+        readAt: readAt ?? this.readAt,
+        deliveredAt: deliveredAt ?? this.deliveredAt,
         createdAt: createdAt ?? this.createdAt,
         updatedAt: updatedAt ?? this.updatedAt,
+        isPinned: isPinned ?? this.isPinned,
+        editedAt: editedAt ?? this.editedAt,
+        isDeleted: isDeleted ?? this.isDeleted,
+        reactions: reactions ?? this.reactions,
       );
 
   factory TalkamMessage.fromJson(Map<String, dynamic> json) => TalkamMessage(
@@ -173,10 +205,23 @@ class TalkamMessage {
         fileUrl: json["file_url"],
         fileName: json["file_name"],
         read: json["read"] ?? false,
+        readAt:
+            json["read_at"] == null ? null : DateTime.parse(json["read_at"]),
+        deliveredAt: json["delivered_at"] == null
+            ? null
+            : DateTime.parse(json["delivered_at"]),
         createdAt: DateTime.parse(json["created_at"]),
         updatedAt: json["updated_at"] == null
             ? null
             : DateTime.parse(json["updated_at"]),
+        isPinned: json["is_pinned"] ?? false,
+        editedAt:
+            json["edited_at"] == null ? null : DateTime.parse(json["edited_at"]),
+        isDeleted: json["is_deleted"] ?? false,
+        reactions: (json["reactions"] as List<dynamic>?)
+                ?.map((e) => MessageReaction.fromJson(Map<String, dynamic>.from(e)))
+                .toList() ??
+            const [],
       );
 
   Map<String, dynamic> toJson() => {
@@ -191,8 +236,34 @@ class TalkamMessage {
         "file_url": fileUrl,
         "file_name": fileName,
         "read": read,
+        "read_at": readAt?.toIso8601String(),
+        "delivered_at": deliveredAt?.toIso8601String(),
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt?.toIso8601String(),
+        "is_pinned": isPinned,
+        "edited_at": editedAt?.toIso8601String(),
+        "is_deleted": isDeleted,
+        "reactions": reactions.map((r) => r.toJson()).toList(),
+      };
+}
+
+/// One reaction on a message — `{"user_id": 45, "reaction": "👍"}` per
+/// CHAT_AND_SESSION_API_REFERENCE.md's `/messaging/messages/list` sample.
+class MessageReaction {
+  final int userId;
+  final String reaction;
+
+  MessageReaction({required this.userId, required this.reaction});
+
+  factory MessageReaction.fromJson(Map<String, dynamic> json) =>
+      MessageReaction(
+        userId: json["user_id"],
+        reaction: json["reaction"],
+      );
+
+  Map<String, dynamic> toJson() => {
+        "user_id": userId,
+        "reaction": reaction,
       };
 }
 

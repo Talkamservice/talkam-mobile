@@ -5,6 +5,7 @@ import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/time_util.dart';
 import 'package:talkam/features/messaging/dormain/models/app_message_model.dart';
 import 'package:talkam/features/messaging/presentation/widgets/message_bubbles/media_item.dart';
+import 'package:talkam/features/messaging/presentation/widgets/message_bubbles/reaction_badge_row.dart';
 
 class ReceiverMessageItem extends StatelessWidget {
   final AppMessageModel message;
@@ -16,41 +17,60 @@ class ReceiverMessageItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Align(
-      alignment: Alignment.centerLeft,
-      child: LayoutBuilder(
-        builder: (context, constraints) {
-          final bool isShortMessage = message.content.toString().length <= 20;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Align(
+          alignment: Alignment.centerLeft,
+          child: LayoutBuilder(
+            builder: (context, constraints) {
+              final bool isShortMessage =
+                  message.content.toString().length <= 20;
 
-          return Container(
-            margin: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
-            padding: EdgeInsets.symmetric(
-              vertical: messageIsMedia ? 4 : 8.0,
-              horizontal: messageIsMedia ? 5 : 8.0,
-            ),
-            decoration: const BoxDecoration(
-              color: Pallets.blueBubbleColor,
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(0),
-                topRight: Radius.circular(12),
-                bottomLeft: Radius.circular(12),
-                bottomRight: Radius.circular(12),
-              ),
-            ),
-            constraints: isShortMessage
-                ? const BoxConstraints(minHeight: 20, maxWidth: 280)
-                : const BoxConstraints(maxWidth: 280),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                if (messageIsMedia) MediaItem(messageModel: message),
-                _TextMessageWidget(
-                    message: message, isShortMessage: isShortMessage),
-              ],
-            ),
-          );
-        },
-      ),
+              return Container(
+                margin:
+                    const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+                padding: EdgeInsets.symmetric(
+                  vertical: messageIsMedia ? 4 : 8.0,
+                  horizontal: messageIsMedia ? 5 : 8.0,
+                ),
+                decoration: const BoxDecoration(
+                  color: Pallets.blueBubbleColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(0),
+                    topRight: Radius.circular(12),
+                    bottomLeft: Radius.circular(12),
+                    bottomRight: Radius.circular(12),
+                  ),
+                ),
+                constraints: isShortMessage
+                    ? const BoxConstraints(minHeight: 20, maxWidth: 280)
+                    : const BoxConstraints(maxWidth: 280),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (message.isPinned)
+                      const Padding(
+                        padding: EdgeInsets.only(bottom: 2),
+                        child: Icon(Icons.push_pin,
+                            size: 12, color: Colors.white70),
+                      ),
+                    if (messageIsMedia && !message.isDeleted)
+                      MediaItem(messageModel: message),
+                    _TextMessageWidget(
+                        message: message, isShortMessage: isShortMessage),
+                  ],
+                ),
+              );
+            },
+          ),
+        ),
+        if (message.reactions.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.only(left: 8, top: 2),
+            child: ReactionBadgeRow(reactions: message.reactions),
+          ),
+      ],
     );
   }
 
@@ -79,25 +99,46 @@ class _TextMessageWidget extends StatelessWidget {
         // message text with right padding to make room for the timestamp
         Padding(
           padding: const EdgeInsets.only(right: _timeWidth, bottom: 2),
-          child: message.content != null
-              ? LinkRecognizingText(
-                  text: message.content.toString(),
-                  mainTextColor: Colors.white,
-                  fontSize: 15,
-                  fontWeight: FontWeight.w600,
-                  linkColor: Pallets.adIndicator,
+          child: message.isDeleted
+              ? const TextView(
+                  text: 'This message was deleted',
+                  fontStyle: FontStyle.italic,
+                  color: Colors.white70,
+                  fontSize: 14,
                 )
-              : const SizedBox.shrink(),
+              : message.content != null
+                  ? LinkRecognizingText(
+                      text: message.content.toString(),
+                      mainTextColor: Colors.white,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600,
+                      linkColor: Pallets.adIndicator,
+                    )
+                  : const SizedBox.shrink(),
         ),
         // timestamp pinned to bottom-right, raised into the last line
         Positioned(
           bottom: 0,
           right: 0,
-          child: TextView(
-            text: TimeUtil.formatTime(message.time!),
-            color: Colors.white.withValues(alpha: 0.75),
-            fontSize: 11,
-            fontWeight: FontWeight.w500,
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (message.isEdited && !message.isDeleted) ...[
+                TextView(
+                  text: 'Edited',
+                  color: Colors.white.withValues(alpha: 0.75),
+                  fontSize: 11,
+                  fontStyle: FontStyle.italic,
+                ),
+                const SizedBox(width: 4),
+              ],
+              TextView(
+                text: TimeUtil.formatTime(message.time!),
+                color: Colors.white.withValues(alpha: 0.75),
+                fontSize: 11,
+                fontWeight: FontWeight.w500,
+              ),
+            ],
           ),
         ),
       ],

@@ -1,3 +1,4 @@
+import 'package:talkam/core/services/network/network_service.dart' show RequestMethod;
 import 'package:talkam/features/messaging/data/models/conversation_state_response.dart';
 import 'package:talkam/features/messaging/data/models/conversations_filter.dart';
 import 'package:talkam/features/messaging/data/models/get_conversations_response.dart';
@@ -40,6 +41,42 @@ abstract class MessagingRepository {
   Future<dynamic> sendMessage(AppMessageModel messageData);
 
   Future<GetMessagesResponse> getMessages(String conversationId, {int page = 1});
+
+  /// `{method} /user/messaging/messages/{action}` where action is one of
+  /// edit | delete | forward | pin | unpin | react. The HTTP method isn't
+  /// uniform across actions — confirmed per action, from real device logs
+  /// (2026-09-29):
+  /// - `edit`, `pin`, `unpin`: `POST`, body includes `message_id` (+
+  ///   `message` for edit) — confirmed working (200, or a real 422
+  ///   business-rule rejection, e.g. edit's 15-min window).
+  /// - `delete`: `DELETE`, not POST — POST 405s ("Supported methods:
+  ///   DELETE").
+  /// - `react` (remove): `DELETE` on the same `react` path — POST 405s
+  ///   the same way.
+  /// - `react` (add): still unconfirmed — POST 405s there too, and unlike
+  ///   delete/remove-reaction, no working verb is known yet for adding.
+  /// - `forward`: untested.
+  ///
+  /// Given `delete` and `react` both turned out to need DELETE against a
+  /// path that "looks like" a POST action-endpoint, don't assume any
+  /// remaining unconfirmed action here defaults to POST — verify each one
+  /// individually.
+  Future<dynamic> updateMessageState({
+    required String action,
+    required String messageId,
+    Map<String, dynamic>? extra,
+    RequestMethod method = RequestMethod.post,
+  });
+
+  /// `POST /user/messaging/messages/bulk-mark-read`, body `{conversation_id}`.
+  ///
+  /// UNVERIFIED — same caveat as [updateMessageState] (which this mirrors
+  /// the URL shape of): CHAT_AND_SESSION_API_REFERENCE.md confirms
+  /// `MessageActionService::bulkMarkRead()` exists but not its route or
+  /// payload. Conversation-scoped (marks every unread message in it),
+  /// hence its own method rather than routing through [updateMessageState]
+  /// (which is single-message-scoped via `message_id`).
+  Future<dynamic> bulkMarkRead(String conversationId);
 
   Future<dynamic> deleteConversation(String id);
 

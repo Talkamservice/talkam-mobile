@@ -18,6 +18,7 @@ import 'package:talkam/core/utils/helper_utils.dart';
 import 'package:talkam/core/utils/string_extension.dart';
 import 'package:talkam/core/utils/time_util.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
+import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
 import 'package:talkam/features/post/presentation/widgets/post_action_sheet.dart';
 import 'package:talkam/features/post/presentation/widgets/post_content.dart';
 import 'package:talkam/features/post/presentation/widgets/post_reaction_button.dart';
@@ -36,7 +37,7 @@ class PostDetailCard extends StatefulWidget {
   State<PostDetailCard> createState() => _PostDetailCardState();
 }
 
-class _PostDetailCardState extends State<PostDetailCard> {
+class _PostDetailCardState extends State<PostDetailCard> with RefreshPostsMixin {
   @override
   Widget build(BuildContext context) {
     final post = widget.post;
@@ -87,6 +88,27 @@ class _PostDetailCardState extends State<PostDetailCard> {
                       post.reaction = null;
                     });
                   },
+                  // This screen has its own fetched copy of `post` — the
+                  // Home feed's Featured/Recent/Trending lists hold a
+                  // separate copy, so mutating this one doesn't touch
+                  // theirs. Without this, the like count shown on the feed
+                  // stayed stale after navigating back from here.
+                  //
+                  // Gated on the reaction actually succeeding server-side
+                  // (not the optimistic on-tap callbacks above) — those
+                  // fire synchronously at tap-time, before the reaction
+                  // POST has even been sent, so patching the feed there
+                  // raced ahead of the save and applied the old count.
+                  //
+                  // Patches in place rather than refetching (refreshPost)
+                  // — refetching always pulls page 1 and would silently
+                  // reset the feed lists, dropping anything loaded past
+                  // page 1 via loadMore().
+                  onReactionConfirmed: () => syncPostAcrossFeeds(
+                    post.id.toString(),
+                    reaction: post.reaction,
+                    likesCount: post.likesCount,
+                  ),
                 ),
                 24.horizontalSpace,
                 InkWell(
@@ -238,7 +260,7 @@ class _PostDetailHeaderState extends State<_PostDetailHeader> {
               );
             },
             child: SubscribeButton(
-              text: _isFollowing ? "Following" : "Subscribe",
+              text: _isFollowing ? "Following" : "Follow",
               color: _isFollowing ? Pallets.grey60 : null,
               onTap: () => GuestUserHelper.handleGuestUserAction(
                 action: () =>
@@ -253,12 +275,12 @@ class _PostDetailHeaderState extends State<_PostDetailHeader> {
             icon: Icon(Icons.more_vert_rounded,
                 color: context.colorScheme.onSurface),
             onPressed: () async {
-              var isReported = await CustomDialogs.showCustomDialog(
+              var isReported = await CustomDialogs.showBottomSheet(
+                  context,
                   PostActionSheet(
                     post: post,
                     onPostDeleted: () => context.pop(),
-                  ),
-                  context);
+                  ));
               if (isReported ?? false) {
                 post.isReported = true;
               }

@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/post_reaction_override_store.dart';
 import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/data/models/post_filter_model.dart';
@@ -35,6 +36,7 @@ class FeaturedPostCubit extends Cubit<FeaturedPostState>
         categoryId: filter.category,
         page: filter.page,
       );
+      await _applyReactionOverrides(response.data.data);
 
       emit(FeaturedPostState.getFeaturedPostsSuccess(response));
     } catch (error, stack) {
@@ -42,6 +44,47 @@ class FeaturedPostCubit extends Cubit<FeaturedPostState>
       logger.e(stack);
       emit(FeaturedPostState.getFeaturedPostsFailed(error.toString()));
     }
+  }
+
+  /// The feed endpoint never returns the current user's own `reaction`
+  /// per post (same gap confirmed on post details and comments,
+  /// 2026-09-30) — only `likes_count`. Without this, a post you'd
+  /// already liked would render unliked on a cold fetch.
+  Future<void> _applyReactionOverrides(List<TalkamPost> posts) async {
+    final store = injector.get<PostReactionOverrideStore>();
+    await store.ready;
+    for (final post in posts) {
+      final action = store.reactionFor(post.id.toString());
+      if (action == "Like") {
+        post.reaction = PostReaction.like();
+      } else if (action == "Dislike") {
+        post.reaction = PostReaction.dislike();
+      }
+    }
+  }
+
+  /// Patches a single post's reaction/likes/comments in place, wherever it
+  /// currently appears in the loaded list (any page), and re-emits so
+  /// `BlocBuilder`s rebuild — without refetching. [getFeaturedPosts] always
+  /// fetches page 1 (`PostFilterModel.featuredPost()` never sets `page`),
+  /// so calling it to sync a single post's like count after returning from
+  /// its detail screen silently replaced the whole list and dropped
+  /// anything loaded past page 1 via [loadMore].
+  void patchPost(String postId,
+      {required PostReaction? reaction,
+      required dynamic likesCount,
+      dynamic commentsCount}) {
+    final current =
+        state.whenOrNull(getFeaturedPostsSuccess: (response) => response);
+    if (current == null) return;
+    for (final post in current.data.data) {
+      if (post.id.toString() != postId) continue;
+      post.reaction = reaction;
+      post.likesCount = likesCount;
+      if (commentsCount != null) post.commentsCount = commentsCount;
+      break;
+    }
+    emit(FeaturedPostState.getFeaturedPostsSuccess(current.copyWith()));
   }
 
   /// Fetches the next page and appends it to whatever's currently shown.
@@ -59,6 +102,7 @@ class FeaturedPostCubit extends Cubit<FeaturedPostState>
         tab: "for_you",
         page: previous.data.paginationMeta.currentPage + 1,
       );
+      await _applyReactionOverrides(response.data.data);
 
       final mergedResponse = response.copyWith(
         data: response.data.copyWith(

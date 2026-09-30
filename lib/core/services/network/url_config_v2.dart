@@ -151,6 +151,16 @@ class UrlConfigV2 {
   static const String messagingMessagesList = '/user/messaging/messages/list';
   static const String messagingMessagesSend = '/user/messaging/messages/send';
 
+  /// UNVERIFIED — CHAT_AND_SESSION_API_REFERENCE.md confirms
+  /// MessageActionService has edit/delete/forward/addReaction/
+  /// removeReaction/setPinned actions but doesn't give exact routes. Mirrors
+  /// the *confirmed* `conversationState(action)` pattern above
+  /// (`POST /messaging/conversations/{action}`) as the best available guess.
+  /// Needs confirming against a real device network log before being
+  /// trusted the way `conversationState` is.
+  static String messageState(String action) =>
+      '/user/messaging/messages/$action';
+
   // Therapist — clients roster & session notes
   static const String therapistClients = '/therapist/clients';
   static String therapistClientDetail(int id) => '$therapistClients/$id';

@@ -4,6 +4,7 @@ import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/services/data/chat_local_store.dart';
 import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/core/services/data/session_manager.dart';
+import 'package:talkam/core/services/messaging/chat_realtime_coordinator.dart';
 import 'package:talkam/features/messaging/data/models/conversation_state_response.dart';
 import 'package:talkam/features/messaging/data/models/conversations_filter.dart';
 import 'package:talkam/features/messaging/data/models/get_conversations_response.dart';
@@ -23,7 +24,10 @@ class ConversationsCubit extends Cubit<ConversationsState>
       : super(const ConversationsState.initial());
 
   @override
-  void resetForLogout() => emit(const ConversationsState.initial());
+  void resetForLogout() {
+    ChatRealtimeCoordinator.instance.resetForLogout();
+    emit(const ConversationsState.initial());
+  }
 
   Future<void> getConversations(
       {ConversationsFilter? filter, bool? reload = true}) async {
@@ -87,6 +91,8 @@ class ConversationsCubit extends Cubit<ConversationsState>
             ),
           ));
           shownFromCache = true;
+          ChatRealtimeCoordinator.instance
+              .subscribeToAll(cachedConversations.map((c) => c.id.toString()));
         }
       } catch (e, stack) {
         logger.e('Failed reading cached conversations list', error: e, stackTrace: stack);
@@ -101,6 +107,13 @@ class ConversationsCubit extends Cubit<ConversationsState>
           page: 1, archived: archived, starred: starred);
       final merged = _mergePreservingNewerLocalPreview(response.data.data);
       final sorted = _sortByNewest(merged);
+      // Real-time delivery for each of these conversations (including ones
+      // not currently open) now comes from subscribing to their own
+      // `conversation.{id}` channel directly — see
+      // ChatRealtimeCoordinator. Idempotent, so calling this on every list
+      // load is cheap.
+      ChatRealtimeCoordinator.instance
+          .subscribeToAll(sorted.map((c) => c.id.toString()));
       emit(ConversationsState.getConversationsListSuccess(
         GetConversationsListResponse(
           message: response.message,
@@ -139,6 +152,8 @@ class ConversationsCubit extends Cubit<ConversationsState>
         starred: starred,
       );
       final merged = _sortByNewest([...conversations, ...response.data.data]);
+      ChatRealtimeCoordinator.instance
+          .subscribeToAll(merged.map((c) => c.id.toString()));
       emit(ConversationsState.getConversationsListSuccess(
         GetConversationsListResponse(
           message: response.message,

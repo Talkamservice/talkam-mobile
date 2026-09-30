@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/core/di/injector.dart' as di;
+import 'package:talkam/core/services/data/post_reaction_override_store.dart';
 import 'package:talkam/core/theme/pallets.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/guest_user_helper.dart';
@@ -23,7 +24,8 @@ class PostReactionButton extends StatefulWidget {
       required this.onLikeAdded,
       required this.onCountReduced,
       required this.onDisliked,
-      required this.onReactionRemoved});
+      required this.onReactionRemoved,
+      this.onReactionConfirmed});
 
   PostReaction? reaction;
   final ReactionType reactionType;
@@ -32,6 +34,15 @@ class PostReactionButton extends StatefulWidget {
   final Function() onDisliked;
   final Function() onCountReduced;
   final Function() onReactionRemoved;
+
+  /// Fired when the reaction POST actually succeeds server-side
+  /// (`postReactionSuccess`), unlike [onLikeAdded]/[onCountReduced]/
+  /// [onReactionRemoved] which fire optimistically at tap-time, before the
+  /// network call has even been sent. Callers that need to trust the
+  /// server has persisted the change (e.g. refetching another screen's
+  /// copy of this post) should hook this instead of piggybacking on the
+  /// optimistic callbacks.
+  final VoidCallback? onReactionConfirmed;
 
   @override
   State<PostReactionButton> createState() => _PostReactionButtonState();
@@ -65,6 +76,7 @@ class _PostReactionButtonState extends State<PostReactionButton> {
           },
           postReactionSuccess: () {
             di.logger.i('PostReactionButton: postReactionSuccess');
+            widget.onReactionConfirmed?.call();
           },
         );
       },
@@ -121,9 +133,15 @@ class _PostReactionButtonState extends State<PostReactionButton> {
           .i('handleLikeClicked: calling onCountReduced and onReactionRemoved');
       widget.onCountReduced();
       widget.onReactionRemoved();
+      di.injector
+          .get<PostReactionOverrideStore>()
+          .clearReaction(widget.id);
     } else {
       di.logger.i('handleLikeClicked: calling onLikeAdded');
       widget.onLikeAdded();
+      di.injector
+          .get<PostReactionOverrideStore>()
+          .setReaction(widget.id, "Like");
     }
   }
 

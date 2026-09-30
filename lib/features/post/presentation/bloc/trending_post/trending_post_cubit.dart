@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/post_reaction_override_store.dart';
 import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/data/models/post_filter_model.dart';
@@ -35,6 +36,7 @@ class TrendingPostCubit extends Cubit<TrendingPostState>
         categoryId: filter.category,
         page: filter.page,
       );
+      await _applyReactionOverrides(response.data.data);
 
       emit(TrendingPostState.getTrendingPostsSuccess(response));
     } catch (error, stack) {
@@ -42,6 +44,44 @@ class TrendingPostCubit extends Cubit<TrendingPostState>
       logger.e(stack);
       emit(TrendingPostState.getTrendingPostsFailed(error.toString()));
     }
+  }
+
+  /// The feed endpoint never returns the current user's own `reaction`
+  /// per post (same gap confirmed on post details and comments,
+  /// 2026-09-30) — only `likes_count`. Without this, a post you'd
+  /// already liked would render unliked on a cold fetch.
+  Future<void> _applyReactionOverrides(List<TalkamPost> posts) async {
+    final store = injector.get<PostReactionOverrideStore>();
+    await store.ready;
+    for (final post in posts) {
+      final action = store.reactionFor(post.id.toString());
+      if (action == "Like") {
+        post.reaction = PostReaction.like();
+      } else if (action == "Dislike") {
+        post.reaction = PostReaction.dislike();
+      }
+    }
+  }
+
+  /// Patches a single post's reaction/likes/comments in place, wherever it
+  /// currently appears in the loaded list (any page), and re-emits so
+  /// `BlocBuilder`s rebuild — without refetching, which would replace the
+  /// whole list back to page 1 and drop anything loaded via [loadMore].
+  void patchPost(String postId,
+      {required PostReaction? reaction,
+      required dynamic likesCount,
+      dynamic commentsCount}) {
+    final current =
+        state.whenOrNull(getTrendingPostsSuccess: (response) => response);
+    if (current == null) return;
+    for (final post in current.data.data) {
+      if (post.id.toString() != postId) continue;
+      post.reaction = reaction;
+      post.likesCount = likesCount;
+      if (commentsCount != null) post.commentsCount = commentsCount;
+      break;
+    }
+    emit(TrendingPostState.getTrendingPostsSuccess(current.copyWith()));
   }
 
   /// Fetches the next page and appends it to whatever's currently shown.
@@ -59,6 +99,7 @@ class TrendingPostCubit extends Cubit<TrendingPostState>
         tab: "trending",
         page: previous.data.paginationMeta.currentPage + 1,
       );
+      await _applyReactionOverrides(response.data.data);
 
       final mergedResponse = response.copyWith(
         data: response.data.copyWith(

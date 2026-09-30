@@ -1,4 +1,6 @@
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/comment_reaction_override_store.dart';
+import 'package:talkam/core/services/data/post_reaction_override_store.dart';
 import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/features/group/presentation/blocs/create_group_cubit/create_group_cubit.dart';
 import 'package:talkam/features/group/presentation/blocs/featured_groups/featured_groups_cubit.dart';
@@ -62,4 +64,6 @@ List<ResettableOnLogout> resettableSingletons() => [
       injector.get<MessagingCubit>(),
       injector.get<NotificationsBloc>(),
       injector.get<FeaturedGroupsCubit>(),
+      injector.get<CommentReactionOverrideStore>(),
+      injector.get<PostReactionOverrideStore>(),
     ];

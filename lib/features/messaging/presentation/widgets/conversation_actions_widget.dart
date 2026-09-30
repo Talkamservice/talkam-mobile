@@ -25,6 +25,7 @@ class ConversationActionsWidget extends StatefulWidget {
   final bool isPendingRequest;
   final Function(String message, {String? file}) onSendMessage;
   final TalkamConversation? currentConversation;
+  final VoidCallback? onTyping;
 
   const ConversationActionsWidget({
     Key? key,
@@ -34,6 +35,7 @@ class ConversationActionsWidget extends StatefulWidget {
     required this.onSendMessage,
     required this.currentConversation,
     required this.isPendingRequest,
+    this.onTyping,
   }) : super(key: key);
 
   @override
@@ -64,6 +66,11 @@ class _ConversationActionsWidgetState extends State<ConversationActionsWidget> {
     );
 
     _controller = EmojiTextEditingController(emojiTextStyle: _textStyle);
+    // The visible compose TextField is driven by `controller`, not
+    // `_controller` (the latter backs the emoji picker's own state).
+    controller.addListener(() {
+      if (controller.text.isNotEmpty) widget.onTyping?.call();
+    });
     _scrollController = ScrollController();
     _focusNode = FocusNode();
 

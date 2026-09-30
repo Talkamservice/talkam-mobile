@@ -73,12 +73,32 @@ class ChatLocalStore {
     await _messagesBox?.put(conversationId, messages);
   }
 
-  /// Appends one live (Pusher-received) message, deduped by `id`.
+  /// Appends one live (Pusher-received) message, deduped by `id` — a no-op
+  /// if that id is already cached. For updating an *existing* message's
+  /// fields (e.g. delivery/read status), use [upsertMessage] instead.
   Future<void> appendMessage(
       String conversationId, Map<String, dynamic> message) async {
     final existing = getCachedMessages(conversationId) ?? [];
     if (existing.any((m) => m['id'] == message['id'])) return;
     await saveMessages(conversationId, [...existing, message]);
+  }
+
+  /// Replaces the cached message matching `message['id']` in place, or
+  /// appends it if not already cached. Unlike [appendMessage], this is
+  /// safe to call for a message id that already exists — used to patch an
+  /// already-cached message's fields (delivery/read status) rather than
+  /// silently dropping the update.
+  Future<void> upsertMessage(
+      String conversationId, Map<String, dynamic> message) async {
+    final existing = getCachedMessages(conversationId) ?? [];
+    final index = existing.indexWhere((m) => m['id'] == message['id']);
+    if (index == -1) {
+      await saveMessages(conversationId, [...existing, message]);
+      return;
+    }
+    final updated = [...existing];
+    updated[index] = message;
+    await saveMessages(conversationId, updated);
   }
 
   // receiverId -> conversationId lookup.

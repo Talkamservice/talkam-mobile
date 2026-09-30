@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:talkam/common/widgets/custom_dialogs.dart';
 import 'package:talkam/common/widgets/image_widget.dart';
 import 'package:talkam/core/constants/package_exports.dart';
+import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/comment_reaction_override_store.dart';
 import 'package:talkam/core/services/network/url_config.dart';
 import 'package:talkam/core/utils/extensions/context_extension.dart';
 import 'package:talkam/core/utils/helper_utils.dart';
@@ -55,6 +57,9 @@ class _CommentActionsState extends State<CommentActions> {
                 }
                 widget.comment.reaction = PostReaction.like();
                 widget.comment.likes += 1;
+                injector
+                    .get<CommentReactionOverrideStore>()
+                    .setReaction(widget.comment.id.toString(), "Like");
                 setState(() {});
               },
               onLikeCountReduced: () {
@@ -64,6 +69,9 @@ class _CommentActionsState extends State<CommentActions> {
               onDisliked: () {},
               onReactionRemoved: () {
                 widget.comment.reaction = null;
+                injector
+                    .get<CommentReactionOverrideStore>()
+                    .clearReaction(widget.comment.id.toString());
               },
             ),
             4.horizontalSpace,
@@ -118,13 +126,13 @@ class CommentMenuButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () {
-        CustomDialogs.showCustomDialog(
+        CustomDialogs.showBottomSheet(
+          context,
           CommentActionSheet(
             comment: comment,
             postId: postId,
             onDeleted: onCommentDeleted,
           ),
-          context,
         );
       },
       // Material's default IconButton enforces a ~48x48 min tap target,

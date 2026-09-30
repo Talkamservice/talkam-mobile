@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/post_reaction_override_store.dart';
 import 'package:talkam/core/services/data/resettable_on_logout.dart';
 import 'package:talkam/features/post/data/models/create_post_payload.dart';
 import 'package:talkam/features/post/data/models/create_post_response.dart';
@@ -166,6 +167,20 @@ class PostBloc extends Bloc<PostEvent, PostState>
     }
     try {
       final response = await _postRepository.getPostDetails(postId);
+
+      // Post details never returns the current user's own `reaction`
+      // (confirmed from a raw response log, 2026-09-30) — only
+      // `likes_count`. Without this, a post's like count survived a
+      // refetch but the seeded/optimistic reaction got clobbered back to
+      // null. See PostReactionOverrideStore's doc comment.
+      final store = injector.get<PostReactionOverrideStore>();
+      await store.ready;
+      final override = store.reactionFor(postId);
+      if (override == "Like") {
+        response.data.reaction = PostReaction.like();
+      } else if (override == "Dislike") {
+        response.data.reaction = PostReaction.dislike();
+      }
 
       emit(PostState.getPostDetailsSuccess(response));
     } catch (error, stack) {

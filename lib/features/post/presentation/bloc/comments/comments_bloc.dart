@@ -1,7 +1,9 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:talkam/core/di/injector.dart';
+import 'package:talkam/core/services/data/comment_reaction_override_store.dart';
 import 'package:talkam/features/post/data/models/get_comments_response.dart';
+import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/data/models/save_comment_payload.dart';
 import 'package:talkam/features/post/dormain/repository/post_repository.dart';
 import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_bloc.dart';
@@ -39,10 +41,32 @@ class CommentsBloc extends Bloc<CommentsEvent, CommentsState> {
     try {
       final response = await _postRepository.getComments(postId);
       comments = response.data;
+      // `getComments` never returns the current user's own `reaction` per
+      // comment (confirmed from a raw response log, 2026-09-30) — only
+      // `likes`/`unlikes`. Without this, a comment's like count survived
+      // a refetch but its button stopped showing active. See
+      // CommentReactionOverrideStore's doc comment.
+      await injector.get<CommentReactionOverrideStore>().ready;
+      _applyReactionOverrides(comments);
       injector.get<ProfileBloc>().add(const GetRemoteUser());
       emit(CommentsState.getCommentsSuccess(response));
     } catch (error) {
       emit(CommentsState.getCommentsFailure(error.toString()));
+    }
+  }
+
+  void _applyReactionOverrides(List<PostComment> list) {
+    final store = injector.get<CommentReactionOverrideStore>();
+    for (final comment in list) {
+      final action = store.reactionFor(comment.id.toString());
+      if (action == "Like") {
+        comment.reaction = PostReaction.like();
+      } else if (action == "Dislike") {
+        comment.reaction = PostReaction.dislike();
+      }
+      if (comment.children.isNotEmpty) {
+        _applyReactionOverrides(comment.children);
+      }
     }
   }
 

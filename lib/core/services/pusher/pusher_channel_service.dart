@@ -31,9 +31,17 @@ class PusherChannelService {
           cluster: "mt1",
 
           maxReconnectGapInSeconds: 1,
+          // Global catch-all — fires for every event on every channel this
+          // client is subscribed to, regardless of whether that specific
+          // feature (chat, presence, notifications) also has its own
+          // per-channel logging. Doesn't widen what we can see beyond
+          // channels we're actually subscribed to (Pusher never delivers
+          // events for channels a client hasn't joined+been authorized
+          // for), but it's a safety net against a future subscription
+          // that forgets to log for itself, and a single place to grep.
           onEvent: (event) {
-            // logger.w(event.data);
-            // AppUtils.showCustomToast(event.data.toString());
+            logger.i(
+                'GLOBAL PUSHER EVENT -> channel=${event.channelName}, eventName=${event.eventName}, data=${event.data}');
           },
           onSubscriptionError: (d, a) {
             log("onSubscriptionError: $d Exception: $a");

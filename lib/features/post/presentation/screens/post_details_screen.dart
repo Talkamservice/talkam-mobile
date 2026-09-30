@@ -21,6 +21,7 @@ import 'package:talkam/features/post/data/models/get_comments_response.dart';
 import 'package:talkam/features/post/data/models/get_posts_response.dart';
 import 'package:talkam/features/post/data/models/save_comment_payload.dart';
 import 'package:talkam/features/post/dormain/comment_thread_flattener.dart';
+import 'package:talkam/features/post/dormain/mixins/refresh_posts_mixin.dart';
 import 'package:talkam/features/post/presentation/bloc/comments/comments_bloc.dart';
 import 'package:talkam/features/post/presentation/bloc/post/post_bloc.dart';
 import 'package:talkam/features/post/presentation/widgets/comment_item.dart';
@@ -32,7 +33,7 @@ import 'package:talkam/features/profile/presentation/bloc/profile_bloc/profile_b
 import 'package:talkam/gen/assets.gen.dart';
 
 class PostDetailsScreen extends StatefulWidget {
-  PostDetailsScreen({super.key, this.postId, this.post})
+  PostDetailsScreen({super.key, this.postId, this.post, this.seed})
       : assert(postId != null || post != null,
             'Either postId or post must be provided');
 
@@ -43,11 +44,29 @@ class PostDetailsScreen extends StatefulWidget {
   /// instead of fetching it, and comments are kept purely local.
   final TalkamPost? post;
 
+  /// When set, this is a REAL post's already-live copy from whatever
+  /// feed list the caller navigated from (e.g. `FeaturedPostCubit`'s
+  /// list) — used only to paint the initial frame instantly and
+  /// correctly. The normal network fetch below still runs as usual; this
+  /// just avoids the frame where a reaction made a moment ago (its
+  /// request still in flight) would otherwise be clobbered by a fetch
+  /// that reads the server's pre-reaction value.
+  final TalkamPost? seed;
+
   @override
   State<PostDetailsScreen> createState() => _PostDetailsScreenState();
 }
 
-class _PostDetailsScreenState extends State<PostDetailsScreen> {
+/// Passed as a route's `extra` instead of a bare post id when the caller
+/// already holds a live copy of a REAL (non-mock) post — see
+/// [PostDetailsScreen.seed].
+class PostDetailsSeed {
+  const PostDetailsSeed(this.post);
+  final TalkamPost post;
+}
+
+class _PostDetailsScreenState extends State<PostDetailsScreen>
+    with RefreshPostsMixin {
   TalkamPost? _post;
   final List<PostComment> _localComments = [];
 
@@ -77,6 +96,7 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
       _post = widget.post;
       _localComments.addAll(MockHomeData.commentsForPost(widget.post!.id));
     } else {
+      _post = widget.seed;
       commentBloc.add(CommentsEvent.getComments(widget.postId.toString()));
       postBloc.add(PostEvent.getPostDetails(widget.postId.toString()));
     }
@@ -102,6 +122,21 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                   getPostDetailsSuccess: (response) {
                     _post = response.data;
                     setState(() {});
+                    // Reconciles the Home feed's separate copy of this post
+                    // (likes/reaction/comment count) with whatever this
+                    // screen's own fetch just returned — patches in place
+                    // rather than refetching the feed lists, which would
+                    // reset them to page 1. Covers the comment-count case
+                    // (there's no per-comment confirmed-success callback
+                    // like PostReactionButton's); redundant but harmless
+                    // for reaction/likes, which PostDetailCard already
+                    // syncs directly off its own confirmed reaction.
+                    syncPostAcrossFeeds(
+                      _post!.id.toString(),
+                      reaction: _post!.reaction,
+                      likesCount: _post!.likesCount,
+                      commentsCount: _post!.commentsCount,
+                    );
                   },
                 );
               },
@@ -110,9 +145,17 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
                   context,
                   body: Builder(builder: (context) {
                     return state.maybeWhen(
-                      orElse: () => 0.verticalSpace,
-                      getPostDetailsLoading: () =>
-                          const PostLoadingShimmerCustomized(
+                      // Covers PostBloc's initial state too — on the very
+                      // first build, before initState's event has been
+                      // processed, state is neither Loading nor Success
+                      // yet. Without this, a seeded post still flashed
+                      // blank for a frame before showing content.
+                      orElse: () => _post != null
+                          ? _buildPostBody(context, _post!)
+                          : 0.verticalSpace,
+                      getPostDetailsLoading: () => _post != null
+                          ? _buildPostBody(context, _post!)
+                          : const PostLoadingShimmerCustomized(
                               numberOfShimmers: 1),
                       getPostDetailsSuccess: (response) =>
                           _buildPostBody(context, _post!),
@@ -221,6 +264,8 @@ class _PostDetailsScreenState extends State<PostDetailsScreen> {
             commentBloc.add(
               CommentsEvent.getComments(post.id.toString(), reload: false),
             );
+            // The getPostDetails call above's success listener syncs the
+            // Home feed's comment count once the fresh count comes back.
           },
         );
       },

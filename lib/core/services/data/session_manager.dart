@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:talkam/core/di/injector.dart';
 import 'package:talkam/core/di/resettable_singletons.dart';
 import 'package:talkam/core/services/data/chat_local_store.dart';
+import 'package:talkam/core/services/messaging/chat_realtime_coordinator.dart';
 import 'package:talkam/core/services/network/network_service.dart';
 import 'package:talkam/core/services/pusher/pusher_channel_service.dart';
 
@@ -303,6 +304,12 @@ class SessionManager {
       logger.e('SessionManager: failed disconnecting Pusher',
           error: error, stackTrace: stack);
     }
+
+    // The disconnect above already drops every live subscription — this
+    // just resets ChatRealtimeCoordinator's own bookkeeping so it
+    // re-subscribes from scratch on the next login instead of assuming
+    // those (now-dead) subscriptions are still active.
+    ChatRealtimeCoordinator.instance.resetForLogout();
 
     logger.i('SessionManager: local session cleared, singletons reset');
     return true;

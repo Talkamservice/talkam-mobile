@@ -23,7 +23,7 @@ mixin _$MessagingState {
     required TResult Function(dynamic response) sendMessageSuccess,
     required TResult Function(String error) sendMessageFailure,
     required TResult Function() getMessagesLoading,
-    required TResult Function() getMessagesSuccess,
+    required TResult Function(int revision) getMessagesSuccess,
     required TResult Function(String error) getMessagesFailure,
     required TResult Function() deleteConversationLoading,
     required TResult Function() deleteConversationSuccess,
@@ -46,7 +46,7 @@ mixin _$MessagingState {
     TResult? Function(dynamic response)? sendMessageSuccess,
     TResult? Function(String error)? sendMessageFailure,
     TResult? Function()? getMessagesLoading,
-    TResult? Function()? getMessagesSuccess,
+    TResult? Function(int revision)? getMessagesSuccess,
     TResult? Function(String error)? getMessagesFailure,
     TResult? Function()? deleteConversationLoading,
     TResult? Function()? deleteConversationSuccess,
@@ -69,7 +69,7 @@ mixin _$MessagingState {
     TResult Function(dynamic response)? sendMessageSuccess,
     TResult Function(String error)? sendMessageFailure,
     TResult Function()? getMessagesLoading,
-    TResult Function()? getMessagesSuccess,
+    TResult Function(int revision)? getMessagesSuccess,
     TResult Function(String error)? getMessagesFailure,
     TResult Function()? deleteConversationLoading,
     TResult Function()? deleteConversationSuccess,
@@ -240,7 +240,7 @@ class _$InitialImpl implements _Initial {
     required TResult Function(dynamic response) sendMessageSuccess,
     required TResult Function(String error) sendMessageFailure,
     required TResult Function() getMessagesLoading,
-    required TResult Function() getMessagesSuccess,
+    required TResult Function(int revision) getMessagesSuccess,
     required TResult Function(String error) getMessagesFailure,
     required TResult Function() deleteConversationLoading,
     required TResult Function() deleteConversationSuccess,
@@ -266,7 +266,7 @@ class _$InitialImpl implements _Initial {
     TResult? Function(dynamic response)? sendMessageSuccess,
     TResult? Function(String error)? sendMessageFailure,
     TResult? Function()? getMessagesLoading,
-    TResult? Function()? getMessagesSuccess,
+    TResult? Function(int revision)? getMessagesSuccess,
     TResult? Function(String error)? getMessagesFailure,
     TResult? Function()? deleteConversationLoading,
     TResult? Function()? deleteConversationSuccess,
@@ -292,7 +292,7 @@ class _$InitialImpl implements _Initial {
     TResult Function(dynamic response)? sendMessageSuccess,
     TResult Function(String error)? sendMessageFailure,
     TResult Function()? getMessagesLoading,
-    TResult Function()? getMessagesSuccess,
+    TResult Function(int revision)? getMessagesSuccess,
     TResult Function(String error)? getMessagesFailure,
     TResult Function()? deleteConversationLoading,
     TResult Function()? deleteConversationSuccess,
@@ -465,7 +465,7 @@ class _$SendMessageLoadingImpl implements _SendMessageLoading {
     required TResult Function(dynamic response) sendMessageSuccess,
     required TResult Function(String error) sendMessageFailure,
     required TResult Function() getMessagesLoading,
-    required TResult Function() getMessagesSuccess,
+    required TResult Function(int revision) getMessagesSuccess,
     required TResult Function(String error) getMessagesFailure,
     required TResult Function() deleteConversationLoading,
     required TResult Function() deleteConversationSuccess,
@@ -491,7 +491,7 @@ class _$SendMessageLoadingImpl implements _SendMessageLoading {
     TResult? Function(dynamic response)? sendMessageSuccess,
     TResult? Function(String error)? sendMessageFailure,
     TResult? Function()? getMessagesLoading,
-    TResult? Function()? getMessagesSuccess,
+    TResult? Function(int revision)? getMessagesSuccess,
     TResult? Function(String error)? getMessagesFailure,
     TResult? Function()? deleteConversationLoading,
     TResult? Function()? deleteConversationSuccess,
@@ -517,7 +517,7 @@ class _$SendMessageLoadingImpl implements _SendMessageLoading {
     TResult Function(dynamic response)? sendMessageSuccess,
     TResult Function(String error)? sendMessageFailure,
     TResult Function()? getMessagesLoading,
-    TResult Function()? getMessagesSuccess,
+    TResult Function(int revision)? getMessagesSuccess,
     TResult Function(String error)? getMessagesFailure,
     TResult Function()? deleteConversationLoading,
     TResult Function()? deleteConversationSuccess,
@@ -718,7 +718,7 @@ class _$SendMessageSuccessImpl implements _SendMessageSuccess {
     required TResult Function(dynamic response) sendMessageSuccess,
     required TResult Function(String error) sendMessageFailure,
     required TResult Function() getMessagesLoading,
-    required TResult Function() getMessagesSuccess,
+    required TResult Function(int revision) getMessagesSuccess,
     required TResult Function(String error) getMessagesFailure,
     required TResult Function() deleteConversationLoading,
     required TResult Function() deleteConversationSuccess,
@@ -744,7 +744,7 @@ class _$SendMessageSuccessImpl implements _SendMessageSuccess {
     TResult? Function(dynamic response)? sendMessageSuccess,
     TResult? Function(String error)? sendMessageFailure,
     TResult? Function()? getMessagesLoading,
-    TResult? Function()? getMessagesSuccess,
+    TResult? Function(int revision)? getMessagesSuccess,
     TResult? Function(String error)? getMessagesFailure,
     TResult? Function()? deleteConversationLoading,
     TResult? Function()? deleteConversationSuccess,
@@ -770,7 +770,7 @@ class _$SendMessageSuccessImpl implements _SendMessageSuccess {
     TResult Function(dynamic response)? sendMessageSuccess,
     TResult Function(String error)? sendMessageFailure,
     TResult Function()? getMessagesLoading,
-    TResult Function()? getMessagesSuccess,
+    TResult Function(int revision)? getMessagesSuccess,
     TResult Function(String error)? getMessagesFailure,
     TResult Function()? deleteConversationLoading,
     TResult Function()? deleteConversationSuccess,
@@ -976,7 +976,7 @@ class _$SendMessageFailureImpl implements _SendMessageFailure {
     required TResult Function(dynamic response) sendMessageSuccess,
     required TResult Function(String error) sendMessageFailure,
     required TResult Function() getMessagesLoading,
-    required TResult Function() getMessagesSuccess,
+    required TResult Function(int revision) getMessagesSuccess,
     required TResult Function(String error) getMessagesFailure,
     required TResult Function() deleteConversationLoading,
     required TResult Function() deleteConversationSuccess,
@@ -1002,7 +1002,7 @@ class _$SendMessageFailureImpl implements _SendMessageFailure {
     TResult? Function(dynamic response)? sendMessageSuccess,
     TResult? Function(String error)? sendMessageFailure,
     TResult? Function()? getMessagesLoading,
-    TResult? Function()? getMessagesSuccess,
+    TResult? Function(int revision)? getMessagesSuccess,
     TResult? Function(String error)? getMessagesFailure,
     TResult? Function()? deleteConversationLoading,
     TResult? Function()? deleteConversationSuccess,
@@ -1028,7 +1028,7 @@ class _$SendMessageFailureImpl implements _SendMessageFailure {
     TResult Function(dynamic response)? sendMessageSuccess,
     TResult Function(String error)? sendMessageFailure,
     TResult Function()? getMessagesLoading,
-    TResult Function()? getMessagesSuccess,
+    TResult Function(int revision)? getMessagesSuccess,
     TResult Function(String error)? getMessagesFailure,
     TResult Function()? deleteConversationLoading,
     TResult Function()? deleteConversationSuccess,
@@ -1207,7 +1207,7 @@ class _$GetMessagesLoadingImpl implements _GetMessagesLoading {
     required TResult Function(dynamic response) sendMessageSuccess,
     required TResult Function(String error) sendMessageFailure,
     required TResult Function() getMessagesLoading,
-    required TResult Function() getMessagesSuccess,
+    required TResult Function(int revision) getMessagesSuccess,
     required TResult Function(String error) getMessagesFailure,
     required TResult Function() deleteConversationLoading,
     required TResult Function() deleteConversationSuccess,
@@ -1233,7 +1233,7 @@ class _$GetMessagesLoadingImpl implements _GetMessagesLoading {
     TResult? Function(dynamic response)? sendMessageSuccess,
     TResult? Function(String error)? sendMessageFailure,
     TResult? Function()? getMessagesLoading,
-    TResult? Function()? getMessagesSuccess,
+    TResult? Function(int revision)? getMessagesSuccess,
     TResult? Function(String error)? getMessagesFailure,
     TResult? Function()? deleteConversationLoading,
     TResult? Function()? deleteConversationSuccess,
@@ -1259,7 +1259,7 @@ class _$GetMessagesLoadingImpl implements _GetMessagesLoading {
     TResult Function(dynamic response)? sendMessageSuccess,
     TResult Function(String error)? sendMessageFailure,
     TResult Function()? getMessagesLoading,
-    TResult Function()? getMessagesSuccess,
+    TResult Function(int revision)? getMessagesSuccess,
     TResult Function(String error)? getMessagesFailure,
     TResult Function()? deleteConversationLoading,
     TResult Function()? deleteConversationSuccess,
@@ -1394,6 +1394,8 @@ abstract class _$$GetMessagesSuccessImplCopyWith<$Res> {
   factory _$$GetMessagesSuccessImplCopyWith(_$GetMessagesSuccessImpl value,
           $Res Function(_$GetMessagesSuccessImpl) then) =
       __$$GetMessagesSuccessImplCopyWithImpl<$Res>;
+  @useResult
+  $Res call({int revision});
 }
 
 /// @nodoc
@@ -1403,27 +1405,52 @@ class __$$GetMessagesSuccessImplCopyWithImpl<$Res>
   __$$GetMessagesSuccessImplCopyWithImpl(_$GetMessagesSuccessImpl _value,
       $Res Function(_$GetMessagesSuccessImpl) _then)
       : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? revision = null,
+  }) {
+    return _then(_$GetMessagesSuccessImpl(
+      null == revision
+          ? _value.revision
+          : revision // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
 }
 
 /// @nodoc
 
 class _$GetMessagesSuccessImpl implements _GetMessagesSuccess {
-  const _$GetMessagesSuccessImpl();
+  const _$GetMessagesSuccessImpl(this.revision);
+
+  @override
+  final int revision;
 
   @override
   String toString() {
-    return 'MessagingState.getMessagesSuccess()';
+    return 'MessagingState.getMessagesSuccess(revision: $revision)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$GetMessagesSuccessImpl);
+            other is _$GetMessagesSuccessImpl &&
+            (identical(other.revision, revision) ||
+                other.revision == revision));
   }
 
   @override
-  int get hashCode => runtimeType.hashCode;
+  int get hashCode => Object.hash(runtimeType, revision);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$GetMessagesSuccessImplCopyWith<_$GetMessagesSuccessImpl> get copyWith =>
+      __$$GetMessagesSuccessImplCopyWithImpl<_$GetMessagesSuccessImpl>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -1433,7 +1460,7 @@ class _$GetMessagesSuccessImpl implements _GetMessagesSuccess {
     required TResult Function(dynamic response) sendMessageSuccess,
     required TResult Function(String error) sendMessageFailure,
     required TResult Function() getMessagesLoading,
-    required TResult Function() getMessagesSuccess,
+    required TResult Function(int revision) getMessagesSuccess,
     required TResult Function(String error) getMessagesFailure,
     required TResult Function() deleteConversationLoading,
     required TResult Function() deleteConversationSuccess,
@@ -1448,7 +1475,7 @@ class _$GetMessagesSuccessImpl implements _GetMessagesSuccess {
     required TResult Function(String error) updateConversationStatusFailure,
     required TResult Function(AppMessageModel message) messageUpdated,
   }) {
-    return getMessagesSuccess();
+    return getMessagesSuccess(revision);
   }
 
   @override
@@ -1459,7 +1486,7 @@ class _$GetMessagesSuccessImpl implements _GetMessagesSuccess {
     TResult? Function(dynamic response)? sendMessageSuccess,
     TResult? Function(String error)? sendMessageFailure,
     TResult? Function()? getMessagesLoading,
-    TResult? Function()? getMessagesSuccess,
+    TResult? Function(int revision)? getMessagesSuccess,
     TResult? Function(String error)? getMessagesFailure,
     TResult? Function()? deleteConversationLoading,
     TResult? Function()? deleteConversationSuccess,
@@ -1474,7 +1501,7 @@ class _$GetMessagesSuccessImpl implements _GetMessagesSuccess {
     TResult? Function(String error)? updateConversationStatusFailure,
     TResult? Function(AppMessageModel message)? messageUpdated,
   }) {
-    return getMessagesSuccess?.call();
+    return getMessagesSuccess?.call(revision);
   }
 
   @override
@@ -1485,7 +1512,7 @@ class _$GetMessagesSuccessImpl implements _GetMessagesSuccess {
     TResult Function(dynamic response)? sendMessageSuccess,
     TResult Function(String error)? sendMessageFailure,
     TResult Function()? getMessagesLoading,
-    TResult Function()? getMessagesSuccess,
+    TResult Function(int revision)? getMessagesSuccess,
     TResult Function(String error)? getMessagesFailure,
     TResult Function()? deleteConversationLoading,
     TResult Function()? deleteConversationSuccess,
@@ -1502,7 +1529,7 @@ class _$GetMessagesSuccessImpl implements _GetMessagesSuccess {
     required TResult orElse(),
   }) {
     if (getMessagesSuccess != null) {
-      return getMessagesSuccess();
+      return getMessagesSuccess(revision);
     }
     return orElse();
   }
@@ -1612,7 +1639,13 @@ class _$GetMessagesSuccessImpl implements _GetMessagesSuccess {
 }
 
 abstract class _GetMessagesSuccess implements MessagingState {
-  const factory _GetMessagesSuccess() = _$GetMessagesSuccessImpl;
+  const factory _GetMessagesSuccess(final int revision) =
+      _$GetMessagesSuccessImpl;
+
+  int get revision;
+  @JsonKey(ignore: true)
+  _$$GetMessagesSuccessImplCopyWith<_$GetMessagesSuccessImpl> get copyWith =>
+      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1685,7 +1718,7 @@ class _$GetMessagesFailureImpl implements _GetMessagesFailure {
     required TResult Function(dynamic response) sendMessageSuccess,
     required TResult Function(String error) sendMessageFailure,
     required TResult Function() getMessagesLoading,
-    required TResult Function() getMessagesSuccess,
+    required TResult Function(int revision) getMessagesSuccess,
     required TResult Function(String error) getMessagesFailure,
     required TResult Function() deleteConversationLoading,
     required TResult Function() deleteConversationSuccess,
@@ -1711,7 +1744,7 @@ class _$GetMessagesFailureImpl implements _GetMessagesFailure {
     TResult? Function(dynamic response)? sendMessageSuccess,
     TResult? Function(String error)? sendMessageFailure,
     TResult? Function()? getMessagesLoading,
-    TResult? Function()? getMessagesSuccess,
+    TResult? Function(int revision)? getMessagesSuccess,
     TResult? Function(String error)? getMessagesFailure,
     TResult? Function()? deleteConversationLoading,
     TResult? Function()? deleteConversationSuccess,
@@ -1737,7 +1770,7 @@ class _$GetMessagesFailureImpl implements _GetMessagesFailure {
     TResult Function(dynamic response)? sendMessageSuccess,
     TResult Function(String error)? sendMessageFailure,
     TResult Function()? getMessagesLoading,
-    TResult Function()? getMessagesSuccess,
+    TResult Function(int revision)? getMessagesSuccess,
     TResult Function(String error)? getMessagesFailure,
     TResult Function()? deleteConversationLoading,
     TResult Function()? deleteConversationSuccess,
@@ -1919,7 +1952,7 @@ class _$DeleteConversationLoadingImpl implements _DeleteConversationLoading {
     required TResult Function(dynamic response) sendMessageSuccess,
     required TResult Function(String error) sendMessageFailure,
     required TResult Function() getMessagesLoading,
-    required TResult Function() getMessagesSuccess,
+    required TResult Function(int revision) getMessagesSuccess,
     required TResult Function(String error) getMessagesFailure,
     required TResult Function() deleteConversationLoading,
     required TResult Function() deleteConversationSuccess,
@@ -1945,7 +1978,7 @@ class _$DeleteConversationLoadingImpl implements _DeleteConversationLoading {
     TResult? Function(dynamic response)? sendMessageSuccess,
     TResult? Function(String error)? sendMessageFailure,
     TResult? Function()? getMessagesLoading,
-    TResult? Function()? getMessagesSuccess,
+    TResult? Function(int revision)? getMessagesSuccess,
     TResult? Function(String error)? getMessagesFailure,
     TResult? Function()? deleteConversationLoading,
     TResult? Function()? deleteConversationSuccess,
@@ -1971,7 +2004,7 @@ class _$DeleteConversationLoadingImpl implements _DeleteConversationLoading {
     TResult Function(dynamic response)? sendMessageSuccess,
     TResult Function(String error)? sendMessageFailure,
     TResult Function()? getMessagesLoading,
-    TResult Function()? getMessagesSuccess,
+    TResult Function(int revision)? getMessagesSuccess,
     TResult Function(String error)? getMessagesFailure,
     TResult Function()? deleteConversationLoading,
     TResult Function()? deleteConversationSuccess,
@@ -2147,7 +2180,7 @@ class _$DeleteConversationSuccessImpl implements _DeleteConversationSuccess {
     required TResult Function(dynamic response) sendMessageSuccess,
     required TResult Function(String error) sendMessageFailure,
     required TResult Function() getMessagesLoading,
-    required TResult Function() getMessagesSuccess,
+    required TResult Function(int revision) getMessagesSuccess,
     required TResult Function(String error) getMessagesFailure,
     required TResult Function() deleteConversationLoading,
     required TResult Function() deleteConversationSuccess,
@@ -2173,7 +2206,7 @@ class _$DeleteConversationSuccessImpl implements _DeleteConversationSuccess {
     TResult? Function(dynamic response)? sendMessageSuccess,
     TResult? Function(String error)? sendMessageFailure,
     TResult? Function()? getMessagesLoading,
-    TResult? Function()? getMessagesSuccess,
+    TResult? Function(int revision)? getMessagesSuccess,
     TResult? Function(String error)? getMessagesFailure,
     TResult? Function()? deleteConversationLoading,
     TResult? Function()? deleteConversationSuccess,
@@ -2199,7 +2232,7 @@ class _$DeleteConversationSuccessImpl implements _DeleteConversationSuccess {
     TResult Function(dynamic response)? sendMessageSuccess,
     TResult Function(String error)? sendMessageFailure,
     TResult Function()? getMessagesLoading,
-    TResult Function()? getMessagesSuccess,
+    TResult Function(int revision)? getMessagesSuccess,
     TResult Function(String error)? getMessagesFailure,
     TResult Function()? deleteConversationLoading,
     TResult Function()? deleteConversationSuccess,
@@ -2401,7 +2434,7 @@ class _$DeleteConversationFailureImpl implements _DeleteConversationFailure {
     required TResult Function(dynamic response) sendMessageSuccess,
     required TResult Function(String error) sendMessageFailure,
     required TResult Function() getMessagesLoading,
-    required TResult Function() getMessagesSuccess,
+    required TResult Function(int revision) getMessagesSuccess,
     required TResult Function(String error) getMessagesFailure,
     required TResult Function() deleteConversationLoading,
     required TResult Function() deleteConversationSuccess,
@@ -2427,7 +2460,7 @@ class _$DeleteConversationFailureImpl implements _DeleteConversationFailure {
     TResult? Function(dynamic response)? sendMessageSuccess,
     TResult? Function(String error)? sendMessageFailure,
     TResult? Function()? getMessagesLoading,
-    TResult? Function()? getMessagesSuccess,
+    TResult? Function(int revision)? getMessagesSuccess,
     TResult? Function(String error)? getMessagesFailure,
     TResult? Function()? deleteConversationLoading,
     TResult? Function()? deleteConversationSuccess,
@@ -2453,7 +2486,7 @@ class _$DeleteConversationFailureImpl implements _DeleteConversationFailure {
     TResult Function(dynamic response)? sendMessageSuccess,
     TResult Function(String error)? sendMessageFailure,
     TResult Function()? getMessagesLoading,
-    TResult Function()? getMessagesSuccess,
+    TResult Function(int revision)? getMessagesSuccess,
     TResult Function(String error)? getMessagesFailure,
     TResult Function()? deleteConversationLoading,
     TResult Function()? deleteConversationSuccess,
@@ -2637,7 +2670,7 @@ class _$FetchCurrentConversationLoadingImpl
     required TResult Function(dynamic response) sendMessageSuccess,
     required TResult Function(String error) sendMessageFailure,
     required TResult Function() getMessagesLoading,
-    required TResult Function() getMessagesSuccess,
+    required TResult Function(int revision) getMessagesSuccess,
     required TResult Function(String error) getMessagesFailure,
     required TResult Function() deleteConversationLoading,
     required TResult Function() deleteConversationSuccess,
@@ -2663,7 +2696,7 @@ class _$FetchCurrentConversationLoadingImpl
     TResult? Function(dynamic response)? sendMessageSuccess,
     TResult? Function(String error)? sendMessageFailure,
     TResult? Function()? getMessagesLoading,
-    TResult? Function()? getMessagesSuccess,
+    TResult? Function(int revision)? getMessagesSuccess,
     TResult? Function(String error)? getMessagesFailure,
     TResult? Function()? deleteConversationLoading,
     TResult? Function()? deleteConversationSuccess,
@@ -2689,7 +2722,7 @@ class _$FetchCurrentConversationLoadingImpl
     TResult Function(dynamic response)? sendMessageSuccess,
     TResult Function(String error)? sendMessageFailure,
     TResult Function()? getMessagesLoading,
-    TResult Function()? getMessagesSuccess,
+    TResult Function(int revision)? getMessagesSuccess,
     TResult Function(String error)? getMessagesFailure,
     TResult Function()? deleteConversationLoading,
     TResult Function()? deleteConversationSuccess,
@@ -2896,7 +2929,7 @@ class _$FetchCurrentConversationSuccessImpl
     required TResult Function(dynamic response) sendMessageSuccess,
     required TResult Function(String error) sendMessageFailure,
     required TResult Function() getMessagesLoading,
-    required TResult Function() getMessagesSuccess,
+    required TResult Function(int revision) getMessagesSuccess,
     required TResult Function(String error) getMessagesFailure,
     required TResult Function() deleteConversationLoading,
     required TResult Function() deleteConversationSuccess,
@@ -2922,7 +2955,7 @@ class _$FetchCurrentConversationSuccessImpl
     TResult? Function(dynamic response)? sendMessageSuccess,
     TResult? Function(String error)? sendMessageFailure,
     TResult? Function()? getMessagesLoading,
-    TResult? Function()? getMessagesSuccess,
+    TResult? Function(int revision)? getMessagesSuccess,
     TResult? Function(String error)? getMessagesFailure,
     TResult? Function()? deleteConversationLoading,
     TResult? Function()? deleteConversationSuccess,
@@ -2948,7 +2981,7 @@ class _$FetchCurrentConversationSuccessImpl
     TResult Function(dynamic response)? sendMessageSuccess,
     TResult Function(String error)? sendMessageFailure,
     TResult Function()? getMessagesLoading,
-    TResult Function()? getMessagesSuccess,
+    TResult Function(int revision)? getMessagesSuccess,
     TResult Function(String error)? getMessagesFailure,
     TResult Function()? deleteConversationLoading,
     TResult Function()? deleteConversationSuccess,
@@ -3161,7 +3194,7 @@ class _$FetchCurrentConversationFailureImpl
     required TResult Function(dynamic response) sendMessageSuccess,
     required TResult Function(String error) sendMessageFailure,
     required TResult Function() getMessagesLoading,
-    required TResult Function() getMessagesSuccess,
+    required TResult Function(int revision) getMessagesSuccess,
     required TResult Function(String error) getMessagesFailure,
     required TResult Function() deleteConversationLoading,
     required TResult Function() deleteConversationSuccess,
@@ -3187,7 +3220,7 @@ class _$FetchCurrentConversationFailureImpl
     TResult? Function(dynamic response)? sendMessageSuccess,
     TResult? Function(String error)? sendMessageFailure,
     TResult? Function()? getMessagesLoading,
-    TResult? Function()? getMessagesSuccess,
+    TResult? Function(int revision)? getMessagesSuccess,
     TResult? Function(String error)? getMessagesFailure,
     TResult? Function()? deleteConversationLoading,
     TResult? Function()? deleteConversationSuccess,
@@ -3213,7 +3246,7 @@ class _$FetchCurrentConversationFailureImpl
     TResult Function(dynamic response)? sendMessageSuccess,
     TResult Function(String error)? sendMessageFailure,
     TResult Function()? getMessagesLoading,
-    TResult Function()? getMessagesSuccess,
+    TResult Function(int revision)? getMessagesSuccess,
     TResult Function(String error)? getMessagesFailure,
     TResult Function()? deleteConversationLoading,
     TResult Function()? deleteConversationSuccess,
@@ -3398,7 +3431,7 @@ class _$UpdateConversationStatusLoadingImpl
     required TResult Function(dynamic response) sendMessageSuccess,
     required TResult Function(String error) sendMessageFailure,
     required TResult Function() getMessagesLoading,
-    required TResult Function() getMessagesSuccess,
+    required TResult Function(int revision) getMessagesSuccess,
     required TResult Function(String error) getMessagesFailure,
     required TResult Function() deleteConversationLoading,
     required TResult Function() deleteConversationSuccess,
@@ -3424,7 +3457,7 @@ class _$UpdateConversationStatusLoadingImpl
     TResult? Function(dynamic response)? sendMessageSuccess,
     TResult? Function(String error)? sendMessageFailure,
     TResult? Function()? getMessagesLoading,
-    TResult? Function()? getMessagesSuccess,
+    TResult? Function(int revision)? getMessagesSuccess,
     TResult? Function(String error)? getMessagesFailure,
     TResult? Function()? deleteConversationLoading,
     TResult? Function()? deleteConversationSuccess,
@@ -3450,7 +3483,7 @@ class _$UpdateConversationStatusLoadingImpl
     TResult Function(dynamic response)? sendMessageSuccess,
     TResult Function(String error)? sendMessageFailure,
     TResult Function()? getMessagesLoading,
-    TResult Function()? getMessagesSuccess,
+    TResult Function(int revision)? getMessagesSuccess,
     TResult Function(String error)? getMessagesFailure,
     TResult Function()? deleteConversationLoading,
     TResult Function()? deleteConversationSuccess,
@@ -3657,7 +3690,7 @@ class _$UpdateConversationStatusSuccessImpl
     required TResult Function(dynamic response) sendMessageSuccess,
     required TResult Function(String error) sendMessageFailure,
     required TResult Function() getMessagesLoading,
-    required TResult Function() getMessagesSuccess,
+    required TResult Function(int revision) getMessagesSuccess,
     required TResult Function(String error) getMessagesFailure,
     required TResult Function() deleteConversationLoading,
     required TResult Function() deleteConversationSuccess,
@@ -3683,7 +3716,7 @@ class _$UpdateConversationStatusSuccessImpl
     TResult? Function(dynamic response)? sendMessageSuccess,
     TResult? Function(String error)? sendMessageFailure,
     TResult? Function()? getMessagesLoading,
-    TResult? Function()? getMessagesSuccess,
+    TResult? Function(int revision)? getMessagesSuccess,
     TResult? Function(String error)? getMessagesFailure,
     TResult? Function()? deleteConversationLoading,
     TResult? Function()? deleteConversationSuccess,
@@ -3709,7 +3742,7 @@ class _$UpdateConversationStatusSuccessImpl
     TResult Function(dynamic response)? sendMessageSuccess,
     TResult Function(String error)? sendMessageFailure,
     TResult Function()? getMessagesLoading,
-    TResult Function()? getMessagesSuccess,
+    TResult Function(int revision)? getMessagesSuccess,
     TResult Function(String error)? getMessagesFailure,
     TResult Function()? deleteConversationLoading,
     TResult Function()? deleteConversationSuccess,
@@ -3922,7 +3955,7 @@ class _$UpdateConversationStatusFailureImpl
     required TResult Function(dynamic response) sendMessageSuccess,
     required TResult Function(String error) sendMessageFailure,
     required TResult Function() getMessagesLoading,
-    required TResult Function() getMessagesSuccess,
+    required TResult Function(int revision) getMessagesSuccess,
     required TResult Function(String error) getMessagesFailure,
     required TResult Function() deleteConversationLoading,
     required TResult Function() deleteConversationSuccess,
@@ -3948,7 +3981,7 @@ class _$UpdateConversationStatusFailureImpl
     TResult? Function(dynamic response)? sendMessageSuccess,
     TResult? Function(String error)? sendMessageFailure,
     TResult? Function()? getMessagesLoading,
-    TResult? Function()? getMessagesSuccess,
+    TResult? Function(int revision)? getMessagesSuccess,
     TResult? Function(String error)? getMessagesFailure,
     TResult? Function()? deleteConversationLoading,
     TResult? Function()? deleteConversationSuccess,
@@ -3974,7 +4007,7 @@ class _$UpdateConversationStatusFailureImpl
     TResult Function(dynamic response)? sendMessageSuccess,
     TResult Function(String error)? sendMessageFailure,
     TResult Function()? getMessagesLoading,
-    TResult Function()? getMessagesSuccess,
+    TResult Function(int revision)? getMessagesSuccess,
     TResult Function(String error)? getMessagesFailure,
     TResult Function()? deleteConversationLoading,
     TResult Function()? deleteConversationSuccess,
@@ -4181,7 +4214,7 @@ class _$MessageUpdatedImpl implements _MessageUpdated {
     required TResult Function(dynamic response) sendMessageSuccess,
     required TResult Function(String error) sendMessageFailure,
     required TResult Function() getMessagesLoading,
-    required TResult Function() getMessagesSuccess,
+    required TResult Function(int revision) getMessagesSuccess,
     required TResult Function(String error) getMessagesFailure,
     required TResult Function() deleteConversationLoading,
     required TResult Function() deleteConversationSuccess,
@@ -4207,7 +4240,7 @@ class _$MessageUpdatedImpl implements _MessageUpdated {
     TResult? Function(dynamic response)? sendMessageSuccess,
     TResult? Function(String error)? sendMessageFailure,
     TResult? Function()? getMessagesLoading,
-    TResult? Function()? getMessagesSuccess,
+    TResult? Function(int revision)? getMessagesSuccess,
     TResult? Function(String error)? getMessagesFailure,
     TResult? Function()? deleteConversationLoading,
     TResult? Function()? deleteConversationSuccess,
@@ -4233,7 +4266,7 @@ class _$MessageUpdatedImpl implements _MessageUpdated {
     TResult Function(dynamic response)? sendMessageSuccess,
     TResult Function(String error)? sendMessageFailure,
     TResult Function()? getMessagesLoading,
-    TResult Function()? getMessagesSuccess,
+    TResult Function(int revision)? getMessagesSuccess,
     TResult Function(String error)? getMessagesFailure,
     TResult Function()? deleteConversationLoading,
     TResult Function()? deleteConversationSuccess,

@@ -13,7 +13,15 @@ class MessagingState with _$MessagingState {
 
   // Get Messages States
   const factory MessagingState.getMessagesLoading() = _GetMessagesLoading;
-  const factory MessagingState.getMessagesSuccess() = _GetMessagesSuccess;
+  // [revision] carries no meaning beyond making consecutive emissions
+  // distinct — this state has no other data (chat_screen.dart reads
+  // messages straight off the cubit's `messages` field). Without it, Cubit's
+  // emit() silently no-ops when this exact state is emitted twice in a row
+  // (e.g. once from cache, once from the real fetch that follows), since
+  // Cubit skips re-emitting a state equal to the current one — dropping the
+  // rebuild that would've shown the freshly-fetched messages.
+  const factory MessagingState.getMessagesSuccess(int revision) =
+      _GetMessagesSuccess;
   const factory MessagingState.getMessagesFailure(String error) =
       _GetMessagesFailure;
 
